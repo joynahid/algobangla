@@ -4,228 +4,228 @@
 
 ## Getting Started
 
-- [Introduction (English)](https://algobangla.com/en/): Overview and topic index for all algorithms
-- [ভূমিকা (বাংলা)](https://algobangla.com/bn/): Bengali overview and topic index
-- [Credits](https://algobangla.com/en/credits/): Contributors and licensing information
+- [Introduction (English)](https://algobangla.web.app/en/): Overview and topic index for all algorithms
+- [ভূমিকা (বাংলা)](https://algobangla.web.app/bn/): Bengali overview and topic index
+- [Credits](https://algobangla.web.app/en/credits/): Contributors and licensing information
 
 ## Algebra & Number Theory
 
-- [Binary Exponentiation](https://algobangla.com/en/algebra/binary-exp/): Fast exponentiation using repeated squaring; O(log n) computation of a^n mod m
-- [Euclidean Algorithm](https://algobangla.com/en/algebra/euclid-algorithm/): Computing GCD of two integers using Euclid's algorithm
-- [Extended Euclidean Algorithm](https://algobangla.com/en/algebra/extended-euclid-algorithm/): Finding GCD and Bezout coefficients; solving linear Diophantine equations
-- [Linear Diophantine Equations](https://algobangla.com/en/algebra/linear-diophantine-equation/): Solving ax + by = c in integers; existence conditions and parameterization
-- [Linear Congruence Equation](https://algobangla.com/en/algebra/linear_congruence_equation/): Solving ax ≡ b (mod n); reduction to Diophantine equations
-- [Chinese Remainder Theorem](https://algobangla.com/en/algebra/chinese-remainder-theorem/): Reconstructing a number from residues modulo pairwise-coprime moduli
-- [Fibonacci Numbers](https://algobangla.com/en/algebra/fibonacci-numbers/): Properties, fast matrix exponentiation, and closed-form expressions
-- [Prime Sieve of Eratosthenes](https://algobangla.com/en/algebra/sieve-of-eratosthenes/): Finding all primes up to N in O(N log log N)
-- [Linear Sieve](https://algobangla.com/en/algebra/prime-sieve-linear/): Sieve of Eratosthenes in O(N) using smallest prime factor
-- [Primality Tests](https://algobangla.com/en/algebra/primality_tests/): Trial division, Fermat test, Miller-Rabin probabilistic primality testing
-- [Integer Factorization](https://algobangla.com/en/algebra/factorization/): Trial division, Fermat's method, and Pollard's rho algorithm
-- [Divisors](https://algobangla.com/en/algebra/divisors/): Counting and summing divisors; divisor function using sieve
-- [Euler's Totient Function](https://algobangla.com/en/algebra/phi-function/): Computing φ(n); multiplicativity and sieve-based computation
-- [Number of Divisors / Sum of Divisors](https://algobangla.com/en/algebra/divisors/): Divisor counting, multiplicative functions over divisors
-- [Modular Inverse](https://algobangla.com/en/algebra/module-inverse/): Computing modular multiplicative inverse via Fermat, extended GCD, or batch inversion
-- [Discrete Logarithm](https://algobangla.com/en/algebra/discrete-log/): Solving a^x ≡ b (mod m) using baby-step giant-step; O(√m)
-- [Primitive Root](https://algobangla.com/en/algebra/primitive-root/): Finding generators of multiplicative groups modulo prime
-- [Discrete Root](https://algobangla.com/en/algebra/discrete-root/): Solving x^k ≡ a (mod p) by reduction to discrete logarithm
-- [Montgomery Multiplication](https://algobangla.com/en/algebra/montgomery_multiplication/): Efficient modular multiplication without division
-- [Garner's Algorithm](https://algobangla.com/en/algebra/garners-algorithm/): Mixed radix representation and CRT reconstruction
-- [Factorial Modulo p](https://algobangla.com/en/algebra/factorial-modulo/): Computing n! mod p for prime p using Wilson's theorem and recursive blocks
-- [Factorial Divisors](https://algobangla.com/en/algebra/factorial-divisors/): Largest power of prime p dividing n! using Legendre's formula
-- [Arbitrary Precision Arithmetic](https://algobangla.com/en/algebra/big-integer/): Big integer addition, subtraction, multiplication, and division in C++
-- [Balanced Ternary](https://algobangla.com/en/algebra/balanced-ternary/): Base-3 representation with digits {-1, 0, 1} and its arithmetic
-- [Gray Code](https://algobangla.com/en/algebra/gray-code/): Binary-reflected Gray codes; encoding and decoding
-- [Enumerating Submasks](https://algobangla.com/en/algebra/all-submasks/): Iterating over all bitmask submasks of a given mask in O(3^n)
-- [Bit Manipulation](https://algobangla.com/en/algebra/bit-manipulation/): Common bitwise tricks and techniques for competitive programming
-- [Fast Fourier Transform](https://algobangla.com/en/algebra/fft/): FFT-based polynomial multiplication in O(n log n); NTT and applications
-- [Polynomial Operations](https://algobangla.com/en/algebra/polynomial/): Polynomial arithmetic, evaluation, Newton's method, and logarithm/exponent
-- [Continued Fractions](https://algobangla.com/en/algebra/continued-fractions/): Theory and algorithms for continued fraction representation of reals
-- [Factoring Exponent](https://algobangla.com/en/algebra/factoring-exp/): p-adic valuation and lifting the exponent lemma (LTE)
+- [Binary Exponentiation](https://algobangla.web.app/en/algebra/binary-exp/): Fast exponentiation using repeated squaring; O(log n) computation of a^n mod m
+- [Euclidean Algorithm](https://algobangla.web.app/en/algebra/euclid-algorithm/): Computing GCD of two integers using Euclid's algorithm
+- [Extended Euclidean Algorithm](https://algobangla.web.app/en/algebra/extended-euclid-algorithm/): Finding GCD and Bezout coefficients; solving linear Diophantine equations
+- [Linear Diophantine Equations](https://algobangla.web.app/en/algebra/linear-diophantine-equation/): Solving ax + by = c in integers; existence conditions and parameterization
+- [Linear Congruence Equation](https://algobangla.web.app/en/algebra/linear_congruence_equation/): Solving ax ≡ b (mod n); reduction to Diophantine equations
+- [Chinese Remainder Theorem](https://algobangla.web.app/en/algebra/chinese-remainder-theorem/): Reconstructing a number from residues modulo pairwise-coprime moduli
+- [Fibonacci Numbers](https://algobangla.web.app/en/algebra/fibonacci-numbers/): Properties, fast matrix exponentiation, and closed-form expressions
+- [Prime Sieve of Eratosthenes](https://algobangla.web.app/en/algebra/sieve-of-eratosthenes/): Finding all primes up to N in O(N log log N)
+- [Linear Sieve](https://algobangla.web.app/en/algebra/prime-sieve-linear/): Sieve of Eratosthenes in O(N) using smallest prime factor
+- [Primality Tests](https://algobangla.web.app/en/algebra/primality_tests/): Trial division, Fermat test, Miller-Rabin probabilistic primality testing
+- [Integer Factorization](https://algobangla.web.app/en/algebra/factorization/): Trial division, Fermat's method, and Pollard's rho algorithm
+- [Divisors](https://algobangla.web.app/en/algebra/divisors/): Counting and summing divisors; divisor function using sieve
+- [Euler's Totient Function](https://algobangla.web.app/en/algebra/phi-function/): Computing φ(n); multiplicativity and sieve-based computation
+- [Number of Divisors / Sum of Divisors](https://algobangla.web.app/en/algebra/divisors/): Divisor counting, multiplicative functions over divisors
+- [Modular Inverse](https://algobangla.web.app/en/algebra/module-inverse/): Computing modular multiplicative inverse via Fermat, extended GCD, or batch inversion
+- [Discrete Logarithm](https://algobangla.web.app/en/algebra/discrete-log/): Solving a^x ≡ b (mod m) using baby-step giant-step; O(√m)
+- [Primitive Root](https://algobangla.web.app/en/algebra/primitive-root/): Finding generators of multiplicative groups modulo prime
+- [Discrete Root](https://algobangla.web.app/en/algebra/discrete-root/): Solving x^k ≡ a (mod p) by reduction to discrete logarithm
+- [Montgomery Multiplication](https://algobangla.web.app/en/algebra/montgomery_multiplication/): Efficient modular multiplication without division
+- [Garner's Algorithm](https://algobangla.web.app/en/algebra/garners-algorithm/): Mixed radix representation and CRT reconstruction
+- [Factorial Modulo p](https://algobangla.web.app/en/algebra/factorial-modulo/): Computing n! mod p for prime p using Wilson's theorem and recursive blocks
+- [Factorial Divisors](https://algobangla.web.app/en/algebra/factorial-divisors/): Largest power of prime p dividing n! using Legendre's formula
+- [Arbitrary Precision Arithmetic](https://algobangla.web.app/en/algebra/big-integer/): Big integer addition, subtraction, multiplication, and division in C++
+- [Balanced Ternary](https://algobangla.web.app/en/algebra/balanced-ternary/): Base-3 representation with digits {-1, 0, 1} and its arithmetic
+- [Gray Code](https://algobangla.web.app/en/algebra/gray-code/): Binary-reflected Gray codes; encoding and decoding
+- [Enumerating Submasks](https://algobangla.web.app/en/algebra/all-submasks/): Iterating over all bitmask submasks of a given mask in O(3^n)
+- [Bit Manipulation](https://algobangla.web.app/en/algebra/bit-manipulation/): Common bitwise tricks and techniques for competitive programming
+- [Fast Fourier Transform](https://algobangla.web.app/en/algebra/fft/): FFT-based polynomial multiplication in O(n log n); NTT and applications
+- [Polynomial Operations](https://algobangla.web.app/en/algebra/polynomial/): Polynomial arithmetic, evaluation, Newton's method, and logarithm/exponent
+- [Continued Fractions](https://algobangla.web.app/en/algebra/continued-fractions/): Theory and algorithms for continued fraction representation of reals
+- [Factoring Exponent](https://algobangla.web.app/en/algebra/factoring-exp/): p-adic valuation and lifting the exponent lemma (LTE)
 
 ## Data Structures
 
-- [Disjoint Set Union (DSU)](https://algobangla.com/en/data_structures/disjoint_set_union/): Union-Find with path compression and union by rank; nearly O(α(n)) per operation
-- [Fenwick Tree (Binary Indexed Tree)](https://algobangla.com/en/data_structures/fenwick/): Prefix sum queries and point updates in O(log n)
-- [Segment Tree](https://algobangla.com/en/data_structures/segment_tree/): Range queries and range updates in O(log n); lazy propagation
-- [Sparse Table](https://algobangla.com/en/data_structures/sparse-table/): Static RMQ in O(1) after O(n log n) preprocessing
-- [Sqrt Decomposition](https://algobangla.com/en/data_structures/sqrt_decomposition/): Block decomposition for O(√n) range queries
-- [Sqrt Tree](https://algobangla.com/en/data_structures/sqrt-tree/): O(1) static RMQ with O(n log log n) preprocessing
-- [Treap](https://algobangla.com/en/data_structures/treap/): Randomized BST combining tree and heap properties; implicit treap for sequences
-- [Randomized Heap](https://algobangla.com/en/data_structures/randomized_heap/): Mergeable priority queue with O(log n) merge
-- [Stack/Queue with Minimum](https://algobangla.com/en/data_structures/stack_queue_modification/): Augmenting stack and queue to support O(1) minimum queries
-- [Deleting in O(log n)](https://algobangla.com/en/data_structures/deleting_in_log_n/): Offline deletion trick using DSU on sorted events
+- [Disjoint Set Union (DSU)](https://algobangla.web.app/en/data_structures/disjoint_set_union/): Union-Find with path compression and union by rank; nearly O(α(n)) per operation
+- [Fenwick Tree (Binary Indexed Tree)](https://algobangla.web.app/en/data_structures/fenwick/): Prefix sum queries and point updates in O(log n)
+- [Segment Tree](https://algobangla.web.app/en/data_structures/segment_tree/): Range queries and range updates in O(log n); lazy propagation
+- [Sparse Table](https://algobangla.web.app/en/data_structures/sparse-table/): Static RMQ in O(1) after O(n log n) preprocessing
+- [Sqrt Decomposition](https://algobangla.web.app/en/data_structures/sqrt_decomposition/): Block decomposition for O(√n) range queries
+- [Sqrt Tree](https://algobangla.web.app/en/data_structures/sqrt-tree/): O(1) static RMQ with O(n log log n) preprocessing
+- [Treap](https://algobangla.web.app/en/data_structures/treap/): Randomized BST combining tree and heap properties; implicit treap for sequences
+- [Randomized Heap](https://algobangla.web.app/en/data_structures/randomized_heap/): Mergeable priority queue with O(log n) merge
+- [Stack/Queue with Minimum](https://algobangla.web.app/en/data_structures/stack_queue_modification/): Augmenting stack and queue to support O(1) minimum queries
+- [Deleting in O(log n)](https://algobangla.web.app/en/data_structures/deleting_in_log_n/): Offline deletion trick using DSU on sorted events
 
 ## Graph Algorithms
 
-- [Depth-First Search (DFS)](https://algobangla.com/en/graph/depth-first-search/): DFS traversal, tree/back/forward/cross edge classification
-- [Breadth-First Search (BFS)](https://algobangla.com/en/graph/breadth-first-search/): BFS traversal and shortest path in unweighted graphs
-- [0-1 BFS](https://algobangla.com/en/graph/01_bfs/): Shortest path in graphs with edge weights 0 or 1 using deque
-- [Topological Sort](https://algobangla.com/en/graph/topological-sort/): Ordering DAG vertices by DFS finish time or Kahn's algorithm
-- [Finding Cycle](https://algobangla.com/en/graph/finding-cycle/): Detecting cycles in directed and undirected graphs using DFS
-- [Strongly Connected Components](https://algobangla.com/en/graph/strongly-connected-components/): Kosaraju's and Tarjan's algorithms for SCCs in O(V+E)
-- [2-SAT](https://algobangla.com/en/graph/2sat/): Solving 2-satisfiability via SCC on implication graph
-- [Bipartite Check](https://algobangla.com/en/graph/bipartite-check/): Testing bipartiteness via 2-coloring using BFS/DFS
-- [Connected Components Search](https://algobangla.com/en/graph/search-for-connected-components/): Finding all connected components in undirected graph
-- [Dijkstra's Algorithm](https://algobangla.com/en/graph/dijkstra/): Single-source shortest paths in non-negative weighted graphs; O((V+E) log V)
-- [Dijkstra on Sparse Graphs](https://algobangla.com/en/graph/dijkstra_sparse/): Priority queue-based Dijkstra for sparse graphs
-- [Bellman-Ford Algorithm](https://algobangla.com/en/graph/bellman_ford/): SSSP with negative edges; negative cycle detection in O(VE)
-- [Floyd-Warshall Algorithm](https://algobangla.com/en/graph/all-pair-shortest-path-floyd-warshall/): All-pairs shortest paths in O(V³); transitive closure
-- [D'Esopo-Pape Algorithm](https://algobangla.com/en/graph/desopo_pape/): Practical SSSP using deque; fast in practice on many graphs
-- [Finding Negative Cycle](https://algobangla.com/en/graph/finding-negative-cycle-in-graph/): Detecting negative weight cycles using Bellman-Ford
-- [Bridges](https://algobangla.com/en/graph/bridge-searching/): Finding bridge edges in undirected graphs using DFS low values
-- [Bridges (Online)](https://algobangla.com/en/graph/bridge-searching-online/): Dynamic bridge finding with edge additions using link-cut trees
-- [Articulation Points (Cut Vertices)](https://algobangla.com/en/graph/cutpoints/): Finding articulation points via DFS and low-link values
-- [Edge and Vertex Connectivity](https://algobangla.com/en/graph/edge_vertex_connectivity/): Computing k-edge and k-vertex connectivity via max-flow
-- [Euler Path and Circuit](https://algobangla.com/en/graph/euler_path/): Hierholzer's algorithm for Eulerian paths and circuits
-- [Minimum Spanning Tree — Kruskal](https://algobangla.com/en/graph/mst_kruskal/): MST using sorted edges and DSU; O(E log E)
-- [Kruskal with DSU](https://algobangla.com/en/graph/mst_kruskal_with_dsu/): Kruskal's MST algorithm with explicit DSU implementation
-- [Minimum Spanning Tree — Prim](https://algobangla.com/en/graph/mst_prim/): Prim's MST algorithm using priority queue; O(E log V)
-- [Second Best MST](https://algobangla.com/en/graph/second_best_mst/): Finding the second minimum spanning tree
-- [LCA — Binary Lifting](https://algobangla.com/en/graph/lca_binary_lifting/): Lowest Common Ancestor via sparse table on ancestors; O(log n) per query
-- [LCA — Euler Tour + RMQ](https://algobangla.com/en/graph/lca/): LCA reduction to RMQ via Euler tour
-- [LCA — Farach-Colton and Bender](https://algobangla.com/en/graph/lca_farachcoltonbender/): O(n) preprocessing, O(1) LCA queries
-- [LCA — Tarjan's Offline](https://algobangla.com/en/graph/lca_tarjan/): Offline LCA algorithm using DSU with path compression
-- [Heavy-Light Decomposition (HLD)](https://algobangla.com/en/graph/hld/): Decomposing tree into chains for O(log²n) path queries
-- [Maximum Flow — Dinic](https://algobangla.com/en/graph/dinic/): Dinic's max-flow with O(V² E); O(E√V) for unit graphs
-- [Maximum Flow — Edmonds-Karp](https://algobangla.com/en/graph/edmonds_karp/): BFS-based augmenting path max-flow; O(VE²)
-- [Maximum Flow — MPM](https://algobangla.com/en/graph/mpm/): Malhotra-Pramodh-Maheshwari max-flow algorithm
-- [Maximum Flow — Push-Relabel](https://algobangla.com/en/graph/push-relabel/): Push-relabel max-flow algorithm; O(V²E)
-- [Push-Relabel Highest Label](https://algobangla.com/en/graph/push-relabel-faster/): Faster push-relabel with highest-label selection; O(V²√E)
-- [Min-Cost Max-Flow](https://algobangla.com/en/graph/min_cost_flow/): Minimum cost flow via successive shortest paths (SPFA/Bellman-Ford)
-- [Flow with Demands](https://algobangla.com/en/graph/flow_with_demands/): Feasible flow with lower bounds using circulation reduction
-- [Assignment Problem (Min-Flow)](https://algobangla.com/en/graph/assignment-problem-min-flow/): Optimal assignment via min-cost flow
-- [Hungarian Algorithm](https://algobangla.com/en/graph/hungarian-algorithm/): O(n³) solution to the assignment problem
-- [Kuhn's Bipartite Matching](https://algobangla.com/en/graph/kuhn_maximum_bipartite_matching/): Maximum bipartite matching via augmenting paths
-- [Kirchhoff's Theorem](https://algobangla.com/en/graph/kirchhoff-theorem/): Counting spanning trees via matrix-tree theorem and determinant
-- [Prüfer Sequence](https://algobangla.com/en/graph/pruefer_code/): Encoding labeled trees as sequences; Cayley's formula
-- [Tree Painting](https://algobangla.com/en/graph/tree_painting/): Painting tree edges with minimum colors (edge coloring)
-- [Strong Orientation](https://algobangla.com/en/graph/strong-orientation/): Orienting undirected graph edges to make it strongly connected
-- [RMQ in O(n) Preprocessing](https://algobangla.com/en/graph/rmq_linear/): Linear-time RMQ via sparse table on Cartesian trees
-- [Fixed-Length Paths](https://algobangla.com/en/graph/fixed_length_paths/): Counting paths of exact length k using matrix exponentiation
-- [Games on Graphs](https://algobangla.com/en/graph/games_on_graphs/): Combinatorial game theory on DAGs; winning/losing positions
+- [Depth-First Search (DFS)](https://algobangla.web.app/en/graph/depth-first-search/): DFS traversal, tree/back/forward/cross edge classification
+- [Breadth-First Search (BFS)](https://algobangla.web.app/en/graph/breadth-first-search/): BFS traversal and shortest path in unweighted graphs
+- [0-1 BFS](https://algobangla.web.app/en/graph/01_bfs/): Shortest path in graphs with edge weights 0 or 1 using deque
+- [Topological Sort](https://algobangla.web.app/en/graph/topological-sort/): Ordering DAG vertices by DFS finish time or Kahn's algorithm
+- [Finding Cycle](https://algobangla.web.app/en/graph/finding-cycle/): Detecting cycles in directed and undirected graphs using DFS
+- [Strongly Connected Components](https://algobangla.web.app/en/graph/strongly-connected-components/): Kosaraju's and Tarjan's algorithms for SCCs in O(V+E)
+- [2-SAT](https://algobangla.web.app/en/graph/2sat/): Solving 2-satisfiability via SCC on implication graph
+- [Bipartite Check](https://algobangla.web.app/en/graph/bipartite-check/): Testing bipartiteness via 2-coloring using BFS/DFS
+- [Connected Components Search](https://algobangla.web.app/en/graph/search-for-connected-components/): Finding all connected components in undirected graph
+- [Dijkstra's Algorithm](https://algobangla.web.app/en/graph/dijkstra/): Single-source shortest paths in non-negative weighted graphs; O((V+E) log V)
+- [Dijkstra on Sparse Graphs](https://algobangla.web.app/en/graph/dijkstra_sparse/): Priority queue-based Dijkstra for sparse graphs
+- [Bellman-Ford Algorithm](https://algobangla.web.app/en/graph/bellman_ford/): SSSP with negative edges; negative cycle detection in O(VE)
+- [Floyd-Warshall Algorithm](https://algobangla.web.app/en/graph/all-pair-shortest-path-floyd-warshall/): All-pairs shortest paths in O(V³); transitive closure
+- [D'Esopo-Pape Algorithm](https://algobangla.web.app/en/graph/desopo_pape/): Practical SSSP using deque; fast in practice on many graphs
+- [Finding Negative Cycle](https://algobangla.web.app/en/graph/finding-negative-cycle-in-graph/): Detecting negative weight cycles using Bellman-Ford
+- [Bridges](https://algobangla.web.app/en/graph/bridge-searching/): Finding bridge edges in undirected graphs using DFS low values
+- [Bridges (Online)](https://algobangla.web.app/en/graph/bridge-searching-online/): Dynamic bridge finding with edge additions using link-cut trees
+- [Articulation Points (Cut Vertices)](https://algobangla.web.app/en/graph/cutpoints/): Finding articulation points via DFS and low-link values
+- [Edge and Vertex Connectivity](https://algobangla.web.app/en/graph/edge_vertex_connectivity/): Computing k-edge and k-vertex connectivity via max-flow
+- [Euler Path and Circuit](https://algobangla.web.app/en/graph/euler_path/): Hierholzer's algorithm for Eulerian paths and circuits
+- [Minimum Spanning Tree — Kruskal](https://algobangla.web.app/en/graph/mst_kruskal/): MST using sorted edges and DSU; O(E log E)
+- [Kruskal with DSU](https://algobangla.web.app/en/graph/mst_kruskal_with_dsu/): Kruskal's MST algorithm with explicit DSU implementation
+- [Minimum Spanning Tree — Prim](https://algobangla.web.app/en/graph/mst_prim/): Prim's MST algorithm using priority queue; O(E log V)
+- [Second Best MST](https://algobangla.web.app/en/graph/second_best_mst/): Finding the second minimum spanning tree
+- [LCA — Binary Lifting](https://algobangla.web.app/en/graph/lca_binary_lifting/): Lowest Common Ancestor via sparse table on ancestors; O(log n) per query
+- [LCA — Euler Tour + RMQ](https://algobangla.web.app/en/graph/lca/): LCA reduction to RMQ via Euler tour
+- [LCA — Farach-Colton and Bender](https://algobangla.web.app/en/graph/lca_farachcoltonbender/): O(n) preprocessing, O(1) LCA queries
+- [LCA — Tarjan's Offline](https://algobangla.web.app/en/graph/lca_tarjan/): Offline LCA algorithm using DSU with path compression
+- [Heavy-Light Decomposition (HLD)](https://algobangla.web.app/en/graph/hld/): Decomposing tree into chains for O(log²n) path queries
+- [Maximum Flow — Dinic](https://algobangla.web.app/en/graph/dinic/): Dinic's max-flow with O(V² E); O(E√V) for unit graphs
+- [Maximum Flow — Edmonds-Karp](https://algobangla.web.app/en/graph/edmonds_karp/): BFS-based augmenting path max-flow; O(VE²)
+- [Maximum Flow — MPM](https://algobangla.web.app/en/graph/mpm/): Malhotra-Pramodh-Maheshwari max-flow algorithm
+- [Maximum Flow — Push-Relabel](https://algobangla.web.app/en/graph/push-relabel/): Push-relabel max-flow algorithm; O(V²E)
+- [Push-Relabel Highest Label](https://algobangla.web.app/en/graph/push-relabel-faster/): Faster push-relabel with highest-label selection; O(V²√E)
+- [Min-Cost Max-Flow](https://algobangla.web.app/en/graph/min_cost_flow/): Minimum cost flow via successive shortest paths (SPFA/Bellman-Ford)
+- [Flow with Demands](https://algobangla.web.app/en/graph/flow_with_demands/): Feasible flow with lower bounds using circulation reduction
+- [Assignment Problem (Min-Flow)](https://algobangla.web.app/en/graph/assignment-problem-min-flow/): Optimal assignment via min-cost flow
+- [Hungarian Algorithm](https://algobangla.web.app/en/graph/hungarian-algorithm/): O(n³) solution to the assignment problem
+- [Kuhn's Bipartite Matching](https://algobangla.web.app/en/graph/kuhn_maximum_bipartite_matching/): Maximum bipartite matching via augmenting paths
+- [Kirchhoff's Theorem](https://algobangla.web.app/en/graph/kirchhoff-theorem/): Counting spanning trees via matrix-tree theorem and determinant
+- [Prüfer Sequence](https://algobangla.web.app/en/graph/pruefer_code/): Encoding labeled trees as sequences; Cayley's formula
+- [Tree Painting](https://algobangla.web.app/en/graph/tree_painting/): Painting tree edges with minimum colors (edge coloring)
+- [Strong Orientation](https://algobangla.web.app/en/graph/strong-orientation/): Orienting undirected graph edges to make it strongly connected
+- [RMQ in O(n) Preprocessing](https://algobangla.web.app/en/graph/rmq_linear/): Linear-time RMQ via sparse table on Cartesian trees
+- [Fixed-Length Paths](https://algobangla.web.app/en/graph/fixed_length_paths/): Counting paths of exact length k using matrix exponentiation
+- [Games on Graphs](https://algobangla.web.app/en/graph/games_on_graphs/): Combinatorial game theory on DAGs; winning/losing positions
 
 ## Dynamic Programming
 
-- [Introduction to DP](https://algobangla.com/en/dynamic_programming/intro-to-dp/): Foundations of dynamic programming: overlapping subproblems and optimal substructure
-- [Knapsack Problem](https://algobangla.com/en/dynamic_programming/knapsack/): 0/1 knapsack, unbounded knapsack, and bounded knapsack variants
-- [Longest Increasing Subsequence](https://algobangla.com/en/dynamic_programming/longest_increasing_subsequence/): O(n log n) LIS via patience sorting / binary search
-- [Profile Dynamic Programming](https://algobangla.com/en/dynamic_programming/profile-dynamics/): DP on grid profiles (broken profile DP) for tiling problems
-- [Divide and Conquer DP](https://algobangla.com/en/dynamic_programming/divide-and-conquer-dp/): Optimization for DP with monotone transition using D&C; O(n log n)
-- [Knuth's Optimization](https://algobangla.com/en/dynamic_programming/knuth-optimization/): O(n²) DP optimization for interval DP with quadrangle inequality
-- [Zero-One Matrix](https://algobangla.com/en/dynamic_programming/zero_matrix/): Counting and constructing 0-1 matrices with prescribed row/column sums
+- [Introduction to DP](https://algobangla.web.app/en/dynamic_programming/intro-to-dp/): Foundations of dynamic programming: overlapping subproblems and optimal substructure
+- [Knapsack Problem](https://algobangla.web.app/en/dynamic_programming/knapsack/): 0/1 knapsack, unbounded knapsack, and bounded knapsack variants
+- [Longest Increasing Subsequence](https://algobangla.web.app/en/dynamic_programming/longest_increasing_subsequence/): O(n log n) LIS via patience sorting / binary search
+- [Profile Dynamic Programming](https://algobangla.web.app/en/dynamic_programming/profile-dynamics/): DP on grid profiles (broken profile DP) for tiling problems
+- [Divide and Conquer DP](https://algobangla.web.app/en/dynamic_programming/divide-and-conquer-dp/): Optimization for DP with monotone transition using D&C; O(n log n)
+- [Knuth's Optimization](https://algobangla.web.app/en/dynamic_programming/knuth-optimization/): O(n²) DP optimization for interval DP with quadrangle inequality
+- [Zero-One Matrix](https://algobangla.web.app/en/dynamic_programming/zero_matrix/): Counting and constructing 0-1 matrices with prescribed row/column sums
 
 ## String Algorithms
 
-- [String Hashing](https://algobangla.com/en/string/string-hashing/): Polynomial rolling hash for O(1) substring comparison after O(n) preprocessing
-- [Prefix Function (KMP)](https://algobangla.com/en/string/prefix-function/): KMP failure function; O(n) pattern matching with prefix function
-- [Z-function](https://algobangla.com/en/string/z-function/): Z-array for O(n) pattern matching; relation to prefix function
-- [Rabin-Karp Algorithm](https://algobangla.com/en/string/rabin-karp/): Rolling hash-based multiple pattern matching in O(n+m)
-- [Aho-Corasick Automaton](https://algobangla.com/en/string/aho_corasick/): Multi-pattern matching on a trie with failure links; O(n+m+z)
-- [Suffix Array](https://algobangla.com/en/string/suffix-array/): O(n log n) suffix array construction; LCP array via Kasai's algorithm
-- [Suffix Automaton](https://algobangla.com/en/string/suffix-automaton/): Linear-size automaton recognizing all substrings; O(n) construction
-- [Suffix Tree — Ukkonen](https://algobangla.com/en/string/suffix-tree-ukkonen/): Online suffix tree construction in O(n) using Ukkonen's algorithm
-- [Lyndon Factorization](https://algobangla.com/en/string/lyndon_factorization/): Factoring strings into Lyndon words using Duval's algorithm in O(n)
-- [Manacher's Algorithm](https://algobangla.com/en/string/manacher/): Finding all palindromic substrings in O(n)
-- [Main-Lorentz Algorithm](https://algobangla.com/en/string/main_lorentz/): Finding all occurrences of each repetition (tandem repeat) in O(n log n)
-- [Expression Parsing](https://algobangla.com/en/string/expression_parsing/): Recursive descent and shunting-yard algorithm for arithmetic expressions
+- [String Hashing](https://algobangla.web.app/en/string/string-hashing/): Polynomial rolling hash for O(1) substring comparison after O(n) preprocessing
+- [Prefix Function (KMP)](https://algobangla.web.app/en/string/prefix-function/): KMP failure function; O(n) pattern matching with prefix function
+- [Z-function](https://algobangla.web.app/en/string/z-function/): Z-array for O(n) pattern matching; relation to prefix function
+- [Rabin-Karp Algorithm](https://algobangla.web.app/en/string/rabin-karp/): Rolling hash-based multiple pattern matching in O(n+m)
+- [Aho-Corasick Automaton](https://algobangla.web.app/en/string/aho_corasick/): Multi-pattern matching on a trie with failure links; O(n+m+z)
+- [Suffix Array](https://algobangla.web.app/en/string/suffix-array/): O(n log n) suffix array construction; LCP array via Kasai's algorithm
+- [Suffix Automaton](https://algobangla.web.app/en/string/suffix-automaton/): Linear-size automaton recognizing all substrings; O(n) construction
+- [Suffix Tree — Ukkonen](https://algobangla.web.app/en/string/suffix-tree-ukkonen/): Online suffix tree construction in O(n) using Ukkonen's algorithm
+- [Lyndon Factorization](https://algobangla.web.app/en/string/lyndon_factorization/): Factoring strings into Lyndon words using Duval's algorithm in O(n)
+- [Manacher's Algorithm](https://algobangla.web.app/en/string/manacher/): Finding all palindromic substrings in O(n)
+- [Main-Lorentz Algorithm](https://algobangla.web.app/en/string/main_lorentz/): Finding all occurrences of each repetition (tandem repeat) in O(n log n)
+- [Expression Parsing](https://algobangla.web.app/en/string/expression_parsing/): Recursive descent and shunting-yard algorithm for arithmetic expressions
 
 ## Combinatorics
 
-- [Binomial Coefficients](https://algobangla.com/en/combinatorics/binomial-coefficients/): Computing C(n,k) modulo prime; Pascal's triangle and Lucas' theorem
-- [Catalan Numbers](https://algobangla.com/en/combinatorics/catalan-numbers/): Combinatorial interpretations and closed-form formula for Catalan numbers
-- [Inclusion-Exclusion Principle](https://algobangla.com/en/combinatorics/inclusion-exclusion/): Counting with overlapping sets; derangements and Möbius function
-- [Burnside's Lemma](https://algobangla.com/en/combinatorics/burnside/): Counting distinct objects under group symmetry (Pólya enumeration)
-- [Bracket Sequences](https://algobangla.com/en/combinatorics/bracket_sequences/): Counting, validating, and generating balanced bracket sequences
-- [Stars and Bars](https://algobangla.com/en/combinatorics/stars_and_bars/): Distributing identical objects into distinct bins; combinatorial identity
-- [Generating Combinations](https://algobangla.com/en/combinatorics/generating_combinations/): Lexicographic enumeration of k-element subsets and permutations
-- [Counting Labeled Graphs](https://algobangla.com/en/combinatorics/counting_labeled_graphs/): Counting labeled graphs with given properties via exponential formula
-- [Bishops on a Chessboard](https://algobangla.com/en/combinatorics/bishops-on-chessboard/): Placing non-attacking bishops on n×n board; combinatorial counting
+- [Binomial Coefficients](https://algobangla.web.app/en/combinatorics/binomial-coefficients/): Computing C(n,k) modulo prime; Pascal's triangle and Lucas' theorem
+- [Catalan Numbers](https://algobangla.web.app/en/combinatorics/catalan-numbers/): Combinatorial interpretations and closed-form formula for Catalan numbers
+- [Inclusion-Exclusion Principle](https://algobangla.web.app/en/combinatorics/inclusion-exclusion/): Counting with overlapping sets; derangements and Möbius function
+- [Burnside's Lemma](https://algobangla.web.app/en/combinatorics/burnside/): Counting distinct objects under group symmetry (Pólya enumeration)
+- [Bracket Sequences](https://algobangla.web.app/en/combinatorics/bracket_sequences/): Counting, validating, and generating balanced bracket sequences
+- [Stars and Bars](https://algobangla.web.app/en/combinatorics/stars_and_bars/): Distributing identical objects into distinct bins; combinatorial identity
+- [Generating Combinations](https://algobangla.web.app/en/combinatorics/generating_combinations/): Lexicographic enumeration of k-element subsets and permutations
+- [Counting Labeled Graphs](https://algobangla.web.app/en/combinatorics/counting_labeled_graphs/): Counting labeled graphs with given properties via exponential formula
+- [Bishops on a Chessboard](https://algobangla.web.app/en/combinatorics/bishops-on-chessboard/): Placing non-attacking bishops on n×n board; combinatorial counting
 
 ## Geometry
 
-- [Basic Geometry](https://algobangla.com/en/geometry/basic-geometry/): Points, vectors, dot/cross product, line representations in 2D/3D
-- [Segment to Line](https://algobangla.com/en/geometry/segment-to-line/): Converting segment endpoints to line equation forms
-- [Lines Intersection](https://algobangla.com/en/geometry/lines-intersection/): Computing intersection point of two lines in 2D
-- [Circle-Line Intersection](https://algobangla.com/en/geometry/circle-line-intersection/): Finding intersection points of a circle and a line
-- [Circle-Circle Intersection](https://algobangla.com/en/geometry/circle-circle-intersection/): Computing intersection points of two circles
-- [Tangents to Two Circles](https://algobangla.com/en/geometry/tangents-to-two-circles/): External and internal tangent lines to two circles
-- [Check Segment Intersection](https://algobangla.com/en/geometry/check-segments-intersection/): Determining if two segments intersect using cross products
-- [Segments Intersection Point](https://algobangla.com/en/geometry/segments-intersection/): Computing exact intersection point of two segments
-- [Intersecting Segments](https://algobangla.com/en/geometry/intersecting_segments/): Finding all intersecting segment pairs (sweep line, Shamos-Hoey)
-- [Convex Hull](https://algobangla.com/en/geometry/convex-hull/): Graham scan and Andrew's monotone chain in O(n log n)
-- [Convex Hull Trick](https://algobangla.com/en/geometry/convex_hull_trick/): Li Chao tree and CHT for DP optimization with linear functions
-- [Point in Convex Polygon](https://algobangla.com/en/geometry/point-in-convex-polygon/): O(log n) point-in-convex-polygon test via binary search
-- [Oriented Triangle Area](https://algobangla.com/en/geometry/oriented-triangle-area/): Signed area via cross product; collinearity and turn direction
-- [Area of Simple Polygon](https://algobangla.com/en/geometry/area-of-simple-polygon/): Shoelace formula for polygon area in O(n)
-- [Lattice Points in Polygon](https://algobangla.com/en/geometry/lattice-points/): Counting interior and boundary lattice points via Pick's theorem
-- [Pick's Theorem](https://algobangla.com/en/geometry/picks-theorem/): A = I + B/2 - 1 relating area to interior and boundary lattice points
-- [Nearest Points](https://algobangla.com/en/geometry/nearest_points/): Closest pair of points in O(n log n) via divide and conquer
-- [Enclosing Circle](https://algobangla.com/en/geometry/enclosing-circle/): Minimum enclosing circle (Welzl's algorithm) in O(n)
-- [Halfplane Intersection](https://algobangla.com/en/geometry/halfplane-intersection/): Computing intersection of halfplanes (convex feasibility)
-- [Point Location](https://algobangla.com/en/geometry/point-location/): Planar point location in subdivision using persistent BST
-- [Vertical Decomposition](https://algobangla.com/en/geometry/vertical_decomposition/): Trapezoidal decomposition of planar subdivision
-- [Minkowski Sum](https://algobangla.com/en/geometry/minkowski/): Minkowski sum of two convex polygons in O(n+m)
-- [Delaunay Triangulation](https://algobangla.com/en/geometry/delaunay/): Bowyer-Watson algorithm for Delaunay triangulation; dual Voronoi diagram
-- [Length of Union of Segments](https://algobangla.com/en/geometry/length-of-segments-union/): Computing total length of a union of intervals using sweep line
-- [Manhattan Distance](https://algobangla.com/en/geometry/manhattan-distance/): Transforming Manhattan distance to Chebyshev; MST under L1 metric
-- [Planar Graphs](https://algobangla.com/en/geometry/planar/): Planar graph embedding, Euler's formula, and face enumeration
+- [Basic Geometry](https://algobangla.web.app/en/geometry/basic-geometry/): Points, vectors, dot/cross product, line representations in 2D/3D
+- [Segment to Line](https://algobangla.web.app/en/geometry/segment-to-line/): Converting segment endpoints to line equation forms
+- [Lines Intersection](https://algobangla.web.app/en/geometry/lines-intersection/): Computing intersection point of two lines in 2D
+- [Circle-Line Intersection](https://algobangla.web.app/en/geometry/circle-line-intersection/): Finding intersection points of a circle and a line
+- [Circle-Circle Intersection](https://algobangla.web.app/en/geometry/circle-circle-intersection/): Computing intersection points of two circles
+- [Tangents to Two Circles](https://algobangla.web.app/en/geometry/tangents-to-two-circles/): External and internal tangent lines to two circles
+- [Check Segment Intersection](https://algobangla.web.app/en/geometry/check-segments-intersection/): Determining if two segments intersect using cross products
+- [Segments Intersection Point](https://algobangla.web.app/en/geometry/segments-intersection/): Computing exact intersection point of two segments
+- [Intersecting Segments](https://algobangla.web.app/en/geometry/intersecting_segments/): Finding all intersecting segment pairs (sweep line, Shamos-Hoey)
+- [Convex Hull](https://algobangla.web.app/en/geometry/convex-hull/): Graham scan and Andrew's monotone chain in O(n log n)
+- [Convex Hull Trick](https://algobangla.web.app/en/geometry/convex_hull_trick/): Li Chao tree and CHT for DP optimization with linear functions
+- [Point in Convex Polygon](https://algobangla.web.app/en/geometry/point-in-convex-polygon/): O(log n) point-in-convex-polygon test via binary search
+- [Oriented Triangle Area](https://algobangla.web.app/en/geometry/oriented-triangle-area/): Signed area via cross product; collinearity and turn direction
+- [Area of Simple Polygon](https://algobangla.web.app/en/geometry/area-of-simple-polygon/): Shoelace formula for polygon area in O(n)
+- [Lattice Points in Polygon](https://algobangla.web.app/en/geometry/lattice-points/): Counting interior and boundary lattice points via Pick's theorem
+- [Pick's Theorem](https://algobangla.web.app/en/geometry/picks-theorem/): A = I + B/2 - 1 relating area to interior and boundary lattice points
+- [Nearest Points](https://algobangla.web.app/en/geometry/nearest_points/): Closest pair of points in O(n log n) via divide and conquer
+- [Enclosing Circle](https://algobangla.web.app/en/geometry/enclosing-circle/): Minimum enclosing circle (Welzl's algorithm) in O(n)
+- [Halfplane Intersection](https://algobangla.web.app/en/geometry/halfplane-intersection/): Computing intersection of halfplanes (convex feasibility)
+- [Point Location](https://algobangla.web.app/en/geometry/point-location/): Planar point location in subdivision using persistent BST
+- [Vertical Decomposition](https://algobangla.web.app/en/geometry/vertical_decomposition/): Trapezoidal decomposition of planar subdivision
+- [Minkowski Sum](https://algobangla.web.app/en/geometry/minkowski/): Minkowski sum of two convex polygons in O(n+m)
+- [Delaunay Triangulation](https://algobangla.web.app/en/geometry/delaunay/): Bowyer-Watson algorithm for Delaunay triangulation; dual Voronoi diagram
+- [Length of Union of Segments](https://algobangla.web.app/en/geometry/length-of-segments-union/): Computing total length of a union of intervals using sweep line
+- [Manhattan Distance](https://algobangla.web.app/en/geometry/manhattan-distance/): Transforming Manhattan distance to Chebyshev; MST under L1 metric
+- [Planar Graphs](https://algobangla.web.app/en/geometry/planar/): Planar graph embedding, Euler's formula, and face enumeration
 
 ## Linear Algebra
 
-- [Gaussian Elimination](https://algobangla.com/en/linear_algebra/linear-system-gauss/): Solving linear systems over reals and modular arithmetic
-- [Determinant by Gauss](https://algobangla.com/en/linear_algebra/determinant-gauss/): Computing matrix determinant using Gaussian elimination
-- [Determinant by Kraut](https://algobangla.com/en/linear_algebra/determinant-kraut/): LU decomposition (Bareiss algorithm) for integer determinant
-- [Rank of a Matrix](https://algobangla.com/en/linear_algebra/rank-matrix/): Computing matrix rank via Gaussian elimination over reals/GF(2)
+- [Gaussian Elimination](https://algobangla.web.app/en/linear_algebra/linear-system-gauss/): Solving linear systems over reals and modular arithmetic
+- [Determinant by Gauss](https://algobangla.web.app/en/linear_algebra/determinant-gauss/): Computing matrix determinant using Gaussian elimination
+- [Determinant by Kraut](https://algobangla.web.app/en/linear_algebra/determinant-kraut/): LU decomposition (Bareiss algorithm) for integer determinant
+- [Rank of a Matrix](https://algobangla.web.app/en/linear_algebra/rank-matrix/): Computing matrix rank via Gaussian elimination over reals/GF(2)
 
 ## Numerical Methods
 
-- [Binary Search](https://algobangla.com/en/num_methods/binary_search/): Binary search on answer; real-valued and integer binary search templates
-- [Ternary Search](https://algobangla.com/en/num_methods/ternary_search/): Finding extremum of unimodal function on real/integer domain
-- [Newton's Method for Roots](https://algobangla.com/en/num_methods/roots_newton/): Quadratically convergent root-finding via Newton-Raphson iteration
-- [Simpson's Integration](https://algobangla.com/en/num_methods/simpson-integration/): Adaptive Simpson integration for numerical definite integrals
-- [Simulated Annealing](https://algobangla.com/en/num_methods/simulated_annealing/): Probabilistic optimization heuristic for non-convex problems
+- [Binary Search](https://algobangla.web.app/en/num_methods/binary_search/): Binary search on answer; real-valued and integer binary search templates
+- [Ternary Search](https://algobangla.web.app/en/num_methods/ternary_search/): Finding extremum of unimodal function on real/integer domain
+- [Newton's Method for Roots](https://algobangla.web.app/en/num_methods/roots_newton/): Quadratically convergent root-finding via Newton-Raphson iteration
+- [Simpson's Integration](https://algobangla.web.app/en/num_methods/simpson-integration/): Adaptive Simpson integration for numerical definite integrals
+- [Simulated Annealing](https://algobangla.web.app/en/num_methods/simulated_annealing/): Probabilistic optimization heuristic for non-convex problems
 
 ## Game Theory
 
-- [Sprague-Grundy Theorem / Nim](https://algobangla.com/en/game_theory/sprague-grundy-nim/): Nim game, Grundy values (nimbers), and Sprague-Grundy theorem
-- [Games on Graphs](https://algobangla.com/en/game_theory/games_on_graphs/): Vertex coloring of DAG game positions; Grundy number calculation
+- [Sprague-Grundy Theorem / Nim](https://algobangla.web.app/en/game_theory/sprague-grundy-nim/): Nim game, Grundy values (nimbers), and Sprague-Grundy theorem
+- [Games on Graphs](https://algobangla.web.app/en/game_theory/games_on_graphs/): Vertex coloring of DAG game positions; Grundy number calculation
 
 ## Sequences
 
-- [RMQ (Range Minimum Query)](https://algobangla.com/en/sequences/rmq/): Overview of RMQ problem and reduction to LCA
-- [Longest Increasing Subsequence](https://algobangla.com/en/sequences/longest_increasing_subsequence/): O(n log n) LIS with reconstruction
-- [MEX of Sequence](https://algobangla.com/en/sequences/mex/): Computing minimum excludant; segment tree and offline approaches
-- [K-th Order Statistic](https://algobangla.com/en/sequences/k-th/): Finding k-th smallest element; order statistics tree and wavelet tree
+- [RMQ (Range Minimum Query)](https://algobangla.web.app/en/sequences/rmq/): Overview of RMQ problem and reduction to LCA
+- [Longest Increasing Subsequence](https://algobangla.web.app/en/sequences/longest_increasing_subsequence/): O(n log n) LIS with reconstruction
+- [MEX of Sequence](https://algobangla.web.app/en/sequences/mex/): Computing minimum excludant; segment tree and offline approaches
+- [K-th Order Statistic](https://algobangla.web.app/en/sequences/k-th/): Finding k-th smallest element; order statistics tree and wavelet tree
 
 ## Schedules (Scheduling Problems)
 
-- [Single Machine Scheduling](https://algobangla.com/en/schedules/schedule_one_machine/): Minimizing weighted completion time on one machine (WSPT rule)
-- [Two Machine Scheduling](https://algobangla.com/en/schedules/schedule_two_machines/): Johnson's algorithm for two-machine flow-shop scheduling
-- [Scheduling with Deadlines](https://algobangla.com/en/schedules/schedule-with-completion-duration/): Minimizing penalties with deadlines using greedy/DSU
+- [Single Machine Scheduling](https://algobangla.web.app/en/schedules/schedule_one_machine/): Minimizing weighted completion time on one machine (WSPT rule)
+- [Two Machine Scheduling](https://algobangla.web.app/en/schedules/schedule_two_machines/): Johnson's algorithm for two-machine flow-shop scheduling
+- [Scheduling with Deadlines](https://algobangla.web.app/en/schedules/schedule-with-completion-duration/): Minimizing penalties with deadlines using greedy/DSU
 
 ## Others
 
-- [15-Puzzle](https://algobangla.com/en/others/15-puzzle/): Solvability of the 15-puzzle via permutation parity
-- [Tortoise and Hare (Cycle Detection)](https://algobangla.com/en/others/tortoise_and_hare/): Floyd's cycle-finding algorithm for detecting cycles in sequences
-- [Josephus Problem](https://algobangla.com/en/others/josephus_problem/): Closed-form O(n) and O(k log n) solutions to Josephus elimination
-- [Maximum Average Segment](https://algobangla.com/en/others/maximum_average_segment/): Finding subarray with maximum average using binary search on answer
-- [Stern-Brocot Tree / Farey Sequences](https://algobangla.com/en/others/stern_brocot_tree_farey_sequences/): Rational number enumeration via Stern-Brocot tree and Farey sequences
+- [15-Puzzle](https://algobangla.web.app/en/others/15-puzzle/): Solvability of the 15-puzzle via permutation parity
+- [Tortoise and Hare (Cycle Detection)](https://algobangla.web.app/en/others/tortoise_and_hare/): Floyd's cycle-finding algorithm for detecting cycles in sequences
+- [Josephus Problem](https://algobangla.web.app/en/others/josephus_problem/): Closed-form O(n) and O(k log n) solutions to Josephus elimination
+- [Maximum Average Segment](https://algobangla.web.app/en/others/maximum_average_segment/): Finding subarray with maximum average using binary search on answer
+- [Stern-Brocot Tree / Farey Sequences](https://algobangla.web.app/en/others/stern_brocot_tree_farey_sequences/): Rational number enumeration via Stern-Brocot tree and Farey sequences
 
 ## Bengali (বাংলা) Content
 
-- [Bengali Index](https://algobangla.com/bn/): All 150+ articles available in Bengali (বাংলা)
-- [বাইনারি এক্সপোনেনশিয়েশন](https://algobangla.com/bn/algebra/binary-exp/): দ্রুত ঘাত গণনা — O(log n) জটিলতায়
-- [ইউক্লিডীয় অ্যালগরিদম](https://algobangla.com/bn/algebra/euclid-algorithm/): দুটি সংখ্যার গসাগু নির্ণয়
-- [সেগমেন্ট ট্রি](https://algobangla.com/bn/data_structures/segment_tree/): রেঞ্জ কুয়েরি ও আপডেট — O(log n)
-- [ডায়জকস্ট্রা অ্যালগরিদম](https://algobangla.com/bn/graph/dijkstra/): একক উৎস সংক্ষিপ্ততম পথ
-- [ডায়নামিক প্রোগ্রামিং পরিচিতি](https://algobangla.com/bn/dynamic_programming/intro-to-dp/): ডিপি-র মৌলিক ধারণা ও কৌশল
-- [কেএমপি প্রিফিক্স ফাংশন](https://algobangla.com/bn/string/prefix-function/): প্যাটার্ন ম্যাচিং O(n)-এ
-- [ডিএসইউ (ডিসজয়েন্ট সেট ইউনিয়ন)](https://algobangla.com/bn/data_structures/disjoint_set_union/): ইউনিয়ন-ফাইন্ড ডেটা স্ট্রাকচার
-- [কনভেক্স হাল](https://algobangla.com/bn/geometry/convex-hull/): বিন্দু সেটের উত্তল আবরণ নির্ণয়
-- [ফেনউইক ট্রি (BIT)](https://algobangla.com/bn/data_structures/fenwick/): প্রিফিক্স যোগফল কুয়েরি ও পয়েন্ট আপডেট
-- [স্ট্রিং হ্যাশিং](https://algobangla.com/bn/string/string-hashing/): O(1) সাবস্ট্রিং তুলনার জন্য পলিনোমিয়াল হ্যাশ
-- [বেলম্যান-ফোর্ড অ্যালগরিদম](https://algobangla.com/bn/graph/bellman_ford/): ঋণাত্মক প্রান্ত সহ সংক্ষিপ্ততম পথ
-- [ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম](https://algobangla.com/bn/graph/all-pair-shortest-path-floyd-warshall/): সর্ব-জোড়া সংক্ষিপ্ততম পথ O(V³)
+- [Bengali Index](https://algobangla.web.app/bn/): All 150+ articles available in Bengali (বাংলা)
+- [বাইনারি এক্সপোনেনশিয়েশন](https://algobangla.web.app/bn/algebra/binary-exp/): দ্রুত ঘাত গণনা — O(log n) জটিলতায়
+- [ইউক্লিডীয় অ্যালগরিদম](https://algobangla.web.app/bn/algebra/euclid-algorithm/): দুটি সংখ্যার গসাগু নির্ণয়
+- [সেগমেন্ট ট্রি](https://algobangla.web.app/bn/data_structures/segment_tree/): রেঞ্জ কুয়েরি ও আপডেট — O(log n)
+- [ডায়জকস্ট্রা অ্যালগরিদম](https://algobangla.web.app/bn/graph/dijkstra/): একক উৎস সংক্ষিপ্ততম পথ
+- [ডায়নামিক প্রোগ্রামিং পরিচিতি](https://algobangla.web.app/bn/dynamic_programming/intro-to-dp/): ডিপি-র মৌলিক ধারণা ও কৌশল
+- [কেএমপি প্রিফিক্স ফাংশন](https://algobangla.web.app/bn/string/prefix-function/): প্যাটার্ন ম্যাচিং O(n)-এ
+- [ডিএসইউ (ডিসজয়েন্ট সেট ইউনিয়ন)](https://algobangla.web.app/bn/data_structures/disjoint_set_union/): ইউনিয়ন-ফাইন্ড ডেটা স্ট্রাকচার
+- [কনভেক্স হাল](https://algobangla.web.app/bn/geometry/convex-hull/): বিন্দু সেটের উত্তল আবরণ নির্ণয়
+- [ফেনউইক ট্রি (BIT)](https://algobangla.web.app/bn/data_structures/fenwick/): প্রিফিক্স যোগফল কুয়েরি ও পয়েন্ট আপডেট
+- [স্ট্রিং হ্যাশিং](https://algobangla.web.app/bn/string/string-hashing/): O(1) সাবস্ট্রিং তুলনার জন্য পলিনোমিয়াল হ্যাশ
+- [বেলম্যান-ফোর্ড অ্যালগরিদম](https://algobangla.web.app/bn/graph/bellman_ford/): ঋণাত্মক প্রান্ত সহ সংক্ষিপ্ততম পথ
+- [ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম](https://algobangla.web.app/bn/graph/all-pair-shortest-path-floyd-warshall/): সর্ব-জোড়া সংক্ষিপ্ততম পথ O(V³)
 
 ## Attribution
 
@@ -235,6 +235,6 @@
 
 ## Optional
 
-- [Sitemap Index](https://algobangla.com/sitemap.xml)
-- [English Sitemap](https://algobangla.com/en/sitemap.xml)
-- [Bengali Sitemap](https://algobangla.com/bn/sitemap.xml)
+- [Sitemap Index](https://algobangla.web.app/sitemap.xml)
+- [English Sitemap](https://algobangla.web.app/en/sitemap.xml)
+- [Bengali Sitemap](https://algobangla.web.app/bn/sitemap.xml)

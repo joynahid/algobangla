@@ -117,7 +117,7 @@ MathJax = {
 
 <!-- Open Graph image -->
 {{- if not (isset .Params "ogimage") }}
-<meta property="og:image" content="https://algobangla.com/algobangla-social.png">
+<meta property="og:image" content="https://algobangla.web.app/algobangla-social.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 {{- end }}
@@ -126,10 +126,10 @@ MathJax = {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ if .IsHome }}AlgoBangla — CP Algorithms in Bangla{{ else }}{{ .Title }} | algobangla{{ end }}">
 <meta name="twitter:description" content="{{ if .Description }}{{ .Description | truncate 200 }}{{ else }}{{ .Title }} — competitive programming algorithm with full explanation and C++ implementation.{{ end }}">
-<meta name="twitter:image" content="https://algobangla.com/algobangla-social.png">
+<meta name="twitter:image" content="https://algobangla.web.app/algobangla-social.png">
 
 <!-- hreflang x-default -->
-<link rel="alternate" hreflang="x-default" href="https://algobangla.com/bn/">
+<link rel="alternate" hreflang="x-default" href="https://algobangla.web.app/bn/">
 
 <!-- JSON-LD Structured Data -->
 {{- if .IsHome }}
@@ -138,10 +138,10 @@ MathJax = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "AlgoBangla",
-  "url": "https://algobangla.com/",
+  "url": "https://algobangla.web.app/",
   "logo": {
     "@type": "ImageObject",
-    "url": "https://algobangla.com/favicon.svg",
+    "url": "https://algobangla.web.app/favicon.svg",
     "width": 512,
     "height": 512
   },
@@ -163,14 +163,14 @@ MathJax = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "AlgoBangla",
-  "url": "https://algobangla.com/",
+  "url": "https://algobangla.web.app/",
   "description": "Competitive programming algorithms in Bangla and English — algebra, data structures, graph theory, DP, geometry, string algorithms.",
   "inLanguage": ["en", "bn"],
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://algobangla.com/en/?search={search_term_string}"
+      "urlTemplate": "https://algobangla.web.app/en/?search={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -201,10 +201,10 @@ MathJax = {
   "publisher": {
     "@type": "Organization",
     "name": "AlgoBangla",
-    "url": "https://algobangla.com/",
+    "url": "https://algobangla.web.app/",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://algobangla.com/favicon.svg"
+      "url": "https://algobangla.web.app/favicon.svg"
     }
   },
   "isBasedOn": "https://cp-algorithms.com/",
@@ -227,13 +227,13 @@ MathJax = {
       "@type": "ListItem",
       "position": 1,
       "name": "AlgoBangla",
-      "item": {{ printf "https://algobangla.com/%s/" .Language.Lang | jsonify }}
+      "item": {{ printf "https://algobangla.web.app/%s/" .Language.Lang | jsonify }}
     }{{ if not .IsSection }},
     {
       "@type": "ListItem",
       "position": 2,
       "name": {{ .Section | title | jsonify }},
-      "item": {{ printf "https://algobangla.com/%s/%s/" .Language.Lang .Section | jsonify }}
+      "item": {{ printf "https://algobangla.web.app/%s/%s/" .Language.Lang .Section | jsonify }}
     },
     {
       "@type": "ListItem",

@@ -34,4 +34,4 @@ Allow: /
 User-agent: FacebookBot
 Allow: /
 
-Sitemap: https://algobangla.com/sitemap.xml
+Sitemap: https://algobangla.web.app/sitemap.xml

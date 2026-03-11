@@ -1,4 +1,4 @@
-baseURL = "https://cp-algorithms.com/"
+baseURL = "https://algobangla.web.app/"
 title = "algobangla"
 theme = "hugo-book"
 enableGitInfo = true

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,35 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Hungarian algorithm for solving the assignment problem#Statement of the assignment problem#There are several standard formulations of the assignment problem (all of which are essentially equivalent). Here are some of them:
-There are $n$ jobs and $n$ workers. Each worker specifies the amount of money they expect for a particular job. Each worker can be assigned to only one job. The objective is to assign jobs to workers in a way that minimizes the total cost.
+<meta name="description" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম#অ্যাসাইনমেন্ট সমস্যার বিবৃতি#অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
+$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
+একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/graph/hungarian-algorithm/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/graph/hungarian-algorithm/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Hungarian algorithm for solving the assignment problem">
-  <meta property="og:description" content="Hungarian algorithm for solving the assignment problem#Statement of the assignment problem#There are several standard formulations of the assignment problem (all of which are essentially equivalent). Here are some of them:
-There are $n$ jobs and $n$ workers. Each worker specifies the amount of money they expect for a particular job. Each worker can be assigned to only one job. The objective is to assign jobs to workers in a way that minimizes the total cost.">
+  <meta property="og:title" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম">
+  <meta property="og:description" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম#অ্যাসাইনমেন্ট সমস্যার বিবৃতি#অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
+$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
+একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="graph">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Hungarian algorithm for solving the assignment problem">
-  <meta itemprop="description" content="Hungarian algorithm for solving the assignment problem#Statement of the assignment problem#There are several standard formulations of the assignment problem (all of which are essentially equivalent). Here are some of them:
-There are $n$ jobs and $n$ workers. Each worker specifies the amount of money they expect for a particular job. Each worker can be assigned to only one job. The objective is to assign jobs to workers in a way that minimizes the total cost.">
-  <meta itemprop="wordCount" content="4403">
+  <meta itemprop="name" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম">
+  <meta itemprop="description" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম#অ্যাসাইনমেন্ট সমস্যার বিবৃতি#অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
+$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
+একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="3533">
 
-<title>Hungarian algorithm for solving the assignment problem | CP-Algorithms</title>
+<title>অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/graph/hungarian-algorithm/">
+<link rel="canonical" href="http://localhost:1313/graph/hungarian-algorithm/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -123,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -208,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -222,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -236,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -278,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -292,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -306,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -334,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -348,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -376,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -390,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -404,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -431,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -445,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -460,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -474,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -502,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -516,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -530,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -581,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -595,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -609,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -623,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -637,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -651,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -665,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -679,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -693,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -743,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -758,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -814,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -828,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -879,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -907,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -934,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -948,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -963,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -991,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1005,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1019,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1033,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1070,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1084,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1098,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1112,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1148,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1176,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1191,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1205,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1219,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1233,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1247,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1298,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1312,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1326,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1340,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1354,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1390,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1461,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1474,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1488,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1502,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1516,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1531,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1545,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1573,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1586,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1615,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1629,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1657,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1670,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1685,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1699,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1713,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1727,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1741,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1777,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1861,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1890,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1904,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1917,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1931,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1945,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1959,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1974,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1987,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2001,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2015,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2044,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2057,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2071,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2099,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="active">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2156,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2169,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2183,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2198,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2211,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2225,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2240,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2253,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2267,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2282,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2295,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2310,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2324,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2338,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2352,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2366,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2380,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2394,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2431,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2445,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2473,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2510,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2524,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2538,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2552,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2566,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2603,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2617,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2654,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2668,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2682,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2728,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Hungarian algorithm for solving the assignment problem</h3>
+  <h3>অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</h3>
 
   <label for="toc-control">
     
@@ -2744,19 +2749,19 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#statement-of-the-assignment-problem">Statement of the assignment problem</a></li>
-    <li><a href="#hungarian-algorithm">Hungarian algorithm</a>
+    <li><a href="#অযসইনমনট-সমসযর-ববত">অ্যাসাইনমেন্ট সমস্যার বিবৃতি</a></li>
+    <li><a href="#হঙগরযন-অযলগরদম">হাঙ্গেরিয়ান অ্যালগরিদম</a>
       <ul>
-        <li><a href="#historical-reference">Historical reference</a></li>
-        <li><a href="#the--algorithm">The  algorithm</a></li>
-        <li><a href="#the--algorithm-1">The  algorithm</a></li>
+        <li><a href="#ঐতহসক-তথয">ঐতিহাসিক তথ্য</a></li>
+        <li><a href="#অযলগরদম"> অ্যালগরিদম</a></li>
+        <li><a href="#অযলগরদম-1"> অ্যালগরিদম</a></li>
       </ul>
     </li>
-    <li><a href="#implementation-of-the-hungarian-algorithm">Implementation of the Hungarian algorithm</a></li>
-    <li><a href="#connection-to-the-successive-shortest-path-algorithm">Connection to the Successive Shortest Path Algorithm</a></li>
-    <li><a href="#task-examples">Task examples</a></li>
-    <li><a href="#literature">Literature</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#হঙগরযন-অযলগরদমর-ইমপলমনটশন">হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#সকসসভ-শরটসট-পথ-অযলগরদমর-সথ-সমপরক">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক</a></li>
+    <li><a href="#কজর-উদহরণ">কাজের উদাহরণ</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2769,178 +2774,170 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="hungarian-algorithm-for-solving-the-assignment-problem">Hungarian algorithm for solving the assignment problem<a class="anchor" href="#hungarian-algorithm-for-solving-the-assignment-problem">#</a></h1>
-<h2 id="statement-of-the-assignment-problem">Statement of the assignment problem<a class="anchor" href="#statement-of-the-assignment-problem">#</a></h2>
-<p>There are several standard formulations of the assignment problem (all of which are essentially equivalent). Here are some of them:</p>
+  <article class="markdown book-article"><h1 id="অযসইনমনট-সমসয-সমধনর-জনয-হঙগরযন-অযলগরদম">অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b8%e0%a6%87%e0%a6%a8%e0%a6%ae%e0%a6%a8%e0%a6%9f-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8%e0%a6%b0-%e0%a6%9c%e0%a6%a8%e0%a6%af-%e0%a6%b9%e0%a6%99%e0%a6%97%e0%a6%b0%e0%a6%af%e0%a6%a8-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h1>
+<h2 id="অযসইনমনট-সমসযর-ববত">অ্যাসাইনমেন্ট সমস্যার বিবৃতি<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b8%e0%a6%87%e0%a6%a8%e0%a6%ae%e0%a6%a8%e0%a6%9f-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af%e0%a6%b0-%e0%a6%ac%e0%a6%ac%e0%a6%a4">#</a></h2>
+<p>অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:</p>
 <ul>
 <li>
-<p>There are $n$ jobs and $n$ workers. Each worker specifies the amount of money they expect for a particular job. Each worker can be assigned to only one job. The objective is to assign jobs to workers in a way that minimizes the total cost.</p>
+<p>$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।</p>
 </li>
 <li>
-<p>Given an $n \times n$ matrix $A$, the task is to select one number from each row such that exactly one number is chosen from each column, and the sum of the selected numbers is minimized.</p>
+<p>একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।</p>
 </li>
 <li>
-<p>Given an $n \times n$ matrix $A$, the task is to find a permutation $p$ of length $n$ such that the value $\sum A[i]\left[p[i]\right]$ is minimized.</p>
+<p>একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, $n$ দৈর্ঘ্যের একটি পারমুটেশন $p$ খুঁজে বের করতে হবে যাতে $\sum A[i]\left[p[i]\right]$ মান সর্বনিম্ন হয়।</p>
 </li>
 <li>
-<p>Consider a complete bipartite graph with $n$ vertices per part, where each edge is assigned a weight. The objective is to find a perfect matching with the minimum total weight.</p>
+<p>প্রতি পার্টে $n$ টি ভার্টেক্স বিশিষ্ট একটি কমপ্লিট বাইপার্টাইট গ্রাফ বিবেচনা করুন, যেখানে প্রতিটি এজে একটি ওয়েট নির্ধারিত। লক্ষ্য হলো সর্বনিম্ন মোট ওয়েটের একটি পারফেক্ট ম্যাচিং খুঁজে বের করা।</p>
 </li>
 </ul>
-<p>It is important to note that all the above scenarios are &ldquo;<strong>square</strong>&rdquo; problems, meaning both dimensions are always equal to $n$. In practice, similar &ldquo;<strong>rectangular</strong>&rdquo; formulations are often encountered, where $n$ is not equal to $m$, and the task is to select $\min(n,m)$ elements. However, it can be observed that a &ldquo;rectangular&rdquo; problem can always be transformed into a &ldquo;square&rdquo; problem by adding rows or columns with zero or infinite values, respectively.</p>
-<p>We also note that by analogy with the search for a <strong>minimum</strong> solution, one can also pose the problem of finding a <strong>maximum</strong> solution. However, these two problems are equivalent to each other: it is enough to multiply all the weights by $-1$.</p>
-<h2 id="hungarian-algorithm">Hungarian algorithm<a class="anchor" href="#hungarian-algorithm">#</a></h2>
-<h3 id="historical-reference">Historical reference<a class="anchor" href="#historical-reference">#</a></h3>
-<p>The algorithm was developed and published by Harold <strong>Kuhn</strong> in 1955. Kuhn himself gave it the name &ldquo;Hungarian&rdquo; because it was based on the earlier work by Hungarian mathematicians Dénes Kőnig and Jenő Egerváry.<br>
-In 1957, James <strong>Munkres</strong> showed that this algorithm runs in (strictly) polynomial time, independently from the cost.<br>
-Therefore, in literature, this algorithm is known not only as the &ldquo;Hungarian&rdquo;, but also as the &ldquo;Kuhn-Mankres algorithm&rdquo; or &ldquo;Mankres algorithm&rdquo;.<br>
-However, it was recently discovered in 2006 that the same algorithm was invented <strong>a century before Kuhn</strong> by the German mathematician Carl Gustav <strong>Jacobi</strong>. His work, <em>About the research of the order of a system of arbitrary ordinary differential equations</em>, which was published posthumously in 1890, contained, among other findings, a polynomial algorithm for solving the assignment problem. Unfortunately, since the publication was in Latin, it went unnoticed among mathematicians.</p>
-<p>It is also worth noting that Kuhn&rsquo;s original algorithm had an asymptotic complexity of $\mathcal{O}(n^4)$, and only later Jack <strong>Edmonds</strong> and Richard <strong>Karp</strong> (and independently <strong>Tomizawa</strong>) showed how to improve it to an asymptotic complexity of $\mathcal{O}(n^3)$.</p>
-<h3 id="the--algorithm">The $\mathcal{O}(n^4)$ algorithm<a class="anchor" href="#the--algorithm">#</a></h3>
-<p>To avoid ambiguity, we note right away that we are mainly concerned with the assignment problem in a matrix formulation (i.e., given a matrix $A$, you need to select $n$ cells from it that are in different rows and columns). We index arrays starting with $1$, i.e., for example, a matrix $A$ has indices $A[1 \dots n][1 \dots n]$.</p>
-<p>We will also assume that all numbers in matrix A are <strong>non-negative</strong> (if this is not the case, you can always make the matrix non-negative by adding some constant to all numbers).</p>
-<p>Let&rsquo;s call a <strong>potential</strong> two arbitrary arrays of numbers $u[1 \ldots n]$ and $v[1 \ldots n]$, such that the following condition is satisfied:</p>
-$$u[i]+v[j]\leq A[i][j],\quad i=1\dots n,\ j=1\dots n$$<p>(As you can see, $u[i]$ corresponds to the $i$-th row, and $v[j]$ corresponds to the $j$-th column of the matrix).</p>
-<p>Let&rsquo;s call <strong>the value $f$ of the potential</strong> the sum of its elements:</p>
-$$f=\sum_{i=1}^{n} u[i] + \sum_{j=1}^{n} v[j].$$<p>On one hand, it is easy to see that the cost of the desired solution $sol$ <strong>is not less than</strong> the value of any potential.</p>
+<p>এটি লক্ষ্য করা গুরুত্বপূর্ণ যে উপরের সমস্ত পরিস্থিতি &ldquo;<strong>বর্গাকার</strong>&rdquo; সমস্যা, অর্থাৎ উভয় মাত্রা সর্বদা $n$ এর সমান। বাস্তবে, প্রায়ই &ldquo;<strong>আয়তাকার</strong>&rdquo; রূপ দেখা যায় যেখানে $n$ $m$ এর সমান নয়, এবং কাজটি হলো $\min(n,m)$ টি উপাদান নির্বাচন করা। তবে, এটি লক্ষ্য করা যায় যে একটি &ldquo;আয়তাকার&rdquo; সমস্যা সবসময় শূন্য বা অসীম মানের সারি বা কলাম যোগ করে &ldquo;বর্গাকার&rdquo; সমস্যায় রূপান্তরিত করা যায়।</p>
+<p>আমরা এটিও লক্ষ্য করি যে <strong>সর্বনিম্ন</strong> সমাধান খোঁজার অনুরূপ, <strong>সর্বাধিক</strong> সমাধান খোঁজার সমস্যাও করা যায়। তবে, এই দুটি সমস্যা একে অপরের সমতুল্য: সমস্ত ওয়েটকে $-1$ দিয়ে গুণ করাই যথেষ্ট।</p>
+<h2 id="হঙগরযন-অযলগরদম">হাঙ্গেরিয়ান অ্যালগরিদম<a class="anchor" href="#%e0%a6%b9%e0%a6%99%e0%a6%97%e0%a6%b0%e0%a6%af%e0%a6%a8-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<h3 id="ঐতহসক-তথয">ঐতিহাসিক তথ্য<a class="anchor" href="#%e0%a6%90%e0%a6%a4%e0%a6%b9%e0%a6%b8%e0%a6%95-%e0%a6%a4%e0%a6%a5%e0%a6%af">#</a></h3>
+<p>এই অ্যালগরিদমটি হ্যারল্ড <strong>কুন</strong> ১৯৫৫ সালে তৈরি ও প্রকাশ করেন। কুন নিজেই এর নাম দেন &ldquo;হাঙ্গেরিয়ান&rdquo; কারণ এটি হাঙ্গেরিয়ান গণিতবিদ ডেনেশ ক্যোনিগ ও ইয়েনো এগেরভারির পূর্ববর্তী কাজের উপর ভিত্তি করে তৈরি।<br>
+১৯৫৭ সালে, জেমস <strong>মুঙ্করেশ</strong> দেখান যে এই অ্যালগরিদম (কঠোরভাবে) পলিনোমিয়াল সময়ে চলে, খরচ নির্বিশেষে।<br>
+তাই সাহিত্যে, এই অ্যালগরিদম শুধু &ldquo;হাঙ্গেরিয়ান&rdquo; নয়, বরং &ldquo;কুন-মুঙ্করেশ অ্যালগরিদম&rdquo; বা &ldquo;মুঙ্করেশ অ্যালগরিদম&rdquo; নামেও পরিচিত।<br>
+তবে, সম্প্রতি ২০০৬ সালে আবিষ্কৃত হয়েছে যে কুনের <strong>এক শতাব্দী আগে</strong> জার্মান গণিতবিদ কার্ল গুস্তাভ <strong>ইয়াকোবি</strong> একই অ্যালগরিদম আবিষ্কার করেছিলেন। তাঁর কাজ, <em>সাধারণ সাধারণ ডিফারেনশিয়াল সমীকরণের একটি সিস্টেমের ক্রম গবেষণা সম্পর্কে</em>, যেটি ১৮৯০ সালে মরণোত্তর প্রকাশিত হয়েছিল, অন্যান্য ফলাফলের মধ্যে, অ্যাসাইনমেন্ট সমস্যা সমাধানের একটি পলিনোমিয়াল অ্যালগরিদম ধারণ করেছিল। দুর্ভাগ্যবশত, প্রকাশনাটি ল্যাটিনে হওয়ায় এটি গণিতবিদদের দৃষ্টি এড়িয়ে যায়।</p>
+<p>এটিও উল্লেখযোগ্য যে কুনের মূল অ্যালগরিদমের অ্যাসিম্পটোটিক কমপ্লেক্সিটি ছিল $\mathcal{O}(n^4)$, এবং পরে জ্যাক <strong>এডমন্ডস</strong> ও রিচার্ড <strong>কার্প</strong> (এবং স্বাধীনভাবে <strong>তোমিজাওয়া</strong>) দেখান কীভাবে এটিকে $\mathcal{O}(n^3)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটিতে উন্নত করা যায়।</p>
+<h3 id="অযলগরদম">$\mathcal{O}(n^4)$ অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>অস্পষ্টতা এড়াতে, আমরা এখনই উল্লেখ করি যে আমরা মূলত ম্যাট্রিক্স রূপে অ্যাসাইনমেন্ট সমস্যা নিয়ে কাজ করছি (অর্থাৎ একটি ম্যাট্রিক্স $A$ দেওয়া আছে, এটি থেকে $n$ টি সেল নির্বাচন করতে হবে যেগুলো ভিন্ন সারি এবং কলামে)। আমরা ১ থেকে শুরু করে অ্যারে ইনডেক্স করি, অর্থাৎ উদাহরণস্বরূপ একটি ম্যাট্রিক্স $A$ এর ইনডেক্স $A[1 \dots n][1 \dots n]$।</p>
+<p>আমরা এটিও ধরে নিই যে ম্যাট্রিক্স A-র সমস্ত সংখ্যা <strong>অ-ঋণাত্মক</strong> (যদি এটি না হয়, সমস্ত সংখ্যায় কোনো ধ্রুবক যোগ করে ম্যাট্রিক্সকে সর্বদা অ-ঋণাত্মক করা যায়)।</p>
+<p>আসুন সংখ্যার দুটি ইচ্ছামতো অ্যারে $u[1 \ldots n]$ এবং $v[1 \ldots n]$ কে একটি <strong>পটেনশিয়াল</strong> বলি, যাতে নিম্নলিখিত শর্ত পূরণ হয়:</p>
+$$u[i]+v[j]\leq A[i][j],\quad i=1\dots n,\ j=1\dots n$$<p>(যেমনটি দেখা যাচ্ছে, $u[i]$ $i$-তম সারির সাথে সম্পর্কিত, এবং $v[j]$ ম্যাট্রিক্সের $j$-তম কলামের সাথে সম্পর্কিত)।</p>
+<p>আসুন পটেনশিয়ালের <strong>মান $f$</strong> কে এর উপাদানগুলোর যোগফল বলি:</p>
+$$f=\sum_{i=1}^{n} u[i] + \sum_{j=1}^{n} v[j].$$<p>একদিকে, এটি দেখা সহজ যে কাঙ্ক্ষিত সমাধান $sol$ এর খরচ যেকোনো পটেনশিয়ালের মানের <strong>চেয়ে কম নয়</strong>।</p>
 <p>
 <div class="book-hint info">
   <p><strong>Info</strong></p>
-<p><strong>Lemma.</strong> $sol\geq f.$</p>
+<p><strong>লেমা।</strong> $sol\geq f.$</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>The desired solution of the problem consists of $n$ cells of the matrix $A$, so $u[i]+v[j]\leq A[i][j]$ for each of them. Since all the elements in $sol$ are in different rows and columns, summing these inequalities over all the selected $A[i][j]$, you get $f$ on the left side of the inequality, and $sol$ on the right side.</div>
+  <summary>প্রমাণ</summary>
+  <div>সমস্যার কাঙ্ক্ষিত সমাধান ম্যাট্রিক্স $A$ এর $n$ টি সেল নিয়ে গঠিত, তাই প্রতিটির জন্য $u[i]+v[j]\leq A[i][j]$। যেহেতু $sol$ এর সমস্ত উপাদান ভিন্ন সারি এবং কলামে, সমস্ত নির্বাচিত $A[i][j]$ এর উপর এই অসমতাগুলো যোগ করলে, অসমতার বাম পাশে $f$ এবং ডান পাশে $sol$ পাওয়া যায়।</div>
 </details>
 
-On the other hand, it turns out that there is always a solution and a potential that turns this inequality into <strong>equality</strong>. The Hungarian algorithm described below will be a constructive proof of this fact. For now, let&rsquo;s just pay attention to the fact that if any solution has a cost equal to any potential, then this solution is <strong>optimal</strong>.</p>
-<p>Let&rsquo;s fix some potential. Let&rsquo;s call an edge $(i,j)$ <strong>rigid</strong> if $u[i]+v[j]=A[i][j].$</p>
-<p>Recall an alternative formulation of the assignment problem, using a bipartite graph. Denote with $H$ a bipartite graph composed only of rigid edges. The Hungarian algorithm will maintain, for the current potential, <strong>the maximum-number-of-edges matching</strong> $M$ of the graph $H$. As soon as $M$ contains $n$ edges, then the solution to the problem will be just $M$ (after all, it will be a solution whose cost coincides with the value of a potential).</p>
-<p>Let&rsquo;s proceed directly to <strong>the description of the algorithm</strong>.</p>
-<p><strong>Step 1.</strong> At the beginning, the potential is assumed to be zero ($u[i]=v[i]=0$ for all $i$), and the matching $M$ is assumed to be empty.</p>
-<p><strong>Step 2.</strong> Further, at each step of the algorithm, we try, without changing the potential, to increase the cardinality of the current matching $M$ by one (recall that the matching is searched in the graph of rigid edges $H$). To do this, the usual <a href="kuhn_maximum_bipartite_matching.md">Kuhn Algorithm for finding the maximum matching in bipartite graphs</a> is used. Let us recall the algorithm here.
-All edges of the matching $M$ are oriented in the direction from the right part to the left one, and all other edges of the graph $H$ are oriented in the opposite direction.</p>
-<p>Recall (from the terminology of searching for matchings) that a vertex is called saturated if an edge of the current matching is adjacent to it. A vertex that is not adjacent to any edge of the current matching is called unsaturated. A path of odd length, in which the first edge does not belong to the matching, and for all subsequent edges there is an alternating belonging to the matching (belongs/does not belong) - is called an augmenting path.
-From all unsaturated vertices in the left part, a <a href="depth-first-search.md">depth-first</a> or <a href="breadth-first-search.md">breadth-first</a> traversal is started. If, as a result of the search, it was possible to reach an unsaturated vertex of the right part, we have found an augmenting path from the left part to the right one. If we include odd edges of the path and remove the even ones in the matching (i.e. include the first edge in the matching, exclude the second, include the third, etc.), then we will increase the matching cardinality by one.</p>
-<p>If there was no augmenting path, then the current matching $M$ is maximal in the graph $H$.</p>
-<p><strong>Step 3.</strong> If at the current step, it is not possible to increase the cardinality of the current matching, then a recalculation of the potential is performed in such a way that, at the next steps, there will be more opportunities to increase the matching.</p>
-<p>Denote by $Z_1$ the set of vertices of the left part that were visited during the last traversal of Kuhn&rsquo;s algorithm, and through $Z_2$ the set of visited vertices of the right part.</p>
-<p>Let&rsquo;s calculate the value $\Delta$:</p>
+অন্যদিকে, দেখা যায় যে সর্বদা একটি সমাধান এবং একটি পটেনশিয়াল পাওয়া যায় যেটি এই অসমতাকে <strong>সমতায়</strong> পরিণত করে। নিচে বর্ণিত হাঙ্গেরিয়ান অ্যালগরিদম এই তথ্যের একটি গঠনমূলক প্রমাণ হবে। আপাতত, শুধু লক্ষ্য করি যে যদি কোনো সমাধানের খরচ কোনো পটেনশিয়ালের সমান হয়, তাহলে সেই সমাধান <strong>অপটিমাল</strong>।</p>
+<p>আসুন কোনো পটেনশিয়াল ঠিক করি। একটি এজ $(i,j)$ কে <strong>রিজিড</strong> বলি যদি $u[i]+v[j]=A[i][j].$</p>
+<p>বাইপার্টাইট গ্রাফে অ্যাসাইনমেন্ট সমস্যার বিকল্প রূপ স্মরণ করি। $H$ দিয়ে শুধুমাত্র রিজিড এজ দিয়ে গঠিত বাইপার্টাইট গ্রাফ বোঝাই। হাঙ্গেরিয়ান অ্যালগরিদম বর্তমান পটেনশিয়ালের জন্য গ্রাফ $H$ এর <strong>সর্বাধিক-এজ-সংখ্যার ম্যাচিং</strong> $M$ বজায় রাখবে। $M$ এ $n$ টি এজ থাকলেই সমস্যার সমাধান হলো $M$ (যেহেতু এটি এমন একটি সমাধান হবে যার খরচ পটেনশিয়ালের মানের সাথে মিলে যায়)।</p>
+<p>এখন সরাসরি <strong>অ্যালগরিদমের বর্ণনায়</strong> আসা যাক।</p>
+<p><strong>ধাপ ১।</strong> শুরুতে পটেনশিয়াল শূন্য ধরা হয় (সমস্ত $i$ এর জন্য $u[i]=v[i]=0$), এবং ম্যাচিং $M$ খালি ধরা হয়।</p>
+<p><strong>ধাপ ২।</strong> এরপর, অ্যালগরিদমের প্রতিটি ধাপে, আমরা পটেনশিয়াল পরিবর্তন না করে বর্তমান ম্যাচিং $M$ এর কার্ডিনালিটি এক বাড়ানোর চেষ্টা করি (স্মরণ করুন যে ম্যাচিং রিজিড এজের গ্রাফ $H$ এ খোঁজা হয়)। এর জন্য, <a href="kuhn_maximum_bipartite_matching.md">বাইপার্টাইট গ্রাফে ম্যাক্সিমাম ম্যাচিং খোঁজার কুন অ্যালগরিদম</a> ব্যবহৃত হয়। আসুন অ্যালগরিদমটি এখানে স্মরণ করি।
+ম্যাচিং $M$ এর সমস্ত এজ ডান অংশ থেকে বাম অংশে নির্দেশিত, এবং গ্রাফ $H$ এর অন্যান্য সমস্ত এজ বিপরীত দিকে নির্দেশিত।</p>
+<p>স্মরণ করি (ম্যাচিং খোঁজার পরিভাষা থেকে) যে একটি ভার্টেক্সকে স্যাচুরেটেড বলা হয় যদি বর্তমান ম্যাচিং-এর একটি এজ এর সাথে সংশ্লিষ্ট হয়। বর্তমান ম্যাচিং-এর কোনো এজের সাথে সংশ্লিষ্ট নয় এমন ভার্টেক্সকে আনস্যাচুরেটেড বলা হয়। বিজোড় দৈর্ঘ্যের একটি পাথ, যার প্রথম এজ ম্যাচিং-এ নেই, এবং পরবর্তী সমস্ত এজের জন্য ম্যাচিং-এ থাকা/না-থাকা পর্যায়ক্রমে হয় - একে অগমেন্টিং পাথ বলা হয়।
+বাম অংশের সমস্ত আনস্যাচুরেটেড ভার্টেক্স থেকে একটি <a href="depth-first-search.md">ডেপথ-ফার্স্ট</a> বা <a href="breadth-first-search.md">ব্রেডথ-ফার্স্ট</a> ট্রাভার্সাল শুরু করা হয়। সার্চের ফলে যদি ডান অংশের একটি আনস্যাচুরেটেড ভার্টেক্সে পৌঁছানো যায়, আমরা বাম অংশ থেকে ডান অংশে একটি অগমেন্টিং পাথ পেয়েছি। যদি আমরা পাথের বিজোড় এজগুলো ম্যাচিং-এ অন্তর্ভুক্ত করি এবং জোড় এজগুলো বাদ দিই (অর্থাৎ প্রথম এজ ম্যাচিং-এ অন্তর্ভুক্ত, দ্বিতীয় বাদ, তৃতীয় অন্তর্ভুক্ত ইত্যাদি), তাহলে আমরা ম্যাচিং কার্ডিনালিটি এক বাড়াব।</p>
+<p>যদি কোনো অগমেন্টিং পাথ না পাওয়া যায়, তাহলে বর্তমান ম্যাচিং $M$ গ্রাফ $H$ এ ম্যাক্সিমাল।</p>
+<p><strong>ধাপ ৩।</strong> যদি বর্তমান ধাপে বর্তমান ম্যাচিং-এর কার্ডিনালিটি বাড়ানো সম্ভব না হয়, তাহলে পটেনশিয়াল এমনভাবে পুনরায় গণনা করা হয় যাতে পরবর্তী ধাপে ম্যাচিং বাড়ানোর আরও সুযোগ তৈরি হয়।</p>
+<p>$Z_1$ দিয়ে কুন অ্যালগরিদমের শেষ ট্রাভার্সালে পরিদর্শিত বাম অংশের ভার্টেক্সের সেট এবং $Z_2$ দিয়ে পরিদর্শিত ডান অংশের ভার্টেক্সের সেট বোঝাই।</p>
+<p>$\Delta$ মানটি গণনা করি:</p>
 $$\Delta = \min_{i\in Z_1,\ j\notin Z_2} A[i][j]-u[i]-v[j].$$<p>
 <div class="book-hint info">
   <p><strong>Info</strong></p>
-<p><strong>Lemma.</strong> $\Delta > 0.$</p>
+<p><strong>লেমা।</strong> $\Delta > 0.$</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>Suppose $\Delta=0$. Then there exists a rigid edge $(i,j)$ with $i\in Z_1$ and $j\notin Z_2$. It follows that the edge $(i,j)$ must be oriented from the right part to the left one, i.e. $(i,j)$ must be included in the matching $M$. However, this is impossible, because we could not get to the saturated vertex $i$ except by going along the edge from j to i. So $\Delta > 0$.</div>
+  <summary>প্রমাণ</summary>
+  <div>ধরি $\Delta=0$। তাহলে $i\in Z_1$ এবং $j\notin Z_2$ সহ একটি রিজিড এজ $(i,j)$ আছে। এর ফলে এজ $(i,j)$ ডান অংশ থেকে বাম অংশে নির্দেশিত হতে হবে, অর্থাৎ $(i,j)$ ম্যাচিং $M$ এ অন্তর্ভুক্ত হতে হবে। তবে, এটি অসম্ভব, কারণ আমরা $j$ থেকে $i$ তে যাওয়া এজ ছাড়া স্যাচুরেটেড ভার্টেক্স $i$ তে পৌঁছাতে পারতাম না। তাই $\Delta > 0$।</div>
 </details>
 
-Now let&rsquo;s <strong>recalculate the potential</strong> in this way:</p>
+এখন এভাবে <strong>পটেনশিয়াল পুনরায় গণনা</strong> করি:</p>
 <ul>
 <li>
-<p>for all vertices $i\in Z_1$, do $u[i] \gets u[i]+\Delta$,</p>
+<p>সমস্ত ভার্টেক্স $i\in Z_1$ এর জন্য, $u[i] \gets u[i]+\Delta$ করি,</p>
 </li>
 <li>
-<p>for all vertices $j\in Z_2$, do $v[j] \gets v[j]-\Delta$.</p>
+<p>সমস্ত ভার্টেক্স $j\in Z_2$ এর জন্য, $v[j] \gets v[j]-\Delta$ করি।</p>
 </li>
 </ul>
 <p>
 <div class="book-hint info">
   <p><strong>Info</strong></p>
-<p><strong>Lemma.</strong> The resulting potential is still a correct potential.</p>
+<p><strong>লেমা।</strong> ফলস্বরূপ পটেনশিয়াল এখনো একটি সঠিক পটেনশিয়াল।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>We will show that, after recalculation, $u[i]+v[j]\leq A[i][j]$ for all $i,j$. For all the elements of $A$ with $i\in Z_1$ and $j\in Z_2$, the sum $u[i]+v[j]$ does not change, so the inequality remains true. For all the elements with $i\notin Z_1$ and $j\in Z_2$, the sum $u[i]+v[j]$ decreases by $\Delta$, so the inequality is still true. For the other elements whose $i\in Z_1$ and $j\notin Z_2$, the sum increases, but the inequality is still preserved, since the value $\Delta$ is, by definition, the maximum increase that does not change the inequality.</div>
+  <summary>প্রমাণ</summary>
+  <div>আমরা দেখাব যে, পুনরায় গণনার পর, সমস্ত $i,j$ এর জন্য $u[i]+v[j]\leq A[i][j]$। $i\in Z_1$ এবং $j\in Z_2$ সহ $A$ এর সমস্ত উপাদানের জন্য, $u[i]+v[j]$ যোগফল পরিবর্তন হয় না, তাই অসমতা সত্য থাকে। $i\notin Z_1$ এবং $j\in Z_2$ সহ সমস্ত উপাদানের জন্য, $u[i]+v[j]$ যোগফল $\Delta$ কমে, তাই অসমতা এখনো সত্য। অন্যান্য উপাদানগুলোর জন্য যাদের $i\in Z_1$ এবং $j\notin Z_2$, যোগফল বাড়ে, কিন্তু অসমতা এখনো সংরক্ষিত, কারণ $\Delta$ মানটি, সংজ্ঞা অনুসারে, সেই সর্বাধিক বৃদ্ধি যা অসমতা পরিবর্তন করে না।</div>
 </details>
 
 
 <div class="book-hint info">
   <p><strong>Info</strong></p>
-<p><strong>Lemma.</strong> The old matching $M$ of rigid edges is valid, i.e. all edges of the matching will remain rigid.</p>
+<p><strong>লেমা।</strong> পুরনো ম্যাচিং $M$ রিজিড এজের বৈধ, অর্থাৎ ম্যাচিং-এর সমস্ত এজ রিজিড থাকবে।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>For some rigid edge $(i,j)$ to stop being rigid as a result of a change in potential, it is necessary that equality $u[i] + v[j] = A[i][j]$ turns into inequality $u[i] + v[j] < A[i][j]$. However, this can happen only when $i \notin Z_1$ and $j \in Z_2$. But $i \notin Z_1$ implies that the edge $(i,j)$ could not be a matching edge.</div>
+  <summary>প্রমাণ</summary>
+  <div>কোনো রিজিড এজ $(i,j)$ পটেনশিয়াল পরিবর্তনের ফলে রিজিড না থাকতে হলে, সমতা $u[i] + v[j] = A[i][j]$ অসমতা $u[i] + v[j] < A[i][j]$ তে পরিণত হতে হবে। তবে, এটি শুধুমাত্র তখনই ঘটতে পারে যখন $i \notin Z_1$ এবং $j \in Z_2$। কিন্তু $i \notin Z_1$ বোঝায় যে এজ $(i,j)$ ম্যাচিং এজ হতে পারে না।</div>
 </details>
 
 
 <div class="book-hint info">
   <p><strong>Info</strong></p>
-<p><strong>Lemma.</strong> After each recalculation of the potential, the number of vertices reachable by the traversal, i.e. $|Z_1|+|Z_2|$, strictly increases.</p>
+<p><strong>লেমা।</strong> পটেনশিয়ালের প্রতিটি পুনরায় গণনার পর, ট্রাভার্সাল দ্বারা গম্য ভার্টেক্সের সংখ্যা, অর্থাৎ $|Z_1|+|Z_2|$, কঠোরভাবে বৃদ্ধি পায়।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>First, note that any vertex that was reachable before recalculation, is still reachable. Indeed, if some vertex is reachable, then there is some path from reachable vertices to it, starting from the unsaturated vertex of the left part; since for edges of the form $(i,j),\ i\in Z_1,\ j\in Z_2$ the sum $u[i]+v[j]$ does not change, this entire path will be preserved after changing the potential.
-Secondly, we show that after a recalculation, at least one new vertex will be reachable. This follows from the definition of $\Delta$: the edge $(i,j)$ which $\Delta$ refers to will become rigid, so vertex $j$ will be reachable from vertex $i$.</div>
+  <summary>প্রমাণ</summary>
+  <div>প্রথমত, লক্ষ্য করুন যে পুনরায় গণনার আগে যে কোনো ভার্টেক্স গম্য ছিল, সেটি এখনো গম্য। প্রকৃতপক্ষে, যদি কোনো ভার্টেক্স গম্য হয়, তাহলে বাম অংশের আনস্যাচুরেটেড ভার্টেক্স থেকে শুরু করে গম্য ভার্টেক্সের মধ্য দিয়ে কোনো পাথ আছে; যেহেতু $(i,j),\ i\in Z_1,\ j\in Z_2$ আকারের এজগুলোর জন্য $u[i]+v[j]$ যোগফল পরিবর্তন হয় না, পটেনশিয়াল পরিবর্তনের পরও এই সম্পূর্ণ পাথ সংরক্ষিত থাকবে।
+দ্বিতীয়ত, আমরা দেখাই যে পুনরায় গণনার পর, কমপক্ষে একটি নতুন ভার্টেক্স গম্য হবে। এটি $\Delta$ এর সংজ্ঞা থেকে অনুসরণ করে: যে এজ $(i,j)$ এর জন্য $\Delta$ নির্ধারিত সেটি রিজিড হয়ে যাবে, তাই ভার্টেক্স $j$ ভার্টেক্স $i$ থেকে গম্য হবে।</div>
 </details>
 
-Due to the last lemma, <strong>no more than $n$ potential recalculations can occur</strong> before an augmenting path is found and the matching cardinality of $M$ is increased.
-Thus, sooner or later, a potential that corresponds to a perfect matching $M^*$ will be found, and $M^*$ will be the answer to the problem.
-If we talk about the complexity of the algorithm, then it is $\mathcal{O}(n^4)$: in total there should be at most $n$ increases in matching, before each of which there are no more than $n$ potential recalculations, each of which is performed in time $\mathcal{O}(n^2)$.</p>
-<p>We will not give the implementation for the $\mathcal{O}(n^4)$ algorithm here, since it will turn out to be no shorter than the implementation for the $\mathcal{O}(n^3)$ one, described below.</p>
-<h3 id="the--algorithm-1">The $\mathcal{O}(n^3)$ algorithm<a class="anchor" href="#the--algorithm-1">#</a></h3>
-<p>Now let&rsquo;s learn how to implement the same algorithm in $\mathcal{O}(n^3)$ (for rectangular problems $n \times m$, $\mathcal{O}(n^2m)$).</p>
-<p>The key idea is to <strong>consider matrix rows one by one</strong>, and not all at once. Thus, the algorithm described above will take the following form:</p>
-<ol>
-<li>
-<p>Consider the next row of the matrix $A$.</p>
-</li>
-<li>
-<p>While there is no increasing path starting in this row, recalculate the potential.</p>
-</li>
-<li>
-<p>As soon as an augmenting path is found, propagate the matching along it (thus including the last edge in the matching), and restart from step 1 (to consider the next line).</p>
-</li>
-</ol>
-<p>To achieve the required complexity, it is necessary to implement steps 2-3, which are performed for each row of the matrix, in time $\mathcal{O}(n^2)$ (for rectangular problems in $\mathcal{O}(nm)$).</p>
-<p>To do this, recall two facts proved above:</p>
+শেষ লেমার কারণে, একটি অগমেন্টিং পাথ পাওয়া এবং ম্যাচিং $M$ এর কার্ডিনালিটি বাড়ানোর আগে <strong>সর্বাধিক $n$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে</strong>।
+এভাবে, একটি পারফেক্ট ম্যাচিং $M^*$ এর সাথে সম্পর্কিত একটি পটেনশিয়াল শীঘ্রই বা পরে পাওয়া যাবে, এবং $M^*$ হবে সমস্যার উত্তর।
+অ্যালগরিদমের কমপ্লেক্সিটি নিয়ে বললে, এটি $\mathcal{O}(n^4)$: মোটে সর্বাধিক $n$ বার ম্যাচিং বৃদ্ধি হওয়া উচিত, প্রতিটির আগে সর্বাধিক $n$ বার পটেনশিয়াল পুনরায় গণনা, যার প্রতিটি $\mathcal{O}(n^2)$ সময়ে সম্পাদিত হয়।</p>
+<p>আমরা এখানে $\mathcal{O}(n^4)$ অ্যালগরিদমের ইমপ্লিমেন্টেশন দেব না, কারণ এটি নিচে বর্ণিত $\mathcal{O}(n^3)$ এর ইমপ্লিমেন্টেশনের চেয়ে ছোট হবে না।</p>
+<h3 id="অযলগরদম-1">$\mathcal{O}(n^3)$ অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae-1">#</a></h3>
+<p>এখন শিখি কীভাবে একই অ্যালগরিদম $\mathcal{O}(n^3)$ এ ইমপ্লিমেন্ট করতে হয় (আয়তাকার সমস্যা $n \times m$ এর জন্য $\mathcal{O}(n^2m)$)।</p>
+<p>মূল ধারণা হলো <strong>ম্যাট্রিক্সের সারিগুলো একটি করে বিবেচনা করা</strong>, একবারে সব নয়। এভাবে, উপরে বর্ণিত অ্যালগরিদম নিম্নলিখিত রূপ নেবে:</p>
+<p>১.  ম্যাট্রিক্স $A$ এর পরবর্তী সারি বিবেচনা করুন।</p>
+<p>২.  যতক্ষণ এই সারি থেকে শুরু করে কোনো অগমেন্টিং পাথ না পাওয়া যায়, পটেনশিয়াল পুনরায় গণনা করুন।</p>
+<p>৩.  অগমেন্টিং পাথ পাওয়া মাত্র, এটি বরাবর ম্যাচিং প্রচার করুন (এভাবে শেষ এজটি ম্যাচিং-এ অন্তর্ভুক্ত করা), এবং ধাপ ১ থেকে পুনরায় শুরু করুন (পরবর্তী সারি বিবেচনা করতে)।</p>
+<p>প্রয়োজনীয় কমপ্লেক্সিটি অর্জন করতে, ধাপ ২-৩ ম্যাট্রিক্সের প্রতিটি সারির জন্য $\mathcal{O}(n^2)$ সময়ে (আয়তাকার সমস্যায় $\mathcal{O}(nm)$) ইমপ্লিমেন্ট করা প্রয়োজন।</p>
+<p>এটি করতে, উপরে প্রমাণিত দুটি তথ্য স্মরণ করি:</p>
 <ul>
 <li>
-<p>With a change in the potential, the vertices that were reachable by Kuhn&rsquo;s traversal will remain reachable.</p>
+<p>পটেনশিয়াল পরিবর্তনে, কুনের ট্রাভার্সাল দ্বারা গম্য ভার্টেক্সগুলো গম্যই থাকবে।</p>
 </li>
 <li>
-<p>In total, only $\mathcal{O}(n)$ recalculations of the potential could occur before an augmenting path was found.</p>
+<p>মোটে, অগমেন্টিং পাথ পাওয়ার আগে শুধুমাত্র $\mathcal{O}(n)$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে।</p>
 </li>
 </ul>
-<p>From this follow these <strong>key ideas</strong> that allow us to achieve the required complexity:</p>
+<p>এ থেকে এই <strong>মূল ধারণাগুলো</strong> অনুসরণ করে যা আমাদের প্রয়োজনীয় কমপ্লেক্সিটি অর্জন করতে দেয়:</p>
 <ul>
 <li>
-<p>To check for the presence of an augmenting path, there is no need to start the Kuhn traversal again after each potential recalculation. Instead, you can make the Kuhn traversal in an <strong>iterative form</strong>: after each recalculation of the potential, look at the added rigid edges and, if their left ends were reachable, mark their right ends reachable as well and continue the traversal from them.</p>
+<p>অগমেন্টিং পাথের উপস্থিতি পরীক্ষা করতে, প্রতিটি পটেনশিয়াল পুনরায় গণনার পর কুন ট্রাভার্সাল আবার শুরু করার প্রয়োজন নেই। পরিবর্তে, আপনি কুন ট্রাভার্সালকে একটি <strong>ইটারেটিভ রূপে</strong> করতে পারেন: প্রতিটি পটেনশিয়াল পুনরায় গণনার পর, যোগ হওয়া রিজিড এজগুলো দেখুন এবং, যদি তাদের বাম প্রান্ত গম্য ছিল, তাদের ডান প্রান্তগুলোও গম্য হিসেবে চিহ্নিত করুন এবং সেখান থেকে ট্রাভার্সাল চালিয়ে যান।</p>
 </li>
 <li>
-<p>Developing this idea further, we can present the algorithm as follows: at each step of the loop, the potential is recalculated. Subsequently, a column that has become reachable is identified (which will always exist as new reachable vertices emerge after every potential recalculation). If the column is unsaturated, an augmenting chain is discovered. Conversely, if the column is saturated, the matching row also becomes reachable.</p>
+<p>এই ধারণাটি আরও বিকশিত করে, আমরা অ্যালগরিদমকে এভাবে উপস্থাপন করতে পারি: লুপের প্রতিটি ধাপে পটেনশিয়াল পুনরায় গণনা করা হয়। পরবর্তীতে, একটি কলাম চিহ্নিত করা হয় যেটি গম্য হয়েছে (যেটি সর্বদা থাকবে কারণ প্রতিটি পটেনশিয়াল পুনরায় গণনার পর নতুন গম্য ভার্টেক্স আসে)। যদি কলামটি আনস্যাচুরেটেড হয়, একটি অগমেন্টিং চেইন আবিষ্কৃত হয়। বিপরীতভাবে, যদি কলামটি স্যাচুরেটেড হয়, ম্যাচিং সারিটিও গম্য হয়ে যায়।</p>
 </li>
 <li>
-<p>To quickly recalculate the potential (faster than the $\mathcal{O}(n^2)$ naive version), you need to maintain auxiliary minima for each of the columns:</p>
+<p>পটেনশিয়াল দ্রুত পুনরায় গণনা করতে ($\mathcal{O}(n^2)$ নেইভ সংস্করণের চেয়ে দ্রুত), প্রতিটি কলামের জন্য সহায়ক ন্যূনতম মান বজায় রাখতে হবে:</p>
 <p><br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br></p>
-<p>It&rsquo;s easy to see that the desired value $\Delta$ is expressed in terms of them as follows:</p>
+<p>এটি দেখা সহজ যে কাঙ্ক্ষিত মান $\Delta$ এগুলো দিয়ে নিম্নরূপ প্রকাশ করা যায়:</p>
 <p><br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br></p>
-<p>Thus, finding $\Delta$ can now be done in $\mathcal{O}(n)$.</p>
-<p>It is necessary to update the array $minv$ when new visited rows appear. This can be done in $\mathcal{O}(n)$ for the added row (which adds up over all rows to $\mathcal{O}(n^2)$). It is also necessary to update the array $minv$ when recalculating the potential, which is also done in time $\mathcal{O}(n)$ ($minv$ changes only for columns that have not yet been reached: namely, it decreases by $\Delta$).</p>
+<p>এভাবে, $\Delta$ খোঁজা এখন $\mathcal{O}(n)$ এ করা যায়।</p>
+<p>নতুন পরিদর্শিত সারি আসলে $minv$ অ্যারে আপডেট করতে হবে। এটি যোগ করা সারির জন্য $\mathcal{O}(n)$ এ করা যায় (যা সমস্ত সারি মিলে $\mathcal{O}(n^2)$ হয়)। পটেনশিয়াল পুনরায় গণনার সময়ও $minv$ অ্যারে আপডেট করতে হবে, যেটিও $\mathcal{O}(n)$ সময়ে করা হয় ($minv$ শুধুমাত্র সেই কলামগুলোর জন্য পরিবর্তিত হয় যেগুলো এখনো গম্য হয়নি: যথা, এটি $\Delta$ কমে)।</p>
 </li>
 </ul>
-<p>Thus, the algorithm takes the following form: in the outer loop, we consider matrix rows one by one. Each row is processed in time $\mathcal{O}(n^2)$, since only $\mathcal{O}(n)$ potential recalculations could occur (each in time $\mathcal{O}(n)$), and the array $minv$ is maintained in time $\mathcal{O}(n^2)$; Kuhn&rsquo;s algorithm will work in time $\mathcal{O}(n^2)$ (since it is presented in the form of $\mathcal{O}(n)$ iterations, each of which visits a new column).</p>
-<p>The resulting complexity is $\mathcal{O}(n^3)$ or, if the problem is rectangular, $\mathcal{O}(n^2m)$.</p>
-<h2 id="implementation-of-the-hungarian-algorithm">Implementation of the Hungarian algorithm<a class="anchor" href="#implementation-of-the-hungarian-algorithm">#</a></h2>
-<p>The implementation below was developed by <strong>Andrey Lopatin</strong> several years ago. It is distinguished by amazing conciseness: the entire algorithm consists of <strong>30 lines of code</strong>.</p>
-<p>The implementation finds a solution for the rectangular matrix $A[1\dots n][1\dots m]$, where $n\leq m$. The matrix is ​1-based for convenience and code brevity: this implementation introduces a dummy zero row and zero column, which allows us to write many cycles in a general form, without additional checks.</p>
-<p>Arrays $u[0 \ldots n]$ and $v[0 \ldots m]$ store potential. Initially, they are set to zero, which is consistent with a matrix of zero rows (Note that it is unimportant for this implementation whether or not the matrix $A$ contains negative numbers).</p>
-<p>The array $p[0 \ldots m]$ contains a matching: for each column $j = 1 \ldots m$, it stores the number $p[j]$ of the selected row (or $0$ if nothing has been selected yet). For the convenience of implementation, $p[0]$ is assumed to be equal to the number of the current row.</p>
-<p>The array $minv[1 \ldots m]$ contains, for each column $j$, the auxiliary minima necessary for a quick recalculation of the potential, as described above.</p>
-<p>The array $way[1 \ldots m]$ contains information about where these minimums are reached so that we can later reconstruct the augmenting path. Note that, to reconstruct the path, it is sufficient to store only column values, since the row numbers can be taken from the matching (i.e., from the array $p$). Thus, $way[j]$, for each column $j$, contains the number of the previous column in the path (or $0$ if there is none).</p>
-<p>The algorithm itself is an outer <strong>loop through the rows of the matrix</strong>, inside which the $i$-th row of the matrix is ​​considered. The first <em>do-while</em> loop runs until a free column $j0$ is found. Each iteration of the loop marks visited a new column with the number $j0$ (calculated at the last iteration; and initially equal to zero - i.e. we start from a dummy column), as well as a new row $i0$ - adjacent to it in the matching (i.e. $p[j0]$; and initially when $j0=0$ the $i$-th row is taken). Due to the appearance of a new visited row $i0$, you need to recalculate the array $minv$ and $\Delta$ accordingly. If $\Delta$ is updated, then the column $j1$ becomes the minimum that has been reached (note that with such an implementation $\Delta$ could turn out to be equal to zero, which means that the potential cannot be changed at the current step: there is already a new reachable column). After that, the potential and the $minv$ array are recalculated. At the end of the &ldquo;do-while&rdquo; loop, we found an augmenting path ending in a column $j0$ that can be &ldquo;unrolled&rdquo; using the ancestor array $way$.</p>
-<p>The constant <tt>INF</tt> is &ldquo;infinity&rdquo;, i.e. some number, obviously greater than all possible numbers in the input matrix $A$.</p>
+<p>এভাবে, অ্যালগরিদমটি নিম্নলিখিত রূপ নেয়: বাইরের লুপে, আমরা ম্যাট্রিক্সের সারিগুলো একটি করে বিবেচনা করি। প্রতিটি সারি $\mathcal{O}(n^2)$ সময়ে প্রক্রিয়া করা হয়, যেহেতু শুধুমাত্র $\mathcal{O}(n)$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে (প্রতিটি $\mathcal{O}(n)$ সময়ে), এবং $minv$ অ্যারে $\mathcal{O}(n^2)$ সময়ে বজায় রাখা হয়; কুনের অ্যালগরিদম $\mathcal{O}(n^2)$ সময়ে কাজ করবে (যেহেতু এটি $\mathcal{O}(n)$ ইটারেশনের রূপে উপস্থাপিত, যার প্রতিটি একটি নতুন কলাম পরিদর্শন করে)।</p>
+<p>ফলস্বরূপ কমপ্লেক্সিটি $\mathcal{O}(n^3)$ বা, সমস্যা আয়তাকার হলে, $\mathcal{O}(n^2m)$।</p>
+<h2 id="হঙগরযন-অযলগরদমর-ইমপলমনটশন">হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%b9%e0%a6%99%e0%a6%97%e0%a6%b0%e0%a6%af%e0%a6%a8-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>নিচের ইমপ্লিমেন্টেশনটি কয়েক বছর আগে <strong>আন্দ্রে লোপাতিন</strong> তৈরি করেছিলেন। এটি আশ্চর্যজনক সংক্ষিপ্ততায় আলাদা: সম্পূর্ণ অ্যালগরিদম <strong>৩০ লাইনের কোডে</strong> গঠিত।</p>
+<p>ইমপ্লিমেন্টেশনটি $A[1\dots n][1\dots m]$ আয়তাকার ম্যাট্রিক্সের জন্য সমাধান খুঁজে, যেখানে $n\leq m$। ম্যাট্রিক্সটি সুবিধা ও কোডের সংক্ষিপ্ততার জন্য ১-ভিত্তিক: এই ইমপ্লিমেন্টেশন একটি ডামি শূন্য সারি ও শূন্য কলাম প্রবর্তন করে, যা আমাদের অতিরিক্ত চেক ছাড়া অনেক সাইকেল সাধারণ রূপে লিখতে দেয়।</p>
+<p>$u[0 \ldots n]$ এবং $v[0 \ldots m]$ অ্যারে পটেনশিয়াল সংরক্ষণ করে। প্রাথমিকভাবে, এগুলো শূন্যে সেট করা হয়, যা শূন্য সারি ম্যাট্রিক্সের সাথে সামঞ্জস্যপূর্ণ (লক্ষ্য করুন যে এই ইমপ্লিমেন্টেশনের জন্য ম্যাট্রিক্স $A$ তে ঋণাত্মক সংখ্যা আছে কিনা তা গুরুত্বপূর্ণ নয়)।</p>
+<p>$p[0 \ldots m]$ অ্যারে একটি ম্যাচিং ধারণ করে: প্রতিটি কলাম $j = 1 \ldots m$ এর জন্য, এটি নির্বাচিত সারির সংখ্যা $p[j]$ সংরক্ষণ করে (বা $0$ যদি কিছু নির্বাচিত না হয়)। ইমপ্লিমেন্টেশনের সুবিধার্থে, $p[0]$ বর্তমান সারির সংখ্যার সমান ধরা হয়।</p>
+<p>$minv[1 \ldots m]$ অ্যারে, প্রতিটি কলাম $j$ এর জন্য, পটেনশিয়ালের দ্রুত পুনরায় গণনার জন্য প্রয়োজনীয় সহায়ক ন্যূনতম মান ধারণ করে, যেমন উপরে বর্ণিত হয়েছে।</p>
+<p>$way[1 \ldots m]$ অ্যারে তথ্য ধারণ করে কোথায় এই ন্যূনতম মানগুলো পৌঁছায় যাতে আমরা পরে অগমেন্টিং পাথ পুনর্গঠন করতে পারি। লক্ষ্য করুন যে, পাথ পুনর্গঠনের জন্য শুধু কলাম মান সংরক্ষণ করাই যথেষ্ট, কারণ সারি সংখ্যা ম্যাচিং (অর্থাৎ $p$ অ্যারে) থেকে নেওয়া যায়। এভাবে, প্রতিটি কলাম $j$ এর জন্য $way[j]$ পাথে পূর্ববর্তী কলামের সংখ্যা ধারণ করে (বা $0$ যদি না থাকে)।</p>
+<p>অ্যালগরিদমটি হলো <strong>ম্যাট্রিক্সের সারি দিয়ে</strong> বাইরের লুপ, যার ভেতরে $i$-তম সারি বিবেচনা করা হয়। প্রথম <em>do-while</em> লুপটি চলে যতক্ষণ না একটি মুক্ত কলাম $j0$ পাওয়া যায়। লুপের প্রতিটি ইটারেশন $j0$ নম্বরের একটি নতুন কলাম (শেষ ইটারেশনে গণিত; এবং প্রাথমিকভাবে শূন্যের সমান - অর্থাৎ আমরা ডামি কলাম থেকে শুরু করি) এবং একটি নতুন সারি $i0$ - ম্যাচিং-এ এর সংশ্লিষ্ট (অর্থাৎ $p[j0]$; এবং প্রাথমিকভাবে যখন $j0=0$ তখন $i$-তম সারি নেওয়া হয়) পরিদর্শিত হিসেবে চিহ্নিত করে। নতুন পরিদর্শিত সারি $i0$ এর কারণে, আপনাকে $minv$ অ্যারে এবং $\Delta$ সেই অনুযায়ী পুনরায় গণনা করতে হবে। যদি $\Delta$ আপডেট হয়, তাহলে $j1$ কলামটি পৌঁছানো ন্যূনতম হয়ে যায় (লক্ষ্য করুন যে এমন ইমপ্লিমেন্টেশনে $\Delta$ শূন্য হতে পারে, যার মানে বর্তমান ধাপে পটেনশিয়াল পরিবর্তন করা যায় না: ইতিমধ্যে একটি নতুন গম্য কলাম আছে)। এরপর, পটেনশিয়াল এবং $minv$ অ্যারে পুনরায় গণনা করা হয়। &ldquo;do-while&rdquo; লুপের শেষে, আমরা $j0$ কলামে শেষ হওয়া একটি অগমেন্টিং পাথ পেয়েছি যেটি পূর্বসূরি অ্যারে $way$ ব্যবহার করে &ldquo;আনরোল&rdquo; করা যায়।</p>
+<p><tt>INF</tt> ধ্রুবকটি হলো &ldquo;অসীম&rdquo;, অর্থাৎ এমন একটি সংখ্যা যা স্পষ্টতই ইনপুট ম্যাট্রিক্স $A$ এর সমস্ত সম্ভাব্য সংখ্যার চেয়ে বড়।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">u</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">v</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">p</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">way</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
@@ -2970,69 +2967,69 @@ If we talk about the complexity of the algorithm, then it is $\mathcal{O}(n^4)$:
 </span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="p">[</span><span class="n">j0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">j1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">        <span class="n">j0</span> <span class="o">=</span> <span class="n">j1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">j0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>To restore the answer in a more familiar form, i.e. finding for each row $i = 1 \ldots n$ the number $ans[i]$ of the column selected in it, can be done as follows:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>আরও পরিচিত রূপে উত্তর পুনরুদ্ধার করতে, অর্থাৎ প্রতিটি সারি $i = 1 \ldots n$ এর জন্য এতে নির্বাচিত কলামের সংখ্যা $ans[i]$ খুঁজতে, নিম্নরূপ করা যায়:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ans</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">ans</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span></span></span></code></pre></div><p>The cost of the matching can simply be taken as the potential of the zero column (taken with the opposite sign). Indeed, as you can see from the code, $-v[0]$ contains the sum of all the values of $\Delta$​​, i.e. total change in potential. Although several values ​​​​of $u[i]$ and $v[j]$ could change at once, the total change in the potential is exactly equal to $\Delta$, since until there is an augmenting path, the number of reachable rows is exactly one more than the number of the reachable columns (only the current row $i$ does not have a &ldquo;pair&rdquo; in the form of a visited column):</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></span></span></code></pre></div><h2 id="connection-to-the-successive-shortest-path-algorithm">Connection to the Successive Shortest Path Algorithm<a class="anchor" href="#connection-to-the-successive-shortest-path-algorithm">#</a></h2>
-<p>The Hungarian algorithm can be seen as the <a href="min_cost_flow.md">Successive Shortest Path Algorithm</a>, adapted for the assignment problem. Without going into the details, let&rsquo;s provide an intuition regarding the connection between them.</p>
-<p>The Successive Path algorithm uses a modified version of Johnson&rsquo;s algorithm as reweighting technique. This one is divided into four steps:</p>
+</span></span><span class="line"><span class="cl">    <span class="n">ans</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span></span></span></code></pre></div><p>ম্যাচিং-এর খরচ কেবল শূন্য কলামের পটেনশিয়াল (বিপরীত চিহ্নসহ) হিসেবে নেওয়া যায়। প্রকৃতপক্ষে, কোড থেকে দেখা যায় যে $-v[0]$ সমস্ত $\Delta$ মানের যোগফল ধারণ করে, অর্থাৎ পটেনশিয়ালের মোট পরিবর্তন। যদিও একসাথে বেশ কয়েকটি $u[i]$ এবং $v[j]$ মান পরিবর্তিত হতে পারে, পটেনশিয়ালের মোট পরিবর্তন ঠিক $\Delta$ এর সমান, কারণ অগমেন্টিং পাথ না পাওয়া পর্যন্ত, গম্য সারির সংখ্যা গম্য কলামের সংখ্যার চেয়ে ঠিক এক বেশি (শুধুমাত্র বর্তমান সারি $i$ এর পরিদর্শিত কলামের রূপে &ldquo;জোড়া&rdquo; নেই):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></span></span></code></pre></div><h2 id="সকসসভ-শরটসট-পথ-অযলগরদমর-সথ-সমপরক">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক<a class="anchor" href="#%e0%a6%b8%e0%a6%95%e0%a6%b8%e0%a6%b8%e0%a6%ad-%e0%a6%b6%e0%a6%b0%e0%a6%9f%e0%a6%b8%e0%a6%9f-%e0%a6%aa%e0%a6%a5-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%b8%e0%a6%a5-%e0%a6%b8%e0%a6%ae%e0%a6%aa%e0%a6%b0%e0%a6%95">#</a></h2>
+<p>হাঙ্গেরিয়ান অ্যালগরিদমকে <a href="min_cost_flow.md">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a> হিসেবে দেখা যায়, অ্যাসাইনমেন্ট সমস্যার জন্য অভিযোজিত। বিস্তারিত না গিয়ে, তাদের মধ্যে সম্পর্কের ব্যাপারে একটি স্বজ্ঞাত ধারণা দেওয়া যাক।</p>
+<p>সাক্সেসিভ পাথ অ্যালগরিদম জনসনের অ্যালগরিদমের একটি পরিবর্তিত সংস্করণ রিওয়েটিং টেকনিক হিসেবে ব্যবহার করে। এটি চারটি ধাপে বিভক্ত:</p>
 <ul>
-<li>Use the <a href="bellman_ford.md">Bellman-Ford</a> algorithm, starting from the sink $s$ and, for each node, find the minimum weight $h(v)$ of a path from $s$ to $v$.</li>
+<li>সিঙ্ক $s$ থেকে শুরু করে <a href="bellman_ford.md">বেলম্যান-ফোর্ড</a> অ্যালগরিদম ব্যবহার করুন এবং, প্রতিটি নোডের জন্য, $s$ থেকে $v$ পর্যন্ত পাথের সর্বনিম্ন ওয়েট $h(v)$ খুঁজুন।</li>
 </ul>
-<p>For every step of the main algorithm:</p>
+<p>মূল অ্যালগরিদমের প্রতিটি ধাপের জন্য:</p>
 <ul>
-<li>Reweight the edges of the original graph in this way: $w(u,v) \gets w(u,v)+h(u)-h(v)$.</li>
-<li>Use <a href="dijkstra.md">Dijkstra</a>&rsquo;s algorithm to find the shortest-paths subgraph of the original network.</li>
-<li>Update potentials for the next iteration.</li>
+<li>মূল গ্রাফের এজগুলো এভাবে রিওয়েট করুন: $w(u,v) \gets w(u,v)+h(u)-h(v)$।</li>
+<li>মূল নেটওয়ার্কের শর্টেস্ট-পাথ সাবগ্রাফ খুঁজতে <a href="dijkstra.md">ডায়াক্সট্রা</a> অ্যালগরিদম ব্যবহার করুন।</li>
+<li>পরবর্তী ইটারেশনের জন্য পটেনশিয়াল আপডেট করুন।</li>
 </ul>
-<p>Given this description, we can observe that there is a strong analogy between $h(v)$ and potentials: it can be checked that they are equal up to a constant offset. In addition, it can be shown that, after reweighting, the set of all zero-weight edges represents the shortest-path subgraph where the main algorithm tries to increase the flow. This also happens in the Hungarian algorithm: we create a subgraph made of rigid edges (the ones for which the quantity $A[i][j]-u[i]-v[j]$ is zero), and we try to increase the size of the matching.</p>
-<p>In step 4, all the $h(v)$ are updated: every time we modify the flow network, we should guarantee that the distances from the source are correct (otherwise, in the next iteration, Dijkstra&rsquo;s algorithm might fail). This sounds like the update performed on the potentials, but in this case, they are not equally incremented.</p>
-<p>To deepen the understanding of potentials, refer to this <a href="https://codeforces.com/blog/entry/105658">article</a>.</p>
-<h2 id="task-examples">Task examples<a class="anchor" href="#task-examples">#</a></h2>
-<p>Here are a few examples related to the assignment problem, from very trivial to less obvious tasks:</p>
+<p>এই বর্ণনা দেওয়া হলে, আমরা দেখতে পারি যে $h(v)$ এবং পটেনশিয়ালের মধ্যে একটি শক্তিশালী সাদৃশ্য আছে: এটি যাচাই করা যায় যে একটি ধ্রুবক অফসেট পর্যন্ত এগুলো সমান। এছাড়া, এটি দেখানো যায় যে, রিওয়েটিং-এর পরে, সমস্ত শূন্য-ওয়েট এজের সেট শর্টেস্ট-পাথ সাবগ্রাফ উপস্থাপন করে যেখানে মূল অ্যালগরিদম ফ্লো বাড়ানোর চেষ্টা করে। এটি হাঙ্গেরিয়ান অ্যালগরিদমেও ঘটে: আমরা রিজিড এজ দিয়ে (যেগুলোর জন্য $A[i][j]-u[i]-v[j]$ পরিমাণ শূন্য) একটি সাবগ্রাফ তৈরি করি, এবং ম্যাচিং-এর আকার বাড়ানোর চেষ্টা করি।</p>
+<p>ধাপ ৪-এ, সমস্ত $h(v)$ আপডেট করা হয়: প্রতিবার আমরা ফ্লো নেটওয়ার্ক পরিবর্তন করলে, নিশ্চিত করতে হবে যে সোর্স থেকে দূরত্বগুলো সঠিক (অন্যথায়, পরবর্তী ইটারেশনে ডায়াক্সট্রা অ্যালগরিদম ব্যর্থ হতে পারে)। এটি পটেনশিয়ালে করা আপডেটের মতো শোনায়, কিন্তু এক্ষেত্রে এগুলো সমানভাবে বৃদ্ধি পায় না।</p>
+<p>পটেনশিয়ালের গভীর বোঝাপড়ার জন্য, এই <a href="https://codeforces.com/blog/entry/105658">নিবন্ধটি</a> দেখুন।</p>
+<h2 id="কজর-উদহরণ">কাজের উদাহরণ<a class="anchor" href="#%e0%a6%95%e0%a6%9c%e0%a6%b0-%e0%a6%89%e0%a6%a6%e0%a6%b9%e0%a6%b0%e0%a6%a3">#</a></h2>
+<p>এখানে অ্যাসাইনমেন্ট সমস্যা সম্পর্কিত কিছু উদাহরণ দেওয়া হলো, খুব তুচ্ছ থেকে কম স্পষ্ট কাজ পর্যন্ত:</p>
 <ul>
 <li>
-<p>Given a bipartite graph, it is required to find in it <strong>the maximum matching with the minimum weight</strong> (i.e., first of all, the size of the matching is maximized, and secondly, its cost is minimized).<br>
-To solve it, we simply build an assignment problem, putting the number &ldquo;infinity&rdquo; in place of the missing edges. After that, we solve the problem with the Hungarian algorithm, and remove edges of infinite weight from the answer (they could enter the answer if the problem does not have a solution in the form of a perfect matching).</p>
+<p>একটি বাইপার্টাইট গ্রাফ দেওয়া আছে, এতে <strong>সর্বনিম্ন ওয়েটের ম্যাক্সিমাম ম্যাচিং</strong> খুঁজে বের করতে হবে (অর্থাৎ প্রথমত ম্যাচিং-এর আকার সর্বাধিক করা হয়, এবং দ্বিতীয়ত এর খরচ সর্বনিম্ন করা হয়)।<br>
+এটি সমাধান করতে, আমরা কেবল অনুপস্থিত এজের জায়গায় &ldquo;অসীম&rdquo; সংখ্যা রেখে একটি অ্যাসাইনমেন্ট সমস্যা তৈরি করি। তারপর, আমরা হাঙ্গেরিয়ান অ্যালগরিদম দিয়ে সমস্যাটি সমাধান করি, এবং উত্তর থেকে অসীম ওয়েটের এজ সরিয়ে দিই (এগুলো উত্তরে প্রবেশ করতে পারে যদি সমস্যার পারফেক্ট ম্যাচিং আকারে সমাধান না থাকে)।</p>
 </li>
 <li>
-<p>Given a bipartite graph, it is required to find in it <strong>the maximum matching with the maximum weight</strong>.<br>
-The solution is again obvious, all weights must be multiplied by minus one.</p>
+<p>একটি বাইপার্টাইট গ্রাফ দেওয়া আছে, এতে <strong>সর্বাধিক ওয়েটের ম্যাক্সিমাম ম্যাচিং</strong> খুঁজে বের করতে হবে।<br>
+সমাধান আবার স্পষ্ট, সমস্ত ওয়েটকে মাইনাস এক দিয়ে গুণ করতে হবে।</p>
 </li>
 <li>
-<p>The task of <strong>detecting moving objects in images</strong>: two images were taken, as a result of which two sets of coordinates were obtained. It is required to correlate the objects in the first and second images, i.e. determine for each point of the second image, which point of the first image it corresponded to. In this case, it is required to minimize the sum of distances between the compared points (i.e., we are looking for a solution in which the objects have taken the shortest path in total).<br>
-To solve, we simply build and solve an assignment problem, where the weights of the edges are the Euclidean distances between points.</p>
+<p><strong>ইমেজে চলমান বস্তু সনাক্তকরণের</strong> কাজ: দুটি ইমেজ তোলা হয়েছে, যার ফলে দুটি স্থানাঙ্ক সেট পাওয়া গেছে। প্রথম ও দ্বিতীয় ইমেজের বস্তুগুলো সম্পর্কিত করতে হবে, অর্থাৎ দ্বিতীয় ইমেজের প্রতিটি বিন্দুর জন্য নির্ধারণ করতে হবে প্রথম ইমেজের কোন বিন্দুর সাথে এটি সম্পর্কিত ছিল। এক্ষেত্রে, তুলনা করা বিন্দুগুলোর মধ্যে দূরত্বের যোগফল সর্বনিম্ন করতে হবে (অর্থাৎ আমরা এমন একটি সমাধান খুঁজছি যেখানে বস্তুগুলো মোটে সবচেয়ে কম পথ অতিক্রম করেছে)।<br>
+সমাধানে, আমরা কেবল একটি অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করি, যেখানে এজের ওয়েট হলো বিন্দুগুলোর মধ্যে ইউক্লিডীয় দূরত্ব।</p>
 </li>
 <li>
-<p>The task of <strong>detecting moving objects by locators</strong>: there are two locators that can&rsquo;t determine the position of an object in space, but only its direction. Both locators (located at different points) received information in the form of $n$ such directions. It is required to determine the position of objects, i.e. determine the expected positions of objects and their corresponding pairs of directions in such a way that the sum of distances from objects to direction rays is minimized.<br>
-Solution: again, we simply build and solve the assignment problem, where the vertices of the left part are the $n$ directions from the first locator, the vertices of the right part are the $n$ directions from the second locator, and the weights of the edges are the distances between the corresponding rays.</p>
+<p><strong>লোকেটর দ্বারা চলমান বস্তু সনাক্তকরণের</strong> কাজ: দুটি লোকেটর আছে যেগুলো বস্তুর অবস্থান নির্ণয় করতে পারে না, শুধু তার দিক জানতে পারে। উভয় লোকেটর (বিভিন্ন বিন্দুতে অবস্থিত) $n$ টি এমন দিক আকারে তথ্য পেয়েছে। বস্তুগুলোর অবস্থান নির্ণয় করতে হবে, অর্থাৎ বস্তুগুলোর প্রত্যাশিত অবস্থান এবং তাদের সংশ্লিষ্ট দিক জোড়া নির্ধারণ করতে হবে এমনভাবে যাতে বস্তু থেকে দিক রশ্মি পর্যন্ত দূরত্বের যোগফল সর্বনিম্ন হয়।<br>
+সমাধান: আবার, আমরা কেবল অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করি, যেখানে বাম অংশের ভার্টেক্সগুলো প্রথম লোকেটরের $n$ টি দিক, ডান অংশের ভার্টেক্সগুলো দ্বিতীয় লোকেটরের $n$ টি দিক, এবং এজের ওয়েটগুলো সংশ্লিষ্ট রশ্মির মধ্যে দূরত্ব।</p>
 </li>
 <li>
-<p>Covering a <strong>directed acyclic graph with paths</strong>: given a directed acyclic graph, it is required to find the smallest number of paths (if equal, with the smallest total weight) so that each vertex of the graph lies in exactly one path.<br>
-The solution is to build the corresponding bipartite graph from the given graph and find the maximum matching of the minimum weight in it. See separate article for more details.</p>
+<p><strong>ডিরেক্টেড অ্যাসাইক্লিক গ্রাফকে পাথ দিয়ে কভার করা</strong>: একটি ডিরেক্টেড অ্যাসাইক্লিক গ্রাফ দেওয়া আছে, সবচেয়ে কম সংখ্যক পাথ (সমান হলে, সর্বনিম্ন মোট ওয়েটসহ) খুঁজে বের করতে হবে যাতে গ্রাফের প্রতিটি ভার্টেক্স ঠিক একটি পাথে থাকে।<br>
+সমাধান হলো দেওয়া গ্রাফ থেকে সংশ্লিষ্ট বাইপার্টাইট গ্রাফ তৈরি করা এবং এতে সর্বনিম্ন ওয়েটের ম্যাক্সিমাম ম্যাচিং খোঁজা। আরও বিস্তারিতের জন্য আলাদা নিবন্ধ দেখুন।</p>
 </li>
 <li>
-<p><strong>Tree coloring book</strong>. Given a tree in which each vertex, except for leaves, has exactly $k-1$ children. It is required to choose for each vertex one of the $k$ colors available so that no two adjacent vertices have the same color. In addition, for each vertex and each color, the cost of painting this vertex with this color is known, and it is required to minimize the total cost.<br>
-To solve this problem, we use dynamic programming. Namely, let&rsquo;s learn how to calculate the value $d[v][c]$, where $v$ is the vertex number, $c$ is the color number, and the value $d[v][c]$ itself is the minimum cost needed to color all the vertices in the subtree rooted at $v$, and the vertex $v$ itself with color $c$. To calculate such a value $d[v][c]$, it is necessary to distribute the remaining $k-1$ colors among the children of the vertex $v$, and for this, it is necessary to build and solve the assignment problem (in which the vertices of the left part are colors, the vertices of the right part are children, and the weights of the edges are the corresponding values of $d$).<br>
-Thus, each value $d[v][c]$ is calculated using the solution of the assignment problem, which ultimately gives the asymptotic $\mathcal{O}(nk^4)$.</p>
+<p><strong>ট্রি কালারিং বুক</strong>। একটি ট্রি দেওয়া আছে যেখানে পাতা ব্যতীত প্রতিটি ভার্টেক্সের ঠিক $k-1$ টি চাইল্ড আছে। প্রতিটি ভার্টেক্সের জন্য $k$ টি রংয়ের একটি বেছে নিতে হবে যাতে কোনো দুটি সংলগ্ন ভার্টেক্সের একই রং না হয়। এছাড়া, প্রতিটি ভার্টেক্স ও প্রতিটি রংয়ের জন্য, সেই ভার্টেক্সকে সেই রংয়ে রং করার খরচ জানা আছে, এবং মোট খরচ সর্বনিম্ন করতে হবে।<br>
+এই সমস্যা সমাধানে আমরা ডায়নামিক প্রোগ্রামিং ব্যবহার করি। যথা, আসুন $d[v][c]$ মান গণনা করতে শিখি, যেখানে $v$ হলো ভার্টেক্স নম্বর, $c$ হলো রং নম্বর, এবং $d[v][c]$ মানটি হলো $v$ তে রুটকৃত সাবট্রি-র সমস্ত ভার্টেক্স এবং ভার্টেক্স $v$ নিজেকে $c$ রংয়ে রং করতে প্রয়োজনীয় সর্বনিম্ন খরচ। $d[v][c]$ গণনা করতে, বাকি $k-1$ টি রং $v$ এর চাইল্ডদের মধ্যে বিতরণ করা প্রয়োজন, এবং এর জন্য অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করা প্রয়োজন (যেখানে বাম অংশের ভার্টেক্সগুলো রং, ডান অংশের ভার্টেক্সগুলো চাইল্ড, এবং এজের ওয়েটগুলো $d$ এর সংশ্লিষ্ট মান)।<br>
+এভাবে প্রতিটি $d[v][c]$ মান অ্যাসাইনমেন্ট সমস্যার সমাধান ব্যবহার করে গণনা করা হয়, যা চূড়ান্ত অ্যাসিম্পটোটিক $\mathcal{O}(nk^4)$ দেয়।</p>
 </li>
 <li>
-<p>If, in the assignment problem, the weights are not on the edges, but on the vertices, and only <strong>on the vertices of the same part</strong>, then it&rsquo;s not necessary to use the Hungarian algorithm: just sort the vertices by weight and run the usual <a href="kuhn_maximum_bipartite_matching.md">Kuhn algorithm</a> (for more details, see a <a href="http://e-maxx.ru/algo/vertex_weighted_matching">separate article</a>).</p>
+<p>যদি অ্যাসাইনমেন্ট সমস্যায় ওয়েট এজে নয়, ভার্টেক্সে থাকে, এবং শুধুমাত্র <strong>একই অংশের ভার্টেক্সে</strong>, তাহলে হাঙ্গেরিয়ান অ্যালগরিদম ব্যবহার করা প্রয়োজন নয়: কেবল ওয়েট অনুসারে ভার্টেক্স সর্ট করুন এবং সাধারণ <a href="kuhn_maximum_bipartite_matching.md">কুন অ্যালগরিদম</a> চালান (আরও বিস্তারিতের জন্য, <a href="http://e-maxx.ru/algo/vertex_weighted_matching">আলাদা নিবন্ধ</a> দেখুন)।</p>
 </li>
 <li>
-<p>Consider the following <strong>special case</strong>. Let each vertex of the left part be assigned some number $\alpha[i]$, and each vertex of the right part $\beta[j]$. Let the weight of any edge $(i,j)$ be equal to $\alpha[i]\cdot \beta[j]$ (the numbers $\alpha[i]$ and $\beta[j]$ are known). Solve the assignment problem.<br>
-To solve it without the Hungarian algorithm, we first consider the case when both parts have two vertices. In this case, as you can easily see, it is better to connect the vertices in the reverse order: connect the vertex with the smaller $\alpha[i]$ to the vertex with the larger $\beta[j]$. This rule can be easily generalized to an arbitrary number of vertices: you need to sort the vertices of the first part in increasing order of $\alpha[i]$ values, the second part in decreasing order of $\beta[j]$ values, and connect the vertices in pairs in that order. Thus, we obtain a solution with complexity of $\mathcal{O}(n\log n)$.</p>
+<p>নিম্নলিখিত <strong>বিশেষ ক্ষেত্র</strong> বিবেচনা করুন। বাম অংশের প্রতিটি ভার্টেক্সে একটি সংখ্যা $\alpha[i]$ এবং ডান অংশের প্রতিটিতে $\beta[j]$ নির্ধারিত। যেকোনো এজ $(i,j)$ এর ওয়েট $\alpha[i]\cdot \beta[j]$ এর সমান ($\alpha[i]$ এবং $\beta[j]$ সংখ্যাগুলো জানা)। অ্যাসাইনমেন্ট সমস্যা সমাধান করুন।<br>
+এটি হাঙ্গেরিয়ান অ্যালগরিদম ছাড়া সমাধান করতে, প্রথমে দুটি ভার্টেক্স বিশিষ্ট উভয় অংশের ক্ষেত্র বিবেচনা করুন। এক্ষেত্রে, সহজেই দেখা যায় যে ভার্টেক্সগুলো বিপরীত ক্রমে সংযুক্ত করা ভালো: ছোট $\alpha[i]$ বিশিষ্ট ভার্টেক্সটিকে বড় $\beta[j]$ বিশিষ্ট ভার্টেক্সের সাথে সংযুক্ত করুন। এই নিয়মটি সহজেই যেকোনো সংখ্যক ভার্টেক্সে সাধারণীকরণ করা যায়: প্রথম অংশের ভার্টেক্সগুলো $\alpha[i]$ মানের ঊর্ধ্বক্রমে, দ্বিতীয় অংশেরগুলো $\beta[j]$ মানের নিম্নক্রমে সর্ট করুন, এবং সেই ক্রমে ভার্টেক্সগুলো জোড়ায় জোড়ায় সংযুক্ত করুন। এভাবে, আমরা $\mathcal{O}(n\log n)$ কমপ্লেক্সিটির একটি সমাধান পাই।</p>
 </li>
 <li>
-<p><strong>The Problem of Potentials</strong>. Given a matrix $A[1 \ldots n][1 \ldots m]$, it is required to find two arrays $u[1 \ldots n]$ and $v[1 \ldots m]$ such that, for any $i$ and $j$, $u[i] + v[j] \leq a[i][j]$ and the sum of elements of arrays $u$ and $v$ is maximum.<br>
-Knowing the Hungarian algorithm, the solution to this problem will not be difficult: the Hungarian algorithm just finds such a potential $u, v$ that satisfies the condition of the problem. On the other hand, without knowledge of the Hungarian algorithm, it seems almost impossible to solve such a problem.</p>
-<p>!!! info &ldquo;Remark&rdquo;</p>
-<pre><code>  This task is also called the **dual problem** of the assignment problem: minimizing the total cost of the assignment is equivalent to maximizing the sum of the potentials.
+<p><strong>পটেনশিয়ালের সমস্যা</strong>। একটি ম্যাট্রিক্স $A[1 \ldots n][1 \ldots m]$ দেওয়া আছে, দুটি অ্যারে $u[1 \ldots n]$ এবং $v[1 \ldots m]$ খুঁজে বের করতে হবে যাতে, যেকোনো $i$ এবং $j$ এর জন্য, $u[i] + v[j] \leq a[i][j]$ এবং অ্যারে $u$ ও $v$ এর উপাদানের যোগফল সর্বাধিক হয়।<br>
+হাঙ্গেরিয়ান অ্যালগরিদম জানলে, এই সমস্যার সমাধান কঠিন হবে না: হাঙ্গেরিয়ান অ্যালগরিদম ঠিক এমন পটেনশিয়াল $u, v$ খুঁজে পায় যেটি সমস্যার শর্ত পূরণ করে। অন্যদিকে, হাঙ্গেরিয়ান অ্যালগরিদমের জ্ঞান ছাড়া এমন সমস্যা সমাধান করা প্রায় অসম্ভব বলে মনে হয়।</p>
+<p>!!! info &ldquo;মন্তব্য&rdquo;</p>
+<pre><code>  এই কাজটি অ্যাসাইনমেন্ট সমস্যার **ডুয়াল সমস্যা** নামেও পরিচিত: অ্যাসাইনমেন্টের মোট খরচ সর্বনিম্ন করা পটেনশিয়ালের যোগফল সর্বাধিক করার সমতুল্য।
 </code></pre>
 </li>
 </ul>
-<h2 id="literature">Literature<a class="anchor" href="#literature">#</a></h2>
+<h2 id="সহতয">সাহিত্য<a class="anchor" href="#%e0%a6%b8%e0%a6%b9%e0%a6%a4%e0%a6%af">#</a></h2>
 <ul>
 <li>
 <p><a href="https://books.google.it/books/about/Network_Flows.html?id=rFuLngEACAAJ&amp;redir_esc=y">Ravindra Ahuja, Thomas Magnanti, James Orlin. Network Flows [1993]</a></p>
@@ -3044,7 +3041,7 @@ Knowing the Hungarian algorithm, the solution to this problem will not be diffic
 <p><a href="https://www.jstor.org/stable/2098689">James Munkres. Algorithms for Assignment and Transportation Problems [1957]</a></p>
 </li>
 </ul>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li>
 <p><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1687">UVA - Crime Wave - The Sequel</a></p>
@@ -3090,16 +3087,16 @@ Knowing the Hungarian algorithm, the solution to this problem will not be diffic
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/graph/euler_path/" class="flex align-center">
+      <a href="/graph/bridge-searching-online/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Finding the Eulerian path in O(M)</span>
+        <span>অনলাইনে ব্রিজ খোঁজা</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/graph/lca_farachcoltonbender/" class="flex align-center">
-        <span>Lowest Common Ancestor - Farach-Colton and Bender Algorithm</span>
+      <a href="/graph/tree_painting/" class="flex align-center">
+        <span>ট্রি-র এজে রং করা</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3140,19 +3137,19 @@ Knowing the Hungarian algorithm, the solution to this problem will not be diffic
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#statement-of-the-assignment-problem">Statement of the assignment problem</a></li>
-    <li><a href="#hungarian-algorithm">Hungarian algorithm</a>
+    <li><a href="#অযসইনমনট-সমসযর-ববত">অ্যাসাইনমেন্ট সমস্যার বিবৃতি</a></li>
+    <li><a href="#হঙগরযন-অযলগরদম">হাঙ্গেরিয়ান অ্যালগরিদম</a>
       <ul>
-        <li><a href="#historical-reference">Historical reference</a></li>
-        <li><a href="#the--algorithm">The  algorithm</a></li>
-        <li><a href="#the--algorithm-1">The  algorithm</a></li>
+        <li><a href="#ঐতহসক-তথয">ঐতিহাসিক তথ্য</a></li>
+        <li><a href="#অযলগরদম"> অ্যালগরিদম</a></li>
+        <li><a href="#অযলগরদম-1"> অ্যালগরিদম</a></li>
       </ul>
     </li>
-    <li><a href="#implementation-of-the-hungarian-algorithm">Implementation of the Hungarian algorithm</a></li>
-    <li><a href="#connection-to-the-successive-shortest-path-algorithm">Connection to the Successive Shortest Path Algorithm</a></li>
-    <li><a href="#task-examples">Task examples</a></li>
-    <li><a href="#literature">Literature</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#হঙগরযন-অযলগরদমর-ইমপলমনটশন">হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#সকসসভ-শরটসট-পথ-অযলগরদমর-সথ-সমপরক">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক</a></li>
+    <li><a href="#কজর-উদহরণ">কাজের উদাহরণ</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

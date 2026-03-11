@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,38 +8,43 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Range Minimum Query#You are given an array $A[1..N]$. You have to answer incoming queries of the form $(L, R)$, which ask to find the minimum element in array $A$ between positions $L$ and $R$ inclusive.
-RMQ can appear in problems directly or can be applied in some other tasks, e.g. the Lowest Common Ancestor problem.
-Solution#There are lots of possible approaches and data structures that you can use to solve the RMQ task.
+<meta name="description" content="রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)#আপনাকে একটি অ্যারে $A[1..N]$ দেওয়া আছে। আপনাকে $(L, R)$ আকারের আগত কুয়েরিগুলোর উত্তর দিতে হবে, যেগুলো অ্যারে $A$-তে $L$ এবং $R$ অবস্থানের মধ্যে (সহ) ন্যূনতম উপাদান খুঁজতে বলে।
+আরএমকিউ সরাসরি সমস্যায় আসতে পারে অথবা অন্য কোনো কাজে প্রয়োগ করা যেতে পারে, যেমন লোয়েস্ট কমন অ্যানসেস্টর সমস্যা।
+সমাধান#আরএমকিউ কাজ সমাধানের জন্য অনেক সম্ভাব্য পদ্ধতি এবং ডেটা স্ট্রাকচার আছে।
+এই সাইটে যেগুলো ব্যাখ্যা করা হয়েছে সেগুলো নিচে তালিকাভুক্ত করা হলো।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/sequences/rmq/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/sequences/rmq/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Range Minimum Query">
-  <meta property="og:description" content="Range Minimum Query#You are given an array $A[1..N]$. You have to answer incoming queries of the form $(L, R)$, which ask to find the minimum element in array $A$ between positions $L$ and $R$ inclusive.
-RMQ can appear in problems directly or can be applied in some other tasks, e.g. the Lowest Common Ancestor problem.
-Solution#There are lots of possible approaches and data structures that you can use to solve the RMQ task.">
+  <meta property="og:title" content="রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)">
+  <meta property="og:description" content="রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)#আপনাকে একটি অ্যারে $A[1..N]$ দেওয়া আছে। আপনাকে $(L, R)$ আকারের আগত কুয়েরিগুলোর উত্তর দিতে হবে, যেগুলো অ্যারে $A$-তে $L$ এবং $R$ অবস্থানের মধ্যে (সহ) ন্যূনতম উপাদান খুঁজতে বলে।
+আরএমকিউ সরাসরি সমস্যায় আসতে পারে অথবা অন্য কোনো কাজে প্রয়োগ করা যেতে পারে, যেমন লোয়েস্ট কমন অ্যানসেস্টর সমস্যা।
+সমাধান#আরএমকিউ কাজ সমাধানের জন্য অনেক সম্ভাব্য পদ্ধতি এবং ডেটা স্ট্রাকচার আছে।
+এই সাইটে যেগুলো ব্যাখ্যা করা হয়েছে সেগুলো নিচে তালিকাভুক্ত করা হলো।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="sequences">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Range Minimum Query">
-  <meta itemprop="description" content="Range Minimum Query#You are given an array $A[1..N]$. You have to answer incoming queries of the form $(L, R)$, which ask to find the minimum element in array $A$ between positions $L$ and $R$ inclusive.
-RMQ can appear in problems directly or can be applied in some other tasks, e.g. the Lowest Common Ancestor problem.
-Solution#There are lots of possible approaches and data structures that you can use to solve the RMQ task.">
-  <meta itemprop="wordCount" content="348">
+  <meta itemprop="name" content="রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)">
+  <meta itemprop="description" content="রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)#আপনাকে একটি অ্যারে $A[1..N]$ দেওয়া আছে। আপনাকে $(L, R)$ আকারের আগত কুয়েরিগুলোর উত্তর দিতে হবে, যেগুলো অ্যারে $A$-তে $L$ এবং $R$ অবস্থানের মধ্যে (সহ) ন্যূনতম উপাদান খুঁজতে বলে।
+আরএমকিউ সরাসরি সমস্যায় আসতে পারে অথবা অন্য কোনো কাজে প্রয়োগ করা যেতে পারে, যেমন লোয়েস্ট কমন অ্যানসেস্টর সমস্যা।
+সমাধান#আরএমকিউ কাজ সমাধানের জন্য অনেক সম্ভাব্য পদ্ধতি এবং ডেটা স্ট্রাকচার আছে।
+এই সাইটে যেগুলো ব্যাখ্যা করা হয়েছে সেগুলো নিচে তালিকাভুক্ত করা হলো।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="299">
 
-<title>Range Minimum Query | CP-Algorithms</title>
+<title>রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ) | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/sequences/rmq/">
+<link rel="canonical" href="http://localhost:1313/sequences/rmq/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -126,78 +131,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -211,7 +146,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -225,7 +230,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -239,35 +244,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -281,7 +258,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -295,7 +300,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -309,21 +314,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -337,7 +328,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -351,21 +356,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -379,7 +370,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -393,7 +384,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -407,7 +412,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -434,8 +439,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -448,8 +453,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -463,7 +468,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -477,21 +482,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -505,7 +496,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -519,7 +524,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -533,7 +538,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -584,7 +589,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -598,7 +603,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -612,7 +617,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -626,7 +631,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -640,7 +645,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -654,7 +659,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -668,7 +673,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -682,7 +687,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -696,7 +701,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -746,8 +751,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -761,49 +780,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -817,7 +794,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -831,7 +836,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -882,21 +887,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -910,7 +901,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -937,8 +942,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -951,8 +956,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -966,21 +971,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -994,7 +985,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1008,7 +1013,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1022,7 +1027,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1036,7 +1041,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1073,7 +1078,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1087,7 +1092,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1101,7 +1106,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1115,7 +1120,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1151,22 +1156,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1179,8 +1170,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1194,7 +1185,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1208,7 +1199,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1222,7 +1227,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1236,7 +1241,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1250,7 +1255,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1301,7 +1306,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1315,7 +1320,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1329,7 +1334,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1343,7 +1348,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1357,7 +1362,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1393,64 +1398,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1464,7 +1413,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1477,8 +1426,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1491,8 +1440,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1505,8 +1454,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1519,8 +1468,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1534,7 +1483,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1548,21 +1553,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1576,7 +1567,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1589,22 +1580,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1618,7 +1595,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1632,21 +1637,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1660,7 +1651,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1673,8 +1664,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1688,7 +1679,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1702,7 +1707,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1716,7 +1721,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1730,7 +1735,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1744,7 +1749,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1780,64 +1785,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1864,22 +1813,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1893,7 +1828,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1907,7 +1842,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1920,8 +1855,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1934,8 +1869,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1948,8 +1883,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1962,8 +1897,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1977,7 +1926,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1990,8 +1939,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2004,8 +1953,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2018,22 +1967,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2047,7 +1982,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2060,8 +1995,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2074,8 +2009,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2102,50 +2079,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2159,7 +2108,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2172,8 +2121,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2186,8 +2135,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2201,7 +2178,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2214,8 +2191,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2228,8 +2205,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2243,7 +2220,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2256,8 +2233,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2270,8 +2247,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2285,7 +2262,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2298,8 +2275,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2313,7 +2290,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2327,7 +2318,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2341,7 +2346,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2355,7 +2360,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2369,7 +2374,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2383,7 +2388,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2397,7 +2402,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2434,7 +2439,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="active">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2448,7 +2453,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2476,7 +2481,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2513,7 +2518,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2527,7 +2532,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2541,7 +2546,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2555,7 +2560,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2569,7 +2574,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2606,7 +2611,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2620,7 +2625,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2657,7 +2662,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2671,7 +2676,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2685,7 +2690,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2731,7 +2736,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Range Minimum Query</h3>
+  <h3>রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</h3>
 
   <label for="toc-control">
     
@@ -2747,8 +2752,8 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#সমধন">সমাধান</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2761,32 +2766,32 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="range-minimum-query">Range Minimum Query<a class="anchor" href="#range-minimum-query">#</a></h1>
-<p>You are given an array $A[1..N]$.
-You have to answer incoming queries of the form $(L, R)$, which ask to find the minimum element in array $A$ between positions $L$ and $R$ inclusive.</p>
-<p>RMQ can appear in problems directly or can be applied in some other tasks, e.g. the <a href="../graph/lca.md">Lowest Common Ancestor</a> problem.</p>
-<h2 id="solution">Solution<a class="anchor" href="#solution">#</a></h2>
-<p>There are lots of possible approaches and data structures that you can use to solve the RMQ task.</p>
-<p>The ones that are explained on this site are listed below.</p>
-<p>First the approaches that allow modifications to the array between answering queries.</p>
+  <article class="markdown book-article"><h1 id="রঞজ-মনমম-কযর-আরএমকউ">রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)<a class="anchor" href="#%e0%a6%b0%e0%a6%9e%e0%a6%9c-%e0%a6%ae%e0%a6%a8%e0%a6%ae%e0%a6%ae-%e0%a6%95%e0%a6%af%e0%a6%b0-%e0%a6%86%e0%a6%b0%e0%a6%8f%e0%a6%ae%e0%a6%95%e0%a6%89">#</a></h1>
+<p>আপনাকে একটি অ্যারে $A[1..N]$ দেওয়া আছে।
+আপনাকে $(L, R)$ আকারের আগত কুয়েরিগুলোর উত্তর দিতে হবে, যেগুলো অ্যারে $A$-তে $L$ এবং $R$ অবস্থানের মধ্যে (সহ) ন্যূনতম উপাদান খুঁজতে বলে।</p>
+<p>আরএমকিউ সরাসরি সমস্যায় আসতে পারে অথবা অন্য কোনো কাজে প্রয়োগ করা যেতে পারে, যেমন <a href="../graph/lca.md">লোয়েস্ট কমন অ্যানসেস্টর</a> সমস্যা।</p>
+<h2 id="সমধন">সমাধান<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8">#</a></h2>
+<p>আরএমকিউ কাজ সমাধানের জন্য অনেক সম্ভাব্য পদ্ধতি এবং ডেটা স্ট্রাকচার আছে।</p>
+<p>এই সাইটে যেগুলো ব্যাখ্যা করা হয়েছে সেগুলো নিচে তালিকাভুক্ত করা হলো।</p>
+<p>প্রথমে সেই পদ্ধতিগুলো যেগুলো কুয়েরির উত্তর দেওয়ার মাঝে অ্যারেতে পরিবর্তনের অনুমতি দেয়।</p>
 <ul>
-<li><a href="../data_structures/sqrt_decomposition.md">Sqrt-decomposition</a> - answers each query in $O(\sqrt{N})$, preprocessing done in $O(N)$.
-Pros: a very simple data structure. Cons: worse complexity.</li>
-<li><a href="../data_structures/segment_tree.md">Segment tree</a> - answers each query in $O(\log N)$, preprocessing done in $O(N)$.
-Pros: good time complexity. Cons: larger amount of code compared to the other data structures.</li>
-<li><a href="../data_structures/fenwick.md">Fenwick tree</a> - answers each query in $O(\log N)$, preprocessing done in $O(N \log N)$.
-Pros: the shortest code, good time complexity. Cons: Fenwick tree can only be used for queries with $L = 1$, so it is not applicable to many problems.</li>
+<li><a href="../data_structures/sqrt_decomposition.md">Sqrt-ডিকম্পোজিশন</a> - প্রতিটি কুয়েরির উত্তর $O(\sqrt{N})$-এ, প্রিপ্রসেসিং $O(N)$-এ।
+সুবিধা: খুব সহজ ডেটা স্ট্রাকচার। অসুবিধা: দুর্বল কমপ্লেক্সিটি।</li>
+<li><a href="../data_structures/segment_tree.md">সেগমেন্ট ট্রি</a> - প্রতিটি কুয়েরির উত্তর $O(\log N)$-এ, প্রিপ্রসেসিং $O(N)$-এ।
+সুবিধা: ভালো টাইম কমপ্লেক্সিটি। অসুবিধা: অন্যান্য ডেটা স্ট্রাকচারের তুলনায় বেশি কোড।</li>
+<li><a href="../data_structures/fenwick.md">ফেনউইক ট্রি</a> - প্রতিটি কুয়েরির উত্তর $O(\log N)$-এ, প্রিপ্রসেসিং $O(N \log N)$-এ।
+সুবিধা: সবচেয়ে সংক্ষিপ্ত কোড, ভালো টাইম কমপ্লেক্সিটি। অসুবিধা: ফেনউইক ট্রি শুধুমাত্র $L = 1$ যুক্ত কুয়েরির জন্য ব্যবহার করা যায়, তাই এটি অনেক সমস্যায় প্রযোজ্য নয়।</li>
 </ul>
-<p>And here are the approaches that only work on static arrays, i.e. it is not possible to change a value in the array without recomputing the complete data structure.</p>
+<p>এবং এখানে সেই পদ্ধতিগুলো যেগুলো শুধুমাত্র স্ট্যাটিক অ্যারেতে কাজ করে, অর্থাৎ সম্পূর্ণ ডেটা স্ট্রাকচার পুনর্গণনা না করে অ্যারের কোনো মান পরিবর্তন করা সম্ভব নয়।</p>
 <ul>
-<li><a href="../data_structures/sparse-table.md">Sparse Table</a> - answers each query in $O(1)$, preprocessing done in $O(N \log N)$.
-Pros: simple data structure, excellent time complexity.</li>
-<li><a href="../data_structures/sqrt-tree.md">Sqrt Tree</a> - answers queries in $O(1)$, preprocessing done in $O(N \log \log N)$. Pros: fast. Cons: Complicated to implement.</li>
-<li><a href="../data_structures/disjoint_set_union.md#arpa">Disjoint Set Union / Arpa&rsquo;s Trick</a> - answers queries in $O(1)$, preprocessing in $O(n)$. Pros: short, fast. Cons: only works if all queries are known in advance, i.e. only supports off-line processing of the queries.</li>
-<li><a href="../graph/rmq_linear.md">Cartesian Tree</a> and <a href="../graph/lca_farachcoltonbender.md">Farach-Colton and Bender algorithm</a> - answers queries in $O(1)$, preprocessing in $O(n)$. Pros: optimal complexity. Cons: large amount of code.</li>
+<li><a href="../data_structures/sparse-table.md">স্পার্স টেবিল</a> - প্রতিটি কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(N \log N)$-এ।
+সুবিধা: সহজ ডেটা স্ট্রাকচার, চমৎকার টাইম কমপ্লেক্সিটি।</li>
+<li><a href="../data_structures/sqrt-tree.md">Sqrt ট্রি</a> - কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(N \log \log N)$-এ। সুবিধা: দ্রুত। অসুবিধা: ইমপ্লিমেন্ট করা জটিল।</li>
+<li><a href="../data_structures/disjoint_set_union.md#arpa">ডিসজয়েন্ট সেট ইউনিয়ন / আরপার ট্রিক</a> - কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(n)$-এ। সুবিধা: সংক্ষিপ্ত, দ্রুত। অসুবিধা: শুধুমাত্র তখনই কাজ করে যখন সব কুয়েরি আগে থেকে জানা থাকে, অর্থাৎ শুধুমাত্র অফ-লাইন প্রসেসিং সাপোর্ট করে।</li>
+<li><a href="../graph/rmq_linear.md">কার্তেসিয়ান ট্রি</a> এবং <a href="../graph/lca_farachcoltonbender.md">ফারাচ-কোল্টন ও বেন্ডার অ্যালগরিদম</a> - কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(n)$-এ। সুবিধা: অপটিমাল কমপ্লেক্সিটি। অসুবিধা: অনেক বেশি কোড।</li>
 </ul>
-<p>Note: Preprocessing is the preliminary processing of the given array by building the corresponding data structure for it.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<p>দ্রষ্টব্য: প্রিপ্রসেসিং হলো দেওয়া অ্যারের প্রাথমিক প্রক্রিয়াকরণ, এর জন্য সংশ্লিষ্ট ডেটা স্ট্রাকচার তৈরি করা।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="http://www.spoj.com/problems/RMQSQ/">SPOJ: Range Minimum Query</a></li>
 <li><a href="https://www.codechef.com/problems/FRMQ">CODECHEF: Chef And Array</a></li>
@@ -2822,14 +2827,14 @@ Pros: simple data structure, excellent time complexity.</li>
     
       <a href="/graph/assignment-problem-min-flow/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Solving assignment problem using min-cost-flow</span>
+        <span>মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</span>
       </a>
     
     </span>
     <span>
     
       <a href="/sequences/k-th/" class="flex align-center">
-        <span>K-th order statistic in O(N)</span>
+        <span>$O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -2870,8 +2875,8 @@ Pros: simple data structure, excellent time complexity.</li>
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#সমধন">সমাধান</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

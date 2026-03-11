@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,32 +8,34 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Finding faces of a planar graph#Consider a graph $G$ with $n$ vertices and $m$ edges, which can be drawn on a plane in such a way that two edges intersect only at a common vertex (if it exists). Such graphs are called planar. Now suppose that we are given a planar graph together with its straight-line embedding, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such embedding always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called outer, while the other faces are called inner.
+<meta name="description" content="প্ল্যানার গ্রাফের ফেস খুঁজে বের করা#একটি গ্রাফ $G$ বিবেচনা করুন যার $n$ টি ভার্টেক্স ও $m$ টি এজ আছে, এবং যেটি সমতলে এমনভাবে আঁকা যায় যে দুটি এজ শুধুমাত্র একটি সাধারণ ভার্টেক্সে (যদি থাকে) ছেদ করে। এই ধরনের গ্রাফকে প্ল্যানার বলা হয়। এখন ধরুন আমাদের একটি প্ল্যানার গ্রাফ তার স্ট্রেট-লাইন এমবেডিং সহ দেওয়া আছে, অর্থাৎ প্রতিটি ভার্টেক্স $v$-এর জন্য আমাদের কাছে একটি বিন্দু $(x, y)$ আছে এবং সব এজ এই বিন্দুগুলোর মধ্যে রেখাখণ্ড হিসেবে ছেদ ছাড়াই আঁকা (এমন এমবেডিং সবসময় বিদ্যমান)। এই রেখাখণ্ডগুলো সমতলকে কয়েকটি অঞ্চলে ভাগ করে, যাদের ফেস বলা হয়। ঠিক একটি ফেস সীমাহীন। এই ফেসকে বাইরের ফেস বলা হয়, বাকিগুলোকে ভেতরের ফেস বলা হয়।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/geometry/planar/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/geometry/planar/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Finding faces of a planar graph">
-  <meta property="og:description" content="Finding faces of a planar graph#Consider a graph $G$ with $n$ vertices and $m$ edges, which can be drawn on a plane in such a way that two edges intersect only at a common vertex (if it exists). Such graphs are called planar. Now suppose that we are given a planar graph together with its straight-line embedding, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such embedding always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called outer, while the other faces are called inner.">
+  <meta property="og:title" content="প্ল্যানার গ্রাফের ফেস খুঁজে বের করা">
+  <meta property="og:description" content="প্ল্যানার গ্রাফের ফেস খুঁজে বের করা#একটি গ্রাফ $G$ বিবেচনা করুন যার $n$ টি ভার্টেক্স ও $m$ টি এজ আছে, এবং যেটি সমতলে এমনভাবে আঁকা যায় যে দুটি এজ শুধুমাত্র একটি সাধারণ ভার্টেক্সে (যদি থাকে) ছেদ করে। এই ধরনের গ্রাফকে প্ল্যানার বলা হয়। এখন ধরুন আমাদের একটি প্ল্যানার গ্রাফ তার স্ট্রেট-লাইন এমবেডিং সহ দেওয়া আছে, অর্থাৎ প্রতিটি ভার্টেক্স $v$-এর জন্য আমাদের কাছে একটি বিন্দু $(x, y)$ আছে এবং সব এজ এই বিন্দুগুলোর মধ্যে রেখাখণ্ড হিসেবে ছেদ ছাড়াই আঁকা (এমন এমবেডিং সবসময় বিদ্যমান)। এই রেখাখণ্ডগুলো সমতলকে কয়েকটি অঞ্চলে ভাগ করে, যাদের ফেস বলা হয়। ঠিক একটি ফেস সীমাহীন। এই ফেসকে বাইরের ফেস বলা হয়, বাকিগুলোকে ভেতরের ফেস বলা হয়।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="geometry">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Finding faces of a planar graph">
-  <meta itemprop="description" content="Finding faces of a planar graph#Consider a graph $G$ with $n$ vertices and $m$ edges, which can be drawn on a plane in such a way that two edges intersect only at a common vertex (if it exists). Such graphs are called planar. Now suppose that we are given a planar graph together with its straight-line embedding, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such embedding always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called outer, while the other faces are called inner.">
-  <meta itemprop="wordCount" content="1917">
+  <meta itemprop="name" content="প্ল্যানার গ্রাফের ফেস খুঁজে বের করা">
+  <meta itemprop="description" content="প্ল্যানার গ্রাফের ফেস খুঁজে বের করা#একটি গ্রাফ $G$ বিবেচনা করুন যার $n$ টি ভার্টেক্স ও $m$ টি এজ আছে, এবং যেটি সমতলে এমনভাবে আঁকা যায় যে দুটি এজ শুধুমাত্র একটি সাধারণ ভার্টেক্সে (যদি থাকে) ছেদ করে। এই ধরনের গ্রাফকে প্ল্যানার বলা হয়। এখন ধরুন আমাদের একটি প্ল্যানার গ্রাফ তার স্ট্রেট-লাইন এমবেডিং সহ দেওয়া আছে, অর্থাৎ প্রতিটি ভার্টেক্স $v$-এর জন্য আমাদের কাছে একটি বিন্দু $(x, y)$ আছে এবং সব এজ এই বিন্দুগুলোর মধ্যে রেখাখণ্ড হিসেবে ছেদ ছাড়াই আঁকা (এমন এমবেডিং সবসময় বিদ্যমান)। এই রেখাখণ্ডগুলো সমতলকে কয়েকটি অঞ্চলে ভাগ করে, যাদের ফেস বলা হয়। ঠিক একটি ফেস সীমাহীন। এই ফেসকে বাইরের ফেস বলা হয়, বাকিগুলোকে ভেতরের ফেস বলা হয়।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1792">
 
-<title>Finding faces of a planar graph | CP-Algorithms</title>
+<title>প্ল্যানার গ্রাফের ফেস খুঁজে বের করা | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/geometry/planar/">
+<link rel="canonical" href="http://localhost:1313/geometry/planar/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -120,78 +122,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -205,7 +137,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -219,7 +221,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -233,35 +235,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -275,7 +249,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -289,7 +291,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -303,21 +305,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -331,7 +319,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -345,21 +347,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -373,7 +361,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -387,7 +375,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -401,7 +403,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -428,8 +430,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -442,8 +444,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -457,7 +459,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -471,21 +473,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -499,7 +487,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -513,7 +515,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -527,7 +529,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -578,7 +580,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -592,7 +594,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -606,7 +608,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -620,7 +622,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -634,7 +636,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -648,7 +650,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -662,7 +664,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -676,7 +678,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -690,7 +692,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -740,8 +742,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -755,49 +771,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -811,7 +785,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -825,7 +827,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -876,21 +878,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -904,7 +892,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -931,8 +933,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -945,8 +947,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -960,21 +962,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -988,7 +976,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1002,7 +1004,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1016,7 +1018,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1030,7 +1032,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1067,7 +1069,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1081,7 +1083,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1095,7 +1097,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1109,7 +1111,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1145,22 +1147,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1173,8 +1161,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1188,7 +1176,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1202,7 +1190,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1216,7 +1218,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1230,7 +1232,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1244,7 +1246,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1295,7 +1297,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1309,7 +1311,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1323,7 +1325,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1337,7 +1339,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1351,7 +1353,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1387,64 +1389,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="active">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1458,7 +1404,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1471,8 +1417,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1485,8 +1431,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1499,8 +1445,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="active">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1513,8 +1459,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1528,7 +1474,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1542,21 +1544,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1570,7 +1558,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1583,22 +1571,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1612,7 +1586,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1626,21 +1628,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1654,7 +1642,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1667,8 +1655,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1682,7 +1670,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1696,7 +1698,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1710,7 +1712,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1724,7 +1726,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1738,7 +1740,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1774,64 +1776,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1858,22 +1804,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1887,7 +1819,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1901,7 +1833,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1914,8 +1846,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1928,8 +1860,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1942,8 +1874,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1956,8 +1888,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1971,7 +1917,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1984,8 +1930,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -1998,8 +1944,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2012,22 +1958,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2041,7 +1973,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2054,8 +1986,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2068,8 +2000,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2096,50 +2070,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2153,7 +2099,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2166,8 +2112,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2180,8 +2126,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2195,7 +2169,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2208,8 +2182,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2222,8 +2196,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2237,7 +2211,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2250,8 +2224,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2264,8 +2238,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2279,7 +2253,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2292,8 +2266,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2307,7 +2281,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2321,7 +2309,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2335,7 +2337,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2349,7 +2351,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2363,7 +2365,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2377,7 +2379,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2391,7 +2393,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2428,7 +2430,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2442,7 +2444,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2470,7 +2472,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2507,7 +2509,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2521,7 +2523,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2535,7 +2537,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2549,7 +2551,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2563,7 +2565,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2600,7 +2602,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2614,7 +2616,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2651,7 +2653,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2665,7 +2667,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2679,7 +2681,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2725,7 +2727,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Finding faces of a planar graph</h3>
+  <h3>প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</h3>
 
   <label for="toc-control">
     
@@ -2741,26 +2743,26 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#some-facts-about-planar-graphs">Some facts about planar graphs</a>
+    <li><a href="#পলযনর-গরফ-সমপরক-কছ-তথয">প্ল্যানার গ্রাফ সম্পর্কে কিছু তথ্য</a>
       <ul>
-        <li><a href="#eulers-theorem">Euler&rsquo;s theorem</a></li>
-        <li><a href="#number-of-edges-of-a-planar-graph">Number of edges of a planar graph.</a></li>
-        <li><a href="#number-of-faces-of-a-planar-graph">Number of faces of a planar graph.</a></li>
-        <li><a href="#minimum-vertex-degree-in-a-planar-graph">Minimum vertex degree in a planar graph.</a></li>
+        <li><a href="#অযলরর-উপপদয">অয়লারের উপপাদ্য</a></li>
+        <li><a href="#পলযনর-গরফর-এজ-সখয">প্ল্যানার গ্রাফের এজ সংখ্যা</a></li>
+        <li><a href="#পলযনর-গরফর-ফস-সখয">প্ল্যানার গ্রাফের ফেস সংখ্যা</a></li>
+        <li><a href="#পলযনর-গরফ-সরবনমন-ভরটকস-ডগর">প্ল্যানার গ্রাফে সর্বনিম্ন ভার্টেক্স ডিগ্রি</a></li>
       </ul>
     </li>
-    <li><a href="#the-algorithm">The algorithm</a>
+    <li><a href="#অযলগরদম">অ্যালগরিদম</a>
       <ul>
-        <li><a href="#finding-the-next-edge">Finding the next edge</a></li>
-        <li><a href="#finding-the-outer-face">Finding the outer face</a></li>
-        <li><a href="#complexity">Complexity</a></li>
+        <li><a href="#পরবরত-এজ-খজ-বর-কর">পরবর্তী এজ খুঁজে বের করা</a></li>
+        <li><a href="#বইরর-ফস-খজ-বর-কর">বাইরের ফেস খুঁজে বের করা</a></li>
+        <li><a href="#কমপলকসট">কমপ্লেক্সিটি</a></li>
       </ul>
     </li>
-    <li><a href="#what-if-the-graph-isnt-connected">What if the graph isn&rsquo;t connected?</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#building-planar-graph-from-line-segments">Building planar graph from line segments</a></li>
-    <li><a href="#implementation-1">Implementation</a></li>
-    <li><a href="#problems">Problems</a></li>
+    <li><a href="#গরফ-সযকত-ন-হল-ক-হব">গ্রাফ সংযুক্ত না হলে কী হবে?</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#রখখণড-থক-পলযনর-গরফ-তর">রেখাখণ্ড থেকে প্ল্যানার গ্রাফ তৈরি</a></li>
+    <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2773,40 +2775,40 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="finding-faces-of-a-planar-graph">Finding faces of a planar graph<a class="anchor" href="#finding-faces-of-a-planar-graph">#</a></h1>
-<p>Consider a graph $G$ with $n$ vertices and $m$ edges, which can be drawn on a plane in such a way that two edges intersect only at a common vertex (if it exists).
-Such graphs are called <strong>planar</strong>. Now suppose that we are given a planar graph together with its straight-line embedding, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such embedding always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called <strong>outer</strong>, while the other faces are called <strong>inner</strong>.</p>
-<p>In this article we will deal with finding both inner and outer faces of a planar graph. We will assume that the graph is connected.</p>
-<h2 id="some-facts-about-planar-graphs">Some facts about planar graphs<a class="anchor" href="#some-facts-about-planar-graphs">#</a></h2>
-<p>In this section we present several facts about planar graphs without proof. Readers who are interested in proofs should refer to <a href="https://www.math.uni-hamburg.de/home/diestel/books/graph.theory/preview/Ch4.pdf">Graph Theory by R. Diestel</a> (see also <a href="https://www.youtube.com/@DiestelGraphTheory">video lectures on planarity</a> based on this book) or some other book.</p>
-<h3 id="eulers-theorem">Euler&rsquo;s theorem<a class="anchor" href="#eulers-theorem">#</a></h3>
-<p>Euler&rsquo;s theorem states that any correct embedding of a connected planar graph with $n$ vertices, $m$ edges and $f$ faces satisfies:</p>
-$$n - m + f = 2$$<p>And more generally, every planar graph with $k$ connected components satisfies:</p>
-$$n - m + f = 1 + k$$<h3 id="number-of-edges-of-a-planar-graph">Number of edges of a planar graph.<a class="anchor" href="#number-of-edges-of-a-planar-graph">#</a></h3>
-<p>If $n \ge 3$ then the maximum number of edges of a planar graph with $n$ vertices is $3n - 6$. This number is achieved by any connected planar graph where each face is bounded by a triangle. In terms of complexity this fact means that $m = O(n)$ for any planar graph.</p>
-<h3 id="number-of-faces-of-a-planar-graph">Number of faces of a planar graph.<a class="anchor" href="#number-of-faces-of-a-planar-graph">#</a></h3>
-<p>As a direct consequence of the above fact, if $n \ge 3$ then the maximum number of faces of a planar graph with $n$ vertices is $2n - 4$.</p>
-<h3 id="minimum-vertex-degree-in-a-planar-graph">Minimum vertex degree in a planar graph.<a class="anchor" href="#minimum-vertex-degree-in-a-planar-graph">#</a></h3>
-<p>Every planar graph has a vertex of degree 5 or less.</p>
-<h2 id="the-algorithm">The algorithm<a class="anchor" href="#the-algorithm">#</a></h2>
-<p>Firstly, sort the adjacent edges for each vertex by polar angle.
-Now let&rsquo;s traverse the graph in the following way. Suppose that we entered vertex $u$ through the edge $(v, u)$ and $(u, w)$ is the next edge after $(v, u)$ in the sorted adjacency list of $u$. Then the next vertex will be $w$. It turns out that if we start this traversal at some edge $(v, u)$, we will traverse exactly one of the faces adjacent to $(v, u)$, the exact face depending on whether our first step is from $u$ to $v$ or from $v$ to $u$.</p>
-<p>Now the algorithm is quite obvious. We must iterate over all edges of the graph and start the traversal for each edge that wasn&rsquo;t visited by one of the previous traversals. This way we will find each face exactly once, and each edge will be traversed twice (once in each direction).</p>
-<h3 id="finding-the-next-edge">Finding the next edge<a class="anchor" href="#finding-the-next-edge">#</a></h3>
-<p>During the traversal we have to find the next edge in counter-clockwise order. The most obvious way to find the next edge is binary search by angle. However, given the counter-clockwise order of adjacent edges for each vertex, we can precompute the next edges and store them in a hash table. If the edges are already sorted by angle, the complexity of finding all faces in this case becomes linear.</p>
-<h3 id="finding-the-outer-face">Finding the outer face<a class="anchor" href="#finding-the-outer-face">#</a></h3>
-<p>It&rsquo;s not hard to see that the algorithm traverses each inner face in a clockwise order and the outer face in the counter-clockwise order, so the outer face can be found by checking the order of each face.</p>
-<h3 id="complexity">Complexity<a class="anchor" href="#complexity">#</a></h3>
-<p>It&rsquo;s quite clear that the complexity of the algorithm is $O(m \log m)$ because of sorting, and since $m = O(n)$, it&rsquo;s actually $O(n \log n)$. As mentioned before, without sorting the complexity becomes $O(n)$.</p>
-<h2 id="what-if-the-graph-isnt-connected">What if the graph isn&rsquo;t connected?<a class="anchor" href="#what-if-the-graph-isnt-connected">#</a></h2>
-<p>At the first glance it may seem that finding faces of a disconnected graph is not much harder because we can run the same algorithm for each connected component. However, the components may be drawn in a nested way, forming <strong>holes</strong> (see the image below). In this case the inner face of some component becomes the outer face of some other components and has a complex disconnected border. Dealing with such cases is quite hard, one possible approach is to identify nested components with <a href="point-location.md">point location</a> algorithms.</p>
+  <article class="markdown book-article"><h1 id="পলযনর-গরফর-ফস-খজ-বর-কর">প্ল্যানার গ্রাফের ফেস খুঁজে বের করা<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%b0%e0%a6%ab%e0%a6%b0-%e0%a6%ab%e0%a6%b8-%e0%a6%96%e0%a6%9c-%e0%a6%ac%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h1>
+<p>একটি গ্রাফ $G$ বিবেচনা করুন যার $n$ টি ভার্টেক্স ও $m$ টি এজ আছে, এবং যেটি সমতলে এমনভাবে আঁকা যায় যে দুটি এজ শুধুমাত্র একটি সাধারণ ভার্টেক্সে (যদি থাকে) ছেদ করে।
+এই ধরনের গ্রাফকে <strong>প্ল্যানার</strong> বলা হয়। এখন ধরুন আমাদের একটি প্ল্যানার গ্রাফ তার স্ট্রেট-লাইন এমবেডিং সহ দেওয়া আছে, অর্থাৎ প্রতিটি ভার্টেক্স $v$-এর জন্য আমাদের কাছে একটি বিন্দু $(x, y)$ আছে এবং সব এজ এই বিন্দুগুলোর মধ্যে রেখাখণ্ড হিসেবে ছেদ ছাড়াই আঁকা (এমন এমবেডিং সবসময় বিদ্যমান)। এই রেখাখণ্ডগুলো সমতলকে কয়েকটি অঞ্চলে ভাগ করে, যাদের ফেস বলা হয়। ঠিক একটি ফেস সীমাহীন। এই ফেসকে <strong>বাইরের</strong> ফেস বলা হয়, বাকিগুলোকে <strong>ভেতরের</strong> ফেস বলা হয়।</p>
+<p>এই নিবন্ধে আমরা একটি প্ল্যানার গ্রাফের ভেতরের ও বাইরের উভয় ফেস খুঁজে বের করার বিষয়ে আলোচনা করব। আমরা ধরে নেব গ্রাফটি সংযুক্ত।</p>
+<h2 id="পলযনর-গরফ-সমপরক-কছ-তথয">প্ল্যানার গ্রাফ সম্পর্কে কিছু তথ্য<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%b8%e0%a6%ae%e0%a6%aa%e0%a6%b0%e0%a6%95-%e0%a6%95%e0%a6%9b-%e0%a6%a4%e0%a6%a5%e0%a6%af">#</a></h2>
+<p>এই অংশে আমরা প্ল্যানার গ্রাফ সম্পর্কে কিছু তথ্য প্রমাণ ছাড়া উপস্থাপন করব। যে পাঠকরা প্রমাণে আগ্রহী তাদের <a href="https://www.math.uni-hamburg.de/home/diestel/books/graph.theory/preview/Ch4.pdf">Graph Theory by R. Diestel</a> (এই বইয়ের উপর ভিত্তি করে <a href="https://www.youtube.com/@DiestelGraphTheory">প্ল্যানারিটি সম্পর্কিত ভিডিও লেকচারও</a> দেখুন) বা অন্য কোনো বই দেখা উচিত।</p>
+<h3 id="অযলরর-উপপদয">অয়লারের উপপাদ্য<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%b0%e0%a6%b0-%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af">#</a></h3>
+<p>অয়লারের উপপাদ্য বলে যে $n$ টি ভার্টেক্স, $m$ টি এজ ও $f$ টি ফেস বিশিষ্ট একটি সংযুক্ত প্ল্যানার গ্রাফের যেকোনো সঠিক এমবেডিং নিম্নলিখিত শর্ত পূরণ করে:</p>
+$$n - m + f = 2$$<p>এবং আরও সাধারণভাবে, $k$ টি সংযুক্ত উপাদান বিশিষ্ট প্রতিটি প্ল্যানার গ্রাফ নিম্নলিখিত শর্ত পূরণ করে:</p>
+$$n - m + f = 1 + k$$<h3 id="পলযনর-গরফর-এজ-সখয">প্ল্যানার গ্রাফের এজ সংখ্যা<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%b0%e0%a6%ab%e0%a6%b0-%e0%a6%8f%e0%a6%9c-%e0%a6%b8%e0%a6%96%e0%a6%af">#</a></h3>
+<p>যদি $n \ge 3$ হয় তাহলে $n$ ভার্টেক্স বিশিষ্ট প্ল্যানার গ্রাফের সর্বাধিক এজ সংখ্যা $3n - 6$। এই সংখ্যা যেকোনো সংযুক্ত প্ল্যানার গ্রাফে অর্জিত হয় যেখানে প্রতিটি ফেস একটি ত্রিভুজ দ্বারা সীমাবদ্ধ। কমপ্লেক্সিটির দিক থেকে এই তথ্যের অর্থ হলো যেকোনো প্ল্যানার গ্রাফের জন্য $m = O(n)$।</p>
+<h3 id="পলযনর-গরফর-ফস-সখয">প্ল্যানার গ্রাফের ফেস সংখ্যা<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%b0%e0%a6%ab%e0%a6%b0-%e0%a6%ab%e0%a6%b8-%e0%a6%b8%e0%a6%96%e0%a6%af">#</a></h3>
+<p>উপরের তথ্যের সরাসরি ফলাফল হিসেবে, যদি $n \ge 3$ হয় তাহলে $n$ ভার্টেক্স বিশিষ্ট প্ল্যানার গ্রাফের সর্বাধিক ফেস সংখ্যা $2n - 4$।</p>
+<h3 id="পলযনর-গরফ-সরবনমন-ভরটকস-ডগর">প্ল্যানার গ্রাফে সর্বনিম্ন ভার্টেক্স ডিগ্রি<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%b8%e0%a6%b0%e0%a6%ac%e0%a6%a8%e0%a6%ae%e0%a6%a8-%e0%a6%ad%e0%a6%b0%e0%a6%9f%e0%a6%95%e0%a6%b8-%e0%a6%a1%e0%a6%97%e0%a6%b0">#</a></h3>
+<p>প্রতিটি প্ল্যানার গ্রাফে ৫ বা তার কম ডিগ্রি বিশিষ্ট একটি ভার্টেক্স থাকে।</p>
+<h2 id="অযলগরদম">অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<p>প্রথমে, প্রতিটি ভার্টেক্সের জন্য সংলগ্ন এজগুলো পোলার কোণ অনুযায়ী সাজান।
+এখন গ্রাফটি নিম্নরূপে ট্রাভার্স করি। ধরুন আমরা $(v, u)$ এজ দিয়ে ভার্টেক্স $u$-তে প্রবেশ করেছি এবং $u$-এর সাজানো অ্যাডজাসেন্সি লিস্টে $(v, u)$-এর পরবর্তী এজ হলো $(u, w)$। তখন পরবর্তী ভার্টেক্স হবে $w$। দেখা যায় যে আমরা যদি কোনো এজ $(v, u)$ থেকে এই ট্রাভার্সাল শুরু করি, আমরা $(v, u)$-র সংলগ্ন ফেসগুলোর ঠিক একটি ট্রাভার্স করব, কোন ফেস তা নির্ভর করবে আমাদের প্রথম পদক্ষেপ $u$ থেকে $v$ নাকি $v$ থেকে $u$।</p>
+<p>এখন অ্যালগরিদমটি বেশ স্পষ্ট। আমাদের গ্রাফের সব এজের উপর ইটারেট করতে হবে এবং প্রতিটি এজের জন্য ট্রাভার্সাল শুরু করতে হবে যেটি পূর্ববর্তী কোনো ট্রাভার্সালে ভিজিট হয়নি। এভাবে আমরা প্রতিটি ফেস ঠিক একবার পাব, এবং প্রতিটি এজ দুবার ট্রাভার্স হবে (প্রতিটি দিকে একবার)।</p>
+<h3 id="পরবরত-এজ-খজ-বর-কর">পরবর্তী এজ খুঁজে বের করা<a class="anchor" href="#%e0%a6%aa%e0%a6%b0%e0%a6%ac%e0%a6%b0%e0%a6%a4-%e0%a6%8f%e0%a6%9c-%e0%a6%96%e0%a6%9c-%e0%a6%ac%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h3>
+<p>ট্রাভার্সালের সময় আমাদের ঘড়ির কাঁটার বিপরীত ক্রমে পরবর্তী এজ খুঁজতে হবে। পরবর্তী এজ খোঁজার সবচেয়ে সুস্পষ্ট উপায় হলো কোণ দিয়ে বাইনারি সার্চ। তবে, প্রতিটি ভার্টেক্সের সংলগ্ন এজগুলোর ঘড়ির কাঁটার বিপরীত ক্রম দেওয়া থাকলে, আমরা পরবর্তী এজগুলো আগে থেকে গণনা করে একটি হ্যাশ টেবিলে সংরক্ষণ করতে পারি। এজগুলো ইতিমধ্যে কোণ অনুযায়ী সাজানো থাকলে, এই ক্ষেত্রে সব ফেস খোঁজার কমপ্লেক্সিটি লিনিয়ার হয়ে যায়।</p>
+<h3 id="বইরর-ফস-খজ-বর-কর">বাইরের ফেস খুঁজে বের করা<a class="anchor" href="#%e0%a6%ac%e0%a6%87%e0%a6%b0%e0%a6%b0-%e0%a6%ab%e0%a6%b8-%e0%a6%96%e0%a6%9c-%e0%a6%ac%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h3>
+<p>দেখা সহজ যে অ্যালগরিদম প্রতিটি ভেতরের ফেস ঘড়ির কাঁটার দিকে এবং বাইরের ফেস ঘড়ির কাঁটার বিপরীত দিকে ট্রাভার্স করে, তাই বাইরের ফেস প্রতিটি ফেসের ক্রম পরীক্ষা করে পাওয়া যায়।</p>
+<h3 id="কমপলকসট">কমপ্লেক্সিটি<a class="anchor" href="#%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%b8%e0%a6%9f">#</a></h3>
+<p>এটা বেশ স্পষ্ট যে অ্যালগরিদমের কমপ্লেক্সিটি সাজানোর কারণে $O(m \log m)$, এবং যেহেতু $m = O(n)$, এটি আসলে $O(n \log n)$। আগে উল্লেখ করা হয়েছে, সাজানো ছাড়া কমপ্লেক্সিটি $O(n)$ হয়ে যায়।</p>
+<h2 id="গরফ-সযকত-ন-হল-ক-হব">গ্রাফ সংযুক্ত না হলে কী হবে?<a class="anchor" href="#%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%b8%e0%a6%af%e0%a6%95%e0%a6%a4-%e0%a6%a8-%e0%a6%b9%e0%a6%b2-%e0%a6%95-%e0%a6%b9%e0%a6%ac">#</a></h2>
+<p>প্রথম দৃষ্টিতে মনে হতে পারে যে বিচ্ছিন্ন গ্রাফের ফেস খোঁজা খুব কঠিন নয় কারণ আমরা প্রতিটি সংযুক্ত উপাদানের জন্য একই অ্যালগরিদম চালাতে পারি। তবে, উপাদানগুলো নেস্টেড পদ্ধতিতে আঁকা হতে পারে, <strong>ছিদ্র</strong> (holes) তৈরি করে (নিচের ছবি দেখুন)। এই ক্ষেত্রে কোনো উপাদানের ভেতরের ফেস অন্য কোনো উপাদানের বাইরের ফেস হয়ে যায় এবং এর একটি জটিল বিচ্ছিন্ন সীমানা থাকে। এমন ক্ষেত্র সামলানো বেশ কঠিন, একটি সম্ভাব্য পদ্ধতি হলো <a href="point-location.md">পয়েন্ট লোকেশন</a> অ্যালগরিদম দিয়ে নেস্টেড উপাদান চিহ্নিত করা।</p>
 <div style="text-align: center;">
   <img src="/images/geometry/planar_hole.png" alt="Planar graph with holes">
 </div>
-<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
-<p>The following implementation returns a vector of vertices for each face, outer face goes first.
-Inner faces are returned in counter-clockwise orders and the outer face is returned in clockwise order.</p>
-<p>For simplicity we find the next edge by doing binary search by angle.</p>
+<h2 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>নিম্নলিখিত ইমপ্লিমেন্টেশন প্রতিটি ফেসের জন্য ভার্টেক্সের একটি ভেক্টর ফেরত দেয়, বাইরের ফেস প্রথমে আসে।
+ভেতরের ফেসগুলো ঘড়ির কাঁটার বিপরীত ক্রমে এবং বাইরের ফেস ঘড়ির কাঁটার ক্রমে ফেরত দেওয়া হয়।</p>
+<p>সরলতার জন্য আমরা কোণ দিয়ে বাইনারি সার্চ করে পরবর্তী এজ খুঁজি।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Point</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int64_t</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -2886,12 +2888,12 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">faces</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="building-planar-graph-from-line-segments">Building planar graph from line segments<a class="anchor" href="#building-planar-graph-from-line-segments">#</a></h2>
-<p>Sometimes you are not given a graph explicitly, but rather as a set of line segments on a plane, and the actual graph is formed by intersecting those segments, as shown in the picture below. In this case you have to build the graph manually. The easiest way to do so is as follows. Fix a segment and intersect it with all other segments. Then sort all intersection points together with the two endpoints of the segment lexicographically and add them to the graph as vertices. Also link each two adjacent vertices in lexicographical order by an edge. After doing this procedure for all edges we will obtain the graph. Of course, we should ensure that two equal intersection points will always correspond to the same vertex. The easiest way to do this is to store the points in a map by their coordinates, regarding points whose coordinates differ by a small number (say, less than $10^{-9}$) as equal. This algorithm works in $O(n^2 \log n)$.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="রখখণড-থক-পলযনর-গরফ-তর">রেখাখণ্ড থেকে প্ল্যানার গ্রাফ তৈরি<a class="anchor" href="#%e0%a6%b0%e0%a6%96%e0%a6%96%e0%a6%a3%e0%a6%a1-%e0%a6%a5%e0%a6%95-%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%a4%e0%a6%b0">#</a></h2>
+<p>কখনো কখনো আপনাকে সরাসরি গ্রাফ দেওয়া হয় না, বরং সমতলে রেখাখণ্ডের একটি সেট দেওয়া হয়, এবং প্রকৃত গ্রাফটি সেই রেখাখণ্ডগুলোর ছেদ থেকে তৈরি হয়, নিচের ছবিতে যেমন দেখানো হয়েছে। এই ক্ষেত্রে আপনাকে ম্যানুয়ালি গ্রাফটি তৈরি করতে হবে। সবচেয়ে সহজ উপায় নিম্নরূপ। একটি রেখাখণ্ড ধরুন এবং এটিকে অন্য সব রেখাখণ্ডের সাথে ছেদ করুন। তারপর সব ছেদবিন্দু ও রেখাখণ্ডের দুই প্রান্তবিন্দু অভিধানক্রমে সাজান এবং গ্রাফে ভার্টেক্স হিসেবে যোগ করুন। এছাড়াও অভিধানক্রমে প্রতিটি দুটি পরপর ভার্টেক্সকে একটি এজ দিয়ে সংযুক্ত করুন। সব এজের জন্য এই প্রক্রিয়া সম্পন্ন করলে আমরা গ্রাফটি পাব। অবশ্যই, আমাদের নিশ্চিত করতে হবে যে দুটি সমান ছেদবিন্দু সবসময় একই ভার্টেক্সের সাথে সম্পর্কিত হবে। সবচেয়ে সহজ উপায় হলো বিন্দুগুলো তাদের স্থানাঙ্ক অনুযায়ী একটি ম্যাপে সংরক্ষণ করা, যেসব বিন্দুর স্থানাঙ্ক একটি ছোট সংখ্যার (ধরি, $10^{-9}$-এর কম) চেয়ে কম পার্থক্য বিশিষ্ট তাদের সমান ধরে। এই অ্যালগরিদম $O(n^2 \log n)$-এ কাজ করে।</p>
 <div style="text-align: center;">
   <img src="/images/geometry/planar_implicit.png" alt="Implicitly defined graph">
 </div>
-<h2 id="implementation-1">Implementation<a class="anchor" href="#implementation-1">#</a></h2>
+<h2 id="ইমপলমনটশন-1">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8-1">#</a></h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">dbl</span> <span class="o">=</span> <span class="kt">long</span> <span class="kt">double</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">dbl</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-9</span><span class="p">;</span>
@@ -2987,7 +2989,7 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">l2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="p">{</span><span class="n">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">]};</span>
-</span></span><span class="line"><span class="cl">			<span class="k">else</span> 
+</span></span><span class="line"><span class="cl">			<span class="k">else</span>
 </span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">l2</span><span class="p">.</span><span class="n">hasPointSeg</span><span class="p">(</span><span class="n">l1</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -2999,7 +3001,7 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">l2</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">l1</span><span class="p">.</span><span class="n">hasPointSeg</span><span class="p">(</span><span class="n">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{</span><span class="n">l2</span><span class="p">[</span><span class="mi">0</span><span class="p">]};</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span> 
+</span></span><span class="line"><span class="cl">		<span class="k">else</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="k">auto</span> <span class="n">li</span> <span class="o">=</span> <span class="n">interLineLine</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l2</span><span class="p">);</span>
@@ -3023,13 +3025,13 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 </span></span><span class="line"><span class="cl">            <span class="n">res</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2u</span> <span class="o">&amp;&amp;</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">{};</span>
-</span></span><span class="line"><span class="cl">		<span class="k">else</span> 
+</span></span><span class="line"><span class="cl">		<span class="k">else</span>
 </span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">	<span class="n">Point</span> <span class="n">cand</span> <span class="o">=</span> <span class="n">li</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">l1</span><span class="p">.</span><span class="n">hasPointSeg</span><span class="p">(</span><span class="n">cand</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">l2</span><span class="p">.</span><span class="n">hasPointSeg</span><span class="p">(</span><span class="n">cand</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{</span><span class="n">cand</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl">	<span class="k">else</span> 
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{};</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -3078,7 +3080,7 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
 </span></span></span><span class="line"><span class="cl">        <span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique</span><span class="p">(</span><span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">begin</span><span class="p">(),</span> <span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">()),</span> <span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">end</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="p">,</span> <span class="n">adj</span><span class="p">};</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="problems">Problems<a class="anchor" href="#problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1664">TIMUS 1664 Pipeline Transportation</a></li>
 <li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1681">TIMUS 1681 Brother Bear&rsquo;s Garden</a></li>
@@ -3111,16 +3113,16 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/geometry/convex-hull/" class="flex align-center">
+      <a href="/geometry/nearest_points/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Convex Hull construction</span>
+        <span>নিকটতম বিন্দু জোড়া খুঁজে বের করা</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/geometry/nearest_points/" class="flex align-center">
-        <span>Finding the nearest pair of points</span>
+      <a href="/geometry/basic-geometry/" class="flex align-center">
+        <span>মৌলিক জ্যামিতি</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3161,26 +3163,26 @@ Inner faces are returned in counter-clockwise orders and the outer face is retur
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#some-facts-about-planar-graphs">Some facts about planar graphs</a>
+    <li><a href="#পলযনর-গরফ-সমপরক-কছ-তথয">প্ল্যানার গ্রাফ সম্পর্কে কিছু তথ্য</a>
       <ul>
-        <li><a href="#eulers-theorem">Euler&rsquo;s theorem</a></li>
-        <li><a href="#number-of-edges-of-a-planar-graph">Number of edges of a planar graph.</a></li>
-        <li><a href="#number-of-faces-of-a-planar-graph">Number of faces of a planar graph.</a></li>
-        <li><a href="#minimum-vertex-degree-in-a-planar-graph">Minimum vertex degree in a planar graph.</a></li>
+        <li><a href="#অযলরর-উপপদয">অয়লারের উপপাদ্য</a></li>
+        <li><a href="#পলযনর-গরফর-এজ-সখয">প্ল্যানার গ্রাফের এজ সংখ্যা</a></li>
+        <li><a href="#পলযনর-গরফর-ফস-সখয">প্ল্যানার গ্রাফের ফেস সংখ্যা</a></li>
+        <li><a href="#পলযনর-গরফ-সরবনমন-ভরটকস-ডগর">প্ল্যানার গ্রাফে সর্বনিম্ন ভার্টেক্স ডিগ্রি</a></li>
       </ul>
     </li>
-    <li><a href="#the-algorithm">The algorithm</a>
+    <li><a href="#অযলগরদম">অ্যালগরিদম</a>
       <ul>
-        <li><a href="#finding-the-next-edge">Finding the next edge</a></li>
-        <li><a href="#finding-the-outer-face">Finding the outer face</a></li>
-        <li><a href="#complexity">Complexity</a></li>
+        <li><a href="#পরবরত-এজ-খজ-বর-কর">পরবর্তী এজ খুঁজে বের করা</a></li>
+        <li><a href="#বইরর-ফস-খজ-বর-কর">বাইরের ফেস খুঁজে বের করা</a></li>
+        <li><a href="#কমপলকসট">কমপ্লেক্সিটি</a></li>
       </ul>
     </li>
-    <li><a href="#what-if-the-graph-isnt-connected">What if the graph isn&rsquo;t connected?</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#building-planar-graph-from-line-segments">Building planar graph from line segments</a></li>
-    <li><a href="#implementation-1">Implementation</a></li>
-    <li><a href="#problems">Problems</a></li>
+    <li><a href="#গরফ-সযকত-ন-হল-ক-হব">গ্রাফ সংযুক্ত না হলে কী হবে?</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#রখখণড-থক-পলযনর-গরফ-তর">রেখাখণ্ড থেকে প্ল্যানার গ্রাফ তৈরি</a></li>
+    <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

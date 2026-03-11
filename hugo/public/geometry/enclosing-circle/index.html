@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,44 +8,46 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Minimum Enclosing Circle#Consider the following problem:
+<meta name="description" content="মিনিমাম এনক্লোজিং সার্কেল#নিচের সমস্যাটি বিবেচনা করুন:
 Library Checker - Minimum Enclosing Circle
-You’re given $n \leq 10^5$ points $p_i=(x_i, y_i)$.
-For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.
+আপনাকে $n \leq 10^5$ টি বিন্দু $p_i=(x_i, y_i)$ দেওয়া হয়েছে।
+প্রতিটি $p_i$-এর জন্য নির্ণয় করুন এটি $\{p_1,\dots,p_n\}$-এর মিনিমাম এনক্লোজিং সার্কেলের পরিধির উপর অবস্থিত কি না।
+এখানে, মিনিমাম এনক্লোজিং সার্কেল (MEC) বলতে আমরা এমন একটি বৃত্ত বুঝি যার ব্যাসার্ধ সম্ভাব্য সর্বনিম্ন এবং যা সব $n$ টি বিন্দুকে ধারণ করে — বৃত্তের ভেতরে অথবা সীমানায়। এই সমস্যাটির একটি সরল র‍্যান্ডমাইজড সমাধান রয়েছে যা প্রথম দৃষ্টিতে $O(n^3)$-এ চলবে মনে হলেও বাস্তবে $O(n)$ প্রত্যাশিত সময়ে কাজ করে।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/geometry/enclosing-circle/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/geometry/enclosing-circle/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Minimum Enclosing Circle">
-  <meta property="og:description" content="Minimum Enclosing Circle#Consider the following problem:
+  <meta property="og:title" content="মিনিমাম এনক্লোজিং সার্কেল">
+  <meta property="og:description" content="মিনিমাম এনক্লোজিং সার্কেল#নিচের সমস্যাটি বিবেচনা করুন:
 Library Checker - Minimum Enclosing Circle
-You’re given $n \leq 10^5$ points $p_i=(x_i, y_i)$.
-For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.">
+আপনাকে $n \leq 10^5$ টি বিন্দু $p_i=(x_i, y_i)$ দেওয়া হয়েছে।
+প্রতিটি $p_i$-এর জন্য নির্ণয় করুন এটি $\{p_1,\dots,p_n\}$-এর মিনিমাম এনক্লোজিং সার্কেলের পরিধির উপর অবস্থিত কি না।
+এখানে, মিনিমাম এনক্লোজিং সার্কেল (MEC) বলতে আমরা এমন একটি বৃত্ত বুঝি যার ব্যাসার্ধ সম্ভাব্য সর্বনিম্ন এবং যা সব $n$ টি বিন্দুকে ধারণ করে — বৃত্তের ভেতরে অথবা সীমানায়। এই সমস্যাটির একটি সরল র‍্যান্ডমাইজড সমাধান রয়েছে যা প্রথম দৃষ্টিতে $O(n^3)$-এ চলবে মনে হলেও বাস্তবে $O(n)$ প্রত্যাশিত সময়ে কাজ করে।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="geometry">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Minimum Enclosing Circle">
-  <meta itemprop="description" content="Minimum Enclosing Circle#Consider the following problem:
+  <meta itemprop="name" content="মিনিমাম এনক্লোজিং সার্কেল">
+  <meta itemprop="description" content="মিনিমাম এনক্লোজিং সার্কেল#নিচের সমস্যাটি বিবেচনা করুন:
 Library Checker - Minimum Enclosing Circle
-You’re given $n \leq 10^5$ points $p_i=(x_i, y_i)$.
-For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.">
-  <meta itemprop="wordCount" content="1849">
+আপনাকে $n \leq 10^5$ টি বিন্দু $p_i=(x_i, y_i)$ দেওয়া হয়েছে।
+প্রতিটি $p_i$-এর জন্য নির্ণয় করুন এটি $\{p_1,\dots,p_n\}$-এর মিনিমাম এনক্লোজিং সার্কেলের পরিধির উপর অবস্থিত কি না।
+এখানে, মিনিমাম এনক্লোজিং সার্কেল (MEC) বলতে আমরা এমন একটি বৃত্ত বুঝি যার ব্যাসার্ধ সম্ভাব্য সর্বনিম্ন এবং যা সব $n$ টি বিন্দুকে ধারণ করে — বৃত্তের ভেতরে অথবা সীমানায়। এই সমস্যাটির একটি সরল র‍্যান্ডমাইজড সমাধান রয়েছে যা প্রথম দৃষ্টিতে $O(n^3)$-এ চলবে মনে হলেও বাস্তবে $O(n)$ প্রত্যাশিত সময়ে কাজ করে।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1639">
 
-<title>Minimum Enclosing Circle | CP-Algorithms</title>
+<title>মিনিমাম এনক্লোজিং সার্কেল | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/geometry/enclosing-circle/">
+<link rel="canonical" href="http://localhost:1313/geometry/enclosing-circle/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -132,78 +134,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -217,7 +149,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -231,7 +233,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -245,35 +247,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -287,7 +261,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -301,7 +303,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -315,21 +317,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -343,7 +331,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -357,21 +359,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -385,7 +373,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -399,7 +387,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -413,7 +415,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -440,8 +442,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -454,8 +456,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -469,7 +471,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -483,21 +485,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -511,7 +499,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -525,7 +527,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -539,7 +541,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -590,7 +592,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -604,7 +606,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -618,7 +620,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -632,7 +634,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -646,7 +648,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -660,7 +662,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -674,7 +676,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -688,7 +690,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -702,7 +704,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -752,8 +754,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -767,49 +783,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -823,7 +797,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -837,7 +839,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -888,21 +890,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -916,7 +904,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -943,8 +945,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -957,8 +959,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -972,21 +974,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -1000,7 +988,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1014,7 +1016,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1028,7 +1030,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1042,7 +1044,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1079,7 +1081,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1093,7 +1095,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1107,7 +1109,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1121,7 +1123,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1157,22 +1159,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1185,8 +1173,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1200,7 +1188,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1214,7 +1202,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1228,7 +1230,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1242,7 +1244,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1256,7 +1258,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1307,7 +1309,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1321,7 +1323,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1335,7 +1337,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1349,7 +1351,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1363,7 +1365,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1399,64 +1401,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1470,7 +1416,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1483,8 +1429,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1497,8 +1443,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1511,8 +1457,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1525,8 +1471,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1540,7 +1486,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1554,21 +1556,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1582,7 +1570,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1595,22 +1583,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1624,7 +1598,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1638,21 +1640,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1666,7 +1654,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1679,8 +1667,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1694,7 +1682,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1708,7 +1710,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="active">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1722,7 +1724,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1736,7 +1738,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1750,7 +1752,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1786,64 +1788,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1870,22 +1816,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1899,7 +1831,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1913,7 +1845,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1926,8 +1858,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1940,8 +1872,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1954,8 +1886,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1968,8 +1900,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1983,7 +1929,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1996,8 +1942,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2010,8 +1956,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2024,22 +1970,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2053,7 +1985,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2066,8 +1998,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2080,8 +2012,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2108,50 +2082,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2165,7 +2111,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2178,8 +2124,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2192,8 +2138,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2207,7 +2181,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2220,8 +2194,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2234,8 +2208,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2249,7 +2223,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2262,8 +2236,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2276,8 +2250,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2291,7 +2265,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2304,8 +2278,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2319,7 +2293,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2333,7 +2321,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2347,7 +2349,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2361,7 +2363,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2375,7 +2377,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2389,7 +2391,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2403,7 +2405,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2440,7 +2442,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2454,7 +2456,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2482,7 +2484,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2519,7 +2521,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2533,7 +2535,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2547,7 +2549,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2561,7 +2563,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2575,7 +2577,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2612,7 +2614,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2626,7 +2628,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2663,7 +2665,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2677,7 +2679,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2691,7 +2693,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2737,7 +2739,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Minimum Enclosing Circle</h3>
+  <h3>মিনিমাম এনক্লোজিং সার্কেল</h3>
 
   <label for="toc-control">
     
@@ -2753,13 +2755,13 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#welzls-algorithm">Welzl&rsquo;s algorithm</a>
+    <li><a href="#ওযলজল-অযলগরদম">ওয়েলজল অ্যালগরিদম</a>
       <ul>
-        <li><a href="#complexity-analysis">Complexity analysis</a></li>
-        <li><a href="#checking-that-a-point-is-in-the-mec-of-2-or-3-points">Checking that a point is in the MEC of 2 or 3 points</a></li>
+        <li><a href="#কমপলকসট-বশলষণ">কমপ্লেক্সিটি বিশ্লেষণ</a></li>
+        <li><a href="#একট-বনদ-২-ব-৩-বনদর-mec-এর-মধয-ক-ন-ত-পরকষ-কর">একটি বিন্দু ২ বা ৩ বিন্দুর MEC-এর মধ্যে কি না তা পরীক্ষা করা</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice problems</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2772,52 +2774,41 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="minimum-enclosing-circle">Minimum Enclosing Circle<a class="anchor" href="#minimum-enclosing-circle">#</a></h1>
-<p>Consider the following problem:</p>
+  <article class="markdown book-article"><h1 id="মনমম-এনকলজ-সরকল">মিনিমাম এনক্লোজিং সার্কেল<a class="anchor" href="#%e0%a6%ae%e0%a6%a8%e0%a6%ae%e0%a6%ae-%e0%a6%8f%e0%a6%a8%e0%a6%95%e0%a6%b2%e0%a6%9c-%e0%a6%b8%e0%a6%b0%e0%a6%95%e0%a6%b2">#</a></h1>
+<p>নিচের সমস্যাটি বিবেচনা করুন:</p>
 <p>
 <div class="book-hint info">
   <p><strong><a href="https://judge.yosupo.jp/problem/minimum_enclosing_circle">Library Checker - Minimum Enclosing Circle</a></strong></p>
-<p>You&rsquo;re given $n \leq 10^5$ points $p_i=(x_i, y_i)$.</p>
-<p>For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.</p>
+<p>আপনাকে $n \leq 10^5$ টি বিন্দু $p_i=(x_i, y_i)$ দেওয়া হয়েছে।</p>
+<p>প্রতিটি $p_i$-এর জন্য নির্ণয় করুন এটি $\{p_1,\dots,p_n\}$-এর মিনিমাম এনক্লোজিং সার্কেলের পরিধির উপর অবস্থিত কি না।</p>
 
 </div>
 
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.</p>
-<p>To better understand the reasoning below, we should immediately note that the solution to the problem is unique:</p>
+এখানে, মিনিমাম এনক্লোজিং সার্কেল (MEC) বলতে আমরা এমন একটি বৃত্ত বুঝি যার ব্যাসার্ধ সম্ভাব্য সর্বনিম্ন এবং যা সব $n$ টি বিন্দুকে ধারণ করে — বৃত্তের ভেতরে অথবা সীমানায়। এই সমস্যাটির একটি সরল র‍্যান্ডমাইজড সমাধান রয়েছে যা প্রথম দৃষ্টিতে $O(n^3)$-এ চলবে মনে হলেও বাস্তবে $O(n)$ প্রত্যাশিত সময়ে কাজ করে।</p>
+<p>নিচের যুক্তি আরও ভালোভাবে বোঝার জন্য, আমাদের তৎক্ষণাৎ লক্ষ্য করা উচিত যে এই সমস্যার সমাধান অনন্য:</p>
 <details>
-  <summary>Why is the MEC unique?</summary>
-  <div><p>Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the points $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.</p>
-<p>Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce $r$ by a tiny bit, and still have non-empty intersection, which contradicts the assumption that $r$ was the minimum possible radius of the enclosing circle.</p>
-<p>With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point $p_i$ or two points $p_i$ and $p_j$ (it is also unique because its radius uniquely defines it).</p>
-<p>Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains the points $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.</p>
+  <summary>MEC কেন অনন্য?</summary>
+  <div><p>নিচের ব্যবস্থাটি বিবেচনা করুন: ধরি $r$ হলো MEC-এর ব্যাসার্ধ। আমরা প্রতিটি বিন্দু $p_1,\dots,p_n$-এর চারপাশে $r$ ব্যাসার্ধের একটি বৃত্ত আঁকি। জ্যামিতিকভাবে, যেসব বৃত্তের ব্যাসার্ধ $r$ এবং যেগুলো সব $p_1,\dots,p_n$ বিন্দু ধারণ করে, তাদের কেন্দ্রগুলো এই $n$ টি বৃত্তের ছেদ গঠন করে।</p>
+<p>এখন, যদি ছেদটি মাত্র একটি বিন্দু হয়, তাহলে এটি ইতিমধ্যেই প্রমাণ করে যে সমাধান অনন্য। অন্যথায়, ছেদটি একটি শূন্য-নয় ক্ষেত্রফলের আকৃতি, তাই আমরা $r$ কে সামান্য কমাতে পারি এবং তবুও অশূন্য ছেদ পাব, যা $r$ সম্ভাব্য সর্বনিম্ন ব্যাসার্ধ হওয়ার অনুমানের সাথে বিরোধ তৈরি করে।</p>
+<p>একই যুক্তি দিয়ে, আমরা দেখাতে পারি যে MEC অনন্য থাকে যদি আমরা অতিরিক্তভাবে দাবি করি যে এটি একটি নির্দিষ্ট বিন্দু $p_i$ বা দুটি বিন্দু $p_i$ ও $p_j$-এর মধ্য দিয়ে যায় (এটিও অনন্য কারণ এর ব্যাসার্ধ একে অনন্যভাবে নির্ধারণ করে)।</p>
+<p>বিকল্পভাবে, আমরা ধরে নিতে পারি যে দুটি MEC আছে, এবং তারপর লক্ষ্য করি যে তাদের ছেদ (যা ইতিমধ্যেই $p_1,\dots,p_n$ বিন্দুগুলো ধারণ করে) অবশ্যই মূল বৃত্তগুলোর চেয়ে ছোট ব্যাস বিশিষ্ট, এবং তাই একটি ছোট বৃত্ত দ্বারা আবৃত করা যায়।</p>
 </div>
 </details>
 
-<h2 id="welzls-algorithm">Welzl&rsquo;s algorithm<a class="anchor" href="#welzls-algorithm">#</a></h2>
-<p>For brevity, let&rsquo;s denote $\operatorname{mec}(p_1,\dots,p_n)$ to be the MEC of $\{p_1,\dots,p_n\}$, and let $P_i = \{p_1,\dots,p_i\}$.</p>
-<p>The algorithm, initially <a href="https://doi.org/10.1007/BFb0038202">proposed</a> by Welzl in 1991, goes as follows:</p>
-<ol>
-<li>Apply a random permutation to the input sequence of points.</li>
-<li>Maintain the current candidate to be the MEC $C$, starting with $C = \operatorname{mec}(p_1, p_2)$.</li>
-<li>Iterate over $i=3..n$ and check if $p_i \in C$.
-<ol>
-<li>If $p_i \in C$ it means that $C$ is the MEC of $P_i$.</li>
-<li>Otherwise, assign $C = \operatorname{mec}(p_i, p_1)$ and iterate over $j=2..i$ and check if $p_j \in C$.
-<ol>
-<li>If $p_j \in C$, then $C$ is the MEC of $P_j$ among circles that pass through $p_i$.</li>
-<li>Otherwise, assign $C=\operatorname{mec}(p_i, p_j)$ and iterate over $k=1..j$ and check if $p_k \in C$.
-<ol>
-<li>If $p_k \in C$, then $C$ is the MEC of $P_k$ among circles that pass through $p_i$ and $p_j$.</li>
-<li>Otherwise, $C=\operatorname{mec}(p_i,p_j,p_k)$ is the MEC of $P_k$ among circles that pass through $p_i$ and $p_j$.</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-<p>We can see that each level of nestedness here has an invariant to maintain (that $C$ is the MEC among circles that also pass through additionally given $0$, $1$ or $2$ points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the <em>correctness</em> of the algorithm as a whole.</p>
-<p>Omitting some technical details, for now, the whole algorithm can be implemented in C++ as follows:</p>
+<h2 id="ওযলজল-অযলগরদম">ওয়েলজল অ্যালগরিদম<a class="anchor" href="#%e0%a6%93%e0%a6%af%e0%a6%b2%e0%a6%9c%e0%a6%b2-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<p>সংক্ষিপ্ততার জন্য, $\operatorname{mec}(p_1,\dots,p_n)$ দিয়ে $\{p_1,\dots,p_n\}$-এর MEC বোঝাই, এবং $P_i = \{p_1,\dots,p_i\}$ ধরি।</p>
+<p>ওয়েলজল ১৯৯১ সালে প্রথম <a href="https://doi.org/10.1007/BFb0038202">প্রস্তাবিত</a> এই অ্যালগরিদমটি নিম্নরূপ:</p>
+<p>১. ইনপুট বিন্দুগুলোর ক্রমানুসারে একটি র‍্যান্ডম পারমুটেশন প্রয়োগ করুন।
+২. বর্তমান MEC প্রার্থী $C$ বজায় রাখুন, $C = \operatorname{mec}(p_1, p_2)$ দিয়ে শুরু করে।
+৩. $i=3..n$ পর্যন্ত ইটারেট করুন এবং পরীক্ষা করুন $p_i \in C$ কি না।
+১. যদি $p_i \in C$ হয় তাহলে $C$ হলো $P_i$-এর MEC।
+২. অন্যথায়, $C = \operatorname{mec}(p_i, p_1)$ নির্ধারণ করুন এবং $j=2..i$ পর্যন্ত ইটারেট করে পরীক্ষা করুন $p_j \in C$ কি না।
+১. যদি $p_j \in C$ হয়, তাহলে $C$ হলো $P_j$-এর MEC যা $p_i$-এর মধ্য দিয়ে যায়।
+২. অন্যথায়, $C=\operatorname{mec}(p_i, p_j)$ নির্ধারণ করুন এবং $k=1..j$ পর্যন্ত ইটারেট করে পরীক্ষা করুন $p_k \in C$ কি না।
+১. যদি $p_k \in C$ হয়, তাহলে $C$ হলো $P_k$-এর MEC যা $p_i$ ও $p_j$-এর মধ্য দিয়ে যায়।
+২. অন্যথায়, $C=\operatorname{mec}(p_i,p_j,p_k)$ হলো $P_k$-এর MEC যা $p_i$ ও $p_j$-এর মধ্য দিয়ে যায়।</p>
+<p>আমরা দেখতে পাচ্ছি যে নেস্টেডনেসের প্রতিটি স্তরে এখানে একটি ইনভ্যারিয়েন্ট বজায় রাখতে হয় (যে $C$ হলো MEC যা অতিরিক্তভাবে প্রদত্ত $0$, $1$ বা $2$ টি বিন্দুর মধ্য দিয়ে যায়), এবং যখনই ভেতরের লুপ শেষ হয়, এর ইনভ্যারিয়েন্ট প্যারেন্ট লুপের বর্তমান ইটারেশনের ইনভ্যারিয়েন্টের সমতুল্য হয়ে যায়। এটি, পরিবর্তে, সামগ্রিকভাবে অ্যালগরিদমের <em>সঠিকতা</em> নিশ্চিত করে।</p>
+<p>আপাতত কিছু টেকনিক্যাল বিবরণ বাদ দিয়ে, পুরো অ্যালগরিদমটি C++-এ নিম্নরূপে ইমপ্লিমেন্ট করা যায়:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">point</span> <span class="p">{...};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Is represented by 2 or 3 points on its circumference
@@ -2849,59 +2840,57 @@ Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possib
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">C</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Now, it is to be expected that checking that a point $p_i$ is inside the MEC of $2$ or $3$ points can be done in $O(1)$ (we will discuss this later on). But even then, the algorithm above looks as if it would take $O(n^3)$ in the worst case just because of all the nested loops. So, how come we claimed the linear expected runtime? Let&rsquo;s figure out!</p>
-<h3 id="complexity-analysis">Complexity analysis<a class="anchor" href="#complexity-analysis">#</a></h3>
-<p>For the inner-most loop (over $k$), clearly its expected runtime is $O(j)$ operations. What about the loop over $j$?</p>
-<p>It only triggers the next loop if $p_j$ is on the boundary of the MEC of $P_j$ that also passes through point $i$, <em>and removing $p_j$ would further shrink the circle</em>. Of all points in $P_j$ there can only be at most $2$ points with such property, because if there are more than $2$ points from $P_j$ on the boundary, it means that after removing any of them, there will still be at least $3$ points on the boundary, sufficient to uniquely define the circle.</p>
-<p>In other words, after initial random shuffle, there is at most $\frac{2}{j}$ probability that we get one of the at most two unlucky points as $p_j$. Summing it up over all $j$ from $1$ to $i$, we get the expected runtime of</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>এখন, এটা আশা করা যায় যে একটি বিন্দু $p_i$ $2$ বা $3$ টি বিন্দুর MEC-এর ভেতরে কি না তা $O(1)$-এ পরীক্ষা করা যায় (এটি আমরা পরে আলোচনা করব)। কিন্তু তারপরও, উপরের অ্যালগরিদমটি দেখে মনে হয় শুধু নেস্টেড লুপগুলোর কারণে সবচেয়ে খারাপ ক্ষেত্রে $O(n^3)$ লাগবে। তাহলে আমরা কীভাবে লিনিয়ার প্রত্যাশিত রানটাইম দাবি করলাম? চলুন জেনে নিই!</p>
+<h3 id="কমপলকসট-বশলষণ">কমপ্লেক্সিটি বিশ্লেষণ<a class="anchor" href="#%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%b8%e0%a6%9f-%e0%a6%ac%e0%a6%b6%e0%a6%b2%e0%a6%b7%e0%a6%a3">#</a></h3>
+<p>সবচেয়ে ভেতরের লুপের জন্য ($k$-এর উপর), স্পষ্টতই এর প্রত্যাশিত রানটাইম হলো $O(j)$ অপারেশন। $j$-এর উপর লুপটির ক্ষেত্রে কী হবে?</p>
+<p>এটি শুধুমাত্র তখনই পরবর্তী লুপ ট্রিগার করে যদি $p_j$, $P_j$-এর MEC-এর সীমানায় থাকে যা বিন্দু $i$-এর মধ্য দিয়েও যায়, <em>এবং $p_j$ সরিয়ে ফেললে বৃত্তটি আরও ছোট হতো</em>। $P_j$-র সব বিন্দুর মধ্যে এই বৈশিষ্ট্যসম্পন্ন সর্বাধিক $2$ টি বিন্দু থাকতে পারে, কারণ যদি সীমানায় $2$ টির বেশি বিন্দু থাকে, তাহলে তাদের যেকোনো একটি সরানোর পরেও সীমানায় অন্তত $3$ টি বিন্দু থাকবে, যা বৃত্তটিকে অনন্যভাবে নির্ধারণ করতে যথেষ্ট।</p>
+<p>অন্য কথায়, প্রাথমিক র‍্যান্ডম শাফলের পর, $p_j$ হিসেবে সর্বাধিক দুটি দুর্ভাগ্যজনক বিন্দুর একটি পাওয়ার সম্ভাবনা সর্বাধিক $\frac{2}{j}$। $1$ থেকে $i$ পর্যন্ত সব $j$-এর উপর যোগ করলে, আমরা প্রত্যাশিত রানটাইম পাই</p>
 $$
 \sum\limits_{j=1}^i \frac{2}{j} \cdot O(j) = O(i).
-$$<p>In exactly same fashion we can now also prove that the outermost loop has expected runtime of $O(n)$.</p>
-<h3 id="checking-that-a-point-is-in-the-mec-of-2-or-3-points">Checking that a point is in the MEC of 2 or 3 points<a class="anchor" href="#checking-that-a-point-is-in-the-mec-of-2-or-3-points">#</a></h3>
-<p>Let&rsquo;s now figure out the implementation detail of <code>point</code> and <code>mec</code>. In this problem, it turns out to be particularly useful to use <a href="https://codeforces.com/blog/entry/22175">std::complex</a> as a class for points:</p>
+$$<p>ঠিক একই পদ্ধতিতে আমরা এখন প্রমাণ করতে পারি যে সবচেয়ে বাইরের লুপেরও প্রত্যাশিত রানটাইম $O(n)$।</p>
+<h3 id="একট-বনদ-২-ব-৩-বনদর-mec-এর-মধয-ক-ন-ত-পরকষ-কর">একটি বিন্দু ২ বা ৩ বিন্দুর MEC-এর মধ্যে কি না তা পরীক্ষা করা<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%ac%e0%a6%a8%e0%a6%a6-%e0%a7%a8-%e0%a6%ac-%e0%a7%a9-%e0%a6%ac%e0%a6%a8%e0%a6%a6%e0%a6%b0-mec-%e0%a6%8f%e0%a6%b0-%e0%a6%ae%e0%a6%a7%e0%a6%af-%e0%a6%95-%e0%a6%a8-%e0%a6%a4-%e0%a6%aa%e0%a6%b0%e0%a6%95%e0%a6%b7-%e0%a6%95%e0%a6%b0">#</a></h3>
+<p>চলুন এখন <code>point</code> এবং <code>mec</code>-এর ইমপ্লিমেন্টেশন বিবরণ বের করি। এই সমস্যায়, <a href="https://codeforces.com/blog/entry/22175">std::complex</a> কে বিন্দুর ক্লাস হিসেবে ব্যবহার করা বিশেষভাবে কার্যকর:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">ftype</span> <span class="o">=</span> <span class="kt">int64_t</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">point</span> <span class="o">=</span> <span class="n">complex</span><span class="o">&lt;</span><span class="n">ftype</span><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div><p>As a reminder, a complex number is a number of type $x+yi$, where $i^2=-1$ and $x, y \in \mathbb R$. In C++, such complex number is represented by a 2-dimensional point $(x, y)$. Complex numbers already implement basic component-wise linear operations (addition, multiplication by a real number), but also their multiplication and division carry certain geometric meaning.</p>
-<p>Without going in too much detail, we will note the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from $Ox$ counter-clockwise), and taking a conjugate (i.e. changing $z=x+yi$ into $\overline{z} = x-yi$) multiplies the polar angle with $-1$. This allows us to formulate some very simple criteria for whether a point $z$ is inside the MEC of $2$ or $3$ specific points.</p>
-<h4 id="mec-of-2-points">MEC of 2 points<a class="anchor" href="#mec-of-2-points">#</a></h4>
-<p>For $2$ points $a$ and $b$, their MEC is simply the circle centered at $\frac{a+b}{2}$ with the radius $\frac{|a-b|}{2}$, in other words the circle that has $ab$ as a diameter. To check if $z$ is inside this circle we simply need to check that the angle between $za$ and $zb$ is not acute.</p>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">point</span> <span class="o">=</span> <span class="n">complex</span><span class="o">&lt;</span><span class="n">ftype</span><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div><p>স্মরণ করিয়ে দিই, একটি জটিল সংখ্যা হলো $x+yi$ ধরনের, যেখানে $i^2=-1$ এবং $x, y \in \mathbb R$। C++-এ, এই জটিল সংখ্যাকে একটি ২-মাত্রিক বিন্দু $(x, y)$ দ্বারা উপস্থাপন করা হয়। জটিল সংখ্যা ইতিমধ্যেই মৌলিক কম্পোনেন্ট-ভিত্তিক লিনিয়ার অপারেশনগুলো (যোগ, বাস্তব সংখ্যা দিয়ে গুণ) ইমপ্লিমেন্ট করে, তবে তাদের গুণ ও ভাগেরও নির্দিষ্ট জ্যামিতিক তাৎপর্য রয়েছে।</p>
+<p>খুব বেশি বিস্তারিত না গিয়ে, আমরা এই নির্দিষ্ট কাজের জন্য সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্যটি উল্লেখ করব: দুটি জটিল সংখ্যার গুণ তাদের পোলার কোণ যোগ করে ($Ox$ থেকে ঘড়ির কাঁটার বিপরীত দিকে গণনা করা), এবং কনজুগেট নেওয়া (অর্থাৎ $z=x+yi$ কে $\overline{z} = x-yi$-তে পরিবর্তন করা) পোলার কোণকে $-1$ দিয়ে গুণ করে। এটি আমাদের $2$ বা $3$ টি নির্দিষ্ট বিন্দুর MEC-এর ভেতরে একটি বিন্দু $z$ আছে কি না তার জন্য কিছু অত্যন্ত সরল শর্ত তৈরি করতে দেয়।</p>
+<h4 id="২-বনদর-mec">২ বিন্দুর MEC<a class="anchor" href="#%e0%a7%a8-%e0%a6%ac%e0%a6%a8%e0%a6%a6%e0%a6%b0-mec">#</a></h4>
+<p>$2$ টি বিন্দু $a$ ও $b$-এর জন্য, তাদের MEC হলো $\frac{a+b}{2}$ কেন্দ্র এবং $\frac{|a-b|}{2}$ ব্যাসার্ধ বিশিষ্ট বৃত্ত, অন্য কথায় সেই বৃত্ত যার $ab$ ব্যাস। $z$ এই বৃত্তের ভেতরে আছে কি না তা পরীক্ষা করতে আমাদের শুধু দেখতে হবে $za$ ও $zb$-এর মধ্যবর্তী কোণ সূক্ষ্ম নয়।</p>
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Diameter_angles.svg">
 <br>
-<i>Inner angles are obtuse, external angles are acute and angles on the circumference are right</i>
+<i>অন্তঃস্থ কোণগুলো স্থূলকোণ, বহিঃস্থ কোণগুলো সূক্ষ্মকোণ এবং পরিধির উপরের কোণগুলো সমকোণ</i>
 </center>
-<p>Equivalently, we need to check that</p>
+<p>সমতুল্যভাবে, আমাদের পরীক্ষা করতে হবে যে</p>
 $$
 I_0=(b-z)\overline{(a-z)}
-$$<p>doesn&rsquo;t have a positive real coordinate (corresponding to points that have a polar angle between $-90^\circ$ and $90^\circ$).</p>
-<h4 id="mec-of-3-points">MEC of 3 points<a class="anchor" href="#mec-of-3-points">#</a></h4>
-<p>Adding $z$ to the triangle $abc$ will make it a quadrilateral. Consider the following expression:</p>
+$$<p>একটি ধনাত্মক বাস্তব স্থানাঙ্ক নেই (যা $-90^\circ$ ও $90^\circ$-এর মধ্যে পোলার কোণ বিশিষ্ট বিন্দুগুলোর সাথে সম্পর্কিত)।</p>
+<h4 id="৩-বনদর-mec">৩ বিন্দুর MEC<a class="anchor" href="#%e0%a7%a9-%e0%a6%ac%e0%a6%a8%e0%a6%a6%e0%a6%b0-mec">#</a></h4>
+<p>ত্রিভুজ $abc$-তে $z$ যোগ করলে এটি একটি চতুর্ভুজ হবে। নিম্নলিখিত রাশিটি বিবেচনা করুন:</p>
 $$
 \angle azb + \angle bca
-$$<p>In a <a href="https://en.wikipedia.org/wiki/Cyclic_quadrilateral">cyclic quadrilateral</a>, if $c$ and $z$ are from the same side of $ab$, then the angles are equal, and will add up to $0^\circ$ when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if $c$ and $z$ are on the opposite sides, the angles will add up to $180^\circ$.</p>
+$$<p>একটি <a href="https://en.wikipedia.org/wiki/Cyclic_quadrilateral">চক্রীয় চতুর্ভুজে</a>, যদি $c$ এবং $z$ একই পাশে $ab$-এর সাপেক্ষে থাকে, তাহলে কোণগুলো সমান, এবং চিহ্নসহ (অর্থাৎ ঘড়ির কাঁটার বিপরীতে ধনাত্মক এবং ঘড়ির কাঁটার দিকে ঋণাত্মক) যোগ করলে $0^\circ$ হবে। অনুরূপভাবে, যদি $c$ ও $z$ বিপরীত পাশে থাকে, তাহলে কোণগুলোর যোগফল $180^\circ$ হবে।</p>
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Opposing_inscribed_angles.svg">
 <br>
-<i>Adjacent inscribed angles are same, opposing angles complement to 180 degrees</i>
+<i>পাশাপাশি অন্তর্লিখিত কোণগুলো সমান, বিপরীত কোণগুলো ১৮০ ডিগ্রি পূরক</i>
 </center>
-<p>In terms of complex numbers, we can note that $\angle azb$ is the polar angle of $(b-z)\overline{(a-z)}$ and $\angle bca$ is the polar angle of $(a-c)\overline{(b-c)}$. Thus, we can conclude that $\angle azb + \angle bca$ is the polar angle of</p>
+<p>জটিল সংখ্যার ভাষায়, আমরা লক্ষ্য করতে পারি যে $\angle azb$ হলো $(b-z)\overline{(a-z)}$-এর পোলার কোণ এবং $\angle bca$ হলো $(a-c)\overline{(b-c)}$-এর পোলার কোণ। সুতরাং, আমরা সিদ্ধান্তে পৌঁছাতে পারি যে $\angle azb + \angle bca$ হলো নিম্নলিখিতের পোলার কোণ</p>
 $$
 I_1 = (b-z) \overline{(a-z)} (a-c) \overline{(b-c)}
-$$<p>If the angle is $0^\circ$ or $180^\circ$, it means that the imaginary part of $I_1$ is $0$, otherwise we can deduce whether $z$ is inside or outside of the enclosing circle of $abc$ by checking the sign of the imaginary part of $I_1$. Positive imaginary part corresponds to positive angles, and negative imaginary part corresponds to negative angles.</p>
-<p>But which one of them means that $z$ is inside or outside of the circle? As we already noticed, having $z$ inside the circle generally increases the magnitude of $\angle azb$, while having it outside the circle decreases it. As such, we have the following 4 cases:</p>
-<ol>
-<li>$\angle bca > 0^\circ$, $c$ on the same side of $ab$ as $z$. Then, $\angle azb < 0^\circ$, and $\angle azb + \angle bca < 0^\circ$ for points inside the circle.</li>
-<li>$\angle bca < 0^\circ$, $c$ on the same side of $ab$ as $z$. Then, $\angle azb > 0^\circ$, and $\angle azb + \angle bca > 0^\circ$ for points inside the circle.</li>
-<li>$\angle bca > 0^\circ$, $c$ on the opposite side of $ab$ to $z$. Then, $\angle azb > 0^\circ$ and $\angle azb + \angle bca > 180^\circ$ for points inside the circle.</li>
-<li>$\angle bca < 0^\circ$, $c$ on the opposite side of $ab$ to $z$. Then, $\angle azb < 0^\circ$ and $\angle azb + \angle bca < 180^\circ$ for points inside the circle.</li>
-</ol>
-<p>In other words, if $\angle bca$ is positive, points inside the circle will have $\angle azb + \angle bca < 0^\circ$, otherwise they will have $\angle azb + \angle bca > 0^\circ$, assuming that we normalize the angles between $-180^\circ$ and $180^\circ$. This, in turn, can be checked by the signs of imaginary parts of $I_2=(a-c)\overline{(b-c)}$ and $I_1 = I_0 I_2$.</p>
-<p><strong>Note</strong>: As we multiply four complex numbers to get $I_1$, the intermediate coefficients can be as large as $O(A^4)$, where $A$ is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.</p>
-<h4 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h4>
-<p>Now, to actually implement the check, we should first decide how to represent the MEC. As our criteria work with the points directly, a natural and efficient way to do this is to say that MEC is directly represented as a pair or triple of points that defines it:</p>
+$$<p>যদি কোণটি $0^\circ$ বা $180^\circ$ হয়, তাহলে $I_1$-এর কাল্পনিক অংশ $0$, অন্যথায় আমরা $I_1$-এর কাল্পনিক অংশের চিহ্ন পরীক্ষা করে বুঝতে পারি $z$ $abc$-এর এনক্লোজিং সার্কেলের ভেতরে না বাইরে। ধনাত্মক কাল্পনিক অংশ ধনাত্মক কোণের সাথে সম্পর্কিত, এবং ঋণাত্মক কাল্পনিক অংশ ঋণাত্মক কোণের সাথে সম্পর্কিত।</p>
+<p>কিন্তু কোনটি বোঝায় $z$ বৃত্তের ভেতরে এবং কোনটি বাইরে? আমরা ইতিমধ্যেই লক্ষ্য করেছি, $z$ বৃত্তের ভেতরে থাকলে সাধারণত $\angle azb$-এর পরিমাণ বৃদ্ধি পায়, আর বাইরে থাকলে কমে। সুতরাং, আমাদের নিম্নলিখিত ৪টি ক্ষেত্র রয়েছে:</p>
+<p>১. $\angle bca > 0^\circ$, $c$ এবং $z$ একই পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb < 0^\circ$, এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca < 0^\circ$।
+৩. $\angle bca < 0^\circ$, $c$ এবং $z$ একই পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb > 0^\circ$, এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca > 0^\circ$।
+২. $\angle bca > 0^\circ$, $c$ এবং $z$ বিপরীত পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb > 0^\circ$ এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca > 180^\circ$।
+৪. $\angle bca < 0^\circ$, $c$ এবং $z$ বিপরীত পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb < 0^\circ$ এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca < 180^\circ$।</p>
+<p>অন্য কথায়, যদি $\angle bca$ ধনাত্মক হয়, বৃত্তের ভেতরের বিন্দুগুলোর $\angle azb + \angle bca < 0^\circ$ হবে, অন্যথায় $\angle azb + \angle bca > 0^\circ$ হবে, ধরে নিচ্ছি আমরা কোণগুলো $-180^\circ$ ও $180^\circ$-এর মধ্যে নরমালাইজ করি। এটি, পরিবর্তে, $I_2=(a-c)\overline{(b-c)}$ ও $I_1 = I_0 I_2$-এর কাল্পনিক অংশের চিহ্ন দ্বারা পরীক্ষা করা যায়।</p>
+<p><strong>দ্রষ্টব্য</strong>: আমরা $I_1$ পেতে চারটি জটিল সংখ্যা গুণ করায়, মধ্যবর্তী সহগ $O(A^4)$ পর্যন্ত বড় হতে পারে, যেখানে $A$ হলো ইনপুটে সর্ববৃহৎ স্থানাঙ্কের পরিমাণ। ভালো দিক হলো, যদি ইনপুট পূর্ণসংখ্যা হয়, তাহলে উভয় পরীক্ষাই সম্পূর্ণ পূর্ণসংখ্যায় করা যায়।</p>
+<h4 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h4>
+<p>এখন, আসলেই পরীক্ষাটি ইমপ্লিমেন্ট করতে, আমাদের প্রথমে ঠিক করতে হবে MEC কীভাবে রিপ্রেজেন্ট করব। যেহেতু আমাদের শর্তগুলো সরাসরি বিন্দু নিয়ে কাজ করে, একটি স্বাভাবিক ও দক্ষ উপায় হলো MEC কে সরাসরি দুই বা তিনটি বিন্দুর জোড়া বা ত্রয়ী হিসেবে রিপ্রেজেন্ট করা:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">mec</span> <span class="o">=</span> <span class="n">variant</span><span class="o">&lt;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">array</span><span class="o">&lt;</span><span class="n">point</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">array</span><span class="o">&lt;</span><span class="n">point</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div><p>Now, we can use <code>std::visit</code> to efficiently deal with both cases in accordance with criteria above:</p>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span><span class="p">;</span></span></span></code></pre></div><p>এখন, আমরা <code>std::visit</code> ব্যবহার করে উপরের শর্ত অনুযায়ী উভয় ক্ষেত্র দক্ষভাবে হ্যান্ডেল করতে পারি:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cm">/* I &lt; 0 if z inside C,
 </span></span></span><span class="line"><span class="cl"><span class="cm">   I &gt; 0 if z outside C,
 </span></span></span><span class="line"><span class="cl"><span class="cm">   I = 0 if z on the circumference of C */</span>
@@ -2922,8 +2911,8 @@ $$<p>If the angle is $0^\circ$ or $180^\circ$, it means that the imaginary part 
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">inside</span><span class="p">(</span><span class="n">mec</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">C</span><span class="p">,</span> <span class="n">point</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">indicator</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Now, we can finally ensure that everything works by submitting the problem to the Library Checker: <a href="https://judge.yosupo.jp/submission/308668">#308668</a>.</p>
-<h2 id="practice-problems">Practice problems<a class="anchor" href="#practice-problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>এখন, আমরা Library Checker-এ সমস্যাটি সাবমিট করে সবকিছু কাজ করছে কি না নিশ্চিত হতে পারি: <a href="https://judge.yosupo.jp/submission/308668">#308668</a>।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://judge.yosupo.jp/problem/minimum_enclosing_circle">Library Checker - Minimum Enclosing Circle</a></li>
 <li><a href="https://www.spoj.com/problems/ALIENS">BOI 2002 - Aliens</a></li>
@@ -2956,16 +2945,16 @@ $$<p>If the angle is $0^\circ$ or $180^\circ$, it means that the imaginary part 
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/geometry/lattice-points/" class="flex align-center">
+      <a href="/geometry/circle-line-intersection/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Lattice points inside non-lattice polygon</span>
+        <span>বৃত্ত-রেখা ছেদবিন্দু</span>
       </a>
     
     </span>
     <span>
     
       <a href="/geometry/circle-circle-intersection/" class="flex align-center">
-        <span>Circle-Circle Intersection</span>
+        <span>বৃত্ত-বৃত্ত ছেদবিন্দু</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3006,13 +2995,13 @@ $$<p>If the angle is $0^\circ$ or $180^\circ$, it means that the imaginary part 
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#welzls-algorithm">Welzl&rsquo;s algorithm</a>
+    <li><a href="#ওযলজল-অযলগরদম">ওয়েলজল অ্যালগরিদম</a>
       <ul>
-        <li><a href="#complexity-analysis">Complexity analysis</a></li>
-        <li><a href="#checking-that-a-point-is-in-the-mec-of-2-or-3-points">Checking that a point is in the MEC of 2 or 3 points</a></li>
+        <li><a href="#কমপলকসট-বশলষণ">কমপ্লেক্সিটি বিশ্লেষণ</a></li>
+        <li><a href="#একট-বনদ-২-ব-৩-বনদর-mec-এর-মধয-ক-ন-ত-পরকষ-কর">একটি বিন্দু ২ বা ৩ বিন্দুর MEC-এর মধ্যে কি না তা পরীক্ষা করা</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice problems</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

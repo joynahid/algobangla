@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Original on algobangla</title>
+    <link>http://localhost:53425/en/tags/original/</link>
+    <description>Recent content in Original on algobangla</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:53425/en/tags/original/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0-1 BFS</title>
+      <link>http://localhost:53425/en/graph/01_bfs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/graph/01_bfs/</guid>
+      <description>&lt;h1 id=&#34;0-1-bfs&#34;&gt;0-1 BFS&lt;a class=&#34;anchor&#34; href=&#34;#0-1-bfs&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using &lt;a href=&#34;breadth-first-search.md&#34;&gt;Breadth First Search&lt;/a&gt; in an &lt;strong&gt;unweighted graph&lt;/strong&gt;, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.&#xA;We can interpret such a graph also as a weighted graph, where every edge has the weight $1$.&#xA;If not all edges in graph have the same weight, then we need a more general algorithm, like &lt;a href=&#34;dijkstra.md&#34;&gt;Dijkstra&lt;/a&gt; which runs in $O(|V|^2 + |E|)$ or $O(|E| \log |V|)$ time.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Basic Geometry</title>
+      <link>http://localhost:53425/en/geometry/basic-geometry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/basic-geometry/</guid>
+      <description>&lt;h1 id=&#34;basic-geometry&#34;&gt;Basic Geometry&lt;a class=&#34;anchor&#34; href=&#34;#basic-geometry&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;In this article we will consider basic operations on points in Euclidean space which maintains the foundation of the whole analytical geometry.&#xA;We will consider for each point $\mathbf r$ the vector $\vec{\mathbf r}$ directed from $\mathbf 0$ to $\mathbf r$.&#xA;Later we will not distinguish between $\mathbf r$ and $\vec{\mathbf r}$ and use the term &lt;strong&gt;point&lt;/strong&gt; as a synonym for &lt;strong&gt;vector&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;linear-operations&#34;&gt;Linear operations&lt;a class=&#34;anchor&#34; href=&#34;#linear-operations&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Both 2D and 3D points maintain linear space, which means that for them sum of points and multiplication of point by some number are defined. Here are those basic implementations for 2D:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Binary Exponentiation by Factoring</title>
+      <link>http://localhost:53425/en/algebra/factoring-exp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/factoring-exp/</guid>
+      <description>&lt;h1 id=&#34;binary-exponentiation-by-factoring&#34;&gt;Binary Exponentiation by Factoring&lt;a class=&#34;anchor&#34; href=&#34;#binary-exponentiation-by-factoring&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Consider a problem of computing $ax^y \pmod{2^d}$, given integers $a$, $x$, $y$ and $d \geq 3$, where $x$ is odd.&lt;/p&gt;&#xA;&lt;p&gt;The algorithm below allows to solve this problem with $O(d)$ additions and binary operations and a single multiplication by $y$.&lt;/p&gt;&#xA;&lt;p&gt;Due to the structure of the multiplicative group modulo $2^d$, any number $x$ such that $x \equiv 1 \pmod 4$ can be represented as&lt;/p&gt;&#xA;$$&#xD;&#xA;x \equiv b^{L(x)} \pmod{2^d},&#xD;&#xA;$$&lt;p&gt;where $b \equiv 5 \pmod 8$. Without loss of generality we assume that $x \equiv 1 \pmod 4$, as we can reduce $x \equiv 3 \pmod 4$ to $x \equiv 1 \pmod 4$ by substituting $x \mapsto -x$ and $a \mapsto (-1)^{y} a$. In this notion, $ax^y$ is represented as&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Binary search</title>
+      <link>http://localhost:53425/en/num_methods/binary_search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/num_methods/binary_search/</guid>
+      <description>&lt;h1 id=&#34;binary-search&#34;&gt;Binary search&lt;a class=&#34;anchor&#34; href=&#34;#binary-search&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Binary search&lt;/strong&gt; is a method that allows for quicker search of something by splitting the search interval into two. Its most common application is searching values in sorted arrays, however the splitting idea is crucial in many other typical tasks.&lt;/p&gt;&#xA;&lt;h2 id=&#34;search-in-sorted-arrays&#34;&gt;Search in sorted arrays&lt;a class=&#34;anchor&#34; href=&#34;#search-in-sorted-arrays&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;The most typical problem that leads to the binary search is as follows. You&amp;rsquo;re given a sorted array $A_0 \leq A_1 \leq \dots \leq A_{n-1}$, check if $k$ is present within the sequence. The simplest solution would be to check every element one by one and compare it with $k$ (a so-called linear search). This approach works in $O(n)$, but doesn&amp;rsquo;t utilize the fact that the array is sorted.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Bit manipulation</title>
+      <link>http://localhost:53425/en/algebra/bit-manipulation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/bit-manipulation/</guid>
+      <description>&lt;h1 id=&#34;bit-manipulation&#34;&gt;Bit manipulation&lt;a class=&#34;anchor&#34; href=&#34;#bit-manipulation&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;binary-number&#34;&gt;Binary number&lt;a class=&#34;anchor&#34; href=&#34;#binary-number&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;A &lt;strong&gt;binary number&lt;/strong&gt; is a number expressed in the base-2 numeral system or binary numeral system, it is a method of mathematical expression which uses only two symbols: typically &amp;ldquo;0&amp;rdquo; (zero) and &amp;ldquo;1&amp;rdquo; (one).&lt;/p&gt;&#xA;&lt;p&gt;We say that a certain bit is &lt;strong&gt;set&lt;/strong&gt;, if it is one, and &lt;strong&gt;cleared&lt;/strong&gt; if it is zero.&lt;/p&gt;&#xA;&lt;p&gt;The binary number $(a_k a_{k-1} \dots a_1 a_0)_2$ represents the number:&lt;/p&gt;&#xA;$$(a_k a_{k-1} \dots a_1 a_0)_2 = a_k \cdot 2^k + a_{k-1} \cdot 2^{k-1} + \dots + a_1 \cdot 2^1 + a_0 \cdot 2^0.$$&lt;p&gt;For instance the binary number $1101_2$ represents the number $13$:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Calculating the determinant using Kraut method</title>
+      <link>http://localhost:53425/en/linear_algebra/determinant-kraut/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/linear_algebra/determinant-kraut/</guid>
+      <description>&lt;h1 id=&#34;calculating-the-determinant-using-kraut-method-in&#34;&gt;Calculating the determinant using Kraut method in $O(N^3)$&lt;a class=&#34;anchor&#34; href=&#34;#calculating-the-determinant-using-kraut-method-in&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;In this article, we&amp;rsquo;ll describe how to find the determinant of the matrix using Kraut method, which works in $O(N^3)$.&lt;/p&gt;&#xA;&lt;p&gt;The Kraut algorithm finds decomposition of matrix $A$ as $A = L U$ where $L$ is lower triangular and $U$ is upper triangular matrix. Without loss of generality, we can assume that all the diagonal elements of $L$ are equal to 1. Once we know these matrices, it is easy to calculate the determinant of $A$: it is equal to the product of all the elements on the main diagonal of the matrix $U$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Continued fractions</title>
+      <link>http://localhost:53425/en/algebra/continued-fractions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/continued-fractions/</guid>
+      <description>&lt;h1 id=&#34;continued-fractions&#34;&gt;Continued fractions&lt;a class=&#34;anchor&#34; href=&#34;#continued-fractions&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Continued fraction&lt;/strong&gt; is a representation of a real number as a specific convergent sequence of rational numbers. They are useful in competitive programming because they are easy to compute and can be efficiently used to find the best possible rational approximation of the underlying real number (among all numbers whose denominator doesn&amp;rsquo;t exceed a given value).&lt;/p&gt;&#xA;&lt;p&gt;Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Convex hull trick and Li Chao tree</title>
+      <link>http://localhost:53425/en/geometry/convex_hull_trick/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/convex_hull_trick/</guid>
+      <description>&lt;h1 id=&#34;convex-hull-trick-and-li-chao-tree&#34;&gt;Convex hull trick and Li Chao tree&lt;a class=&#34;anchor&#34; href=&#34;#convex-hull-trick-and-li-chao-tree&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Consider the following problem. There are $n$ cities. You want to travel from city $1$ to city $n$ by car. To do this you have to buy some gasoline. It is known that a liter of gasoline costs $cost_k$ in the $k^{th}$ city. Initially your fuel tank is empty and you spend one liter of gasoline per kilometer. Cities are located on the same line in ascending order with $k^{th}$ city having coordinate $x_k$. Also you have to pay $toll_k$ to enter $k^{th}$ city. Your task is to make the trip with minimum possible cost. It&amp;rsquo;s obvious that the solution can be calculated via dynamic programming:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Deleting from a data structure in O(T(n) log n)</title>
+      <link>http://localhost:53425/en/data_structures/deleting_in_log_n/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/data_structures/deleting_in_log_n/</guid>
+      <description>&lt;h1 id=&#34;deleting-from-a-data-structure-in&#34;&gt;Deleting from a data structure in $O(T(n)\log n)$&lt;a class=&#34;anchor&#34; href=&#34;#deleting-from-a-data-structure-in&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Suppose you have a data structure which allows adding elements in &lt;strong&gt;true&lt;/strong&gt; $O(T(n))$.&#xA;This article will describe a technique that allows deletion in $O(T(n)\log n)$ offline.&lt;/p&gt;&#xA;&lt;h2 id=&#34;algorithm&#34;&gt;Algorithm&lt;a class=&#34;anchor&#34; href=&#34;#algorithm&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Each element lives in the data structure for some segments of time between additions and deletions.&#xA;Let&amp;rsquo;s build a segment tree over the queries.&#xA;Each segment when some element is alive splits into $O(\log n)$ nodes of the tree.&#xA;Let&amp;rsquo;s put each query when we want to know something about the structure into the corresponding leaf.&#xA;Now to process all queries we will run a DFS on the segment tree.&#xA;When entering the node we will add all the elements that are inside this node.&#xA;Then we will go further to the children of this node or answer the queries (if the node is a leaf).&#xA;When leaving the node, we must undo the additions.&#xA;Note that if we change the structure in $O(T(n))$ we can roll back the changes in $O(T(n))$ by keeping a stack of changes.&#xA;Note that rollbacks break amortized complexity.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Divide and Conquer DP</title>
+      <link>http://localhost:53425/en/dynamic_programming/divide-and-conquer-dp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/dynamic_programming/divide-and-conquer-dp/</guid>
+      <description>&lt;h1 id=&#34;divide-and-conquer-dp&#34;&gt;Divide and Conquer DP&lt;a class=&#34;anchor&#34; href=&#34;#divide-and-conquer-dp&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Divide and Conquer is a dynamic programming optimization.&lt;/p&gt;&#xA;&lt;h3 id=&#34;preconditions&#34;&gt;Preconditions&lt;a class=&#34;anchor&#34; href=&#34;#preconditions&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;Some dynamic programming problems have a recurrence of this form:&lt;/p&gt;&#xA;$$&#xD;&#xA;dp(i, j) = \min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}&#xD;&#xA;$$&lt;p&gt;where $C(k, j)$ is a cost function and $dp(i, j) = 0$ when $j \lt 0$.&lt;/p&gt;&#xA;&lt;p&gt;Say $0 \leq i \lt m$ and $0 \leq j \lt n$, and evaluating $C$ takes $O(1)$&#xA;time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$. There&#xA;are $m \times n$ states, and $n$ transitions for each state.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Floyd&#39;s Linked List Cycle Finding Algorithm</title>
+      <link>http://localhost:53425/en/others/tortoise_and_hare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/others/tortoise_and_hare/</guid>
+      <description>&lt;h1 id=&#34;floyds-linked-list-cycle-finding-algorithm&#34;&gt;Floyd&amp;rsquo;s Linked List Cycle Finding Algorithm&lt;a class=&#34;anchor&#34; href=&#34;#floyds-linked-list-cycle-finding-algorithm&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Given a linked list where the starting point of that linked list is denoted by &lt;strong&gt;head&lt;/strong&gt;, and there may or may not be a cycle present. For instance:&lt;/p&gt;&#xA;&lt;div style=&#34;text-align: center;&#34;&gt;&#xD;&#xA;  &lt;img src=&#34;http://localhost:53425/images/others/tortoise_hare_algo.png&#34; alt=&#34;&#34;Linked list with cycle&#34;&#34;&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;p&gt;Here we need to find out the point &lt;strong&gt;C&lt;/strong&gt;, i.e the starting point of the cycle.&lt;/p&gt;&#xA;&lt;h2 id=&#34;proposed-algorithm&#34;&gt;Proposed algorithm&lt;a class=&#34;anchor&#34; href=&#34;#proposed-algorithm&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;The algorithm is called &lt;strong&gt;Floyd’s Cycle Algorithm or Tortoise And Hare algorithm&lt;/strong&gt;.&#xA;In order to figure out the starting point of the cycle, we need to figure out if a cycle even exists.&#xA;This involves two steps:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Half-plane intersection</title>
+      <link>http://localhost:53425/en/geometry/halfplane-intersection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/halfplane-intersection/</guid>
+      <description>&lt;h1 id=&#34;half-plane-intersection&#34;&gt;Half-plane intersection&lt;a class=&#34;anchor&#34; href=&#34;#half-plane-intersection&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;In this article we will discuss the problem of computing the intersection of a set of half-planes. Such an intersection can be conveniently represented as a convex region/polygon, where every point inside of it is also inside all of the half-planes, and it is this polygon that we&amp;rsquo;re trying to find or construct. We give some initial intuition for the problem, describe a $O(N \log N)$ approach known as the Sort-and-Incremental algorithm and give some sample applications of this technique.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Integer factorization</title>
+      <link>http://localhost:53425/en/algebra/factorization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/factorization/</guid>
+      <description>&lt;h1 id=&#34;integer-factorization&#34;&gt;Integer factorization&lt;a class=&#34;anchor&#34; href=&#34;#integer-factorization&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;In this article we list several algorithms for the factorization of integers, each of which can be either fast or varying levels of slow depending on their input.&lt;/p&gt;&#xA;&lt;p&gt;Notice, if the number that you want to factorize is actually a prime number, most of the algorithms will run very slowly. This is especially true for Fermat&amp;rsquo;s, Pollard&amp;rsquo;s p-1 and Pollard&amp;rsquo;s rho factorization algorithms.&#xA;Therefore, it makes the most sense to perform a probabilistic (or a fast deterministic) &lt;a href=&#34;primality_tests.md&#34;&gt;primality test&lt;/a&gt; before trying to factorize the number.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Introduction to Dynamic Programming</title>
+      <link>http://localhost:53425/en/dynamic_programming/intro-to-dp/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/dynamic_programming/intro-to-dp/</guid>
+      <description>&lt;h1 id=&#34;introduction-to-dynamic-programming&#34;&gt;Introduction to Dynamic Programming&lt;a class=&#34;anchor&#34; href=&#34;#introduction-to-dynamic-programming&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;The essence of dynamic programming is to avoid repeated calculation.  Often, dynamic programming problems are naturally solvable by recursion. In such cases, it&amp;rsquo;s easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top-down dynamic programming with memoization. That&amp;rsquo;s read &amp;ldquo;memoization&amp;rdquo; (like we are writing in a memo pad) not memorization.&lt;/p&gt;&#xA;&lt;p&gt;One of the most basic, classic examples of this process is the fibonacci sequence. Its recursive formulation is $f(n) = f(n-1) + f(n-2)$ where $n \ge 2$ and $f(0)=0$ and $f(1)=1$. In C++, this would be expressed as:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Knapsack Problem</title>
+      <link>http://localhost:53425/en/dynamic_programming/knapsack/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/dynamic_programming/knapsack/</guid>
+      <description>&lt;h1 id=&#34;knapsack-problem&#34;&gt;Knapsack Problem&lt;a class=&#34;anchor&#34; href=&#34;#knapsack-problem&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Prerequisite knowledge: &lt;a href=&#34;https://cp-algorithms.com/dynamic_programming/intro-to-dp.html&#34;&gt;Introduction to Dynamic Programming&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;a class=&#34;anchor&#34; href=&#34;#introduction&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Consider the following example:&lt;/p&gt;&#xA;&lt;h3 id=&#34;heading&#34;&gt;&lt;a href=&#34;https://www.acmicpc.net/problem/6144&#34;&gt;[USACO07 Dec] Charm Bracelet&lt;/a&gt;&lt;a class=&#34;anchor&#34; href=&#34;#heading&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 attributes, weight ($w_{i}$) and value ($v_{i}$).&#xA;You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity $W$ and the total value is maximized.&lt;/p&gt;&#xA;&lt;p&gt;In the example above, each object has only two possible states (taken or not taken),&#xA;corresponding to binary 0 and 1. Thus, this type of problem is called &amp;ldquo;0-1 knapsack problem&amp;rdquo;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Knuth&#39;s Optimization</title>
+      <link>http://localhost:53425/en/dynamic_programming/knuth-optimization/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/dynamic_programming/knuth-optimization/</guid>
+      <description>&lt;h1 id=&#34;knuths-optimization&#34;&gt;Knuth&amp;rsquo;s Optimization&lt;a class=&#34;anchor&#34; href=&#34;#knuths-optimization&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Knuth&amp;rsquo;s optimization, also known as the Knuth-Yao Speedup, is a special case of dynamic programming on ranges, that can optimize the time complexity of solutions by a linear factor, from $O(n^3)$ for standard range DP to $O(n^2)$.&lt;/p&gt;&#xA;&lt;h2 id=&#34;conditions&#34;&gt;Conditions&lt;a class=&#34;anchor&#34; href=&#34;#conditions&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;The Speedup is applied for transitions of the form&lt;/p&gt;&#xA;$$dp(i, j) = \min_{i \leq k &lt; j} [ dp(i, k) + dp(k+1, j) + C(i, j) ].$$&lt;p&gt;Similar to &lt;a href=&#34;./divide-and-conquer-dp.md&#34;&gt;divide and conquer DP&lt;/a&gt;, let $opt(i, j)$ be the maximum value of $k$ that minimizes the expression in the transition ($opt$ is referred to as the &amp;ldquo;optimal splitting point&amp;rdquo; further in this article). The optimization requires that the following holds:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lattice points inside non-lattice polygon</title>
+      <link>http://localhost:53425/en/geometry/lattice-points/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/lattice-points/</guid>
+      <description>&lt;h1 id=&#34;lattice-points-inside-non-lattice-polygon&#34;&gt;Lattice points inside non-lattice polygon&lt;a class=&#34;anchor&#34; href=&#34;#lattice-points-inside-non-lattice-polygon&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;For lattice polygons there is Pick&amp;rsquo;s formula to enumerate the lattice points inside the polygon.&#xA;What about polygons with arbitrary vertices?&lt;/p&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s process each of the polygon&amp;rsquo;s edges individually, and after that we may sum up the amounts of lattice points under each edge considering its orientations to choose a sign (like in calculating the area of a polygon using trapezoids).&lt;/p&gt;&#xA;&lt;p&gt;First of all we should note that if current edge has endpoints in $A=(x_1;y_1)$ and $B=(x_2;y_2)$ then it can be represented as a linear function:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Manhattan Distance</title>
+      <link>http://localhost:53425/en/geometry/manhattan-distance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/manhattan-distance/</guid>
+      <description>&lt;h1 id=&#34;manhattan-distance&#34;&gt;Manhattan Distance&lt;a class=&#34;anchor&#34; href=&#34;#manhattan-distance&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;definition&#34;&gt;Definition&lt;a class=&#34;anchor&#34; href=&#34;#definition&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;For points $p$ and $q$ on a plane, we can define the distance between them as the sum of the differences between their $x$ and $y$ coordinates:&lt;/p&gt;&#xA;$$d(p,q) = |x_p - x_q| + |y_p - y_q|$$&lt;p&gt;Defined this way, the distance corresponds to the so-called &lt;a href=&#34;https://en.wikipedia.org/wiki/Taxicab_geometry&#34;&gt;Manhattan (taxicab) geometry&lt;/a&gt;, in which the points are considered intersections in a well designed city, like Manhattan, where you can only move on the streets horizontally or vertically, as shown in the image below:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Maximum flow - MPM algorithm</title>
+      <link>http://localhost:53425/en/graph/mpm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/graph/mpm/</guid>
+      <description>&lt;h1 id=&#34;maximum-flow---mpm-algorithm&#34;&gt;Maximum flow - MPM algorithm&lt;a class=&#34;anchor&#34; href=&#34;#maximum-flow---mpm-algorithm&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;MPM (Malhotra, Pramodh-Kumar and Maheshwari) algorithm solves the maximum flow problem in $O(V^3)$. This algorithm is similar to &lt;a href=&#34;dinic.md&#34;&gt;Dinic&amp;rsquo;s algorithm&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;h2 id=&#34;algorithm&#34;&gt;Algorithm&lt;a class=&#34;anchor&#34; href=&#34;#algorithm&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Like Dinic&amp;rsquo;s algorithm, MPM runs in phases, during each phase we find the blocking flow in the layered network of the residual network of $G$.&#xA;The main difference from Dinic&amp;rsquo;s is how we find the blocking flow.&#xA;Consider the layered network $L$.&#xA;For each node we define its&amp;rsquo; &lt;em&gt;inner potential&lt;/em&gt; and &lt;em&gt;outer potential&lt;/em&gt; as:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MEX (minimal excluded) of a sequence</title>
+      <link>http://localhost:53425/en/sequences/mex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/sequences/mex/</guid>
+      <description>&lt;h1 id=&#34;mex-minimal-excluded-of-a-sequence&#34;&gt;MEX (minimal excluded) of a sequence&lt;a class=&#34;anchor&#34; href=&#34;#mex-minimal-excluded-of-a-sequence&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Given an array $A$ of size $N$. You have to find the minimal non-negative element that is not present in the array. That number is commonly called the &lt;strong&gt;MEX&lt;/strong&gt; (minimal excluded).&lt;/p&gt;&#xA;$$&#xD;&#xA;\begin{align}&#xD;&#xA;\text{mex}(\{0, 1, 2, 4, 5\}) &amp;= 3 \\&#xD;&#xA;\text{mex}(\{0, 1, 2, 3, 4\}) &amp;= 5 \\&#xD;&#xA;\text{mex}(\{1, 2, 3, 4, 5\}) &amp;= 0 \\&#xD;&#xA;\end{align}&#xD;&#xA;$$&lt;p&gt;Notice, that the MEX of an array of size $N$ can never be bigger than $N$ itself.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Minimum Enclosing Circle</title>
+      <link>http://localhost:53425/en/geometry/enclosing-circle/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/enclosing-circle/</guid>
+      <description>&lt;h1 id=&#34;minimum-enclosing-circle&#34;&gt;Minimum Enclosing Circle&lt;a class=&#34;anchor&#34; href=&#34;#minimum-enclosing-circle&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Consider the following problem:&lt;/p&gt;&#xA;&lt;p&gt;&#xD;&#xA;&lt;div class=&#34;book-hint info&#34;&gt;&#xD;&#xA;  &lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://judge.yosupo.jp/problem/minimum_enclosing_circle&#34;&gt;Library Checker - Minimum Enclosing Circle&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;You&amp;rsquo;re given $n \leq 10^5$ points $p_i=(x_i, y_i)$.&lt;/p&gt;&#xA;&lt;p&gt;For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.&lt;/p&gt;&#xA;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xA;Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Minkowski sum of convex polygons</title>
+      <link>http://localhost:53425/en/geometry/minkowski/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/minkowski/</guid>
+      <description>&lt;h1 id=&#34;minkowski-sum-of-convex-polygons&#34;&gt;Minkowski sum of convex polygons&lt;a class=&#34;anchor&#34; href=&#34;#minkowski-sum-of-convex-polygons&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;definition&#34;&gt;Definition&lt;a class=&#34;anchor&#34; href=&#34;#definition&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Consider two sets $A$ and $B$ of points on a plane. Minkowski sum $A + B$ is defined as $\{a + b| a \in A, b \in B\}$.&#xA;Here we will consider the case when $A$ and $B$ consist of convex polygons $P$ and $Q$ with their interiors.&#xA;Throughout this article we will identify polygons with ordered sequences of their vertices, so that notation like $|P|$ or&#xA;$P_i$ makes sense.&#xA;It turns out that the sum of convex polygons $P$ and $Q$ is a convex polygon with at most $|P| + |Q|$ vertices.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Montgomery Multiplication</title>
+      <link>http://localhost:53425/en/algebra/montgomery_multiplication/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/montgomery_multiplication/</guid>
+      <description>&lt;h1 id=&#34;montgomery-multiplication&#34;&gt;Montgomery Multiplication&lt;a class=&#34;anchor&#34; href=&#34;#montgomery-multiplication&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Many algorithms in number theory, like &lt;a href=&#34;primality_tests.md&#34;&gt;prime testing&lt;/a&gt; or &lt;a href=&#34;factorization.md&#34;&gt;integer factorization&lt;/a&gt;, and in cryptography, like RSA, require lots of operations modulo a large number.&#xA;A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.&#xA;And division is a really expensive operation, especially with big numbers.&lt;/p&gt;&#xA;&lt;p&gt;The &lt;strong&gt;Montgomery (modular) multiplication&lt;/strong&gt; is a method that allows computing such multiplications faster.&#xA;Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Number of divisors / sum of divisors</title>
+      <link>http://localhost:53425/en/algebra/divisors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/divisors/</guid>
+      <description>&lt;h1 id=&#34;number-of-divisors--sum-of-divisors&#34;&gt;Number of divisors / sum of divisors&lt;a class=&#34;anchor&#34; href=&#34;#number-of-divisors--sum-of-divisors&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;In this article we discuss how to compute the number of divisors $d(n)$ and the sum of divisors $\sigma(n)$ of a given number $n$.&lt;/p&gt;&#xA;&lt;h2 id=&#34;number-of-divisors&#34;&gt;Number of divisors&lt;a class=&#34;anchor&#34; href=&#34;#number-of-divisors&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;It should be obvious that the prime factorization of a divisor $d$ has to be a subset of the prime factorization of $n$, e.g. $6 = 2 \cdot 3$ is a divisor of $60 = 2^2 \cdot 3 \cdot 5$.&#xA;So we only need to find all different subsets of the prime factorization of $n$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Operations on polynomials and series</title>
+      <link>http://localhost:53425/en/algebra/polynomial/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/polynomial/</guid>
+      <description>&lt;h1 id=&#34;operations-on-polynomials-and-series&#34;&gt;Operations on polynomials and series&lt;a class=&#34;anchor&#34; href=&#34;#operations-on-polynomials-and-series&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.&lt;/p&gt;&#xA;&lt;p&gt;This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.&lt;/p&gt;&#xA;&lt;h2 id=&#34;basic-notion-and-facts&#34;&gt;Basic Notion and facts&lt;a class=&#34;anchor&#34; href=&#34;#basic-notion-and-facts&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;In this section, we focus more on the definitions and &amp;ldquo;intuitive&amp;rdquo; properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Point location in O(log n)</title>
+      <link>http://localhost:53425/en/geometry/point-location/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/geometry/point-location/</guid>
+      <description>&lt;h1 id=&#34;point-location-in&#34;&gt;Point location in $O(log n)$&lt;a class=&#34;anchor&#34; href=&#34;#point-location-in&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Consider the following problem: you are given a &lt;a href=&#34;https://en.wikipedia.org/wiki/Planar_straight-line_graph&#34;&gt;planar subdivision&lt;/a&gt; without any vertices of degree one and zero, and a lot of queries.&#xA;Each query is a point, for which we should determine the face of the subdivision it belongs to.&#xA;We will answer each query in $O(\log n)$ offline.&lt;br&gt;&#xA;This problem may arise when you need to locate some points in a Voronoi diagram or in some simple polygon.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Primality tests</title>
+      <link>http://localhost:53425/en/algebra/primality_tests/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/algebra/primality_tests/</guid>
+      <description>&lt;h1 id=&#34;primality-tests&#34;&gt;Primality tests&lt;a class=&#34;anchor&#34; href=&#34;#primality-tests&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;This article describes multiple algorithms to determine if a number is prime or not.&lt;/p&gt;&#xA;&lt;h2 id=&#34;trial-division&#34;&gt;Trial division&lt;a class=&#34;anchor&#34; href=&#34;#trial-division&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;By definition a prime number doesn&amp;rsquo;t have any divisors other than $1$ and itself.&#xA;A composite number has at least one additional divisor, let&amp;rsquo;s call it $d$.&#xA;Naturally $\frac{n}{d}$ is also a divisor of $n$.&#xA;It&amp;rsquo;s easy to see, that either $d \le \sqrt{n}$ or $\frac{n}{d} \le \sqrt{n}$, therefore one of the divisors $d$ and $\frac{n}{d}$ is $\le \sqrt{n}$.&#xA;We can use this information to check for primality.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Second Best Minimum Spanning Tree</title>
+      <link>http://localhost:53425/en/graph/second_best_mst/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/graph/second_best_mst/</guid>
+      <description>&lt;h1 id=&#34;second-best-minimum-spanning-tree&#34;&gt;Second Best Minimum Spanning Tree&lt;a class=&#34;anchor&#34; href=&#34;#second-best-minimum-spanning-tree&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees.&#xA;A second best MST $T&#39;$ is a spanning tree, that has the second minimum weight sum of all the edges, from all the possible spanning trees of the graph $G$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Simulated Annealing</title>
+      <link>http://localhost:53425/en/num_methods/simulated_annealing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/num_methods/simulated_annealing/</guid>
+      <description>&lt;h1 id=&#34;simulated-annealing&#34;&gt;Simulated Annealing&lt;a class=&#34;anchor&#34; href=&#34;#simulated-annealing&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;&lt;strong&gt;Simulated Annealing (SA)&lt;/strong&gt; is a randomized algorithm, which approximates the global optimum of a function. It&amp;rsquo;s called a randomized algorithm, because it employs a certain amount of randomness in its search and thus its output can vary for the same input.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-problem&#34;&gt;The problem&lt;a class=&#34;anchor&#34; href=&#34;#the-problem&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;We are given a function $E(s)$, which calculates the energy of the state $s$. We are tasked with finding the state $s_{best}$ at which $E(s)$ is minimized. &lt;strong&gt;SA&lt;/strong&gt; is suited for problems where the states are discrete and $E(s)$ has multiple local minima. We&amp;rsquo;ll take the example of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Travelling_salesman_problem&#34;&gt;Travelling Salesman Problem (TSP)&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sparse Table</title>
+      <link>http://localhost:53425/en/data_structures/sparse-table/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/data_structures/sparse-table/</guid>
+      <description>&lt;h1 id=&#34;sparse-table&#34;&gt;Sparse Table&lt;a class=&#34;anchor&#34; href=&#34;#sparse-table&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Sparse Table is a data structure, that allows answering range queries.&#xA;It can answer most range queries in $O(\log n)$, but its true power is answering range minimum queries (or equivalent range maximum queries).&#xA;For those queries it can compute the answer in $O(1)$ time.&lt;/p&gt;&#xA;&lt;p&gt;The only drawback of this data structure is, that it can only be used on &lt;em&gt;immutable&lt;/em&gt; arrays.&#xA;This means, that the array cannot be changed between two queries.&#xA;If any element in the array changes, the complete data structure has to be recomputed.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Sqrt Tree</title>
+      <link>http://localhost:53425/en/data_structures/sqrt-tree/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/data_structures/sqrt-tree/</guid>
+      <description>&lt;h1 id=&#34;sqrt-tree&#34;&gt;Sqrt Tree&lt;a class=&#34;anchor&#34; href=&#34;#sqrt-tree&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Given an array $a$ that contains $n$ elements and the operation $\circ$ that satisfies associative property: $(x \circ y) \circ z = x \circ (y \circ z)$ is true for any $x$, $y$, $z$.&lt;/p&gt;&#xA;&lt;p&gt;So, such operations as $\gcd$, $\min$, $\max$, $+$, $\text{and}$, $\text{or}$, $\text{xor}$, etc. satisfy these conditions.&lt;/p&gt;&#xA;&lt;p&gt;Also we have some queries $q(l, r)$. For each query, we need to compute $a_l \circ a_{l+1} \circ \dots \circ a_r$.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Stars and bars</title>
+      <link>http://localhost:53425/en/combinatorics/stars_and_bars/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/combinatorics/stars_and_bars/</guid>
+      <description>&lt;h1 id=&#34;stars-and-bars&#34;&gt;Stars and bars&lt;a class=&#34;anchor&#34; href=&#34;#stars-and-bars&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;Stars and bars is a mathematical technique for solving certain combinatorial problems.&#xA;It occurs whenever you want to count the number of ways to group identical objects.&lt;/p&gt;&#xA;&lt;h2 id=&#34;theorem&#34;&gt;Theorem&lt;a class=&#34;anchor&#34; href=&#34;#theorem&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;The number of ways to put $n$ identical objects into $k$ labeled boxes is&lt;/p&gt;&#xA;$$\binom{n + k - 1}{n}.$$&lt;p&gt;The proof involves turning the objects into stars and separating the boxes using bars (therefore the name).&#xA;E.g. we can represent with $\bigstar | \bigstar \bigstar |~| \bigstar \bigstar$ the following situation:&#xA;in the first box is one object, in the second box are two objects, the third one is empty and in the last box are two objects.&#xA;This is one way of dividing 5 objects into 4 boxes.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Strong Orientation</title>
+      <link>http://localhost:53425/en/graph/strong-orientation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/graph/strong-orientation/</guid>
+      <description>&lt;h1 id=&#34;strong-orientation&#34;&gt;Strong Orientation&lt;a class=&#34;anchor&#34; href=&#34;#strong-orientation&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;p&gt;A &lt;strong&gt;strong orientation&lt;/strong&gt; of an undirected graph is an assignment of a direction to each edge that makes it a &lt;a href=&#34;strongly-connected-components.md&#34;&gt;strongly connected graph&lt;/a&gt;.&#xA;That is, after the &lt;em&gt;orientation&lt;/em&gt; we should be able to visit any vertex from any vertex by following the directed edges.&lt;/p&gt;&#xA;&lt;h2 id=&#34;solution&#34;&gt;Solution&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Of course, this cannot be done to &lt;em&gt;every&lt;/em&gt; graph.&#xA;Consider a &lt;a href=&#34;bridge-searching.md&#34;&gt;bridge&lt;/a&gt; in a graph.&#xA;We have to assign a direction to it and by doing so we make this bridge &amp;ldquo;crossable&amp;rdquo; in only one direction. That means we can&amp;rsquo;t go from one of the bridge&amp;rsquo;s ends to the other, so we can&amp;rsquo;t make the graph strongly connected.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

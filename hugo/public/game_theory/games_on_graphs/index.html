@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,35 +8,37 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Games on arbitrary graphs#Let a game be played by two players on an arbitrary graph $G$. I.e. the current state of the game is a certain vertex. The players perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge. Depending on the game, the person that is unable to move will either lose or win the game.
-We consider the most general case, the case of an arbitrary directed graph with cycles. It is our task to determine, given an initial state, who will win the game if both players play with optimal strategies or determine that the result of the game will be a draw.
+<meta name="description" content="যেকোনো গ্রাফে গেম#ধরি দুইজন খেলোয়াড় একটি যেকোনো গ্রাফ $G$-তে একটি গেম খেলছে। অর্থাৎ গেমের বর্তমান অবস্থা একটি নির্দিষ্ট ভার্টেক্স। খেলোয়াড়রা পালাক্রমে চাল দেয়, এবং বর্তমান ভার্টেক্স থেকে একটি সংযোগকারী এজ ব্যবহার করে পার্শ্ববর্তী ভার্টেক্সে যায়। গেমের উপর নির্ভর করে, যে ব্যক্তি চাল দিতে পারবে না সে হয় হারবে অথবা জিতবে।
+আমরা সবচেয়ে সাধারণ ক্ষেত্র বিবেচনা করি, সাইকেলসহ একটি যেকোনো ডিরেক্টেড গ্রাফের ক্ষেত্র। আমাদের কাজ হলো, প্রদত্ত একটি প্রারম্ভিক অবস্থায়, নির্ধারণ করা যে উভয় খেলোয়াড় অপটিমাল কৌশলে খেললে কে জিতবে, অথবা গেমের ফলাফল ড্র হবে কিনা।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/game_theory/games_on_graphs/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/game_theory/games_on_graphs/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Games on arbitrary graphs">
-  <meta property="og:description" content="Games on arbitrary graphs#Let a game be played by two players on an arbitrary graph $G$. I.e. the current state of the game is a certain vertex. The players perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge. Depending on the game, the person that is unable to move will either lose or win the game.
-We consider the most general case, the case of an arbitrary directed graph with cycles. It is our task to determine, given an initial state, who will win the game if both players play with optimal strategies or determine that the result of the game will be a draw.">
+  <meta property="og:title" content="যেকোনো গ্রাফে গেম">
+  <meta property="og:description" content="যেকোনো গ্রাফে গেম#ধরি দুইজন খেলোয়াড় একটি যেকোনো গ্রাফ $G$-তে একটি গেম খেলছে। অর্থাৎ গেমের বর্তমান অবস্থা একটি নির্দিষ্ট ভার্টেক্স। খেলোয়াড়রা পালাক্রমে চাল দেয়, এবং বর্তমান ভার্টেক্স থেকে একটি সংযোগকারী এজ ব্যবহার করে পার্শ্ববর্তী ভার্টেক্সে যায়। গেমের উপর নির্ভর করে, যে ব্যক্তি চাল দিতে পারবে না সে হয় হারবে অথবা জিতবে।
+আমরা সবচেয়ে সাধারণ ক্ষেত্র বিবেচনা করি, সাইকেলসহ একটি যেকোনো ডিরেক্টেড গ্রাফের ক্ষেত্র। আমাদের কাজ হলো, প্রদত্ত একটি প্রারম্ভিক অবস্থায়, নির্ধারণ করা যে উভয় খেলোয়াড় অপটিমাল কৌশলে খেললে কে জিতবে, অথবা গেমের ফলাফল ড্র হবে কিনা।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="game_theory">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Games on arbitrary graphs">
-  <meta itemprop="description" content="Games on arbitrary graphs#Let a game be played by two players on an arbitrary graph $G$. I.e. the current state of the game is a certain vertex. The players perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge. Depending on the game, the person that is unable to move will either lose or win the game.
-We consider the most general case, the case of an arbitrary directed graph with cycles. It is our task to determine, given an initial state, who will win the game if both players play with optimal strategies or determine that the result of the game will be a draw.">
-  <meta itemprop="wordCount" content="1545">
+  <meta itemprop="name" content="যেকোনো গ্রাফে গেম">
+  <meta itemprop="description" content="যেকোনো গ্রাফে গেম#ধরি দুইজন খেলোয়াড় একটি যেকোনো গ্রাফ $G$-তে একটি গেম খেলছে। অর্থাৎ গেমের বর্তমান অবস্থা একটি নির্দিষ্ট ভার্টেক্স। খেলোয়াড়রা পালাক্রমে চাল দেয়, এবং বর্তমান ভার্টেক্স থেকে একটি সংযোগকারী এজ ব্যবহার করে পার্শ্ববর্তী ভার্টেক্সে যায়। গেমের উপর নির্ভর করে, যে ব্যক্তি চাল দিতে পারবে না সে হয় হারবে অথবা জিতবে।
+আমরা সবচেয়ে সাধারণ ক্ষেত্র বিবেচনা করি, সাইকেলসহ একটি যেকোনো ডিরেক্টেড গ্রাফের ক্ষেত্র। আমাদের কাজ হলো, প্রদত্ত একটি প্রারম্ভিক অবস্থায়, নির্ধারণ করা যে উভয় খেলোয়াড় অপটিমাল কৌশলে খেললে কে জিতবে, অথবা গেমের ফলাফল ড্র হবে কিনা।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1295">
 
-<title>Games on arbitrary graphs | CP-Algorithms</title>
+<title>যেকোনো গ্রাফে গেম | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/game_theory/games_on_graphs/">
+<link rel="canonical" href="http://localhost:1313/game_theory/games_on_graphs/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -123,78 +125,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -208,7 +140,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -222,7 +224,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -236,35 +238,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -278,7 +252,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -292,7 +294,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -306,21 +308,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -334,7 +322,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -348,21 +350,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -376,7 +364,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -390,7 +378,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -404,7 +406,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -431,8 +433,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -445,8 +447,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -460,7 +462,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -474,21 +476,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -502,7 +490,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -516,7 +518,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -530,7 +532,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -581,7 +583,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -595,7 +597,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -609,7 +611,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -623,7 +625,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -637,7 +639,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -651,7 +653,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -665,7 +667,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -679,7 +681,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -693,7 +695,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -743,8 +745,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -758,49 +774,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -814,7 +788,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -828,7 +830,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -879,21 +881,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -907,7 +895,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -934,8 +936,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -948,8 +950,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -963,21 +965,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -991,7 +979,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1005,7 +1007,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1019,7 +1021,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1033,7 +1035,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1070,7 +1072,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1084,7 +1086,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1098,7 +1100,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1112,7 +1114,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1148,22 +1150,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1176,8 +1164,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1191,7 +1179,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1205,7 +1193,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1219,7 +1221,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1233,7 +1235,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1247,7 +1249,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1298,7 +1300,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1312,7 +1314,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1326,7 +1328,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1340,7 +1342,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1354,7 +1356,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1390,64 +1392,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1461,7 +1407,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1474,8 +1420,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1488,8 +1434,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1502,8 +1448,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1516,8 +1462,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1531,7 +1477,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1545,21 +1547,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1573,7 +1561,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1586,22 +1574,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1615,7 +1589,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1629,21 +1631,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1657,7 +1645,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1670,8 +1658,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1685,7 +1673,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1699,7 +1701,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1713,7 +1715,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1727,7 +1729,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1741,7 +1743,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1777,64 +1779,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1861,22 +1807,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1890,7 +1822,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1904,7 +1836,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1917,8 +1849,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1931,8 +1863,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1945,8 +1877,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1959,8 +1891,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1974,7 +1920,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1987,8 +1933,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2001,8 +1947,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2015,22 +1961,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2044,7 +1976,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2057,8 +1989,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2071,8 +2003,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2099,50 +2073,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2156,7 +2102,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2169,8 +2115,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2183,8 +2129,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2198,7 +2172,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2211,8 +2185,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2225,8 +2199,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2240,7 +2214,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2253,8 +2227,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2267,8 +2241,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2282,7 +2256,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2295,8 +2269,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2310,7 +2284,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2324,7 +2312,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2338,7 +2340,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2352,7 +2354,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2366,7 +2368,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2380,7 +2382,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2394,7 +2396,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2431,7 +2433,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2445,7 +2447,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2473,7 +2475,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2510,7 +2512,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2524,7 +2526,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2538,7 +2540,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2552,7 +2554,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2566,7 +2568,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2603,7 +2605,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="active">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2617,7 +2619,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2654,7 +2656,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2668,7 +2670,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2682,7 +2684,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2728,7 +2730,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Games on arbitrary graphs</h3>
+  <h3>যেকোনো গ্রাফে গেম</h3>
 
   <label for="toc-control">
     
@@ -2744,9 +2746,9 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#description-of-the-algorithm">Description of the algorithm</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#example-policeman-and-thief">Example: &ldquo;Policeman and thief&rdquo;</a></li>
+    <li><a href="#অযলগরদমর-ববরণ">অ্যালগরিদমের বিবরণ</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#উদহরণ-পলশ-ও-চর">উদাহরণ: &ldquo;পুলিশ ও চোর&rdquo;</a></li>
   </ul>
 </nav>
 
@@ -2759,44 +2761,44 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="games-on-arbitrary-graphs">Games on arbitrary graphs<a class="anchor" href="#games-on-arbitrary-graphs">#</a></h1>
-<p>Let a game be played by two players on an arbitrary graph $G$.
-I.e. the current state of the game is a certain vertex.
-The players perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge.
-Depending on the game, the person that is unable to move will either lose or win the game.</p>
-<p>We consider the most general case, the case of an arbitrary directed graph with cycles.
-It is our task to determine, given an initial state, who will win the game if both players play with optimal strategies or determine that the result of the game will be a draw.</p>
-<p>We will solve this problem very efficiently.
-We will find the solution for all possible starting vertices of the graph in linear time with respect to the number of edges: $O(m)$.</p>
-<h2 id="description-of-the-algorithm">Description of the algorithm<a class="anchor" href="#description-of-the-algorithm">#</a></h2>
-<p>We will call a vertex a winning vertex, if the player starting at this state will win the game, if they play optimally (regardless of what turns the other player makes).
-Similarly, we will call a vertex a losing vertex, if the player starting at this vertex will lose the game, if the opponent plays optimally.</p>
-<p>For some of the vertices of the graph, we already know in advance that they are winning or losing vertices: namely all vertices that have no outgoing edges.</p>
-<p>Also we have the following <strong>rules</strong>:</p>
+  <article class="markdown book-article"><h1 id="যকন-গরফ-গম">যেকোনো গ্রাফে গেম<a class="anchor" href="#%e0%a6%af%e0%a6%95%e0%a6%a8-%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%97%e0%a6%ae">#</a></h1>
+<p>ধরি দুইজন খেলোয়াড় একটি যেকোনো গ্রাফ $G$-তে একটি গেম খেলছে।
+অর্থাৎ গেমের বর্তমান অবস্থা একটি নির্দিষ্ট ভার্টেক্স।
+খেলোয়াড়রা পালাক্রমে চাল দেয়, এবং বর্তমান ভার্টেক্স থেকে একটি সংযোগকারী এজ ব্যবহার করে পার্শ্ববর্তী ভার্টেক্সে যায়।
+গেমের উপর নির্ভর করে, যে ব্যক্তি চাল দিতে পারবে না সে হয় হারবে অথবা জিতবে।</p>
+<p>আমরা সবচেয়ে সাধারণ ক্ষেত্র বিবেচনা করি, সাইকেলসহ একটি যেকোনো ডিরেক্টেড গ্রাফের ক্ষেত্র।
+আমাদের কাজ হলো, প্রদত্ত একটি প্রারম্ভিক অবস্থায়, নির্ধারণ করা যে উভয় খেলোয়াড় অপটিমাল কৌশলে খেললে কে জিতবে, অথবা গেমের ফলাফল ড্র হবে কিনা।</p>
+<p>আমরা এই সমস্যাটি অত্যন্ত দক্ষতার সাথে সমাধান করব।
+আমরা গ্রাফের সব সম্ভাব্য প্রারম্ভিক ভার্টেক্সের জন্য সমাধান খুঁজব এজের সংখ্যার সাপেক্ষে লিনিয়ার সময়ে: $O(m)$।</p>
+<h2 id="অযলগরদমর-ববরণ">অ্যালগরিদমের বিবরণ<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%ac%e0%a6%b0%e0%a6%a3">#</a></h2>
+<p>আমরা একটি ভার্টেক্সকে জয়ী ভার্টেক্স বলব, যদি এই অবস্থা থেকে শুরু করা খেলোয়াড় অপটিমালভাবে খেললে গেমটি জিতবে (প্রতিপক্ষ যাই চাল দিক না কেন)।
+একইভাবে, আমরা একটি ভার্টেক্সকে পরাজিত ভার্টেক্স বলব, যদি এই ভার্টেক্স থেকে শুরু করা খেলোয়াড় প্রতিপক্ষ অপটিমালভাবে খেললে হেরে যায়।</p>
+<p>গ্রাফের কিছু ভার্টেক্সের জন্য, আমরা আগে থেকেই জানি যে সেগুলো জয়ী বা পরাজিত ভার্টেক্স: যথা সমস্ত ভার্টেক্স যাদের কোনো আউটগোয়িং এজ নেই।</p>
+<p>এছাড়াও আমাদের নিম্নলিখিত <strong>নিয়মগুলো</strong> আছে:</p>
 <ul>
-<li>if a vertex has an outgoing edge that leads to a losing vertex, then the vertex itself is a winning vertex.</li>
-<li>if all outgoing edges of a certain vertex lead to winning vertices, then the vertex itself is a losing vertex.</li>
-<li>if at some point there are still undefined vertices, and neither will fit the first or the second rule, then each of these vertices, when used as a starting vertex, will lead to a draw if both player play optimally.</li>
+<li>যদি কোনো ভার্টেক্সের একটি আউটগোয়িং এজ একটি পরাজিত ভার্টেক্সে নিয়ে যায়, তাহলে সেই ভার্টেক্সটি নিজেই একটি জয়ী ভার্টেক্স।</li>
+<li>যদি কোনো ভার্টেক্সের সব আউটগোয়িং এজ জয়ী ভার্টেক্সে নিয়ে যায়, তাহলে সেই ভার্টেক্সটি নিজেই একটি পরাজিত ভার্টেক্স।</li>
+<li>যদি কোনো পর্যায়ে এখনও অনির্ধারিত ভার্টেক্স থাকে, এবং প্রথম বা দ্বিতীয় কোনো নিয়মই প্রযোজ্য না হয়, তাহলে এই প্রতিটি ভার্টেক্স প্রারম্ভিক ভার্টেক্স হিসেবে ব্যবহৃত হলে উভয় খেলোয়াড় অপটিমালভাবে খেললে ড্র হবে।</li>
 </ul>
-<p>Thus, we can define an algorithm which runs in $O(n m)$ time immediately.
-We go through all vertices and try to apply the first or second rule, and repeat.</p>
-<p>However, we can accelerate this procedure, and get the complexity down to $O(m)$.</p>
-<p>We will go over all the vertices, for which we initially know if they are winning or losing states.
-For each of them, we start a <a href="../graph/depth-first-search.md">depth first search</a>.
-This DFS will move back over the reversed edges.
-First of all, it will not enter vertices which already are defined as winning or losing vertices.
-And further, if the search goes from a losing vertex to an undefined vertex, then we mark this one as a winning vertex, and continue the DFS using this new vertex.
-If we go from a winning vertex to an undefined vertex, then we must check whether all edges from this one leads to winning vertices.
-We can perform this test in $O(1)$ by storing the number of edges that lead to a winning vertex for each vertex.
-So if we go from a winning vertex to an undefined one, then we increase the counter, and check if this number is equal to the number of outgoing edges.
-If this is the case, we can mark this vertex as a losing vertex, and continue the DFS from this vertex.
-Otherwise we don&rsquo;t know yet, if this vertex is a winning or losing vertex, and therefore it doesn&rsquo;t make sense to keep continuing the DFS using it.</p>
-<p>In total we visit every winning and every losing vertex exactly once (undefined vertices are not visited), and we go over each edge also at most one time.
-Hence the complexity is $O(m)$.</p>
-<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
-<p>Here is the implementation of such a DFS.
-We assume that the variable <code>adj_rev</code> stores the adjacency list for the graph in <strong>reversed</strong> form, i.e. instead of storing the edge $(i, j)$ of the graph, we store $(j, i)$.
-Also for each vertex we assume that the outgoing degree is already computed.</p>
+<p>সুতরাং, আমরা তৎক্ষণাৎ $O(n m)$ সময়ে চলে এমন একটি অ্যালগরিদম সংজ্ঞায়িত করতে পারি।
+আমরা সব ভার্টেক্সের মধ্য দিয়ে যাই এবং প্রথম বা দ্বিতীয় নিয়ম প্রয়োগের চেষ্টা করি, এবং পুনরাবৃত্তি করি।</p>
+<p>তবে, আমরা এই প্রক্রিয়াটিকে ত্বরান্বিত করতে পারি, এবং কমপ্লেক্সিটি $O(m)$-এ নামিয়ে আনতে পারি।</p>
+<p>আমরা সেই সব ভার্টেক্সের উপর দিয়ে যাব, যেগুলো প্রাথমিকভাবে জয়ী বা পরাজিত অবস্থা বলে জানি।
+এদের প্রতিটি থেকে, আমরা একটি <a href="../graph/depth-first-search.md">ডেপথ ফার্স্ট সার্চ</a> শুরু করব।
+এই DFS বিপরীত এজ ধরে পিছনে যাবে।
+প্রথমত, এটি ইতিমধ্যে জয়ী বা পরাজিত হিসেবে নির্ধারিত ভার্টেক্সে প্রবেশ করবে না।
+এবং আরো, যদি সার্চ একটি পরাজিত ভার্টেক্স থেকে একটি অনির্ধারিত ভার্টেক্সে যায়, তাহলে আমরা এটিকে জয়ী ভার্টেক্স হিসেবে চিহ্নিত করি, এবং এই নতুন ভার্টেক্স ব্যবহার করে DFS চালিয়ে যাই।
+যদি আমরা একটি জয়ী ভার্টেক্স থেকে একটি অনির্ধারিত ভার্টেক্সে যাই, তাহলে আমাদের পরীক্ষা করতে হবে যে এর থেকে সব এজ জয়ী ভার্টেক্সে যায় কিনা।
+আমরা প্রতিটি ভার্টেক্সের জন্য জয়ী ভার্টেক্সে যাওয়া এজের সংখ্যা সংরক্ষণ করে $O(1)$-এ এই পরীক্ষাটি করতে পারি।
+সুতরাং যদি আমরা একটি জয়ী ভার্টেক্স থেকে একটি অনির্ধারিত ভার্টেক্সে যাই, তাহলে আমরা কাউন্টার বাড়াই, এবং পরীক্ষা করি এই সংখ্যা আউটগোয়িং এজের সংখ্যার সমান কিনা।
+যদি তাই হয়, আমরা এই ভার্টেক্সকে পরাজিত ভার্টেক্স হিসেবে চিহ্নিত করতে পারি, এবং এই ভার্টেক্স থেকে DFS চালিয়ে যেতে পারি।
+অন্যথায় আমরা এখনও জানি না এই ভার্টেক্সটি জয়ী না পরাজিত, এবং তাই এটি ব্যবহার করে DFS চালিয়ে যাওয়ার কোনো অর্থ নেই।</p>
+<p>মোটের উপর আমরা প্রতিটি জয়ী এবং প্রতিটি পরাজিত ভার্টেক্স ঠিক একবার ভিজিট করি (অনির্ধারিত ভার্টেক্স ভিজিট করা হয় না), এবং আমরা প্রতিটি এজও সর্বাধিক একবার অতিক্রম করি।
+তাই কমপ্লেক্সিটি $O(m)$।</p>
+<h2 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>এখানে এমন একটি DFS-এর ইমপ্লিমেন্টেশন দেওয়া হলো।
+আমরা ধরে নিচ্ছি যে <code>adj_rev</code> ভেরিয়েবলে গ্রাফের <strong>বিপরীত</strong> আকারে অ্যাডজেসেন্সি লিস্ট সংরক্ষিত, অর্থাৎ গ্রাফের এজ $(i, j)$ সংরক্ষণের বদলে, আমরা $(j, i)$ সংরক্ষণ করি।
+এছাড়াও প্রতিটি ভার্টেক্সের জন্য আমরা ধরে নিচ্ছি যে আউটগোয়িং ডিগ্রি ইতিমধ্যে হিসাব করা আছে।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj_rev</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">winning</span><span class="p">;</span>
@@ -2817,32 +2819,32 @@ Also for each vertex we assume that the outgoing degree is already computed.</p>
 </span></span><span class="line"><span class="cl">            <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="example-policeman-and-thief">Example: &ldquo;Policeman and thief&rdquo;<a class="anchor" href="#example-policeman-and-thief">#</a></h2>
-<p>Here is a concrete example of such a game.</p>
-<p>There is $m \times n$ board.
-Some of the cells cannot be entered.
-The initial coordinates of the police officer and of the thief are known.
-One of the cells is the exit.
-If the policeman and the thief are located at the same cell at any moment, the policeman wins.
-If the thief is at the exit cell (without the policeman also being on the cell), then the thief wins.
-The policeman can walk in all 8 directions, the thief only in 4 (along the coordinate axis).
-Both the policeman and the thief will take turns moving.
-However they also can skip a turn if they want to.
-The first move is made by the policeman.</p>
-<p>We will now <strong>construct the graph</strong>.
-For this we must formalize the rules of the game.
-The current state of the game is determined by the coordinates of the police offices $P$, the coordinates of the thief $T$, and also by whose turn it is, let&rsquo;s call this variable $P_{\text{turn}}$ (which is true when it is the policeman&rsquo;s turn).
-Therefore a vertex of the graph is determined by the triple $(P, T, P_{\text{turn}})$
-The graph then can be easily constructed, simply by following the rules of the game.</p>
-<p>Next we need to determine which vertices are winning and which are losing ones initially.
-There is a <strong>subtle point</strong> here.
-The winning / losing vertices depend, in addition to the coordinates, also on $P_{\text{turn}}$ - whose turn it.
-If it is the policeman&rsquo;s turn, then the vertex is a winning vertex, if the coordinates of the policeman and the thief coincide, and the vertex is a losing one if it is not a winning one and the thief is on the exit vertex.
-If it is the thief&rsquo;s turn, then a vertex is a losing vertex, if the coordinates of the two players coincide, and it is a winning vertex if it is not a losing one, and the thief is at the exit vertex.</p>
-<p>The only point before implementing is not, that you need to decide if you want to build the graph <strong>explicitly</strong> or just construct it <strong>on the fly</strong>.
-On one hand, building the graph explicitly will be a lot easier and there is less chance of making mistakes.
-On the other hand, it will increase the amount of code and the running time will be slower than if you build the graph on the fly.</p>
-<p>The following implementation will construct the graph explicitly:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="উদহরণ-পলশ-ও-চর">উদাহরণ: &ldquo;পুলিশ ও চোর&rdquo;<a class="anchor" href="#%e0%a6%89%e0%a6%a6%e0%a6%b9%e0%a6%b0%e0%a6%a3-%e0%a6%aa%e0%a6%b2%e0%a6%b6-%e0%a6%93-%e0%a6%9a%e0%a6%b0">#</a></h2>
+<p>এখানে এই ধরনের গেমের একটি নির্দিষ্ট উদাহরণ দেওয়া হলো।</p>
+<p>$m \times n$ আকারের একটি বোর্ড আছে।
+কিছু ঘরে প্রবেশ করা যায় না।
+পুলিশ অফিসার এবং চোরের প্রাথমিক স্থানাঙ্ক জানা আছে।
+একটি ঘর হলো বের হওয়ার পথ।
+যদি পুলিশ এবং চোর যেকোনো মুহূর্তে একই ঘরে থাকে, পুলিশ জিতবে।
+যদি চোর বের হওয়ার ঘরে থাকে (পুলিশও সেই ঘরে না থাকা অবস্থায়), তাহলে চোর জিতবে।
+পুলিশ সব ৮ দিকে হাঁটতে পারে, চোর শুধু ৪ দিকে (স্থানাঙ্ক অক্ষ বরাবর)।
+পুলিশ এবং চোর উভয়ই পালাক্রমে চাল দেবে।
+তবে তারা চাইলে একটি পালা বাদও দিতে পারে।
+প্রথম চাল পুলিশের।</p>
+<p>এখন আমরা <strong>গ্রাফটি তৈরি করব</strong>।
+এর জন্য আমাদের গেমের নিয়মগুলো আনুষ্ঠানিকভাবে প্রকাশ করতে হবে।
+গেমের বর্তমান অবস্থা নির্ধারিত হয় পুলিশ অফিসারের স্থানাঙ্ক $P$, চোরের স্থানাঙ্ক $T$, এবং কার পালা সেটি দিয়ে, ধরি একে $P_{\text{turn}}$ বলি (যা পুলিশের পালায় true)।
+সুতরাং গ্রাফের একটি ভার্টেক্স ত্রয়ী $(P, T, P_{\text{turn}})$ দ্বারা নির্ধারিত।
+এরপর গেমের নিয়ম অনুসরণ করে গ্রাফটি সহজেই তৈরি করা যায়।</p>
+<p>এরপর আমাদের নির্ধারণ করতে হবে কোন ভার্টেক্সগুলো প্রাথমিকভাবে জয়ী এবং কোনগুলো পরাজিত।
+এখানে একটি <strong>সূক্ষ্ম বিষয়</strong> আছে।
+জয়ী/পরাজিত ভার্টেক্স স্থানাঙ্কের পাশাপাশি $P_{\text{turn}}$ — কার পালা — এর উপরও নির্ভর করে।
+যদি পুলিশের পালা হয়, তাহলে ভার্টেক্সটি জয়ী যদি পুলিশ ও চোরের স্থানাঙ্ক মিলে যায়, এবং এটি পরাজিত যদি এটি জয়ী না হয় এবং চোর বের হওয়ার ভার্টেক্সে থাকে।
+যদি চোরের পালা হয়, তাহলে একটি ভার্টেক্স পরাজিত যদি দুই খেলোয়াড়ের স্থানাঙ্ক মিলে যায়, এবং এটি জয়ী যদি এটি পরাজিত না হয় এবং চোর বের হওয়ার ভার্টেক্সে থাকে।</p>
+<p>ইমপ্লিমেন্টের আগে একটি মাত্র বিষয় সিদ্ধান্ত নিতে হবে যে আপনি গ্রাফটি <strong>স্পষ্টভাবে</strong> তৈরি করতে চান নাকি <strong>ফ্লাইতে</strong> তৈরি করতে চান।
+একদিকে, স্পষ্টভাবে গ্রাফ তৈরি করা অনেক সহজ এবং ভুলের সম্ভাবনা কম।
+অন্যদিকে, এটি কোডের পরিমাণ বাড়াবে এবং রানিং টাইম ফ্লাইতে তৈরির তুলনায় ধীর হবে।</p>
+<p>নিম্নলিখিত ইমপ্লিমেন্টেশন স্পষ্টভাবে গ্রাফ তৈরি করবে:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">State</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">Pstep</span><span class="p">;</span>
@@ -2882,7 +2884,7 @@ On the other hand, it will increase the amount of code and the running time will
 </span></span><span class="line"><span class="cl">                <span class="kt">int</span> <span class="n">Px</span> <span class="o">=</span> <span class="n">P</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="n">Py</span> <span class="o">=</span> <span class="n">P</span><span class="o">%</span><span class="n">m</span><span class="p">,</span> <span class="n">Tx</span> <span class="o">=</span> <span class="n">T</span><span class="o">/</span><span class="n">m</span><span class="p">,</span> <span class="n">Ty</span> <span class="o">=</span> <span class="n">T</span><span class="o">%</span><span class="n">m</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">Px</span><span class="p">][</span><span class="n">Py</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;*&#39;</span> <span class="o">||</span> <span class="n">a</span><span class="p">[</span><span class="n">Tx</span><span class="p">][</span><span class="n">Ty</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                    <span class="k">continue</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">                <span class="kt">bool</span><span class="o">&amp;</span> <span class="n">win</span> <span class="o">=</span> <span class="n">winning</span><span class="p">[</span><span class="n">P</span><span class="p">][</span><span class="n">T</span><span class="p">][</span><span class="n">Pstep</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">                <span class="kt">bool</span><span class="o">&amp;</span> <span class="n">lose</span> <span class="o">=</span> <span class="n">losing</span><span class="p">[</span><span class="n">P</span><span class="p">][</span><span class="n">T</span><span class="p">][</span><span class="n">Pstep</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">Pstep</span><span class="p">)</span> <span class="p">{</span>
@@ -2899,7 +2901,7 @@ On the other hand, it will increase the amount of code and the running time will
 </span></span><span class="line"><span class="cl">                <span class="n">adj_rev</span><span class="p">[</span><span class="n">P</span><span class="p">][</span><span class="n">T</span><span class="p">][</span><span class="n">Pstep</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">st</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">                <span class="n">st</span><span class="p">.</span><span class="n">Pstep</span> <span class="o">=</span> <span class="n">Pstep</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">                <span class="n">degree</span><span class="p">[</span><span class="n">P</span><span class="p">][</span><span class="n">T</span><span class="p">][</span><span class="n">Pstep</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">                <span class="k">const</span> <span class="kt">int</span> <span class="n">dx</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">                <span class="k">const</span> <span class="kt">int</span> <span class="n">dy</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">};</span>
 </span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">Pstep</span> <span class="o">?</span> <span class="mi">8</span> <span class="o">:</span> <span class="mi">4</span><span class="p">);</span> <span class="n">d</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -2979,14 +2981,14 @@ On the other hand, it will increase the amount of code and the running time will
     
       <a href="/others/stern_brocot_tree_farey_sequences/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>The Stern-Brocot tree and Farey sequences</span>
+        <span>স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</span>
       </a>
     
     </span>
     <span>
     
       <a href="/game_theory/sprague-grundy-nim/" class="flex align-center">
-        <span>Sprague-Grundy theorem. Nim</span>
+        <span>স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3027,9 +3029,9 @@ On the other hand, it will increase the amount of code and the running time will
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#description-of-the-algorithm">Description of the algorithm</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#example-policeman-and-thief">Example: &ldquo;Policeman and thief&rdquo;</a></li>
+    <li><a href="#অযলগরদমর-ববরণ">অ্যালগরিদমের বিবরণ</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#উদহরণ-পলশ-ও-চর">উদাহরণ: &ldquo;পুলিশ ও চোর&rdquo;</a></li>
   </ul>
 </nav>
 

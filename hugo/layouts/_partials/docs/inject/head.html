@@ -1,3 +1,80 @@
+<!-- Bengali fonts: Kalpurush + Tiro Bangla -->
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+<!-- Theme toggle CSS — must load after book.css -->
+<link rel="stylesheet" href="{{ "/theme-toggle.css" | relURL }}">
+
+<!-- Syntax highlighting (Chroma) -->
+<link rel="stylesheet" href="{{ "/syntax-light.css" | relURL }}" id="syntax-css">
+
+<!-- Light/dark mode toggle: set theme before paint to avoid flash -->
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.documentElement.style.colorScheme = saved;
+  var syntax = document.getElementById('syntax-css');
+  if (syntax) {
+    syntax.href = syntax.href.replace(
+      saved === 'dark' ? 'syntax-light' : 'syntax-dark',
+      saved === 'dark' ? 'syntax-dark' : 'syntax-light'
+    );
+  }
+})();
+</script>
+
+<script>
+(function() {
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+    localStorage.setItem('theme', theme);
+
+    var button = document.getElementById('theme-toggle');
+    if (button) {
+      var isDark = theme === 'dark';
+      button.setAttribute('aria-pressed', String(isDark));
+      button.setAttribute('data-theme-state', theme);
+
+      var label = button.querySelector('.theme-switch-label');
+      if (label) {
+        label.textContent = isDark ? 'Dark mode' : 'Light mode';
+      }
+    }
+
+    var syntax = document.getElementById('syntax-css');
+    if (syntax) {
+      syntax.href = syntax.href.replace(
+        theme === 'dark' ? 'syntax-light' : 'syntax-dark',
+        theme === 'dark' ? 'syntax-dark' : 'syntax-light'
+      );
+    }
+  }
+
+  function initThemeToggle() {
+    var button = document.getElementById('theme-toggle');
+    if (!button) return;
+
+    applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+
+    button.addEventListener('click', function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+})();
+</script>
+
 <!-- MathJax 3 -->
 <script>
 MathJax = {

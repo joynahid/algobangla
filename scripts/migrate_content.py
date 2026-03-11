@@ -8,8 +8,8 @@ import re
 import shutil
 from pathlib import Path
 
-SRC_DIR = Path("D:/Projects/cp-algorithms-hugo/src")
-HUGO_CONTENT = Path("D:/Projects/cp-algorithms-hugo/hugo/content")
+SRC_DIR = Path("D:/Projects/cp-algorithms/src")        # English (main branch)
+HUGO_CONTENT = Path("D:/Projects/cp-algorithms-hugo/hugo/content/en")
 HUGO_STATIC = Path("D:/Projects/cp-algorithms-hugo/hugo/static")
 
 # Sections to migrate (dir name -> display name)

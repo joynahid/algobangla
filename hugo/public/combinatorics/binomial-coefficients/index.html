@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,38 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Binomial Coefficients#Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
-Binomial coefficients are also the coefficients in the expansion of $(a &#43; b) ^ n$ (so-called binomial theorem):
-$$ (a&#43;b)^n = \binom n 0 a^n &#43; \binom n 1 a^{n-1} b &#43; \binom n 2 a^{n-2} b^2 &#43; \cdots &#43; \binom n k a^{n-k} b^k &#43; \cdots &#43; \binom n n b^n $$It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui, who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam. Moreover, Indian mathematician Pingala, who lived earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.
+<meta name="description" content="দ্বিপদী সহগ#দ্বিপদী সহগ $\binom n k$ হলো $n$ টি ভিন্ন উপাদান থেকে $k$ টি উপাদানের একটি সেট নির্বাচন করার উপায়ের সংখ্যা, যেখানে এই উপাদানগুলোর সাজানোর ক্রম বিবেচনা করা হয় না (অর্থাৎ অক্রমিক সেটের সংখ্যা)।
+দ্বিপদী সহগ $(a &#43; b) ^ n$ এর সম্প্রসারণেও সহগ হিসেবে পাওয়া যায় (তথাকথিত দ্বিপদী উপপাদ্য):
+$$ (a&#43;b)^n = \binom n 0 a^n &#43; \binom n 1 a^{n-1} b &#43; \binom n 2 a^{n-2} b^2 &#43; \cdots &#43; \binom n k a^{n-k} b^k &#43; \cdots &#43; \binom n n b^n $$এই সূত্রটি, সেইসাথে যে ত্রিভুজ সহগগুলোর দক্ষ হিসাবের সুবিধা দেয়, সেটি ১৭শ শতকে Blaise Pascal আবিষ্কার করেছিলেন বলে মনে করা হয়। তবুও, এটি ১৩শ শতকে বাসকারী চীনা গণিতবিদ Yang Hui এর কাছে পরিচিত ছিল। সম্ভবত এটি পারস্যের পণ্ডিত ওমর খৈয়ামও আবিষ্কার করেছিলেন। তাছাড়া, খ্রিস্টপূর্ব ৩য় শতকে বাসকারী ভারতীয় গণিতবিদ পিঙ্গল একই রকম ফলাফল পেয়েছিলেন। নিউটনের কৃতিত্ব হলো তিনি এই সূত্রটি এমন ঘাতের জন্য সাধারণীকরণ করেছেন যা স্বাভাবিক সংখ্যা নয়।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/combinatorics/binomial-coefficients/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/combinatorics/binomial-coefficients/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Binomial Coefficients">
-  <meta property="og:description" content="Binomial Coefficients#Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
-Binomial coefficients are also the coefficients in the expansion of $(a &#43; b) ^ n$ (so-called binomial theorem):
-$$ (a&#43;b)^n = \binom n 0 a^n &#43; \binom n 1 a^{n-1} b &#43; \binom n 2 a^{n-2} b^2 &#43; \cdots &#43; \binom n k a^{n-k} b^k &#43; \cdots &#43; \binom n n b^n $$It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui, who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam. Moreover, Indian mathematician Pingala, who lived earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.">
+  <meta property="og:title" content="দ্বিপদী সহগ">
+  <meta property="og:description" content="দ্বিপদী সহগ#দ্বিপদী সহগ $\binom n k$ হলো $n$ টি ভিন্ন উপাদান থেকে $k$ টি উপাদানের একটি সেট নির্বাচন করার উপায়ের সংখ্যা, যেখানে এই উপাদানগুলোর সাজানোর ক্রম বিবেচনা করা হয় না (অর্থাৎ অক্রমিক সেটের সংখ্যা)।
+দ্বিপদী সহগ $(a &#43; b) ^ n$ এর সম্প্রসারণেও সহগ হিসেবে পাওয়া যায় (তথাকথিত দ্বিপদী উপপাদ্য):
+$$ (a&#43;b)^n = \binom n 0 a^n &#43; \binom n 1 a^{n-1} b &#43; \binom n 2 a^{n-2} b^2 &#43; \cdots &#43; \binom n k a^{n-k} b^k &#43; \cdots &#43; \binom n n b^n $$এই সূত্রটি, সেইসাথে যে ত্রিভুজ সহগগুলোর দক্ষ হিসাবের সুবিধা দেয়, সেটি ১৭শ শতকে Blaise Pascal আবিষ্কার করেছিলেন বলে মনে করা হয়। তবুও, এটি ১৩শ শতকে বাসকারী চীনা গণিতবিদ Yang Hui এর কাছে পরিচিত ছিল। সম্ভবত এটি পারস্যের পণ্ডিত ওমর খৈয়ামও আবিষ্কার করেছিলেন। তাছাড়া, খ্রিস্টপূর্ব ৩য় শতকে বাসকারী ভারতীয় গণিতবিদ পিঙ্গল একই রকম ফলাফল পেয়েছিলেন। নিউটনের কৃতিত্ব হলো তিনি এই সূত্রটি এমন ঘাতের জন্য সাধারণীকরণ করেছেন যা স্বাভাবিক সংখ্যা নয়।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="combinatorics">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Binomial Coefficients">
-  <meta itemprop="description" content="Binomial Coefficients#Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
-Binomial coefficients are also the coefficients in the expansion of $(a &#43; b) ^ n$ (so-called binomial theorem):
-$$ (a&#43;b)^n = \binom n 0 a^n &#43; \binom n 1 a^{n-1} b &#43; \binom n 2 a^{n-2} b^2 &#43; \cdots &#43; \binom n k a^{n-k} b^k &#43; \cdots &#43; \binom n n b^n $$It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui, who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam. Moreover, Indian mathematician Pingala, who lived earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.">
-  <meta itemprop="wordCount" content="1868">
+  <meta itemprop="name" content="দ্বিপদী সহগ">
+  <meta itemprop="description" content="দ্বিপদী সহগ#দ্বিপদী সহগ $\binom n k$ হলো $n$ টি ভিন্ন উপাদান থেকে $k$ টি উপাদানের একটি সেট নির্বাচন করার উপায়ের সংখ্যা, যেখানে এই উপাদানগুলোর সাজানোর ক্রম বিবেচনা করা হয় না (অর্থাৎ অক্রমিক সেটের সংখ্যা)।
+দ্বিপদী সহগ $(a &#43; b) ^ n$ এর সম্প্রসারণেও সহগ হিসেবে পাওয়া যায় (তথাকথিত দ্বিপদী উপপাদ্য):
+$$ (a&#43;b)^n = \binom n 0 a^n &#43; \binom n 1 a^{n-1} b &#43; \binom n 2 a^{n-2} b^2 &#43; \cdots &#43; \binom n k a^{n-k} b^k &#43; \cdots &#43; \binom n n b^n $$এই সূত্রটি, সেইসাথে যে ত্রিভুজ সহগগুলোর দক্ষ হিসাবের সুবিধা দেয়, সেটি ১৭শ শতকে Blaise Pascal আবিষ্কার করেছিলেন বলে মনে করা হয়। তবুও, এটি ১৩শ শতকে বাসকারী চীনা গণিতবিদ Yang Hui এর কাছে পরিচিত ছিল। সম্ভবত এটি পারস্যের পণ্ডিত ওমর খৈয়ামও আবিষ্কার করেছিলেন। তাছাড়া, খ্রিস্টপূর্ব ৩য় শতকে বাসকারী ভারতীয় গণিতবিদ পিঙ্গল একই রকম ফলাফল পেয়েছিলেন। নিউটনের কৃতিত্ব হলো তিনি এই সূত্রটি এমন ঘাতের জন্য সাধারণীকরণ করেছেন যা স্বাভাবিক সংখ্যা নয়।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1737">
 
-<title>Binomial Coefficients | CP-Algorithms</title>
+<title>দ্বিপদী সহগ | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/combinatorics/binomial-coefficients/">
+<link rel="canonical" href="http://localhost:1313/combinatorics/binomial-coefficients/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -126,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -211,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -225,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -239,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -281,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -295,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -309,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -337,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -351,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -379,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -393,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -407,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -434,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -448,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -463,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -477,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -505,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -519,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -533,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -584,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -598,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -612,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -626,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -640,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -654,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -668,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -682,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -696,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -746,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -761,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -817,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -831,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -882,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -910,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -937,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -951,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -966,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -994,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1008,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1022,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1036,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1073,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1087,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1101,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1115,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1151,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1179,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1194,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="active">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1208,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1222,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1236,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1250,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1301,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1315,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1329,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1343,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1357,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1393,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1464,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1477,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1491,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1505,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1519,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1534,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1548,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1576,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1589,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1618,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1632,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1660,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1673,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1688,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1702,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1716,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1730,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1744,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1780,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1864,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1893,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1907,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1920,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1934,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1948,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1962,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1977,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1990,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2004,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2018,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2047,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2060,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2074,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2102,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2159,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2172,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2186,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2201,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2214,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2228,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2243,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2256,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2270,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2285,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2298,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2313,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2327,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2341,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2355,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2369,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2383,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2397,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2434,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2448,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2476,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2513,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2527,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2541,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2555,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2569,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2606,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2620,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2657,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2671,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2685,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2731,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Binomial Coefficients</h3>
+  <h3>দ্বিপদী সহগ</h3>
 
   <label for="toc-control">
     
@@ -2747,27 +2749,27 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#calculation">Calculation</a></li>
-    <li><a href="#properties">Properties</a></li>
-    <li><a href="#calculation-1">Calculation</a>
+    <li><a href="#হসব">হিসাব</a></li>
+    <li><a href="#বশষটয">বৈশিষ্ট্য</a></li>
+    <li><a href="#হসব-1">হিসাব</a>
       <ul>
-        <li><a href="#straightforward-calculation-using-analytical-formula">Straightforward calculation using analytical formula</a></li>
-        <li><a href="#improved-implementation">Improved implementation</a></li>
-        <li><a href="#pascals-triangle">Pascal&rsquo;s Triangle</a></li>
-        <li><a href="#calculation-in">Calculation in </a></li>
+        <li><a href="#বশলষণতমক-সতর-বযবহর-কর-সরসর-হসব">বিশ্লেষণাত্মক সূত্র ব্যবহার করে সরাসরি হিসাব</a></li>
+        <li><a href="#উননত-ইমপলমনটশন">উন্নত ইমপ্লিমেন্টেশন</a></li>
+        <li><a href="#পযসকলর-তরভজ">প্যাসকেলের ত্রিভুজ</a></li>
+        <li><a href="#এ-হসব"> এ হিসাব</a></li>
       </ul>
     </li>
-    <li><a href="#computing-binomial-coefficients-modulo">Computing binomial coefficients modulo </a>
+    <li><a href="#মডলত-দবপদ-সহগ-হসব"> মডুলোতে দ্বিপদী সহগ হিসাব</a>
       <ul>
-        <li><a href="#binomial-coefficient-for-small">Binomial coefficient for small </a></li>
-        <li><a href="#binomial-coefficient-modulo-large-prime">Binomial coefficient modulo large prime</a></li>
-        <li><a href="#mod-prime-pow">Binomial coefficient modulo prime power</a></li>
-        <li><a href="#binomial-coefficient-modulo-an-arbitrary-number">Binomial coefficient modulo an arbitrary number</a></li>
-        <li><a href="#binomial-coefficient-for-large--and-small-modulo">Binomial coefficient for large  and small modulo</a></li>
+        <li><a href="#ছট--এর-জনয-দবপদ-সহগ">ছোট  এর জন্য দ্বিপদী সহগ</a></li>
+        <li><a href="#বড-মলক-মডলত-দবপদ-সহগ">বড় মৌলিক মডুলোতে দ্বিপদী সহগ</a></li>
+        <li><a href="#mod-prime-pow">মৌলিক সংখ্যার ঘাত মডুলোতে দ্বিপদী সহগ</a></li>
+        <li><a href="#যকন-সখয-মডলত-দবপদ-সহগ">যেকোনো সংখ্যা মডুলোতে দ্বিপদী সহগ</a></li>
+        <li><a href="#বড--এব-ছট-মডলর-জনয-দবপদ-সহগ">বড়  এবং ছোট মডুলোর জন্য দ্বিপদী সহগ</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
-    <li><a href="#references">References</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+    <li><a href="#রফরনস">রেফারেন্স</a></li>
   </ul>
 </nav>
 
@@ -2780,47 +2782,47 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="binomial-coefficients">Binomial Coefficients<a class="anchor" href="#binomial-coefficients">#</a></h1>
-<p>Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).</p>
-<p>Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n$ (so-called binomial theorem):</p>
-$$ (a+b)^n = \binom n 0 a^n + \binom n 1 a^{n-1} b + \binom n 2 a^{n-2} b^2 + \cdots + \binom n k a^{n-k} b^k + \cdots + \binom n n b^n $$<p>It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui, who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam. Moreover, Indian mathematician Pingala, who lived  earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.</p>
-<h2 id="calculation">Calculation<a class="anchor" href="#calculation">#</a></h2>
-<p><strong>Analytic formula</strong> for the calculation:</p>
-$$ \binom n k = \frac {n!} {k!(n-k)!} $$<p>This formula can be easily deduced from the problem of ordered arrangement (number of ways to select $k$ different elements from $n$ different elements). First, let&rsquo;s count the number of ordered selections of $k$ elements. There are $n$ ways to select the first element, $n-1$ ways to select the second element, $n-2$ ways to select the third element, and so on. As a result, we get the formula of the number of ordered arrangements: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$. We can easily move to unordered arrangements, noting that each unordered arrangement corresponds to exactly $k!$ ordered arrangements ($k!$ is the number of possible permutations of $k$ elements). We get the final formula by dividing $\frac {n!} {(n-k)!}$ by $k!$.</p>
-<p><strong>Recurrence formula</strong> (which is associated with the famous &ldquo;Pascal&rsquo;s Triangle&rdquo;):</p>
-$$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$<p>It is easy to deduce this using the analytic formula.</p>
-<p>Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero.</p>
-<h2 id="properties">Properties<a class="anchor" href="#properties">#</a></h2>
-<p>Binomial coefficients have many different properties. Here are the simplest of them:</p>
+  <article class="markdown book-article"><h1 id="দবপদ-সহগ">দ্বিপদী সহগ<a class="anchor" href="#%e0%a6%a6%e0%a6%ac%e0%a6%aa%e0%a6%a6-%e0%a6%b8%e0%a6%b9%e0%a6%97">#</a></h1>
+<p>দ্বিপদী সহগ $\binom n k$ হলো $n$ টি ভিন্ন উপাদান থেকে $k$ টি উপাদানের একটি সেট নির্বাচন করার উপায়ের সংখ্যা, যেখানে এই উপাদানগুলোর সাজানোর ক্রম বিবেচনা করা হয় না (অর্থাৎ অক্রমিক সেটের সংখ্যা)।</p>
+<p>দ্বিপদী সহগ $(a + b) ^ n$ এর সম্প্রসারণেও সহগ হিসেবে পাওয়া যায় (তথাকথিত দ্বিপদী উপপাদ্য):</p>
+$$ (a+b)^n = \binom n 0 a^n + \binom n 1 a^{n-1} b + \binom n 2 a^{n-2} b^2 + \cdots + \binom n k a^{n-k} b^k + \cdots + \binom n n b^n $$<p>এই সূত্রটি, সেইসাথে যে ত্রিভুজ সহগগুলোর দক্ষ হিসাবের সুবিধা দেয়, সেটি ১৭শ শতকে Blaise Pascal আবিষ্কার করেছিলেন বলে মনে করা হয়। তবুও, এটি ১৩শ শতকে বাসকারী চীনা গণিতবিদ Yang Hui এর কাছে পরিচিত ছিল। সম্ভবত এটি পারস্যের পণ্ডিত ওমর খৈয়ামও আবিষ্কার করেছিলেন। তাছাড়া, খ্রিস্টপূর্ব ৩য় শতকে বাসকারী ভারতীয় গণিতবিদ পিঙ্গল একই রকম ফলাফল পেয়েছিলেন। নিউটনের কৃতিত্ব হলো তিনি এই সূত্রটি এমন ঘাতের জন্য সাধারণীকরণ করেছেন যা স্বাভাবিক সংখ্যা নয়।</p>
+<h2 id="হসব">হিসাব<a class="anchor" href="#%e0%a6%b9%e0%a6%b8%e0%a6%ac">#</a></h2>
+<p>হিসাবের জন্য <strong>বিশ্লেষণাত্মক সূত্র</strong>:</p>
+$$ \binom n k = \frac {n!} {k!(n-k)!} $$<p>এই সূত্রটি ক্রমিক সাজানোর সমস্যা থেকে সহজেই বের করা যায় ($n$ টি ভিন্ন উপাদান থেকে $k$ টি ভিন্ন উপাদান নির্বাচনের উপায়ের সংখ্যা)। প্রথমে, $k$ টি উপাদানের ক্রমিক নির্বাচনের সংখ্যা গণনা করি। প্রথম উপাদান নির্বাচনের $n$ টি উপায়, দ্বিতীয় উপাদান নির্বাচনের $n-1$ টি উপায়, তৃতীয় উপাদান নির্বাচনের $n-2$ টি উপায়, ইত্যাদি। ফলে আমরা ক্রমিক সাজানোর সংখ্যার সূত্র পাই: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$। প্রতিটি অক্রমিক সাজানো ঠিক $k!$ টি ক্রমিক সাজানোর সাথে সম্পর্কিত ($k!$ হলো $k$ টি উপাদানের সম্ভাব্য পারমুটেশনের সংখ্যা) - এটি লক্ষ করলে আমরা সহজেই অক্রমিক সাজানোতে যেতে পারি। $\frac {n!} {(n-k)!}$ কে $k!$ দিয়ে ভাগ করে আমরা চূড়ান্ত সূত্র পাই।</p>
+<p><strong>পুনরাবৃত্তি সূত্র</strong> (যা বিখ্যাত &ldquo;প্যাসকেলের ত্রিভুজ&rdquo; এর সাথে সম্পর্কিত):</p>
+$$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$<p>বিশ্লেষণাত্মক সূত্র ব্যবহার করে এটি সহজেই বের করা যায়।</p>
+<p>লক্ষ্য করুন $n \lt k$ হলে $\binom n k$ এর মান শূন্য ধরা হয়।</p>
+<h2 id="বশষটয">বৈশিষ্ট্য<a class="anchor" href="#%e0%a6%ac%e0%a6%b6%e0%a6%b7%e0%a6%9f%e0%a6%af">#</a></h2>
+<p>দ্বিপদী সহগের অনেক বিভিন্ন বৈশিষ্ট্য আছে। এখানে সবচেয়ে সরলগুলো দেওয়া হলো:</p>
 <ul>
 <li>
-<p>Symmetry rule:</p>
+<p>প্রতিসাম্য নিয়ম:</p>
 \[ \binom n k = \binom n {n-k} \]</li>
 <li>
-<p>Factoring in:</p>
+<p>গুণনীয়ককরণ:</p>
 \[ \binom n k = \frac n k \binom {n-1} {k-1} \]</li>
 <li>
-<p>Sum over $k$:</p>
+<p>$k$ এর উপর যোগফল:</p>
 \[ \sum_{k = 0}^n \binom n k = 2 ^ n \]</li>
 <li>
-<p>Sum over $n$:</p>
+<p>$n$ এর উপর যোগফল:</p>
 \[ \sum_{m = 0}^n \binom m k = \binom {n + 1} {k + 1} \]</li>
 <li>
-<p>Sum over $n$ and $k$:</p>
+<p>$n$ এবং $k$ এর উপর যোগফল:</p>
 \[ \sum_{k = 0}^m  \binom {n + k} k = \binom {n + m + 1} m \]</li>
 <li>
-<p>Sum of the squares:</p>
+<p>বর্গের যোগফল:</p>
 \[ {\binom n 0}^2 + {\binom n 1}^2 + \cdots + {\binom n n}^2 = \binom {2n} n \]</li>
 <li>
-<p>Weighted sum:</p>
+<p>ভারযুক্ত যোগফল:</p>
 \[ 1 \binom n 1 + 2 \binom n 2 + \cdots + n \binom n n = n 2^{n-1} \]</li>
 <li>
-<p>Connection with the <a href="../algebra/fibonacci-numbers.md">Fibonacci numbers</a>:</p>
+<p><a href="../algebra/fibonacci-numbers.md">ফিবোনাচ্চি সংখ্যার</a> সাথে সম্পর্ক:</p>
 \[ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n = F_{n+1} \]</li>
 </ul>
-<h2 id="calculation-1">Calculation<a class="anchor" href="#calculation-1">#</a></h2>
-<h3 id="straightforward-calculation-using-analytical-formula">Straightforward calculation using analytical formula<a class="anchor" href="#straightforward-calculation-using-analytical-formula">#</a></h3>
-<p>The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with <a href="../algebra/big-integer.md">long arithmetic</a>:</p>
+<h2 id="হসব-1">হিসাব<a class="anchor" href="#%e0%a6%b9%e0%a6%b8%e0%a6%ac-1">#</a></h2>
+<h3 id="বশলষণতমক-সতর-বযবহর-কর-সরসর-হসব">বিশ্লেষণাত্মক সূত্র ব্যবহার করে সরাসরি হিসাব<a class="anchor" href="#%e0%a6%ac%e0%a6%b6%e0%a6%b2%e0%a6%b7%e0%a6%a3%e0%a6%a4%e0%a6%ae%e0%a6%95-%e0%a6%b8%e0%a6%a4%e0%a6%b0-%e0%a6%ac%e0%a6%af%e0%a6%ac%e0%a6%b9%e0%a6%b0-%e0%a6%95%e0%a6%b0-%e0%a6%b8%e0%a6%b0%e0%a6%b8%e0%a6%b0-%e0%a6%b9%e0%a6%b8%e0%a6%ac">#</a></h3>
+<p>প্রথম, সরাসরি সূত্রটি কোড করা খুব সহজ, কিন্তু এই পদ্ধতি $n$ এবং $k$ এর তুলনামূলকভাবে ছোট মানের জন্যও ওভারফ্লো হতে পারে (এমনকি উত্তর কোনো ডেটাটাইপে সম্পূর্ণ ফিট করলেও, মধ্যবর্তী ফ্যাক্টোরিয়ালের হিসাব ওভারফ্লো ঘটাতে পারে)। তাই এই পদ্ধতি প্রায়ই শুধুমাত্র <a href="../algebra/big-integer.md">বড় সংখ্যার গাণিতিক</a> দিয়ে ব্যবহার করা যায়:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">C</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
@@ -2828,18 +2830,18 @@ $$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$<p>It is easy to deduce th
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">res</span> <span class="o">/=</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="improved-implementation">Improved implementation<a class="anchor" href="#improved-implementation">#</a></h3>
-<p>Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after multiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in).</p>
-<p>C++ implementation:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="উননত-ইমপলমনটশন">উন্নত ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%89%e0%a6%a8%e0%a6%a8%e0%a6%a4-%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h3>
+<p>লক্ষ্য করুন উপরের ইমপ্লিমেন্টেশনে লব ও হরে সমান সংখ্যক ($k$ টি) গুণনীয়ক আছে, যার প্রতিটি ১ বা তার বেশি। তাই আমরা আমাদের ভগ্নাংশকে $k$ টি ভগ্নাংশের গুণফল দিয়ে প্রতিস্থাপন করতে পারি, যার প্রতিটি বাস্তব মানযুক্ত। তবে, প্রতিটি ধাপে বর্তমান উত্তরকে পরবর্তী ভগ্নাংশ দিয়ে গুণ করার পর উত্তর এখনো পূর্ণ সংখ্যা থাকবে (এটি গুণনীয়ককরণ বৈশিষ্ট্য থেকে অনুসরণ করে)।</p>
+<p>C++ ইমপ্লিমেন্টেশন:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">C</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">double</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">res</span> <span class="o">=</span> <span class="n">res</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)(</span><span class="n">res</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Here we carefully cast the floating point number to an integer, taking into account that due to the accumulated errors, it may be slightly less than the true value (for example, $2.99999$ instead of $3$).</p>
-<h3 id="pascals-triangle">Pascal&rsquo;s Triangle<a class="anchor" href="#pascals-triangle">#</a></h3>
-<p>By using the recurrence relation we can construct a table of binomial coefficients (Pascal&rsquo;s triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). The time complexity can be considered to be $\mathcal{O}(n^2)$.</p>
-<p>C++ implementation:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>এখানে আমরা সাবধানে ফ্লোটিং পয়েন্ট সংখ্যাকে পূর্ণ সংখ্যায় রূপান্তর করি, বিবেচনা করে যে জমা হওয়া ত্রুটির কারণে এটি প্রকৃত মানের চেয়ে সামান্য কম হতে পারে (যেমন, $3$ এর পরিবর্তে $2.99999$)।</p>
+<h3 id="পযসকলর-তরভজ">প্যাসকেলের ত্রিভুজ<a class="anchor" href="#%e0%a6%aa%e0%a6%af%e0%a6%b8%e0%a6%95%e0%a6%b2%e0%a6%b0-%e0%a6%a4%e0%a6%b0%e0%a6%ad%e0%a6%9c">#</a></h3>
+<p>পুনরাবৃত্তি সম্পর্ক ব্যবহার করে আমরা দ্বিপদী সহগের একটি সারণী (প্যাসকেলের ত্রিভুজ) তৈরি করতে পারি এবং সেখান থেকে ফলাফল নিতে পারি। এই পদ্ধতির সুবিধা হলো মধ্যবর্তী ফলাফল কখনো উত্তরকে অতিক্রম করে না এবং প্রতিটি নতুন সারণী উপাদান হিসাবে শুধুমাত্র একটি যোগ প্রয়োজন। ত্রুটি হলো বড় $n$ এবং $k$ এর জন্য ধীর কার্যকারিতা যদি আপনার শুধু একটি মান দরকার হয় পুরো সারণী নয় (কারণ $\binom n k$ হিসাব করতে সব $\binom i j, 1 \le i \le n, 1 \le j \le n$ বা অন্তত $1 \le j \le \min (i, 2k)$ পর্যন্ত সারণী তৈরি করতে হবে)। টাইম কমপ্লেক্সিটি $\mathcal{O}(n^2)$ ধরা যায়।</p>
+<p>C++ ইমপ্লিমেন্টেশন:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">maxn</span> <span class="o">=</span> <span class="p">...;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">C</span><span class="p">[</span><span class="n">maxn</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">maxn</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -2847,57 +2849,57 @@ $$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$<p>It is easy to deduce th
 </span></span><span class="line"><span class="cl">    <span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">k</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">C</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">C</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th).</p>
-<h3 id="calculation-in">Calculation in $O(1)$<a class="anchor" href="#calculation-in">#</a></h3>
-<p>Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using <a href="../algebra/big-integer.md">long arithmetic</a>, when the memory does not allow precomputation of the whole Pascal&rsquo;s triangle.</p>
-<h2 id="computing-binomial-coefficients-modulo">Computing binomial coefficients modulo $m$<a class="anchor" href="#computing-binomial-coefficients-modulo">#</a></h2>
-<p>Quite often you come across the problem of computing binomial coefficients modulo some $m$.</p>
-<h3 id="binomial-coefficient-for-small">Binomial coefficient for small $n$<a class="anchor" href="#binomial-coefficient-for-small">#</a></h3>
-<p>The previously discussed approach of Pascal&rsquo;s triangle can be used to calculate all values of $\binom{n}{k} \bmod m$ for reasonably small $n$, since it requires time complexity $\mathcal{O}(n^2)$. This approach can handle any modulo, since only addition operations are used.</p>
-<h3 id="binomial-coefficient-modulo-large-prime">Binomial coefficient modulo large prime<a class="anchor" href="#binomial-coefficient-modulo-large-prime">#</a></h3>
-<p>The formula for the binomial coefficients is</p>
-$$\binom n k = \frac {n!} {k!(n-k)!},$$<p>so if we want to compute it modulo some prime $m > n$ we get</p>
-$$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$<p>First we precompute all factorials modulo $m$ up to $\text{MAXN}!$ in $O(\text{MAXN})$ time.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>যদি সম্পূর্ণ মান সারণী প্রয়োজন না হয়, তাহলে শুধু শেষ দুটি সারি (বর্তমান $n$-তম সারি এবং আগের $n-1$-তম) সংরক্ষণ করাই যথেষ্ট।</p>
+<h3 id="এ-হসব">$O(1)$ এ হিসাব<a class="anchor" href="#%e0%a6%8f-%e0%a6%b9%e0%a6%b8%e0%a6%ac">#</a></h3>
+<p>শেষত, কিছু পরিস্থিতিতে সব ফ্যাক্টোরিয়াল আগে থেকে হিসাব করে রাখা লাভজনক, যাতে পরে শুধুমাত্র দুটি ভাগ দিয়ে যেকোনো প্রয়োজনীয় দ্বিপদী সহগ বের করা যায়। <a href="../algebra/big-integer.md">বড় সংখ্যার গাণিতিক</a> ব্যবহার করার সময় এটি সুবিধাজনক হতে পারে, যখন মেমরি পুরো প্যাসকেলের ত্রিভুজ আগে থেকে হিসাব করার সুযোগ দেয় না।</p>
+<h2 id="মডলত-দবপদ-সহগ-হসব">$m$ মডুলোতে দ্বিপদী সহগ হিসাব<a class="anchor" href="#%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%a4-%e0%a6%a6%e0%a6%ac%e0%a6%aa%e0%a6%a6-%e0%a6%b8%e0%a6%b9%e0%a6%97-%e0%a6%b9%e0%a6%b8%e0%a6%ac">#</a></h2>
+<p>প্রায়ই কোনো $m$ মডুলোতে দ্বিপদী সহগ হিসাবের সমস্যা সামনে আসে।</p>
+<h3 id="ছট--এর-জনয-দবপদ-সহগ">ছোট $n$ এর জন্য দ্বিপদী সহগ<a class="anchor" href="#%e0%a6%9b%e0%a6%9f--%e0%a6%8f%e0%a6%b0-%e0%a6%9c%e0%a6%a8%e0%a6%af-%e0%a6%a6%e0%a6%ac%e0%a6%aa%e0%a6%a6-%e0%a6%b8%e0%a6%b9%e0%a6%97">#</a></h3>
+<p>পূর্বে আলোচিত প্যাসকেলের ত্রিভুজ পদ্ধতি যুক্তিসঙ্গতভাবে ছোট $n$ এর জন্য $\binom{n}{k} \bmod m$ এর সব মান হিসাব করতে ব্যবহার করা যায়, কারণ এর টাইম কমপ্লেক্সিটি $\mathcal{O}(n^2)$। এই পদ্ধতি যেকোনো মডুলো সামলাতে পারে, কারণ শুধুমাত্র যোগ অপারেশন ব্যবহৃত হয়।</p>
+<h3 id="বড-মলক-মডলত-দবপদ-সহগ">বড় মৌলিক মডুলোতে দ্বিপদী সহগ<a class="anchor" href="#%e0%a6%ac%e0%a6%a1-%e0%a6%ae%e0%a6%b2%e0%a6%95-%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%a4-%e0%a6%a6%e0%a6%ac%e0%a6%aa%e0%a6%a6-%e0%a6%b8%e0%a6%b9%e0%a6%97">#</a></h3>
+<p>দ্বিপদী সহগের সূত্র হলো</p>
+$$\binom n k = \frac {n!} {k!(n-k)!},$$<p>তাই যদি আমরা কোনো মৌলিক $m > n$ মডুলোতে এটি হিসাব করতে চাই তাহলে পাই</p>
+$$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$<p>প্রথমে আমরা $\text{MAXN}!$ পর্যন্ত সব ফ্যাক্টোরিয়াল $m$ মডুলোতে $O(\text{MAXN})$ সময়ে আগে থেকে হিসাব করি।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">factorial</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">MAXN</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">factorial</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">factorial</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">i</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>And afterwards we can compute the binomial coefficient in $O(\log m)$ time.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>এবং তারপর আমরা $O(\log m)$ সময়ে দ্বিপদী সহগ হিসাব করতে পারি।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">binomial_coefficient</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">factorial</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">inverse</span><span class="p">(</span><span class="n">factorial</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">factorial</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span> <span class="o">%</span> <span class="n">m</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for <a href="../algebra/module-inverse.md#mod-inv-all-num">computing all inverses</a> in $O(n)$.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>আমরা $O(1)$ সময়ে দ্বিপদী সহগ হিসাবও করতে পারি যদি আমরা সব ফ্যাক্টোরিয়ালের ইনভার্স $O(\text{MAXN} \log m)$ সময়ে ইনভার্স হিসাবের সাধারণ পদ্ধতি ব্যবহার করে, অথবা এমনকি $O(\text{MAXN})$ সময়ে $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ সর্বসমতা এবং $O(n)$ এ <a href="../algebra/module-inverse.md#mod-inv-all-num">সব ইনভার্স হিসাবের</a> পদ্ধতি ব্যবহার করে আগে থেকে হিসাব করি।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">binomial_coefficient</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">factorial</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">inverse_factorial</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">%</span> <span class="n">m</span> <span class="o">*</span> <span class="n">inverse_factorial</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">]</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="mod-prime-pow">Binomial coefficient modulo prime power<a class="anchor" href="#mod-prime-pow">#</a></h3>
-<p>Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
-If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.
-But if $p \le \max(k, n-k)$, then at least one of $k!$ and $(n-k)!$ are not coprime with $m$, and therefore we cannot compute the inverses - they don&rsquo;t exist.
-Nevertheless we can compute the binomial coefficient.</p>
-<p>The idea is the following:
-We compute for each $x!$ the biggest exponent $c$ such that $p^c$ divides $x!$, i.e. $p^c ~|~ x!$.
-Let $c(x)$ be that number.
-And let $g(x) := \frac{x!}{p^{c(x)}}$.
-Then we can write the binomial coefficient as:</p>
-$$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {g(n)} {g(k) g(n-k)}p^{c(n) - c(k) - c(n-k)}$$<p>The interesting thing is, that $g(x)$ is now free from the prime divisor $p$.
-Therefore $g(x)$ is coprime to m, and we can compute the modular inverses of $g(k)$ and $g(n-k)$.</p>
-<p>After precomputing all values for $g$ and $c$, which can be done efficiently using dynamic programming in $\mathcal{O}(n)$, we can compute the binomial coefficient in $O(\log m)$ time.
-Or precompute all inverses and all powers of $p$, and then compute the binomial coefficient in $O(1)$.</p>
-<p>Notice, if $c(n) - c(k) - c(n-k) \ge b$, than $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.</p>
-<h3 id="binomial-coefficient-modulo-an-arbitrary-number">Binomial coefficient modulo an arbitrary number<a class="anchor" href="#binomial-coefficient-modulo-an-arbitrary-number">#</a></h3>
-<p>Now we compute the binomial coefficient modulo some arbitrary modulus $m$.</p>
-<p>Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$.
-We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
-This gives us $h$ different congruences.
-Since all moduli $p_i^{e_i}$ are coprime, we can apply the <a href="../algebra/chinese-remainder-theorem.md">Chinese Remainder Theorem</a> to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.</p>
-<h3 id="binomial-coefficient-for-large--and-small-modulo">Binomial coefficient for large $n$ and small modulo<a class="anchor" href="#binomial-coefficient-for-large--and-small-modulo">#</a></h3>
-<p>When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become impractical. However, if the modulo $m$ is small there are still ways to calculate $\binom{n}{k} \bmod m$.</p>
-<p>When the modulo $m$ is prime, there are 2 options:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="mod-prime-pow">মৌলিক সংখ্যার ঘাত মডুলোতে দ্বিপদী সহগ<a class="anchor" href="#mod-prime-pow">#</a></h3>
+<p>এখানে আমরা কোনো মৌলিক সংখ্যার ঘাত মডুলোতে দ্বিপদী সহগ হিসাব করতে চাই, অর্থাৎ $m = p^b$ কোনো মৌলিক $p$ এর জন্য।
+যদি $p > \max(k, n-k)$ হয়, তাহলে আমরা পূর্ববর্তী বিভাগে বর্ণিত একই পদ্ধতি ব্যবহার করতে পারি।
+কিন্তু যদি $p \le \max(k, n-k)$ হয়, তাহলে $k!$ এবং $(n-k)!$ এর অন্তত একটি $m$ এর সাথে সহমৌলিক নয়, এবং তাই আমরা ইনভার্স হিসাব করতে পারি না - সেগুলোর অস্তিত্ব নেই।
+তবুও আমরা দ্বিপদী সহগ হিসাব করতে পারি।</p>
+<p>ধারণাটি নিম্নরূপ:
+আমরা প্রতিটি $x!$ এর জন্য সবচেয়ে বড় ঘাত $c$ হিসাব করি যেন $p^c$ দিয়ে $x!$ কে ভাগ করা যায়, অর্থাৎ $p^c ~|~ x!$।
+ধরি $c(x)$ হলো সেই সংখ্যা।
+এবং ধরি $g(x) := \frac{x!}{p^{c(x)}}$।
+তাহলে আমরা দ্বিপদী সহগ লিখতে পারি:</p>
+$$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {g(n)} {g(k) g(n-k)}p^{c(n) - c(k) - c(n-k)}$$<p>আকর্ষণীয় বিষয় হলো, $g(x)$ এখন মৌলিক ভাজক $p$ থেকে মুক্ত।
+তাই $g(x)$ হলো $m$ এর সাথে সহমৌলিক, এবং আমরা $g(k)$ ও $g(n-k)$ এর মডুলার ইনভার্স হিসাব করতে পারি।</p>
+<p>$g$ এবং $c$ এর সব মান আগে থেকে হিসাব করার পর, যা $\mathcal{O}(n)$ সময়ে ডায়নামিক প্রোগ্রামিং ব্যবহার করে দক্ষতার সাথে করা যায়, আমরা $O(\log m)$ সময়ে দ্বিপদী সহগ হিসাব করতে পারি।
+অথবা সব ইনভার্স এবং $p$ এর সব ঘাত আগে থেকে হিসাব করে, $O(1)$ সময়ে দ্বিপদী সহগ হিসাব করা যায়।</p>
+<p>লক্ষ্য করুন, যদি $c(n) - c(k) - c(n-k) \ge b$ হয়, তাহলে $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, এবং দ্বিপদী সহগ হলো $0$।</p>
+<h3 id="যকন-সখয-মডলত-দবপদ-সহগ">যেকোনো সংখ্যা মডুলোতে দ্বিপদী সহগ<a class="anchor" href="#%e0%a6%af%e0%a6%95%e0%a6%a8-%e0%a6%b8%e0%a6%96%e0%a6%af-%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%a4-%e0%a6%a6%e0%a6%ac%e0%a6%aa%e0%a6%a6-%e0%a6%b8%e0%a6%b9%e0%a6%97">#</a></h3>
+<p>এখন আমরা কোনো যেচ্ছা মডুলাস $m$ মডুলোতে দ্বিপদী সহগ হিসাব করি।</p>
+<p>ধরি $m$ এর মৌলিক উৎপাদক বিভাজন হলো $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$।
+আমরা প্রতিটি $i$ এর জন্য $p_i^{e_i}$ মডুলোতে দ্বিপদী সহগ হিসাব করতে পারি।
+এটি আমাদের $h$ টি ভিন্ন সর্বসমতা দেয়।
+যেহেতু সব মডুলাই $p_i^{e_i}$ পরস্পর সহমৌলিক, আমরা <a href="../algebra/chinese-remainder-theorem.md">চীনা ভাগশেষ উপপাদ্য</a> প্রয়োগ করে মডুলাইগুলোর গুণফল মডুলোতে দ্বিপদী সহগ হিসাব করতে পারি, যা হলো কাঙ্ক্ষিত $m$ মডুলোতে দ্বিপদী সহগ।</p>
+<h3 id="বড--এব-ছট-মডলর-জনয-দবপদ-সহগ">বড় $n$ এবং ছোট মডুলোর জন্য দ্বিপদী সহগ<a class="anchor" href="#%e0%a6%ac%e0%a6%a1--%e0%a6%8f%e0%a6%ac-%e0%a6%9b%e0%a6%9f-%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%b0-%e0%a6%9c%e0%a6%a8%e0%a6%af-%e0%a6%a6%e0%a6%ac%e0%a6%aa%e0%a6%a6-%e0%a6%b8%e0%a6%b9%e0%a6%97">#</a></h3>
+<p>যখন $n$ অনেক বড়, উপরে আলোচিত $\mathcal{O}(n)$ অ্যালগরিদমগুলো অব্যবহারযোগ্য হয়ে যায়। তবে, মডুলো $m$ ছোট হলে $\binom{n}{k} \bmod m$ হিসাবের উপায় এখনো আছে।</p>
+<p>মডুলো $m$ মৌলিক হলে, ২টি বিকল্প আছে:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Lucas%27s_theorem">Lucas&rsquo;s theorem</a> can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.</li>
-<li>The method of computing <a href="../algebra/factorial-modulo.md">factorial modulo P</a> can be used to get the required $g$ and $c$ values and use them as described in the section of <a href="#mod-prime-pow">modulo prime power</a>. This takes $\mathcal{O}(m \log_m n)$.</li>
+<li><a href="https://en.wikipedia.org/wiki/Lucas%27s_theorem">লুকাসের উপপাদ্য</a> প্রয়োগ করা যায় যা $\binom{n}{k} \bmod m$ হিসাবের সমস্যাকে $\log_m n$ টি $\binom{x_i}{y_i} \bmod m$ আকারের সমস্যায় ভেঙে দেয় যেখানে $x_i, y_i < m$। যদি প্রতিটি হ্রাসকৃত সহগ আগে থেকে হিসাবকৃত ফ্যাক্টোরিয়াল ও ইনভার্স ফ্যাক্টোরিয়াল ব্যবহার করে হিসাব করা হয়, কমপ্লেক্সিটি হলো $\mathcal{O}(m + \log_m n)$।</li>
+<li><a href="../algebra/factorial-modulo.md">P মডুলোতে ফ্যাক্টোরিয়াল</a> হিসাবের পদ্ধতি ব্যবহার করে প্রয়োজনীয় $g$ এবং $c$ মান পেয়ে <a href="#mod-prime-pow">মৌলিক সংখ্যার ঘাত মডুলো</a> বিভাগে বর্ণিত মতো ব্যবহার করা যায়। এটি $\mathcal{O}(m \log_m n)$ সময় নেয়।</li>
 </ul>
-<p>When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.</p>
-<p>When $m$ is not square-free, a <a href="https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf">generalization of Lucas&rsquo;s theorem for prime powers</a> can be applied instead of Lucas&rsquo;s theorem.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<p>যখন $m$ মৌলিক নয় কিন্তু বর্গমুক্ত, $m$ এর মৌলিক গুণনীয়ক পাওয়া যায় এবং উপরের যেকোনো পদ্ধতি ব্যবহার করে প্রতিটি মৌলিক গুণনীয়ক মডুলোতে সহগ হিসাব করা যায়, এবং চীনা ভাগশেষ উপপাদ্য দিয়ে সামগ্রিক উত্তর পাওয়া যায়।</p>
+<p>যখন $m$ বর্গমুক্ত নয়, লুকাসের উপপাদ্যের পরিবর্তে <a href="https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf">মৌলিক সংখ্যার ঘাতের জন্য লুকাসের উপপাদ্যের সাধারণীকরণ</a> প্রয়োগ করা যায়।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://www.codechef.com/LTIME24/problems/NWAYS/">Codechef - Number of ways</a></li>
 <li><a href="http://codeforces.com/problemset/problem/407/C">Codeforces - Curious Array</a></li>
@@ -2917,7 +2919,7 @@ Since all moduli $p_i^{e_i}$ are coprime, we can apply the <a href="../algebra/c
 <li><a href="https://www.codechef.com/MAY17/problems/SANDWICH/">CodeChef - Long Sandwich</a></li>
 <li><a href="https://codeforces.com/problemset/problem/1696/E">Codeforces - Placing Jinas</a></li>
 </ul>
-<h2 id="references">References<a class="anchor" href="#references">#</a></h2>
+<h2 id="রফরনস">রেফারেন্স<a class="anchor" href="#%e0%a6%b0%e0%a6%ab%e0%a6%b0%e0%a6%a8%e0%a6%b8">#</a></h2>
 <ul>
 <li><a href="https://fishi.devtail.io/weblog/2015/06/25/computing-large-binomial-coefficients-modulo-prime-non-prime/">Blog fishi.devtail.io</a></li>
 <li><a href="https://math.stackexchange.com/questions/95491/n-choose-k-bmod-m-using-chinese-remainder-theorem">Question on Mathematics StackExchange</a></li>
@@ -2951,16 +2953,16 @@ Since all moduli $p_i^{e_i}$ are coprime, we can apply the <a href="../algebra/c
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/combinatorics/bracket_sequences/" class="flex align-center">
+      <a href="/combinatorics/bishops-on-chessboard/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Balanced bracket sequences</span>
+        <span>দাবার বোর্ডে বিশপ বসানো</span>
       </a>
     
     </span>
     <span>
     
       <a href="/combinatorics/burnside/" class="flex align-center">
-        <span>Burnside&#39;s lemma / Pólya enumeration theorem</span>
+        <span>বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3001,27 +3003,27 @@ Since all moduli $p_i^{e_i}$ are coprime, we can apply the <a href="../algebra/c
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#calculation">Calculation</a></li>
-    <li><a href="#properties">Properties</a></li>
-    <li><a href="#calculation-1">Calculation</a>
+    <li><a href="#হসব">হিসাব</a></li>
+    <li><a href="#বশষটয">বৈশিষ্ট্য</a></li>
+    <li><a href="#হসব-1">হিসাব</a>
       <ul>
-        <li><a href="#straightforward-calculation-using-analytical-formula">Straightforward calculation using analytical formula</a></li>
-        <li><a href="#improved-implementation">Improved implementation</a></li>
-        <li><a href="#pascals-triangle">Pascal&rsquo;s Triangle</a></li>
-        <li><a href="#calculation-in">Calculation in </a></li>
+        <li><a href="#বশলষণতমক-সতর-বযবহর-কর-সরসর-হসব">বিশ্লেষণাত্মক সূত্র ব্যবহার করে সরাসরি হিসাব</a></li>
+        <li><a href="#উননত-ইমপলমনটশন">উন্নত ইমপ্লিমেন্টেশন</a></li>
+        <li><a href="#পযসকলর-তরভজ">প্যাসকেলের ত্রিভুজ</a></li>
+        <li><a href="#এ-হসব"> এ হিসাব</a></li>
       </ul>
     </li>
-    <li><a href="#computing-binomial-coefficients-modulo">Computing binomial coefficients modulo </a>
+    <li><a href="#মডলত-দবপদ-সহগ-হসব"> মডুলোতে দ্বিপদী সহগ হিসাব</a>
       <ul>
-        <li><a href="#binomial-coefficient-for-small">Binomial coefficient for small </a></li>
-        <li><a href="#binomial-coefficient-modulo-large-prime">Binomial coefficient modulo large prime</a></li>
-        <li><a href="#mod-prime-pow">Binomial coefficient modulo prime power</a></li>
-        <li><a href="#binomial-coefficient-modulo-an-arbitrary-number">Binomial coefficient modulo an arbitrary number</a></li>
-        <li><a href="#binomial-coefficient-for-large--and-small-modulo">Binomial coefficient for large  and small modulo</a></li>
+        <li><a href="#ছট--এর-জনয-দবপদ-সহগ">ছোট  এর জন্য দ্বিপদী সহগ</a></li>
+        <li><a href="#বড-মলক-মডলত-দবপদ-সহগ">বড় মৌলিক মডুলোতে দ্বিপদী সহগ</a></li>
+        <li><a href="#mod-prime-pow">মৌলিক সংখ্যার ঘাত মডুলোতে দ্বিপদী সহগ</a></li>
+        <li><a href="#যকন-সখয-মডলত-দবপদ-সহগ">যেকোনো সংখ্যা মডুলোতে দ্বিপদী সহগ</a></li>
+        <li><a href="#বড--এব-ছট-মডলর-জনয-দবপদ-সহগ">বড়  এবং ছোট মডুলোর জন্য দ্বিপদী সহগ</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
-    <li><a href="#references">References</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+    <li><a href="#রফরনস">রেফারেন্স</a></li>
   </ul>
 </nav>
 

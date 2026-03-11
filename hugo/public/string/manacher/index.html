@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,35 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Manacher’s Algorithm - Finding all sub-palindromes in $O(N)$#Statement#Given string $s$ with length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).
-More precise statement#In the worst case string might have up to $O(n^2)$ palindromic substrings, and at the first glance it seems that there is no linear algorithm for this problem.
+<meta name="description" content="ম্যানাকারের অ্যালগরিদম - $O(N)$-এ সকল সাব-প্যালিন্ড্রোম বের করা#সমস্যার বিবৃতি#$n$ দৈর্ঘ্যের স্ট্রিং $s$ দেওয়া আছে। এমন সকল জোড়া $(i, j)$ বের করুন যেন সাবস্ট্রিং $s[i\dots j]$ একটি প্যালিন্ড্রোম হয়। স্ট্রিং $t$ একটি প্যালিন্ড্রোম যখন $t = t_{rev}$ ($t_{rev}$ হলো $t$-এর বিপরীত স্ট্রিং)।
+আরও সুনির্দিষ্ট বিবৃতি#ওয়ার্স্ট কেসে স্ট্রিং-এ $O(n^2)$ পর্যন্ত প্যালিন্ড্রোমিক সাবস্ট্রিং থাকতে পারে, এবং প্রথম দৃষ্টিতে মনে হয় যে এই সমস্যার কোনো লিনিয়ার অ্যালগরিদম নেই।
+কিন্তু প্যালিন্ড্রোম সম্পর্কিত তথ্য সংক্ষিপ্ত আকারে রাখা যায়: প্রতিটি অবস্থান $i$-এর জন্য আমরা এই অবস্থানকে কেন্দ্র করে অশূন্য প্যালিন্ড্রোমের সংখ্যা বের করব।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/string/manacher/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/string/manacher/">
   <meta property="og:site_name" content="CP-Algorithms">
   <meta property="og:title" content="Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)">
-  <meta property="og:description" content="Manacher’s Algorithm - Finding all sub-palindromes in $O(N)$#Statement#Given string $s$ with length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).
-More precise statement#In the worst case string might have up to $O(n^2)$ palindromic substrings, and at the first glance it seems that there is no linear algorithm for this problem.">
+  <meta property="og:description" content="ম্যানাকারের অ্যালগরিদম - $O(N)$-এ সকল সাব-প্যালিন্ড্রোম বের করা#সমস্যার বিবৃতি#$n$ দৈর্ঘ্যের স্ট্রিং $s$ দেওয়া আছে। এমন সকল জোড়া $(i, j)$ বের করুন যেন সাবস্ট্রিং $s[i\dots j]$ একটি প্যালিন্ড্রোম হয়। স্ট্রিং $t$ একটি প্যালিন্ড্রোম যখন $t = t_{rev}$ ($t_{rev}$ হলো $t$-এর বিপরীত স্ট্রিং)।
+আরও সুনির্দিষ্ট বিবৃতি#ওয়ার্স্ট কেসে স্ট্রিং-এ $O(n^2)$ পর্যন্ত প্যালিন্ড্রোমিক সাবস্ট্রিং থাকতে পারে, এবং প্রথম দৃষ্টিতে মনে হয় যে এই সমস্যার কোনো লিনিয়ার অ্যালগরিদম নেই।
+কিন্তু প্যালিন্ড্রোম সম্পর্কিত তথ্য সংক্ষিপ্ত আকারে রাখা যায়: প্রতিটি অবস্থান $i$-এর জন্য আমরা এই অবস্থানকে কেন্দ্র করে অশূন্য প্যালিন্ড্রোমের সংখ্যা বের করব।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="string">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
   <meta itemprop="name" content="Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)">
-  <meta itemprop="description" content="Manacher’s Algorithm - Finding all sub-palindromes in $O(N)$#Statement#Given string $s$ with length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).
-More precise statement#In the worst case string might have up to $O(n^2)$ palindromic substrings, and at the first glance it seems that there is no linear algorithm for this problem.">
-  <meta itemprop="wordCount" content="1600">
+  <meta itemprop="description" content="ম্যানাকারের অ্যালগরিদম - $O(N)$-এ সকল সাব-প্যালিন্ড্রোম বের করা#সমস্যার বিবৃতি#$n$ দৈর্ঘ্যের স্ট্রিং $s$ দেওয়া আছে। এমন সকল জোড়া $(i, j)$ বের করুন যেন সাবস্ট্রিং $s[i\dots j]$ একটি প্যালিন্ড্রোম হয়। স্ট্রিং $t$ একটি প্যালিন্ড্রোম যখন $t = t_{rev}$ ($t_{rev}$ হলো $t$-এর বিপরীত স্ট্রিং)।
+আরও সুনির্দিষ্ট বিবৃতি#ওয়ার্স্ট কেসে স্ট্রিং-এ $O(n^2)$ পর্যন্ত প্যালিন্ড্রোমিক সাবস্ট্রিং থাকতে পারে, এবং প্রথম দৃষ্টিতে মনে হয় যে এই সমস্যার কোনো লিনিয়ার অ্যালগরিদম নেই।
+কিন্তু প্যালিন্ড্রোম সম্পর্কিত তথ্য সংক্ষিপ্ত আকারে রাখা যায়: প্রতিটি অবস্থান $i$-এর জন্য আমরা এই অবস্থানকে কেন্দ্র করে অশূন্য প্যালিন্ড্রোমের সংখ্যা বের করব।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1349">
 
 <title>Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N) | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/string/manacher/">
+<link rel="canonical" href="http://localhost:1313/string/manacher/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -123,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -208,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -222,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -236,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -278,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -292,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -306,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -334,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -348,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -376,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -390,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -404,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -431,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -445,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -460,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -474,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -502,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -516,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -530,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -581,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -595,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -609,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -623,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -637,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -651,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -665,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -679,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -693,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -743,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -758,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -814,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -828,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -879,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -907,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -934,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -948,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -963,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -991,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1005,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1019,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1033,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1070,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1084,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1098,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1112,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1148,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1176,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1191,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1205,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1219,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1233,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1247,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1298,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1312,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1326,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1340,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1354,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1390,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1461,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1474,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1488,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1502,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1516,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1531,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1545,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1573,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1586,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1615,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1629,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1657,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1670,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1685,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1699,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1713,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1727,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1741,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1777,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1861,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1890,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1904,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1917,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1931,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1945,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1959,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1974,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1987,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2001,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2015,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2044,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2057,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2071,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2099,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2156,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2169,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2183,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2198,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2211,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2225,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2240,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2253,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2267,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2282,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2295,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2310,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2324,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2338,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2352,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2366,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2380,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2394,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2431,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2445,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2473,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2510,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2524,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2538,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2552,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2566,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2603,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2617,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2654,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2668,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2682,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2744,15 +2749,15 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#statement">Statement</a></li>
-    <li><a href="#more-precise-statement">More precise statement</a></li>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#trivial-algorithm">Trivial algorithm</a></li>
-    <li><a href="#manachers-algorithm">Manacher&rsquo;s algorithm</a></li>
-    <li><a href="#complexity-of-manachers-algorithm">Complexity of Manacher&rsquo;s algorithm</a></li>
-    <li><a href="#implementation-of-manachers-algorithm">Implementation of Manacher&rsquo;s algorithm</a></li>
-    <li><a href="#working-with-parities">Working with parities</a></li>
-    <li><a href="#problems">Problems</a></li>
+    <li><a href="#সমসযর-ববত">সমস্যার বিবৃতি</a></li>
+    <li><a href="#আরও-সনরদষট-ববত">আরও সুনির্দিষ্ট বিবৃতি</a></li>
+    <li><a href="#সমধন">সমাধান</a></li>
+    <li><a href="#টরভযল-অযলগরদম">ট্রিভিয়াল অ্যালগরিদম</a></li>
+    <li><a href="#মযনকরর-অযলগরদম">ম্যানাকারের অ্যালগরিদম</a></li>
+    <li><a href="#মযনকরর-অযলগরদমর-কমপলকসট">ম্যানাকারের অ্যালগরিদমের কমপ্লেক্সিটি</a></li>
+    <li><a href="#মযনকরর-অযলগরদমর-ইমপলমনটশন">ম্যানাকারের অ্যালগরিদমের ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#পযরট-নয-কজ-কর">প্যারিটি নিয়ে কাজ করা</a></li>
+    <li><a href="#সমসয">সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2765,26 +2770,26 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="manachers-algorithm---finding-all-sub-palindromes-in">Manacher&rsquo;s Algorithm - Finding all sub-palindromes in $O(N)$<a class="anchor" href="#manachers-algorithm---finding-all-sub-palindromes-in">#</a></h1>
-<h2 id="statement">Statement<a class="anchor" href="#statement">#</a></h2>
-<p>Given string $s$ with length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).</p>
-<h2 id="more-precise-statement">More precise statement<a class="anchor" href="#more-precise-statement">#</a></h2>
-<p>In the worst case string might have up to $O(n^2)$ palindromic substrings, and at the first glance it seems that there is no linear algorithm for this problem.</p>
-<p>But the information about the palindromes can be kept <strong>in a compact way</strong>: for each position $i$ we will find the number of non-empty palindromes centered at this position.</p>
-<p>Palindromes with a common center form a contiguous chain, that is if we have a palindrome of length $l$ centered in $i$, we also have palindromes of lengths $l-2$, $l-4$ and so on also centered in $i$. Therefore, we will collect the information about all palindromic substrings in this way.</p>
-<p>Palindromes of odd and even lengths are accounted for separately as $d_{odd}[i]$ and $d_{even}[i]$. For the palindromes of even length we assume that they&rsquo;re centered in the position $i$ if their two central characters are $s[i]$ and $s[i-1]$.</p>
-<p>For instance, string $s = abababc$ has three palindromes with odd length with centers in the position $s[3] = b$, i. e. $d_{odd}[3] = 3$:</p>
-$$a\ \overbrace{b\ a\ \underbrace{b}_{s_3}\ a\ b}^{d_{odd}[3]=3} c$$<p>And string $s = cbaabd$ has two palindromes with even length with centers in the position $s[3] = a$, i. e. $d_{even}[3] = 2$:</p>
-$$c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_{even}[3]=2} d$$<p>It&rsquo;s a surprising fact that there is an algorithm, which is simple enough, that calculates these &ldquo;palindromity arrays&rdquo; $d_{odd}[]$ and $d_{even}[]$ in linear time. The algorithm is described in this article.</p>
-<h2 id="solution">Solution<a class="anchor" href="#solution">#</a></h2>
-<p>In general, this problem has many solutions: with <a href="string-hashing.md">String Hashing</a> it can be solved in $O(n\cdot \log n)$, and with <a href="suffix-tree-ukkonen.md">Suffix Trees</a> and fast LCA this problem can be solved in $O(n)$.</p>
-<p>But the method described here is <strong>sufficiently</strong> simpler and has less hidden constant in time and memory complexity. This algorithm was discovered by <strong>Glenn K. Manacher</strong> in 1975.</p>
-<p>Another modern way to solve this problem and to deal with palindromes in general is through the so-called palindromic tree, or eertree.</p>
-<h2 id="trivial-algorithm">Trivial algorithm<a class="anchor" href="#trivial-algorithm">#</a></h2>
-<p>To avoid ambiguities in the further description we denote what &ldquo;trivial algorithm&rdquo; is.</p>
-<p>It&rsquo;s the algorithm that does the following. For each center position $i$ it tries to increase the answer by one as long as it&rsquo;s possible, comparing a pair of corresponding characters each time.</p>
-<p>Such an algorithm is slow, it can calculate the answer only in $O(n^2)$.</p>
-<p>The implementation of the trivial algorithm is:</p>
+  <article class="markdown book-article"><h1 id="মযনকরর-অযলগরদম----এ-সকল-সব-পযলনডরম-বর-কর">ম্যানাকারের অ্যালগরিদম - $O(N)$-এ সকল সাব-প্যালিন্ড্রোম বের করা<a class="anchor" href="#%e0%a6%ae%e0%a6%af%e0%a6%a8%e0%a6%95%e0%a6%b0%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae----%e0%a6%8f-%e0%a6%b8%e0%a6%95%e0%a6%b2-%e0%a6%b8%e0%a6%ac-%e0%a6%aa%e0%a6%af%e0%a6%b2%e0%a6%a8%e0%a6%a1%e0%a6%b0%e0%a6%ae-%e0%a6%ac%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h1>
+<h2 id="সমসযর-ববত">সমস্যার বিবৃতি<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af%e0%a6%b0-%e0%a6%ac%e0%a6%ac%e0%a6%a4">#</a></h2>
+<p>$n$ দৈর্ঘ্যের স্ট্রিং $s$ দেওয়া আছে। এমন সকল জোড়া $(i, j)$ বের করুন যেন সাবস্ট্রিং $s[i\dots j]$ একটি প্যালিন্ড্রোম হয়। স্ট্রিং $t$ একটি প্যালিন্ড্রোম যখন $t = t_{rev}$ ($t_{rev}$ হলো $t$-এর বিপরীত স্ট্রিং)।</p>
+<h2 id="আরও-সনরদষট-ববত">আরও সুনির্দিষ্ট বিবৃতি<a class="anchor" href="#%e0%a6%86%e0%a6%b0%e0%a6%93-%e0%a6%b8%e0%a6%a8%e0%a6%b0%e0%a6%a6%e0%a6%b7%e0%a6%9f-%e0%a6%ac%e0%a6%ac%e0%a6%a4">#</a></h2>
+<p>ওয়ার্স্ট কেসে স্ট্রিং-এ $O(n^2)$ পর্যন্ত প্যালিন্ড্রোমিক সাবস্ট্রিং থাকতে পারে, এবং প্রথম দৃষ্টিতে মনে হয় যে এই সমস্যার কোনো লিনিয়ার অ্যালগরিদম নেই।</p>
+<p>কিন্তু প্যালিন্ড্রোম সম্পর্কিত তথ্য <strong>সংক্ষিপ্ত আকারে</strong> রাখা যায়: প্রতিটি অবস্থান $i$-এর জন্য আমরা এই অবস্থানকে কেন্দ্র করে অশূন্য প্যালিন্ড্রোমের সংখ্যা বের করব।</p>
+<p>একটি সাধারণ কেন্দ্র বিশিষ্ট প্যালিন্ড্রোমগুলো একটি সংলগ্ন চেইন তৈরি করে, অর্থাৎ যদি $i$-তে কেন্দ্রিত $l$ দৈর্ঘ্যের একটি প্যালিন্ড্রোম থাকে, তাহলে $i$-তে কেন্দ্রিত $l-2$, $l-4$ ইত্যাদি দৈর্ঘ্যের প্যালিন্ড্রোমও আছে। তাই, আমরা এইভাবে সকল প্যালিন্ড্রোমিক সাবস্ট্রিং-এর তথ্য সংগ্রহ করব।</p>
+<p>বিজোড় এবং জোড় দৈর্ঘ্যের প্যালিন্ড্রোমগুলো আলাদাভাবে $d_{odd}[i]$ এবং $d_{even}[i]$ হিসেবে গণনা করা হয়। জোড় দৈর্ঘ্যের প্যালিন্ড্রোমের জন্য আমরা ধরে নিই যে সেগুলো $i$ অবস্থানে কেন্দ্রিত যদি তাদের দুটি কেন্দ্রীয় অক্ষর $s[i]$ এবং $s[i-1]$ হয়।</p>
+<p>উদাহরণস্বরূপ, স্ট্রিং $s = abababc$-তে $s[3] = b$ অবস্থানে কেন্দ্রিত তিনটি বিজোড় দৈর্ঘ্যের প্যালিন্ড্রোম আছে, অর্থাৎ $d_{odd}[3] = 3$:</p>
+$$a\ \overbrace{b\ a\ \underbrace{b}_{s_3}\ a\ b}^{d_{odd}[3]=3} c$$<p>এবং স্ট্রিং $s = cbaabd$-তে $s[3] = a$ অবস্থানে কেন্দ্রিত দুটি জোড় দৈর্ঘ্যের প্যালিন্ড্রোম আছে, অর্থাৎ $d_{even}[3] = 2$:</p>
+$$c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_{even}[3]=2} d$$<p>এটি একটি বিস্ময়কর তথ্য যে এমন একটি অ্যালগরিদম আছে, যা যথেষ্ট সরল, এবং এই &ldquo;প্যালিন্ড্রোমিটি অ্যারে&rdquo; $d_{odd}[]$ এবং $d_{even}[]$ লিনিয়ার সময়ে গণনা করে। অ্যালগরিদমটি এই নিবন্ধে বর্ণনা করা হয়েছে।</p>
+<h2 id="সমধন">সমাধান<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8">#</a></h2>
+<p>সাধারণভাবে, এই সমস্যার অনেক সমাধান আছে: <a href="string-hashing.md">স্ট্রিং হ্যাশিং</a> দিয়ে এটি $O(n\cdot \log n)$-এ সমাধান করা যায়, এবং <a href="suffix-tree-ukkonen.md">সাফিক্স ট্রি</a> ও দ্রুত LCA দিয়ে এই সমস্যা $O(n)$-এ সমাধান করা যায়।</p>
+<p>কিন্তু এখানে বর্ণিত পদ্ধতিটি <strong>যথেষ্ট</strong> সরল এবং সময় ও মেমোরি কমপ্লেক্সিটিতে কম লুকানো ধ্রুবক আছে। এই অ্যালগরিদমটি <strong>গ্লেন কে. ম্যানাকার</strong> ১৯৭৫ সালে আবিষ্কার করেন।</p>
+<p>প্যালিন্ড্রোম নিয়ে কাজ করার আরেকটি আধুনিক পদ্ধতি হলো তথাকথিত প্যালিন্ড্রোমিক ট্রি, বা ইআরট্রি।</p>
+<h2 id="টরভযল-অযলগরদম">ট্রিভিয়াল অ্যালগরিদম<a class="anchor" href="#%e0%a6%9f%e0%a6%b0%e0%a6%ad%e0%a6%af%e0%a6%b2-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<p>অস্পষ্টতা এড়াতে আমরা সংজ্ঞায়িত করি &ldquo;ট্রিভিয়াল অ্যালগরিদম&rdquo; কী।</p>
+<p>এটি সেই অ্যালগরিদম যা নিম্নলিখিতটি করে। প্রতিটি কেন্দ্র অবস্থান $i$-এর জন্য এটি যতক্ষণ সম্ভব উত্তর এক এক করে বাড়ানোর চেষ্টা করে, প্রতিবার সংশ্লিষ্ট অক্ষরের একটি জোড়া তুলনা করে।</p>
+<p>এরকম একটি অ্যালগরিদম ধীর, এটি শুধুমাত্র $O(n^2)$-এ উত্তর গণনা করতে পারে।</p>
+<p>ট্রিভিয়াল অ্যালগরিদমের ইমপ্লিমেন্টেশন:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">manacher_odd_trivial</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;$&#34;</span> <span class="o">+</span> <span class="n">s</span> <span class="o">+</span> <span class="s">&#34;^&#34;</span><span class="p">;</span>
@@ -2795,66 +2800,66 @@ $$c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_{even}[3]=2} d$$<p>It&rsquo;s 
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Terminal characters <code>$</code> and <code>^</code> were used to avoid dealing with ends of the string separately.</p>
-<h2 id="manachers-algorithm">Manacher&rsquo;s algorithm<a class="anchor" href="#manachers-algorithm">#</a></h2>
-<p>We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_{odd}[]$.</p>
-<p>For fast calculation we&rsquo;ll maintain the <strong>exclusive borders $(l, r)$</strong> of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.</p>
-<p>So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous values in $d_{odd}[]$ have been already calculated. We do the following:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>টার্মিনাল অক্ষর <code>$</code> এবং <code>^</code> স্ট্রিং-এর প্রান্তগুলো আলাদাভাবে পরিচালনা এড়াতে ব্যবহার করা হয়েছে।</p>
+<h2 id="মযনকরর-অযলগরদম">ম্যানাকারের অ্যালগরিদম<a class="anchor" href="#%e0%a6%ae%e0%a6%af%e0%a6%a8%e0%a6%95%e0%a6%b0%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<p>আমরা সকল বিজোড় দৈর্ঘ্যের সাব-প্যালিন্ড্রোম বের করার অ্যালগরিদম বর্ণনা করি, অর্থাৎ $d_{odd}[]$ গণনা করি।</p>
+<p>দ্রুত গণনার জন্য আমরা সবচেয়ে ডানে পাওয়া (সাব-)প্যালিন্ড্রোমের <strong>এক্সক্লুসিভ সীমানা $(l, r)$</strong> বজায় রাখব (অর্থাৎ বর্তমানে সবচেয়ে ডানের (সাব-)প্যালিন্ড্রোম হলো $s[l+1] s[l+2] \dots s[r-1]$)। প্রাথমিকভাবে আমরা $l = 0, r = 1$ সেট করি, যা খালি স্ট্রিং-এর সাথে সম্পর্কিত।</p>
+<p>তাই, আমরা পরবর্তী $i$-এর জন্য $d_{odd}[i]$ গণনা করতে চাই, এবং $d_{odd}[]$-এর সকল পূর্ববর্তী মান ইতিমধ্যে গণনা করা হয়েছে। আমরা নিম্নলিখিতটি করি:</p>
 <ul>
 <li>
-<p>If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we&rsquo;ll just launch the trivial algorithm.</p>
-<p>So we&rsquo;ll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we&rsquo;ll stop. In this case we&rsquo;ve finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.</p>
+<p>যদি $i$ বর্তমান সাব-প্যালিন্ড্রোমের বাইরে থাকে, অর্থাৎ $i \geq r$, তাহলে আমরা কেবল ট্রিভিয়াল অ্যালগরিদম চালাব।</p>
+<p>তাই আমরা ক্রমাগত $d_{odd}[i]$ বাড়াব এবং প্রতিবার পরীক্ষা করব বর্তমান সবচেয়ে ডানের সাবস্ট্রিং $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ একটি প্যালিন্ড্রোম কিনা। যখন আমরা প্রথম অমিল পাই বা $s$-এর সীমানায় পৌঁছাই, আমরা থামব। এই ক্ষেত্রে আমরা শেষ পর্যন্ত $d_{odd}[i]$ গণনা করেছি। এরপর, $(l, r)$ আপডেট করতে ভুলবেন না। $r$ এমনভাবে আপডেট করতে হবে যাতে এটি বর্তমান সবচেয়ে ডানের সাব-প্যালিন্ড্রোমের শেষ ইনডেক্স প্রতিনিধিত্ব করে।</p>
 </li>
 <li>
-<p>Now consider the case when $i \le r$. We&rsquo;ll try to extract some information from the already calculated values in $d_{odd}[]$. So, let&rsquo;s find the &ldquo;mirror&rdquo; position of $i$ in the sub-palindrome $(l, r)$, i.e. we&rsquo;ll get the position $j = l + (r - i)$, and we check the value of $d_{odd}[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can <strong>almost always</strong> assign $d_{odd}[i] = d_{odd}[j]$. Illustration of this (palindrome around $j$ is actually &ldquo;copied&rdquo; into the palindrome around $i$):</p>
+<p>এখন সেই ক্ষেত্রে বিবেচনা করুন যখন $i \le r$। আমরা $d_{odd}[]$-এর ইতিমধ্যে গণনাকৃত মান থেকে কিছু তথ্য বের করার চেষ্টা করব। তাই, সাব-প্যালিন্ড্রোম $(l, r)$-এ $i$-এর &ldquo;আয়না&rdquo; অবস্থান বের করি, অর্থাৎ আমরা $j = l + (r - i)$ অবস্থান পাব, এবং $d_{odd}[j]$-এর মান পরীক্ষা করব। যেহেতু $j$ হলো $(l+r)/2$-এর সাপেক্ষে $i$-এর প্রতিসম অবস্থান, আমরা <strong>প্রায় সবসময়</strong> $d_{odd}[i] = d_{odd}[j]$ অ্যাসাইন করতে পারি। চিত্র ($j$-কে ঘিরে প্যালিন্ড্রোম আসলে $i$-কে ঘিরে প্যালিন্ড্রোমে &ldquo;কপি&rdquo; হয়):</p>
 $$
-    \ldots\ 
+    \ldots\
     \overbrace{
-        s_{l+1}\ \ldots\ 
+        s_{l+1}\ \ldots\
         \underbrace{
-            s_{j-d_{odd}[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_{odd}[j]-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ 
+            s_{j-d_{odd}[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_{odd}[j]-1}\
+        }_\text{palindrome}\
+        \ldots\
         \underbrace{
-            s_{i-d_{odd}[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_{odd}[j]-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ s_{r-1}\ 
-    }^\text{palindrome}\ 
+            s_{i-d_{odd}[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_{odd}[j]-1}\
+        }_\text{palindrome}\
+        \ldots\ s_{r-1}\
+    }^\text{palindrome}\
     \ldots
-    $$<p>But there is a <strong>tricky case</strong> to be handled correctly: when the &ldquo;inner&rdquo; palindrome reaches the borders of the &ldquo;outer&rdquo; one, i. e. $j - d_{odd}[j] \le l$ (or, which is the same, $i + d_{odd}[j] \ge r$). Because the symmetry outside the &ldquo;outer&rdquo; palindrome is not guaranteed, just assigning $d_{odd}[i] = d_{odd}[j]$ will be incorrect: we do not have enough data to state that the palindrome in the position $i$ has the same length.</p>
-<p>Actually, we should restrict the length of our palindrome for now, i. e. assign $d_{odd}[i] = r - i$, to handle such situations correctly. After this we&rsquo;ll run the trivial algorithm which will try to increase $d_{odd}[i]$ while it&rsquo;s possible.</p>
-<p>Illustration of this case (the palindrome with center $j$ is restricted to fit the &ldquo;outer&rdquo; palindrome):</p>
+    $$<p>কিন্তু একটি <strong>জটিল ক্ষেত্র</strong> আছে যা সঠিকভাবে পরিচালনা করতে হবে: যখন &ldquo;ভিতরের&rdquo; প্যালিন্ড্রোম &ldquo;বাইরের&rdquo;-এর সীমানায় পৌঁছায়, অর্থাৎ $j - d_{odd}[j] \le l$ (বা সমতুল্যভাবে, $i + d_{odd}[j] \ge r$)। যেহেতু &ldquo;বাইরের&rdquo; প্যালিন্ড্রোমের বাইরে প্রতিসাম্য নিশ্চিত নয়, শুধু $d_{odd}[i] = d_{odd}[j]$ অ্যাসাইন করা ভুল হবে: আমাদের কাছে যথেষ্ট তথ্য নেই যে $i$ অবস্থানের প্যালিন্ড্রোমের দৈর্ঘ্য একই।</p>
+<p>আসলে, এরকম পরিস্থিতি সঠিকভাবে পরিচালনা করতে আমাদের আপাতত প্যালিন্ড্রোমের দৈর্ঘ্য সীমিত করতে হবে, অর্থাৎ $d_{odd}[i] = r - i$ অ্যাসাইন করতে হবে। এরপর আমরা ট্রিভিয়াল অ্যালগরিদম চালাব যা $d_{odd}[i]$ যতটা সম্ভব বাড়ানোর চেষ্টা করবে।</p>
+<p>এই ক্ষেত্রের চিত্র ($j$ কেন্দ্রিক প্যালিন্ড্রোম &ldquo;বাইরের&rdquo; প্যালিন্ড্রোমে ফিট করার জন্য সীমিত):</p>
 $$
-    \ldots\ 
+    \ldots\
     \overbrace{
         \underbrace{
-            s_{l+1}\ \ldots\ s_j\ \ldots\ s_{j+(j-l)-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ 
+            s_{l+1}\ \ldots\ s_j\ \ldots\ s_{j+(j-l)-1}\
+        }_\text{palindrome}\
+        \ldots\
         \underbrace{
             s_{i-(r-i)+1}\ \ldots\ s_i\ \ldots\ s_{r-1}
-        }_\text{palindrome}\ 
-    }^\text{palindrome}\ 
+        }_\text{palindrome}\
+    }^\text{palindrome}\
     \underbrace{
         \ldots \ldots \ldots \ldots \ldots
-    }_\text{try moving here}
-    $$<p>It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the &ldquo;outer&rdquo; palindrome, but with $i$ as the center we can use only the part that entirely fits into the &ldquo;outer&rdquo; palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we&rsquo;ll run our trivial algorithm that will try to grow it outside our &ldquo;outer&rdquo; palindrome, i. e. to the region &ldquo;try moving here&rdquo;.</p>
+    }_\text{এখানে এগোনোর চেষ্টা}
+    $$<p>চিত্রে দেখানো হয়েছে যে, যদিও $j$ কেন্দ্রিক প্যালিন্ড্রোম বড় হতে পারত এবং &ldquo;বাইরের&rdquo; প্যালিন্ড্রোমের বাইরে যেতে পারত, কিন্তু $i$ কেন্দ্র হিসেবে আমরা শুধু সেই অংশটুকু ব্যবহার করতে পারি যা সম্পূর্ণরূপে &ldquo;বাইরের&rdquo; প্যালিন্ড্রোমের মধ্যে ফিট করে। কিন্তু $i$ অবস্থানের উত্তর ($d_{odd}[i]$) এই অংশের চেয়ে অনেক বড় হতে পারে, তাই এরপর আমরা ট্রিভিয়াল অ্যালগরিদম চালাব যা &ldquo;বাইরের&rdquo; প্যালিন্ড্রোমের বাইরে, অর্থাৎ &ldquo;এখানে এগোনোর চেষ্টা&rdquo; অঞ্চলে এটি বাড়ানোর চেষ্টা করবে।</p>
 </li>
 </ul>
-<p>Again, we should not forget to update the values $(l, r)$ after calculating each $d_{odd}[i]$.</p>
-<h2 id="complexity-of-manachers-algorithm">Complexity of Manacher&rsquo;s algorithm<a class="anchor" href="#complexity-of-manachers-algorithm">#</a></h2>
-<p>At the first glance it&rsquo;s not obvious that this algorithm has linear time complexity, because we often run the naive algorithm while searching the answer for a particular position.</p>
-<p>However, a more careful analysis shows that the algorithm is linear. In fact, <a href="z-function.md">Z-function building algorithm</a>, which looks similar to this algorithm, also works in linear time.</p>
-<p>We can notice that every iteration of trivial algorithm increases $r$ by one. Also $r$ cannot be decreased during the algorithm. So, trivial algorithm will make $O(n)$ iterations in total.</p>
-<p>Other parts of Manacher&rsquo;s algorithm work obviously in linear time. Thus, we get $O(n)$ time complexity.</p>
-<h2 id="implementation-of-manachers-algorithm">Implementation of Manacher&rsquo;s algorithm<a class="anchor" href="#implementation-of-manachers-algorithm">#</a></h2>
-<p>For calculating $d_{odd}[]$, we get the following code. Things to note:</p>
+<p>আবার, প্রতিটি $d_{odd}[i]$ গণনার পরে $(l, r)$ মান আপডেট করতে ভুলবেন না।</p>
+<h2 id="মযনকরর-অযলগরদমর-কমপলকসট">ম্যানাকারের অ্যালগরিদমের কমপ্লেক্সিটি<a class="anchor" href="#%e0%a6%ae%e0%a6%af%e0%a6%a8%e0%a6%95%e0%a6%b0%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%b8%e0%a6%9f">#</a></h2>
+<p>প্রথম দৃষ্টিতে এটি স্পষ্ট নয় যে এই অ্যালগরিদমের লিনিয়ার টাইম কমপ্লেক্সিটি আছে, কারণ একটি নির্দিষ্ট অবস্থানের উত্তর খোঁজার সময় আমরা প্রায়ই নেইভ অ্যালগরিদম চালাই।</p>
+<p>তবে, আরও সতর্ক বিশ্লেষণে দেখা যায় যে অ্যালগরিদমটি লিনিয়ার। আসলে, <a href="z-function.md">Z-ফাংশন তৈরির অ্যালগরিদম</a>, যা এই অ্যালগরিদমের মতো দেখায়, সেটিও লিনিয়ার সময়ে কাজ করে।</p>
+<p>আমরা লক্ষ্য করতে পারি যে ট্রিভিয়াল অ্যালগরিদমের প্রতিটি ইটারেশন $r$-কে এক বাড়ায়। এছাড়া অ্যালগরিদম চলাকালীন $r$ কখনো কমে না। তাই, ট্রিভিয়াল অ্যালগরিদম মোট $O(n)$ ইটারেশন করবে।</p>
+<p>ম্যানাকারের অ্যালগরিদমের অন্যান্য অংশ স্পষ্টতই লিনিয়ার সময়ে কাজ করে। এভাবে, আমরা $O(n)$ টাইম কমপ্লেক্সিটি পাই।</p>
+<h2 id="মযনকরর-অযলগরদমর-ইমপলমনটশন">ম্যানাকারের অ্যালগরিদমের ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%ae%e0%a6%af%e0%a6%a8%e0%a6%95%e0%a6%b0%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>$d_{odd}[]$ গণনার জন্য, আমরা নিম্নলিখিত কোড পাই। লক্ষণীয় বিষয়গুলো:</p>
 <ul>
-<li>$i$ is the index of the center letter of the current palindrome.</li>
-<li>If $i$ exceeds $r$, $d_{odd}[i]$ is initialized to 0.</li>
-<li>If $i$ does not exceed $r$, $d_{odd}[i]$ is either initialized to the $d_{odd}[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $d_{odd}[i]$ is restricted to the size of the &ldquo;outer&rdquo; palindrome.</li>
-<li>The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.</li>
-<li>If the size of palindrome centered at $i$ is $x$, then $d_{odd}[i]$ stores $\frac{x+1}{2}$.</li>
+<li>$i$ হলো বর্তমান প্যালিন্ড্রোমের কেন্দ্র অক্ষরের ইনডেক্স।</li>
+<li>যদি $i$, $r$-কে অতিক্রম করে, $d_{odd}[i]$ ০ দিয়ে ইনিশিয়ালাইজ হয়।</li>
+<li>যদি $i$, $r$-কে অতিক্রম না করে, $d_{odd}[i]$ হয় $d_{odd}[j]$ দিয়ে ইনিশিয়ালাইজ হয়, যেখানে $j$ হলো $(l,r)$-এ $i$-এর আয়না অবস্থান, অথবা $d_{odd}[i]$ &ldquo;বাইরের&rdquo; প্যালিন্ড্রোমের আকারে সীমিত হয়।</li>
+<li>while লুপটি ট্রিভিয়াল অ্যালগরিদম নির্দেশ করে। $k$-এর মান নির্বিশেষে আমরা এটি চালাই।</li>
+<li>যদি $i$-তে কেন্দ্রিত প্যালিন্ড্রোমের আকার $x$ হয়, তাহলে $d_{odd}[i]$-তে $\frac{x+1}{2}$ সংরক্ষিত থাকে।</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">manacher_odd</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
@@ -2871,13 +2876,13 @@ $$
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="working-with-parities">Working with parities<a class="anchor" href="#working-with-parities">#</a></h2>
-<p>Although it is possible to implement Manacher&rsquo;s algorithm for odd and even lengths separately, the implementation of the version for even lengths is often deemed more difficult, as it is less natural and easily leads to off-by-one errors.</p>
-<p>To mitigate this, it is possible to reduce the whole problem to the case when we only deal with the palindromes of odd length. To do this, we can put an additional <code>#</code> character between each letter in the string and also in the beginning and the end of the string:</p>
-$$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$<p>As you can see, $d[2i]=2 d_{even}[i]+1$ and $d[2i+1]=2 d_{odd}[i]$ where $d$ denotes the Manacher array for odd-length palindromes in <code>#</code>-joined string, while $d_{odd}$ and $d_{even}$ correspond to the arrays defined above in the initial string.</p>
-<p>Indeed, <code>#</code> characters do not affect the odd-length palindromes, which are still centered in the initial string&rsquo;s characters, but now even-length palindromes of the initial string are odd-length palindromes of the new string centered in <code>#</code> characters.</p>
-<p>Note that $d[2i]$ and $d[2i+1]$ are essentially the increased by $1$ lengths of the largest odd- and even-length palindromes centered in $i$ correspondingly.</p>
-<p>The reduction is implemented in the following way:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="পযরট-নয-কজ-কর">প্যারিটি নিয়ে কাজ করা<a class="anchor" href="#%e0%a6%aa%e0%a6%af%e0%a6%b0%e0%a6%9f-%e0%a6%a8%e0%a6%af-%e0%a6%95%e0%a6%9c-%e0%a6%95%e0%a6%b0">#</a></h2>
+<p>যদিও ম্যানাকারের অ্যালগরিদম বিজোড় এবং জোড় দৈর্ঘ্যের জন্য আলাদাভাবে ইমপ্লিমেন্ট করা সম্ভব, জোড় দৈর্ঘ্যের সংস্করণের ইমপ্লিমেন্টেশন প্রায়ই বেশি কঠিন বলে মনে করা হয়, কারণ এটি কম স্বাভাবিক এবং সহজেই অফ-বাই-ওয়ান ত্রুটি ঘটায়।</p>
+<p>এটি প্রশমিত করতে, পুরো সমস্যাটিকে শুধুমাত্র বিজোড় দৈর্ঘ্যের প্যালিন্ড্রোমের ক্ষেত্রে রিডিউস করা সম্ভব। এর জন্য, আমরা স্ট্রিং-এর প্রতিটি অক্ষরের মাঝে এবং শুরু ও শেষে একটি অতিরিক্ত <code>#</code> অক্ষর রাখতে পারি:</p>
+$$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$<p>আপনি দেখতে পাচ্ছেন, $d[2i]=2 d_{even}[i]+1$ এবং $d[2i+1]=2 d_{odd}[i]$ যেখানে $d$ হলো <code>#</code>-যুক্ত স্ট্রিং-এ বিজোড়-দৈর্ঘ্যের প্যালিন্ড্রোমের জন্য ম্যানাকার অ্যারে, আর $d_{odd}$ এবং $d_{even}$ মূল স্ট্রিং-এ উপরে সংজ্ঞায়িত অ্যারেগুলোর সাথে সম্পর্কিত।</p>
+<p>প্রকৃতপক্ষে, <code>#</code> অক্ষরগুলো বিজোড়-দৈর্ঘ্যের প্যালিন্ড্রোমগুলোকে প্রভাবিত করে না, যেগুলো এখনও মূল স্ট্রিং-এর অক্ষরগুলোতে কেন্দ্রিত, কিন্তু এখন মূল স্ট্রিং-এর জোড়-দৈর্ঘ্যের প্যালিন্ড্রোমগুলো নতুন স্ট্রিং-এ <code>#</code> অক্ষরে কেন্দ্রিত বিজোড়-দৈর্ঘ্যের প্যালিন্ড্রোম হয়ে যায়।</p>
+<p>লক্ষ্য করুন $d[2i]$ এবং $d[2i+1]$ মূলত $i$-তে কেন্দ্রিত সবচেয়ে বড় বিজোড়- এবং জোড়-দৈর্ঘ্যের প্যালিন্ড্রোমের দৈর্ঘ্যের ১ বেশি।</p>
+<p>রিডাকশনটি নিম্নলিখিতভাবে ইমপ্লিমেন্ট করা হয়:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">manacher</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">t</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">c</span><span class="p">:</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
@@ -2885,8 +2890,8 @@ $$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">res</span> <span class="o">=</span> <span class="n">manacher_odd</span><span class="p">(</span><span class="n">t</span> <span class="o">+</span> <span class="s">&#34;#&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">begin</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">end</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as their explicit calculation is omitted.</p>
-<h2 id="problems">Problems<a class="anchor" href="#problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>সরলতার জন্য, অ্যারেটিকে $d_{odd}$ এবং $d_{even}$-এ বিভক্ত করা এবং তাদের স্পষ্ট গণনা বাদ দেওয়া হয়েছে।</p>
+<h2 id="সমসয">সমস্যা<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://judge.yosupo.jp/problem/enumerate_palindromes">Library Checker - Enumerate Palindromes</a></li>
 <li><a href="https://cses.fi/problemset/task/1111">Longest Palindrome</a></li>
@@ -2924,16 +2929,16 @@ $$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/string/suffix-tree-ukkonen/" class="flex align-center">
+      <a href="/string/string-hashing/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Suffix Tree. Ukkonen&#39;s Algorithm</span>
+        <span>স্ট্রিং হ্যাশিং</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/string/rabin-karp/" class="flex align-center">
-        <span>Rabin-Karp Algorithm for string matching</span>
+      <a href="/string/suffix-automaton/" class="flex align-center">
+        <span>সাফিক্স অটোমেটন</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -2974,15 +2979,15 @@ $$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$$$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#statement">Statement</a></li>
-    <li><a href="#more-precise-statement">More precise statement</a></li>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#trivial-algorithm">Trivial algorithm</a></li>
-    <li><a href="#manachers-algorithm">Manacher&rsquo;s algorithm</a></li>
-    <li><a href="#complexity-of-manachers-algorithm">Complexity of Manacher&rsquo;s algorithm</a></li>
-    <li><a href="#implementation-of-manachers-algorithm">Implementation of Manacher&rsquo;s algorithm</a></li>
-    <li><a href="#working-with-parities">Working with parities</a></li>
-    <li><a href="#problems">Problems</a></li>
+    <li><a href="#সমসযর-ববত">সমস্যার বিবৃতি</a></li>
+    <li><a href="#আরও-সনরদষট-ববত">আরও সুনির্দিষ্ট বিবৃতি</a></li>
+    <li><a href="#সমধন">সমাধান</a></li>
+    <li><a href="#টরভযল-অযলগরদম">ট্রিভিয়াল অ্যালগরিদম</a></li>
+    <li><a href="#মযনকরর-অযলগরদম">ম্যানাকারের অ্যালগরিদম</a></li>
+    <li><a href="#মযনকরর-অযলগরদমর-কমপলকসট">ম্যানাকারের অ্যালগরিদমের কমপ্লেক্সিটি</a></li>
+    <li><a href="#মযনকরর-অযলগরদমর-ইমপলমনটশন">ম্যানাকারের অ্যালগরিদমের ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#পযরট-নয-কজ-কর">প্যারিটি নিয়ে কাজ করা</a></li>
+    <li><a href="#সমসয">সমস্যা</a></li>
   </ul>
 </nav>
 

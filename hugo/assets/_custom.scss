@@ -1,12 +1,66 @@
 // CP-Algorithms custom styles
 // Overrides theme's assets/_custom.scss via Hugo asset merging
 
-// Bengali (Kalpurush) font
-@import url('https://fonts.maateen.me/kalpurush/font.css');
-
-// Apply Kalpurush as a fallback for Bengali script content
-:lang(bn), .lang-bn {
+// Bengali (Kalpurush) font loaded from layouts/_partials/docs/inject/head.html.
+// Applied across the site UI so branding and content render consistently.
+html,
+body,
+.book-brand,
+.book-menu,
+.book-page,
+.markdown,
+button,
+input,
+select,
+textarea {
   font-family: 'Kalpurush', sans-serif;
+}
+
+// Hide sidebar scrollbar while keeping scroll functionality
+.book-menu-content,
+.book-toc-content {
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE/Edge
+  &::-webkit-scrollbar {
+    display: none; // Chrome/Safari
+  }
+}
+
+// Sidebar theme switch
+.theme-switch-wrap {
+  margin: 0.35rem 0 0.85rem;
+}
+
+.theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  opacity: 0.82;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    color: var(--color-link);
+  }
+}
+
+.theme-switch-icon {
+  display: inline-block;
+  width: 1.1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.theme-switch-label {
+  font-size: 0.95em;
 }
 
 // Hint boxes — supplement the theme's CSS variable-based styling
@@ -42,22 +96,81 @@
   }
 }
 
-// Math overflow handling
-.math-display,
-.arithmatex,
+// Math — render fully, no scrollbars
+mjx-container {
+  overflow: visible !important;
+}
+
 mjx-container[display="true"] {
+  display: block;
+}
+
+// Code blocks — card on .highlight wrapper only, pre/code are transparent inside
+.markdown .highlight {
+  border: none !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18), 0 1.5px 4px rgba(0, 0, 0, 0.10);
+  margin: 1.25rem 0;
+  overflow: hidden;
+  background: #282a36 !important;
+}
+
+// Reset pre inside highlight — no double background
+.markdown .highlight pre {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 1.2rem 1.4rem;
+}
+
+// Plain pre blocks (no .highlight wrapper, no .chroma class)
+.markdown pre:not([class]),
+.markdown pre[class=""] {
+  background: #282a36 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18), 0 1.5px 4px rgba(0, 0, 0, 0.10);
+  padding: 1.2rem 1.4rem !important;
+  margin: 1.25rem 0;
   overflow-x: auto;
-  max-width: 100%;
+  color: #f8f8f2; // Dracula foreground
 }
 
-// Inline math — prevent line breaks inside formulas
-mjx-container:not([display="true"]) {
-  display: inline-block;
+// Inline code — subtle pill
+.markdown code:not(pre code) {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 5px;
+  padding: 0.15em 0.45em;
+  font-size: 0.875em;
 }
 
-// Code block improvements
-pre {
-  border-radius: var(--border-radius, 6px);
+html[data-theme="dark"] {
+  .theme-switch {
+    opacity: 0.88;
+  }
+
+  .markdown .highlight,
+  .markdown pre:not([class]),
+  .markdown pre[class=""] {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 1.5px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .markdown code:not(pre code) {
+    background: #2d2f3b;
+    border-color: #3e4155;
+    color: #cdd6f4;
+  }
+
+  // Images — subtle elevated background for diagrams in dark mode
+  .markdown img {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
 }
 
 // Details/summary shortcode styling

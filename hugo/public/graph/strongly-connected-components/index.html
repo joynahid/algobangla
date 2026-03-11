@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,35 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Strongly connected components and the condensation graph#Definitions#Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.
-A subset of vertices $C \subseteq V$ is called a strongly connected component if the following conditions hold:
+<meta name="description" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ#সংজ্ঞাসমূহ#ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে স্ট্রংলি কানেক্টেড কম্পোনেন্ট বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
+$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না। আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/graph/strongly-connected-components/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/graph/strongly-connected-components/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Strongly connected components and the condensation graph">
-  <meta property="og:description" content="Strongly connected components and the condensation graph#Definitions#Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.
-A subset of vertices $C \subseteq V$ is called a strongly connected component if the following conditions hold:">
+  <meta property="og:title" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ">
+  <meta property="og:description" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ#সংজ্ঞাসমূহ#ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে স্ট্রংলি কানেক্টেড কম্পোনেন্ট বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
+$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না। আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="graph">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Strongly connected components and the condensation graph">
-  <meta itemprop="description" content="Strongly connected components and the condensation graph#Definitions#Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.
-A subset of vertices $C \subseteq V$ is called a strongly connected component if the following conditions hold:">
-  <meta itemprop="wordCount" content="4238">
+  <meta itemprop="name" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ">
+  <meta itemprop="description" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ#সংজ্ঞাসমূহ#ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে স্ট্রংলি কানেক্টেড কম্পোনেন্ট বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
+$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না। আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="3513">
 
-<title>Strongly connected components and the condensation graph | CP-Algorithms</title>
+<title>স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/graph/strongly-connected-components/">
+<link rel="canonical" href="http://localhost:1313/graph/strongly-connected-components/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -123,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -208,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -222,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -236,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -278,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -292,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -306,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -334,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -348,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -376,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -390,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -404,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -431,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -445,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -460,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -474,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -502,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -516,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -530,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -581,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -595,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -609,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -623,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -637,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -651,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -665,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -679,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -693,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -743,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -758,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -814,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -828,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -879,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -907,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -934,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -948,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -963,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -991,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1005,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1019,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1033,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1070,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1084,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1098,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1112,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1148,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1176,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1191,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1205,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1219,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1233,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1247,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1298,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1312,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1326,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1340,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1354,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1390,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1461,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1474,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1488,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1502,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1516,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1531,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1545,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1573,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1586,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1615,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1629,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1657,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1670,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1685,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1699,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1713,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1727,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1741,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1777,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1861,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1890,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1904,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1917,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1931,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1945,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1959,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1974,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1987,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2001,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2015,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2044,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2057,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2071,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2099,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2156,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2169,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2183,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2198,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2211,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2225,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2240,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2253,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2267,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2282,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2295,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2310,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2324,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="active">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2338,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2352,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2366,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2380,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2394,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2431,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2445,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2473,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2510,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2524,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2538,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2552,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2566,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2603,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2617,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2654,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2668,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2682,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2728,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Strongly connected components and the condensation graph</h3>
+  <h3>স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</h3>
 
   <label for="toc-control">
     
@@ -2744,22 +2749,22 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#definitions">Definitions</a></li>
-    <li><a href="#kosarajus-algorithm">Kosaraju&rsquo;s algorithm</a>
+    <li><a href="#সজঞসমহ">সংজ্ঞাসমূহ</a></li>
+    <li><a href="#কসরজর-অযলগরদম">কোসারাজুর অ্যালগরিদম</a>
       <ul>
-        <li><a href="#description-of-the-algorithm">Description of the algorithm</a></li>
-        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#অযলগরদমর-বরণন">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
       </ul>
     </li>
-    <li><a href="#tarjans-strongly-connected-components-algorithm">Tarjan&rsquo;s strongly connected components algorithm</a>
+    <li><a href="#টরজনর-সটরল-কনকটড-কমপননট-অযলগরদম">টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম</a>
       <ul>
-        <li><a href="#description-of-the-algorithm-1">Description of the algorithm</a></li>
-        <li><a href="#implementation-1">Implementation</a></li>
+        <li><a href="#অযলগরদমর-বরণন-1">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
       </ul>
     </li>
-    <li><a href="#building-the-condensation-graph">Building the Condensation Graph</a></li>
-    <li><a href="#literature">Literature</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#কনডনসশন-গরফ-তর">কনডেনসেশন গ্রাফ তৈরি</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2772,78 +2777,78 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="strongly-connected-components-and-the-condensation-graph">Strongly connected components and the condensation graph<a class="anchor" href="#strongly-connected-components-and-the-condensation-graph">#</a></h1>
-<h2 id="definitions">Definitions<a class="anchor" href="#definitions">#</a></h2>
-<p>Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.</p>
-<p>A subset of vertices $C \subseteq V$ is called a <strong>strongly connected component</strong> if the following conditions hold:</p>
+  <article class="markdown book-article"><h1 id="সটরল-কনকটড-কমপননট-এব-কনডনসশন-গরফ">স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ<a class="anchor" href="#%e0%a6%b8%e0%a6%9f%e0%a6%b0%e0%a6%b2-%e0%a6%95%e0%a6%a8%e0%a6%95%e0%a6%9f%e0%a6%a1-%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%a8%e0%a6%a8%e0%a6%9f-%e0%a6%8f%e0%a6%ac-%e0%a6%95%e0%a6%a8%e0%a6%a1%e0%a6%a8%e0%a6%b8%e0%a6%b6%e0%a6%a8-%e0%a6%97%e0%a6%b0%e0%a6%ab">#</a></h1>
+<h2 id="সজঞসমহ">সংজ্ঞাসমূহ<a class="anchor" href="#%e0%a6%b8%e0%a6%9c%e0%a6%9e%e0%a6%b8%e0%a6%ae%e0%a6%b9">#</a></h2>
+<p>ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।</p>
+<p>$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে <strong>স্ট্রংলি কানেক্টেড কম্পোনেন্ট</strong> বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:</p>
 <ul>
-<li>for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ and a path from $v$ to $u$, and</li>
-<li>$C$ is maximal, in the sense that no vertex can be added without violating the above condition.</li>
+<li>$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং</li>
+<li>$C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না।</li>
 </ul>
-<p>We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect with each other, and cover all vertices in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$.</p>
-<p>Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:</p>
+<p>আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।</p>
+<p>এই গ্রাফ $G_\text{example}$ বিবেচনা করুন, যেখানে স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো হাইলাইট করা হয়েছে:</p>
 <center><img src="/images/graph/graph.svg" alt="drawing" style="width:700px;"/></center>
-<p>Here we have $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.</p>
-<p>We define the <strong>condensation graph</strong> $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:</p>
+<p>এখানে $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ আমরা নিশ্চিত করতে পারি যে প্রতিটি স্ট্রংলি কানেক্টেড কম্পোনেন্টের ভেতরে সব ভার্টেক্স পরস্পরের কাছে পৌঁছানো যায়।</p>
+<p>আমরা <strong>কনডেনসেশন গ্রাফ</strong> $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ নিম্নরূপে সংজ্ঞায়িত করি:</p>
 <ul>
-<li>the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and</li>
-<li>for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.</li>
+<li>$G^{\text{SCC}}$-এর ভার্টেক্স হলো $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্ট; অর্থাৎ, $V^{\text{SCC}} = \text{SCC}(G)$, এবং</li>
+<li>কনডেনসেশন গ্রাফের সব ভার্টেক্স $C_i,C_j$-এর জন্য, $C_i$ থেকে $C_j$-তে একটি এজ আছে যদি এবং কেবল যদি $C_i \neq C_j$ এবং $C_i$-তে কোনো $a$ ও $C_j$-তে কোনো $b$ বিদ্যমান থাকে যেন $G$-তে $a$ থেকে $b$-তে একটি এজ থাকে।</li>
 </ul>
-<p>The condensation graph of $G_\text{example}$ looks as follows:</p>
+<p>$G_\text{example}$-এর কনডেনসেশন গ্রাফ নিম্নরূপ:</p>
 <center><img src="/images/graph/cond_graph.svg" alt="drawing" style="width:600px;"/></center>
-<p>The most important property of the condensation graph is that it is <strong>acyclic</strong>. Indeed, there are no &lsquo;self-loops&rsquo; in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.</p>
-<p>The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.</p>
-<h2 id="kosarajus-algorithm">Kosaraju&rsquo;s algorithm<a class="anchor" href="#kosarajus-algorithm">#</a></h2>
-<h3 id="description-of-the-algorithm">Description of the algorithm<a class="anchor" href="#description-of-the-algorithm">#</a></h3>
-<p>The described algorithm was independently suggested by Kosaraju and Sharir around 1980. It is based on two series of <a href="depth-first-search.md">depth first search</a>, with a runtime of $O(n + m)$.</p>
-<p>In the first step of the algorithm, we perform a sequence of depth first searches (<code>dfs</code>), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the <em>exit time</em> $t_\text{out}[v]$. This is the &rsquo;timestamp&rsquo; at which the execution of <code>dfs</code> on vertex $v$ finishes, i.e., the moment at which all vertices reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should <em>not</em> be reset between consecutive calls to <code>dfs</code>. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.</p>
-<p>First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the <em>entry time</em> $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the &rsquo;timestamp&rsquo; at which the recursive function <code>dfs</code> is called on vertex $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.</p>
+<p>কনডেনসেশন গ্রাফের সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্য হলো এটি <strong>অ্যাসাইক্লিক</strong>। প্রকৃতপক্ষে, সংজ্ঞা অনুযায়ী কনডেনসেশন গ্রাফে কোনো &lsquo;সেল্ফ-লুপ&rsquo; নেই, এবং যদি দুই বা ততোধিক ভার্টেক্সের (স্ট্রংলি কানেক্টেড কম্পোনেন্ট) মধ্য দিয়ে কোনো সাইকেল থাকত, তাহলে পৌঁছানোযোগ্যতার কারণে এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর ইউনিয়ন নিজেই একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট হতো: বিরোধ।</p>
+<p>পরবর্তী বিভাগে বর্ণিত অ্যালগরিদম একটি প্রদত্ত গ্রাফে সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করে। এরপর, কনডেনসেশন গ্রাফ তৈরি করা যায়।</p>
+<h2 id="কসরজর-অযলগরদম">কোসারাজুর অ্যালগরিদম<a class="anchor" href="#%e0%a6%95%e0%a6%b8%e0%a6%b0%e0%a6%9c%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<h3 id="অযলগরদমর-বরণন">অ্যালগরিদমের বর্ণনা<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%b0%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>বর্ণিত অ্যালগরিদমটি স্বাধীনভাবে কোসারাজু এবং শরীর ১৯৮০ সালের দিকে প্রস্তাব করেছিলেন। এটি দুটি সিরিজের <a href="depth-first-search.md">ডেপথ ফার্স্ট সার্চ</a>-এর উপর ভিত্তি করে, রানটাইম $O(n + m)$।</p>
+<p>অ্যালগরিদমের প্রথম ধাপে, আমরা সম্পূর্ণ গ্রাফ ভিজিট করে ডেপথ ফার্স্ট সার্চের একটি ক্রম সম্পাদন করি (<code>dfs</code>)। অর্থাৎ, যতক্ষণ অভিজিত ভার্টেক্স আছে, আমরা তাদের একটি নিই এবং সেই ভার্টেক্স থেকে ডেপথ ফার্স্ট সার্চ শুরু করি। প্রতিটি ভার্টেক্সের জন্য, আমরা <em>এক্সিট টাইম</em> $t_\text{out}[v]$ ট্র্যাক রাখি। এটি সেই &lsquo;টাইমস্ট্যাম্প&rsquo; যখন ভার্টেক্স $v$-তে <code>dfs</code>-এর এক্সিকিউশন শেষ হয়, অর্থাৎ $v$ থেকে পৌঁছানো সব ভার্টেক্স ভিজিট হয়ে গেছে এবং অ্যালগরিদম $v$-তে ফিরে এসেছে। টাইমস্ট্যাম্প কাউন্টার পরপর <code>dfs</code> কলের মধ্যে <em>রিসেট হওয়া উচিত নয়</em>। এক্সিট টাইম অ্যালগরিদমে গুরুত্বপূর্ণ ভূমিকা পালন করে, যা নিম্নলিখিত উপপাদ্য আলোচনা করলে স্পষ্ট হবে।</p>
+<p>প্রথমে, আমরা একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট $C$-এর এক্সিট টাইম $t_\text{out}[C]$ সংজ্ঞায়িত করি $C$-এর সব $v$-এর $t_\text{out}[v]$ মানের সর্বোচ্চ হিসেবে। এছাড়াও, উপপাদ্যের প্রমাণে, আমরা প্রতিটি ভার্টেক্স $v\in G$-এর <em>এন্ট্রি টাইম</em> $t_{\text{in}}[v]$ উল্লেখ করব। $t_{\text{in}}[v]$ সংখ্যাটি সেই &lsquo;টাইমস্ট্যাম্প&rsquo; যখন অ্যালগরিদমের প্রথম ধাপে ভার্টেক্স $v$-তে রিকার্সিভ ফাংশন <code>dfs</code> কল করা হয়। একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট $C$-এর জন্য, আমরা $t_{\text{in}}[C]$ সংজ্ঞায়িত করি $C$-এর সব $v$-এর $t_{\text{in}}[v]$ মানের সর্বনিম্ন হিসেবে।</p>
 <p>
 <div class="book-hint info">
-  <p><strong>Theorem</strong></p>
-<p>Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.</p>
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি $C$ এবং $C'$ দুটি ভিন্ন স্ট্রংলি কানেক্টেড কম্পোনেন্ট, এবং কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে একটি এজ আছে। তাহলে, $t_\text{out}[C] > t_\text{out}[C']$।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div><p>There are two different cases, depending on which component will first be reached by depth first search:</p>
+  <summary>প্রমাণ</summary>
+  <div><p>দুটি ভিন্ন ক্ষেত্র আছে, কোন কম্পোনেন্ট ডেপথ ফার্স্ট সার্চে আগে পৌঁছানো হবে তার উপর নির্ভর করে:</p>
 <ul>
 <li>
-<p>Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this <code>dfs</code> execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.</p>
+<p>ক্ষেত্র ১: কম্পোনেন্ট $C$ আগে পৌঁছানো হয়েছে (অর্থাৎ, $t_{\text{in}}[C] < t_{\text{in}}[C']$)। এক্ষেত্রে, ডেপথ ফার্স্ট সার্চ কোনো সময়ে $C$-এর কোনো ভার্টেক্স $v$ ভিজিট করে যখন $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্স এখনো অভিজিত। যেহেতু কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে এজ আছে, তাই $C$-র অন্য সব ভার্টেক্সের পাশাপাশি $C'$-এর সব ভার্টেক্সও $v$ থেকে পৌঁছানো যায়। এর মানে $v$ থেকে চলমান এই <code>dfs</code> এক্সিকিউশন ভবিষ্যতে $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্সও ভিজিট করবে, তাই এই ভার্টেক্সগুলো ডেপথ ফার্স্ট সার্চ ট্রি-তে $v$-এর ডিসেন্ডেন্ট হবে। এ থেকে বোঝা যায় যে প্রতিটি ভার্টেক্স $u \in (C \cup C')\setminus \{v\}$-এর জন্য, $t_\text{out}[v] > t_\text{out}[u]$। সুতরাং, $t_\text{out}[C] > t_\text{out}[C']$, যা এই ক্ষেত্রের প্রমাণ সম্পূর্ণ করে।</p>
 </li>
 <li>
-<p>Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, $C$ is not reachable from $C'$, by the acyclicity property. Hence, the <code>dfs</code> execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some <code>dfs</code> execution later during this step of the algorithm, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.</p>
+<p>ক্ষেত্র ২: কম্পোনেন্ট $C'$ আগে পৌঁছানো হয়েছে (অর্থাৎ, $t_{\text{in}}[C] > t_{\text{in}}[C']$)। এক্ষেত্রে, ডেপথ ফার্স্ট সার্চ কোনো সময়ে $C'$-এর কোনো ভার্টেক্স $v$ ভিজিট করে যখন $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্স এখনো অভিজিত। যেহেতু কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে এজ আছে, অ্যাসাইক্লিসিটি বৈশিষ্ট্য অনুযায়ী $C'$ থেকে $C$ পৌঁছানো যায় না। তাই $v$ থেকে চলমান <code>dfs</code> এক্সিকিউশন $C$-এর কোনো ভার্টেক্সে পৌঁছাবে না, কিন্তু এটি $C'$-এর সব ভার্টেক্স ভিজিট করবে। $C$-এর ভার্টেক্সগুলো এই ধাপে পরে কোনো <code>dfs</code> এক্সিকিউশনে ভিজিট হবে, তাই প্রকৃতপক্ষে $t_\text{out}[C] > t_\text{out}[C']$। এটি প্রমাণ সম্পূর্ণ করে।</p>
 </li>
 </ul>
 </div>
 </details>
 
-The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.</p>
-<p>If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$, then the first vertex $u$ will belong to the &ldquo;root&rdquo; strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex $u$ so that it will visit all vertices in its strongly connected component, but not other vertices. By repeatedly doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of $t_\text{out}$, and run this search from it, and so on. In the end, we will have found all strongly connected components. In order to find a search method that behaves like we want, we consider the following theorem:</p>
+প্রমাণিত উপপাদ্যটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করার জন্য অত্যন্ত গুরুত্বপূর্ণ। এর অর্থ হলো কনডেনসেশন গ্রাফের যেকোনো এজ বেশি $t_\text{out}$ মানের কম্পোনেন্ট থেকে কম $t_\text{out}$ মানের কম্পোনেন্টে যায়।</p>
+<p>যদি আমরা সব ভার্টেক্স $v \in V$-কে তাদের এক্সিট টাইম $t_\text{out}[v]$-এর নিম্নক্রমে সাজাই, তাহলে প্রথম ভার্টেক্স $u$ &ldquo;রুট&rdquo; স্ট্রংলি কানেক্টেড কম্পোনেন্টে থাকবে, যার কনডেনসেশন গ্রাফে কোনো ইনকামিং এজ নেই। এখন আমরা এই ভার্টেক্স $u$ থেকে এমন কোনো সার্চ চালাতে চাই যেটি তার স্ট্রংলি কানেক্টেড কম্পোনেন্টের সব ভার্টেক্স ভিজিট করবে, কিন্তু অন্য ভার্টেক্স নয়। বারবার এটি করে, আমরা ধীরে ধীরে সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে পেতে পারি: প্রথম পাওয়া কম্পোনেন্টের সব ভার্টেক্স সরিয়ে, $t_\text{out}$-এর সবচেয়ে বড় মানের পরবর্তী অবশিষ্ট ভার্টেক্স খুঁজে সেখান থেকে এই সার্চ চালাই, এভাবে চলতে থাকবে। শেষে, আমরা সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে পাব। আমাদের ইচ্ছামতো আচরণ করে এমন একটি সার্চ পদ্ধতি খুঁজতে, নিম্নলিখিত উপপাদ্য বিবেচনা করুন:</p>
 <p>
 <div class="book-hint info">
-  <p><strong>Theorem</strong></p>
-<p>Let $G^T$ denote the <em>transpose graph</em> of $G$, obtained by reversing the edge directions in $G$. Then, $\text{SCC}(G)=\text{SCC}(G^T)$. Furthermore, the condensation graph of $G^T$ is the transpose of the condensation graph of $G$.</p>
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি $G^T$ হলো $G$-এর <em>ট্রান্সপোজ গ্রাফ</em>, যেটি $G$-এর এজের দিক উল্টিয়ে পাওয়া যায়। তাহলে, $\text{SCC}(G)=\text{SCC}(G^T)$। এছাড়াও, $G^T$-এর কনডেনসেশন গ্রাফ হলো $G$-এর কনডেনসেশন গ্রাফের ট্রান্সপোজ।</p>
 
 </div>
 
-The proof is omitted (but straightforward). As a consequence of this theorem, there will be no edges from the &ldquo;root&rdquo; component to the other components in the condensation graph of $G^T$. Thus, in order to visit the whole &ldquo;root&rdquo; strongly connected component, containing vertex $v$, we can just run a depth first search from vertex $v$ in the transpose graph $G^T$! This will visit precisely all vertices of this strongly connected component. As was mentioned before, we can then remove these vertices from the graph. Then, we find the next vertex with a maximal value of $t_\text{out}[v]$, and run the search in the transpose graph starting from that vertex to find the next strongly connected component. Repeating this, we find all strongly connected components.</p>
-<p>Thus, in summary, we discussed the following algorithm to find strongly connected components:</p>
+প্রমাণ বাদ দেওয়া হলো (তবে সরলরেখীয়)। এই উপপাদ্যের ফলস্বরূপ, $G^T$-এর কনডেনসেশন গ্রাফে &ldquo;রুট&rdquo; কম্পোনেন্ট থেকে অন্য কম্পোনেন্টে কোনো এজ থাকবে না। সুতরাং, ভার্টেক্স $v$ ধারণকারী পুরো &ldquo;রুট&rdquo; স্ট্রংলি কানেক্টেড কম্পোনেন্ট ভিজিট করতে, আমরা ট্রান্সপোজ গ্রাফ $G^T$-এ ভার্টেক্স $v$ থেকে একটি ডেপথ ফার্স্ট সার্চ চালাতে পারি! এটি ঠিক এই স্ট্রংলি কানেক্টেড কম্পোনেন্টের সব ভার্টেক্স ভিজিট করবে। পূর্বে উল্লেখ করা হয়েছে, আমরা তারপর এই ভার্টেক্সগুলো গ্রাফ থেকে সরাতে পারি। তারপর, $t_\text{out}[v]$-এর সর্বোচ্চ মানের পরবর্তী ভার্টেক্স খুঁজে সেই ভার্টেক্স থেকে ট্রান্সপোজ গ্রাফে সার্চ চালিয়ে পরবর্তী স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করি। পুনরাবৃত্তি করে, আমরা সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট পাই।</p>
+<p>সুতরাং, সংক্ষেপে, আমরা স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করার নিম্নলিখিত অ্যালগরিদম আলোচনা করলাম:</p>
 <ul>
 <li>
-<p>Step 1. Run a sequence of depth first searches on $G$, which will yield some list (e.g. <code>order</code>) of vertices, sorted on increasing exit time $t_\text{out}$.</p>
+<p>ধাপ ১। $G$-তে ডেপথ ফার্স্ট সার্চের একটি ক্রম চালান, যেটি ভার্টেক্সের একটি তালিকা (যেমন <code>order</code>) দেবে, ক্রমবর্ধমান এক্সিট টাইম $t_\text{out}$ অনুসারে সাজানো।</p>
 </li>
 <li>
-<p>Step 2. Build the transpose graph $G^T$, and run a series of depth first searches on the vertices in reverse order (i.e., in decreasing order of exit times). Each depth first search will yield one strongly connected component.</p>
+<p>ধাপ ২। ট্রান্সপোজ গ্রাফ $G^T$ তৈরি করুন, এবং বিপরীত ক্রমে (অর্থাৎ এক্সিট টাইমের নিম্নক্রমে) ভার্টেক্সগুলোতে ডেপথ ফার্স্ট সার্চের একটি সিরিজ চালান। প্রতিটি ডেপথ ফার্স্ট সার্চ একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেবে।</p>
 </li>
 <li>
-<p>Step 3 (optional). Build the condensation graph.</p>
+<p>ধাপ ৩ (ঐচ্ছিক)। কনডেনসেশন গ্রাফ তৈরি করুন।</p>
 </li>
 </ul>
-<p>The runtime complexity of the algorithm is $O(n + m)$, because depth first search is performed twice. Building the condensation graph is also $O(n+m).$</p>
-<p>Finally, it is appropriate to mention <a href="topological-sort.md">topological sort</a> here. In step 1, we find the vertices in the order of increasing exit time. If $G$ is acyclic, this corresponds to a (reversed) topological sort of $G$. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.</p>
-<h3 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h3>
+<p>অ্যালগরিদমের রানটাইম কমপ্লেক্সিটি $O(n + m)$, কারণ ডেপথ ফার্স্ট সার্চ দুইবার করা হয়। কনডেনসেশন গ্রাফ তৈরিও $O(n+m)$।</p>
+<p>সবশেষে, এখানে <a href="topological-sort.md">টপোলজিক্যাল সর্ট</a> উল্লেখ করা যথাযথ। ধাপ ১-এ, আমরা ভার্টেক্সগুলো ক্রমবর্ধমান এক্সিট টাইমের ক্রমে পাই। যদি $G$ অ্যাসাইক্লিক হয়, এটি $G$-এর একটি (বিপরীত) টপোলজিক্যাল সর্টের সাথে মিলে যায়। ধাপ ২-এ, অ্যালগরিদম স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো তাদের এক্সিট টাইমের নিম্নক্রমে খুঁজে পায়। সুতরাং, এটি কম্পোনেন্টগুলো — কনডেনসেশন গ্রাফের ভার্টেক্স — কনডেনসেশন গ্রাফের টপোলজিক্যাল সর্টের সাথে মিলে যায় এমন ক্রমে খুঁজে পায়।</p>
+<h3 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span> <span class="c1">// keeps track of which vertices are already visited
 </span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// runs depth first search starting at vertex v.
@@ -2902,172 +2907,170 @@ The proof is omitted (but straightforward). As a consequence of this theorem, th
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">                <span class="n">adj_cond</span><span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>The function <code>dfs</code> implements depth first search. It takes as input an adjacency list and a starting vertex. It also takes a reference to the vector <code>output</code>: each visited vertex will be appended to <code>output</code> when <code>dfs</code> leaves that vertex.</p>
-<p>Note that we use the function <code>dfs</code> both in the first and second step of the algorithm. In the first step, we pass in the adjacency list of $G$, and during consecutive calls to <code>dfs</code>, we keep passing in the same &lsquo;output vector&rsquo; <code>order</code>, so that eventually we obtain a list of vertices in increasing order of exit times. In the second step, we pass in the adjacency list of $G^T$, and in each call, we pass in an empty &lsquo;output vector&rsquo; <code>component</code>, which will give us one strongly connected component at a time.</p>
-<h2 id="tarjans-strongly-connected-components-algorithm">Tarjan&rsquo;s strongly connected components algorithm<a class="anchor" href="#tarjans-strongly-connected-components-algorithm">#</a></h2>
-<h3 id="description-of-the-algorithm-1">Description of the algorithm<a class="anchor" href="#description-of-the-algorithm-1">#</a></h3>
-<p>The described algorithm was first suggested by Tarjan in 1972.
-It is based on performing a sequence of DFS calls, using information inherent to its structure to determine the strongly connected components (SCC), with a runtime of $O(n+m)$.</p>
-<p>When applying the DFS on a vertex, we will traverse its adjacency list, and in case we find a vertex that hasn&rsquo;t been visited, we recursively apply the DFS to it.</p>
-<p>Let&rsquo;s consider the tree induced by the sequence of DFS calls, which we will call <strong>DFS tree</strong>.
-Once we first call a DFS on a vertex from an SCC, all the vertices of its SCC will be visited before this call ends, since they are all reachable from each other.
-In the DFS tree, this first vertex will be a common ancestor to all other vertices of the SCC; we define this vertex to be the <strong>root of the SCC</strong>.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><code>dfs</code> ফাংশনটি ডেপথ ফার্স্ট সার্চ ইমপ্লিমেন্ট করে। এটি ইনপুট হিসেবে একটি অ্যাডজেসেন্সি লিস্ট এবং একটি স্টার্টিং ভার্টেক্স নেয়। এটি <code>output</code> ভেক্টরের একটি রেফারেন্সও নেয়: প্রতিটি ভিজিট করা ভার্টেক্স <code>dfs</code> সেটি ছেড়ে যাওয়ার সময় <code>output</code>-এ যোগ হবে।</p>
+<p>লক্ষ্য করুন যে আমরা <code>dfs</code> ফাংশন অ্যালগরিদমের প্রথম এবং দ্বিতীয় উভয় ধাপেই ব্যবহার করি। প্রথম ধাপে, আমরা $G$-এর অ্যাডজেসেন্সি লিস্ট পাস করি, এবং পরপর <code>dfs</code> কলে আমরা একই &lsquo;আউটপুট ভেক্টর&rsquo; <code>order</code> পাস করতে থাকি, যেন শেষ পর্যন্ত আমরা ক্রমবর্ধমান এক্সিট টাইমের ক্রমে ভার্টেক্সের তালিকা পাই। দ্বিতীয় ধাপে, আমরা $G^T$-এর অ্যাডজেসেন্সি লিস্ট পাস করি, এবং প্রতিটি কলে একটি খালি &lsquo;আউটপুট ভেক্টর&rsquo; <code>component</code> পাস করি, যেটি আমাদের একটি করে স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেবে।</p>
+<h2 id="টরজনর-সটরল-কনকটড-কমপননট-অযলগরদম">টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম<a class="anchor" href="#%e0%a6%9f%e0%a6%b0%e0%a6%9c%e0%a6%a8%e0%a6%b0-%e0%a6%b8%e0%a6%9f%e0%a6%b0%e0%a6%b2-%e0%a6%95%e0%a6%a8%e0%a6%95%e0%a6%9f%e0%a6%a1-%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%a8%e0%a6%a8%e0%a6%9f-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<h3 id="অযলগরদমর-বরণন-1">অ্যালগরিদমের বর্ণনা<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%b0%e0%a6%a3%e0%a6%a8-1">#</a></h3>
+<p>বর্ণিত অ্যালগরিদমটি প্রথম ১৯৭২ সালে টারজান প্রস্তাব করেছিলেন।
+এটি DFS কলের একটি ক্রম সম্পাদনের উপর ভিত্তি করে, এর গঠনের অন্তর্নিহিত তথ্য ব্যবহার করে স্ট্রংলি কানেক্টেড কম্পোনেন্ট (এসসিসি) নির্ধারণ করে, রানটাইম $O(n+m)$।</p>
+<p>একটি ভার্টেক্সে DFS প্রয়োগ করার সময়, আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স করব, এবং যদি কোনো অভিজিত ভার্টেক্স পাই, আমরা রিকার্সিভভাবে সেটিতে DFS প্রয়োগ করব।</p>
+<p>আসুন DFS কলের ক্রম দ্বারা উদ্ভূত ট্রি বিবেচনা করি, যেটিকে আমরা <strong>DFS ট্রি</strong> বলব।
+একটি এসসিসি-র কোনো ভার্টেক্সে প্রথম DFS কল করলে, সেই কল শেষ হওয়ার আগেই তার এসসিসি-র সব ভার্টেক্স ভিজিট হবে, কারণ তারা সবাই পরস্পরের কাছে পৌঁছানো যায়।
+DFS ট্রি-তে, এই প্রথম ভার্টেক্সটি এসসিসি-র অন্য সব ভার্টেক্সের কমন অ্যানসেস্টর হবে; আমরা এই ভার্টেক্সকে <strong>এসসিসি-র রুট</strong> হিসেবে সংজ্ঞায়িত করি।</p>
 <p>
 <div class="book-hint info">
-  <p><strong>Theorem</strong></p>
-<p>All vertices of an SCC induce a connected subgraph of the DFS tree.</p>
+  <p><strong>উপপাদ্য</strong></p>
+<p>একটি এসসিসি-র সব ভার্টেক্স DFS ট্রি-র একটি কানেক্টেড সাবগ্রাফ গঠন করে।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>We have determined that all vertices of an SCC have a common ancestor, the first vertex to be visited by a DFS call.
-Let&rsquo;s consider a vertex $v$ and its root, vertex $r$.
-All the vertices in the path from $r$ to $v$ belong to the same SCC. All these vertices are reachable from $r$, and all of them reach $v$, and since by definition $v$ reaches $r$, all these vertices reach each other.
-Since all paths from a root to every other vertex of the SCC belong to the same SCC, the subgraph formed is connected.</div>
+  <summary>প্রমাণ</summary>
+  <div>আমরা নির্ধারণ করেছি যে একটি এসসিসি-র সব ভার্টেক্সের একটি কমন অ্যানসেস্টর আছে, DFS কল দ্বারা প্রথম ভিজিট করা ভার্টেক্স।
+ধরি একটি ভার্টেক্স $v$ এবং তার রুট, ভার্টেক্স $r$।
+$r$ থেকে $v$ পর্যন্ত পাথের সব ভার্টেক্স একই এসসিসি-তে থাকে। এই সব ভার্টেক্স $r$ থেকে পৌঁছানো যায়, এবং এরা সবাই $v$-তে পৌঁছায়, এবং যেহেতু সংজ্ঞা অনুযায়ী $v$ থেকে $r$ পৌঁছায়, এই সব ভার্টেক্স পরস্পরে পৌঁছায়।
+যেহেতু রুট থেকে এসসিসি-র প্রতিটি অন্য ভার্টেক্সের সব পাথ একই এসসিসি-তে থাকে, গঠিত সাবগ্রাফটি কানেক্টেড।</div>
 </details>
 
-Note that the SCCs perfectly split the DFS tree in connected subgraphs.</p>
-<p>The idea of the algorithm is then the following:</p>
+লক্ষ্য করুন যে এসসিসিগুলো DFS ট্রিকে কানেক্টেড সাবগ্রাফে নিখুঁতভাবে বিভক্ত করে।</p>
+<p>অ্যালগরিদমের ধারণা নিম্নরূপ:</p>
 <ul>
 <li>
-<p>We perform a sequence of DFS calls, recursively applying them to vertices of the adjacency lists.</p>
+<p>আমরা DFS কলের একটি ক্রম সম্পাদন করি, অ্যাডজেসেন্সি লিস্টের ভার্টেক্সগুলোতে রিকার্সিভভাবে প্রয়োগ করি।</p>
 </li>
 <li>
-<p>Once we finish traversing the adjacency list of a vertex, we somehow are able to determine whether it is a root or not.
-This method will be explained later.</p>
+<p>একটি ভার্টেক্সের অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ হলে, আমরা কোনোভাবে নির্ধারণ করতে পারি এটি রুট কি না।
+এই পদ্ধতি পরে ব্যাখ্যা করা হবে।</p>
 </li>
 <li>
-<p>In case the vertex is a root, we will then immediately find and claim all the vertices of its SCC.</p>
+<p>ভার্টেক্সটি রুট হলে, আমরা তৎক্ষণাৎ তার এসসিসি-র সব ভার্টেক্স খুঁজে বের করব এবং দাবি করব।</p>
 </li>
 </ul>
-<p>When all calls finish, all roots will have been detected and all vertices will have been claimed as part of some SCC.</p>
-<p>Let&rsquo;s now analyze the properties of the DFS when this claiming process is introduced.</p>
+<p>সব কল শেষ হলে, সব রুট শনাক্ত হয়ে যাবে এবং সব ভার্টেক্স কোনো না কোনো এসসিসি-র অংশ হিসেবে দাবি করা হয়ে যাবে।</p>
+<p>আসুন এখন এই দাবি করার প্রক্রিয়া প্রবর্তন করলে DFS-এর বৈশিষ্ট্যগুলো বিশ্লেষণ করি।</p>
 <p>
 <div class="book-hint info">
-  <p><strong>Theorem</strong></p>
-<p>Let&rsquo;s consider vertex $v$ and let&rsquo;s consider we just finished traversing its adjacency list.
-All unclaimed vertices in its subtree belong to the same SCC.</p>
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি ভার্টেক্স $v$ এবং ধরি আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ করেছি।
+তার সাবট্রি-র সব অদাবিকৃত ভার্টেক্স একই এসসিসি-তে থাকে।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div>The algorithm will claim the vertices of an SCC when its root is found.
-Since the adjacency list of $v$ has been traversed, all DFS calls on its subtree have finished, the roots have been detected and the vertices belonging to their SCCs have been claimed.
-The root of the remaining unclaimed vertices will be an ancestor whose claiming process has not yet executed, so it&rsquo;s either $v$ or an ancestor of $v$.
-Since $v$ is in the path from all vertices to their root and SCCs must induce a connected subgraph of the tree, both $v$ and all the remaining vertices belong to the same SCC.</div>
+  <summary>প্রমাণ</summary>
+  <div>অ্যালগরিদম একটি এসসিসি-র ভার্টেক্সগুলো দাবি করবে যখন এর রুট পাওয়া যায়।
+যেহেতু $v$-এর অ্যাডজেসেন্সি লিস্ট ট্রাভার্স হয়ে গেছে, তার সাবট্রি-র সব DFS কল শেষ হয়েছে, রুটগুলো শনাক্ত হয়েছে এবং তাদের এসসিসি-র ভার্টেক্সগুলো দাবি করা হয়েছে।
+অবশিষ্ট অদাবিকৃত ভার্টেক্সগুলোর রুট হবে এমন কোনো অ্যানসেস্টর যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, তাই এটি হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর।
+যেহেতু $v$ সব ভার্টেক্স থেকে তাদের রুট পর্যন্ত পাথে আছে এবং এসসিসিকে ট্রি-র একটি কানেক্টেড সাবগ্রাফ গঠন করতে হবে, $v$ এবং সব অবশিষ্ট ভার্টেক্স একই এসসিসি-তে থাকে।</div>
 </details>
 
 
 <div class="book-hint info">
-  <p><strong>Theorem</strong></p>
-<p>Let&rsquo;s consider vertex $v$ and let&rsquo;s consider we are traversing it&rsquo;s adjacency list, currently processing edge $(v, u)$.
-If $u$ was already visited by some DFS call and remains unclaimed, $v$ and $u$ belong to the same SCC.</p>
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি ভার্টেক্স $v$ এবং ধরি আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স করছি, বর্তমানে $(v, u)$ এজ প্রসেস করছি।
+যদি $u$ ইতোমধ্যে কোনো DFS কলে ভিজিট হয়ে থাকে এবং অদাবিকৃত থাকে, তাহলে $v$ এবং $u$ একই এসসিসি-তে থাকে।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
-  <div><p>There are different cases depending on the kind of edge:</p>
+  <summary>প্রমাণ</summary>
+  <div><p>এজের ধরনের উপর নির্ভর করে বিভিন্ন ক্ষেত্র আছে:</p>
 <ul>
 <li>
-<p>Tree-edge: if this is a tree-edge, this is the first time we are finding vertex $u$. This means we must first recursively apply the DFS call on $u$ and consider it after its DFS call has finished. If vertex $u$ remains unclaimed, its root is either $v$ or an ancestor of $v$, so they must belong to the same SCC.</p>
+<p>ট্রি-এজ: যদি এটি ট্রি-এজ হয়, এটি প্রথমবার আমরা ভার্টেক্স $u$ খুঁজে পাচ্ছি। তার মানে আমাদের প্রথমে $u$-তে রিকার্সিভভাবে DFS কল করতে হবে এবং তার DFS কল শেষ হওয়ার পরে বিবেচনা করতে হবে। যদি ভার্টেক্স $u$ অদাবিকৃত থাকে, তার রুট হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর, তাই তারা একই এসসিসি-তে থাকতে হবে।</p>
 </li>
 <li>
-<p>Back-edge: this is the simpler case, if $u$ is an ancestor of $v$, they are reachable from each other and by definition belong to the same SCC.</p>
+<p>ব্যাক-এজ: এটি সহজ ক্ষেত্র, যদি $u$ হয় $v$-এর অ্যানসেস্টর, তারা পরস্পরের কাছে পৌঁছানো যায় এবং সংজ্ঞা অনুযায়ী একই এসসিসি-তে থাকে।</p>
 </li>
 <li>
-<p>Forward-edge: before this edge was processed, there was a sequence of DFS calls that finished without finding the root of $u$, having returned to $v$ whose DFS call proceeded.
-The root of $u$ will then be an ancestor whose claiming process has not yet executed, so it&rsquo;s either $v$ or an ancestor of $v$, so they must belong to the same SCC.</p>
+<p>ফরওয়ার্ড-এজ: এই এজ প্রসেস হওয়ার আগে, DFS কলের একটি ক্রম ছিল যেগুলো $u$-এর রুট না পেয়ে শেষ হয়ে $v$-তে ফিরে এসেছে যার DFS কল চলমান।
+$u$-এর রুট তখন এমন একটি অ্যানসেস্টর হবে যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, তাই এটি হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর, তাই তারা একই এসসিসি-তে থাকতে হবে।</p>
 </li>
 <li>
-<p>Cross-edge: similarly, before this edge was processed, there was a sequence of DFS calls that finished without finding the root of $u$, having returned to a common ancestor of $u$ and $v$ whose DFS call proceeded and initiated a new sequence of DFS calls that lead to a call on $v$.
-The root of $u$ will then be an ancestor whose claiming process has not yet executed, and all of the possible candidates are common ancestors with $v$.
-Since the root of $u$ is an ancestor of $v$, it reaches $v$, and since $v$ now reaches $u$, they must belong to the same SCC.</p>
+<p>ক্রস-এজ: একইভাবে, এই এজ প্রসেস হওয়ার আগে, DFS কলের একটি ক্রম ছিল যেগুলো $u$-এর রুট না পেয়ে শেষ হয়ে $u$ এবং $v$-এর কমন অ্যানসেস্টরে ফিরে এসেছে যার DFS কল চলমান এবং DFS কলের নতুন ক্রম শুরু করেছে যা $v$-তে কল করেছে।
+$u$-এর রুট তখন এমন একটি অ্যানসেস্টর হবে যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, এবং সব সম্ভাব্য প্রার্থী $v$-এর সাথে কমন অ্যানসেস্টর।
+যেহেতু $u$-এর রুট $v$-এর অ্যানসেস্টর, এটি $v$-তে পৌঁছায়, এবং যেহেতু $v$ এখন $u$-তে পৌঁছায়, তারা একই এসসিসি-তে থাকতে হবে।</p>
 </li>
 </ul>
 </div>
 </details>
 
-Note, when two vertices belong to the same component, their root must be a common ancestor of both vertices.</p>
+লক্ষ্য করুন, যখন দুটি ভার্টেক্স একই কম্পোনেন্টে থাকে, তাদের রুট অবশ্যই উভয় ভার্টেক্সের কমন অ্যানসেস্টর হতে হবে।</p>
 <p>
 <div class="book-hint info">
-  <p><strong>Theorem</strong></p>
-<p>Let $v$ be a vertex. The following statements are equivalent:</p>
-<ol>
-<li>Some vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.</li>
-<li>$v$ is not the root of an SCC.</li>
-</ol>
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি $v$ একটি ভার্টেক্স। নিম্নলিখিত বিবৃতিগুলো সমতুল্য:</p>
+<p>১. $v$-এর সাবট্রি-র কোনো ভার্টেক্স সাবট্রি-র বাইরে একটি অদাবিকৃত ভার্টেক্সে পৌঁছায়।
+২. $v$ কোনো এসসিসি-র রুট নয়।</p>
 
 </div>
 
 <details>
-  <summary>Proof</summary>
+  <summary>প্রমাণ</summary>
   <div><ul>
 <li>
 <p>$1. \implies 2.$:
-Let&rsquo;s assume some vertex $u$ in the subtree of $v$ reaches an unclaimed vertex $w$ outside of the subtree.
-We have established that $u$ and $w$ belong to the same SCC and that their root must be a common ancestor to both of them.
-This common ancestor is necessarily outside of the subtree, and it will also be an ancestor of $v$.
-Since $v$ is in the path from the root to $u$, it must belong to the same SCC, the root of which is not $v$.</p>
+ধরি $v$-এর সাবট্রি-র কোনো ভার্টেক্স $u$ সাবট্রি-র বাইরে একটি অদাবিকৃত ভার্টেক্স $w$-তে পৌঁছায়।
+আমরা প্রতিষ্ঠিত করেছি যে $u$ এবং $w$ একই এসসিসি-তে থাকে এবং তাদের রুট অবশ্যই উভয়ের কমন অ্যানসেস্টর হতে হবে।
+এই কমন অ্যানসেস্টর অবশ্যই সাবট্রি-র বাইরে, এবং এটি $v$-এরও অ্যানসেস্টর হবে।
+যেহেতু $v$ রুট থেকে $u$ পর্যন্ত পাথে আছে, এটি অবশ্যই একই এসসিসি-তে থাকবে, যার রুট $v$ নয়।</p>
 </li>
 <li>
 <p>$\neg 1. \implies \neg 2.$:
-Let&rsquo;s assume no vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
-This must mean that no vertex in the subtree of $v$ reaches an ancestor of $v$.
-The only possible edges to vertices outside of the subtree are cross-edges to vertices that have already been claimed;
-these vertices cannot reach an ancestor of $v$, since if they did, they would belong to the same SCC as $v$, which is impossible since their SCC has already been determined.
-Since no ancestor of $v$ is reachable from its subtree, the root of $v$ must be $v$ itself.</p>
+ধরি $v$-এর সাবট্রি-র কোনো ভার্টেক্স সাবট্রি-র বাইরে কোনো অদাবিকৃত ভার্টেক্সে পৌঁছায় না।
+এর মানে $v$-এর সাবট্রি-র কোনো ভার্টেক্স $v$-এর কোনো অ্যানসেস্টরে পৌঁছায় না।
+সাবট্রি-র বাইরে ভার্টেক্সে যাওয়ার একমাত্র সম্ভাব্য এজ হলো ক্রস-এজ যেগুলো ইতোমধ্যে দাবিকৃত ভার্টেক্সে যায়;
+এই ভার্টেক্সগুলো $v$-এর কোনো অ্যানসেস্টরে পৌঁছাতে পারে না, কারণ পারলে তারা $v$-এর সাথে একই এসসিসি-তে থাকত, যা অসম্ভব কারণ তাদের এসসিসি ইতোমধ্যে নির্ধারিত।
+যেহেতু $v$-এর অ্যানসেস্টর তার সাবট্রি থেকে পৌঁছানো যায় না, $v$-এর রুট অবশ্যই $v$ নিজেই।</p>
 </li>
 </ul>
 </div>
 </details>
 
-Now, we must find the method that lets us determine if a vertex is a root or not, and the claiming process properties are necessary for its correctness.
-To this end, we define the entry time $t_{in}[v]$ for each vertex $v \in G$ which corresponds to the &rsquo;timestamp&rsquo; at which the DFS was called on $v$.
-By definition, the root is the first vertex of an SCC to be visited by the DFS so it will have the minimal value of $t_{in}$ of its SCC.</p>
-<p>Let $v$ be a vertex and let&rsquo;s consider its subtree.
-At the moment we finish traversing its adjacency list, any vertex already visited by a DFS outside of the subtree will have a smaller value of $t_{in}$, since the DFS was first called on them before it started on $v$.</p>
-<p>When considering the claiming process, the value of $t_{in}$ of all unclaimed vertices outside of the subtree of $v$ is smaller than $t_{in}[v]$.
-Now we can see how to use $t_{in}$ to determine the roots.
-We consider the minimal value of $t_{in}$ of the unclaimed vertices we can reach and we propagate this information to the ancestors through tree-edges.
-We will call the propagated value $t_{low}$.</p>
-<p>More formally, we define $t_{low}[v]$ to be the lowest value of $t_{in}$ a vertex in the subtree of $v$ can reach through a direct edge.
-We therefore can detect whether a vertex $v$ is a root or not by checking if $t_{low}[v] < t_{in}[v]$.</p>
-<p>Lastly, to claim the vertices, there are many ways to do it, such as another graph traversal algorithm, but it&rsquo;s also possible to use a simple data structure to keep track of the unclaimed vertices.
-To determine the data structure from first principles, let&rsquo;s go through the methods it must implement, which are only two:</p>
+এখন, আমাদের সেই পদ্ধতি খুঁজতে হবে যেটি নির্ধারণ করবে একটি ভার্টেক্স রুট কি না, এবং দাবি করার প্রক্রিয়ার বৈশিষ্ট্যগুলো এর সঠিকতার জন্য প্রয়োজনীয়।
+এজন্য, আমরা প্রতিটি ভার্টেক্স $v \in G$-এর জন্য এন্ট্রি টাইম $t_{in}[v]$ সংজ্ঞায়িত করি যেটি DFS-এ $v$-তে কল করার &lsquo;টাইমস্ট্যাম্প&rsquo;।
+সংজ্ঞা অনুযায়ী, রুট হলো তার এসসিসি-র প্রথম ভিজিট করা ভার্টেক্স তাই এটির $t_{in}$ মান তার এসসিসি-র সর্বনিম্ন হবে।</p>
+<p>ধরি $v$ একটি ভার্টেক্স এবং তার সাবট্রি বিবেচনা করি।
+তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ করার সময়ে, সাবট্রি-র বাইরে DFS দ্বারা ইতোমধ্যে ভিজিত যেকোনো ভার্টেক্সের $t_{in}$ মান ছোট হবে, কারণ $v$-তে শুরু হওয়ার আগেই তাদের উপর DFS কল করা হয়েছিল।</p>
+<p>দাবি করার প্রক্রিয়া বিবেচনা করলে, $v$-এর সাবট্রি-র বাইরে সব অদাবিকৃত ভার্টেক্সের $t_{in}$ মান $t_{in}[v]$ থেকে ছোট।
+এখন আমরা দেখতে পাচ্ছি কীভাবে $t_{in}$ ব্যবহার করে রুট নির্ধারণ করা যায়।
+আমরা পৌঁছাতে পারা অদাবিকৃত ভার্টেক্সগুলোর $t_{in}$-এর সর্বনিম্ন মান বিবেচনা করি এবং ট্রি-এজের মাধ্যমে এই তথ্য অ্যানসেস্টরদের কাছে প্রচার করি।
+প্রচারিত মানকে আমরা $t_{low}$ বলব।</p>
+<p>আরো আনুষ্ঠানিকভাবে, আমরা $t_{low}[v]$-কে সংজ্ঞায়িত করি $v$-এর সাবট্রি-র কোনো ভার্টেক্স থেকে সরাসরি এজের মাধ্যমে পৌঁছানো যায় এমন সর্বনিম্ন $t_{in}$ মান হিসেবে।
+তাই আমরা $t_{low}[v] < t_{in}[v]$ পরীক্ষা করে একটি ভার্টেক্স $v$ রুট কি না শনাক্ত করতে পারি।</p>
+<p>সবশেষে, ভার্টেক্সগুলো দাবি করতে অনেক উপায় আছে, যেমন আরেকটি গ্রাফ ট্রাভার্সাল অ্যালগরিদম, তবে অদাবিকৃত ভার্টেক্সগুলো ট্র্যাক রাখতে একটি সরল ডেটা স্ট্রাকচারও ব্যবহার করা যায়।
+প্রথম নীতি থেকে ডেটা স্ট্রাকচার নির্ধারণ করতে, আসুন এটি যে মেথডগুলো ইমপ্লিমেন্ট করতে হবে তা দেখি, যেগুলো শুধু দুটি:</p>
 <ul>
 <li>
-<p>When we first visit a vertex, we must simply insert it in the data structure, since this vertex is unclaimed.</p>
+<p>যখন আমরা প্রথম একটি ভার্টেক্স ভিজিট করি, আমাদের শুধু এটি ডেটা স্ট্রাকচারে ইনসার্ট করতে হবে, কারণ এই ভার্টেক্স অদাবিকৃত।</p>
 </li>
 <li>
-<p>When we find a root, we must find all the remaining unclaimed vertices in its subtree and remove them from the data structure.</p>
+<p>যখন আমরা একটি রুট পাই, আমাদের তার সাবট্রি-র সব অবশিষ্ট অদাবিকৃত ভার্টেক্স খুঁজে বের করে ডেটা স্ট্রাকচার থেকে সরাতে হবে।</p>
 </li>
 </ul>
-<p>We can find an alternative way to describe the removal operation by noticing that immediately after traversing the adjacency list of a vertex $v$, all the vertices placed in the data structure after $v$ all belong to its subtree.
-If $v$ is a root, all the vertices remaining that were inserted after $v$ must be removed.
-So the removal operation can instead be described as:</p>
+<p>আমরা রিমুভাল অপারেশন বর্ণনা করার বিকল্প উপায় খুঁজতে পারি, লক্ষ্য করে যে একটি ভার্টেক্স $v$-এর অ্যাডজেসেন্সি লিস্ট ট্রাভার্সের ঠিক পরে, $v$-এর পরে ডেটা স্ট্রাকচারে রাখা সব ভার্টেক্স তার সাবট্রি-তে থাকে।
+যদি $v$ রুট হয়, $v$-এর পরে ইনসার্ট করা সব অবশিষ্ট ভার্টেক্স সরাতে হবে।
+তাই রিমুভাল অপারেশন এভাবে বর্ণনা করা যায়:</p>
 <ul>
-<li>When we find a root, we must find and remove all the remaining vertices that were inserted after it.</li>
+<li>যখন আমরা একটি রুট পাই, আমাদের এর পরে ইনসার্ট করা সব অবশিষ্ট ভার্টেক্স খুঁজে বের করে সরাতে হবে।</li>
 </ul>
-<p>We can now see that this can be implemented with a stack:</p>
+<p>আমরা এখন দেখতে পাচ্ছি যে এটি একটি স্ট্যাক দিয়ে ইমপ্লিমেন্ট করা যায়:</p>
 <ul>
 <li>
-<p>When we first visit a vertex, we push it onto the stack.</p>
+<p>যখন আমরা প্রথম একটি ভার্টেক্স ভিজিট করি, আমরা এটি স্ট্যাকে পুশ করি।</p>
 </li>
 <li>
-<p>When we find a root, we pop all the elements until we pop the root itself.</p>
+<p>যখন আমরা একটি রুট পাই, আমরা রুট নিজেকে পপ করা পর্যন্ত সব এলিমেন্ট পপ করি।</p>
 </li>
 </ul>
-<p>This finally lets us implement the algorithm.</p>
-<p>The runtime complexity of the sequence of DFS calls is $O(n + m)$.
-Considering the stack, its complexity amortizes to $O(n)$ since each node is only pushed and popped once.
-The total runtime complexity is therefore $O(n + m)$.</p>
-<p>As an additional remark, the roots are found in reversed topological order.
-In the algorithm, the vertex is a root if there are no edges to unclaimed vertices outside of its subtree, meaning all other reachable components are either in its subtree (and therefore their roots were already found) or they connect to already claimed vertices outside of the subtree (whose roots were also already found).
-So all reachable components were already found, meaning they are introduced in a valid reversed topological ordering of the condensation graph.</p>
-<h3 id="implementation-1">Implementation<a class="anchor" href="#implementation-1">#</a></h3>
+<p>এটি অবশেষে আমাদের অ্যালগরিদম ইমপ্লিমেন্ট করতে দেয়।</p>
+<p>DFS কলের ক্রমের রানটাইম কমপ্লেক্সিটি $O(n + m)$।
+স্ট্যাক বিবেচনা করলে, এর কমপ্লেক্সিটি $O(n)$-এ অ্যামর্টাইজ হয় কারণ প্রতিটি নোড শুধু একবার পুশ এবং পপ করা হয়।
+মোট রানটাইম কমপ্লেক্সিটি তাই $O(n + m)$।</p>
+<p>অতিরিক্ত মন্তব্য হিসেবে, রুটগুলো বিপরীত টপোলজিক্যাল ক্রমে পাওয়া যায়।
+অ্যালগরিদমে, একটি ভার্টেক্স রুট যদি তার সাবট্রি-র বাইরে অদাবিকৃত ভার্টেক্সে কোনো এজ না থাকে, অর্থাৎ অন্য সব পৌঁছানো যায় এমন কম্পোনেন্ট হয় তার সাবট্রি-তে (এবং তাই তাদের রুট ইতোমধ্যে পাওয়া হয়েছে) অথবা সাবট্রি-র বাইরে ইতোমধ্যে দাবিকৃত ভার্টেক্সে কানেক্ট করে (যাদের রুটও ইতোমধ্যে পাওয়া হয়েছে)।
+তাই সব পৌঁছানো যায় এমন কম্পোনেন্ট ইতোমধ্যে পাওয়া হয়েছে, অর্থাৎ তারা কনডেনসেশন গ্রাফের একটি ভ্যালিড বিপরীত টপোলজিক্যাল অর্ডারে প্রবর্তিত হয়।</p>
+<h3 id="ইমপলমনটশন-1">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8-1">#</a></h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>    <span class="c1">// - stack holding the unclaimed vertices
 </span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">roots</span><span class="p">;</span> <span class="c1">// - keeps track of the SCC roots of the vertices
 </span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">timer</span><span class="p">;</span>         <span class="c1">// - dfs timestamp counter
@@ -3135,9 +3138,9 @@ So all reachable components were already found, meaning they are introduced in a
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">        <span class="n">adj_cond</span><span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>We have an <a href="https://judge.yosupo.jp/submission/334251">accepted submission</a> with this code in Library Checker.</p>
-<p>As a last remark, there&rsquo;s an alternative way to iterate through the adjacency list.
-Currently, we are doing the following:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>আমাদের এই কোড Library Checker-এ একটি <a href="https://judge.yosupo.jp/submission/334251">অ্যাকসেপ্টেড সাবমিশন</a> আছে।</p>
+<p>শেষ মন্তব্য হিসেবে, অ্যাডজেসেন্সি লিস্ট ইটারেট করার একটি বিকল্প উপায় আছে।
+বর্তমানে, আমরা নিম্নলিখিতভাবে করছি:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// tree-edge
 </span></span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">adj</span><span class="p">);</span>
@@ -3145,25 +3148,25 @@ Currently, we are doing the following:</p>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// back-edge, cross-edge or forward-edge to an unclaimed vertex
 </span></span></span><span class="line"><span class="cl">    <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Alternatively, we could do:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>বিকল্পভাবে, আমরা এটি করতে পারি:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// vertex is not visited
 </span></span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">adj</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// vertex has not been claimed
 </span></span></span><span class="line"><span class="cl">    <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>$t_{low}$ is used to propagate the information to the root, and when we perform <code>t_low[v] = min(t_low[v], t_in[u])</code>, we know that $u$ and $v$ belong to the same SCC.
-If $t_{low}[u]$ is propagated until the root of $u$, it can also be propagated through $v$ since the root is the same.
-Since $t_{low}[u] \leq t_{in}[u]$, this does not introduce any conflicts, instead only improving the bound on the root of $v$.</p>
-<h2 id="building-the-condensation-graph">Building the Condensation Graph<a class="anchor" href="#building-the-condensation-graph">#</a></h2>
-<p>When building the adjacency list of the condensation graph, we select the <em>root</em> of each component as the first vertex in its list of vertices (this is an arbitrary choice). This root vertex represents its entire SCC. For each vertex <code>v</code>, the value <code>roots[v]</code> indicates the root vertex of the SCC which <code>v</code> belongs to.</p>
-<p>Our condensation graph is now given by the vertices <code>components</code> (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by <code>adj_cond</code>, using only the root vertices of the strongly connected components. Notice that we generate one edge from $C$ to $C'$ in $G^\text{SCC}$ for each edge from some $a\in C$ to some $b\in C'$ in $G$ (if $C\neq C'$). This implies that in our implementation, we can have multiple edges between two components in the condensation graph.</p>
-<h2 id="literature">Literature<a class="anchor" href="#literature">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>$t_{low}$ রুটে তথ্য প্রচারের জন্য ব্যবহৃত হয়, এবং যখন আমরা <code>t_low[v] = min(t_low[v], t_in[u])</code> করি, আমরা জানি যে $u$ এবং $v$ একই এসসিসি-তে থাকে।
+যদি $t_{low}[u]$ $u$-এর রুট পর্যন্ত প্রচারিত হয়, এটি $v$-এর মাধ্যমেও প্রচারিত হতে পারে কারণ রুট একই।
+যেহেতু $t_{low}[u] \leq t_{in}[u]$, এটি কোনো বিরোধ তৈরি করে না, বরং $v$-এর রুটের বাউন্ড উন্নত করে।</p>
+<h2 id="কনডনসশন-গরফ-তর">কনডেনসেশন গ্রাফ তৈরি<a class="anchor" href="#%e0%a6%95%e0%a6%a8%e0%a6%a1%e0%a6%a8%e0%a6%b8%e0%a6%b6%e0%a6%a8-%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%a4%e0%a6%b0">#</a></h2>
+<p>কনডেনসেশন গ্রাফের অ্যাডজেসেন্সি লিস্ট তৈরি করার সময়, আমরা প্রতিটি কম্পোনেন্টের ভার্টেক্স তালিকার প্রথম ভার্টেক্সকে <em>রুট</em> হিসেবে নির্বাচন করি (এটি একটি ইচ্ছামূলক পছন্দ)। এই রুট ভার্টেক্স তার সম্পূর্ণ এসসিসি-কে উপস্থাপন করে। প্রতিটি ভার্টেক্স <code>v</code>-এর জন্য, <code>roots[v]</code> মান সেই রুট ভার্টেক্স নির্দেশ করে যেই এসসিসি-তে <code>v</code> থাকে।</p>
+<p>আমাদের কনডেনসেশন গ্রাফ এখন ভার্টেক্স <code>components</code> (একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট কনডেনসেশন গ্রাফের একটি ভার্টেক্সের সাথে মিলে যায়) এবং অ্যাডজেসেন্সি লিস্ট <code>adj_cond</code> দ্বারা দেওয়া, শুধু স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর রুট ভার্টেক্স ব্যবহার করে। লক্ষ্য করুন যে $G$-তে কোনো $a\in C$ থেকে কোনো $b\in C'$-তে প্রতিটি এজের জন্য আমরা $G^\text{SCC}$-তে $C$ থেকে $C'$-তে একটি এজ তৈরি করি (যদি $C\neq C'$)। এর মানে আমাদের ইমপ্লিমেন্টেশনে, কনডেনসেশন গ্রাফে দুটি কম্পোনেন্টের মধ্যে মাল্টিপল এজ থাকতে পারে।</p>
+<h2 id="সহতয">সাহিত্য<a class="anchor" href="#%e0%a6%b8%e0%a6%b9%e0%a6%a4%e0%a6%af">#</a></h2>
 <ul>
 <li>Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].</li>
 <li>M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].</li>
 <li>Robert Tarjan. Depth-first search and linear graph algorithms [1972].</li>
 </ul>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="http://www.spoj.com/problems/GOODA/">SPOJ - Good Travels</a></li>
 <li><a href="http://www.spoj.com/problems/LEGO/">SPOJ - Lego</a></li>
@@ -3214,16 +3217,16 @@ Since $t_{low}[u] \leq t_{in}[u]$, this does not introduce any conflicts, instea
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/graph/mpm/" class="flex align-center">
+      <a href="/graph/lca_tarjan/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Maximum flow - MPM algorithm</span>
+        <span>লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/graph/flow_with_demands/" class="flex align-center">
-        <span>Flows with demands</span>
+      <a href="/graph/hld/" class="flex align-center">
+        <span>হেভি-লাইট ডিকম্পোজিশন</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3264,22 +3267,22 @@ Since $t_{low}[u] \leq t_{in}[u]$, this does not introduce any conflicts, instea
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#definitions">Definitions</a></li>
-    <li><a href="#kosarajus-algorithm">Kosaraju&rsquo;s algorithm</a>
+    <li><a href="#সজঞসমহ">সংজ্ঞাসমূহ</a></li>
+    <li><a href="#কসরজর-অযলগরদম">কোসারাজুর অ্যালগরিদম</a>
       <ul>
-        <li><a href="#description-of-the-algorithm">Description of the algorithm</a></li>
-        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#অযলগরদমর-বরণন">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
       </ul>
     </li>
-    <li><a href="#tarjans-strongly-connected-components-algorithm">Tarjan&rsquo;s strongly connected components algorithm</a>
+    <li><a href="#টরজনর-সটরল-কনকটড-কমপননট-অযলগরদম">টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম</a>
       <ul>
-        <li><a href="#description-of-the-algorithm-1">Description of the algorithm</a></li>
-        <li><a href="#implementation-1">Implementation</a></li>
+        <li><a href="#অযলগরদমর-বরণন-1">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
       </ul>
     </li>
-    <li><a href="#building-the-condensation-graph">Building the Condensation Graph</a></li>
-    <li><a href="#literature">Literature</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#কনডনসশন-গরফ-তর">কনডেনসেশন গ্রাফ তৈরি</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

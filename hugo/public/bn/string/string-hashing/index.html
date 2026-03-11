@@ -1,0 +1,3143 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="স্ট্রিং হ্যাশিং#হ্যাশিং অ্যালগরিদম অনেক সমস্যা সমাধানে সহায়ক।
+আমরা স্ট্রিং দক্ষতার সাথে তুলনা করার সমস্যাটি সমাধান করতে চাই। ব্রুট ফোর্স পদ্ধতি হলো উভয় স্ট্রিং-এর অক্ষরগুলো তুলনা করা, যার টাইম কমপ্লেক্সিটি $O(\min(n_1, n_2))$ যদি $n_1$ এবং $n_2$ দুটি স্ট্রিং-এর আকার হয়। আমরা আরও ভালো করতে চাই। স্ট্রিং হ্যাশিং-এর পেছনের ধারণাটি নিম্নরূপ: আমরা প্রতিটি স্ট্রিংকে একটি পূর্ণসংখ্যায় ম্যাপ করি এবং স্ট্রিং-এর পরিবর্তে সেগুলো তুলনা করি। এটি করলে স্ট্রিং তুলনার এক্সিকিউশন সময় $O(1)$-এ কমানো যায়।
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/bn/string/string-hashing/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="স্ট্রিং হ্যাশিং">
+  <meta property="og:description" content="স্ট্রিং হ্যাশিং#হ্যাশিং অ্যালগরিদম অনেক সমস্যা সমাধানে সহায়ক।
+আমরা স্ট্রিং দক্ষতার সাথে তুলনা করার সমস্যাটি সমাধান করতে চাই। ব্রুট ফোর্স পদ্ধতি হলো উভয় স্ট্রিং-এর অক্ষরগুলো তুলনা করা, যার টাইম কমপ্লেক্সিটি $O(\min(n_1, n_2))$ যদি $n_1$ এবং $n_2$ দুটি স্ট্রিং-এর আকার হয়। আমরা আরও ভালো করতে চাই। স্ট্রিং হ্যাশিং-এর পেছনের ধারণাটি নিম্নরূপ: আমরা প্রতিটি স্ট্রিংকে একটি পূর্ণসংখ্যায় ম্যাপ করি এবং স্ট্রিং-এর পরিবর্তে সেগুলো তুলনা করি। এটি করলে স্ট্রিং তুলনার এক্সিকিউশন সময় $O(1)$-এ কমানো যায়।">
+  <meta property="og:locale" content="bn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="string">
+
+
+  <meta itemprop="name" content="স্ট্রিং হ্যাশিং">
+  <meta itemprop="description" content="স্ট্রিং হ্যাশিং#হ্যাশিং অ্যালগরিদম অনেক সমস্যা সমাধানে সহায়ক।
+আমরা স্ট্রিং দক্ষতার সাথে তুলনা করার সমস্যাটি সমাধান করতে চাই। ব্রুট ফোর্স পদ্ধতি হলো উভয় স্ট্রিং-এর অক্ষরগুলো তুলনা করা, যার টাইম কমপ্লেক্সিটি $O(\min(n_1, n_2))$ যদি $n_1$ এবং $n_2$ দুটি স্ট্রিং-এর আকার হয়। আমরা আরও ভালো করতে চাই। স্ট্রিং হ্যাশিং-এর পেছনের ধারণাটি নিম্নরূপ: আমরা প্রতিটি স্ট্রিংকে একটি পূর্ণসংখ্যায় ম্যাপ করি এবং স্ট্রিং-এর পরিবর্তে সেগুলো তুলনা করি। এটি করলে স্ট্রিং তুলনার এক্সিকিউশন সময় $O(1)$-এ কমানো যায়।">
+  <meta itemprop="wordCount" content="1601">
+
+<title>স্ট্রিং হ্যাশিং | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/bn/string/string-hashing/">
+  <link rel="alternate" hreflang="en" href="http://localhost:53425/en/string/string-hashing/" title="String Hashing">
+<link rel="stylesheet" href="/book.min.78425d2454aed079c91fb5d0cb3403bc4486a0fe295cb3e9dfec476916fec2a0.css" integrity="sha256-eEJdJFSu0HnJH7XQyzQDvESGoP4pXLPp3&#43;xHaRb&#43;wqA=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/bn.search.min.11a5b9bd43f3f91eeee3a723a5a5180c70aff27953f3d5058b4ec7a0c252de75.js" integrity="sha256-EaW5vUPz&#43;R7u46cjpaUYDHCv8nlT89UFi07HoMJS3nU=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-string">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/bn/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="অনুসন্ধান"
+    aria-label="অনুসন্ধান"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        বাংলা
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/en/string/string-hashing/" class="flex flex-auto">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<button id="theme-toggle" onclick="
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc) sc.href = sc.href.replace(next === 'dark' ? 'syntax-light' : 'syntax-dark', next === 'dark' ? 'syntax-dark' : 'syntax-light');
+" title="Toggle light/dark mode">🌙</button>
+<script>
+(function() {
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc && t === 'dark') sc.href = sc.href.replace('syntax-light', 'syntax-dark');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-56e2ef6b2cb688e51d22de23bd16db61" class="toggle"  />
+    <label for="section-56e2ef6b2cb688e51d22de23bd16db61" class="flex">
+      <a href="/bn/algebra/" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/phi-function/" class="">
+      অয়লারের টোশেন্ট ফাংশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/sieve-of-eratosthenes/" class="">
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/euclid-algorithm/" class="">
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/gray-code/" class="">
+      গ্রে কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/divisors/" class="">
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/all-submasks/" class="">
+      সাবমাস্ক ইনিউমারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/big-integer/" class="">
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/extended-euclid-algorithm/" class="">
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primality_tests/" class="">
+      মৌলিকতা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/garners-algorithm/" class="">
+      গার্নারের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorization/" class="">
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear-diophantine-equation/" class="">
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/continued-fractions/" class="">
+      কন্টিনিউড ফ্র্যাকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-log/" class="">
+      ডিসক্রিট লগারিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primitive-root/" class="">
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-root/" class="">
+      ডিসক্রিট রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/montgomery_multiplication/" class="">
+      মন্টগোমেরি গুণন</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d6ff24814678dd7cc46e7bec0eca9e50" class="toggle"  />
+    <label for="section-d6ff24814678dd7cc46e7bec0eca9e50" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/disjoint_set_union/" class="">
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/stack_queue_modification/" class="">
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/fenwick/" class="">
+      ফেনউইক ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sparse-table/" class="">
+      স্পার্স টেবিল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt_decomposition/" class="">
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/segment_tree/" class="">
+      সেগমেন্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/treap/" class="">
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt-tree/" class="">
+      স্কোয়ার্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/randomized_heap/" class="">
+      র‍্যান্ডমাইজড হিপ</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d9b914b0bc10cfdd664923fa7f87e83" class="toggle"  />
+    <label for="section-6d9b914b0bc10cfdd664923fa7f87e83" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/divide-and-conquer-dp/" class="">
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/profile-dynamics/" class="">
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knuth-optimization/" class="">
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/longest_increasing_subsequence/" class="">
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-87fb60540539c20d49ff0bbbef794660" class="toggle" checked />
+    <label for="section-87fb60540539c20d49ff0bbbef794660" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/expression_parsing/" class="">
+      এক্সপ্রেশন পার্সিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-tree-ukkonen/" class="">
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/string-hashing/" class="active">
+      স্ট্রিং হ্যাশিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/main_lorentz/" class="">
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/prefix-function/" class="">
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/z-function/" class="">
+      জেড-ফাংশন এবং এর গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-array/" class="">
+      সাফিক্স অ্যারে</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/aho_corasick/" class="">
+      আহো-কোরাসিক অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-52c3be80108fdd17263f5678b6891a47" class="toggle"  />
+    <label for="section-52c3be80108fdd17263f5678b6891a47" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/linear-system-gauss/" class="">
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-gauss/" class="">
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-kraut/" class="">
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/rank-matrix/" class="">
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b97332e3749ebe750962b0ecb6fabafb" class="toggle"  />
+    <label for="section-b97332e3749ebe750962b0ecb6fabafb" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/inclusion-exclusion/" class="">
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/binomial-coefficients/" class="">
+      দ্বিপদী সহগ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/burnside/" class="">
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/catalan-numbers/" class="">
+      ক্যাটালান সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/counting_labeled_graphs/" class="">
+      লেবেলড গ্রাফ গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/stars_and_bars/" class="">
+      স্টার্স অ্যান্ড বার্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7334aaffd497c2236df166f8e735101b" class="toggle"  />
+    <label for="section-7334aaffd497c2236df166f8e735101b" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/binary_search/" class="">
+      বাইনারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simpson-integration/" class="">
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/ternary_search/" class="">
+      টার্নারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/roots_newton/" class="">
+      মূল নির্ণয়ে নিউটনের মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simulated_annealing/" class="">
+      সিমুলেটেড অ্যানিলিং</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-24f5dcff931d689f2c1f0f52954a7628" class="toggle"  />
+    <label for="section-24f5dcff931d689f2c1f0f52954a7628" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex-hull/" class="">
+      কনভেক্স হাল নির্মাণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/intersecting_segments/" class="">
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-location/" class="">
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-in-convex-polygon/" class="">
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/vertical_decomposition/" class="">
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/minkowski/" class="">
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segments-intersection/" class="">
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/picks-theorem/" class="">
+      পিকের উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lattice-points/" class="">
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/enclosing-circle/" class="">
+      মিনিমাম এনক্লোজিং সার্কেল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-circle-intersection/" class="">
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/tangents-to-two-circles/" class="">
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/length-of-segments-union/" class="">
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="toggle"  />
+    <label for="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/search-for-connected-components/" class="">
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/topological-sort/" class="">
+      টপোলজিক্যাল সর্টিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching/" class="">
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/fixed_length_paths/" class="">
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hungarian-algorithm/" class="">
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/tree_painting/" class="">
+      ট্রি-র এজে রং করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/cutpoints/" class="">
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/2sat/" class="">
+      ২-স্যাট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/rmq_linear/" class="">
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kirchhoff-theorem/" class="">
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mpm/" class="">
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strongly-connected-components/" class="">
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/flow_with_demands/" class="">
+      ডিমান্ডসহ ফ্লো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/pruefer_code/" class="">
+      প্রুফার কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strong-orientation/" class="">
+      স্ট্রং ওরিয়েন্টেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/min_cost_flow/" class="">
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/assignment-problem-min-flow/" class="">
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-399d866b7b0d1784ea9ef390af779ce8" class="toggle"  />
+    <label for="section-399d866b7b0d1784ea9ef390af779ce8" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/rmq/" class="">
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/k-th/" class="">
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/longest_increasing_subsequence/" class="">
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="toggle"  />
+    <label for="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/tortoise_and_hare/" class="">
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/josephus_problem/" class="">
+      জোসেফাস সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/maximum_average_segment/" class="">
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/15-puzzle/" class="">
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/stern_brocot_tree_farey_sequences/" class="">
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9a06795fb7e5894e4235290cd45cefa8" class="toggle"  />
+    <label for="section-9a06795fb7e5894e4235290cd45cefa8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/games_on_graphs/" class="">
+      যেকোনো গ্রাফে গেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/sprague-grundy-nim/" class="">
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dd25e072d4c017734490f50bcd6f67b6" class="toggle"  />
+    <label for="section-dd25e072d4c017734490f50bcd6f67b6" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_one_machine/" class="">
+      একটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_two_machines/" class="">
+      দুটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule-with-completion-duration/" class="">
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>স্ট্রিং হ্যাশিং</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#একট-সটর-এর-হযশ-গণন">একটি স্ট্রিং-এর হ্যাশ গণনা</a></li>
+    <li><a href="#উদহরণ-কজ">উদাহরণ কাজ</a>
+      <ul>
+        <li><a href="#সটর-এর-অযরত-ডপলকট-সটর-খজ">স্ট্রিং-এর অ্যারেতে ডুপ্লিকেট স্ট্রিং খোঁজা</a></li>
+        <li><a href="#পরদতত-সটর-এর-সবসটর-এর-দরত-হযশ-গণন">প্রদত্ত স্ট্রিং-এর সাবস্ট্রিং-এর দ্রুত হ্যাশ গণনা</a></li>
+      </ul>
+    </li>
+    <li><a href="#হযশ-এর-পরযগ">হ্যাশিং-এর প্রয়োগ</a>
+      <ul>
+        <li><a href="#একট-সটর-এ-ভনন-সবসটর-এর-সখয-নরণয">একটি স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা নির্ণয়</a></li>
+      </ul>
+    </li>
+    <li><a href="#ন-কলশন-সমভবন-উননত-কর">নো-কলিশন সম্ভাবনা উন্নত করা</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="সটর-হযশ">স্ট্রিং হ্যাশিং<a class="anchor" href="#%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%b9%e0%a6%af%e0%a6%b6">#</a></h1>
+<p>হ্যাশিং অ্যালগরিদম অনেক সমস্যা সমাধানে সহায়ক।</p>
+<p>আমরা স্ট্রিং দক্ষতার সাথে তুলনা করার সমস্যাটি সমাধান করতে চাই।
+ব্রুট ফোর্স পদ্ধতি হলো উভয় স্ট্রিং-এর অক্ষরগুলো তুলনা করা, যার টাইম কমপ্লেক্সিটি $O(\min(n_1, n_2))$ যদি $n_1$ এবং $n_2$ দুটি স্ট্রিং-এর আকার হয়।
+আমরা আরও ভালো করতে চাই।
+স্ট্রিং হ্যাশিং-এর পেছনের ধারণাটি নিম্নরূপ: আমরা প্রতিটি স্ট্রিংকে একটি পূর্ণসংখ্যায় ম্যাপ করি এবং স্ট্রিং-এর পরিবর্তে সেগুলো তুলনা করি।
+এটি করলে স্ট্রিং তুলনার এক্সিকিউশন সময় $O(1)$-এ কমানো যায়।</p>
+<p>রূপান্তরের জন্য, আমাদের একটি তথাকথিত <strong>হ্যাশ ফাংশন</strong> দরকার।
+এর লক্ষ্য হলো একটি স্ট্রিংকে একটি পূর্ণসংখ্যায় রূপান্তর করা, যাকে স্ট্রিং-এর তথাকথিত <strong>হ্যাশ</strong> বলা হয়।
+নিম্নলিখিত শর্তটি পূরণ হতে হবে: যদি দুটি স্ট্রিং $s$ এবং $t$ সমান হয় ($s = t$), তাহলে তাদের হ্যাশও সমান হতে হবে ($\text{hash}(s) = \text{hash}(t)$)।
+অন্যথায়, আমরা স্ট্রিং তুলনা করতে পারব না।</p>
+<p>লক্ষ্য করুন, বিপরীত দিকটি সত্য হতে হবে না।
+যদি হ্যাশ সমান হয় ($\text{hash}(s) = \text{hash}(t)$), তাহলে স্ট্রিংগুলো অগত্যা সমান হতে হবে না।
+যেমন একটি বৈধ হ্যাশ ফাংশন হতে পারে কেবল $\text{hash}(s) = 0$ প্রতিটি $s$-এর জন্য।
+এখন, এটি একটি বোকামি উদাহরণ, কারণ এই ফাংশন সম্পূর্ণ অকেজো হবে, কিন্তু এটি একটি বৈধ হ্যাশ ফাংশন।
+বিপরীত দিকটি সত্য হতে না হওয়ার কারণ হলো, সূচকীয় সংখ্যক স্ট্রিং আছে।
+যদি আমরা এই হ্যাশ ফাংশন দিয়ে শুধুমাত্র ১৫-এর কম দৈর্ঘ্যের ছোট হাতের অক্ষরের সকল স্ট্রিং আলাদা করতে চাই, তাহলেই হ্যাশ একটি ৬৪-বিট ইন্টিজারে (যেমন unsigned long long) আর ফিট করবে না, কারণ এত বেশি স্ট্রিং আছে।
+এবং অবশ্যই, আমরা নির্বিচারে দীর্ঘ ইন্টিজার তুলনা করতে চাই না, কারণ এতেও $O(n)$ কমপ্লেক্সিটি হবে।</p>
+<p>তাই সাধারণত আমরা চাই হ্যাশ ফাংশন স্ট্রিংগুলোকে একটি নির্দিষ্ট রেঞ্জ $[0, m)$-এর সংখ্যায় ম্যাপ করুক, তাহলে স্ট্রিং তুলনা শুধু দুটি নির্দিষ্ট দৈর্ঘ্যের পূর্ণসংখ্যার তুলনা।
+এবং অবশ্যই, আমরা চাই $s \neq t$ হলে $\text{hash}(s) \neq \text{hash}(t)$ হওয়ার সম্ভাবনা খুব বেশি হোক।</p>
+<p>এটি গুরুত্বপূর্ণ অংশ যা মনে রাখতে হবে।
+হ্যাশিং ব্যবহার ১০০% নিশ্চিতভাবে সঠিক হবে না, কারণ দুটি সম্পূর্ণ ভিন্ন স্ট্রিং-এর একই হ্যাশ থাকতে পারে (হ্যাশ কলিশন হয়)।
+তবে, বেশিরভাগ কাজে এটি নিরাপদে উপেক্ষা করা যায় কারণ দুটি ভিন্ন স্ট্রিং-এর হ্যাশ কলিশনের সম্ভাবনা এখনও খুব কম।
+এবং আমরা এই নিবন্ধে কিছু কৌশল আলোচনা করব কিভাবে কলিশনের সম্ভাবনা খুব কম রাখা যায়।</p>
+<h2 id="একট-সটর-এর-হযশ-গণন">একটি স্ট্রিং-এর হ্যাশ গণনা<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%8f%e0%a6%b0-%e0%a6%b9%e0%a6%af%e0%a6%b6-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h2>
+<p>$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$-এর হ্যাশ সংজ্ঞায়িত করার ভালো এবং বহুল ব্যবহৃত উপায় হলো</p>
+$$\begin{align}
+\text{hash}(s) &= s[0] + s[1] \cdot p + s[2] \cdot p^2 + ... + s[n-1] \cdot p^{n-1} \mod m \\
+&= \sum_{i=0}^{n-1} s[i] \cdot p^i \mod m,
+\end{align}$$<p>যেখানে $p$ এবং $m$ হলো কিছু নির্বাচিত, ধনাত্মক সংখ্যা।
+এটিকে <strong>পলিনোমিয়াল রোলিং হ্যাশ ফাংশন</strong> বলা হয়।</p>
+<p>$p$-কে ইনপুট বর্ণমালার অক্ষর সংখ্যার কাছাকাছি একটি মৌলিক সংখ্যা করা যুক্তিসঙ্গত।
+উদাহরণস্বরূপ, যদি ইনপুট শুধু ইংরেজি বর্ণমালার ছোট হাতের অক্ষর নিয়ে গঠিত হয়, $p = 31$ একটি ভালো পছন্দ।
+যদি ইনপুটে বড় হাতের এবং ছোট হাতের উভয় অক্ষর থাকতে পারে, তাহলে $p = 53$ একটি সম্ভাব্য পছন্দ।
+এই নিবন্ধের কোডে $p = 31$ ব্যবহার করা হবে।</p>
+<p>স্পষ্টতই $m$ একটি বড় সংখ্যা হওয়া উচিত কারণ দুটি র‍্যান্ডম স্ট্রিং-এর কলিশনের সম্ভাবনা প্রায় $\approx \frac{1}{m}$।
+কখনও কখনও $m = 2^{64}$ বেছে নেওয়া হয়, যেহেতু তখন ৬৪-বিট ইন্টিজারের পূর্ণসংখ্যা ওভারফ্লো ঠিক মডুলো অপারেশনের মতো কাজ করে।
+তবে, এমন একটি পদ্ধতি আছে, যা কলিশন করা স্ট্রিং তৈরি করে ($p$-এর পছন্দ নির্বিশেষে)।
+তাই বাস্তবে, $m = 2^{64}$ সুপারিশ করা হয় না।
+$m$-এর জন্য একটি ভালো পছন্দ হলো কোনো বড় মৌলিক সংখ্যা।
+এই নিবন্ধের কোডে $m = 10^9+9$ ব্যবহার করা হবে।
+এটি একটি বড় সংখ্যা, কিন্তু যথেষ্ট ছোট যাতে আমরা ৬৪-বিট ইন্টিজার ব্যবহার করে দুটি মানের গুণ করতে পারি।</p>
+<p>এখানে একটি স্ট্রিং $s$-এর হ্যাশ গণনার একটি উদাহরণ, যেটিতে শুধু ছোট হাতের অক্ষর আছে।
+আমরা $s$-এর প্রতিটি অক্ষরকে একটি পূর্ণসংখ্যায় রূপান্তর করি।
+এখানে আমরা রূপান্তর $a \rightarrow 1$, $b \rightarrow 2$, $\dots$, $z \rightarrow 26$ ব্যবহার করি।
+$a \rightarrow 0$ রূপান্তর করা ভালো ধারণা নয়, কারণ তাহলে $a$, $aa$, $aaa$, $\dots$ স্ট্রিংগুলোর হ্যাশ সব $0$ হবে।</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">compute_hash</span><span class="p">(</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="mi">9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="kt">long</span> <span class="n">hash_value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="kt">long</span> <span class="n">p_pow</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">char</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">hash_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">hash_value</span> <span class="o">+</span> <span class="p">(</span><span class="n">c</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_pow</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p_pow</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_pow</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">hash_value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>$p$-এর পাওয়ারগুলো আগে থেকে গণনা করলে পারফরম্যান্স বাড়তে পারে।</p>
+<h2 id="উদহরণ-কজ">উদাহরণ কাজ<a class="anchor" href="#%e0%a6%89%e0%a6%a6%e0%a6%b9%e0%a6%b0%e0%a6%a3-%e0%a6%95%e0%a6%9c">#</a></h2>
+<h3 id="সটর-এর-অযরত-ডপলকট-সটর-খজ">স্ট্রিং-এর অ্যারেতে ডুপ্লিকেট স্ট্রিং খোঁজা<a class="anchor" href="#%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%8f%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b0%e0%a6%a4-%e0%a6%a1%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%9f-%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%96%e0%a6%9c">#</a></h3>
+<p>সমস্যা: $n$ সংখ্যক স্ট্রিং $s_i$-এর একটি তালিকা দেওয়া আছে, প্রতিটি সর্বোচ্চ $m$ অক্ষরের, সকল ডুপ্লিকেট স্ট্রিং খুঁজুন এবং গ্রুপে ভাগ করুন।</p>
+<p>স্ট্রিং সর্ট করার স্পষ্ট অ্যালগরিদম থেকে, আমরা $O(n m \log n)$ টাইম কমপ্লেক্সিটি পেতাম যেখানে সর্টিং-এ $O(n \log n)$ তুলনা প্রয়োজন এবং প্রতিটি তুলনায় $O(m)$ সময় লাগে।
+তবে, হ্যাশ ব্যবহার করে, আমরা তুলনার সময় $O(1)$-এ কমাই, যা $O(n m + n \log n)$ সময়ে চলা অ্যালগরিদম দেয়।</p>
+<p>আমরা প্রতিটি স্ট্রিং-এর হ্যাশ গণনা করি, ইনডেক্সসহ হ্যাশগুলো সর্ট করি, এবং তারপর অভিন্ন হ্যাশ অনুযায়ী ইনডেক্সগুলো গ্রুপ করি।</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">group_identical_strings</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">hashes</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">hashes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">compute_hash</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">i</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">sort</span><span class="p">(</span><span class="n">hashes</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">hashes</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">groups</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">hashes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span> <span class="o">!=</span> <span class="n">hashes</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">first</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">groups</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">groups</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">push_back</span><span class="p">(</span><span class="n">hashes</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">groups</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="পরদতত-সটর-এর-সবসটর-এর-দরত-হযশ-গণন">প্রদত্ত স্ট্রিং-এর সাবস্ট্রিং-এর দ্রুত হ্যাশ গণনা<a class="anchor" href="#%e0%a6%aa%e0%a6%b0%e0%a6%a6%e0%a6%a4%e0%a6%a4-%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%8f%e0%a6%b0-%e0%a6%b8%e0%a6%ac%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%8f%e0%a6%b0-%e0%a6%a6%e0%a6%b0%e0%a6%a4-%e0%a6%b9%e0%a6%af%e0%a6%b6-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>সমস্যা: একটি স্ট্রিং $s$ এবং ইনডেক্স $i$ ও $j$ দেওয়া আছে, সাবস্ট্রিং $s [i \dots j]$-এর হ্যাশ বের করুন।</p>
+<p>সংজ্ঞা অনুযায়ী, আমাদের আছে:</p>
+$$\text{hash}(s[i \dots j]) = \sum_{k = i}^j s[k] \cdot p^{k-i} \mod m$$<p>$p^i$ দিয়ে গুণ করলে পাই:</p>
+$$\begin{align}
+\text{hash}(s[i \dots j]) \cdot p^i &= \sum_{k = i}^j s[k] \cdot p^k \mod m \\
+&= \text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1]) \mod m
+\end{align}$$<p>তাই স্ট্রিং $s$-এর প্রতিটি প্রিফিক্সের হ্যাশ মান জানা থাকলে, আমরা এই সূত্র ব্যবহার করে সরাসরি যেকোনো সাবস্ট্রিং-এর হ্যাশ গণনা করতে পারি।
+একমাত্র সমস্যা হলো $\text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1])$-কে $p^i$ দিয়ে ভাগ করতে হবে।
+তাই আমাদের $p^i$-এর <a href="../algebra/module-inverse.md">মডুলার গুণাত্মক বিপরীত</a> খুঁজতে হবে এবং তারপর এই বিপরীত দিয়ে গুণ করতে হবে।
+আমরা প্রতিটি $p^i$-এর বিপরীত আগে থেকে গণনা করতে পারি, যা $s$-এর যেকোনো সাবস্ট্রিং-এর হ্যাশ $O(1)$ সময়ে গণনা করার অনুমতি দেয়।</p>
+<p>তবে, একটি সহজ উপায়ও আছে।
+বেশিরভাগ ক্ষেত্রে, সাবস্ট্রিং-এর হ্যাশ সুনির্দিষ্টভাবে গণনার পরিবর্তে, $p$-এর কোনো পাওয়ার দিয়ে গুণিত হ্যাশ গণনা করাই যথেষ্ট।
+ধরুন আমাদের দুটি সাবস্ট্রিং-এর দুটি হ্যাশ আছে, একটি $p^i$ দিয়ে এবং অন্যটি $p^j$ দিয়ে গুণিত।
+যদি $i < j$ হয় তাহলে আমরা প্রথম হ্যাশকে $p^{j-i}$ দিয়ে গুণ করি, অন্যথায়, আমরা দ্বিতীয় হ্যাশকে $p^{i-j}$ দিয়ে গুণ করি।
+এভাবে, আমরা উভয় হ্যাশকে $p$-এর একই পাওয়ার দিয়ে গুণিত পাই ($i$ এবং $j$-এর সর্বোচ্চ) এবং এখন এই হ্যাশগুলো কোনো ভাগ ছাড়াই সহজে তুলনা করা যায়।</p>
+<h2 id="হযশ-এর-পরযগ">হ্যাশিং-এর প্রয়োগ<a class="anchor" href="#%e0%a6%b9%e0%a6%af%e0%a6%b6-%e0%a6%8f%e0%a6%b0-%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97">#</a></h2>
+<p>এখানে হ্যাশিং-এর কিছু সাধারণ প্রয়োগ:</p>
+<ul>
+<li>$O(n)$ সময়ে স্ট্রিং-এ প্যাটার্ন ম্যাচিং-এর জন্য <a href="rabin-karp.md">রবিন-কার্প অ্যালগরিদম</a></li>
+<li>$O(n^2)$-এ একটি স্ট্রিং-এর ভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা (নিচে দেখুন)</li>
+<li>একটি স্ট্রিং-এ প্যালিন্ড্রোমিক সাবস্ট্রিং-এর সংখ্যা গণনা।</li>
+</ul>
+<h3 id="একট-সটর-এ-ভনন-সবসটর-এর-সখয-নরণয">একটি স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা নির্ণয়<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%8f-%e0%a6%ad%e0%a6%a8%e0%a6%a8-%e0%a6%b8%e0%a6%ac%e0%a6%b8%e0%a6%9f%e0%a6%b0-%e0%a6%8f%e0%a6%b0-%e0%a6%b8%e0%a6%96%e0%a6%af-%e0%a6%a8%e0%a6%b0%e0%a6%a3%e0%a6%af">#</a></h3>
+<p>সমস্যা: $n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে, যাতে শুধু ইংরেজির ছোট হাতের অক্ষর আছে, এই স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা বের করুন।</p>
+<p>এই সমস্যা সমাধানের জন্য, আমরা সকল সাবস্ট্রিং দৈর্ঘ্য $l = 1 \dots n$-এর উপর ইটারেট করি।
+প্রতিটি সাবস্ট্রিং দৈর্ঘ্য $l$-এর জন্য আমরা $p$-এর একই পাওয়ার দিয়ে গুণিত সকল $l$ দৈর্ঘ্যের সাবস্ট্রিং-এর হ্যাশের একটি অ্যারে তৈরি করি।
+অ্যারেতে ভিন্ন উপাদানের সংখ্যা স্ট্রিং-এ $l$ দৈর্ঘ্যের ভিন্ন সাবস্ট্রিং-এর সংখ্যার সমান।
+এই সংখ্যাটি চূড়ান্ত উত্তরে যোগ করা হয়।</p>
+<p>সুবিধার জন্য, আমরা $h[i]$-কে $i$ অক্ষরের প্রিফিক্সের হ্যাশ হিসেবে ব্যবহার করব, এবং $h[0] = 0$ সংজ্ঞায়িত করব।</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">count_unique_substrings</span><span class="p">(</span><span class="n">string</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="mi">9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">p_pow</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p_pow</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p_pow</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_pow</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">h</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_pow</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">long</span> <span class="kt">long</span><span class="o">&gt;</span> <span class="n">hs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">l</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">long</span> <span class="kt">long</span> <span class="n">cur_h</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">l</span><span class="p">]</span> <span class="o">+</span> <span class="n">m</span> <span class="o">-</span> <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cur_h</span> <span class="o">=</span> <span class="p">(</span><span class="n">cur_h</span> <span class="o">*</span> <span class="n">p_pow</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">%</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">hs</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">cur_h</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cnt</span> <span class="o">+=</span> <span class="n">hs</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>লক্ষ্য করুন, $O(n^2)$ এই সমস্যার সর্বোত্তম সম্ভাব্য টাইম কমপ্লেক্সিটি নয়।
+$O(n \log n)$ এর একটি সমাধান <a href="suffix-array.md">সাফিক্স অ্যারে</a> সম্পর্কিত নিবন্ধে বর্ণিত হয়েছে, এবং <a href="./suffix-tree-ukkonen.md">সাফিক্স ট্রি</a> বা <a href="./suffix-automaton.md">সাফিক্স অটোমেটন</a> ব্যবহার করে এটি $O(n)$-এও গণনা করা সম্ভব।</p>
+<h2 id="ন-কলশন-সমভবন-উননত-কর">নো-কলিশন সম্ভাবনা উন্নত করা<a class="anchor" href="#%e0%a6%a8-%e0%a6%95%e0%a6%b2%e0%a6%b6%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%ad%e0%a6%ac%e0%a6%a8-%e0%a6%89%e0%a6%a8%e0%a6%a8%e0%a6%a4-%e0%a6%95%e0%a6%b0">#</a></h2>
+<p>প্রায়শই উপরে উল্লিখিত পলিনোমিয়াল হ্যাশ যথেষ্ট ভালো, এবং পরীক্ষার সময় কোনো কলিশন হবে না।
+মনে রাখবেন, কলিশন হওয়ার সম্ভাবনা শুধু $\approx \frac{1}{m}$।
+$m = 10^9 + 9$ এর জন্য সম্ভাবনা $\approx 10^{-9}$ যা বেশ কম।
+কিন্তু লক্ষ্য করুন, আমরা শুধু একটি তুলনা করেছি।
+যদি আমরা একটি স্ট্রিং $s$-কে $10^6$ বিভিন্ন স্ট্রিং-এর সাথে তুলনা করি?
+কমপক্ষে একটি কলিশন হওয়ার সম্ভাবনা এখন $\approx 10^{-3}$।
+এবং যদি আমরা $10^6$ বিভিন্ন স্ট্রিংকে পরস্পরের সাথে তুলনা করতে চাই (যেমন কতগুলো অনন্য স্ট্রিং আছে গণনা করা), তাহলে কমপক্ষে একটি কলিশন হওয়ার সম্ভাবনা ইতিমধ্যে $\approx 1$।
+এটি প্রায় নিশ্চিত যে এই কাজটি কলিশনসহ শেষ হবে এবং ভুল ফলাফল দেবে।</p>
+<p>আরও ভালো সম্ভাবনা পেতে একটি সত্যিই সহজ কৌশল আছে।
+আমরা কেবল প্রতিটি স্ট্রিং-এর জন্য দুটি ভিন্ন হ্যাশ গণনা করতে পারি (দুটি ভিন্ন $p$, এবং/অথবা ভিন্ন $m$ ব্যবহার করে), এবং এই জোড়াগুলো তুলনা করতে পারি।
+যদি প্রতিটি হ্যাশ ফাংশনের জন্য $m$ প্রায় $10^9$ হয় তাহলে এটি $m \approx 10^{18}$ এর একটি হ্যাশ ফাংশনের সমতুল্য।
+$10^6$ স্ট্রিং পরস্পরের সাথে তুলনা করার সময়, কমপক্ষে একটি কলিশন হওয়ার সম্ভাবনা এখন $\approx 10^{-6}$-এ কমে যায়।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
+<ul>
+<li><a href="https://codeforces.com/contest/271/problem/D">Good Substrings - Codeforces</a></li>
+<li><a href="http://www.spoj.com/problems/NHAY/">A Needle in the Haystack - SPOJ</a></li>
+<li><a href="https://open.kattis.com/problems/hashing">String Hashing - Kattis</a></li>
+<li><a href="http://codeforces.com/problemset/problem/154/C">Double Profiles - Codeforces</a></li>
+<li><a href="http://codeforces.com/problemset/problem/126/B">Password - Codeforces</a></li>
+<li><a href="http://www.spoj.com/problems/SUB_PROB/">SUB_PROB - SPOJ</a></li>
+<li><a href="https://www.codechef.com/problems/INSQ15_A">INSQ15_A</a></li>
+<li><a href="http://www.spoj.com/problems/ADACLEAN/">SPOJ - Ada and Spring Cleaning</a></li>
+<li><a href="http://codeforces.com/gym/101466/problem/E">GYM - Text Editor</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=3163">12012 - Detection of Extraterrestrial</a></li>
+<li><a href="http://codeforces.com/contest/727/problem/E">Codeforces - Games on a CD</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2955">UVA 11855 - Buzzwords</a></li>
+<li><a href="http://codeforces.com/contest/752/problem/D">Codeforces - Santa Claus and a Palindrome</a></li>
+<li><a href="http://codeforces.com/contest/825/problem/F">Codeforces - String Compression</a></li>
+<li><a href="http://codeforces.com/contest/835/problem/D">Codeforces - Palindromic Characteristics</a></li>
+<li><a href="http://www.spoj.com/problems/CF25E/">SPOJ - Test</a></li>
+<li><a href="http://codeforces.com/contest/7/problem/D">Codeforces - Palindrome Degree</a></li>
+<li><a href="http://codeforces.com/contest/19/problem/C">Codeforces - Deletion of Repeats</a></li>
+<li><a href="https://www.hackerrank.com/contests/womens-codesprint-5/challenges/gift-boxes">HackerRank - Gift Boxes</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/bn/string/suffix-tree-ukkonen/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/bn/string/manacher/" class="flex align-center">
+        <span>Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#একট-সটর-এর-হযশ-গণন">একটি স্ট্রিং-এর হ্যাশ গণনা</a></li>
+    <li><a href="#উদহরণ-কজ">উদাহরণ কাজ</a>
+      <ul>
+        <li><a href="#সটর-এর-অযরত-ডপলকট-সটর-খজ">স্ট্রিং-এর অ্যারেতে ডুপ্লিকেট স্ট্রিং খোঁজা</a></li>
+        <li><a href="#পরদতত-সটর-এর-সবসটর-এর-দরত-হযশ-গণন">প্রদত্ত স্ট্রিং-এর সাবস্ট্রিং-এর দ্রুত হ্যাশ গণনা</a></li>
+      </ul>
+    </li>
+    <li><a href="#হযশ-এর-পরযগ">হ্যাশিং-এর প্রয়োগ</a>
+      <ul>
+        <li><a href="#একট-সটর-এ-ভনন-সবসটর-এর-সখয-নরণয">একটি স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা নির্ণয়</a></li>
+      </ul>
+    </li>
+    <li><a href="#ন-কলশন-সমভবন-উননত-কর">নো-কলিশন সম্ভাবনা উন্নত করা</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

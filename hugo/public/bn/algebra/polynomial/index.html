@@ -1,0 +1,3394 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন#প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
+মৌলিক ধারণা ও তথ্য#এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও “স্বজ্ঞাত” বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/bn/algebra/polynomial/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন">
+  <meta property="og:description" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন#প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
+মৌলিক ধারণা ও তথ্য#এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও “স্বজ্ঞাত” বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।">
+  <meta property="og:locale" content="bn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="algebra">
+
+
+  <meta itemprop="name" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন">
+  <meta itemprop="description" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন#প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
+মৌলিক ধারণা ও তথ্য#এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও “স্বজ্ঞাত” বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।">
+  <meta itemprop="wordCount" content="3409">
+
+<title>পলিনোমিয়াল ও সিরিজের উপর অপারেশন | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/bn/algebra/polynomial/">
+  <link rel="alternate" hreflang="en" href="http://localhost:53425/en/algebra/polynomial/" title="Operations on polynomials and series">
+<link rel="stylesheet" href="/book.min.01284c3a0e1895a4bd0134f53af765d53b8c9c6e3b4f2d9b2544eb2bec9dd993.css" integrity="sha256-AShMOg4YlaS9ATT1Ovdl1TuMnG47Ty2bJUTrK&#43;yd2ZM=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/bn.search.min.11a5b9bd43f3f91eeee3a723a5a5180c70aff27953f3d5058b4ec7a0c252de75.js" integrity="sha256-EaW5vUPz&#43;R7u46cjpaUYDHCv8nlT89UFi07HoMJS3nU=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  document.documentElement.style.colorScheme = saved;
+  var syntax = document.getElementById('syntax-css');
+  if (syntax) {
+    syntax.href = syntax.href.replace(
+      saved === 'dark' ? 'syntax-light' : 'syntax-dark',
+      saved === 'dark' ? 'syntax-dark' : 'syntax-light'
+    );
+  }
+})();
+</script>
+
+<script>
+(function() {
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.style.colorScheme = theme;
+    localStorage.setItem('theme', theme);
+
+    var button = document.getElementById('theme-toggle');
+    if (button) {
+      var isDark = theme === 'dark';
+      button.setAttribute('aria-pressed', String(isDark));
+      button.setAttribute('data-theme-state', theme);
+
+      var label = button.querySelector('.theme-switch-label');
+      if (label) {
+        label.textContent = isDark ? 'Dark mode' : 'Light mode';
+      }
+    }
+
+    var syntax = document.getElementById('syntax-css');
+    if (syntax) {
+      syntax.href = syntax.href.replace(
+        theme === 'dark' ? 'syntax-light' : 'syntax-dark',
+        theme === 'dark' ? 'syntax-dark' : 'syntax-light'
+      );
+    }
+  }
+
+  function initThemeToggle() {
+    var button = document.getElementById('theme-toggle');
+    if (!button) return;
+
+    applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+
+    button.addEventListener('click', function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeToggle);
+  } else {
+    initThemeToggle();
+  }
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-algebra">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/bn/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="অনুসন্ধান"
+    aria-label="অনুসন্ধান"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        বাংলা
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/en/algebra/polynomial/" class="flex flex-auto">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<div class="theme-switch-wrap">
+  <button
+    id="theme-toggle"
+    class="theme-switch"
+    type="button"
+    title="Toggle light and dark mode"
+    aria-label="Toggle light and dark mode"
+    aria-pressed="false"
+  >
+    <span class="theme-switch-icon" aria-hidden="true">◐</span>
+    <span class="theme-switch-label">Light mode</span>
+  </button>
+</div>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-56e2ef6b2cb688e51d22de23bd16db61" class="toggle" checked />
+    <label for="section-56e2ef6b2cb688e51d22de23bd16db61" class="flex">
+      <a href="/bn/algebra/" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/phi-function/" class="">
+      অয়লারের টোশেন্ট ফাংশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/sieve-of-eratosthenes/" class="">
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/euclid-algorithm/" class="">
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/gray-code/" class="">
+      গ্রে কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/divisors/" class="">
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/all-submasks/" class="">
+      সাবমাস্ক ইনিউমারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/big-integer/" class="">
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/extended-euclid-algorithm/" class="">
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primality_tests/" class="">
+      মৌলিকতা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/garners-algorithm/" class="">
+      গার্নারের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorization/" class="">
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear-diophantine-equation/" class="">
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/polynomial/" class="active">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/continued-fractions/" class="">
+      কন্টিনিউড ফ্র্যাকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-log/" class="">
+      ডিসক্রিট লগারিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primitive-root/" class="">
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-root/" class="">
+      ডিসক্রিট রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/montgomery_multiplication/" class="">
+      মন্টগোমেরি গুণন</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d6ff24814678dd7cc46e7bec0eca9e50" class="toggle"  />
+    <label for="section-d6ff24814678dd7cc46e7bec0eca9e50" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/disjoint_set_union/" class="">
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/stack_queue_modification/" class="">
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/fenwick/" class="">
+      ফেনউইক ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sparse-table/" class="">
+      স্পার্স টেবিল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt_decomposition/" class="">
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/segment_tree/" class="">
+      সেগমেন্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/treap/" class="">
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt-tree/" class="">
+      স্কোয়ার্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/randomized_heap/" class="">
+      র‍্যান্ডমাইজড হিপ</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d9b914b0bc10cfdd664923fa7f87e83" class="toggle"  />
+    <label for="section-6d9b914b0bc10cfdd664923fa7f87e83" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/divide-and-conquer-dp/" class="">
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/profile-dynamics/" class="">
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knuth-optimization/" class="">
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/longest_increasing_subsequence/" class="">
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-87fb60540539c20d49ff0bbbef794660" class="toggle"  />
+    <label for="section-87fb60540539c20d49ff0bbbef794660" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/expression_parsing/" class="">
+      এক্সপ্রেশন পার্সিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-tree-ukkonen/" class="">
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/main_lorentz/" class="">
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/prefix-function/" class="">
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/z-function/" class="">
+      জেড-ফাংশন এবং এর গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-array/" class="">
+      সাফিক্স অ্যারে</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/aho_corasick/" class="">
+      আহো-কোরাসিক অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-52c3be80108fdd17263f5678b6891a47" class="toggle"  />
+    <label for="section-52c3be80108fdd17263f5678b6891a47" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/linear-system-gauss/" class="">
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-gauss/" class="">
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-kraut/" class="">
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/rank-matrix/" class="">
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b97332e3749ebe750962b0ecb6fabafb" class="toggle"  />
+    <label for="section-b97332e3749ebe750962b0ecb6fabafb" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/inclusion-exclusion/" class="">
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/binomial-coefficients/" class="">
+      দ্বিপদী সহগ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/burnside/" class="">
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/catalan-numbers/" class="">
+      ক্যাটালান সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/counting_labeled_graphs/" class="">
+      লেবেলড গ্রাফ গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/stars_and_bars/" class="">
+      স্টার্স অ্যান্ড বার্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7334aaffd497c2236df166f8e735101b" class="toggle"  />
+    <label for="section-7334aaffd497c2236df166f8e735101b" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/binary_search/" class="">
+      বাইনারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simpson-integration/" class="">
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/ternary_search/" class="">
+      টার্নারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/roots_newton/" class="">
+      মূল নির্ণয়ে নিউটনের মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simulated_annealing/" class="">
+      সিমুলেটেড অ্যানিলিং</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-24f5dcff931d689f2c1f0f52954a7628" class="toggle"  />
+    <label for="section-24f5dcff931d689f2c1f0f52954a7628" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex-hull/" class="">
+      কনভেক্স হাল নির্মাণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/intersecting_segments/" class="">
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-location/" class="">
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-in-convex-polygon/" class="">
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/vertical_decomposition/" class="">
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/minkowski/" class="">
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segments-intersection/" class="">
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/picks-theorem/" class="">
+      পিকের উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lattice-points/" class="">
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/enclosing-circle/" class="">
+      মিনিমাম এনক্লোজিং সার্কেল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-circle-intersection/" class="">
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/tangents-to-two-circles/" class="">
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/length-of-segments-union/" class="">
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="toggle"  />
+    <label for="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/search-for-connected-components/" class="">
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/topological-sort/" class="">
+      টপোলজিক্যাল সর্টিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching/" class="">
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/fixed_length_paths/" class="">
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hungarian-algorithm/" class="">
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/tree_painting/" class="">
+      ট্রি-র এজে রং করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/cutpoints/" class="">
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/2sat/" class="">
+      ২-স্যাট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/rmq_linear/" class="">
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kirchhoff-theorem/" class="">
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mpm/" class="">
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strongly-connected-components/" class="">
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/flow_with_demands/" class="">
+      ডিমান্ডসহ ফ্লো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/pruefer_code/" class="">
+      প্রুফার কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strong-orientation/" class="">
+      স্ট্রং ওরিয়েন্টেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/min_cost_flow/" class="">
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/assignment-problem-min-flow/" class="">
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-399d866b7b0d1784ea9ef390af779ce8" class="toggle"  />
+    <label for="section-399d866b7b0d1784ea9ef390af779ce8" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/rmq/" class="">
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/k-th/" class="">
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/longest_increasing_subsequence/" class="">
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="toggle"  />
+    <label for="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/tortoise_and_hare/" class="">
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/josephus_problem/" class="">
+      জোসেফাস সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/maximum_average_segment/" class="">
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/15-puzzle/" class="">
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/stern_brocot_tree_farey_sequences/" class="">
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9a06795fb7e5894e4235290cd45cefa8" class="toggle"  />
+    <label for="section-9a06795fb7e5894e4235290cd45cefa8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/games_on_graphs/" class="">
+      যেকোনো গ্রাফে গেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/sprague-grundy-nim/" class="">
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dd25e072d4c017734490f50bcd6f67b6" class="toggle"  />
+    <label for="section-dd25e072d4c017734490f50bcd6f67b6" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_one_machine/" class="">
+      একটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_two_machines/" class="">
+      দুটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule-with-completion-duration/" class="">
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>পলিনোমিয়াল ও সিরিজের উপর অপারেশন</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#মলক-ধরণ-ও-তথয">মৌলিক ধারণা ও তথ্য</a>
+      <ul>
+        <li><a href="#পলনমযল-গণন">পলিনোমিয়াল গুণন</a></li>
+        <li><a href="#ফরমল-পওযর-সরজ">ফর্মাল পাওয়ার সিরিজ</a></li>
+        <li><a href="#দরঘ-পলনমযল-ভগ">দীর্ঘ পলিনোমিয়াল ভাগ</a></li>
+      </ul>
+    </li>
+    <li><a href="#মলক-ইমপলমনটশন">মৌলিক ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#পটগণত">পাটিগণিত</a>
+      <ul>
+        <li><a href="#গণন">গুণন</a></li>
+        <li><a href="#বপরত-সরজ">বিপরীত সিরিজ</a></li>
+        <li><a href="#ইউকলডয-ভগ">ইউক্লিডীয় ভাগ</a></li>
+      </ul>
+    </li>
+    <li><a href="#পলনমযলর-ফশন-গণন">পলিনোমিয়ালের ফাংশন গণনা</a>
+      <ul>
+        <li><a href="#নউটনর-পদধত">নিউটনের পদ্ধতি</a></li>
+        <li><a href="#লগরদম">লগারিদম</a></li>
+        <li><a href="#বপরত-সরজ-1">বিপরীত সিরিজ</a></li>
+        <li><a href="#সচকয">সূচকীয়</a></li>
+        <li><a href="#-তম-ঘত">-তম ঘাত</a></li>
+      </ul>
+    </li>
+    <li><a href="#মলযযন-ও-ইনটরপলশন">মূল্যায়ন ও ইন্টারপোলেশন</a>
+      <ul>
+        <li><a href="#চরপ-z-টরনসফরম">চার্প-z ট্রান্সফর্ম</a></li>
+        <li><a href="#বহবনদ-মলযযন">বহুবিন্দু মূল্যায়ন</a></li>
+        <li><a href="#ইনটরপলশন">ইন্টারপোলেশন</a></li>
+      </ul>
+    </li>
+    <li><a href="#গসগ-ও-রজলটযনট">গসাগু ও রেজাল্ট্যান্ট</a>
+      <ul>
+        <li><a href="#ইউকলডয-অযলগরদম">ইউক্লিডীয় অ্যালগরিদম</a></li>
+        <li><a href="#রজলটযনট">রেজাল্ট্যান্ট</a></li>
+        <li><a href="#হফ-gcd-অযলগরদম">হাফ-GCD অ্যালগরিদম</a></li>
+      </ul>
+    </li>
+    <li><a href="#সমসয">সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="পলনমযল-ও-সরজর-উপর-অপরশন">পলিনোমিয়াল ও সিরিজের উপর অপারেশন<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2-%e0%a6%93-%e0%a6%b8%e0%a6%b0%e0%a6%9c%e0%a6%b0-%e0%a6%89%e0%a6%aa%e0%a6%b0-%e0%a6%85%e0%a6%aa%e0%a6%b0%e0%a6%b6%e0%a6%a8">#</a></h1>
+<p>প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।</p>
+<p>এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।</p>
+<h2 id="মলক-ধরণ-ও-তথয">মৌলিক ধারণা ও তথ্য<a class="anchor" href="#%e0%a6%ae%e0%a6%b2%e0%a6%95-%e0%a6%a7%e0%a6%b0%e0%a6%a3-%e0%a6%93-%e0%a6%a4%e0%a6%a5%e0%a6%af">#</a></h2>
+<p>এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও &ldquo;স্বজ্ঞাত&rdquo; বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।</p>
+<h3 id="পলনমযল-গণন">পলিনোমিয়াল গুণন<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+<strong>একচলবিশিষ্ট পলিনোমিয়াল</strong> হলো $A(x) = a_0 + a_1 x + \dots + a_n x^n$ আকারের একটি রাশি।</p>
+<p>মান $a_0, \dots, a_n$ হলো পলিনোমিয়ালের সহগ, সাধারণত কোনো সংখ্যা বা সংখ্যা-সদৃশ কাঠামোর সেট থেকে নেওয়া। এই নিবন্ধে, আমরা ধরে নিচ্ছি সহগ কোনো <a href="https://en.wikipedia.org/wiki/Field_%28mathematics%29">ফিল্ড</a> থেকে নেওয়া, অর্থাৎ যোগ, বিয়োগ, গুণন ও ভাগের অপারেশন তাদের জন্য সুসংজ্ঞায়িত ($0$ দিয়ে ভাগ ছাড়া) এবং তারা সাধারণভাবে বাস্তব সংখ্যার মতোই আচরণ করে।</p>
+<p>এরকম ফিল্ডের সাধারণ উদাহরণ হলো মৌলিক সংখ্যা $p$ মডুলোতে ভাগশেষের ফিল্ড।</p>
+<p>সরলতার জন্য আমরা <em>একচলবিশিষ্ট</em> শব্দটি বাদ দেবো, কারণ এই নিবন্ধে আমরা শুধু এই ধরনের পলিনোমিয়ালই বিবেচনা করি। প্রসঙ্গ থেকে বোঝা যাবে বলে সম্ভব হলে আমরা $A(x)$ এর বদলে $A$-ও লিখবো। ধরে নেওয়া হয় $a_n \neq 0$ অথবা $A(x)=0$।</p>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+দুটি পলিনোমিয়ালের <strong>গুণফল</strong> একটি বীজগণিতীয় রাশি হিসেবে প্রসারিত করে সংজ্ঞায়িত:</p>
+<pre><code>$$
+A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
+$$
+
+$C(x)$ এর সহগ ক্রম $c_0, c_1, \dots, c_{n+m}$ কে $a_0, \dots, a_n$ ও $b_0, \dots, b_m$ এর **কনভোলিউশন** বলা হয়।
+</code></pre>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+$a_n \neq 0$ বিশিষ্ট পলিনোমিয়াল $A$ এর <strong>ডিগ্রি</strong> $\deg A = n$ হিসেবে সংজ্ঞায়িত।</p>
+<pre><code>সামঞ্জস্যের জন্য, $A(x) = 0$ এর ডিগ্রি $\deg A = -\infty$ হিসেবে সংজ্ঞায়িত।
+</code></pre>
+<p>এই ধারণায়, যেকোনো পলিনোমিয়াল $A$ ও $B$ এর জন্য $\deg AB = \deg A + \deg B$।</p>
+<p>কনভোলিউশন অনেক গণনামূলক সমস্যা সমাধানের ভিত্তি।</p>
+<p>
+<div class="book-hint info">
+  <strong>Example</strong>
+</div>
+
+আপনার কাছে প্রথম ধরনের $n$ টি বস্তু এবং দ্বিতীয় ধরনের $m$ টি বস্তু আছে।</p>
+<pre><code>প্রথম ধরনের বস্তুগুলোর মান $a_1, \dots, a_n$, এবং দ্বিতীয় ধরনের বস্তুগুলোর মান $b_1, \dots, b_m$।
+
+আপনি একটি প্রথম ধরনের ও একটি দ্বিতীয় ধরনের বস্তু বেছে নেন। মোট মান $k$ পাওয়ার কতগুলো উপায় আছে?
+</code></pre>
+<p><details>
+  <summary>সমাধান</summary>
+  <div></div>
+</details>
+
+গুণফল $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$ বিবেচনা করুন। প্রসারিত করলে, প্রতিটি পদ $(a_i, b_j)$ জোড়ার সাথে সংশ্লিষ্ট এবং $x^{a_i+b_j}$ এর কাছের সহগে অবদান রাখে। অন্য কথায়, উত্তর হলো গুণফলে $x^k$ এর কাছের সহগ।</p>
+<p>
+<div class="book-hint info">
+  <strong>Example</strong>
+</div>
+
+আপনি একটি $6$-পার্শ্ববিশিষ্ট ছক্কা $n$ বার ছোড়েন এবং সব ছোড়ার ফলাফল যোগ করেন। যোগফল $k$ পাওয়ার সম্ভাবনা কত?</p>
+<p><details>
+  <summary>সমাধান</summary>
+  <div></div>
+</details>
+
+উত্তর হলো যোগফল $k$ হওয়া ফলাফলের সংখ্যাকে মোট ফলাফলের সংখ্যা $6^n$ দিয়ে ভাগ।</p>
+<pre><code>যোগফল $k$ হওয়া ফলাফলের সংখ্যা কত? $n=1$ এর জন্য, এটি $A(x) = x^1+x^2+\dots+x^6$ পলিনোমিয়াল দিয়ে উপস্থাপন করা যায়।
+
+$n=2$ এর জন্য, উপরের উদাহরণের মতো একই পদ্ধতি ব্যবহার করে, আমরা সিদ্ধান্তে আসি এটি $(x^1+x^2+\dots+x^6)^2$ পলিনোমিয়াল দিয়ে উপস্থাপিত।
+
+এজন্য, সমস্যার উত্তর হলো $(x^1+x^2+\dots+x^6)^n$ এর $k$-তম সহগকে $6^n$ দিয়ে ভাগ।
+</code></pre>
+<p>পলিনোমিয়াল $A(x)$ এ $x^k$ এর কাছের সহগকে সংক্ষেপে $[x^k]A$ দ্বারা চিহ্নিত করা হয়।</p>
+<h3 id="ফরমল-পওযর-সরজ">ফর্মাল পাওয়ার সিরিজ<a class="anchor" href="#%e0%a6%ab%e0%a6%b0%e0%a6%ae%e0%a6%b2-%e0%a6%aa%e0%a6%93%e0%a6%af%e0%a6%b0-%e0%a6%b8%e0%a6%b0%e0%a6%9c">#</a></h3>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+একটি <strong>ফর্মাল পাওয়ার সিরিজ</strong> হলো একটি অসীম যোগফল $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, যা এর অভিসারিতা বৈশিষ্ট্য নির্বিশেষে বিবেচিত।</p>
+<p>অন্য কথায়, যখন আমরা $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$ এর মতো যোগফল বিবেচনা করি, আমরা বোঝাই যে পদসংখ্যা অসীমে গেলে এটি $2$ তে <em>অভিসৃত</em> হয়। তবে, ফর্মাল সিরিজ শুধু তাদের গঠনকারী ক্রমের পরিপ্রেক্ষিতেই বিবেচিত।</p>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+ফর্মাল পাওয়ার সিরিজ $A(x)$ ও $B(x)$ এর <strong>গুণফল</strong>-ও একটি বীজগণিতীয় রাশি হিসেবে প্রসারিত করে সংজ্ঞায়িত:</p>
+<pre><code>$$
+A(x) B(x) = \left(\sum\limits_{i=0}^\infty a_i x^i \right)\left(\sum\limits_{j=0}^\infty b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{\infty} c_k x^k = C(x),
+$$
+
+যেখানে সহগ $c_0, c_1, \dots$ সসীম যোগফল হিসেবে সংজ্ঞায়িত
+
+$$
+c_k = \sum\limits_{i=0}^k a_i b_{k-i}.
+$$
+
+ক্রম $c_0, c_1, \dots$ কেও $a_0, a_1, \dots$ ও $b_0, b_1, \dots$ এর **কনভোলিউশন** বলা হয়, ধারণাটিকে অসীম ক্রমে সাধারণীকরণ করে।
+</code></pre>
+<p>সুতরাং, পলিনোমিয়ালকে ফর্মাল পাওয়ার সিরিজ হিসেবে বিবেচনা করা যায়, কিন্তু সসীম সংখ্যক সহগ সহ।</p>
+<p>ফর্মাল পাওয়ার সিরিজ গণনামূলক সমাবেশ বিদ্যায় গুরুত্বপূর্ণ ভূমিকা পালন করে, যেখানে তাদের বিভিন্ন ক্রমের <a href="https://en.wikipedia.org/wiki/Generating_function">জেনারেটিং ফাংশন</a> হিসেবে অধ্যয়ন করা হয়। জেনারেটিং ফাংশনের বিস্তারিত ব্যাখ্যা ও তাদের পেছনের অন্তর্দৃষ্টি, দুর্ভাগ্যবশত, এই নিবন্ধের পরিসরের বাইরে, তাই কৌতূহলী পাঠককে তাদের সমাবেশ বিদ্যামূলক অর্থ সম্পর্কে বিস্তারিত জানতে যেমন <a href="https://codeforces.com/blog/entry/103979">এখানে</a> উল্লেখ করা হলো।</p>
+<p>তবে, আমরা অতি সংক্ষেপে উল্লেখ করবো যে যদি $A(x)$ ও $B(x)$ এমন ক্রমের জেনারেটিং ফাংশন হয় যা কিছু বস্তুকে তাদের &ldquo;পরমাণু&rdquo; সংখ্যা (যেমন শীর্ষ সংখ্যা দিয়ে ট্রি) দিয়ে গণনা করে, তাহলে $A(x) B(x)$ গুণফল $A$ ও $B$ ধরনের বস্তুর জোড়া হিসেবে বর্ণনাযোগ্য বস্তু গণনা করে, জোড়ায় মোট &ldquo;পরমাণু&rdquo; সংখ্যা দিয়ে গণনা করে।</p>
+<p>
+<div class="book-hint info">
+  <strong>Example</strong>
+</div>
+
+ধরি $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ পাথরের প্যাক গণনা করে, প্রতিটি পাথর $2$ রঙের একটিতে রং করা (তাই, আকার $i$ এর $2^i$ টি এরকম প্যাক আছে) এবং $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ পাথরের প্যাক গণনা করে, প্রতিটি পাথর $3$ রঙের একটিতে রং করা। তাহলে $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ এমন বস্তু গণনা করবে যাদের &ldquo;দুটি পাথরের প্যাক, প্রথম প্যাক শুধু $A$ ধরনের পাথর, দ্বিতীয় প্যাক শুধু $B$ ধরনের পাথর, মোট পাথর সংখ্যা $k$&rdquo; হিসেবে বর্ণনা করা যায় $c_k$ এর জন্য।</p>
+<p>অনুরূপভাবে, ফর্মাল পাওয়ার সিরিজের উপর অন্য কিছু ফাংশনেরও স্বজ্ঞাত অর্থ আছে।</p>
+<h3 id="দরঘ-পলনমযল-ভগ">দীর্ঘ পলিনোমিয়াল ভাগ<a class="anchor" href="#%e0%a6%a6%e0%a6%b0%e0%a6%98-%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2-%e0%a6%ad%e0%a6%97">#</a></h3>
+<p>পূর্ণসংখ্যার মতোই, পলিনোমিয়ালের উপর দীর্ঘ ভাগ সংজ্ঞায়িত করা সম্ভব।</p>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+যেকোনো পলিনোমিয়াল $A$ ও $B \neq 0$ এর জন্য, $A$ কে এভাবে উপস্থাপন করা যায়</p>
+<pre><code>$$
+A = D \cdot B + R,~ \deg R &lt; \deg B,
+$$
+
+যেখানে $R$ কে $A$ মডুলো $B$ এর **ভাগশেষ** এবং $D$ কে **ভাগফল** বলা হয়।
+</code></pre>
+<p>$\deg A = n$ ও $\deg B = m$ চিহ্নিত করলে, সহজ উপায়ে দীর্ঘ ভাগ ব্যবহার করা যায়, যেখানে আপনি $B$ কে $\frac{a_n}{b_m} x^{n - m}$ একপদী দিয়ে গুণ করেন এবং $A$ থেকে বিয়োগ করেন, যতক্ষণ না $A$ এর ডিগ্রি $B$ এর চেয়ে ছোট হয়। শেষে $A$ এর যা অবশিষ্ট থাকে তাই ভাগশেষ (তাই এই নাম), এবং প্রক্রিয়ায় আপনি $B$ কে যেগুলো দিয়ে গুণ করেছেন, তাদের যোগফলই ভাগফল।</p>
+<p>
+<div class="book-hint info">
+  <strong>সংজ্ঞা</strong>
+</div>
+
+যদি $A$ ও $B$ মডুলো $C$ তে একই ভাগশেষ দেয়, তাদের মডুলো $C$ তে <strong>সমতুল্য</strong> বলা হয়, যা এভাবে চিহ্নিত</p>
+<pre><code>$$
+A \equiv B \pmod{C}.
+$$
+</code></pre>
+<p>পলিনোমিয়াল দীর্ঘ ভাগ এর অনেক গুরুত্বপূর্ণ বৈশিষ্ট্যের কারণে কার্যকর:</p>
+<ul>
+<li>
+<p>$A$ $B$ এর গুণিতক যদি এবং কেবলমাত্র যদি $A \equiv 0 \pmod B$।</p>
+</li>
+<li>
+<p>এটি বোঝায় $A \equiv B \pmod C$ যদি এবং কেবলমাত্র যদি $A-B$ $C$ এর গুণিতক হয়।</p>
+</li>
+<li>
+<p>বিশেষত, $A \equiv B \pmod{C \cdot D}$ বোঝায় $A \equiv B \pmod{C}$।</p>
+</li>
+<li>
+<p>যেকোনো রৈখিক পলিনোমিয়াল $x-r$ এর জন্য $A(x) \equiv A(r) \pmod{x-r}$।</p>
+</li>
+<li>
+<p>এটি বোঝায় $A$ $x-r$ এর গুণিতক যদি এবং কেবলমাত্র যদি $A(r)=0$।</p>
+</li>
+<li>
+<p>$x^k$ মডুলোর জন্য, $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$।</p>
+</li>
+</ul>
+<p>লক্ষ্য করুন ফর্মাল পাওয়ার সিরিজের জন্য দীর্ঘ ভাগ সঠিকভাবে সংজ্ঞায়িত করা যায় না। বরং, $a_0 \neq 0$ বিশিষ্ট যেকোনো $A(x)$ এর জন্য, একটি বিপরীত ফর্মাল পাওয়ার সিরিজ $A^{-1}(x)$ সংজ্ঞায়িত করা সম্ভব, যেন $A(x) A^{-1}(x) = 1$। এই তথ্য পলিনোমিয়ালের দীর্ঘ ভাগের ফলাফল গণনা করতে ব্যবহার করা যায়।</p>
+<h2 id="মলক-ইমপলমনটশন">মৌলিক ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%ae%e0%a6%b2%e0%a6%95-%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p><a href="https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp">এখানে</a> আপনি পলিনোমিয়াল বীজগণিতের মৌলিক ইমপ্লিমেন্টেশন পাবেন।</p>
+<p>এটি সব তুচ্ছ অপারেশন ও কিছু অন্যান্য কার্যকর মেথড সমর্থন করে। প্রধান ক্লাস হলো <code>poly&lt;T&gt;</code> <code>T</code> ধরনের সহগ বিশিষ্ট পলিনোমিয়ালের জন্য।</p>
+<p>সব বীজগণিতীয় অপারেশন <code>+</code>, <code>-</code>, <code>*</code>, <code>%</code> ও <code>/</code> সমর্থিত, <code>%</code> ও <code>/</code> ইউক্লিডীয় ভাগে ভাগশেষ ও ভাগফলের জন্য।</p>
+<p>একটি <code>modular&lt;m&gt;</code> ক্লাসও আছে মৌলিক সংখ্যা <code>m</code> মডুলোতে ভাগশেষের উপর বীজগণিতীয় অপারেশন করতে।</p>
+<p>অন্যান্য কার্যকর ফাংশন:</p>
+<ul>
+<li><code>deriv()</code>: $P(x)$ এর ডেরিভেটিভ $P'(x)$ গণনা করে।</li>
+<li><code>integr()</code>: $P(x)$ এর অনির্দিষ্ট সমাকলন $Q(x) = \int P(x)$ গণনা করে যেন $Q(0)=0$।</li>
+<li><code>inv(size_t n)</code>: $O(n \log n)$-এ $P^{-1}(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>log(size_t n)</code>: $O(n \log n)$-এ $\ln P(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>exp(size_t n)</code>: $O(n \log n)$-এ $\exp P(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>pow(size_t k, size_t n)</code>: $O(n \log nk)$-এ $P^{k}(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>deg()</code>: $P(x)$ এর ডিগ্রি রিটার্ন করে।</li>
+<li><code>lead()</code>: $x^{\deg P(x)}$ এর সহগ রিটার্ন করে।</li>
+<li><code>resultant(poly&lt;T&gt; a, poly&lt;T&gt; b)</code>: $O(|a| \cdot |b|)$-এ $a$ ও $b$ এর রেজাল্ট্যান্ট গণনা করে।</li>
+<li><code>bpow(T x, size_t n)</code>: $x^n$ গণনা করে।</li>
+<li><code>bpow(T x, size_t n, T m)</code>: $x^n \pmod{m}$ গণনা করে।</li>
+<li><code>chirpz(T z, size_t n)</code>: $O(n \log n)$-এ $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ গণনা করে।</li>
+<li><code>vector&lt;T&gt; eval(vector&lt;T&gt; x)</code>: $O(n \log^2 n)$-এ $P(x_1), \dots, P(x_n)$ মূল্যায়ন করে।</li>
+<li><code>poly&lt;T&gt; inter(vector&lt;T&gt; x, vector&lt;T&gt; y)</code>: $O(n \log^2 n)$-এ $P(x_i) = y_i$ জোড়ার সেট দিয়ে একটি পলিনোমিয়াল ইন্টারপোলেট করে।</li>
+<li>এবং আরো, কোড অন্বেষণ করুন!</li>
+</ul>
+<h2 id="পটগণত">পাটিগণিত<a class="anchor" href="#%e0%a6%aa%e0%a6%9f%e0%a6%97%e0%a6%a3%e0%a6%a4">#</a></h2>
+<h3 id="গণন">গুণন<a class="anchor" href="#%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>মূল অপারেশন হলো দুটি পলিনোমিয়ালের গুণন। অর্থাৎ, পলিনোমিয়াল $A$ ও $B$ দেওয়া আছে:</p>
+$$A = a_0 + a_1 x + \dots + a_n x^n$$$$B = b_0 + b_1 x + \dots + b_m x^m$$<p>পলিনোমিয়াল $C = A \cdot B$ গণনা করতে হবে, যা এভাবে সংজ্ঞায়িত</p>
+$$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$<p>এটি $O(n \log n)$-এ <a href="fft.md">ফাস্ট ফুরিয়ার ট্রান্সফর্ম</a> দিয়ে গণনা করা যায় এবং এখানকার প্রায় সব পদ্ধতি এটিকে সাবরুটিন হিসেবে ব্যবহার করবে।</p>
+<h3 id="বপরত-সরজ">বিপরীত সিরিজ<a class="anchor" href="#%e0%a6%ac%e0%a6%aa%e0%a6%b0%e0%a6%a4-%e0%a6%b8%e0%a6%b0%e0%a6%9c">#</a></h3>
+<p>যদি $A(0) \neq 0$ হয় তাহলে সবসময় একটি অসীম ফর্মাল পাওয়ার সিরিজ $A^{-1}(x) = q_0+q_1 x + q_2 x^2 + \dots$ থাকে যেন $A^{-1} A = 1$। $A^{-1}$ এর প্রথম $k$ সহগ গণনা (অর্থাৎ $x^k$ মডুলোতে গণনা) প্রায়ই কার্যকর। দুটি প্রধান উপায়ে এটি গণনা করা যায়।</p>
+<h4 id="বভজন-ও-জয">বিভাজন ও জয়<a class="anchor" href="#%e0%a6%ac%e0%a6%ad%e0%a6%9c%e0%a6%a8-%e0%a6%93-%e0%a6%9c%e0%a6%af">#</a></h4>
+<p>এই অ্যালগরিদম <a href="http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf">Schönhage-এর নিবন্ধে</a> উল্লেখিত এবং <a href="https://en.wikipedia.org/wiki/Graeffe%27s_method">Graeffe-এর পদ্ধতি</a> দ্বারা অনুপ্রাণিত। এটি জানা যে $B(x)=A(x)A(-x)$ এর জন্য $B(x)=B(-x)$, অর্থাৎ $B(x)$ একটি জোড় পলিনোমিয়াল। এর মানে এতে শুধু জোড় সংখ্যক সহগ অশূন্য এবং একে $B(x)=T(x^2)$ আকারে উপস্থাপন করা যায়। সুতরাং, নিম্নলিখিত রূপান্তর করা যায়:</p>
+$$A^{-1}(x) \equiv \frac{1}{A(x)} \equiv \frac{A(-x)}{A(x)A(-x)} \equiv \frac{A(-x)}{T(x^2)} \pmod{x^k}$$<p>লক্ষ্য করুন $T(x)$ একটি মাত্র গুণনে গণনা করা যায়, এরপর আমরা শুধু এর বিপরীত সিরিজের প্রথম অর্ধেক সহগেই আগ্রহী। এটি কার্যকরভাবে $A^{-1} \pmod{x^k}$ গণনার প্রাথমিক সমস্যাকে $T^{-1} \pmod{x^{\lceil k / 2 \rceil}}$ গণনায় সংকুচিত করে।</p>
+<p>এই পদ্ধতির কমপ্লেক্সিটি অনুমান করা যায়</p>
+$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$<h4 id="সভক-ক-অযলগরদম">সিভকিং-কুং অ্যালগরিদম<a class="anchor" href="#%e0%a6%b8%e0%a6%ad%e0%a6%95-%e0%a6%95-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h4>
+<p>এখানে বর্ণিত সাধারণ প্রক্রিয়া হেনসেল লিফটিং নামে পরিচিত, কারণ এটি হেনসেলের লেমা থেকে অনুসরণ করে। আমরা এটি পরে আরো বিস্তারিত আলোচনা করবো, কিন্তু আপাতত অ্যাড হক সমাধানে মনোযোগ দেই। এখানে &ldquo;লিফটিং&rdquo; অংশের মানে হলো আমরা আনুমানিক মান $B_0=q_0=a_0^{-1}$ দিয়ে শুরু করি, যা $A^{-1} \pmod x$ এবং তারপর পুনরাবৃত্তিমূলকভাবে $\bmod x^a$ থেকে $\bmod x^{2a}$ তে লিফট করি।</p>
+<p>ধরি $B_k \equiv A^{-1} \pmod{x^a}$। পরবর্তী আনুমানিক মান $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ সমীকরণ অনুসরণ করবে এবং $B_{k+1} = B_k + x^a C$ আকারে উপস্থাপন করা যায়। এ থেকে সমীকরণ পাই</p>
+$$A(B_k + x^{a}C) \equiv 1 \pmod{x^{2a}}.$$<p>ধরি $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, তাহলে উপরের সমীকরণ থেকে পাই</p>
+$$x^a(D+AC) \equiv 0 \pmod{x^{2a}} \implies D \equiv -AC \pmod{x^a} \implies C \equiv -B_k D \pmod{x^a}.$$<p>এ থেকে চূড়ান্ত সূত্র পাওয়া যায়</p>
+$$x^a C \equiv -B_k x^a D  \equiv B_k(1-AB_k) \pmod{x^{2a}} \implies \boxed{B_{k+1} \equiv B_k(2-AB_k) \pmod{x^{2a}}}$$<p>সুতরাং $B_0 \equiv a_0^{-1} \pmod x$ থেকে শুরু করে আমরা $B_k$ ক্রম গণনা করবো যেন $AB_k \equiv 1 \pmod{x^{2^k}}$ কমপ্লেক্সিটিতে</p>
+$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$<p>এখানকার অ্যালগরিদম প্রথমটির চেয়ে কিছুটা জটিল মনে হতে পারে, কিন্তু এর পেছনে অত্যন্ত মজবুত ও ব্যবহারিক যুক্তি আছে, সেইসাথে ভিন্ন দৃষ্টিকোণ থেকে দেখলে দুর্দান্ত সাধারণীকরণ সম্ভাবনা আছে, যা পরে ব্যাখ্যা করা হবে।</p>
+<h3 id="ইউকলডয-ভগ">ইউক্লিডীয় ভাগ<a class="anchor" href="#%e0%a6%87%e0%a6%89%e0%a6%95%e0%a6%b2%e0%a6%a1%e0%a6%af-%e0%a6%ad%e0%a6%97">#</a></h3>
+<p>$n$ ও $m$ ডিগ্রির দুটি পলিনোমিয়াল $A(x)$ ও $B(x)$ বিবেচনা করুন। আগে বলা হয়েছে আপনি $A(x)$ কে এভাবে লিখতে পারেন</p>
+$$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$<p>ধরি $n \geq m$, এটি বোঝায় $\deg D = n - m$ এবং $A$ এর বৃহত্তম $n-m+1$ সহগ $R$ কে প্রভাবিত করে না। অর্থাৎ আপনি $A(x)$ ও $B(x)$ এর বৃহত্তম $n-m+1$ সহগ থেকে $D(x)$ উদ্ধার করতে পারেন যদি এটিকে রৈখিক সমীকরণ ব্যবস্থা হিসেবে বিবেচনা করেন।</p>
+<p>আমরা যে রৈখিক সমীকরণ ব্যবস্থার কথা বলছি তা নিম্নলিখিত আকারে লেখা যায়:</p>
+$$\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
+b_m & \dots & 0 & 0 \\
+\vdots & \ddots & \vdots & \vdots \\
+\dots & \dots & b_m & 0 \\
+\dots & \dots & b_{m-1} & b_m
+\end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$<p>এর চেহারা থেকে, আমরা উপসংহার টানতে পারি যে বিপরীত পলিনোমিয়ালের প্রবর্তনে</p>
+$$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$$$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$$$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$<p>ব্যবস্থাটি এভাবে পুনঃলেখা যায়</p>
+$$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}.$$<p>এ থেকে আপনি $D(x)$ এর সব সহগ দ্ব্যর্থহীনভাবে উদ্ধার করতে পারেন:</p>
+$$\boxed{D^R(x) \equiv A^R(x) (B^R(x))^{-1} \pmod{x^{n-m+1}}}$$<p>এবং এ থেকে, পালটা, $R(x) = A(x) - B(x)D(x)$ হিসেবে $R(x)$ উদ্ধার করা যায়।</p>
+<p>লক্ষ্য করুন উপরের ম্যাট্রিক্সটি তথাকথিত ত্রিভুজাকার <a href="https://en.wikipedia.org/wiki/Toeplitz_matrix">টোয়েপ্লিৎজ ম্যাট্রিক্স</a> এবং, এখানে দেখা যাচ্ছে, যেকোনো টোয়েপ্লিৎজ ম্যাট্রিক্স দিয়ে রৈখিক সমীকরণ ব্যবস্থা সমাধান করা আসলে পলিনোমিয়াল বিপরীতকরণের সমতুল্য।</p>
+<h2 id="পলনমযলর-ফশন-গণন">পলিনোমিয়ালের ফাংশন গণনা<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2%e0%a6%b0-%e0%a6%ab%e0%a6%b6%e0%a6%a8-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h2>
+<h3 id="নউটনর-পদধত">নিউটনের পদ্ধতি<a class="anchor" href="#%e0%a6%a8%e0%a6%89%e0%a6%9f%e0%a6%a8%e0%a6%b0-%e0%a6%aa%e0%a6%a6%e0%a6%a7%e0%a6%a4">#</a></h3>
+<p>সিভকিং-কুং অ্যালগরিদমকে সাধারণীকরণ করা যাক। $F(P) = 0$ সমীকরণ বিবেচনা করুন যেখানে $P(x)$ একটি পলিনোমিয়াল হওয়া উচিত এবং $F(x)$ একটি পলিনোমিয়াল-মানবিশিষ্ট ফাংশন যা এভাবে সংজ্ঞায়িত</p>
+$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^i,$$<p>যেখানে $\beta$ একটি ধ্রুবক। এটি প্রমাণ করা যায় যে নতুন ফর্মাল চলক $y$ প্রবর্তন করলে $F(x)$ কে এভাবে প্রকাশ করা যায়</p>
+$$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$<p>যেখানে $F'(x)$ হলো ডেরিভেটিভ ফর্মাল পাওয়ার সিরিজ যা এভাবে সংজ্ঞায়িত</p>
+$$F'(x) = \sum\limits_{i=0}^\infty (i+1)\alpha_{i+1}(x-\beta)^i,$$<p>এবং $G(x, y)$ হলো $x$ ও $y$ এর কোনো ফর্মাল পাওয়ার সিরিজ। এই ফলাফল দিয়ে আমরা পুনরাবৃত্তিমূলকভাবে সমাধান খুঁজতে পারি।</p>
+<p>ধরি $F(Q_k) \equiv 0 \pmod{x^{a}}$। আমাদের $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ খুঁজতে হবে যেন $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$।</p>
+<p>উপরের সূত্রে $x = Q_{k+1}$ ও $y=Q_k$ বসিয়ে পাই</p>
+$$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$<p>যেহেতু $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, তাই $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, সুতরাং</p>
+$$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$<p>শেষ সূত্রটি আমাদের $Q_{k+1}$ এর মান দেয়:</p>
+$$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$<p>সুতরাং, পলিনোমিয়াল বিপরীতকরণ এবং $F(Q_k)$ গণনা জানলে, আমরা $P$ এর $n$ সহগ এই কমপ্লেক্সিটিতে খুঁজতে পারি</p>
+$$T(n) = T(n/2) + f(n),$$<p>যেখানে $f(n)$ হলো $F(Q_k)$ ও $F'(Q_k)^{-1}$ গণনার জন্য প্রয়োজনীয় সময় যা সাধারণত $O(n \log n)$।</p>
+<p>উপরের পুনরাবৃত্তি নিয়মটি সংখ্যাসূচক বিশ্লেষণে <a href="https://en.wikipedia.org/wiki/Newton%27s_method">নিউটনের পদ্ধতি</a> নামে পরিচিত।</p>
+<h4 id="হনসলর-লম">হেনসেলের লেমা<a class="anchor" href="#%e0%a6%b9%e0%a6%a8%e0%a6%b8%e0%a6%b2%e0%a6%b0-%e0%a6%b2%e0%a6%ae">#</a></h4>
+<p>আগে উল্লেখ করা হয়েছে, আনুষ্ঠানিকভাবে ও সাধারণভাবে এই ফলাফল <a href="https://en.wikipedia.org/wiki/Hensel%27s_lemma">হেনসেলের লেমা</a> নামে পরিচিত এবং আমরা নেস্টেড রিংয়ের একটি সিরিজ নিয়ে কাজ করলে আরো বৃহত্তর অর্থে ব্যবহার করা যায়। এই বিশেষ ক্ষেত্রে আমরা $x$, $x^2$, $x^3$ ইত্যাদি মডুলোতে পলিনোমিয়াল ভাগশেষের ক্রম নিয়ে কাজ করেছি।</p>
+<p>আরেকটি উদাহরণ যেখানে হেনসেলের লিফটিং সহায়ক হতে পারে তা হলো তথাকথিত <a href="https://en.wikipedia.org/wiki/P-adic_number">p-adic সংখ্যা</a> যেখানে আমরা $p$, $p^2$, $p^3$ ইত্যাদি মডুলোতে পূর্ণসংখ্যা ভাগশেষের ক্রম নিয়ে কাজ করি। উদাহরণস্বরূপ, নিউটনের পদ্ধতি একটি প্রদত্ত সংখ্যা ভিত্তিতে সব সম্ভব <a href="https://en.wikipedia.org/wiki/Automorphic_number">অটোমর্ফিক সংখ্যা</a> (যে সংখ্যা বর্গ করলে নিজের মধ্যে শেষ হয়) খুঁজতে ব্যবহার করা যায়। সমস্যাটি পাঠকের জন্য অনুশীলন হিসেবে রেখে দেওয়া হলো। আপনার সমাধান $10$-ভিত্তিক সংখ্যার জন্য কাজ করে কিনা পরীক্ষা করতে <a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1698">এটি</a> বিবেচনা করতে পারেন।</p>
+<h3 id="লগরদম">লগারিদম<a class="anchor" href="#%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>$\ln P(x)$ ফাংশনের জন্য জানা যে:</p>
+$$
+\boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}
+$$<p>সুতরাং আমরা $O(n \log n)$-এ $\ln P(x)$ এর $n$ সহগ গণনা করতে পারি।</p>
+<h3 id="বপরত-সরজ-1">বিপরীত সিরিজ<a class="anchor" href="#%e0%a6%ac%e0%a6%aa%e0%a6%b0%e0%a6%a4-%e0%a6%b8%e0%a6%b0%e0%a6%9c-1">#</a></h3>
+<p>দেখা যায়, নিউটনের পদ্ধতি ব্যবহার করে $A^{-1}$ এর সূত্র পাওয়া যায়।
+এর জন্য আমরা $A=Q^{-1}$ সমীকরণ নিই, সুতরাং:</p>
+$$F(Q) = Q^{-1} - A$$$$F'(Q) = -Q^{-2}$$$$\boxed{Q_{k+1} \equiv Q_k(2-AQ_k) \pmod{x^{2^{k+1}}}}$$<h3 id="সচকয">সূচকীয়<a class="anchor" href="#%e0%a6%b8%e0%a6%9a%e0%a6%95%e0%a6%af">#</a></h3>
+<p>$e^{P(x)}=Q(x)$ গণনা শিখি। $\ln Q = P$ হওয়া উচিত, সুতরাং:</p>
+$$F(Q) = \ln Q - P$$$$F'(Q) = Q^{-1}$$$$\boxed{Q_{k+1} \equiv Q_k(1 + P - \ln Q_k) \pmod{x^{2^{k+1}}}}$$<h3 id="-তম-ঘত">$k$-তম ঘাত<a class="anchor" href="#-%e0%a6%a4%e0%a6%ae-%e0%a6%98%e0%a6%a4">#</a></h3>
+<p>এখন $P^k(x)=Q$ গণনা করতে হবে। এটি নিম্নলিখিত সূত্র দিয়ে করা যায়:</p>
+$$Q = \exp\left[k \ln P(x)\right]$$<p>লক্ষ্য করুন, লগারিদম ও সূচকীয় সঠিকভাবে গণনা করতে পারবেন শুধু যদি কোনো প্রাথমিক $Q_0$ খুঁজে পান।</p>
+<p>এটি খুঁজতে, পলিনোমিয়ালের ধ্রুবক সহগের লগারিদম বা সূচকীয় গণনা করতে হবে।</p>
+<p>কিন্তু এটি করার একমাত্র যুক্তিসঙ্গত উপায় হলো $Q = \ln P$ এর জন্য $P(0)=1$ যেন $Q(0)=0$ এবং $Q = e^P$ এর জন্য $P(0)=0$ যেন $Q(0)=1$।</p>
+<p>সুতরাং আপনি উপরের সূত্র শুধু $P(0) = 1$ হলেই ব্যবহার করতে পারেন। অন্যথায় যদি $P(x) = \alpha x^t T(x)$ যেখানে $T(0)=1$ তাহলে লেখা যায়:</p>
+$$\boxed{P^k(x) = \alpha^kx^{kt} \exp[k \ln T(x)]}$$<p>লক্ষ্য করুন আপনি পলিনোমিয়ালের কোনো $k$-তম মূলও গণনা করতে পারেন যদি $\sqrt[k]{\alpha}$ গণনা করতে পারেন, উদাহরণস্বরূপ $\alpha=1$ এর জন্য।</p>
+<h2 id="মলযযন-ও-ইনটরপলশন">মূল্যায়ন ও ইন্টারপোলেশন<a class="anchor" href="#%e0%a6%ae%e0%a6%b2%e0%a6%af%e0%a6%af%e0%a6%a8-%e0%a6%93-%e0%a6%87%e0%a6%a8%e0%a6%9f%e0%a6%b0%e0%a6%aa%e0%a6%b2%e0%a6%b6%e0%a6%a8">#</a></h2>
+<h3 id="চরপ-z-টরনসফরম">চার্প-z ট্রান্সফর্ম<a class="anchor" href="#%e0%a6%9a%e0%a6%b0%e0%a6%aa-z-%e0%a6%9f%e0%a6%b0%e0%a6%a8%e0%a6%b8%e0%a6%ab%e0%a6%b0%e0%a6%ae">#</a></h3>
+<p>যে বিশেষ ক্ষেত্রে আপনাকে $x_r = z^{2r}$ বিন্দুতে পলিনোমিয়াল মূল্যায়ন করতে হবে সেখানে নিচের কাজ করা যায়:</p>
+$$A(z^{2r}) = \sum\limits_{k=0}^n a_k z^{2kr}$$<p>$2kr = r^2+k^2-(r-k)^2$ প্রতিস্থাপন করি। তাহলে এই যোগফল এভাবে লেখা যায়:</p>
+$$\boxed{A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}}$$<p>যা $z^{r^2}$ গুণনীয়ক পর্যন্ত $u_k = a_k z^{k^2}$ ও $v_k = z^{-k^2}$ ক্রমের কনভোলিউশনের সমান।</p>
+<p>লক্ষ্য করুন $u_k$ এর ইনডেক্স $0$ থেকে $n$ এবং $v_k$ এর ইনডেক্স $-n$ থেকে $m$ যেখানে $m$ হলো $z$ এর সর্বোচ্চ ঘাত যা আপনার দরকার।</p>
+<p>এখন যদি $x_r = z^{2r+1}$ বিন্দুতে পলিনোমিয়াল মূল্যায়ন করতে হয় তাহলে $a_k \to a_k z^k$ রূপান্তর দিয়ে আগের কাজে সংকুচিত করা যায়।</p>
+<p>এটি আমাদের $O(n \log n)$ অ্যালগরিদম দেয় যখন $z$ এর ঘাতে মান গণনা করতে হয়, তাই ২ এর ঘাত নয় এমন সংখ্যার জন্যও DFT গণনা করা যায়।</p>
+<p>আরেকটি পর্যবেক্ষণ হলো $kr = \binom{k+r}{2} - \binom{k}{2} - \binom{r}{2}$। তাহলে</p>
+$$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2}}\right)z^{\binom{k+r}{2}}}$$<p>$A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ ও $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ পলিনোমিয়ালের গুণফলে $x^{n+r}$ এর সহগ $z^{\binom{r}{2}}A(z^r)$ এর সমান। $A_0(x)$ ও $A_1(x)$ এর সহগ গণনা করতে $z^{\binom{k+1}{2}}=z^{\binom{k}{2}+k}$ সূত্র ব্যবহার করা যায়।</p>
+<h3 id="বহবনদ-মলযযন">বহুবিন্দু মূল্যায়ন<a class="anchor" href="#%e0%a6%ac%e0%a6%b9%e0%a6%ac%e0%a6%a8%e0%a6%a6-%e0%a6%ae%e0%a6%b2%e0%a6%af%e0%a6%af%e0%a6%a8">#</a></h3>
+<p>ধরি আপনাকে $A(x_1), \dots, A(x_n)$ গণনা করতে হবে। আগে উল্লেখ করা হয়েছে, $A(x) \equiv A(x_i) \pmod{x-x_i}$। সুতরাং আপনি নিচের কাজ করতে পারেন:</p>
+<p>১. একটি সেগমেন্ট ট্রি গণনা করুন যেন $[l,r)$ সেগমেন্টে গুণফল $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$ থাকে।
+২. রুট নোডে $l=1$ ও $r=n+1$ দিয়ে শুরু করুন। ধরি $m=\lfloor(l+r)/2\rfloor$। $A(x) \pmod{P_{l,m}(x)}$ পলিনোমিয়াল নিয়ে $[l,m)$ এ নামুন।
+৩. এটি রিকার্সিভভাবে $A(x_l), \dots, A(x_{m-1})$ গণনা করবে, এখন $A(x) \pmod{P_{m,r}(x)}$ নিয়ে $[m,r)$ এর জন্যও একই করুন।
+৪. প্রথম ও দ্বিতীয় রিকার্সিভ কলের ফলাফল জুড়ে রিটার্ন করুন।</p>
+<p>পুরো প্রক্রিয়া $O(n \log^2 n)$-এ চলবে।</p>
+<h3 id="ইনটরপলশন">ইন্টারপোলেশন<a class="anchor" href="#%e0%a6%87%e0%a6%a8%e0%a6%9f%e0%a6%b0%e0%a6%aa%e0%a6%b2%e0%a6%b6%e0%a6%a8">#</a></h3>
+<p>ল্যাগ্রাঞ্জের একটি সরাসরি সূত্র আছে পলিনোমিয়াল ইন্টারপোলেট করতে, $(x_i, y_i)$ জোড়ার সেট দেওয়া আছে:</p>
+$$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i - x_j}}$$<p>সরাসরি গণনা কঠিন কিন্তু দেখা যায়, বিভাজন ও জয় পদ্ধতিতে $O(n \log^2 n)$-এ গণনা করা যায়:</p>
+<p>$P(x) = (x-x_1)\dots(x-x_n)$ বিবেচনা করুন। $A(x)$ এ হরের সহগ জানতে এরকম গুণফল গণনা করতে হবে:</p>
+$$
+P_i = \prod\limits_{j \neq i} (x_i-x_j)
+$$<p>কিন্তু ডেরিভেটিভ $P'(x)$ বিবেচনা করলে দেখা যাবে $P'(x_i) = P_i$। সুতরাং $O(n \log^2 n)$-এ মূল্যায়নের মাধ্যমে $P_i$ গণনা করা যায়।</p>
+<p>এখন একই সেগমেন্ট ট্রিতে রিকার্সিভ অ্যালগরিদম বিবেচনা করুন যা বহুবিন্দু মূল্যায়নে ব্যবহৃত। এটি পাতায় প্রতিটি পাতায় $\dfrac{y_i}{P_i}$ মান দিয়ে শুরু করে।</p>
+<p>রিকার্শন থেকে ফিরে আসার সময় বাম ও ডান শীর্ষের ফলাফল $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$ হিসেবে মার্জ করতে হবে।</p>
+<p>এভাবে রুটে ফিরে আসলে ঠিক $A(x)$ পাওয়া যাবে।
+পুরো প্রক্রিয়াও $O(n \log^2 n)$-এ কাজ করে।</p>
+<h2 id="গসগ-ও-রজলটযনট">গসাগু ও রেজাল্ট্যান্ট<a class="anchor" href="#%e0%a6%97%e0%a6%b8%e0%a6%97-%e0%a6%93-%e0%a6%b0%e0%a6%9c%e0%a6%b2%e0%a6%9f%e0%a6%af%e0%a6%a8%e0%a6%9f">#</a></h2>
+<p>ধরি পলিনোমিয়াল $A(x) = a_0 + a_1 x + \dots + a_n x^n$ ও $B(x) = b_0 + b_1 x + \dots + b_m x^m$ দেওয়া আছে।</p>
+<p>ধরি $\lambda_0, \dots, \lambda_n$ হলো $A(x)$ এর মূল এবং $\mu_0, \dots, \mu_m$ হলো $B(x)$ এর মূল, বহুত্ব সহ গণনা করা।</p>
+<p>আপনি জানতে চান $A(x)$ ও $B(x)$ এর কোনো সাধারণ মূল আছে কিনা। দুটি পরস্পর সম্পর্কিত উপায়ে এটি করা যায়।</p>
+<h3 id="ইউকলডয-অযলগরদম">ইউক্লিডীয় অ্যালগরিদম<a class="anchor" href="#%e0%a6%87%e0%a6%89%e0%a6%95%e0%a6%b2%e0%a6%a1%e0%a6%af-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>এটি সম্পর্কে ইতিমধ্যে আমাদের একটি <a href="euclid-algorithm.md">নিবন্ধ</a> আছে। যেকোনো ডোমেনের জন্য ইউক্লিডীয় অ্যালগরিদম সহজেই লেখা যায়:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">gcd</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">b</span> <span class="o">==</span> <span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>প্রমাণ করা যায় পলিনোমিয়াল $A(x)$ ও $B(x)$ এর জন্য এটি $O(nm)$-এ কাজ করবে।</p>
+<h3 id="রজলটযনট">রেজাল্ট্যান্ট<a class="anchor" href="#%e0%a6%b0%e0%a6%9c%e0%a6%b2%e0%a6%9f%e0%a6%af%e0%a6%a8%e0%a6%9f">#</a></h3>
+<p>$A(\mu_0)\cdots A(\mu_m)$ গুণফল গণনা করি। এটি শূন্য হবে যদি এবং কেবলমাত্র কোনো $\mu_i$ $A(x)$ এর মূল হয়।</p>
+<p>প্রতিসাম্যের জন্য $b_m^n$ দিয়েও গুণ করতে পারি এবং পুরো গুণফল নিম্নলিখিত আকারে লেখা যায়:</p>
+$$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \prod\limits_{i=0}^n \prod\limits_{j=0}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=0}^n B(\lambda_i)}$$<p>উপরে সংজ্ঞায়িত মানটিকে পলিনোমিয়াল $A(x)$ ও $B(x)$ এর রেজাল্ট্যান্ট বলা হয়। সংজ্ঞা থেকে নিম্নলিখিত বৈশিষ্ট্য পাওয়া যায়:</p>
+<p>১. $\mathcal R(A, B) = (-1)^{nm} \mathcal R(B, A)$।
+২. $\mathcal R(A, B)= a_n^m b_m^n$ যখন $n=0$ বা $m=0$।
+৩. $b_m=1$ হলে $\mathcal R(A - CB, B) = \mathcal R(A, B)$ যেকোনো পলিনোমিয়াল $C(x)$ এর জন্য এবং $n,m \geq 1$।
+৪. এ থেকে অনুসরণ করে $\mathcal R(A, B) = b_m^{\deg(A) - \deg(A-CB)}\mathcal R(A - CB, B)$ যেকোনো $A(x)$, $B(x)$, $C(x)$ এর জন্য।</p>
+<p>আশ্চর্যজনকভাবে এর মানে দুটি পলিনোমিয়ালের রেজাল্ট্যান্ট সবসময় তাদের সহগের একই রিং থেকে!</p>
+<p>এই বৈশিষ্ট্যগুলো আমাদের ইউক্লিডীয় অ্যালগরিদমের পাশাপাশি রেজাল্ট্যান্ট গণনা করতে দেয়, যা $O(nm)$-এ কাজ করে।</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">resultant</span><span class="p">(</span><span class="n">poly</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">poly</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">is_zero</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">deg</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">bpow</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">lead</span><span class="p">(),</span> <span class="n">a</span><span class="p">.</span><span class="n">deg</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">pw</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">deg</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">a</span> <span class="o">%=</span> <span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">pw</span> <span class="o">-=</span> <span class="n">a</span><span class="p">.</span><span class="n">deg</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">		<span class="n">base</span> <span class="n">mul</span> <span class="o">=</span> <span class="n">bpow</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">lead</span><span class="p">(),</span> <span class="n">pw</span><span class="p">)</span> <span class="o">*</span> <span class="n">base</span><span class="p">((</span><span class="n">b</span><span class="p">.</span><span class="n">deg</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">a</span><span class="p">.</span><span class="n">deg</span><span class="p">()</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">base</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">resultant</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">ans</span> <span class="o">*</span> <span class="n">mul</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="হফ-gcd-অযলগরদম">হাফ-GCD অ্যালগরিদম<a class="anchor" href="#%e0%a6%b9%e0%a6%ab-gcd-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>$O(n \log^2 n)$-এ GCD ও রেজাল্ট্যান্ট গণনা করার একটি উপায় আছে।</p>
+<p>এই প্রক্রিয়া একটি $2 \times 2$ রৈখিক রূপান্তর ইমপ্লিমেন্ট করে যা পলিনোমিয়ালের $(a(x), b(x))$ জোড়াকে আরেকটি $(c(x), d(x))$ জোড়ায় রূপান্তর করে যেন $\deg d(x) \leq \frac{\deg a(x)}{2}$। আপনি যথেষ্ট সাবধান হলে, অন্তত ২ গুণ ছোট পলিনোমিয়ালে সর্বোচ্চ ২টি রিকার্সিভ কল দিয়ে যেকোনো পলিনোমিয়াল জোড়ার হাফ-GCD গণনা করতে পারেন।</p>
+<p>অ্যালগরিদমের নির্দিষ্ট বিবরণ ব্যাখ্যা করা কিছুটা ক্লান্তিকর, তবে আপনি লাইব্রেরিতে <code>half_gcd</code> ফাংশন হিসেবে এর ইমপ্লিমেন্টেশন পাবেন।</p>
+<p>হাফ-GCD ইমপ্লিমেন্ট হলে, $\gcd(a, b)$ ও $0$ এর জোড়ায় সংকুচিত না হওয়া পর্যন্ত পুনরাবৃত্তিমূলকভাবে পলিনোমিয়ালে এটি প্রয়োগ করা যায়।</p>
+<h2 id="সমসয">সমস্যা<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
+<ul>
+<li><a href="https://www.codechef.com/problems/RNG">CodeChef - RNG</a></li>
+<li><a href="https://codeforces.com/gym/102129/problem/D">CodeForces - Basis Change</a></li>
+<li><a href="https://codeforces.com/gym/102129/problem/G">CodeForces - Permutant</a></li>
+<li><a href="https://codeforces.com/gym/102129/problem/C">CodeForces - Medium Hadron Collider</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/bn/algebra/factorial-modulo/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Factorial modulo p</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/bn/algebra/fibonacci-numbers/" class="flex align-center">
+        <span>ফিবোনাচ্চি সংখ্যা</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#মলক-ধরণ-ও-তথয">মৌলিক ধারণা ও তথ্য</a>
+      <ul>
+        <li><a href="#পলনমযল-গণন">পলিনোমিয়াল গুণন</a></li>
+        <li><a href="#ফরমল-পওযর-সরজ">ফর্মাল পাওয়ার সিরিজ</a></li>
+        <li><a href="#দরঘ-পলনমযল-ভগ">দীর্ঘ পলিনোমিয়াল ভাগ</a></li>
+      </ul>
+    </li>
+    <li><a href="#মলক-ইমপলমনটশন">মৌলিক ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#পটগণত">পাটিগণিত</a>
+      <ul>
+        <li><a href="#গণন">গুণন</a></li>
+        <li><a href="#বপরত-সরজ">বিপরীত সিরিজ</a></li>
+        <li><a href="#ইউকলডয-ভগ">ইউক্লিডীয় ভাগ</a></li>
+      </ul>
+    </li>
+    <li><a href="#পলনমযলর-ফশন-গণন">পলিনোমিয়ালের ফাংশন গণনা</a>
+      <ul>
+        <li><a href="#নউটনর-পদধত">নিউটনের পদ্ধতি</a></li>
+        <li><a href="#লগরদম">লগারিদম</a></li>
+        <li><a href="#বপরত-সরজ-1">বিপরীত সিরিজ</a></li>
+        <li><a href="#সচকয">সূচকীয়</a></li>
+        <li><a href="#-তম-ঘত">-তম ঘাত</a></li>
+      </ul>
+    </li>
+    <li><a href="#মলযযন-ও-ইনটরপলশন">মূল্যায়ন ও ইন্টারপোলেশন</a>
+      <ul>
+        <li><a href="#চরপ-z-টরনসফরম">চার্প-z ট্রান্সফর্ম</a></li>
+        <li><a href="#বহবনদ-মলযযন">বহুবিন্দু মূল্যায়ন</a></li>
+        <li><a href="#ইনটরপলশন">ইন্টারপোলেশন</a></li>
+      </ul>
+    </li>
+    <li><a href="#গসগ-ও-রজলটযনট">গসাগু ও রেজাল্ট্যান্ট</a>
+      <ul>
+        <li><a href="#ইউকলডয-অযলগরদম">ইউক্লিডীয় অ্যালগরিদম</a></li>
+        <li><a href="#রজলটযনট">রেজাল্ট্যান্ট</a></li>
+        <li><a href="#হফ-gcd-অযলগরদম">হাফ-GCD অ্যালগরিদম</a></li>
+      </ul>
+    </li>
+    <li><a href="#সমসয">সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

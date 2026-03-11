@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,35 +8,37 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Sqrt Decomposition#Sqrt Decomposition is a method (or a data structure) that allows you to perform some common operations (finding sum of the elements of the sub-array, finding the minimal/maximal element, etc.) in $O(\sqrt n)$ operations, which is much faster than $O(n)$ for the trivial algorithm.
-First we describe the data structure for one of the simplest applications of this idea, then show how to generalize it to solve some other problems, and finally look at a slightly different use of this idea: splitting the input requests into sqrt blocks.
+<meta name="description" content="স্কোয়ার্ট ডিকম্পোজিশন#স্কোয়ার্ট ডিকম্পোজিশন হলো একটি পদ্ধতি (বা ডেটা স্ট্রাকচার) যা কিছু সাধারণ অপারেশন (সাব-অ্যারের উপাদানের যোগফল বের করা, সর্বনিম্ন/সর্বোচ্চ উপাদান বের করা, ইত্যাদি) $O(\sqrt n)$ অপারেশনে সম্পন্ন করতে দেয়, যা সরল অ্যালগরিদমের $O(n)$ থেকে অনেক দ্রুত।
+প্রথমে আমরা এই ধারণার সবচেয়ে সরল প্রয়োগের জন্য ডেটা স্ট্রাকচার বর্ণনা করি, তারপর দেখাই কিভাবে এটিকে অন্য কিছু সমস্যা সমাধানের জন্য সাধারণীকরণ করা যায়, এবং শেষে এই ধারণার একটু ভিন্ন ব্যবহার দেখি: ইনপুট রিকোয়েস্টগুলোকে sqrt ব্লকে ভাগ করা।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/data_structures/sqrt_decomposition/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/data_structures/sqrt_decomposition/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Sqrt Decomposition">
-  <meta property="og:description" content="Sqrt Decomposition#Sqrt Decomposition is a method (or a data structure) that allows you to perform some common operations (finding sum of the elements of the sub-array, finding the minimal/maximal element, etc.) in $O(\sqrt n)$ operations, which is much faster than $O(n)$ for the trivial algorithm.
-First we describe the data structure for one of the simplest applications of this idea, then show how to generalize it to solve some other problems, and finally look at a slightly different use of this idea: splitting the input requests into sqrt blocks.">
+  <meta property="og:title" content="স্কোয়ার্ট ডিকম্পোজিশন">
+  <meta property="og:description" content="স্কোয়ার্ট ডিকম্পোজিশন#স্কোয়ার্ট ডিকম্পোজিশন হলো একটি পদ্ধতি (বা ডেটা স্ট্রাকচার) যা কিছু সাধারণ অপারেশন (সাব-অ্যারের উপাদানের যোগফল বের করা, সর্বনিম্ন/সর্বোচ্চ উপাদান বের করা, ইত্যাদি) $O(\sqrt n)$ অপারেশনে সম্পন্ন করতে দেয়, যা সরল অ্যালগরিদমের $O(n)$ থেকে অনেক দ্রুত।
+প্রথমে আমরা এই ধারণার সবচেয়ে সরল প্রয়োগের জন্য ডেটা স্ট্রাকচার বর্ণনা করি, তারপর দেখাই কিভাবে এটিকে অন্য কিছু সমস্যা সমাধানের জন্য সাধারণীকরণ করা যায়, এবং শেষে এই ধারণার একটু ভিন্ন ব্যবহার দেখি: ইনপুট রিকোয়েস্টগুলোকে sqrt ব্লকে ভাগ করা।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="data_structures">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Sqrt Decomposition">
-  <meta itemprop="description" content="Sqrt Decomposition#Sqrt Decomposition is a method (or a data structure) that allows you to perform some common operations (finding sum of the elements of the sub-array, finding the minimal/maximal element, etc.) in $O(\sqrt n)$ operations, which is much faster than $O(n)$ for the trivial algorithm.
-First we describe the data structure for one of the simplest applications of this idea, then show how to generalize it to solve some other problems, and finally look at a slightly different use of this idea: splitting the input requests into sqrt blocks.">
-  <meta itemprop="wordCount" content="2235">
+  <meta itemprop="name" content="স্কোয়ার্ট ডিকম্পোজিশন">
+  <meta itemprop="description" content="স্কোয়ার্ট ডিকম্পোজিশন#স্কোয়ার্ট ডিকম্পোজিশন হলো একটি পদ্ধতি (বা ডেটা স্ট্রাকচার) যা কিছু সাধারণ অপারেশন (সাব-অ্যারের উপাদানের যোগফল বের করা, সর্বনিম্ন/সর্বোচ্চ উপাদান বের করা, ইত্যাদি) $O(\sqrt n)$ অপারেশনে সম্পন্ন করতে দেয়, যা সরল অ্যালগরিদমের $O(n)$ থেকে অনেক দ্রুত।
+প্রথমে আমরা এই ধারণার সবচেয়ে সরল প্রয়োগের জন্য ডেটা স্ট্রাকচার বর্ণনা করি, তারপর দেখাই কিভাবে এটিকে অন্য কিছু সমস্যা সমাধানের জন্য সাধারণীকরণ করা যায়, এবং শেষে এই ধারণার একটু ভিন্ন ব্যবহার দেখি: ইনপুট রিকোয়েস্টগুলোকে sqrt ব্লকে ভাগ করা।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1932">
 
-<title>Sqrt Decomposition | CP-Algorithms</title>
+<title>স্কোয়ার্ট ডিকম্পোজিশন | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/data_structures/sqrt_decomposition/">
+<link rel="canonical" href="http://localhost:1313/data_structures/sqrt_decomposition/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -123,78 +125,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -208,7 +140,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -222,7 +224,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -236,35 +238,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -278,7 +252,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -292,7 +294,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -306,21 +308,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -334,7 +322,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -348,21 +350,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -376,7 +364,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -390,7 +378,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -404,7 +406,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -431,8 +433,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -445,8 +447,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -460,7 +462,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -474,21 +476,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -502,7 +490,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -516,7 +518,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -530,7 +532,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -581,7 +583,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -595,7 +597,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -609,7 +611,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -623,7 +625,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -637,7 +639,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="active">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -651,7 +653,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -665,7 +667,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -679,7 +681,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -693,7 +695,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -743,8 +745,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -758,49 +774,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -814,7 +788,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -828,7 +830,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -879,21 +881,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -907,7 +895,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -934,8 +936,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -948,8 +950,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -963,21 +965,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -991,7 +979,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1005,7 +1007,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1019,7 +1021,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1033,7 +1035,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1070,7 +1072,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1084,7 +1086,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1098,7 +1100,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1112,7 +1114,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1148,22 +1150,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1176,8 +1164,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1191,7 +1179,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1205,7 +1193,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1219,7 +1221,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1233,7 +1235,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1247,7 +1249,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1298,7 +1300,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1312,7 +1314,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1326,7 +1328,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1340,7 +1342,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1354,7 +1356,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1390,64 +1392,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1461,7 +1407,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1474,8 +1420,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1488,8 +1434,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1502,8 +1448,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1516,8 +1462,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1531,7 +1477,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1545,21 +1547,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1573,7 +1561,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1586,22 +1574,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1615,7 +1589,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1629,21 +1631,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1657,7 +1645,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1670,8 +1658,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1685,7 +1673,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1699,7 +1701,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1713,7 +1715,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1727,7 +1729,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1741,7 +1743,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1777,64 +1779,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1861,22 +1807,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1890,7 +1822,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1904,7 +1836,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1917,8 +1849,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1931,8 +1863,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1945,8 +1877,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1959,8 +1891,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1974,7 +1920,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1987,8 +1933,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2001,8 +1947,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2015,22 +1961,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2044,7 +1976,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2057,8 +1989,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2071,8 +2003,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2099,50 +2073,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2156,7 +2102,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2169,8 +2115,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2183,8 +2129,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2198,7 +2172,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2211,8 +2185,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2225,8 +2199,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2240,7 +2214,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2253,8 +2227,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2267,8 +2241,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2282,7 +2256,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2295,8 +2269,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2310,7 +2284,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2324,7 +2312,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2338,7 +2340,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2352,7 +2354,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2366,7 +2368,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2380,7 +2382,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2394,7 +2396,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2431,7 +2433,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2445,7 +2447,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2473,7 +2475,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2510,7 +2512,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2524,7 +2526,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2538,7 +2540,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2552,7 +2554,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2566,7 +2568,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2603,7 +2605,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2617,7 +2619,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2654,7 +2656,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2668,7 +2670,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2682,7 +2684,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2728,7 +2730,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Sqrt Decomposition</h3>
+  <h3>স্কোয়ার্ট ডিকম্পোজিশন</h3>
 
   <label for="toc-control">
     
@@ -2744,21 +2746,21 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#sqrt-decomposition-based-data-structure">Sqrt-decomposition based data structure</a>
+    <li><a href="#সকযরট-ডকমপজশন-ভততক-ডট-সটরকচর">স্কোয়ার্ট-ডিকম্পোজিশন ভিত্তিক ডেটা স্ট্রাকচার</a>
       <ul>
-        <li><a href="#description">Description</a></li>
-        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#বরণন">বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
       </ul>
     </li>
-    <li><a href="#other-problems">Other problems</a></li>
-    <li><a href="#mos-algorithm">Mo&rsquo;s algorithm</a>
+    <li><a href="#অনযনয-সমসয">অন্যান্য সমস্যা</a></li>
+    <li><a href="#mo-এর-অযলগরদম">Mo-এর অ্যালগরিদম</a>
       <ul>
-        <li><a href="#implementation-1">Implementation</a></li>
-        <li><a href="#complexity">Complexity</a></li>
-        <li><a href="#tips-for-improving-runtime">Tips for improving runtime</a></li>
+        <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
+        <li><a href="#কমপলকসট">কমপ্লেক্সিটি</a></li>
+        <li><a href="#রনটইম-উননতর-টপস">রানটাইম উন্নতির টিপস</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2771,25 +2773,25 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="sqrt-decomposition">Sqrt Decomposition<a class="anchor" href="#sqrt-decomposition">#</a></h1>
-<p>Sqrt Decomposition is a method (or a data structure) that allows you to perform some common operations (finding sum of the elements of the sub-array, finding the minimal/maximal element, etc.) in $O(\sqrt n)$ operations, which is much faster than $O(n)$ for the trivial algorithm.</p>
-<p>First we describe the data structure for one of the simplest applications of this idea, then show how to generalize it to solve some other problems, and finally look at a slightly different use of this idea: splitting the input requests into sqrt blocks.</p>
-<h2 id="sqrt-decomposition-based-data-structure">Sqrt-decomposition based data structure<a class="anchor" href="#sqrt-decomposition-based-data-structure">#</a></h2>
-<p>Given an array $a[0 \dots n-1]$, implement a data structure that allows to find the sum of the elements $a[l \dots r]$ for arbitrary $l$ and $r$ in $O(\sqrt n)$ operations.</p>
-<h3 id="description">Description<a class="anchor" href="#description">#</a></h3>
-<p>The basic idea of sqrt decomposition is preprocessing. We&rsquo;ll divide the array $a$ into blocks of length approximately $\sqrt n$, and for each block $i$ we&rsquo;ll precalculate the sum of elements in it $b[i]$.</p>
-<p>We can assume that both the size of the block and the number of blocks are equal to $\sqrt n$ rounded up:</p>
-$$ s = \lceil \sqrt n \rceil $$<p>Then the array $a$ is divided into blocks in the following way:</p>
-$$ \underbrace{a[0], a[1], \dots, a[s-1]}_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}_{\text{b[s-1]}} $$<p>The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
-Thus, for each block $k$, we know the sum of elements on it $b[k]$:</p>
-$$ b[k] = \sum\limits_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$<p>So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ?
-Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l, r]$ will contain parts of only two blocks, and we&rsquo;ll have to calculate the sum of elements in these parts trivially.</p>
-<p>Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two &ldquo;tails&rdquo;:
-$[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:</p>
-$$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] $$<p><em>Note: When $k = p$, i.e. $l$ and $r$ belong to the same block, the formula can&rsquo;t be applied, and the sum should be calculated trivially.</em></p>
-<p>This approach allows us to significantly reduce the number of operations. Indeed, the size of each &ldquo;tail&rdquo; does not exceed the block length $s$, and the number of blocks in the sum does not exceed $s$. Since we have chosen $s \approx \sqrt n$, the total number of operations required to find the sum of elements on the interval $[l, r]$ is $O(\sqrt n)$.</p>
-<h3 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h3>
-<p>Let&rsquo;s start with the simplest implementation:</p>
+  <article class="markdown book-article"><h1 id="সকযরট-ডকমপজশন">স্কোয়ার্ট ডিকম্পোজিশন<a class="anchor" href="#%e0%a6%b8%e0%a6%95%e0%a6%af%e0%a6%b0%e0%a6%9f-%e0%a6%a1%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%9c%e0%a6%b6%e0%a6%a8">#</a></h1>
+<p>স্কোয়ার্ট ডিকম্পোজিশন হলো একটি পদ্ধতি (বা ডেটা স্ট্রাকচার) যা কিছু সাধারণ অপারেশন (সাব-অ্যারের উপাদানের যোগফল বের করা, সর্বনিম্ন/সর্বোচ্চ উপাদান বের করা, ইত্যাদি) $O(\sqrt n)$ অপারেশনে সম্পন্ন করতে দেয়, যা সরল অ্যালগরিদমের $O(n)$ থেকে অনেক দ্রুত।</p>
+<p>প্রথমে আমরা এই ধারণার সবচেয়ে সরল প্রয়োগের জন্য ডেটা স্ট্রাকচার বর্ণনা করি, তারপর দেখাই কিভাবে এটিকে অন্য কিছু সমস্যা সমাধানের জন্য সাধারণীকরণ করা যায়, এবং শেষে এই ধারণার একটু ভিন্ন ব্যবহার দেখি: ইনপুট রিকোয়েস্টগুলোকে sqrt ব্লকে ভাগ করা।</p>
+<h2 id="সকযরট-ডকমপজশন-ভততক-ডট-সটরকচর">স্কোয়ার্ট-ডিকম্পোজিশন ভিত্তিক ডেটা স্ট্রাকচার<a class="anchor" href="#%e0%a6%b8%e0%a6%95%e0%a6%af%e0%a6%b0%e0%a6%9f-%e0%a6%a1%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%9c%e0%a6%b6%e0%a6%a8-%e0%a6%ad%e0%a6%a4%e0%a6%a4%e0%a6%95-%e0%a6%a1%e0%a6%9f-%e0%a6%b8%e0%a6%9f%e0%a6%b0%e0%a6%95%e0%a6%9a%e0%a6%b0">#</a></h2>
+<p>একটি অ্যারে $a[0 \dots n-1]$ দেওয়া আছে, এমন একটি ডেটা স্ট্রাকচার ইমপ্লিমেন্ট করুন যা যেচ্ছা $l$ এবং $r$ এর জন্য $a[l \dots r]$ উপাদানগুলোর যোগফল $O(\sqrt n)$ অপারেশনে বের করতে পারে।</p>
+<h3 id="বরণন">বর্ণনা<a class="anchor" href="#%e0%a6%ac%e0%a6%b0%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>স্কোয়ার্ট ডিকম্পোজিশনের মূল ধারণা হলো প্রিপ্রসেসিং। আমরা অ্যারে $a$ কে প্রায় $\sqrt n$ দৈর্ঘ্যের ব্লকে ভাগ করবো, এবং প্রতিটি ব্লক $i$ এর জন্য এর উপাদানগুলোর যোগফল $b[i]$ আগে থেকে হিসাব করবো।</p>
+<p>আমরা ধরে নিতে পারি যে ব্লকের আকার এবং ব্লকের সংখ্যা উভয়ই $\sqrt n$ এর ঊর্ধ্ব পূর্ণ সংখ্যার সমান:</p>
+$$ s = \lceil \sqrt n \rceil $$<p>তাহলে অ্যারে $a$ নিচের মতো করে ব্লকে ভাগ হয়:</p>
+$$ \underbrace{a[0], a[1], \dots, a[s-1]}_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}_{\text{b[s-1]}} $$<p>শেষ ব্লকে অন্যগুলোর চেয়ে কম উপাদান থাকতে পারে (যদি $n$, $s$ এর গুণিতক না হয়), আলোচনার জন্য এটি গুরুত্বপূর্ণ নয় (কারণ এটি সহজেই সামলানো যায়)।
+সুতরাং, প্রতিটি ব্লক $k$ এর জন্য, আমরা এর উপাদানগুলোর যোগফল $b[k]$ জানি:</p>
+$$ b[k] = \sum\limits_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$<p>তাহলে, আমরা $b[k]$ এর মানগুলো হিসাব করেছি (এতে $O(n)$ অপারেশন লেগেছে)। এগুলো কিভাবে প্রতিটি কোয়েরি $[l, r]$ এর উত্তর দিতে সাহায্য করতে পারে?
+লক্ষ্য করুন যে ইন্টারভ্যাল $[l, r]$ যথেষ্ট লম্বা হলে, এতে কয়েকটি সম্পূর্ণ ব্লক থাকবে, এবং সেই ব্লকগুলোর উপাদানের যোগফল একটি মাত্র অপারেশনে বের করা যাবে। ফলে, ইন্টারভ্যাল $[l, r]$ এ শুধুমাত্র দুটি ব্লকের অংশ থাকবে, এবং সেই অংশগুলোর উপাদানের যোগফল সরলভাবে হিসাব করতে হবে।</p>
+<p>সুতরাং, $[l, r]$ ইন্টারভ্যালে উপাদানের যোগফল হিসাব করতে আমাদের শুধু দুটি &ldquo;লেজ&rdquo; এর উপাদানের যোগ করতে হবে:
+$[l\dots (k + 1)\cdot s-1]$ এবং $[p\cdot s\dots r]$, এবং $k + 1$ থেকে $p-1$ পর্যন্ত সব ব্লকের $b[i]$ মান যোগ করতে হবে:</p>
+$$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] $$<p><em>নোট: যখন $k = p$, অর্থাৎ $l$ এবং $r$ একই ব্লকে, সূত্রটি প্রয়োগ করা যাবে না, এবং যোগফল সরলভাবে হিসাব করতে হবে।</em></p>
+<p>এই পদ্ধতি আমাদের অপারেশনের সংখ্যা উল্লেখযোগ্যভাবে কমাতে দেয়। প্রকৃতপক্ষে, প্রতিটি &ldquo;লেজ&rdquo; এর আকার ব্লকের দৈর্ঘ্য $s$ এর বেশি নয়, এবং যোগফলে ব্লকের সংখ্যা $s$ এর বেশি নয়। যেহেতু আমরা $s \approx \sqrt n$ বেছে নিয়েছি, $[l, r]$ ইন্টারভ্যালে উপাদানের যোগফল বের করতে প্রয়োজনীয় মোট অপারেশনের সংখ্যা $O(\sqrt n)$।</p>
+<h3 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h3>
+<p>সবচেয়ে সরল ইমপ্লিমেন্টেশন দিয়ে শুরু করা যাক:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// input data
 </span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">(</span><span class="n">n</span><span class="p">);</span>
@@ -2815,7 +2817,7 @@ $$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\li
 </span></span><span class="line"><span class="cl">            <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">            <span class="o">++</span><span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>This implementation has unreasonably many division operations (which are much slower than other arithmetical operations). Instead, we can calculate the indices of the blocks $c_l$ and $c_r$ which contain indices $l$ and $r$, and loop through blocks $c_l+1 \dots c_r-1$ with separate processing of the &ldquo;tails&rdquo; in blocks $c_l$ and $c_r$. This approach corresponds to the last formula in the description, and makes the case $c_l = c_r$ a special case.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>এই ইমপ্লিমেন্টেশনে অযৌক্তিকভাবে অনেক ভাগ অপারেশন আছে (যা অন্যান্য পাটিগণিত অপারেশনের চেয়ে অনেক ধীর)। এর পরিবর্তে, আমরা $l$ এবং $r$ ইনডেক্স ধারণকারী ব্লকের ইনডেক্স $c_l$ এবং $c_r$ হিসাব করতে পারি, এবং $c_l$ ও $c_r$ ব্লকে &ldquo;লেজ&rdquo; এর আলাদা প্রসেসিং সহ $c_l+1 \dots c_r-1$ ব্লকগুলোর মধ্য দিয়ে লুপ করতে পারি। এই পদ্ধতি বর্ণনার শেষ সূত্রের সাথে মিলে যায়, এবং $c_l = c_r$ কেসটিকে বিশেষ কেস বানায়।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">c_l</span> <span class="o">=</span> <span class="n">l</span> <span class="o">/</span> <span class="n">len</span><span class="p">,</span>   <span class="n">c_r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">len</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">c_l</span> <span class="o">==</span> <span class="n">c_r</span><span class="p">)</span>
@@ -2828,34 +2830,34 @@ $$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\li
 </span></span><span class="line"><span class="cl">        <span class="n">sum</span> <span class="o">+=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">c_r</span><span class="o">*</span><span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">r</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="n">sum</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="other-problems">Other problems<a class="anchor" href="#other-problems">#</a></h2>
-<p>So far we were discussing the problem of finding the sum of elements of a continuous subarray. This problem can be extended to allow to <strong>update individual array elements</strong>. If an element $a[i]$ changes, it&rsquo;s sufficient to update the value of $b[k]$ for the block to which this element belongs ($k = i / s$) in one operation:</p>
-$$ b[k] += a_{new}[i] - a_{old}[i] $$<p>On the other hand, the task of finding the sum of elements can be replaced with the task of finding minimal/maximal element of a subarray. If this problem has to address individual elements&rsquo; updates as well, updating the value of $b[k]$ is also possible, but it will require iterating through all values of block $k$ in $O(s) = O(\sqrt{n})$ operations.</p>
-<p>Sqrt decomposition can be applied in a similar way to a whole class of other problems: finding the number of zero elements, finding the first non-zero element, counting elements which satisfy a certain property etc.</p>
-<p>Another class of problems appears when we need to <strong>update array elements on intervals</strong>: increment existing elements or replace them with a given value.</p>
-<p>For example, let&rsquo;s say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l, r]$ or query the value of element $a[i]$. Let&rsquo;s store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each &ldquo;add&rdquo; operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l, r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the &ldquo;tails&rdquo; of the interval. The answer to query $i$ is simply $a[i] + b[i/s]$. This way &ldquo;add&rdquo; operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.</p>
-<p>Finally, those two classes of problems can be combined if the task requires doing <strong>both</strong> element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query.</p>
-<p>There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.</p>
-<h2 id="mos-algorithm">Mo&rsquo;s algorithm<a class="anchor" href="#mos-algorithm">#</a></h2>
-<p>A similar idea, based on sqrt decomposition, can be used to answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$.
-This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and cannot update values between two queries.
-But in a lot of situations this method has advantages.
-During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
-In some problems this merging step can be quite problematic.
-E.g. when each queries asks to find the <strong>mode</strong> of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough any more.
-<strong>Mo&rsquo;s algorithm</strong> uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.</p>
-<p>The idea is to answer the queries in a special order based on the indices.
-We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on.
-And also we will have to answer the queries of a block is a special order, namely sorted by the right index of the queries.</p>
-<p>As already said we will use a single data structure.
-This data structure will store information about the range.
-At the beginning this range will be empty.
-When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
-This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in our data structure.</p>
-<p>Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode.</p>
-<h3 id="implementation-1">Implementation<a class="anchor" href="#implementation-1">#</a></h3>
-<p>In Mo&rsquo;s algorithm we use two functions for adding an index and for removing an index from the range which we are currently maintaining.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="অনযনয-সমসয">অন্যান্য সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%af%e0%a6%a8%e0%a6%af-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
+<p>এখন পর্যন্ত আমরা একটি ধারাবাহিক সাব-অ্যারের উপাদানের যোগফল বের করার সমস্যা নিয়ে আলোচনা করছিলাম। এই সমস্যাটি <strong>পৃথক অ্যারে উপাদান আপডেট</strong> করার অনুমতি দিতে সম্প্রসারিত করা যায়। যদি একটি উপাদান $a[i]$ পরিবর্তন হয়, তাহলে এই উপাদানটি যে ব্লকে আছে সেই $b[k]$ এর মান একটি অপারেশনে আপডেট করাই যথেষ্ট ($k = i / s$):</p>
+$$ b[k] += a_{new}[i] - a_{old}[i] $$<p>অন্যদিকে, উপাদানের যোগফল বের করার কাজটি একটি সাব-অ্যারের সর্বনিম্ন/সর্বোচ্চ উপাদান বের করার কাজ দিয়ে প্রতিস্থাপন করা যায়। যদি এই সমস্যায় পৃথক উপাদানের আপডেটও সামলাতে হয়, $b[k]$ এর মান আপডেট করাও সম্ভব, কিন্তু এজন্য $O(s) = O(\sqrt{n})$ অপারেশনে ব্লক $k$ এর সব মানের মধ্য দিয়ে ইটারেট করতে হবে।</p>
+<p>স্কোয়ার্ট ডিকম্পোজিশন একইভাবে আরো অনেক শ্রেণীর সমস্যায় প্রয়োগ করা যায়: শূন্য উপাদানের সংখ্যা বের করা, প্রথম অ-শূন্য উপাদান খুঁজে বের করা, নির্দিষ্ট শর্ত পূরণ করে এমন উপাদান গণনা ইত্যাদি।</p>
+<p>আরেকটি শ্রেণীর সমস্যা দেখা দেয় যখন আমাদের <strong>ইন্টারভ্যালে অ্যারে উপাদান আপডেট</strong> করতে হয়: বিদ্যমান উপাদানে যোগ করা বা একটি নির্দিষ্ট মান দিয়ে প্রতিস্থাপন করা।</p>
+<p>উদাহরণস্বরূপ, ধরুন আমরা একটি অ্যারেতে দুই ধরনের অপারেশন করতে পারি: $[l, r]$ ইন্টারভ্যালের সব অ্যারে উপাদানে একটি নির্দিষ্ট মান $\delta$ যোগ করা অথবা $a[i]$ উপাদানের মান কোয়েরি করা। ধরি $b[k]$ এ ব্লক $k$ এর সব উপাদানে যে মান যোগ করতে হবে তা সংরক্ষণ করি (শুরুতে সব $b[k] = 0$)। প্রতিটি &ldquo;যোগ&rdquo; অপারেশনে $[l, r]$ ইন্টারভ্যালে থাকা সব ব্লকের জন্য $b[k]$ তে $\delta$ যোগ করতে হবে এবং ইন্টারভ্যালের &ldquo;লেজ&rdquo; এ থাকা সব উপাদানে $a[i]$ তে $\delta$ যোগ করতে হবে। কোয়েরি $i$ এর উত্তর হলো সহজভাবে $a[i] + b[i/s]$। এভাবে &ldquo;যোগ&rdquo; অপারেশনের কমপ্লেক্সিটি $O(\sqrt{n})$, এবং কোয়েরির উত্তরের কমপ্লেক্সিটি $O(1)$।</p>
+<p>শেষত, এই দুই শ্রেণীর সমস্যা একত্রিত করা যায় যদি কাজে ইন্টারভ্যালে উপাদান আপডেট এবং ইন্টারভ্যালে কোয়েরি <strong>উভয়ই</strong> করতে হয়। উভয় অপারেশন $O(\sqrt{n})$ কমপ্লেক্সিটিতে করা যায়। এর জন্য দুটি ব্লক অ্যারে $b$ এবং $c$ প্রয়োজন: একটি উপাদান আপডেটের ট্র্যাক রাখতে এবং আরেকটি কোয়েরির উত্তরের ট্র্যাক রাখতে।</p>
+<p>স্কোয়ার্ট ডিকম্পোজিশন ব্যবহার করে সমাধানযোগ্য আরো সমস্যা আছে, যেমন, সংখ্যার একটি সেট রক্ষণাবেক্ষণ করা যেখানে সংখ্যা যোগ/মুছে ফেলা, কোনো সংখ্যা সেটে আছে কিনা পরীক্ষা করা এবং $k$-তম বৃহত্তম সংখ্যা খুঁজে বের করা সম্ভব হবে। এটি সমাধান করতে সংখ্যাগুলো ক্রমবর্ধমান ক্রমে সংরক্ষণ করতে হবে, প্রতিটিতে $\sqrt{n}$ সংখ্যা সহ কয়েকটি ব্লকে ভাগ করে। প্রতিবার কোনো সংখ্যা যোগ/মুছে ফেলার সময়, পাশের ব্লকের শুরু ও শেষের মধ্যে সংখ্যা সরিয়ে ব্লকগুলো পুনঃসন্তুলিত করতে হবে।</p>
+<h2 id="mo-এর-অযলগরদম">Mo-এর অ্যালগরিদম<a class="anchor" href="#mo-%e0%a6%8f%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<p>একটি অনুরূপ ধারণা, স্কোয়ার্ট ডিকম্পোজিশনের উপর ভিত্তি করে, রেঞ্জ কোয়েরি ($Q$) অফলাইনে $O((N+Q)\sqrt{N})$ এ উত্তর দিতে ব্যবহার করা যায়।
+এটি পূর্ববর্তী বিভাগের পদ্ধতিগুলোর চেয়ে কিছুটা খারাপ মনে হতে পারে, কারণ এটি আগের চেয়ে সামান্য খারাপ কমপ্লেক্সিটি এবং দুটি কোয়েরির মধ্যে মান আপডেট করতে পারে না।
+কিন্তু অনেক পরিস্থিতিতে এই পদ্ধতির সুবিধা আছে।
+একটি সাধারণ স্কোয়ার্ট ডিকম্পোজিশনে, আমাদের প্রতিটি ব্লকের উত্তর আগে থেকে হিসাব করতে হয়, এবং কোয়েরির উত্তর দেওয়ার সময় সেগুলো মার্জ করতে হয়।
+কিছু সমস্যায় এই মার্জ ধাপটি বেশ সমস্যাজনক হতে পারে।
+যেমন যখন প্রতিটি কোয়েরি তার রেঞ্জের <strong>মোড</strong> (সবচেয়ে বেশিবার প্রদর্শিত সংখ্যা) জানতে চায়।
+এজন্য প্রতিটি ব্লকে কোনো ধরনের ডেটা স্ট্রাকচারে প্রতিটি সংখ্যার গণনা সংরক্ষণ করতে হবে, এবং আমরা আর যথেষ্ট দ্রুত মার্জ ধাপ সম্পাদন করতে পারব না।
+<strong>Mo-এর অ্যালগরিদম</strong> সম্পূর্ণ ভিন্ন একটি পদ্ধতি ব্যবহার করে, যা এই ধরনের কোয়েরি দ্রুত উত্তর দিতে পারে, কারণ এটি শুধুমাত্র একটি ডেটা স্ট্রাকচারের ট্র্যাক রাখে, এবং এর সাথে অপারেশনগুলো সহজ ও দ্রুত।</p>
+<p>ধারণাটি হলো ইনডেক্সের উপর ভিত্তি করে একটি বিশেষ ক্রমে কোয়েরির উত্তর দেওয়া।
+আমরা প্রথমে সেই সব কোয়েরির উত্তর দেবো যাদের বাম ইনডেক্স ব্লক ০ তে, তারপর সেই সব কোয়েরির উত্তর দেবো যাদের বাম ইনডেক্স ব্লক ১ তে এবং এভাবে চলবে।
+এবং আমাদের একটি ব্লকের কোয়েরিগুলোও বিশেষ ক্রমে উত্তর দিতে হবে, যথা কোয়েরির ডান ইনডেক্স অনুসারে সাজানো।</p>
+<p>ইতিমধ্যে বলা হয়েছে আমরা একটি একক ডেটা স্ট্রাকচার ব্যবহার করবো।
+এই ডেটা স্ট্রাকচার রেঞ্জ সম্পর্কে তথ্য সংরক্ষণ করবে।
+শুরুতে এই রেঞ্জ খালি থাকবে।
+যখন আমরা পরবর্তী কোয়েরির (বিশেষ ক্রমে) উত্তর দিতে চাই, আমরা সহজভাবে বর্তমান রেঞ্জের দুই পাশে উপাদান যোগ/সরিয়ে রেঞ্জ বাড়াই বা কমাই, যতক্ষণ না আমরা এটিকে কোয়েরি রেঞ্জে রূপান্তরিত করি।
+এভাবে, আমাদের একবারে শুধু একটি উপাদান যোগ বা সরাতে হয়, যা আমাদের ডেটা স্ট্রাকচারে বেশ সহজ অপারেশন হওয়া উচিত।</p>
+<p>যেহেতু আমরা কোয়েরির উত্তর দেওয়ার ক্রম পরিবর্তন করি, এটি শুধুমাত্র তখনই সম্ভব যখন আমাদের কোয়েরি অফলাইন মোডে উত্তর দেওয়ার অনুমতি থাকে।</p>
+<h3 id="ইমপলমনটশন-1">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8-1">#</a></h3>
+<p>Mo-এর অ্যালগরিদমে আমরা দুটি ফাংশন ব্যবহার করি: একটি রেঞ্জে একটি ইনডেক্স যোগ করার জন্য এবং একটি রেঞ্জ থেকে একটি ইনডেক্স সরানোর জন্য যা আমরা বর্তমানে রক্ষণাবেক্ষণ করছি।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">remove</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>  <span class="c1">// TODO: remove value at idx from data structure
 </span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">add</span><span class="p">(</span><span class="n">idx</span><span class="p">);</span>     <span class="c1">// TODO: add value at idx from data structure
 </span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">get_answer</span><span class="p">();</span>  <span class="c1">// TODO: extract the current answer of the data structure
@@ -2900,39 +2902,39 @@ This way, we only need to add or remove a single element once at a time, which s
 </span></span><span class="line"><span class="cl">        <span class="n">answers</span><span class="p">[</span><span class="n">q</span><span class="p">.</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_answer</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">answers</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Based on the problem we can use a different data structure and modify the <code>add</code>/<code>remove</code>/<code>get_answer</code> functions accordingly.
-For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning.
-The <code>add</code> function will simply add the value of the position and subsequently update the answer variable.
-On the other hand <code>remove</code> function will subtract the value at position and subsequently update the answer variable.
-And <code>get_answer</code> just returns the integer.</p>
-<p>For answering mode-queries, we can use a binary search tree (e.g. <code>map&lt;int, int&gt;</code>) for storing how often each number appears in the current range, and a second binary search tree (e.g. <code>set&lt;pair&lt;int, int&gt;&gt;</code>) for keeping counts of the numbers (e.g. as count-number pairs) in order.
-The <code>add</code> method removes the current number from the second BST, increases the count in the first one, and inserts the number back into the second one.
-<code>remove</code> does the same thing, it only decreases the count.
-And <code>get_answer</code> just looks at second tree and returns the best value in $O(1)$.</p>
-<h3 id="complexity">Complexity<a class="anchor" href="#complexity">#</a></h3>
-<p>Sorting all queries will take $O(Q \log Q)$.</p>
-<p>How about the other operations?
-How many times will the <code>add</code> and <code>remove</code> be called?</p>
-<p>Let&rsquo;s say the block size is $S$.</p>
-<p>If we only look at all queries having the left index in the same block, the queries are sorted by the right index.
-Therefore we will call <code>add(cur_r)</code> and <code>remove(cur_r)</code> only $O(N)$ times for all these queries combined.
-This gives $O(\frac{N}{S} N)$ calls for all blocks.</p>
-<p>The value of <code>cur_l</code> can change by at most $O(S)$ during between two queries.
-Therefore we have an additional $O(S Q)$ calls of <code>add(cur_l)</code> and <code>remove(cur_l)</code>.</p>
-<p>For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total.
-Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of <code>add</code> and <code>remove</code> function.</p>
-<h3 id="tips-for-improving-runtime">Tips for improving runtime<a class="anchor" href="#tips-for-improving-runtime">#</a></h3>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>সমস্যার উপর ভিত্তি করে আমরা ভিন্ন ডেটা স্ট্রাকচার ব্যবহার করতে পারি এবং সেই অনুযায়ী <code>add</code>/<code>remove</code>/<code>get_answer</code> ফাংশন পরিবর্তন করতে পারি।
+উদাহরণস্বরূপ যদি আমাদের রেঞ্জ যোগফল কোয়েরি করতে বলা হয় তাহলে আমরা ডেটা স্ট্রাকচার হিসেবে একটি সাধারণ ইন্টিজার ব্যবহার করি, যা শুরুতে $0$।
+<code>add</code> ফাংশন সহজভাবে পজিশনের মান যোগ করবে এবং পরবর্তীতে উত্তর ভেরিয়েবল আপডেট করবে।
+অন্যদিকে <code>remove</code> ফাংশন পজিশনের মান বিয়োগ করবে এবং পরবর্তীতে উত্তর ভেরিয়েবল আপডেট করবে।
+এবং <code>get_answer</code> শুধু ইন্টিজারটি রিটার্ন করে।</p>
+<p>মোড-কোয়েরির উত্তর দিতে, আমরা বর্তমান রেঞ্জে প্রতিটি সংখ্যা কতবার দেখা যায় তা সংরক্ষণ করতে একটি বাইনারি সার্চ ট্রি (যেমন <code>map&lt;int, int&gt;</code>) এবং সংখ্যাগুলোর গণনা ক্রমে রাখতে একটি দ্বিতীয় বাইনারি সার্চ ট্রি (যেমন <code>set&lt;pair&lt;int, int&gt;&gt;</code>) ব্যবহার করতে পারি।
+<code>add</code> মেথড দ্বিতীয় BST থেকে বর্তমান সংখ্যা সরায়, প্রথমটিতে গণনা বাড়ায়, এবং সংখ্যাটি দ্বিতীয়টিতে আবার ঢোকায়।
+<code>remove</code>ও একই কাজ করে, শুধু গণনা কমায়।
+এবং <code>get_answer</code> শুধু দ্বিতীয় ট্রি দেখে $O(1)$ এ সেরা মান রিটার্ন করে।</p>
+<h3 id="কমপলকসট">কমপ্লেক্সিটি<a class="anchor" href="#%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%b8%e0%a6%9f">#</a></h3>
+<p>সব কোয়েরি সাজাতে $O(Q \log Q)$ লাগবে।</p>
+<p>অন্যান্য অপারেশনগুলোর কী হবে?
+<code>add</code> এবং <code>remove</code> কতবার কল হবে?</p>
+<p>ধরি ব্লকের আকার $S$।</p>
+<p>যদি আমরা শুধু একই ব্লকে বাম ইনডেক্স আছে এমন সব কোয়েরি দেখি, কোয়েরিগুলো ডান ইনডেক্স অনুসারে সাজানো।
+তাই এই সব কোয়েরি মিলিয়ে আমরা <code>add(cur_r)</code> এবং <code>remove(cur_r)</code> শুধু $O(N)$ বার কল করবো।
+এটি সব ব্লকের জন্য $O(\frac{N}{S} N)$ কল দেয়।</p>
+<p>দুটি কোয়েরির মধ্যে <code>cur_l</code> এর মান সর্বোচ্চ $O(S)$ পরিবর্তন হতে পারে।
+তাই আমাদের <code>add(cur_l)</code> এবং <code>remove(cur_l)</code> এর অতিরিক্ত $O(S Q)$ কল আছে।</p>
+<p>$S \approx \sqrt{N}$ হলে এটি মোট $O((N + Q) \sqrt{N})$ অপারেশন দেয়।
+সুতরাং কমপ্লেক্সিটি হলো $O((N+Q)F\sqrt{N})$ যেখানে $O(F)$ হলো <code>add</code> এবং <code>remove</code> ফাংশনের কমপ্লেক্সিটি।</p>
+<h3 id="রনটইম-উননতর-টপস">রানটাইম উন্নতির টিপস<a class="anchor" href="#%e0%a6%b0%e0%a6%a8%e0%a6%9f%e0%a6%87%e0%a6%ae-%e0%a6%89%e0%a6%a8%e0%a6%a8%e0%a6%a4%e0%a6%b0-%e0%a6%9f%e0%a6%aa%e0%a6%b8">#</a></h3>
 <ul>
-<li>Block size of precisely $\sqrt{N}$ doesn&rsquo;t always offer the best runtime.  For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
-More importantly, don&rsquo;t compute the block size at runtime - make it <code>const</code>. Division by constants is well optimized by compilers.</li>
-<li>In odd blocks sort the right index in ascending order and in even blocks sort it in descending order. This will minimize the movement of right pointer, as the normal sorting will move the right pointer from the end back to the beginning at the start of every block. With the improved version this resetting is no more necessary.</li>
+<li>ঠিক $\sqrt{N}$ ব্লক সাইজ সবসময় সেরা রানটাইম দেয় না। উদাহরণস্বরূপ, $\sqrt{N}=750$ হলে ব্লক সাইজ $700$ বা $800$ ভালো চলতে পারে।
+আরো গুরুত্বপূর্ণ, রানটাইমে ব্লক সাইজ হিসাব করবেন না - একে <code>const</code> বানান। ধ্রুবক দ্বারা ভাগ কম্পাইলার দ্বারা ভালোভাবে অপটিমাইজ হয়।</li>
+<li>বিজোড় ব্লকে ডান ইনডেক্স ক্রমবর্ধমান ক্রমে এবং জোড় ব্লকে ক্রমহ্রাসমান ক্রমে সাজান। এটি ডান পয়েন্টারের চলাচল কমিয়ে দেবে, কারণ স্বাভাবিক সাজানো প্রতিটি ব্লকের শুরুতে ডান পয়েন্টারকে শেষ থেকে শুরুতে ফেরত নিয়ে যাবে। উন্নত সংস্করণে এই রিসেটিং আর প্রয়োজন নেই।</li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">bool</span> <span class="nf">cmp</span><span class="p">(</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">p</span><span class="p">,</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">/</span> <span class="n">BLOCK_SIZE</span> <span class="o">!=</span> <span class="n">q</span><span class="p">.</span><span class="n">first</span> <span class="o">/</span> <span class="n">BLOCK_SIZE</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">/</span> <span class="n">BLOCK_SIZE</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">?</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">second</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">second</span> <span class="o">&gt;</span> <span class="n">q</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>You can read about even faster sorting approach <a href="https://codeforces.com/blog/entry/61203">here</a>.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>আরো দ্রুত সাজানোর পদ্ধতি সম্পর্কে <a href="https://codeforces.com/blog/entry/61203">এখানে</a> পড়তে পারেন।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://codeforces.com/problemset/problem/433/B">Codeforces - Kuriyama Mirai&rsquo;s Stones</a></li>
 <li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=3154">UVA - 12003 - Array Transformer</a></li>
@@ -2976,14 +2978,14 @@ More importantly, don&rsquo;t compute the block size at runtime - make it <code>
     
       <a href="/data_structures/sparse-table/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Sparse Table</span>
+        <span>স্পার্স টেবিল</span>
       </a>
     
     </span>
     <span>
     
       <a href="/data_structures/segment_tree/" class="flex align-center">
-        <span>Segment Tree</span>
+        <span>সেগমেন্ট ট্রি</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3024,21 +3026,21 @@ More importantly, don&rsquo;t compute the block size at runtime - make it <code>
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#sqrt-decomposition-based-data-structure">Sqrt-decomposition based data structure</a>
+    <li><a href="#সকযরট-ডকমপজশন-ভততক-ডট-সটরকচর">স্কোয়ার্ট-ডিকম্পোজিশন ভিত্তিক ডেটা স্ট্রাকচার</a>
       <ul>
-        <li><a href="#description">Description</a></li>
-        <li><a href="#implementation">Implementation</a></li>
+        <li><a href="#বরণন">বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
       </ul>
     </li>
-    <li><a href="#other-problems">Other problems</a></li>
-    <li><a href="#mos-algorithm">Mo&rsquo;s algorithm</a>
+    <li><a href="#অনযনয-সমসয">অন্যান্য সমস্যা</a></li>
+    <li><a href="#mo-এর-অযলগরদম">Mo-এর অ্যালগরিদম</a>
       <ul>
-        <li><a href="#implementation-1">Implementation</a></li>
-        <li><a href="#complexity">Complexity</a></li>
-        <li><a href="#tips-for-improving-runtime">Tips for improving runtime</a></li>
+        <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
+        <li><a href="#কমপলকসট">কমপ্লেক্সিটি</a></li>
+        <li><a href="#রনটইম-উননতর-টপস">রানটাইম উন্নতির টিপস</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

@@ -1,0 +1,3132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Second Best Minimum Spanning Tree#A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees. A second best MST $T&#39;$ is a spanning tree, that has the second minimum weight sum of all the edges, from all the possible spanning trees of the graph $G$.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/en/graph/second_best_mst/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="Second Best Minimum Spanning Tree">
+  <meta property="og:description" content="Second Best Minimum Spanning Tree#A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees. A second best MST $T&#39;$ is a spanning tree, that has the second minimum weight sum of all the edges, from all the possible spanning trees of the graph $G$.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="graph">
+    <meta property="article:tag" content="Original">
+
+
+  <meta itemprop="name" content="Second Best Minimum Spanning Tree">
+  <meta itemprop="description" content="Second Best Minimum Spanning Tree#A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees. A second best MST $T&#39;$ is a spanning tree, that has the second minimum weight sum of all the edges, from all the possible spanning trees of the graph $G$.">
+  <meta itemprop="wordCount" content="1303">
+  <meta itemprop="keywords" content="Original">
+
+<title>Second Best Minimum Spanning Tree | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/en/graph/second_best_mst/">
+  <link rel="alternate" hreflang="bn" href="http://localhost:53425/bn/graph/second_best_mst/" title="দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি">
+<link rel="stylesheet" href="/book.min.78425d2454aed079c91fb5d0cb3403bc4486a0fe295cb3e9dfec476916fec2a0.css" integrity="sha256-eEJdJFSu0HnJH7XQyzQDvESGoP4pXLPp3&#43;xHaRb&#43;wqA=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.179136d620b2862193643d68f236fb4c2847ba3120c213ed83c47fb3706ad4e3.js" integrity="sha256-F5E21iCyhiGTZD1o8jb7TChHujEgwhPtg8R/s3Bq1OM=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-graph">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/en/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/bn/graph/second_best_mst/" class="flex flex-auto">
+          বাংলা
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<button id="theme-toggle" onclick="
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc) sc.href = sc.href.replace(next === 'dark' ? 'syntax-light' : 'syntax-dark', next === 'dark' ? 'syntax-dark' : 'syntax-light');
+" title="Toggle light/dark mode">🌙</button>
+<script>
+(function() {
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc && t === 'dark') sc.href = sc.href.replace('syntax-light', 'syntax-dark');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f7b161d6fc71b7efd1e3549d2d75e744" class="toggle"  />
+    <label for="section-f7b161d6fc71b7efd1e3549d2d75e744" class="flex">
+      <a role="button" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/big-integer/" class="">
+      Arbitrary-Precision Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/balanced-ternary/" class="">
+      Balanced Ternary</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/binary-exp/" class="">
+      Binary Exponentiation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factoring-exp/" class="">
+      Binary Exponentiation by Factoring</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/bit-manipulation/" class="">
+      Bit manipulation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/chinese-remainder-theorem/" class="">
+      Chinese Remainder Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/continued-fractions/" class="">
+      Continued fractions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/discrete-log/" class="">
+      Discrete Logarithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/discrete-root/" class="">
+      Discrete Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/euclid-algorithm/" class="">
+      Euclidean algorithm for computing the greatest common divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/phi-function/" class="">
+      Euler&#39;s totient function</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/extended-euclid-algorithm/" class="">
+      Extended Euclidean Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/fft/" class="">
+      Fast Fourier transform</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/fibonacci-numbers/" class="">
+      Fibonacci Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorial-divisors/" class="">
+      Finding Power of Factorial Divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/garners-algorithm/" class="">
+      Garner&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/gray-code/" class="">
+      Gray code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorization/" class="">
+      Integer factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/linear_congruence_equation/" class="">
+      Linear Congruence Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/linear-diophantine-equation/" class="">
+      Linear Diophantine Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/prime-sieve-linear/" class="">
+      Linear Sieve</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/module-inverse/" class="">
+      Modular Multiplicative Inverse</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/montgomery_multiplication/" class="">
+      Montgomery Multiplication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/divisors/" class="">
+      Number of divisors / sum of divisors</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/polynomial/" class="">
+      Operations on polynomials and series</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/primality_tests/" class="">
+      Primality tests</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/primitive-root/" class="">
+      Primitive Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/sieve-of-eratosthenes/" class="">
+      Sieve of Eratosthenes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/all-submasks/" class="">
+      Submask Enumeration</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-1de1310b23a223554d69f52536bcf700" class="toggle"  />
+    <label for="section-1de1310b23a223554d69f52536bcf700" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/disjoint_set_union/" class="">
+      Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/fenwick/" class="">
+      Fenwick Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/stack_queue_modification/" class="">
+      Minimum stack / Minimum queue</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/randomized_heap/" class="">
+      Randomized Heap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/segment_tree/" class="">
+      Segment Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sparse-table/" class="">
+      Sparse Table</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sqrt_decomposition/" class="">
+      Sqrt Decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sqrt-tree/" class="">
+      Sqrt Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/treap/" class="">
+      Treap (Cartesian tree)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-07b56d442029a5b6e28a3bcfe84575d9" class="toggle"  />
+    <label for="section-07b56d442029a5b6e28a3bcfe84575d9" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/divide-and-conquer-dp/" class="">
+      Divide and Conquer DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/profile-dynamics/" class="">
+      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/zero_matrix/" class="">
+      Finding the largest zero submatrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/intro-to-dp/" class="">
+      Introduction to Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/knapsack/" class="">
+      Knapsack Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/knuth-optimization/" class="">
+      Knuth&#39;s Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4b6134a05034a32f3bc298d1791becec" class="toggle"  />
+    <label for="section-4b6134a05034a32f3bc298d1791becec" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/aho_corasick/" class="">
+      Aho-Corasick algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/expression_parsing/" class="">
+      Expression parsing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/main_lorentz/" class="">
+      Finding repetitions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/lyndon_factorization/" class="">
+      Lyndon factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/prefix-function/" class="">
+      Prefix function. Knuth–Morris–Pratt algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/rabin-karp/" class="">
+      Rabin-Karp Algorithm for string matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/string-hashing/" class="">
+      String Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-array/" class="">
+      Suffix Array</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-automaton/" class="">
+      Suffix Automaton</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-tree-ukkonen/" class="">
+      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/z-function/" class="">
+      Z-function and its calculation</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2d004dfeee0260d865651fbcb658a355" class="toggle"  />
+    <label for="section-2d004dfeee0260d865651fbcb658a355" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/determinant-gauss/" class="">
+      Calculating the determinant of a matrix by Gauss</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/determinant-kraut/" class="">
+      Calculating the determinant using Kraut method</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/rank-matrix/" class="">
+      Finding the rank of a matrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/linear-system-gauss/" class="">
+      Gauss method for solving system of linear equations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-cd939af048c7554d8e15861cf94ef5bd" class="toggle"  />
+    <label for="section-cd939af048c7554d8e15861cf94ef5bd" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/bracket_sequences/" class="">
+      Balanced bracket sequences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/binomial-coefficients/" class="">
+      Binomial Coefficients</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/burnside/" class="">
+      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/catalan-numbers/" class="">
+      Catalan Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/counting_labeled_graphs/" class="">
+      Counting labeled graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/bishops-on-chessboard/" class="">
+      Placing Bishops on a Chessboard</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/stars_and_bars/" class="">
+      Stars and bars</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/inclusion-exclusion/" class="">
+      The Inclusion-Exclusion Principle</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ef166827526ba2edc74d0ac681f2898f" class="toggle"  />
+    <label for="section-ef166827526ba2edc74d0ac681f2898f" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/binary_search/" class="">
+      Binary search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/simpson-integration/" class="">
+      Integration by Simpson&#39;s formula</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/roots_newton/" class="">
+      Newton&#39;s method for finding roots</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/simulated_annealing/" class="">
+      Simulated Annealing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/ternary_search/" class="">
+      Ternary Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6fd838606809e0128aa80e44249f1a58" class="toggle"  />
+    <label for="section-6fd838606809e0128aa80e44249f1a58" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/basic-geometry/" class="">
+      Basic Geometry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/point-in-convex-polygon/" class="">
+      Check if point belongs to the convex polygon in O(log N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/check-segments-intersection/" class="">
+      Check if two segments intersect</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/circle-circle-intersection/" class="">
+      Circle-Circle Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/circle-line-intersection/" class="">
+      Circle-Line Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/convex-hull/" class="">
+      Convex Hull construction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/convex_hull_trick/" class="">
+      Convex hull trick and Li Chao tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/delaunay/" class="">
+      Delaunay triangulation and Voronoi diagram</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/area-of-simple-polygon/" class="">
+      Finding area of simple polygon in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/tangents-to-two-circles/" class="">
+      Finding common tangents to two circles</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/planar/" class="">
+      Finding faces of a planar graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/segments-intersection/" class="">
+      Finding intersection of two segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/segment-to-line/" class="">
+      Finding the equation of a line for a segment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/nearest_points/" class="">
+      Finding the nearest pair of points</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/halfplane-intersection/" class="">
+      Half-plane intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/lines-intersection/" class="">
+      Intersection Point of Lines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/lattice-points/" class="">
+      Lattice points inside non-lattice polygon</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/length-of-segments-union/" class="">
+      Length of the union of segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/manhattan-distance/" class="">
+      Manhattan Distance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/enclosing-circle/" class="">
+      Minimum Enclosing Circle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/minkowski/" class="">
+      Minkowski sum of convex polygons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/oriented-triangle-area/" class="">
+      Oriented area of a triangle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/picks-theorem/" class="">
+      Pick&#39;s Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/point-location/" class="">
+      Point location in O(log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/intersecting_segments/" class="">
+      Search for a pair of intersecting segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/vertical_decomposition/" class="">
+      Vertical decomposition</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c75c8866c99f042901fc5bb463c39422" class="toggle" checked />
+    <label for="section-c75c8866c99f042901fc5bb463c39422" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/01_bfs/" class="">
+      0-1 BFS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/2sat/" class="">
+      2-SAT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bellman_ford/" class="">
+      Bellman-Ford Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/breadth-first-search/" class="">
+      Breadth-first search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bipartite-check/" class="">
+      Check whether a graph is bipartite</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/desopo_pape/" class="">
+      D´Esopo-Pape algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/depth-first-search/" class="">
+      Depth First Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dijkstra/" class="">
+      Dijkstra Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dijkstra_sparse/" class="">
+      Dijkstra on sparse graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/edge_vertex_connectivity/" class="">
+      Edge connectivity / Vertex connectivity</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/finding-negative-cycle-in-graph/" class="">
+      Finding a negative cycle in the graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/cutpoints/" class="">
+      Finding articulation points in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bridge-searching/" class="">
+      Finding bridges in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bridge-searching-online/" class="">
+      Finding Bridges Online</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/flow_with_demands/" class="">
+      Flows with demands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      Floyd-Warshall Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/hld/" class="">
+      Heavy-light decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/hungarian-algorithm/" class="">
+      Hungarian algorithm for solving the assignment problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/kirchhoff-theorem/" class="">
+      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/kuhn_maximum_bipartite_matching/" class="">
+      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_binary_lifting/" class="">
+      Lowest Common Ancestor - Binary Lifting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_farachcoltonbender/" class="">
+      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_tarjan/" class="">
+      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dinic/" class="">
+      Maximum flow - Dinic&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/edmonds_karp/" class="">
+      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mpm/" class="">
+      Maximum flow - MPM algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/push-relabel/" class="">
+      Maximum flow - Push-relabel algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/push-relabel-faster/" class="">
+      Maximum flow - Push-relabel method improved</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_kruskal_with_dsu/" class="">
+      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_kruskal/" class="">
+      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_prim/" class="">
+      Minimum spanning tree - Prim&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/min_cost_flow/" class="">
+      Minimum-cost flow - Successive shortest path algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/fixed_length_paths/" class="">
+      Number of paths of fixed length / Shortest paths of fixed length</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/tree_painting/" class="">
+      Paint the edges of the tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/pruefer_code/" class="">
+      Prüfer code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/search-for-connected-components/" class="">
+      Search for connected components in a graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/second_best_mst/" class="active">
+      Second Best Minimum Spanning Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/rmq_linear/" class="">
+      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/assignment-problem-min-flow/" class="">
+      Solving assignment problem using min-cost-flow</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/strong-orientation/" class="">
+      Strong Orientation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/strongly-connected-components/" class="">
+      Strongly connected components and the condensation graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/topological-sort/" class="">
+      Topological Sorting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2e9f7f64f2dd8c3ce17273da578ea7c7" class="toggle"  />
+    <label for="section-2e9f7f64f2dd8c3ce17273da578ea7c7" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/k-th/" class="">
+      K-th order statistic in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/rmq/" class="">
+      Range Minimum Query</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-087953a613e1dd5765fcd218432eb5a8" class="toggle"  />
+    <label for="section-087953a613e1dd5765fcd218432eb5a8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/game_theory/games_on_graphs/" class="">
+      Games on arbitrary graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/game_theory/sprague-grundy-nim/" class="">
+      Sprague-Grundy theorem. Nim</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9c5e8eca3f1b4797b5206dac0fd26770" class="toggle"  />
+    <label for="section-9c5e8eca3f1b4797b5206dac0fd26770" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule-with-completion-duration/" class="">
+      Optimal schedule of jobs given their deadlines and durations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule_one_machine/" class="">
+      Scheduling jobs on one machine</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule_two_machines/" class="">
+      Scheduling jobs on two machines</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ae1361bcd366834155af8260a9179d66" class="toggle"  />
+    <label for="section-ae1361bcd366834155af8260a9179d66" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/15-puzzle/" class="">
+      15 Puzzle Game: Existence Of The Solution</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/tortoise_and_hare/" class="">
+      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/josephus_problem/" class="">
+      Josephus Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/maximum_average_segment/" class="">
+      Search the subarray with the maximum/minimum sum</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/stern_brocot_tree_farey_sequences/" class="">
+      The Stern-Brocot tree and Farey sequences</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Second Best Minimum Spanning Tree</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#observation">Observation</a></li>
+    <li><a href="#using-kruskals-algorithm">Using Kruskal&rsquo;s Algorithm</a></li>
+    <li><a href="#modeling-into-a-lowest-common-ancestor-lca-problem">Modeling into a Lowest Common Ancestor (LCA) problem</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#problems">Problems</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="second-best-minimum-spanning-tree">Second Best Minimum Spanning Tree<a class="anchor" href="#second-best-minimum-spanning-tree">#</a></h1>
+<p>A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees.
+A second best MST $T'$ is a spanning tree, that has the second minimum weight sum of all the edges, from all the possible spanning trees of the graph $G$.</p>
+<h2 id="observation">Observation<a class="anchor" href="#observation">#</a></h2>
+<p>Let $T$ be the Minimum Spanning Tree of a graph $G$.
+It can be observed, that the second best Minimum Spanning Tree differs from $T$ by only one edge replacement. (For a proof of this statement refer to problem 23-1 <a href="http://www-bcf.usc.edu/~shanghua/teaching/Spring2010/public_html/files/HW2_Solutions_A.pdf">here</a>).</p>
+<p>So we need to find an edge $e_{new}$ which is in not in $T$, and replace it with an edge in $T$ (let it be $e_{old}$) such that the new graph $T' = (T \cup \{e_{new}\}) \setminus \{e_{old}\}$ is a spanning tree and the weight difference ($e_{new} - e_{old}$) is minimum.</p>
+<h2 id="using-kruskals-algorithm">Using Kruskal&rsquo;s Algorithm<a class="anchor" href="#using-kruskals-algorithm">#</a></h2>
+<p>We can use Kruskal&rsquo;s algorithm to find the MST first, and then just try to remove a single edge from it and replace it with another.</p>
+<ol>
+<li>Sort the edges in $O(E \log E)$, then find a MST using Kruskal in $O(E)$.</li>
+<li>For each edge in the MST (we will have $V-1$ edges in it) temporarily exclude it from the edge list so that it cannot be chosen.</li>
+<li>Then, again try to find a MST in $O(E)$ using the remaining edges.</li>
+<li>Do this for all the edges in MST, and take the best of all.</li>
+</ol>
+<p>Note: we don’t need to sort the edges again in for Step 3.</p>
+<p>So, the overall time complexity will be $O(E \log V + E + V E)$ = $O(V E)$.</p>
+<h2 id="modeling-into-a-lowest-common-ancestor-lca-problem">Modeling into a Lowest Common Ancestor (LCA) problem<a class="anchor" href="#modeling-into-a-lowest-common-ancestor-lca-problem">#</a></h2>
+<p>In the previous approach we tried all possibilities of removing one edge of the MST.
+Here we will do the exact opposite.
+We try to add every edge that is not already in the MST.</p>
+<ol>
+<li>Sort the edges in $O(E \log E)$, then find a MST using Kruskal in $O(E)$.</li>
+<li>For each edge $e$ not already in the MST, temporarily add it to the MST, creating a cycle. The cycle will pass through the LCA.</li>
+<li>Find the edge $k$ with maximal weight in the cycle that is not equal to $e$, by following the parents of the nodes of edge $e$, up to the LCA.</li>
+<li>Remove $k$ temporarily, creating a new spanning tree.</li>
+<li>Compute the weight difference $\delta = weight(e) - weight(k)$, and remember it together with the changed edge.</li>
+<li>Repeat step 2 for all other edges, and return the spanning tree with the smallest weight difference to the MST.</li>
+</ol>
+<p>The time complexity of the algorithm depends on how we compute the $k$s, which are the maximum weight edges in step 2 of this algorithm.
+One way to compute them efficiently in $O(E \log V)$ is to transform the problem into a Lowest Common Ancestor (LCA) problem.</p>
+<p>We will preprocess the LCA by rooting the MST and will also compute the maximum edge weights for each node on the paths to their ancestors.
+This can be done using <a href="lca_binary_lifting.md">Binary Lifting</a> for LCA.</p>
+<p>The final time complexity of this approach is $O(E \log V)$.</p>
+<p>For example:</p>
+<div style="text-align: center;">
+  <img src="/images/graph/second_best_mst_1.png" alt="MST">
+  <img src="/images/graph/second_best_mst_2.png" alt="Second best MST">
+  <br />
+<p><em>In the image left is the MST and right is the second best MST.</em></p>
+</div>
+<p>In the given graph suppose we root the MST at the blue vertex on the top, and then run our algorithm by start picking the edges not in MST.
+Let the edge picked first be the edge $(u, v)$ with weight 36.
+Adding this edge to the tree forms a cycle 36 - 7 - 2 - 34.</p>
+<p>Now we will find the maximum weight edge in this cycle by finding the $\text{LCA}(u, v) = p$.
+We compute the maximum weight edge on the paths from $u$ to $p$ and from $v$ to $p$.
+Note: the $\text{LCA}(u, v)$ can also be equal to $u$ or $v$ in some case.
+In this example we will get the edge with weight 34 as maximum edge weight in the cycle.
+By removing the edge we get a new spanning tree, that has a weight difference of only 2.</p>
+<p>After doing this also with all other edges that are not part of the initial MST, we can see that this spanning tree was also the second best spanning tree overall.
+Choosing the edge with weight 14 will increase the weight of the tree by 7, choosing the edge with weight 27 increases it by 14, choosing the edge with weight 28 increases it by 21, and choosing the edge with weight 39 will increase the tree by 5.</p>
+<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">edge</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="k">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="k">const</span> <span class="k">struct</span> <span class="nc">edge</span><span class="o">&amp;</span> <span class="n">other</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="n">other</span><span class="p">.</span><span class="n">w</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">edge</span> <span class="n">Edge</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mf">2e5</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ans</span> <span class="o">=</span> <span class="mf">1e18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">21</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span> <span class="n">edges</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">h</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">parent</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">size</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">present</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;&gt;</span> <span class="n">adj</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="n">dp</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">l</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">up</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">combine</span><span class="p">(</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">second</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">second</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">topTwo</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">topOne</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">&gt;</span> <span class="n">topOne</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">topTwo</span> <span class="o">=</span> <span class="n">topOne</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">topOne</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">&gt;</span> <span class="n">topTwo</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">topOne</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">topTwo</span> <span class="o">=</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="n">topOne</span><span class="p">,</span> <span class="n">topTwo</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">par</span><span class="p">,</span> <span class="kt">int</span> <span class="n">d</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">h</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">h</span><span class="p">[</span><span class="n">par</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">par</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">v</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">first</span> <span class="o">!=</span> <span class="n">par</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">lca</span><span class="p">(</span><span class="kt">int</span> <span class="n">u</span><span class="p">,</span> <span class="kt">int</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">ans</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">swap</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">-</span> <span class="n">h</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ans</span> <span class="o">=</span> <span class="n">combine</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">dp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">u</span> <span class="o">=</span> <span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ans</span> <span class="o">=</span> <span class="n">combine</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">combine</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">            <span class="n">u</span> <span class="o">=</span> <span class="n">up</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v</span> <span class="o">=</span> <span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ans</span> <span class="o">=</span> <span class="n">combine</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">combine</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">u</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">parent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">size</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;&gt;</span> <span class="n">b</span> <span class="o">&gt;&gt;</span> <span class="n">w</span><span class="p">;</span> <span class="c1">// 1-indexed
+</span></span></span><span class="line"><span class="cl">        <span class="n">edges</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sort</span><span class="p">(</span><span class="n">edges</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">edges</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">e</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">w</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">id</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">unite_set</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">            <span class="n">adj</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">adj</span><span class="p">[</span><span class="n">b</span><span class="p">].</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">present</span><span class="p">[</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span> <span class="o">+=</span> <span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">l</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">up</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="n">up</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="n">up</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">up</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">combine</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">v</span><span class="p">][</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">id</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">w</span> <span class="o">=</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">w</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">present</span><span class="p">[</span><span class="n">id</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">auto</span> <span class="n">rem</span> <span class="o">=</span> <span class="n">lca</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">s</span><span class="p">,</span> <span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">e</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">rem</span><span class="p">.</span><span class="n">first</span> <span class="o">!=</span> <span class="n">w</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ans</span> <span class="o">&gt;</span> <span class="n">res</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">rem</span><span class="p">.</span><span class="n">first</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ans</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">rem</span><span class="p">.</span><span class="n">first</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">rem</span><span class="p">.</span><span class="n">second</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">ans</span> <span class="o">&gt;</span> <span class="n">res</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">rem</span><span class="p">.</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ans</span> <span class="o">=</span> <span class="n">res</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="n">rem</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="references">References<a class="anchor" href="#references">#</a></h2>
+<ol>
+<li>Competitive Programming-3, by Steven Halim</li>
+<li><a href="http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf">web.mit.edu</a></li>
+</ol>
+<h2 id="problems">Problems<a class="anchor" href="#problems">#</a></h2>
+<ul>
+<li><a href="https://codeforces.com/problemset/problem/609/E">Codeforces - Minimum spanning tree for each edge</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/en/graph/search-for-connected-components/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Search for connected components in a graph</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/en/graph/rmq_linear/" class="flex align-center">
+        <span>Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#observation">Observation</a></li>
+    <li><a href="#using-kruskals-algorithm">Using Kruskal&rsquo;s Algorithm</a></li>
+    <li><a href="#modeling-into-a-lowest-common-ancestor-lca-problem">Modeling into a Lowest Common Ancestor (LCA) problem</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#problems">Problems</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

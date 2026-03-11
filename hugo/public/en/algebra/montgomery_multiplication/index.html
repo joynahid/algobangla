@@ -1,0 +1,3103 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Montgomery Multiplication#Many algorithms in number theory, like prime testing or integer factorization, and in cryptography, like RSA, require lots of operations modulo a large number. A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product. And division is a really expensive operation, especially with big numbers.
+The Montgomery (modular) multiplication is a method that allows computing such multiplications faster. Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/en/algebra/montgomery_multiplication/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="Montgomery Multiplication">
+  <meta property="og:description" content="Montgomery Multiplication#Many algorithms in number theory, like prime testing or integer factorization, and in cryptography, like RSA, require lots of operations modulo a large number. A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product. And division is a really expensive operation, especially with big numbers.
+The Montgomery (modular) multiplication is a method that allows computing such multiplications faster. Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="algebra">
+    <meta property="article:tag" content="Original">
+
+
+  <meta itemprop="name" content="Montgomery Multiplication">
+  <meta itemprop="description" content="Montgomery Multiplication#Many algorithms in number theory, like prime testing or integer factorization, and in cryptography, like RSA, require lots of operations modulo a large number. A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product. And division is a really expensive operation, especially with big numbers.
+The Montgomery (modular) multiplication is a method that allows computing such multiplications faster. Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.">
+  <meta itemprop="wordCount" content="1480">
+  <meta itemprop="keywords" content="Original">
+
+<title>Montgomery Multiplication | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/en/algebra/montgomery_multiplication/">
+  <link rel="alternate" hreflang="bn" href="http://localhost:53425/bn/algebra/montgomery_multiplication/" title="মন্টগোমেরি গুণন">
+<link rel="stylesheet" href="/book.min.78425d2454aed079c91fb5d0cb3403bc4486a0fe295cb3e9dfec476916fec2a0.css" integrity="sha256-eEJdJFSu0HnJH7XQyzQDvESGoP4pXLPp3&#43;xHaRb&#43;wqA=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.179136d620b2862193643d68f236fb4c2847ba3120c213ed83c47fb3706ad4e3.js" integrity="sha256-F5E21iCyhiGTZD1o8jb7TChHujEgwhPtg8R/s3Bq1OM=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-algebra">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/en/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/bn/algebra/montgomery_multiplication/" class="flex flex-auto">
+          বাংলা
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<button id="theme-toggle" onclick="
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc) sc.href = sc.href.replace(next === 'dark' ? 'syntax-light' : 'syntax-dark', next === 'dark' ? 'syntax-dark' : 'syntax-light');
+" title="Toggle light/dark mode">🌙</button>
+<script>
+(function() {
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc && t === 'dark') sc.href = sc.href.replace('syntax-light', 'syntax-dark');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f7b161d6fc71b7efd1e3549d2d75e744" class="toggle" checked />
+    <label for="section-f7b161d6fc71b7efd1e3549d2d75e744" class="flex">
+      <a role="button" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/big-integer/" class="">
+      Arbitrary-Precision Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/balanced-ternary/" class="">
+      Balanced Ternary</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/binary-exp/" class="">
+      Binary Exponentiation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factoring-exp/" class="">
+      Binary Exponentiation by Factoring</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/bit-manipulation/" class="">
+      Bit manipulation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/chinese-remainder-theorem/" class="">
+      Chinese Remainder Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/continued-fractions/" class="">
+      Continued fractions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/discrete-log/" class="">
+      Discrete Logarithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/discrete-root/" class="">
+      Discrete Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/euclid-algorithm/" class="">
+      Euclidean algorithm for computing the greatest common divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/phi-function/" class="">
+      Euler&#39;s totient function</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/extended-euclid-algorithm/" class="">
+      Extended Euclidean Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/fft/" class="">
+      Fast Fourier transform</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/fibonacci-numbers/" class="">
+      Fibonacci Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorial-divisors/" class="">
+      Finding Power of Factorial Divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/garners-algorithm/" class="">
+      Garner&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/gray-code/" class="">
+      Gray code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorization/" class="">
+      Integer factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/linear_congruence_equation/" class="">
+      Linear Congruence Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/linear-diophantine-equation/" class="">
+      Linear Diophantine Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/prime-sieve-linear/" class="">
+      Linear Sieve</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/module-inverse/" class="">
+      Modular Multiplicative Inverse</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/montgomery_multiplication/" class="active">
+      Montgomery Multiplication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/divisors/" class="">
+      Number of divisors / sum of divisors</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/polynomial/" class="">
+      Operations on polynomials and series</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/primality_tests/" class="">
+      Primality tests</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/primitive-root/" class="">
+      Primitive Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/sieve-of-eratosthenes/" class="">
+      Sieve of Eratosthenes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/all-submasks/" class="">
+      Submask Enumeration</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-1de1310b23a223554d69f52536bcf700" class="toggle"  />
+    <label for="section-1de1310b23a223554d69f52536bcf700" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/disjoint_set_union/" class="">
+      Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/fenwick/" class="">
+      Fenwick Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/stack_queue_modification/" class="">
+      Minimum stack / Minimum queue</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/randomized_heap/" class="">
+      Randomized Heap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/segment_tree/" class="">
+      Segment Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sparse-table/" class="">
+      Sparse Table</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sqrt_decomposition/" class="">
+      Sqrt Decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sqrt-tree/" class="">
+      Sqrt Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/treap/" class="">
+      Treap (Cartesian tree)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-07b56d442029a5b6e28a3bcfe84575d9" class="toggle"  />
+    <label for="section-07b56d442029a5b6e28a3bcfe84575d9" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/divide-and-conquer-dp/" class="">
+      Divide and Conquer DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/profile-dynamics/" class="">
+      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/zero_matrix/" class="">
+      Finding the largest zero submatrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/intro-to-dp/" class="">
+      Introduction to Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/knapsack/" class="">
+      Knapsack Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/knuth-optimization/" class="">
+      Knuth&#39;s Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4b6134a05034a32f3bc298d1791becec" class="toggle"  />
+    <label for="section-4b6134a05034a32f3bc298d1791becec" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/aho_corasick/" class="">
+      Aho-Corasick algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/expression_parsing/" class="">
+      Expression parsing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/main_lorentz/" class="">
+      Finding repetitions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/lyndon_factorization/" class="">
+      Lyndon factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/prefix-function/" class="">
+      Prefix function. Knuth–Morris–Pratt algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/rabin-karp/" class="">
+      Rabin-Karp Algorithm for string matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/string-hashing/" class="">
+      String Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-array/" class="">
+      Suffix Array</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-automaton/" class="">
+      Suffix Automaton</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-tree-ukkonen/" class="">
+      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/z-function/" class="">
+      Z-function and its calculation</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2d004dfeee0260d865651fbcb658a355" class="toggle"  />
+    <label for="section-2d004dfeee0260d865651fbcb658a355" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/determinant-gauss/" class="">
+      Calculating the determinant of a matrix by Gauss</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/determinant-kraut/" class="">
+      Calculating the determinant using Kraut method</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/rank-matrix/" class="">
+      Finding the rank of a matrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/linear-system-gauss/" class="">
+      Gauss method for solving system of linear equations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-cd939af048c7554d8e15861cf94ef5bd" class="toggle"  />
+    <label for="section-cd939af048c7554d8e15861cf94ef5bd" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/bracket_sequences/" class="">
+      Balanced bracket sequences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/binomial-coefficients/" class="">
+      Binomial Coefficients</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/burnside/" class="">
+      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/catalan-numbers/" class="">
+      Catalan Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/counting_labeled_graphs/" class="">
+      Counting labeled graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/bishops-on-chessboard/" class="">
+      Placing Bishops on a Chessboard</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/stars_and_bars/" class="">
+      Stars and bars</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/inclusion-exclusion/" class="">
+      The Inclusion-Exclusion Principle</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ef166827526ba2edc74d0ac681f2898f" class="toggle"  />
+    <label for="section-ef166827526ba2edc74d0ac681f2898f" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/binary_search/" class="">
+      Binary search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/simpson-integration/" class="">
+      Integration by Simpson&#39;s formula</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/roots_newton/" class="">
+      Newton&#39;s method for finding roots</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/simulated_annealing/" class="">
+      Simulated Annealing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/ternary_search/" class="">
+      Ternary Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6fd838606809e0128aa80e44249f1a58" class="toggle"  />
+    <label for="section-6fd838606809e0128aa80e44249f1a58" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/basic-geometry/" class="">
+      Basic Geometry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/point-in-convex-polygon/" class="">
+      Check if point belongs to the convex polygon in O(log N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/check-segments-intersection/" class="">
+      Check if two segments intersect</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/circle-circle-intersection/" class="">
+      Circle-Circle Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/circle-line-intersection/" class="">
+      Circle-Line Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/convex-hull/" class="">
+      Convex Hull construction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/convex_hull_trick/" class="">
+      Convex hull trick and Li Chao tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/delaunay/" class="">
+      Delaunay triangulation and Voronoi diagram</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/area-of-simple-polygon/" class="">
+      Finding area of simple polygon in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/tangents-to-two-circles/" class="">
+      Finding common tangents to two circles</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/planar/" class="">
+      Finding faces of a planar graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/segments-intersection/" class="">
+      Finding intersection of two segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/segment-to-line/" class="">
+      Finding the equation of a line for a segment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/nearest_points/" class="">
+      Finding the nearest pair of points</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/halfplane-intersection/" class="">
+      Half-plane intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/lines-intersection/" class="">
+      Intersection Point of Lines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/lattice-points/" class="">
+      Lattice points inside non-lattice polygon</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/length-of-segments-union/" class="">
+      Length of the union of segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/manhattan-distance/" class="">
+      Manhattan Distance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/enclosing-circle/" class="">
+      Minimum Enclosing Circle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/minkowski/" class="">
+      Minkowski sum of convex polygons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/oriented-triangle-area/" class="">
+      Oriented area of a triangle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/picks-theorem/" class="">
+      Pick&#39;s Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/point-location/" class="">
+      Point location in O(log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/intersecting_segments/" class="">
+      Search for a pair of intersecting segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/vertical_decomposition/" class="">
+      Vertical decomposition</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c75c8866c99f042901fc5bb463c39422" class="toggle"  />
+    <label for="section-c75c8866c99f042901fc5bb463c39422" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/01_bfs/" class="">
+      0-1 BFS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/2sat/" class="">
+      2-SAT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bellman_ford/" class="">
+      Bellman-Ford Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/breadth-first-search/" class="">
+      Breadth-first search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bipartite-check/" class="">
+      Check whether a graph is bipartite</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/desopo_pape/" class="">
+      D´Esopo-Pape algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/depth-first-search/" class="">
+      Depth First Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dijkstra/" class="">
+      Dijkstra Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dijkstra_sparse/" class="">
+      Dijkstra on sparse graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/edge_vertex_connectivity/" class="">
+      Edge connectivity / Vertex connectivity</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/finding-negative-cycle-in-graph/" class="">
+      Finding a negative cycle in the graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/cutpoints/" class="">
+      Finding articulation points in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bridge-searching/" class="">
+      Finding bridges in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bridge-searching-online/" class="">
+      Finding Bridges Online</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/flow_with_demands/" class="">
+      Flows with demands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      Floyd-Warshall Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/hld/" class="">
+      Heavy-light decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/hungarian-algorithm/" class="">
+      Hungarian algorithm for solving the assignment problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/kirchhoff-theorem/" class="">
+      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/kuhn_maximum_bipartite_matching/" class="">
+      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_binary_lifting/" class="">
+      Lowest Common Ancestor - Binary Lifting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_farachcoltonbender/" class="">
+      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_tarjan/" class="">
+      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dinic/" class="">
+      Maximum flow - Dinic&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/edmonds_karp/" class="">
+      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mpm/" class="">
+      Maximum flow - MPM algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/push-relabel/" class="">
+      Maximum flow - Push-relabel algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/push-relabel-faster/" class="">
+      Maximum flow - Push-relabel method improved</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_kruskal_with_dsu/" class="">
+      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_kruskal/" class="">
+      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_prim/" class="">
+      Minimum spanning tree - Prim&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/min_cost_flow/" class="">
+      Minimum-cost flow - Successive shortest path algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/fixed_length_paths/" class="">
+      Number of paths of fixed length / Shortest paths of fixed length</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/tree_painting/" class="">
+      Paint the edges of the tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/pruefer_code/" class="">
+      Prüfer code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/search-for-connected-components/" class="">
+      Search for connected components in a graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/second_best_mst/" class="">
+      Second Best Minimum Spanning Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/rmq_linear/" class="">
+      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/assignment-problem-min-flow/" class="">
+      Solving assignment problem using min-cost-flow</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/strong-orientation/" class="">
+      Strong Orientation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/strongly-connected-components/" class="">
+      Strongly connected components and the condensation graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/topological-sort/" class="">
+      Topological Sorting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2e9f7f64f2dd8c3ce17273da578ea7c7" class="toggle"  />
+    <label for="section-2e9f7f64f2dd8c3ce17273da578ea7c7" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/k-th/" class="">
+      K-th order statistic in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/rmq/" class="">
+      Range Minimum Query</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-087953a613e1dd5765fcd218432eb5a8" class="toggle"  />
+    <label for="section-087953a613e1dd5765fcd218432eb5a8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/game_theory/games_on_graphs/" class="">
+      Games on arbitrary graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/game_theory/sprague-grundy-nim/" class="">
+      Sprague-Grundy theorem. Nim</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9c5e8eca3f1b4797b5206dac0fd26770" class="toggle"  />
+    <label for="section-9c5e8eca3f1b4797b5206dac0fd26770" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule-with-completion-duration/" class="">
+      Optimal schedule of jobs given their deadlines and durations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule_one_machine/" class="">
+      Scheduling jobs on one machine</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule_two_machines/" class="">
+      Scheduling jobs on two machines</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ae1361bcd366834155af8260a9179d66" class="toggle"  />
+    <label for="section-ae1361bcd366834155af8260a9179d66" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/15-puzzle/" class="">
+      15 Puzzle Game: Existence Of The Solution</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/tortoise_and_hare/" class="">
+      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/josephus_problem/" class="">
+      Josephus Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/maximum_average_segment/" class="">
+      Search the subarray with the maximum/minimum sum</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/stern_brocot_tree_farey_sequences/" class="">
+      The Stern-Brocot tree and Farey sequences</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Montgomery Multiplication</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#montgomery-representation">Montgomery representation</a></li>
+    <li><a href="#montgomery-reduction">Montgomery reduction</a></li>
+    <li><a href="#fast-inverse-trick">Fast inverse trick</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#fast-transformation">Fast transformation</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="montgomery-multiplication">Montgomery Multiplication<a class="anchor" href="#montgomery-multiplication">#</a></h1>
+<p>Many algorithms in number theory, like <a href="primality_tests.md">prime testing</a> or <a href="factorization.md">integer factorization</a>, and in cryptography, like RSA, require lots of operations modulo a large number.
+A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
+And division is a really expensive operation, especially with big numbers.</p>
+<p>The <strong>Montgomery (modular) multiplication</strong> is a method that allows computing such multiplications faster.
+Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.</p>
+<h2 id="montgomery-representation">Montgomery representation<a class="anchor" href="#montgomery-representation">#</a></h2>
+<p>However the Montgomery multiplication doesn&rsquo;t come for free.
+The algorithm works only in the <strong>Montgomery space</strong>.
+And we need to transform our numbers into that space, before we can start multiplying.</p>
+<p>For the space we need a positive integer $r \ge n$ coprime to $n$, i.e. $\gcd(n, r) = 1$.
+In practice we always choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and other bit operations.
+$n$ will be an odd number in pretty much all applications, since it is not hard to factorize an even number.
+So every power of $2$ will be coprime to $n$.</p>
+<p>The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined as:</p>
+$$\bar{x} := x \cdot r \bmod n$$<p>Notice, the transformation is actually such a multiplication that we want to optimize.
+So this is still an expensive operation.
+However you only need to transform a number once into the space.
+As soon as you are in the Montgomery space, you can perform as many operations as you want efficiently.
+And at the end you transform the final result back.
+So as long as you are doing lots of operations modulo $n$, this will be no problem.</p>
+<p>Inside the Montgomery space you can still perform most operations as usual.
+You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common divisor of a number with $n$ (since $\gcd(n, r) = 1$).
+All with the usual algorithms.</p>
+<p>However this is not the case for multiplication.</p>
+<p>We expect the result to be:</p>
+$$\bar{x} * \bar{y} = \overline{x \cdot y} = (x \cdot y) \cdot r \bmod n.$$<p>But the normal multiplication will give us:</p>
+$$\bar{x} \cdot \bar{y} = (x \cdot y) \cdot r \cdot r \bmod n.$$<p>Therefore the multiplication in the Montgomery space is defined as:</p>
+$$\bar{x} * \bar{y} := \bar{x} \cdot \bar{y} \cdot r^{-1} \bmod n.$$<h2 id="montgomery-reduction">Montgomery reduction<a class="anchor" href="#montgomery-reduction">#</a></h2>
+<p>The multiplication of two numbers in the Montgomery space requires an efficient computation of $x \cdot r^{-1} \bmod n$.
+This operation is called the <strong>Montgomery reduction</strong>, and is also known as the algorithm <strong>REDC</strong>.</p>
+<p>Because $\gcd(n, r) = 1$, we know that there are two numbers $r^{-1}$ and $n^{\prime}$ with $0 < r^{-1}, n^{\prime} < n$ with</p>
+$$r \cdot r^{-1} + n \cdot n^{\prime} = 1.$$<p>Both $r^{-1}$ and $n^{\prime}$ can be computed using the <a href="extended-euclid-algorithm.md">Extended Euclidean algorithm</a>.</p>
+<p>Using this identity we can write $x \cdot r^{-1}$ as:</p>
+$$\begin{aligned}
+x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1) / r \\
+&= (-x \cdot n \cdot n^{\prime} + x) / r \equiv (-x \cdot n \cdot n^{\prime} + l \cdot r \cdot n + x) / r \bmod n\\
+&\equiv ((-x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n
+\end{aligned}$$<p>The equivalences hold for any arbitrary integer $l$.
+This means, that we can add or subtract an arbitrary multiple of $r$ to $x \cdot n^{\prime}$, or in other words, we can compute $q := x \cdot n^{\prime}$ modulo $r$.</p>
+<p>This gives us the following algorithm to compute $x \cdot r^{-1} \bmod n$:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">function reduce(x):
+</span></span><span class="line"><span class="cl">    q = (x mod r) * n&#39; mod r
+</span></span><span class="line"><span class="cl">    a = (x - q * n) / r
+</span></span><span class="line"><span class="cl">    if a &lt; 0:
+</span></span><span class="line"><span class="cl">        a += n
+</span></span><span class="line"><span class="cl">    return a</span></span></code></pre></div><p>Since $x < n \cdot n < r \cdot n$ (even if $x$ is the product of a multiplication) and $q \cdot n < r \cdot n$ we know that $-n < (x - q \cdot n) / r < n$.
+Therefore the final modulo operation is implemented using a single check and one addition.</p>
+<p>As we see, we can perform the Montgomery reduction without any heavy modulo operations.
+If we choose $r$ as a power of $2$, the modulo operations and divisions in the algorithm can be computed using bitmasking and shifting.</p>
+<p>A second application of the Montgomery reduction is to transfer a number back from the Montgomery space into the normal space.</p>
+<h2 id="fast-inverse-trick">Fast inverse trick<a class="anchor" href="#fast-inverse-trick">#</a></h2>
+<p>For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which is inspired from the Newton&rsquo;s method):</p>
+$$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$<p>This can easily be proven.
+If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:</p>
+$$\begin{aligned}
+a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\
+&= 2 \cdot (1 + m \cdot 2^k) - (1 + m \cdot 2^k)^2 \\
+&= 2 + 2 \cdot m \cdot 2^k - 1 - 2 \cdot m \cdot 2^k - m^2 \cdot 2^{2k} \\
+&= 1 - m^2 \cdot 2^{2k} \\
+&\equiv 1 \bmod 2^{2k}.
+\end{aligned}$$<p>This means we can start with $x = 1$ as the inverse of $a$ modulo $2^1$, apply the trick a few times and in each iteration we double the number of correct bits of $x$.</p>
+<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
+<p>Using the GCC compiler we can compute $x \cdot y \bmod n$ still efficiently, when all three numbers are 64 bit integer, since the compiler supports 128 bit integer with the types <code>__int128</code> and <code>__uint128</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">__int128</span><span class="p">)</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span></span></span></code></pre></div><p>However there is no type for 256 bit integer.
+Therefore we will here show an implementation for a 128 bit multiplication.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">u64</span> <span class="o">=</span> <span class="kt">uint64_t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">u128</span> <span class="o">=</span> <span class="n">__uint128_t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">i128</span> <span class="o">=</span> <span class="n">__int128_t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">u256</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">u128</span> <span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">u256</span> <span class="nf">mult</span><span class="p">(</span><span class="n">u128</span> <span class="n">x</span><span class="p">,</span> <span class="n">u128</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u64</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;&gt;</span> <span class="mi">64</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u64</span> <span class="n">c</span> <span class="o">=</span> <span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">64</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// (a*2^64 + b) * (c*2^64 + d) =
+</span></span></span><span class="line"><span class="cl">        <span class="c1">// (a*c) * 2^128 + (a*d + b*c)*2^64 + (b*d)
+</span></span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">ac</span> <span class="o">=</span> <span class="p">(</span><span class="n">u128</span><span class="p">)</span><span class="n">a</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">ad</span> <span class="o">=</span> <span class="p">(</span><span class="n">u128</span><span class="p">)</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">bc</span> <span class="o">=</span> <span class="p">(</span><span class="n">u128</span><span class="p">)</span><span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">bd</span> <span class="o">=</span> <span class="p">(</span><span class="n">u128</span><span class="p">)</span><span class="n">b</span> <span class="o">*</span> <span class="n">d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">carry</span> <span class="o">=</span> <span class="p">(</span><span class="n">u128</span><span class="p">)(</span><span class="n">u64</span><span class="p">)</span><span class="n">ad</span> <span class="o">+</span> <span class="p">(</span><span class="n">u128</span><span class="p">)(</span><span class="n">u64</span><span class="p">)</span><span class="n">bc</span> <span class="o">+</span> <span class="p">(</span><span class="n">bd</span> <span class="o">&gt;&gt;</span> <span class="mi">64u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">high</span> <span class="o">=</span> <span class="n">ac</span> <span class="o">+</span> <span class="p">(</span><span class="n">ad</span> <span class="o">&gt;&gt;</span> <span class="mi">64u</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bc</span> <span class="o">&gt;&gt;</span> <span class="mi">64u</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">carry</span> <span class="o">&gt;&gt;</span> <span class="mi">64u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">low</span> <span class="o">=</span> <span class="p">(</span><span class="n">ad</span> <span class="o">&lt;&lt;</span> <span class="mi">64u</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">bc</span> <span class="o">&lt;&lt;</span> <span class="mi">64u</span><span class="p">)</span> <span class="o">+</span> <span class="n">bd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{</span><span class="n">high</span><span class="p">,</span> <span class="n">low</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Montgomery</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Montgomery</span><span class="p">(</span><span class="n">u128</span> <span class="n">n</span><span class="p">)</span> <span class="o">:</span> <span class="n">mod</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">inv</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">inv</span> <span class="o">*=</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">inv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">u128</span> <span class="nf">init</span><span class="p">(</span><span class="n">u128</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">%=</span> <span class="n">mod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="n">mod</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span> <span class="o">-=</span> <span class="n">mod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">u128</span> <span class="nf">reduce</span><span class="p">(</span><span class="n">u256</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">u128</span> <span class="n">q</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">low</span> <span class="o">*</span> <span class="n">inv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">i128</span> <span class="n">a</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">high</span> <span class="o">-</span> <span class="n">u256</span><span class="o">::</span><span class="n">mult</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">mod</span><span class="p">).</span><span class="n">high</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">a</span> <span class="o">+=</span> <span class="n">mod</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">u128</span> <span class="nf">mult</span><span class="p">(</span><span class="n">u128</span> <span class="n">a</span><span class="p">,</span> <span class="n">u128</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">u256</span><span class="o">::</span><span class="n">mult</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">u128</span> <span class="n">mod</span><span class="p">,</span> <span class="n">inv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span></span></span></code></pre></div><h2 id="fast-transformation">Fast transformation<a class="anchor" href="#fast-transformation">#</a></h2>
+<p>The current method of transforming a number into Montgomery space is pretty slow.
+There are faster ways.</p>
+<p>You can notice the following relation:</p>
+$$\bar{x} := x \cdot r \bmod n = x \cdot r^2 / r = x * r^2$$<p>Transforming a number into the space is just a multiplication inside the space of the number with $r^2$.
+Therefore we can precompute $r^2 \bmod n$ and just perform a multiplication instead of shifting the number 128 times.</p>
+<p>In the following code we initialize <code>r2</code> with <code>-n % n</code>, which is equivalent to $r - n \equiv r \bmod n$, shift it 4 times to get $r \cdot 2^4 \bmod n$.
+This number can be interpreted as $2^4$ in Montgomery space.
+If we square it $5$ times, we get $(2^4)^{2^5} = (2^4)^{32} = 2^{128} = r$ in Montgomery space, which is exactly $r^2 \bmod n$.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">struct Montgomery {
+</span></span><span class="line"><span class="cl">    Montgomery(u128 n) : mod(n), inv(1), r2(-n % n) {
+</span></span><span class="line"><span class="cl">        for (int i = 0; i &lt; 7; i++)
+</span></span><span class="line"><span class="cl">            inv *= 2 - n * inv;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        for (int i = 0; i &lt; 4; i++) {
+</span></span><span class="line"><span class="cl">            r2 &lt;&lt;= 1;
+</span></span><span class="line"><span class="cl">            if (r2 &gt;= mod)
+</span></span><span class="line"><span class="cl">                r2 -= mod;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        for (int i = 0; i &lt; 5; i++)
+</span></span><span class="line"><span class="cl">            r2 = mul(r2, r2);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    u128 init(u128 x) {
+</span></span><span class="line"><span class="cl">        return mult(x, r2);
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    u128 mod, inv, r2;
+</span></span><span class="line"><span class="cl">};</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/en/algebra/module-inverse/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Modular Multiplicative Inverse</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/en/algebra/divisors/" class="flex align-center">
+        <span>Number of divisors / sum of divisors</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#montgomery-representation">Montgomery representation</a></li>
+    <li><a href="#montgomery-reduction">Montgomery reduction</a></li>
+    <li><a href="#fast-inverse-trick">Fast inverse trick</a></li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#fast-transformation">Fast transformation</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

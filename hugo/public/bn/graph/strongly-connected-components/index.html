@@ -1,0 +1,3392 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ#সংজ্ঞাসমূহ#ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে স্ট্রংলি কানেক্টেড কম্পোনেন্ট বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
+$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না। আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/bn/graph/strongly-connected-components/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ">
+  <meta property="og:description" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ#সংজ্ঞাসমূহ#ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে স্ট্রংলি কানেক্টেড কম্পোনেন্ট বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
+$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না। আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।">
+  <meta property="og:locale" content="bn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="graph">
+
+
+  <meta itemprop="name" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ">
+  <meta itemprop="description" content="স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ#সংজ্ঞাসমূহ#ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে স্ট্রংলি কানেক্টেড কম্পোনেন্ট বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
+$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না। আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।">
+  <meta itemprop="wordCount" content="3513">
+
+<title>স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/bn/graph/strongly-connected-components/">
+  <link rel="alternate" hreflang="en" href="http://localhost:53425/en/graph/strongly-connected-components/" title="Strongly connected components and the condensation graph">
+<link rel="stylesheet" href="/book.min.78425d2454aed079c91fb5d0cb3403bc4486a0fe295cb3e9dfec476916fec2a0.css" integrity="sha256-eEJdJFSu0HnJH7XQyzQDvESGoP4pXLPp3&#43;xHaRb&#43;wqA=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/bn.search.min.11a5b9bd43f3f91eeee3a723a5a5180c70aff27953f3d5058b4ec7a0c252de75.js" integrity="sha256-EaW5vUPz&#43;R7u46cjpaUYDHCv8nlT89UFi07HoMJS3nU=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-graph">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/bn/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="অনুসন্ধান"
+    aria-label="অনুসন্ধান"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        বাংলা
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/en/graph/strongly-connected-components/" class="flex flex-auto">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<button id="theme-toggle" onclick="
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc) sc.href = sc.href.replace(next === 'dark' ? 'syntax-light' : 'syntax-dark', next === 'dark' ? 'syntax-dark' : 'syntax-light');
+" title="Toggle light/dark mode">🌙</button>
+<script>
+(function() {
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc && t === 'dark') sc.href = sc.href.replace('syntax-light', 'syntax-dark');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-56e2ef6b2cb688e51d22de23bd16db61" class="toggle"  />
+    <label for="section-56e2ef6b2cb688e51d22de23bd16db61" class="flex">
+      <a href="/bn/algebra/" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/phi-function/" class="">
+      অয়লারের টোশেন্ট ফাংশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/sieve-of-eratosthenes/" class="">
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/euclid-algorithm/" class="">
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/gray-code/" class="">
+      গ্রে কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/divisors/" class="">
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/all-submasks/" class="">
+      সাবমাস্ক ইনিউমারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/big-integer/" class="">
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/extended-euclid-algorithm/" class="">
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primality_tests/" class="">
+      মৌলিকতা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/garners-algorithm/" class="">
+      গার্নারের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorization/" class="">
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear-diophantine-equation/" class="">
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/continued-fractions/" class="">
+      কন্টিনিউড ফ্র্যাকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-log/" class="">
+      ডিসক্রিট লগারিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primitive-root/" class="">
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-root/" class="">
+      ডিসক্রিট রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/montgomery_multiplication/" class="">
+      মন্টগোমেরি গুণন</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d6ff24814678dd7cc46e7bec0eca9e50" class="toggle"  />
+    <label for="section-d6ff24814678dd7cc46e7bec0eca9e50" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/disjoint_set_union/" class="">
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/stack_queue_modification/" class="">
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/fenwick/" class="">
+      ফেনউইক ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sparse-table/" class="">
+      স্পার্স টেবিল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt_decomposition/" class="">
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/segment_tree/" class="">
+      সেগমেন্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/treap/" class="">
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt-tree/" class="">
+      স্কোয়ার্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/randomized_heap/" class="">
+      র‍্যান্ডমাইজড হিপ</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d9b914b0bc10cfdd664923fa7f87e83" class="toggle"  />
+    <label for="section-6d9b914b0bc10cfdd664923fa7f87e83" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/divide-and-conquer-dp/" class="">
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/profile-dynamics/" class="">
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knuth-optimization/" class="">
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/longest_increasing_subsequence/" class="">
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-87fb60540539c20d49ff0bbbef794660" class="toggle"  />
+    <label for="section-87fb60540539c20d49ff0bbbef794660" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/expression_parsing/" class="">
+      এক্সপ্রেশন পার্সিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-tree-ukkonen/" class="">
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/main_lorentz/" class="">
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/prefix-function/" class="">
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/z-function/" class="">
+      জেড-ফাংশন এবং এর গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-array/" class="">
+      সাফিক্স অ্যারে</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/aho_corasick/" class="">
+      আহো-কোরাসিক অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-52c3be80108fdd17263f5678b6891a47" class="toggle"  />
+    <label for="section-52c3be80108fdd17263f5678b6891a47" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/linear-system-gauss/" class="">
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-gauss/" class="">
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-kraut/" class="">
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/rank-matrix/" class="">
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b97332e3749ebe750962b0ecb6fabafb" class="toggle"  />
+    <label for="section-b97332e3749ebe750962b0ecb6fabafb" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/inclusion-exclusion/" class="">
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/binomial-coefficients/" class="">
+      দ্বিপদী সহগ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/burnside/" class="">
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/catalan-numbers/" class="">
+      ক্যাটালান সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/counting_labeled_graphs/" class="">
+      লেবেলড গ্রাফ গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/stars_and_bars/" class="">
+      স্টার্স অ্যান্ড বার্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7334aaffd497c2236df166f8e735101b" class="toggle"  />
+    <label for="section-7334aaffd497c2236df166f8e735101b" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/binary_search/" class="">
+      বাইনারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simpson-integration/" class="">
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/ternary_search/" class="">
+      টার্নারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/roots_newton/" class="">
+      মূল নির্ণয়ে নিউটনের মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simulated_annealing/" class="">
+      সিমুলেটেড অ্যানিলিং</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-24f5dcff931d689f2c1f0f52954a7628" class="toggle"  />
+    <label for="section-24f5dcff931d689f2c1f0f52954a7628" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex-hull/" class="">
+      কনভেক্স হাল নির্মাণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/intersecting_segments/" class="">
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-location/" class="">
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-in-convex-polygon/" class="">
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/vertical_decomposition/" class="">
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/minkowski/" class="">
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segments-intersection/" class="">
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/picks-theorem/" class="">
+      পিকের উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lattice-points/" class="">
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/enclosing-circle/" class="">
+      মিনিমাম এনক্লোজিং সার্কেল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-circle-intersection/" class="">
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/tangents-to-two-circles/" class="">
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/length-of-segments-union/" class="">
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="toggle" checked />
+    <label for="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/search-for-connected-components/" class="">
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/topological-sort/" class="">
+      টপোলজিক্যাল সর্টিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching/" class="">
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/fixed_length_paths/" class="">
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hungarian-algorithm/" class="">
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/tree_painting/" class="">
+      ট্রি-র এজে রং করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/cutpoints/" class="">
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/2sat/" class="">
+      ২-স্যাট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/rmq_linear/" class="">
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kirchhoff-theorem/" class="">
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mpm/" class="">
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strongly-connected-components/" class="active">
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/flow_with_demands/" class="">
+      ডিমান্ডসহ ফ্লো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/pruefer_code/" class="">
+      প্রুফার কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strong-orientation/" class="">
+      স্ট্রং ওরিয়েন্টেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/min_cost_flow/" class="">
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/assignment-problem-min-flow/" class="">
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-399d866b7b0d1784ea9ef390af779ce8" class="toggle"  />
+    <label for="section-399d866b7b0d1784ea9ef390af779ce8" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/rmq/" class="">
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/k-th/" class="">
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/longest_increasing_subsequence/" class="">
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="toggle"  />
+    <label for="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/tortoise_and_hare/" class="">
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/josephus_problem/" class="">
+      জোসেফাস সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/maximum_average_segment/" class="">
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/15-puzzle/" class="">
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/stern_brocot_tree_farey_sequences/" class="">
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9a06795fb7e5894e4235290cd45cefa8" class="toggle"  />
+    <label for="section-9a06795fb7e5894e4235290cd45cefa8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/games_on_graphs/" class="">
+      যেকোনো গ্রাফে গেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/sprague-grundy-nim/" class="">
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dd25e072d4c017734490f50bcd6f67b6" class="toggle"  />
+    <label for="section-dd25e072d4c017734490f50bcd6f67b6" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_one_machine/" class="">
+      একটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_two_machines/" class="">
+      দুটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule-with-completion-duration/" class="">
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#সজঞসমহ">সংজ্ঞাসমূহ</a></li>
+    <li><a href="#কসরজর-অযলগরদম">কোসারাজুর অ্যালগরিদম</a>
+      <ul>
+        <li><a href="#অযলগরদমর-বরণন">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+      </ul>
+    </li>
+    <li><a href="#টরজনর-সটরল-কনকটড-কমপননট-অযলগরদম">টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম</a>
+      <ul>
+        <li><a href="#অযলগরদমর-বরণন-1">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
+      </ul>
+    </li>
+    <li><a href="#কনডনসশন-গরফ-তর">কনডেনসেশন গ্রাফ তৈরি</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="সটরল-কনকটড-কমপননট-এব-কনডনসশন-গরফ">স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ<a class="anchor" href="#%e0%a6%b8%e0%a6%9f%e0%a6%b0%e0%a6%b2-%e0%a6%95%e0%a6%a8%e0%a6%95%e0%a6%9f%e0%a6%a1-%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%a8%e0%a6%a8%e0%a6%9f-%e0%a6%8f%e0%a6%ac-%e0%a6%95%e0%a6%a8%e0%a6%a1%e0%a6%a8%e0%a6%b8%e0%a6%b6%e0%a6%a8-%e0%a6%97%e0%a6%b0%e0%a6%ab">#</a></h1>
+<h2 id="সজঞসমহ">সংজ্ঞাসমূহ<a class="anchor" href="#%e0%a6%b8%e0%a6%9c%e0%a6%9e%e0%a6%b8%e0%a6%ae%e0%a6%b9">#</a></h2>
+<p>ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।</p>
+<p>$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে <strong>স্ট্রংলি কানেক্টেড কম্পোনেন্ট</strong> বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:</p>
+<ul>
+<li>$C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং</li>
+<li>$C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না।</li>
+</ul>
+<p>আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।</p>
+<p>এই গ্রাফ $G_\text{example}$ বিবেচনা করুন, যেখানে স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো হাইলাইট করা হয়েছে:</p>
+<center><img src="/images/graph/graph.svg" alt="drawing" style="width:700px;"/></center>
+<p>এখানে $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ আমরা নিশ্চিত করতে পারি যে প্রতিটি স্ট্রংলি কানেক্টেড কম্পোনেন্টের ভেতরে সব ভার্টেক্স পরস্পরের কাছে পৌঁছানো যায়।</p>
+<p>আমরা <strong>কনডেনসেশন গ্রাফ</strong> $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ নিম্নরূপে সংজ্ঞায়িত করি:</p>
+<ul>
+<li>$G^{\text{SCC}}$-এর ভার্টেক্স হলো $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্ট; অর্থাৎ, $V^{\text{SCC}} = \text{SCC}(G)$, এবং</li>
+<li>কনডেনসেশন গ্রাফের সব ভার্টেক্স $C_i,C_j$-এর জন্য, $C_i$ থেকে $C_j$-তে একটি এজ আছে যদি এবং কেবল যদি $C_i \neq C_j$ এবং $C_i$-তে কোনো $a$ ও $C_j$-তে কোনো $b$ বিদ্যমান থাকে যেন $G$-তে $a$ থেকে $b$-তে একটি এজ থাকে।</li>
+</ul>
+<p>$G_\text{example}$-এর কনডেনসেশন গ্রাফ নিম্নরূপ:</p>
+<center><img src="/images/graph/cond_graph.svg" alt="drawing" style="width:600px;"/></center>
+<p>কনডেনসেশন গ্রাফের সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্য হলো এটি <strong>অ্যাসাইক্লিক</strong>। প্রকৃতপক্ষে, সংজ্ঞা অনুযায়ী কনডেনসেশন গ্রাফে কোনো &lsquo;সেল্ফ-লুপ&rsquo; নেই, এবং যদি দুই বা ততোধিক ভার্টেক্সের (স্ট্রংলি কানেক্টেড কম্পোনেন্ট) মধ্য দিয়ে কোনো সাইকেল থাকত, তাহলে পৌঁছানোযোগ্যতার কারণে এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর ইউনিয়ন নিজেই একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট হতো: বিরোধ।</p>
+<p>পরবর্তী বিভাগে বর্ণিত অ্যালগরিদম একটি প্রদত্ত গ্রাফে সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করে। এরপর, কনডেনসেশন গ্রাফ তৈরি করা যায়।</p>
+<h2 id="কসরজর-অযলগরদম">কোসারাজুর অ্যালগরিদম<a class="anchor" href="#%e0%a6%95%e0%a6%b8%e0%a6%b0%e0%a6%9c%e0%a6%b0-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<h3 id="অযলগরদমর-বরণন">অ্যালগরিদমের বর্ণনা<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%b0%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>বর্ণিত অ্যালগরিদমটি স্বাধীনভাবে কোসারাজু এবং শরীর ১৯৮০ সালের দিকে প্রস্তাব করেছিলেন। এটি দুটি সিরিজের <a href="depth-first-search.md">ডেপথ ফার্স্ট সার্চ</a>-এর উপর ভিত্তি করে, রানটাইম $O(n + m)$।</p>
+<p>অ্যালগরিদমের প্রথম ধাপে, আমরা সম্পূর্ণ গ্রাফ ভিজিট করে ডেপথ ফার্স্ট সার্চের একটি ক্রম সম্পাদন করি (<code>dfs</code>)। অর্থাৎ, যতক্ষণ অভিজিত ভার্টেক্স আছে, আমরা তাদের একটি নিই এবং সেই ভার্টেক্স থেকে ডেপথ ফার্স্ট সার্চ শুরু করি। প্রতিটি ভার্টেক্সের জন্য, আমরা <em>এক্সিট টাইম</em> $t_\text{out}[v]$ ট্র্যাক রাখি। এটি সেই &lsquo;টাইমস্ট্যাম্প&rsquo; যখন ভার্টেক্স $v$-তে <code>dfs</code>-এর এক্সিকিউশন শেষ হয়, অর্থাৎ $v$ থেকে পৌঁছানো সব ভার্টেক্স ভিজিট হয়ে গেছে এবং অ্যালগরিদম $v$-তে ফিরে এসেছে। টাইমস্ট্যাম্প কাউন্টার পরপর <code>dfs</code> কলের মধ্যে <em>রিসেট হওয়া উচিত নয়</em>। এক্সিট টাইম অ্যালগরিদমে গুরুত্বপূর্ণ ভূমিকা পালন করে, যা নিম্নলিখিত উপপাদ্য আলোচনা করলে স্পষ্ট হবে।</p>
+<p>প্রথমে, আমরা একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট $C$-এর এক্সিট টাইম $t_\text{out}[C]$ সংজ্ঞায়িত করি $C$-এর সব $v$-এর $t_\text{out}[v]$ মানের সর্বোচ্চ হিসেবে। এছাড়াও, উপপাদ্যের প্রমাণে, আমরা প্রতিটি ভার্টেক্স $v\in G$-এর <em>এন্ট্রি টাইম</em> $t_{\text{in}}[v]$ উল্লেখ করব। $t_{\text{in}}[v]$ সংখ্যাটি সেই &lsquo;টাইমস্ট্যাম্প&rsquo; যখন অ্যালগরিদমের প্রথম ধাপে ভার্টেক্স $v$-তে রিকার্সিভ ফাংশন <code>dfs</code> কল করা হয়। একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট $C$-এর জন্য, আমরা $t_{\text{in}}[C]$ সংজ্ঞায়িত করি $C$-এর সব $v$-এর $t_{\text{in}}[v]$ মানের সর্বনিম্ন হিসেবে।</p>
+<p>
+<div class="book-hint info">
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি $C$ এবং $C'$ দুটি ভিন্ন স্ট্রংলি কানেক্টেড কম্পোনেন্ট, এবং কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে একটি এজ আছে। তাহলে, $t_\text{out}[C] > t_\text{out}[C']$।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div><p>দুটি ভিন্ন ক্ষেত্র আছে, কোন কম্পোনেন্ট ডেপথ ফার্স্ট সার্চে আগে পৌঁছানো হবে তার উপর নির্ভর করে:</p>
+<ul>
+<li>
+<p>ক্ষেত্র ১: কম্পোনেন্ট $C$ আগে পৌঁছানো হয়েছে (অর্থাৎ, $t_{\text{in}}[C] < t_{\text{in}}[C']$)। এক্ষেত্রে, ডেপথ ফার্স্ট সার্চ কোনো সময়ে $C$-এর কোনো ভার্টেক্স $v$ ভিজিট করে যখন $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্স এখনো অভিজিত। যেহেতু কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে এজ আছে, তাই $C$-র অন্য সব ভার্টেক্সের পাশাপাশি $C'$-এর সব ভার্টেক্সও $v$ থেকে পৌঁছানো যায়। এর মানে $v$ থেকে চলমান এই <code>dfs</code> এক্সিকিউশন ভবিষ্যতে $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্সও ভিজিট করবে, তাই এই ভার্টেক্সগুলো ডেপথ ফার্স্ট সার্চ ট্রি-তে $v$-এর ডিসেন্ডেন্ট হবে। এ থেকে বোঝা যায় যে প্রতিটি ভার্টেক্স $u \in (C \cup C')\setminus \{v\}$-এর জন্য, $t_\text{out}[v] > t_\text{out}[u]$। সুতরাং, $t_\text{out}[C] > t_\text{out}[C']$, যা এই ক্ষেত্রের প্রমাণ সম্পূর্ণ করে।</p>
+</li>
+<li>
+<p>ক্ষেত্র ২: কম্পোনেন্ট $C'$ আগে পৌঁছানো হয়েছে (অর্থাৎ, $t_{\text{in}}[C] > t_{\text{in}}[C']$)। এক্ষেত্রে, ডেপথ ফার্স্ট সার্চ কোনো সময়ে $C'$-এর কোনো ভার্টেক্স $v$ ভিজিট করে যখন $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্স এখনো অভিজিত। যেহেতু কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে এজ আছে, অ্যাসাইক্লিসিটি বৈশিষ্ট্য অনুযায়ী $C'$ থেকে $C$ পৌঁছানো যায় না। তাই $v$ থেকে চলমান <code>dfs</code> এক্সিকিউশন $C$-এর কোনো ভার্টেক্সে পৌঁছাবে না, কিন্তু এটি $C'$-এর সব ভার্টেক্স ভিজিট করবে। $C$-এর ভার্টেক্সগুলো এই ধাপে পরে কোনো <code>dfs</code> এক্সিকিউশনে ভিজিট হবে, তাই প্রকৃতপক্ষে $t_\text{out}[C] > t_\text{out}[C']$। এটি প্রমাণ সম্পূর্ণ করে।</p>
+</li>
+</ul>
+</div>
+</details>
+
+প্রমাণিত উপপাদ্যটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করার জন্য অত্যন্ত গুরুত্বপূর্ণ। এর অর্থ হলো কনডেনসেশন গ্রাফের যেকোনো এজ বেশি $t_\text{out}$ মানের কম্পোনেন্ট থেকে কম $t_\text{out}$ মানের কম্পোনেন্টে যায়।</p>
+<p>যদি আমরা সব ভার্টেক্স $v \in V$-কে তাদের এক্সিট টাইম $t_\text{out}[v]$-এর নিম্নক্রমে সাজাই, তাহলে প্রথম ভার্টেক্স $u$ &ldquo;রুট&rdquo; স্ট্রংলি কানেক্টেড কম্পোনেন্টে থাকবে, যার কনডেনসেশন গ্রাফে কোনো ইনকামিং এজ নেই। এখন আমরা এই ভার্টেক্স $u$ থেকে এমন কোনো সার্চ চালাতে চাই যেটি তার স্ট্রংলি কানেক্টেড কম্পোনেন্টের সব ভার্টেক্স ভিজিট করবে, কিন্তু অন্য ভার্টেক্স নয়। বারবার এটি করে, আমরা ধীরে ধীরে সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে পেতে পারি: প্রথম পাওয়া কম্পোনেন্টের সব ভার্টেক্স সরিয়ে, $t_\text{out}$-এর সবচেয়ে বড় মানের পরবর্তী অবশিষ্ট ভার্টেক্স খুঁজে সেখান থেকে এই সার্চ চালাই, এভাবে চলতে থাকবে। শেষে, আমরা সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে পাব। আমাদের ইচ্ছামতো আচরণ করে এমন একটি সার্চ পদ্ধতি খুঁজতে, নিম্নলিখিত উপপাদ্য বিবেচনা করুন:</p>
+<p>
+<div class="book-hint info">
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি $G^T$ হলো $G$-এর <em>ট্রান্সপোজ গ্রাফ</em>, যেটি $G$-এর এজের দিক উল্টিয়ে পাওয়া যায়। তাহলে, $\text{SCC}(G)=\text{SCC}(G^T)$। এছাড়াও, $G^T$-এর কনডেনসেশন গ্রাফ হলো $G$-এর কনডেনসেশন গ্রাফের ট্রান্সপোজ।</p>
+
+</div>
+
+প্রমাণ বাদ দেওয়া হলো (তবে সরলরেখীয়)। এই উপপাদ্যের ফলস্বরূপ, $G^T$-এর কনডেনসেশন গ্রাফে &ldquo;রুট&rdquo; কম্পোনেন্ট থেকে অন্য কম্পোনেন্টে কোনো এজ থাকবে না। সুতরাং, ভার্টেক্স $v$ ধারণকারী পুরো &ldquo;রুট&rdquo; স্ট্রংলি কানেক্টেড কম্পোনেন্ট ভিজিট করতে, আমরা ট্রান্সপোজ গ্রাফ $G^T$-এ ভার্টেক্স $v$ থেকে একটি ডেপথ ফার্স্ট সার্চ চালাতে পারি! এটি ঠিক এই স্ট্রংলি কানেক্টেড কম্পোনেন্টের সব ভার্টেক্স ভিজিট করবে। পূর্বে উল্লেখ করা হয়েছে, আমরা তারপর এই ভার্টেক্সগুলো গ্রাফ থেকে সরাতে পারি। তারপর, $t_\text{out}[v]$-এর সর্বোচ্চ মানের পরবর্তী ভার্টেক্স খুঁজে সেই ভার্টেক্স থেকে ট্রান্সপোজ গ্রাফে সার্চ চালিয়ে পরবর্তী স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করি। পুনরাবৃত্তি করে, আমরা সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট পাই।</p>
+<p>সুতরাং, সংক্ষেপে, আমরা স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করার নিম্নলিখিত অ্যালগরিদম আলোচনা করলাম:</p>
+<ul>
+<li>
+<p>ধাপ ১। $G$-তে ডেপথ ফার্স্ট সার্চের একটি ক্রম চালান, যেটি ভার্টেক্সের একটি তালিকা (যেমন <code>order</code>) দেবে, ক্রমবর্ধমান এক্সিট টাইম $t_\text{out}$ অনুসারে সাজানো।</p>
+</li>
+<li>
+<p>ধাপ ২। ট্রান্সপোজ গ্রাফ $G^T$ তৈরি করুন, এবং বিপরীত ক্রমে (অর্থাৎ এক্সিট টাইমের নিম্নক্রমে) ভার্টেক্সগুলোতে ডেপথ ফার্স্ট সার্চের একটি সিরিজ চালান। প্রতিটি ডেপথ ফার্স্ট সার্চ একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেবে।</p>
+</li>
+<li>
+<p>ধাপ ৩ (ঐচ্ছিক)। কনডেনসেশন গ্রাফ তৈরি করুন।</p>
+</li>
+</ul>
+<p>অ্যালগরিদমের রানটাইম কমপ্লেক্সিটি $O(n + m)$, কারণ ডেপথ ফার্স্ট সার্চ দুইবার করা হয়। কনডেনসেশন গ্রাফ তৈরিও $O(n+m)$।</p>
+<p>সবশেষে, এখানে <a href="topological-sort.md">টপোলজিক্যাল সর্ট</a> উল্লেখ করা যথাযথ। ধাপ ১-এ, আমরা ভার্টেক্সগুলো ক্রমবর্ধমান এক্সিট টাইমের ক্রমে পাই। যদি $G$ অ্যাসাইক্লিক হয়, এটি $G$-এর একটি (বিপরীত) টপোলজিক্যাল সর্টের সাথে মিলে যায়। ধাপ ২-এ, অ্যালগরিদম স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো তাদের এক্সিট টাইমের নিম্নক্রমে খুঁজে পায়। সুতরাং, এটি কম্পোনেন্টগুলো — কনডেনসেশন গ্রাফের ভার্টেক্স — কনডেনসেশন গ্রাফের টপোলজিক্যাল সর্টের সাথে মিলে যায় এমন ক্রমে খুঁজে পায়।</p>
+<h3 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span> <span class="c1">// keeps track of which vertices are already visited
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// runs depth first search starting at vertex v.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// each visited vertex is appended to the output vector when dfs leaves it.
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">adj</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">output</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">adj</span><span class="p">,</span> <span class="n">output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">output</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// input: adj -- adjacency list of G
+</span></span></span><span class="line"><span class="cl"><span class="c1">// output: components -- the strongy connected components in G
+</span></span></span><span class="line"><span class="cl"><span class="c1">// output: adj_cond -- adjacency list of G^SCC (by root vertices)
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">strongly_connected_components</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">adj</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                  <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">components</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                  <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">adj_cond</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">components</span><span class="p">.</span><span class="n">clear</span><span class="p">(),</span> <span class="n">adj_cond</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">order</span><span class="p">;</span> <span class="c1">// will be a sorted list of G&#39;s vertices by exit time
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">visited</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// first series of depth first searches
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">adj</span><span class="p">,</span> <span class="n">order</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// create adjacency list of G^T
+</span></span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj_rev</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">adj_rev</span><span class="p">[</span><span class="n">u</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">visited</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">reverse</span><span class="p">(</span><span class="n">order</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">order</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">roots</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> <span class="c1">// gives the root vertex of a vertex&#39;s SCC
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// second series of depth first searches
+</span></span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">v</span> <span class="p">:</span> <span class="n">order</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">component</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">adj_rev</span><span class="p">,</span> <span class="n">component</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">components</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">component</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">int</span> <span class="n">root</span> <span class="o">=</span> <span class="o">*</span><span class="n">component</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">component</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// add edges to condensation graph
+</span></span></span><span class="line"><span class="cl">    <span class="n">adj_cond</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="p">{});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="n">adj_cond</span><span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><code>dfs</code> ফাংশনটি ডেপথ ফার্স্ট সার্চ ইমপ্লিমেন্ট করে। এটি ইনপুট হিসেবে একটি অ্যাডজেসেন্সি লিস্ট এবং একটি স্টার্টিং ভার্টেক্স নেয়। এটি <code>output</code> ভেক্টরের একটি রেফারেন্সও নেয়: প্রতিটি ভিজিট করা ভার্টেক্স <code>dfs</code> সেটি ছেড়ে যাওয়ার সময় <code>output</code>-এ যোগ হবে।</p>
+<p>লক্ষ্য করুন যে আমরা <code>dfs</code> ফাংশন অ্যালগরিদমের প্রথম এবং দ্বিতীয় উভয় ধাপেই ব্যবহার করি। প্রথম ধাপে, আমরা $G$-এর অ্যাডজেসেন্সি লিস্ট পাস করি, এবং পরপর <code>dfs</code> কলে আমরা একই &lsquo;আউটপুট ভেক্টর&rsquo; <code>order</code> পাস করতে থাকি, যেন শেষ পর্যন্ত আমরা ক্রমবর্ধমান এক্সিট টাইমের ক্রমে ভার্টেক্সের তালিকা পাই। দ্বিতীয় ধাপে, আমরা $G^T$-এর অ্যাডজেসেন্সি লিস্ট পাস করি, এবং প্রতিটি কলে একটি খালি &lsquo;আউটপুট ভেক্টর&rsquo; <code>component</code> পাস করি, যেটি আমাদের একটি করে স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেবে।</p>
+<h2 id="টরজনর-সটরল-কনকটড-কমপননট-অযলগরদম">টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম<a class="anchor" href="#%e0%a6%9f%e0%a6%b0%e0%a6%9c%e0%a6%a8%e0%a6%b0-%e0%a6%b8%e0%a6%9f%e0%a6%b0%e0%a6%b2-%e0%a6%95%e0%a6%a8%e0%a6%95%e0%a6%9f%e0%a6%a1-%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%a8%e0%a6%a8%e0%a6%9f-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<h3 id="অযলগরদমর-বরণন-1">অ্যালগরিদমের বর্ণনা<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%b0%e0%a6%a3%e0%a6%a8-1">#</a></h3>
+<p>বর্ণিত অ্যালগরিদমটি প্রথম ১৯৭২ সালে টারজান প্রস্তাব করেছিলেন।
+এটি DFS কলের একটি ক্রম সম্পাদনের উপর ভিত্তি করে, এর গঠনের অন্তর্নিহিত তথ্য ব্যবহার করে স্ট্রংলি কানেক্টেড কম্পোনেন্ট (এসসিসি) নির্ধারণ করে, রানটাইম $O(n+m)$।</p>
+<p>একটি ভার্টেক্সে DFS প্রয়োগ করার সময়, আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স করব, এবং যদি কোনো অভিজিত ভার্টেক্স পাই, আমরা রিকার্সিভভাবে সেটিতে DFS প্রয়োগ করব।</p>
+<p>আসুন DFS কলের ক্রম দ্বারা উদ্ভূত ট্রি বিবেচনা করি, যেটিকে আমরা <strong>DFS ট্রি</strong> বলব।
+একটি এসসিসি-র কোনো ভার্টেক্সে প্রথম DFS কল করলে, সেই কল শেষ হওয়ার আগেই তার এসসিসি-র সব ভার্টেক্স ভিজিট হবে, কারণ তারা সবাই পরস্পরের কাছে পৌঁছানো যায়।
+DFS ট্রি-তে, এই প্রথম ভার্টেক্সটি এসসিসি-র অন্য সব ভার্টেক্সের কমন অ্যানসেস্টর হবে; আমরা এই ভার্টেক্সকে <strong>এসসিসি-র রুট</strong> হিসেবে সংজ্ঞায়িত করি।</p>
+<p>
+<div class="book-hint info">
+  <p><strong>উপপাদ্য</strong></p>
+<p>একটি এসসিসি-র সব ভার্টেক্স DFS ট্রি-র একটি কানেক্টেড সাবগ্রাফ গঠন করে।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>আমরা নির্ধারণ করেছি যে একটি এসসিসি-র সব ভার্টেক্সের একটি কমন অ্যানসেস্টর আছে, DFS কল দ্বারা প্রথম ভিজিট করা ভার্টেক্স।
+ধরি একটি ভার্টেক্স $v$ এবং তার রুট, ভার্টেক্স $r$।
+$r$ থেকে $v$ পর্যন্ত পাথের সব ভার্টেক্স একই এসসিসি-তে থাকে। এই সব ভার্টেক্স $r$ থেকে পৌঁছানো যায়, এবং এরা সবাই $v$-তে পৌঁছায়, এবং যেহেতু সংজ্ঞা অনুযায়ী $v$ থেকে $r$ পৌঁছায়, এই সব ভার্টেক্স পরস্পরে পৌঁছায়।
+যেহেতু রুট থেকে এসসিসি-র প্রতিটি অন্য ভার্টেক্সের সব পাথ একই এসসিসি-তে থাকে, গঠিত সাবগ্রাফটি কানেক্টেড।</div>
+</details>
+
+লক্ষ্য করুন যে এসসিসিগুলো DFS ট্রিকে কানেক্টেড সাবগ্রাফে নিখুঁতভাবে বিভক্ত করে।</p>
+<p>অ্যালগরিদমের ধারণা নিম্নরূপ:</p>
+<ul>
+<li>
+<p>আমরা DFS কলের একটি ক্রম সম্পাদন করি, অ্যাডজেসেন্সি লিস্টের ভার্টেক্সগুলোতে রিকার্সিভভাবে প্রয়োগ করি।</p>
+</li>
+<li>
+<p>একটি ভার্টেক্সের অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ হলে, আমরা কোনোভাবে নির্ধারণ করতে পারি এটি রুট কি না।
+এই পদ্ধতি পরে ব্যাখ্যা করা হবে।</p>
+</li>
+<li>
+<p>ভার্টেক্সটি রুট হলে, আমরা তৎক্ষণাৎ তার এসসিসি-র সব ভার্টেক্স খুঁজে বের করব এবং দাবি করব।</p>
+</li>
+</ul>
+<p>সব কল শেষ হলে, সব রুট শনাক্ত হয়ে যাবে এবং সব ভার্টেক্স কোনো না কোনো এসসিসি-র অংশ হিসেবে দাবি করা হয়ে যাবে।</p>
+<p>আসুন এখন এই দাবি করার প্রক্রিয়া প্রবর্তন করলে DFS-এর বৈশিষ্ট্যগুলো বিশ্লেষণ করি।</p>
+<p>
+<div class="book-hint info">
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি ভার্টেক্স $v$ এবং ধরি আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ করেছি।
+তার সাবট্রি-র সব অদাবিকৃত ভার্টেক্স একই এসসিসি-তে থাকে।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>অ্যালগরিদম একটি এসসিসি-র ভার্টেক্সগুলো দাবি করবে যখন এর রুট পাওয়া যায়।
+যেহেতু $v$-এর অ্যাডজেসেন্সি লিস্ট ট্রাভার্স হয়ে গেছে, তার সাবট্রি-র সব DFS কল শেষ হয়েছে, রুটগুলো শনাক্ত হয়েছে এবং তাদের এসসিসি-র ভার্টেক্সগুলো দাবি করা হয়েছে।
+অবশিষ্ট অদাবিকৃত ভার্টেক্সগুলোর রুট হবে এমন কোনো অ্যানসেস্টর যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, তাই এটি হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর।
+যেহেতু $v$ সব ভার্টেক্স থেকে তাদের রুট পর্যন্ত পাথে আছে এবং এসসিসিকে ট্রি-র একটি কানেক্টেড সাবগ্রাফ গঠন করতে হবে, $v$ এবং সব অবশিষ্ট ভার্টেক্স একই এসসিসি-তে থাকে।</div>
+</details>
+
+
+<div class="book-hint info">
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি ভার্টেক্স $v$ এবং ধরি আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স করছি, বর্তমানে $(v, u)$ এজ প্রসেস করছি।
+যদি $u$ ইতোমধ্যে কোনো DFS কলে ভিজিট হয়ে থাকে এবং অদাবিকৃত থাকে, তাহলে $v$ এবং $u$ একই এসসিসি-তে থাকে।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div><p>এজের ধরনের উপর নির্ভর করে বিভিন্ন ক্ষেত্র আছে:</p>
+<ul>
+<li>
+<p>ট্রি-এজ: যদি এটি ট্রি-এজ হয়, এটি প্রথমবার আমরা ভার্টেক্স $u$ খুঁজে পাচ্ছি। তার মানে আমাদের প্রথমে $u$-তে রিকার্সিভভাবে DFS কল করতে হবে এবং তার DFS কল শেষ হওয়ার পরে বিবেচনা করতে হবে। যদি ভার্টেক্স $u$ অদাবিকৃত থাকে, তার রুট হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর, তাই তারা একই এসসিসি-তে থাকতে হবে।</p>
+</li>
+<li>
+<p>ব্যাক-এজ: এটি সহজ ক্ষেত্র, যদি $u$ হয় $v$-এর অ্যানসেস্টর, তারা পরস্পরের কাছে পৌঁছানো যায় এবং সংজ্ঞা অনুযায়ী একই এসসিসি-তে থাকে।</p>
+</li>
+<li>
+<p>ফরওয়ার্ড-এজ: এই এজ প্রসেস হওয়ার আগে, DFS কলের একটি ক্রম ছিল যেগুলো $u$-এর রুট না পেয়ে শেষ হয়ে $v$-তে ফিরে এসেছে যার DFS কল চলমান।
+$u$-এর রুট তখন এমন একটি অ্যানসেস্টর হবে যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, তাই এটি হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর, তাই তারা একই এসসিসি-তে থাকতে হবে।</p>
+</li>
+<li>
+<p>ক্রস-এজ: একইভাবে, এই এজ প্রসেস হওয়ার আগে, DFS কলের একটি ক্রম ছিল যেগুলো $u$-এর রুট না পেয়ে শেষ হয়ে $u$ এবং $v$-এর কমন অ্যানসেস্টরে ফিরে এসেছে যার DFS কল চলমান এবং DFS কলের নতুন ক্রম শুরু করেছে যা $v$-তে কল করেছে।
+$u$-এর রুট তখন এমন একটি অ্যানসেস্টর হবে যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, এবং সব সম্ভাব্য প্রার্থী $v$-এর সাথে কমন অ্যানসেস্টর।
+যেহেতু $u$-এর রুট $v$-এর অ্যানসেস্টর, এটি $v$-তে পৌঁছায়, এবং যেহেতু $v$ এখন $u$-তে পৌঁছায়, তারা একই এসসিসি-তে থাকতে হবে।</p>
+</li>
+</ul>
+</div>
+</details>
+
+লক্ষ্য করুন, যখন দুটি ভার্টেক্স একই কম্পোনেন্টে থাকে, তাদের রুট অবশ্যই উভয় ভার্টেক্সের কমন অ্যানসেস্টর হতে হবে।</p>
+<p>
+<div class="book-hint info">
+  <p><strong>উপপাদ্য</strong></p>
+<p>ধরি $v$ একটি ভার্টেক্স। নিম্নলিখিত বিবৃতিগুলো সমতুল্য:</p>
+<p>১. $v$-এর সাবট্রি-র কোনো ভার্টেক্স সাবট্রি-র বাইরে একটি অদাবিকৃত ভার্টেক্সে পৌঁছায়।
+২. $v$ কোনো এসসিসি-র রুট নয়।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div><ul>
+<li>
+<p>$1. \implies 2.$:
+ধরি $v$-এর সাবট্রি-র কোনো ভার্টেক্স $u$ সাবট্রি-র বাইরে একটি অদাবিকৃত ভার্টেক্স $w$-তে পৌঁছায়।
+আমরা প্রতিষ্ঠিত করেছি যে $u$ এবং $w$ একই এসসিসি-তে থাকে এবং তাদের রুট অবশ্যই উভয়ের কমন অ্যানসেস্টর হতে হবে।
+এই কমন অ্যানসেস্টর অবশ্যই সাবট্রি-র বাইরে, এবং এটি $v$-এরও অ্যানসেস্টর হবে।
+যেহেতু $v$ রুট থেকে $u$ পর্যন্ত পাথে আছে, এটি অবশ্যই একই এসসিসি-তে থাকবে, যার রুট $v$ নয়।</p>
+</li>
+<li>
+<p>$\neg 1. \implies \neg 2.$:
+ধরি $v$-এর সাবট্রি-র কোনো ভার্টেক্স সাবট্রি-র বাইরে কোনো অদাবিকৃত ভার্টেক্সে পৌঁছায় না।
+এর মানে $v$-এর সাবট্রি-র কোনো ভার্টেক্স $v$-এর কোনো অ্যানসেস্টরে পৌঁছায় না।
+সাবট্রি-র বাইরে ভার্টেক্সে যাওয়ার একমাত্র সম্ভাব্য এজ হলো ক্রস-এজ যেগুলো ইতোমধ্যে দাবিকৃত ভার্টেক্সে যায়;
+এই ভার্টেক্সগুলো $v$-এর কোনো অ্যানসেস্টরে পৌঁছাতে পারে না, কারণ পারলে তারা $v$-এর সাথে একই এসসিসি-তে থাকত, যা অসম্ভব কারণ তাদের এসসিসি ইতোমধ্যে নির্ধারিত।
+যেহেতু $v$-এর অ্যানসেস্টর তার সাবট্রি থেকে পৌঁছানো যায় না, $v$-এর রুট অবশ্যই $v$ নিজেই।</p>
+</li>
+</ul>
+</div>
+</details>
+
+এখন, আমাদের সেই পদ্ধতি খুঁজতে হবে যেটি নির্ধারণ করবে একটি ভার্টেক্স রুট কি না, এবং দাবি করার প্রক্রিয়ার বৈশিষ্ট্যগুলো এর সঠিকতার জন্য প্রয়োজনীয়।
+এজন্য, আমরা প্রতিটি ভার্টেক্স $v \in G$-এর জন্য এন্ট্রি টাইম $t_{in}[v]$ সংজ্ঞায়িত করি যেটি DFS-এ $v$-তে কল করার &lsquo;টাইমস্ট্যাম্প&rsquo;।
+সংজ্ঞা অনুযায়ী, রুট হলো তার এসসিসি-র প্রথম ভিজিট করা ভার্টেক্স তাই এটির $t_{in}$ মান তার এসসিসি-র সর্বনিম্ন হবে।</p>
+<p>ধরি $v$ একটি ভার্টেক্স এবং তার সাবট্রি বিবেচনা করি।
+তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ করার সময়ে, সাবট্রি-র বাইরে DFS দ্বারা ইতোমধ্যে ভিজিত যেকোনো ভার্টেক্সের $t_{in}$ মান ছোট হবে, কারণ $v$-তে শুরু হওয়ার আগেই তাদের উপর DFS কল করা হয়েছিল।</p>
+<p>দাবি করার প্রক্রিয়া বিবেচনা করলে, $v$-এর সাবট্রি-র বাইরে সব অদাবিকৃত ভার্টেক্সের $t_{in}$ মান $t_{in}[v]$ থেকে ছোট।
+এখন আমরা দেখতে পাচ্ছি কীভাবে $t_{in}$ ব্যবহার করে রুট নির্ধারণ করা যায়।
+আমরা পৌঁছাতে পারা অদাবিকৃত ভার্টেক্সগুলোর $t_{in}$-এর সর্বনিম্ন মান বিবেচনা করি এবং ট্রি-এজের মাধ্যমে এই তথ্য অ্যানসেস্টরদের কাছে প্রচার করি।
+প্রচারিত মানকে আমরা $t_{low}$ বলব।</p>
+<p>আরো আনুষ্ঠানিকভাবে, আমরা $t_{low}[v]$-কে সংজ্ঞায়িত করি $v$-এর সাবট্রি-র কোনো ভার্টেক্স থেকে সরাসরি এজের মাধ্যমে পৌঁছানো যায় এমন সর্বনিম্ন $t_{in}$ মান হিসেবে।
+তাই আমরা $t_{low}[v] < t_{in}[v]$ পরীক্ষা করে একটি ভার্টেক্স $v$ রুট কি না শনাক্ত করতে পারি।</p>
+<p>সবশেষে, ভার্টেক্সগুলো দাবি করতে অনেক উপায় আছে, যেমন আরেকটি গ্রাফ ট্রাভার্সাল অ্যালগরিদম, তবে অদাবিকৃত ভার্টেক্সগুলো ট্র্যাক রাখতে একটি সরল ডেটা স্ট্রাকচারও ব্যবহার করা যায়।
+প্রথম নীতি থেকে ডেটা স্ট্রাকচার নির্ধারণ করতে, আসুন এটি যে মেথডগুলো ইমপ্লিমেন্ট করতে হবে তা দেখি, যেগুলো শুধু দুটি:</p>
+<ul>
+<li>
+<p>যখন আমরা প্রথম একটি ভার্টেক্স ভিজিট করি, আমাদের শুধু এটি ডেটা স্ট্রাকচারে ইনসার্ট করতে হবে, কারণ এই ভার্টেক্স অদাবিকৃত।</p>
+</li>
+<li>
+<p>যখন আমরা একটি রুট পাই, আমাদের তার সাবট্রি-র সব অবশিষ্ট অদাবিকৃত ভার্টেক্স খুঁজে বের করে ডেটা স্ট্রাকচার থেকে সরাতে হবে।</p>
+</li>
+</ul>
+<p>আমরা রিমুভাল অপারেশন বর্ণনা করার বিকল্প উপায় খুঁজতে পারি, লক্ষ্য করে যে একটি ভার্টেক্স $v$-এর অ্যাডজেসেন্সি লিস্ট ট্রাভার্সের ঠিক পরে, $v$-এর পরে ডেটা স্ট্রাকচারে রাখা সব ভার্টেক্স তার সাবট্রি-তে থাকে।
+যদি $v$ রুট হয়, $v$-এর পরে ইনসার্ট করা সব অবশিষ্ট ভার্টেক্স সরাতে হবে।
+তাই রিমুভাল অপারেশন এভাবে বর্ণনা করা যায়:</p>
+<ul>
+<li>যখন আমরা একটি রুট পাই, আমাদের এর পরে ইনসার্ট করা সব অবশিষ্ট ভার্টেক্স খুঁজে বের করে সরাতে হবে।</li>
+</ul>
+<p>আমরা এখন দেখতে পাচ্ছি যে এটি একটি স্ট্যাক দিয়ে ইমপ্লিমেন্ট করা যায়:</p>
+<ul>
+<li>
+<p>যখন আমরা প্রথম একটি ভার্টেক্স ভিজিট করি, আমরা এটি স্ট্যাকে পুশ করি।</p>
+</li>
+<li>
+<p>যখন আমরা একটি রুট পাই, আমরা রুট নিজেকে পপ করা পর্যন্ত সব এলিমেন্ট পপ করি।</p>
+</li>
+</ul>
+<p>এটি অবশেষে আমাদের অ্যালগরিদম ইমপ্লিমেন্ট করতে দেয়।</p>
+<p>DFS কলের ক্রমের রানটাইম কমপ্লেক্সিটি $O(n + m)$।
+স্ট্যাক বিবেচনা করলে, এর কমপ্লেক্সিটি $O(n)$-এ অ্যামর্টাইজ হয় কারণ প্রতিটি নোড শুধু একবার পুশ এবং পপ করা হয়।
+মোট রানটাইম কমপ্লেক্সিটি তাই $O(n + m)$।</p>
+<p>অতিরিক্ত মন্তব্য হিসেবে, রুটগুলো বিপরীত টপোলজিক্যাল ক্রমে পাওয়া যায়।
+অ্যালগরিদমে, একটি ভার্টেক্স রুট যদি তার সাবট্রি-র বাইরে অদাবিকৃত ভার্টেক্সে কোনো এজ না থাকে, অর্থাৎ অন্য সব পৌঁছানো যায় এমন কম্পোনেন্ট হয় তার সাবট্রি-তে (এবং তাই তাদের রুট ইতোমধ্যে পাওয়া হয়েছে) অথবা সাবট্রি-র বাইরে ইতোমধ্যে দাবিকৃত ভার্টেক্সে কানেক্ট করে (যাদের রুটও ইতোমধ্যে পাওয়া হয়েছে)।
+তাই সব পৌঁছানো যায় এমন কম্পোনেন্ট ইতোমধ্যে পাওয়া হয়েছে, অর্থাৎ তারা কনডেনসেশন গ্রাফের একটি ভ্যালিড বিপরীত টপোলজিক্যাল অর্ডারে প্রবর্তিত হয়।</p>
+<h3 id="ইমপলমনটশন-1">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8-1">#</a></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>    <span class="c1">// - stack holding the unclaimed vertices
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">roots</span><span class="p">;</span> <span class="c1">// - keeps track of the SCC roots of the vertices
+</span></span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">timer</span><span class="p">;</span>         <span class="c1">// - dfs timestamp counter
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">t_in</span><span class="p">;</span>  <span class="c1">// - keeps track of the dfs timestamp of the vertices
+</span></span></span><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">t_low</span><span class="p">;</span> <span class="c1">// - keeps track of the lowest t_in of unclaimed vertices
+</span></span></span><span class="line"><span class="cl">                   <span class="c1">// reachable in the subtree
+</span></span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// implements the tarjan algorithm for strongly connected components
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">adj</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">components</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_in</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">timer</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">st</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// tree-edge
+</span></span></span><span class="line"><span class="cl">      <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">adj</span><span class="p">,</span> <span class="n">components</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// back-edge, cross-edge or forward-edge to an unclaimed vertex
+</span></span></span><span class="line"><span class="cl">      <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="n">t_in</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span> <span class="c1">// vertex is a root
+</span></span></span><span class="line"><span class="cl">    <span class="n">components</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">v</span><span class="p">});</span> <span class="c1">// initializes a new component with root v
+</span></span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">st</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">;</span> <span class="c1">// claims the vertex
+</span></span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">components</span><span class="p">.</span><span class="n">back</span><span class="p">().</span><span class="n">push_back</span><span class="p">(</span><span class="n">u</span><span class="p">);</span> <span class="c1">// adds vertex u to the component of v
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// input: adj -- adjacency list of G
+</span></span></span><span class="line"><span class="cl"><span class="c1">// output: components -- the strongy connected components in G
+</span></span></span><span class="line"><span class="cl"><span class="c1">// output: adj_cond -- adjacency list of G^SCC (by root vertices)
+</span></span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">strongly_connected_components</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="k">const</span> <span class="o">&amp;</span><span class="n">adj</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                   <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">components</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                   <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">adj_cond</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">components</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">adj_cond</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">adj</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">st</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">roots</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">timer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t_in</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">t_low</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// applies the tarjan algorithm to all the vertices
+</span></span></span><span class="line"><span class="cl">  <span class="c1">// adds vertices to the components in reverse topological order
+</span></span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">dfs</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">adj</span><span class="p">,</span> <span class="n">components</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// adds edges to the condensation graph
+</span></span></span><span class="line"><span class="cl">  <span class="n">adj_cond</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="p">{});</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">v</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">!=</span> <span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="n">adj_cond</span><span class="p">[</span><span class="n">roots</span><span class="p">[</span><span class="n">v</span><span class="p">]].</span><span class="n">push_back</span><span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>আমাদের এই কোড Library Checker-এ একটি <a href="https://judge.yosupo.jp/submission/334251">অ্যাকসেপ্টেড সাবমিশন</a> আছে।</p>
+<p>শেষ মন্তব্য হিসেবে, অ্যাডজেসেন্সি লিস্ট ইটারেট করার একটি বিকল্প উপায় আছে।
+বর্তমানে, আমরা নিম্নলিখিতভাবে করছি:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// tree-edge
+</span></span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">adj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// back-edge, cross-edge or forward-edge to an unclaimed vertex
+</span></span></span><span class="line"><span class="cl">    <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>বিকল্পভাবে, আমরা এটি করতে পারি:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">u</span> <span class="p">:</span> <span class="n">adj</span><span class="p">[</span><span class="n">v</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">t_in</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// vertex is not visited
+</span></span></span><span class="line"><span class="cl">    <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">adj</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">roots</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// vertex has not been claimed
+</span></span></span><span class="line"><span class="cl">    <span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">t_low</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">t_low</span><span class="p">[</span><span class="n">u</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>$t_{low}$ রুটে তথ্য প্রচারের জন্য ব্যবহৃত হয়, এবং যখন আমরা <code>t_low[v] = min(t_low[v], t_in[u])</code> করি, আমরা জানি যে $u$ এবং $v$ একই এসসিসি-তে থাকে।
+যদি $t_{low}[u]$ $u$-এর রুট পর্যন্ত প্রচারিত হয়, এটি $v$-এর মাধ্যমেও প্রচারিত হতে পারে কারণ রুট একই।
+যেহেতু $t_{low}[u] \leq t_{in}[u]$, এটি কোনো বিরোধ তৈরি করে না, বরং $v$-এর রুটের বাউন্ড উন্নত করে।</p>
+<h2 id="কনডনসশন-গরফ-তর">কনডেনসেশন গ্রাফ তৈরি<a class="anchor" href="#%e0%a6%95%e0%a6%a8%e0%a6%a1%e0%a6%a8%e0%a6%b8%e0%a6%b6%e0%a6%a8-%e0%a6%97%e0%a6%b0%e0%a6%ab-%e0%a6%a4%e0%a6%b0">#</a></h2>
+<p>কনডেনসেশন গ্রাফের অ্যাডজেসেন্সি লিস্ট তৈরি করার সময়, আমরা প্রতিটি কম্পোনেন্টের ভার্টেক্স তালিকার প্রথম ভার্টেক্সকে <em>রুট</em> হিসেবে নির্বাচন করি (এটি একটি ইচ্ছামূলক পছন্দ)। এই রুট ভার্টেক্স তার সম্পূর্ণ এসসিসি-কে উপস্থাপন করে। প্রতিটি ভার্টেক্স <code>v</code>-এর জন্য, <code>roots[v]</code> মান সেই রুট ভার্টেক্স নির্দেশ করে যেই এসসিসি-তে <code>v</code> থাকে।</p>
+<p>আমাদের কনডেনসেশন গ্রাফ এখন ভার্টেক্স <code>components</code> (একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট কনডেনসেশন গ্রাফের একটি ভার্টেক্সের সাথে মিলে যায়) এবং অ্যাডজেসেন্সি লিস্ট <code>adj_cond</code> দ্বারা দেওয়া, শুধু স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর রুট ভার্টেক্স ব্যবহার করে। লক্ষ্য করুন যে $G$-তে কোনো $a\in C$ থেকে কোনো $b\in C'$-তে প্রতিটি এজের জন্য আমরা $G^\text{SCC}$-তে $C$ থেকে $C'$-তে একটি এজ তৈরি করি (যদি $C\neq C'$)। এর মানে আমাদের ইমপ্লিমেন্টেশনে, কনডেনসেশন গ্রাফে দুটি কম্পোনেন্টের মধ্যে মাল্টিপল এজ থাকতে পারে।</p>
+<h2 id="সহতয">সাহিত্য<a class="anchor" href="#%e0%a6%b8%e0%a6%b9%e0%a6%a4%e0%a6%af">#</a></h2>
+<ul>
+<li>Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].</li>
+<li>M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].</li>
+<li>Robert Tarjan. Depth-first search and linear graph algorithms [1972].</li>
+</ul>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
+<ul>
+<li><a href="http://www.spoj.com/problems/GOODA/">SPOJ - Good Travels</a></li>
+<li><a href="http://www.spoj.com/problems/LEGO/">SPOJ - Lego</a></li>
+<li><a href="https://www.codechef.com/AUG16/problems/CHEFRRUN">Codechef - Chef and Round Run</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2938">UVA - 11838 - Come and Go</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=onlinejudge&amp;page=show_problem&amp;problem=183">UVA 247 - Calling Circles</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4955">UVA 13057 - Prove Them All</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4393">UVA 12645 - Water Supply</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2870">UVA 11770 - Lighting Away</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=862&amp;page=show_problem&amp;problem=4805">UVA 12926 - Trouble in Terrorist Town</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2299">UVA 11324 - The Largest Clique</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=2756">UVA 11709 - Trust groups</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4598">UVA 12745 - Wishmaster</a></li>
+<li><a href="http://www.spoj.com/problems/TFRIENDS/">SPOJ - True Friends</a></li>
+<li><a href="http://www.spoj.com/problems/CAPCITY/">SPOJ - Capital City</a></li>
+<li><a href="http://codeforces.com/contest/22/problem/E">Codeforces - Scheme</a></li>
+<li><a href="http://www.spoj.com/problems/ADAPANEL/">SPOJ - Ada and Panels</a></li>
+<li><a href="https://cses.fi/problemset/task/1682">CSES - Flight Routes Check</a></li>
+<li><a href="https://cses.fi/problemset/task/1683">CSES - Planets and Kingdoms</a></li>
+<li><a href="https://cses.fi/problemset/task/1686">CSES - Coin Collector</a></li>
+<li><a href="https://codeforces.com/problemset/problem/427/C">Codeforces - Checkposts</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/bn/graph/lca_tarjan/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/bn/graph/hld/" class="flex align-center">
+        <span>হেভি-লাইট ডিকম্পোজিশন</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#সজঞসমহ">সংজ্ঞাসমূহ</a></li>
+    <li><a href="#কসরজর-অযলগরদম">কোসারাজুর অ্যালগরিদম</a>
+      <ul>
+        <li><a href="#অযলগরদমর-বরণন">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+      </ul>
+    </li>
+    <li><a href="#টরজনর-সটরল-কনকটড-কমপননট-অযলগরদম">টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম</a>
+      <ul>
+        <li><a href="#অযলগরদমর-বরণন-1">অ্যালগরিদমের বর্ণনা</a></li>
+        <li><a href="#ইমপলমনটশন-1">ইমপ্লিমেন্টেশন</a></li>
+      </ul>
+    </li>
+    <li><a href="#কনডনসশন-গরফ-তর">কনডেনসেশন গ্রাফ তৈরি</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

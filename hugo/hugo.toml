@@ -1,15 +1,31 @@
 baseURL = "https://cp-algorithms.com/"
-title = "CP-Algorithms"
+title = "algobangla"
 theme = "hugo-book"
 enableGitInfo = true
 defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    contentDir = "content/en"
+    weight = 1
+    [languages.en.params]
+      BookSection = "/"
+
+  [languages.bn]
+    languageName = "বাংলা"
+    contentDir = "content/bn"
+    weight = 2
+    [languages.bn.params]
+      BookSection = "/"
 
 # Hugo-book settings
 [params]
   # Sidebar
   BookSection = "/"
   BookToC = true
-  BookTheme = "auto"  # auto = supports dark/light toggle
+  BookTheme = "light"  # base is light; dark toggled via html[data-theme="dark"] in theme-toggle.css
   BookSearch = true
   BookCollapseSection = true
   BookComments = false
@@ -28,7 +44,7 @@ defaultContentLanguage = "en"
           inline = [["$", "$"], ["\\(", "\\)"]]
 
   [markup.highlight]
-    style = "monokai"
+    style = "dracula"
     lineNos = false
     codeFences = true
     guessSyntax = true

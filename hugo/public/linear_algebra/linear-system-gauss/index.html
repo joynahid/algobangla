@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,38 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Gauss method for solving system of linear equations#Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
-Formally, the problem is formulated as follows: solve the system:
-$$\begin{align}a_{11} x_1 &#43; a_{12} x_2 &#43; &amp;\dots &#43; a_{1m} x_m = b_1 \\a_{21} x_1 &#43; a_{22} x_2 &#43; &amp;\dots &#43; a_{2m} x_m = b_2\\&amp;\vdots \\a_{n1} x_1 &#43; a_{n2} x_2 &#43; &amp;\dots &#43; a_{nm} x_m = b_n\end{align}$$where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$) are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
+<meta name="description" content="লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড#$m$ টি অজানা রাশি বিশিষ্ট $n$ টি লিনিয়ার বীজগাণিতিক সমীকরণের একটি সিস্টেম (SLAE) দেওয়া আছে। আপনাকে সিস্টেমটি সমাধান করতে হবে: এর কোনো সমাধান নেই, ঠিক একটি সমাধান আছে, নাকি অসীম সংখ্যক সমাধান আছে তা নির্ণয় করতে হবে। এবং যদি কমপক্ষে একটি সমাধান থাকে, তাহলে যেকোনো একটি বের করতে হবে।
+আনুষ্ঠানিকভাবে, সমস্যাটি নিম্নরূপ: সিস্টেমটি সমাধান করুন:
+$$\begin{align}a_{11} x_1 &#43; a_{12} x_2 &#43; &amp;\dots &#43; a_{1m} x_m = b_1 \\a_{21} x_1 &#43; a_{22} x_2 &#43; &amp;\dots &#43; a_{2m} x_m = b_2\\&amp;\vdots \\a_{n1} x_1 &#43; a_{n2} x_2 &#43; &amp;\dots &#43; a_{nm} x_m = b_n\end{align}$$যেখানে সহগ $a_{ij}$ ($i$ এর মান ১ থেকে $n$, $j$ এর মান ১ থেকে $m$) এবং $b_i$ ($i$ এর মান ১ থেকে $n$) জানা আছে এবং চলক $x_i$ ($i$ এর মান ১ থেকে $m$) অজানা।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/linear_algebra/linear-system-gauss/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/linear_algebra/linear-system-gauss/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Gauss method for solving system of linear equations">
-  <meta property="og:description" content="Gauss method for solving system of linear equations#Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
-Formally, the problem is formulated as follows: solve the system:
-$$\begin{align}a_{11} x_1 &#43; a_{12} x_2 &#43; &amp;\dots &#43; a_{1m} x_m = b_1 \\a_{21} x_1 &#43; a_{22} x_2 &#43; &amp;\dots &#43; a_{2m} x_m = b_2\\&amp;\vdots \\a_{n1} x_1 &#43; a_{n2} x_2 &#43; &amp;\dots &#43; a_{nm} x_m = b_n\end{align}$$where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$) are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.">
+  <meta property="og:title" content="লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড">
+  <meta property="og:description" content="লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড#$m$ টি অজানা রাশি বিশিষ্ট $n$ টি লিনিয়ার বীজগাণিতিক সমীকরণের একটি সিস্টেম (SLAE) দেওয়া আছে। আপনাকে সিস্টেমটি সমাধান করতে হবে: এর কোনো সমাধান নেই, ঠিক একটি সমাধান আছে, নাকি অসীম সংখ্যক সমাধান আছে তা নির্ণয় করতে হবে। এবং যদি কমপক্ষে একটি সমাধান থাকে, তাহলে যেকোনো একটি বের করতে হবে।
+আনুষ্ঠানিকভাবে, সমস্যাটি নিম্নরূপ: সিস্টেমটি সমাধান করুন:
+$$\begin{align}a_{11} x_1 &#43; a_{12} x_2 &#43; &amp;\dots &#43; a_{1m} x_m = b_1 \\a_{21} x_1 &#43; a_{22} x_2 &#43; &amp;\dots &#43; a_{2m} x_m = b_2\\&amp;\vdots \\a_{n1} x_1 &#43; a_{n2} x_2 &#43; &amp;\dots &#43; a_{nm} x_m = b_n\end{align}$$যেখানে সহগ $a_{ij}$ ($i$ এর মান ১ থেকে $n$, $j$ এর মান ১ থেকে $m$) এবং $b_i$ ($i$ এর মান ১ থেকে $n$) জানা আছে এবং চলক $x_i$ ($i$ এর মান ১ থেকে $m$) অজানা।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="linear_algebra">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Gauss method for solving system of linear equations">
-  <meta itemprop="description" content="Gauss method for solving system of linear equations#Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
-Formally, the problem is formulated as follows: solve the system:
-$$\begin{align}a_{11} x_1 &#43; a_{12} x_2 &#43; &amp;\dots &#43; a_{1m} x_m = b_1 \\a_{21} x_1 &#43; a_{22} x_2 &#43; &amp;\dots &#43; a_{2m} x_m = b_2\\&amp;\vdots \\a_{n1} x_1 &#43; a_{n2} x_2 &#43; &amp;\dots &#43; a_{nm} x_m = b_n\end{align}$$where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$) are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.">
-  <meta itemprop="wordCount" content="2003">
+  <meta itemprop="name" content="লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড">
+  <meta itemprop="description" content="লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড#$m$ টি অজানা রাশি বিশিষ্ট $n$ টি লিনিয়ার বীজগাণিতিক সমীকরণের একটি সিস্টেম (SLAE) দেওয়া আছে। আপনাকে সিস্টেমটি সমাধান করতে হবে: এর কোনো সমাধান নেই, ঠিক একটি সমাধান আছে, নাকি অসীম সংখ্যক সমাধান আছে তা নির্ণয় করতে হবে। এবং যদি কমপক্ষে একটি সমাধান থাকে, তাহলে যেকোনো একটি বের করতে হবে।
+আনুষ্ঠানিকভাবে, সমস্যাটি নিম্নরূপ: সিস্টেমটি সমাধান করুন:
+$$\begin{align}a_{11} x_1 &#43; a_{12} x_2 &#43; &amp;\dots &#43; a_{1m} x_m = b_1 \\a_{21} x_1 &#43; a_{22} x_2 &#43; &amp;\dots &#43; a_{2m} x_m = b_2\\&amp;\vdots \\a_{n1} x_1 &#43; a_{n2} x_2 &#43; &amp;\dots &#43; a_{nm} x_m = b_n\end{align}$$যেখানে সহগ $a_{ij}$ ($i$ এর মান ১ থেকে $n$, $j$ এর মান ১ থেকে $m$) এবং $b_i$ ($i$ এর মান ১ থেকে $n$) জানা আছে এবং চলক $x_i$ ($i$ এর মান ১ থেকে $m$) অজানা।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1783">
 
-<title>Gauss method for solving system of linear equations | CP-Algorithms</title>
+<title>লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/linear_algebra/linear-system-gauss/">
+<link rel="canonical" href="http://localhost:1313/linear_algebra/linear-system-gauss/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -126,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -211,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -225,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -239,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -281,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -295,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -309,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -337,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -351,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -379,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -393,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -407,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -434,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -448,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -463,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -477,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -505,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -519,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -533,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -584,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -598,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -612,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -626,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -640,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -654,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -668,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -682,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -696,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -746,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -761,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -817,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -831,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -882,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -910,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -937,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -951,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -966,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -994,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1008,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1022,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1036,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1073,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="active">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1087,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1101,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1115,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1151,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1179,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1194,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1208,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1222,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1236,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1250,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1301,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1315,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1329,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1343,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1357,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1393,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1464,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1477,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1491,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1505,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1519,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1534,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1548,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1576,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1589,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1618,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1632,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1660,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1673,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1688,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1702,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1716,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1730,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1744,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1780,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1864,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1893,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1907,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1920,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1934,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1948,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1962,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1977,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1990,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2004,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2018,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2047,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2060,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2074,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2102,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2159,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2172,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2186,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2201,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2214,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2228,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2243,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2256,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2270,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2285,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2298,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2313,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2327,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2341,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2355,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2369,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2383,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2397,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2434,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2448,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2476,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2513,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2527,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2541,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2555,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2569,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2606,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2620,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2657,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2671,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2685,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2731,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Gauss method for solving system of linear equations</h3>
+  <h3>লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</h3>
 
   <label for="toc-control">
     
@@ -2747,17 +2749,17 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#gauss">Gauss</a></li>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#search-for-the-pivoting-element">Search for the pivoting element</a></li>
-    <li><a href="#degenerate-cases">Degenerate cases</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#complexity">Complexity</a></li>
-    <li><a href="#acceleration-of-the-algorithm">Acceleration of the algorithm</a></li>
-    <li><a href="#solving-modular-slae">Solving modular SLAE</a></li>
-    <li><a href="#a-little-note-about-different-heuristics-of-choosing-pivoting-row">A little note about different heuristics of choosing pivoting row</a></li>
-    <li><a href="#improve-the-solution">Improve the solution</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#গউস">গাউস</a></li>
+    <li><a href="#সকষপত-ববরণ">সংক্ষিপ্ত বিবরণ</a></li>
+    <li><a href="#পভট-এলমনট-অনসনধন">পিভটিং এলিমেন্ট অনুসন্ধান</a></li>
+    <li><a href="#ডজনরট-কস">ডিজেনারেট কেস</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#কমপলকসট">কমপ্লেক্সিটি</a></li>
+    <li><a href="#অযলগরদমর-তবরণ">অ্যালগরিদমের ত্বরণ</a></li>
+    <li><a href="#মডলর-slae-সমধন">মডুলার SLAE সমাধান</a></li>
+    <li><a href="#পভট-সর-নরবচনর-বভনন-হউরসটক-সমপরক-একট-ছট-নট">পিভটিং সারি নির্বাচনের বিভিন্ন হিউরিস্টিক সম্পর্কে একটি ছোট নোট</a></li>
+    <li><a href="#সমধনর-উননত">সমাধানের উন্নতি</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2770,49 +2772,49 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="gauss-method-for-solving-system-of-linear-equations">Gauss method for solving system of linear equations<a class="anchor" href="#gauss-method-for-solving-system-of-linear-equations">#</a></h1>
-<p>Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.</p>
-<p>Formally, the problem is formulated as follows: solve the system:</p>
+  <article class="markdown book-article"><h1 id="লনযর-সমকরণ-সসটম-সমধনর-গউস-মথড">লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড<a class="anchor" href="#%e0%a6%b2%e0%a6%a8%e0%a6%af%e0%a6%b0-%e0%a6%b8%e0%a6%ae%e0%a6%95%e0%a6%b0%e0%a6%a3-%e0%a6%b8%e0%a6%b8%e0%a6%9f%e0%a6%ae-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8%e0%a6%b0-%e0%a6%97%e0%a6%89%e0%a6%b8-%e0%a6%ae%e0%a6%a5%e0%a6%a1">#</a></h1>
+<p>$m$ টি অজানা রাশি বিশিষ্ট $n$ টি লিনিয়ার বীজগাণিতিক সমীকরণের একটি সিস্টেম (SLAE) দেওয়া আছে। আপনাকে সিস্টেমটি সমাধান করতে হবে: এর কোনো সমাধান নেই, ঠিক একটি সমাধান আছে, নাকি অসীম সংখ্যক সমাধান আছে তা নির্ণয় করতে হবে। এবং যদি কমপক্ষে একটি সমাধান থাকে, তাহলে যেকোনো একটি বের করতে হবে।</p>
+<p>আনুষ্ঠানিকভাবে, সমস্যাটি নিম্নরূপ: সিস্টেমটি সমাধান করুন:</p>
 $$\begin{align}
 a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m = b_1 \\
 a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m = b_2\\
 &\vdots \\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m = b_n
-\end{align}$$<p>where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$) are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.</p>
-<p>This problem also has a simple matrix representation:</p>
-$$Ax = b,$$<p>where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $n$.</p>
-<p>It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:</p>
+\end{align}$$<p>যেখানে সহগ $a_{ij}$ ($i$ এর মান ১ থেকে $n$, $j$ এর মান ১ থেকে $m$) এবং $b_i$ ($i$ এর মান ১ থেকে $n$) জানা আছে এবং চলক $x_i$ ($i$ এর মান ১ থেকে $m$) অজানা।</p>
+<p>এই সমস্যাটির একটি সহজ ম্যাট্রিক্স উপস্থাপনাও আছে:</p>
+$$Ax = b,$$<p>যেখানে $A$ হলো $n \times m$ আকারের সহগ $a_{ij}$ এর ম্যাট্রিক্স এবং $b$ হলো $n$ আকারের কলাম ভেক্টর।</p>
+<p>উল্লেখযোগ্য যে এই নিবন্ধে বর্ণিত মেথডটি যেকোনো সংখ্যা p মডুলোতে সমীকরণ সমাধানেও ব্যবহার করা যায়, অর্থাৎ:</p>
 $$\begin{align}
 a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m \equiv b_1 \pmod p \\
 a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m \equiv b_2 \pmod p \\
 &\vdots \\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m \equiv b_n \pmod p
-\end{align}$$<h2 id="gauss">Gauss<a class="anchor" href="#gauss">#</a></h2>
-<p>Strictly speaking, the method described below should be called &ldquo;Gauss-Jordan&rdquo;, or Gauss-Jordan elimination, because it is a variation of the Gauss method, described by Jordan in 1887.</p>
-<h2 id="overview">Overview<a class="anchor" href="#overview">#</a></h2>
-<p>The algorithm is a <code>sequential elimination</code> of the variables in each equation, until each equation will have only one remaining variable. If $n = m$, you can think of it as transforming the matrix $A$ to identity matrix, and solve the equation in this obvious case, where solution is unique and is equal to coefficient $b_i$.</p>
-<p>Gaussian elimination is based on two simple transformations:</p>
+\end{align}$$<h2 id="গউস">গাউস<a class="anchor" href="#%e0%a6%97%e0%a6%89%e0%a6%b8">#</a></h2>
+<p>কড়াভাবে বলতে গেলে, নিচে বর্ণিত মেথডটিকে &ldquo;গাউস-জর্ডান&rdquo; বা গাউস-জর্ডান এলিমিনেশন বলা উচিত, কারণ এটি গাউস মেথডের একটি ভ্যারিয়েশন, যা জর্ডান ১৮৮৭ সালে বর্ণনা করেছিলেন।</p>
+<h2 id="সকষপত-ববরণ">সংক্ষিপ্ত বিবরণ<a class="anchor" href="#%e0%a6%b8%e0%a6%95%e0%a6%b7%e0%a6%aa%e0%a6%a4-%e0%a6%ac%e0%a6%ac%e0%a6%b0%e0%a6%a3">#</a></h2>
+<p>অ্যালগরিদমটি হলো প্রতিটি সমীকরণে চলকগুলোর <code>ধারাবাহিক এলিমিনেশন</code>, যতক্ষণ না প্রতিটি সমীকরণে শুধুমাত্র একটি চলক অবশিষ্ট থাকে। যদি $n = m$ হয়, তাহলে আপনি এটিকে ম্যাট্রিক্স $A$ কে আইডেন্টিটি ম্যাট্রিক্সে রূপান্তরিত করা হিসেবে ভাবতে পারেন, এবং এই সুস্পষ্ট ক্ষেত্রে সমীকরণটি সমাধান করতে পারেন, যেখানে সমাধানটি অনন্য এবং সহগ $b_i$ এর সমান।</p>
+<p>গাউসীয় এলিমিনেশন দুটি সরল রূপান্তরের উপর ভিত্তি করে:</p>
 <ul>
-<li>It is possible to exchange two equations</li>
-<li>Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).</li>
+<li>দুটি সমীকরণ পরস্পর বিনিময় করা সম্ভব</li>
+<li>যেকোনো সমীকরণকে সেই সারির (অশূন্য সহগ সহ) এবং অন্য কিছু সারির (যথেচ্ছ সহগ সহ) একটি লিনিয়ার কম্বিনেশন দ্বারা প্রতিস্থাপন করা যায়।</li>
 </ul>
-<p>In the first step, Gauss-Jordan algorithm divides the first row by $a_{11}$. Then, the algorithm adds the first row to the remaining rows such that the coefficients in the first column becomes all zeros. To achieve this, on the i-th row, we must add the first row multiplied by $- a_{i1}$. Note that, this operation must also be performed on vector $b$. In a sense, it behaves as if vector $b$ was the $m+1$-th column of matrix $A$.</p>
-<p>As a result, after the first step, the first column of matrix $A$ will consists of $1$ on the first row, and $0$ in other rows.</p>
-<p>Similarly, we perform the second step of the algorithm, where we consider the second column of second row. First, the row is divided by $a_{22}$, then it is subtracted from other rows so that all the second column becomes $0$ (except for the second row).</p>
-<p>We continue this process for all columns of matrix $A$. If $n = m$, then $A$ will become identity matrix.</p>
-<h2 id="search-for-the-pivoting-element">Search for the pivoting element<a class="anchor" href="#search-for-the-pivoting-element">#</a></h2>
-<p>The described scheme left out many details. At the $i$th step, if $a_{ii}$ is zero, we cannot apply directly the described method. Instead, we must first <code>select a pivoting row</code>: find one row of the matrix where the $i$th column is non-zero, and then swap the two rows.</p>
-<p>Note that, here we swap rows but not columns. This is because if you swap columns, then when you find a solution, you must remember to swap back to correct places. Thus, swapping rows is much easier to do.</p>
-<p>In many implementations, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later steps. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.</p>
-<h2 id="degenerate-cases">Degenerate cases<a class="anchor" href="#degenerate-cases">#</a></h2>
-<p>In the case where $m = n$ and the system is non-degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.</p>
-<p>Now we consider the <code>general case</code>, where $n$ and $m$ are not necessarily equal, and the system can be degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).</p>
-<p>So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.</p>
-<p>In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy it.</p>
-<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
-<p>Following is an implementation of Gauss-Jordan. Choosing the pivot row is done with heuristic: choosing maximum value in the current column.</p>
-<p>The input to the function <code>gauss</code> is the system matrix $a$. The last column of this matrix is vector $b$.</p>
-<p>The function returns the number of solutions of the system $(0, 1,\textrm{or } \infty)$. If at least one solution exists, then it is returned in the vector $ans$.</p>
+<p>প্রথম ধাপে, গাউস-জর্ডান অ্যালগরিদম প্রথম সারিকে $a_{11}$ দ্বারা ভাগ করে। তারপর, অ্যালগরিদম প্রথম সারিটি অবশিষ্ট সারিগুলোতে এমনভাবে যোগ করে যাতে প্রথম কলামের সকল সহগ শূন্য হয়ে যায়। এটি অর্জন করতে, i-তম সারিতে, আমাদের $- a_{i1}$ দ্বারা গুণিত প্রথম সারি যোগ করতে হবে। লক্ষ্য করুন যে, এই অপারেশনটি ভেক্টর $b$-তেও করতে হবে। একটি অর্থে, এটি এমনভাবে আচরণ করে যেন ভেক্টর $b$ হলো ম্যাট্রিক্স $A$ এর $m+1$-তম কলাম।</p>
+<p>ফলস্বরূপ, প্রথম ধাপের পরে, ম্যাট্রিক্স $A$ এর প্রথম কলামে প্রথম সারিতে $1$ এবং অন্যান্য সারিতে $0$ থাকবে।</p>
+<p>একইভাবে, আমরা অ্যালগরিদমের দ্বিতীয় ধাপ সম্পাদন করি, যেখানে আমরা দ্বিতীয় সারির দ্বিতীয় কলাম বিবেচনা করি। প্রথমে, সারিটিকে $a_{22}$ দ্বারা ভাগ করা হয়, তারপর অন্যান্য সারি থেকে এটি বিয়োগ করা হয় যাতে সমস্ত দ্বিতীয় কলাম $0$ হয়ে যায় (দ্বিতীয় সারি ব্যতীত)।</p>
+<p>আমরা ম্যাট্রিক্স $A$ এর সকল কলামের জন্য এই প্রক্রিয়া চালিয়ে যাই। যদি $n = m$ হয়, তাহলে $A$ আইডেন্টিটি ম্যাট্রিক্সে পরিণত হবে।</p>
+<h2 id="পভট-এলমনট-অনসনধন">পিভটিং এলিমেন্ট অনুসন্ধান<a class="anchor" href="#%e0%a6%aa%e0%a6%ad%e0%a6%9f-%e0%a6%8f%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f-%e0%a6%85%e0%a6%a8%e0%a6%b8%e0%a6%a8%e0%a6%a7%e0%a6%a8">#</a></h2>
+<p>বর্ণিত স্কিমটি অনেক বিশদ বিবরণ বাদ দিয়েছে। $i$-তম ধাপে, যদি $a_{ii}$ শূন্য হয়, তাহলে আমরা সরাসরি বর্ণিত মেথড প্রয়োগ করতে পারি না। পরিবর্তে, আমাদের প্রথমে একটি <code>পিভটিং সারি নির্বাচন</code> করতে হবে: ম্যাট্রিক্সের এমন একটি সারি খুঁজে বের করতে হবে যেখানে $i$-তম কলাম অশূন্য, এবং তারপর দুটি সারি অদলবদল করতে হবে।</p>
+<p>লক্ষ্য করুন যে, এখানে আমরা সারি অদলবদল করি কিন্তু কলাম নয়। কারণ আপনি যদি কলাম অদলবদল করেন, তাহলে সমাধান পাওয়ার পর আপনাকে সঠিক স্থানে ফিরিয়ে আনার কথা মনে রাখতে হবে। তাই সারি অদলবদল করা অনেক সহজ।</p>
+<p>অনেক ইমপ্লিমেন্টেশনে, যখন $a_{ii} \neq 0$, তখনও $i$-তম সারিকে কোনো পিভটিং সারির সাথে অদলবদল করা হয়, কিছু হিউরিস্টিক ব্যবহার করে যেমন $a_{ji}$ এর সর্বোচ্চ পরম মান বিশিষ্ট পিভটিং সারি বেছে নেওয়া। এই হিউরিস্টিকটি পরবর্তী ধাপগুলোতে ম্যাট্রিক্সের মানের পরিসর কমাতে ব্যবহৃত হয়। এই হিউরিস্টিক ছাড়া, প্রায় $20$ আকারের ম্যাট্রিক্সের জন্যও ত্রুটি অনেক বেশি হবে এবং C++ এর ফ্লোটিং পয়েন্ট ডেটা টাইপে ওভারফ্লো হতে পারে।</p>
+<h2 id="ডজনরট-কস">ডিজেনারেট কেস<a class="anchor" href="#%e0%a6%a1%e0%a6%9c%e0%a6%a8%e0%a6%b0%e0%a6%9f-%e0%a6%95%e0%a6%b8">#</a></h2>
+<p>যে ক্ষেত্রে $m = n$ এবং সিস্টেমটি নন-ডিজেনারেট (অর্থাৎ এর অশূন্য ডিটারমিন্যান্ট আছে, এবং অনন্য সমাধান আছে), উপরে বর্ণিত অ্যালগরিদম $A$ কে আইডেন্টিটি ম্যাট্রিক্সে রূপান্তর করবে।</p>
+<p>এখন আমরা <code>সাধারণ ক্ষেত্র</code> বিবেচনা করি, যেখানে $n$ এবং $m$ অগত্যা সমান নয়, এবং সিস্টেমটি ডিজেনারেট হতে পারে। এই ক্ষেত্রগুলোতে, $i$-তম ধাপে পিভটিং এলিমেন্ট পাওয়া নাও যেতে পারে। এর মানে হলো $i$-তম কলামে, বর্তমান সারি থেকে শুরু করে, সবগুলোতে শূন্য আছে। এই ক্ষেত্রে, হয় চলক $x_i$ এর কোনো সম্ভাব্য মান নেই (অর্থাৎ SLAE এর কোনো সমাধান নেই), অথবা $x_i$ একটি স্বাধীন চলক এবং যথেচ্ছ মান নিতে পারে। গাউস-জর্ডান ইমপ্লিমেন্ট করার সময়, আপনার পরবর্তী চলকগুলোর জন্য কাজ চালিয়ে যাওয়া উচিত এবং $i$-তম কলাম এড়িয়ে যাওয়া উচিত (এটি ম্যাট্রিক্সের $i$-তম কলাম অপসারণের সমতুল্য)।</p>
+<p>সুতরাং, প্রক্রিয়ায় কিছু চলক স্বাধীন হিসেবে পাওয়া যেতে পারে। যখন চলকের সংখ্যা $m$, সমীকরণের সংখ্যা $n$ এর চেয়ে বেশি, তখন কমপক্ষে $m - n$ টি স্বাধীন চলক পাওয়া যাবে।</p>
+<p>সাধারণত, যদি আপনি কমপক্ষে একটি স্বাধীন চলক পান, এটি যেকোনো যথেচ্ছ মান নিতে পারে, যেখানে অন্যান্য (পরাশ্রিত) চলকগুলো এর মাধ্যমে প্রকাশিত হয়। এর মানে হলো যখন আমরা বাস্তব সংখ্যার ক্ষেত্রে কাজ করি, সিস্টেমের সম্ভাব্যভাবে অসীম সংখ্যক সমাধান থাকতে পারে। কিন্তু মনে রাখতে হবে যে স্বাধীন চলক থাকলেও SLAE এর কোনো সমাধান না-ও থাকতে পারে। এটি ঘটে যখন অবশিষ্ট অপ্রক্রিয়াজাত সমীকরণে কমপক্ষে একটি অশূন্য ধ্রুবক পদ থাকে। আপনি সকল স্বাধীন চলকে শূন্য বসিয়ে, অন্যান্য চলক গণনা করে, এবং তারপর মূল SLAE-তে বসিয়ে যাচাই করতে পারেন।</p>
+<h2 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>নিচে গাউস-জর্ডানের একটি ইমপ্লিমেন্টেশন দেওয়া হলো। পিভট সারি নির্বাচন হিউরিস্টিক দিয়ে করা হয়: বর্তমান কলামে সর্বোচ্চ মান নির্বাচন।</p>
+<p>ফাংশন <code>gauss</code> এর ইনপুট হলো সিস্টেমের ম্যাট্রিক্স $a$। এই ম্যাট্রিক্সের শেষ কলামটি হলো ভেক্টর $b$।</p>
+<p>ফাংশনটি সিস্টেমের সমাধানের সংখ্যা $(0, 1,\textrm{or } \infty)$ রিটার্ন করে। যদি কমপক্ষে একটি সমাধান থাকে, তাহলে এটি ভেক্টর $ans$ এ রিটার্ন করা হয়।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">double</span> <span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-9</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// it doesn&#39;t actually have to be infinity or a big number
 </span></span></span><span class="line"><span class="cl">
@@ -2857,31 +2859,31 @@ a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m \equiv b_n \pmod p
 </span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">where</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">INF</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Implementation notes:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>ইমপ্লিমেন্টেশন নোট:</p>
 <ul>
-<li>The function uses two pointers - the current column $col$ and the current row $row$.</li>
-<li>For each variable $x_i$, the value $where(i)$ is the line where this column is not zero. This vector is needed because some variables can be independent.</li>
-<li>In this implementation, the current $i$th line is not divided by $a_{ii}$ as described above, so in the end the matrix is not identity matrix (though apparently dividing the $i$th line can help reducing errors).</li>
-<li>After finding a solution, it is inserted back into the matrix - to check whether the system has at least one solution or not. If the test solution is successful, then the function returns 1 or $\inf$, depending on whether there is at least one independent variable.</li>
+<li>ফাংশনটি দুটি পয়েন্টার ব্যবহার করে - বর্তমান কলাম $col$ এবং বর্তমান সারি $row$।</li>
+<li>প্রতিটি চলক $x_i$ এর জন্য, $where(i)$ এর মান হলো সেই লাইন যেখানে এই কলাম অশূন্য। এই ভেক্টরটি প্রয়োজন কারণ কিছু চলক স্বাধীন হতে পারে।</li>
+<li>এই ইমপ্লিমেন্টেশনে, বর্তমান $i$-তম লাইনকে উপরে বর্ণিত অনুযায়ী $a_{ii}$ দ্বারা ভাগ করা হয় না, তাই শেষে ম্যাট্রিক্সটি আইডেন্টিটি ম্যাট্রিক্স নয় (যদিও আপাতদৃষ্টিতে $i$-তম লাইন ভাগ করলে ত্রুটি কমতে সাহায্য করতে পারে)।</li>
+<li>একটি সমাধান পাওয়ার পর, এটি ম্যাট্রিক্সে ফিরিয়ে বসানো হয় - সিস্টেমের কমপক্ষে একটি সমাধান আছে কি না তা যাচাই করতে। যদি পরীক্ষামূলক সমাধান সফল হয়, তাহলে ফাংশনটি ১ বা $\inf$ রিটার্ন করে, কমপক্ষে একটি স্বাধীন চলক আছে কি না তার উপর নির্ভর করে।</li>
 </ul>
-<h2 id="complexity">Complexity<a class="anchor" href="#complexity">#</a></h2>
-<p>Now we should estimate the complexity of this algorithm. The algorithm consists of $m$ phases, in each phase:</p>
+<h2 id="কমপলকসট">কমপ্লেক্সিটি<a class="anchor" href="#%e0%a6%95%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%b8%e0%a6%9f">#</a></h2>
+<p>এখন আমাদের এই অ্যালগরিদমের কমপ্লেক্সিটি অনুমান করা উচিত। অ্যালগরিদমটি $m$ টি ফেজ নিয়ে গঠিত, প্রতিটি ফেজে:</p>
 <ul>
-<li>Search and reshuffle the pivoting row. This takes $O(n + m)$ when using heuristic mentioned above.</li>
-<li>If the pivot element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.</li>
+<li>পিভটিং সারি অনুসন্ধান এবং পুনর্বিন্যাস। উপরে উল্লিখিত হিউরিস্টিক ব্যবহার করলে এটি $O(n + m)$ সময় নেয়।</li>
+<li>যদি বর্তমান কলামে পিভট এলিমেন্ট পাওয়া যায় - তাহলে আমাদের এই সমীকরণটি অন্য সকল সমীকরণে যোগ করতে হবে, যা $O(nm)$ সময় নেয়।</li>
 </ul>
-<p>So, the final complexity of the algorithm is $O(\min (n, m) . nm)$.
-In case $n = m$, the complexity is simply $O(n^3)$.</p>
-<p>Note that when the SLAE is not on real numbers, but is in the modulo two, then the system can be solved much faster, which is described below.</p>
-<h2 id="acceleration-of-the-algorithm">Acceleration of the algorithm<a class="anchor" href="#acceleration-of-the-algorithm">#</a></h2>
-<p>The previous implementation can be sped up by two times, by dividing the algorithm into two phases: forward and reverse:</p>
+<p>সুতরাং, অ্যালগরিদমের চূড়ান্ত কমপ্লেক্সিটি হলো $O(\min (n, m) . nm)$।
+$n = m$ এর ক্ষেত্রে, কমপ্লেক্সিটি সরলভাবে $O(n^3)$।</p>
+<p>লক্ষ্য করুন যে যখন SLAE বাস্তব সংখ্যায় নয়, বরং মডুলো ২-তে হয়, তখন সিস্টেমটি অনেক দ্রুত সমাধান করা যায়, যা নিচে বর্ণনা করা হয়েছে।</p>
+<h2 id="অযলগরদমর-তবরণ">অ্যালগরিদমের ত্বরণ<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%a4%e0%a6%ac%e0%a6%b0%e0%a6%a3">#</a></h2>
+<p>পূর্ববর্তী ইমপ্লিমেন্টেশনকে দুই গুণ দ্রুত করা যায়, অ্যালগরিদমকে দুটি ফেজে ভাগ করে: ফরওয়ার্ড এবং রিভার্স:</p>
 <ul>
-<li>Forward phase: Similar to the previous implementation, but the current row is only added to the rows after it. As a result, we obtain a triangular matrix instead of diagonal.</li>
-<li>Reverse phase: When the matrix is triangular, we first calculate the value of the last variable. Then plug this value to find the value of next variable. Then plug these two values to find the next variables&hellip;</li>
+<li>ফরওয়ার্ড ফেজ: পূর্ববর্তী ইমপ্লিমেন্টেশনের অনুরূপ, কিন্তু বর্তমান সারি শুধুমাত্র এর পরের সারিগুলোতে যোগ করা হয়। ফলস্বরূপ, আমরা ডায়াগোনালের পরিবর্তে একটি ত্রিভুজাকার ম্যাট্রিক্স পাই।</li>
+<li>রিভার্স ফেজ: যখন ম্যাট্রিক্স ত্রিভুজাকার, আমরা প্রথমে শেষ চলকের মান গণনা করি। তারপর পরবর্তী চলকের মান বের করতে এই মান বসাই। তারপর এই দুটি মান বসিয়ে পরবর্তী চলক বের করি&hellip;</li>
 </ul>
-<p>Reverse phase only takes $O(nm)$, which is much faster than forward phase. In forward phase, we reduce the number of operations by half, thus reducing the running time of the implementation.</p>
-<h2 id="solving-modular-slae">Solving modular SLAE<a class="anchor" href="#solving-modular-slae">#</a></h2>
-<p>For solving SLAE in some modulus, we can still use the described algorithm. However, in case the modulus is equal to 2, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:</p>
+<p>রিভার্স ফেজে শুধু $O(nm)$ সময় লাগে, যা ফরওয়ার্ড ফেজের চেয়ে অনেক দ্রুত। ফরওয়ার্ড ফেজে, আমরা অপারেশনের সংখ্যা অর্ধেক করি, ফলে ইমপ্লিমেন্টেশনের রানিং টাইম কমে।</p>
+<h2 id="মডলর-slae-সমধন">মডুলার SLAE সমাধান<a class="anchor" href="#%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%b0-slae-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8">#</a></h2>
+<p>কোনো মডুলাসে SLAE সমাধানের জন্য, আমরা এখনও বর্ণিত অ্যালগরিদম ব্যবহার করতে পারি। তবে, যদি মডুলাস ২ এর সমান হয়, আমরা বিটওয়াইজ অপারেশন এবং C++ bitset ডেটা টাইপ ব্যবহার করে গাউস-জর্ডান এলিমিনেশন অনেক বেশি কার্যকরভাবে করতে পারি:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">gauss</span> <span class="p">(</span><span class="n">vector</span> <span class="o">&lt;</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="n">bitset</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">ans</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">where</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">col</span><span class="o">&lt;</span><span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">row</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">col</span><span class="p">)</span> <span class="p">{</span>
@@ -2900,17 +2902,17 @@ In case $n = m$, the complexity is simply $O(n^3)$.</p>
 </span></span><span class="line"><span class="cl">		<span class="o">++</span><span class="n">row</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="c1">// The rest of implementation is the same as above
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Since we use bit compress, the implementation is not only shorter, but also 32 times faster.</p>
-<h2 id="a-little-note-about-different-heuristics-of-choosing-pivoting-row">A little note about different heuristics of choosing pivoting row<a class="anchor" href="#a-little-note-about-different-heuristics-of-choosing-pivoting-row">#</a></h2>
-<p>There is no general rule for what heuristics to use.</p>
-<p>The heuristics used in previous implementation works quite well in practice. It also turns out to give almost the same answers as &ldquo;full pivoting&rdquo; - where the pivoting row is search amongst all elements of the whose submatrix (from the current row and current column).</p>
-<p>Though, you should note that both heuristics is dependent on how much the original equations was scaled. For example, if one of the equation was multiplied by $10^6$, then this equation is almost certain to be chosen as pivot in first step. This seems rather strange, so it seems logical to change to a more complicated heuristics, called <code>implicit pivoting</code>.</p>
-<p>Implicit pivoting compares elements as if both lines were normalized, so that the maximum element would be unity. To implement this technique, one need to maintain maximum in each row (or maintain each line so that maximum is unity, but this can lead to increase in the accumulated error).</p>
-<h2 id="improve-the-solution">Improve the solution<a class="anchor" href="#improve-the-solution">#</a></h2>
-<p>Despite various heuristics, Gauss-Jordan algorithm can still lead to large errors in special matrices even of size $50 - 100$.</p>
-<p>Therefore, the resulting Gauss-Jordan solution must sometimes be improved by applying a simple numerical method - for example, the method of simple iteration.</p>
-<p>Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>যেহেতু আমরা বিট কম্প্রেস ব্যবহার করি, ইমপ্লিমেন্টেশন শুধু ছোটই নয়, ৩২ গুণ দ্রুতও।</p>
+<h2 id="পভট-সর-নরবচনর-বভনন-হউরসটক-সমপরক-একট-ছট-নট">পিভটিং সারি নির্বাচনের বিভিন্ন হিউরিস্টিক সম্পর্কে একটি ছোট নোট<a class="anchor" href="#%e0%a6%aa%e0%a6%ad%e0%a6%9f-%e0%a6%b8%e0%a6%b0-%e0%a6%a8%e0%a6%b0%e0%a6%ac%e0%a6%9a%e0%a6%a8%e0%a6%b0-%e0%a6%ac%e0%a6%ad%e0%a6%a8%e0%a6%a8-%e0%a6%b9%e0%a6%89%e0%a6%b0%e0%a6%b8%e0%a6%9f%e0%a6%95-%e0%a6%b8%e0%a6%ae%e0%a6%aa%e0%a6%b0%e0%a6%95-%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%9b%e0%a6%9f-%e0%a6%a8%e0%a6%9f">#</a></h2>
+<p>কোন হিউরিস্টিক ব্যবহার করতে হবে তার কোনো সাধারণ নিয়ম নেই।</p>
+<p>পূর্ববর্তী ইমপ্লিমেন্টেশনে ব্যবহৃত হিউরিস্টিকটি বাস্তবে বেশ ভালো কাজ করে। এটি &ldquo;ফুল পিভটিং&rdquo;-এর প্রায় একই উত্তর দেয় - যেখানে সম্পূর্ণ সাবম্যাট্রিক্সের (বর্তমান সারি এবং বর্তমান কলাম থেকে) সকল উপাদানের মধ্যে পিভটিং সারি অনুসন্ধান করা হয়।</p>
+<p>তবে, আপনার লক্ষ্য করা উচিত যে উভয় হিউরিস্টিকই মূল সমীকরণগুলো কতটুকু স্কেল করা হয়েছে তার উপর নির্ভরশীল। উদাহরণস্বরূপ, যদি একটি সমীকরণকে $10^6$ দ্বারা গুণ করা হয়, তাহলে এই সমীকরণটি প্রথম ধাপে পিভট হিসেবে নির্বাচিত হওয়া প্রায় নিশ্চিত। এটি বেশ অদ্ভুত মনে হয়, তাই <code>ইমপ্লিসিট পিভটিং</code> নামক আরও জটিল হিউরিস্টিকে পরিবর্তন করা যুক্তিসঙ্গত মনে হয়।</p>
+<p>ইমপ্লিসিট পিভটিং উপাদানগুলোকে এমনভাবে তুলনা করে যেন উভয় লাইন নরমালাইজড, যাতে সর্বোচ্চ উপাদান একক হয়। এই কৌশল ইমপ্লিমেন্ট করতে, প্রতিটি সারিতে সর্বোচ্চ বজায় রাখতে হবে (অথবা প্রতিটি লাইন এমনভাবে বজায় রাখতে হবে যাতে সর্বোচ্চ একক হয়, কিন্তু এটি সঞ্চিত ত্রুটি বাড়াতে পারে)।</p>
+<h2 id="সমধনর-উননত">সমাধানের উন্নতি<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8%e0%a6%b0-%e0%a6%89%e0%a6%a8%e0%a6%a8%e0%a6%a4">#</a></h2>
+<p>বিভিন্ন হিউরিস্টিক থাকা সত্ত্বেও, গাউস-জর্ডান অ্যালগরিদম $50 - 100$ আকারের বিশেষ ম্যাট্রিক্সেও বড় ত্রুটি তৈরি করতে পারে।</p>
+<p>অতএব, গাউস-জর্ডান থেকে প্রাপ্ত সমাধানকে কখনো কখনো একটি সরল সংখ্যাসূচক মেথড প্রয়োগ করে উন্নত করতে হয় - উদাহরণস্বরূপ, সিম্পল ইটারেশন মেথড।</p>
+<p>এইভাবে, সমাধানটি দুই-ধাপের হয়ে যায়: প্রথমে, গাউস-জর্ডান অ্যালগরিদম প্রয়োগ করা হয়, এবং তারপর একটি সংখ্যাসূচক মেথড প্রথম ধাপের সমাধানকে প্রাথমিক সমাধান হিসেবে নেয়।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="http://www.spoj.com/problems/XMAX/">Spoj - Xor Maximization</a></li>
 <li><a href="https://www.codechef.com/SEP12/problems/KNGHTMOV">Codechef - Knight Moving</a></li>
@@ -2951,14 +2953,14 @@ In case $n = m$, the complexity is simply $O(n^3)$.</p>
     
       <a href="/string/aho_corasick/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Aho-Corasick algorithm</span>
+        <span>আহো-কোরাসিক অ্যালগরিদম</span>
       </a>
     
     </span>
     <span>
     
       <a href="/linear_algebra/determinant-gauss/" class="flex align-center">
-        <span>Calculating the determinant of a matrix by Gauss</span>
+        <span>গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -2999,17 +3001,17 @@ In case $n = m$, the complexity is simply $O(n^3)$.</p>
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#gauss">Gauss</a></li>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#search-for-the-pivoting-element">Search for the pivoting element</a></li>
-    <li><a href="#degenerate-cases">Degenerate cases</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#complexity">Complexity</a></li>
-    <li><a href="#acceleration-of-the-algorithm">Acceleration of the algorithm</a></li>
-    <li><a href="#solving-modular-slae">Solving modular SLAE</a></li>
-    <li><a href="#a-little-note-about-different-heuristics-of-choosing-pivoting-row">A little note about different heuristics of choosing pivoting row</a></li>
-    <li><a href="#improve-the-solution">Improve the solution</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#গউস">গাউস</a></li>
+    <li><a href="#সকষপত-ববরণ">সংক্ষিপ্ত বিবরণ</a></li>
+    <li><a href="#পভট-এলমনট-অনসনধন">পিভটিং এলিমেন্ট অনুসন্ধান</a></li>
+    <li><a href="#ডজনরট-কস">ডিজেনারেট কেস</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#কমপলকসট">কমপ্লেক্সিটি</a></li>
+    <li><a href="#অযলগরদমর-তবরণ">অ্যালগরিদমের ত্বরণ</a></li>
+    <li><a href="#মডলর-slae-সমধন">মডুলার SLAE সমাধান</a></li>
+    <li><a href="#পভট-সর-নরবচনর-বভনন-হউরসটক-সমপরক-একট-ছট-নট">পিভটিং সারি নির্বাচনের বিভিন্ন হিউরিস্টিক সম্পর্কে একটি ছোট নোট</a></li>
+    <li><a href="#সমধনর-উননত">সমাধানের উন্নতি</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

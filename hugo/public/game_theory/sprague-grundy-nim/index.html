@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,35 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Sprague-Grundy theorem. Nim#Introduction#This theorem describes the so-called impartial two-player game, i.e. those in which the available moves and winning/losing depends only on the state of the game. In other words, the only difference between the two players is that one of them moves first.
-Additionally, we assume that the game has perfect information, i.e. no information is hidden from the players (they know the rules and the possible moves).
+<meta name="description" content="স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম#ভূমিকা#এই উপপাদ্যটি তথাকথিত ইমপার্শিয়াল (পক্ষপাতহীন) দুই-খেলোয়াড়ের গেম বর্ণনা করে, অর্থাৎ যেগুলোতে উপলব্ধ চাল এবং জয়/পরাজয় শুধুমাত্র গেমের অবস্থার উপর নির্ভর করে। অন্য কথায়, দুই খেলোয়াড়ের মধ্যে একমাত্র পার্থক্য হলো তাদের একজন প্রথমে চাল দেয়।
+অতিরিক্তভাবে, আমরা ধরে নিচ্ছি গেমে পরিপূর্ণ তথ্য আছে, অর্থাৎ কোনো তথ্য খেলোয়াড়দের কাছ থেকে লুকানো নেই (তারা নিয়ম এবং সম্ভাব্য চাল জানে)।
+ধরে নেওয়া হয় গেমটি সসীম, অর্থাৎ একটি নির্দিষ্ট সংখ্যক চালের পরে, একজন খেলোয়াড় একটি পরাজিত অবস্থানে পড়বে — যেখান থেকে সে অন্য অবস্থানে যেতে পারবে না। অন্যদিকে, যে খেলোয়াড় প্রতিপক্ষকে এই অবস্থানে ফেলেছে সে জিতবে। বোঝাই যায়, এই গেমে কোনো ড্র নেই।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/game_theory/sprague-grundy-nim/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/game_theory/sprague-grundy-nim/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Sprague-Grundy theorem. Nim">
-  <meta property="og:description" content="Sprague-Grundy theorem. Nim#Introduction#This theorem describes the so-called impartial two-player game, i.e. those in which the available moves and winning/losing depends only on the state of the game. In other words, the only difference between the two players is that one of them moves first.
-Additionally, we assume that the game has perfect information, i.e. no information is hidden from the players (they know the rules and the possible moves).">
+  <meta property="og:title" content="স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম">
+  <meta property="og:description" content="স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম#ভূমিকা#এই উপপাদ্যটি তথাকথিত ইমপার্শিয়াল (পক্ষপাতহীন) দুই-খেলোয়াড়ের গেম বর্ণনা করে, অর্থাৎ যেগুলোতে উপলব্ধ চাল এবং জয়/পরাজয় শুধুমাত্র গেমের অবস্থার উপর নির্ভর করে। অন্য কথায়, দুই খেলোয়াড়ের মধ্যে একমাত্র পার্থক্য হলো তাদের একজন প্রথমে চাল দেয়।
+অতিরিক্তভাবে, আমরা ধরে নিচ্ছি গেমে পরিপূর্ণ তথ্য আছে, অর্থাৎ কোনো তথ্য খেলোয়াড়দের কাছ থেকে লুকানো নেই (তারা নিয়ম এবং সম্ভাব্য চাল জানে)।
+ধরে নেওয়া হয় গেমটি সসীম, অর্থাৎ একটি নির্দিষ্ট সংখ্যক চালের পরে, একজন খেলোয়াড় একটি পরাজিত অবস্থানে পড়বে — যেখান থেকে সে অন্য অবস্থানে যেতে পারবে না। অন্যদিকে, যে খেলোয়াড় প্রতিপক্ষকে এই অবস্থানে ফেলেছে সে জিতবে। বোঝাই যায়, এই গেমে কোনো ড্র নেই।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="game_theory">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Sprague-Grundy theorem. Nim">
-  <meta itemprop="description" content="Sprague-Grundy theorem. Nim#Introduction#This theorem describes the so-called impartial two-player game, i.e. those in which the available moves and winning/losing depends only on the state of the game. In other words, the only difference between the two players is that one of them moves first.
-Additionally, we assume that the game has perfect information, i.e. no information is hidden from the players (they know the rules and the possible moves).">
-  <meta itemprop="wordCount" content="2099">
+  <meta itemprop="name" content="স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম">
+  <meta itemprop="description" content="স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম#ভূমিকা#এই উপপাদ্যটি তথাকথিত ইমপার্শিয়াল (পক্ষপাতহীন) দুই-খেলোয়াড়ের গেম বর্ণনা করে, অর্থাৎ যেগুলোতে উপলব্ধ চাল এবং জয়/পরাজয় শুধুমাত্র গেমের অবস্থার উপর নির্ভর করে। অন্য কথায়, দুই খেলোয়াড়ের মধ্যে একমাত্র পার্থক্য হলো তাদের একজন প্রথমে চাল দেয়।
+অতিরিক্তভাবে, আমরা ধরে নিচ্ছি গেমে পরিপূর্ণ তথ্য আছে, অর্থাৎ কোনো তথ্য খেলোয়াড়দের কাছ থেকে লুকানো নেই (তারা নিয়ম এবং সম্ভাব্য চাল জানে)।
+ধরে নেওয়া হয় গেমটি সসীম, অর্থাৎ একটি নির্দিষ্ট সংখ্যক চালের পরে, একজন খেলোয়াড় একটি পরাজিত অবস্থানে পড়বে — যেখান থেকে সে অন্য অবস্থানে যেতে পারবে না। অন্যদিকে, যে খেলোয়াড় প্রতিপক্ষকে এই অবস্থানে ফেলেছে সে জিতবে। বোঝাই যায়, এই গেমে কোনো ড্র নেই।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1707">
 
-<title>Sprague-Grundy theorem. Nim | CP-Algorithms</title>
+<title>স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/game_theory/sprague-grundy-nim/">
+<link rel="canonical" href="http://localhost:1313/game_theory/sprague-grundy-nim/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -123,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -208,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -222,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -236,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -278,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -292,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -306,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -334,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -348,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -376,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -390,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -404,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -431,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -445,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -460,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -474,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -502,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -516,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -530,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -581,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -595,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -609,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -623,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -637,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -651,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -665,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -679,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -693,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -743,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -758,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -814,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -828,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -879,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -907,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -934,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -948,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -963,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -991,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1005,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1019,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1033,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1070,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1084,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1098,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1112,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1148,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1176,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1191,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1205,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1219,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1233,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1247,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1298,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1312,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1326,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1340,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1354,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1390,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1461,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1474,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1488,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1502,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1516,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1531,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1545,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1573,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1586,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1615,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1629,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1657,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1670,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1685,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1699,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1713,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1727,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1741,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1777,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1861,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1890,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1904,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1917,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1931,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1945,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1959,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1974,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1987,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2001,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2015,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2044,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2057,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2071,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2099,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2156,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2169,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2183,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2198,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2211,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2225,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2240,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2253,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2267,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2282,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2295,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2310,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2324,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2338,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2352,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2366,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2380,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2394,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2431,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2445,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2473,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2510,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2524,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2538,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2552,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2566,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2603,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2617,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="active">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2654,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2668,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2682,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2728,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Sprague-Grundy theorem. Nim</h3>
+  <h3>স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</h3>
 
   <label for="toc-control">
     
@@ -2744,28 +2749,28 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#nim">Nim</a>
+    <li><a href="#ভমক">ভূমিকা</a></li>
+    <li><a href="#নম">নিম</a>
       <ul>
-        <li><a href="#game-description">Game description</a></li>
-        <li><a href="#the-solution">The solution</a></li>
-        <li><a href="#misère-game">Misère Game</a></li>
+        <li><a href="#গমর-ববরণ">গেমের বিবরণ</a></li>
+        <li><a href="#সমধন">সমাধান</a></li>
+        <li><a href="#মজর-গম">মিজের গেম</a></li>
       </ul>
     </li>
-    <li><a href="#the-equivalence-of-impartial-games-and-nim-sprague-grundy-theorem">The equivalence of impartial games and Nim (Sprague-Grundy theorem)</a>
+    <li><a href="#ইমপরশযল-গম-এব-নমর-সমতলযত-সপরযগ-গরনড-উপপদয">ইমপার্শিয়াল গেম এবং নিমের সমতুল্যতা (স্প্র্যাগ-গ্রান্ডি উপপাদ্য)</a>
       <ul>
-        <li><a href="#lemma-about-nim-with-increases">Lemma about Nim with increases</a></li>
-        <li><a href="#sprague-grundy-theorem">Sprague-Grundy theorem</a></li>
+        <li><a href="#বদধসহ-নম-সমপরক-লম">বৃদ্ধিসহ নিম সম্পর্কে লেমা</a></li>
+        <li><a href="#সপরযগ-গরনড-উপপদয">স্প্র্যাগ-গ্রান্ডি উপপাদ্য</a></li>
       </ul>
     </li>
-    <li><a href="#application-of-the-theorem">Application of the theorem</a></li>
-    <li><a href="#patterns-in-grundy-values">Patterns in Grundy values</a></li>
-    <li><a href="#example-games">Example games</a>
+    <li><a href="#উপপদযর-পরযগ">উপপাদ্যের প্রয়োগ</a></li>
+    <li><a href="#গরনড-মন-পযটরন">গ্রান্ডি মানে প্যাটার্ন</a></li>
+    <li><a href="#উদহরণ-গম">উদাহরণ গেম</a>
       <ul>
-        <li><a href="#crosses-crosses">Crosses-crosses</a></li>
+        <li><a href="#করসস-করসস">ক্রসেস-ক্রসেস</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2778,158 +2783,158 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="sprague-grundy-theorem-nim">Sprague-Grundy theorem. Nim<a class="anchor" href="#sprague-grundy-theorem-nim">#</a></h1>
-<h2 id="introduction">Introduction<a class="anchor" href="#introduction">#</a></h2>
-<p>This theorem describes the so-called <strong>impartial</strong> two-player game,
-i.e. those in which the available moves and winning/losing depends only on the state of the game.
-In other words, the only difference between the two players is that one of them moves first.</p>
-<p>Additionally, we assume that the game has <strong>perfect information</strong>, i.e. no information is hidden from the players (they know the rules and the possible moves).</p>
-<p>It is assumed that the game is <strong>finite</strong>, i.e. after a certain number of moves, one of the players will end up in a losing position — from which they can&rsquo;t move to another position.
-On the other side, the player who set up this position for the opponent wins.
-Understandably, there are no draws in this game.</p>
-<p>Such games can be completely described by a <em>directed acyclic graph</em>: the vertices are game states and the edges are transitions (moves).
-A vertex without outgoing edges is a losing vertex (a player who must make a move from this vertex loses).</p>
-<p>Since there are no draws, we can classify all game states as either <strong>winning</strong> or <strong>losing</strong>.
-Winning states are those from which there is a move that causes inevitable defeat of the other player, even with their best response.
-Losing states are those from which all moves lead to winning states for the other player.
-Summarizing, a state is winning if there is at least one transition to a losing state and is losing if there isn&rsquo;t at least one transition to a losing state.</p>
-<p>Our task is to classify the states of a given game.</p>
-<p>The theory of such games was independently developed by Roland Sprague in 1935 and Patrick Michael Grundy in 1939.</p>
-<h2 id="nim">Nim<a class="anchor" href="#nim">#</a></h2>
-<p>This game obeys the restrictions described above.
-Moreover, <em>any</em> perfect-information impartial two-player game can be reduced to the game of Nim.
-Studying this game will allow us to solve all other similar games, but more on that later.</p>
-<p>Historically this game was popular in ancient times.
-Its origin is probably in China — or at least the game <em>Jianshizi</em> is very similar to it.
-In Europe the earliest references to it are from the 16th century.
-The name was given by Charles Bouton, who in 1901 published a full analysis of this game.</p>
-<h3 id="game-description">Game description<a class="anchor" href="#game-description">#</a></h3>
-<p>There are several piles, each with several stones.
-In a move a player can take any positive number of stones from any one pile and throw them away.
-A player loses if they can&rsquo;t make a move, which happens when all the piles are empty.</p>
-<p>The game state is unambiguously described by a multiset of positive integers.
-A move consists of strictly decreasing a chosen integer (if it becomes zero, it is removed from the set).</p>
-<h3 id="the-solution">The solution<a class="anchor" href="#the-solution">#</a></h3>
-<p>The solution by Charles L. Bouton looks like this:</p>
-<p><strong>Theorem.</strong>
-The current player has a winning strategy if and only if the xor-sum of the pile sizes is non-zero.
-The xor-sum of a sequence $a$ is $a_1 \oplus a_2 \oplus \ldots \oplus  a_n$, where $\oplus$ is the <em>bitwise exclusive or</em>.</p>
-<p><strong>Proof.</strong>
-The key to the proof is the presence of a <strong>symmetric strategy for the opponent</strong>.
-We show that a once in a position with the xor-sum equal to zero, the player won&rsquo;t be able to make it non-zero in the long term —
-if they transition to a position with a non-zero xor-sum, the opponent will always have a move returning the xor-sum back to zero.</p>
-<p>We will prove the theorem by mathematical induction.</p>
-<p>For an empty Nim (where all the piles are empty i.e. the multiset is empty) the xor-sum is zero and the theorem is true.</p>
-<p>Now suppose we are in a non-empty state.
-Using the assumption of induction (and the acyclicity of the game) we assume that the theorem is proven for all states reachable from the current one.</p>
-<p>Then the proof splits into two parts:
-if for the current position the xor-sum $s = 0$, we have to prove that this state is losing, i.e. all reachable states have xor-sum $t \neq 0$.
-If $s \neq 0$, we have to prove that there is a move leading to a state with $t = 0$.</p>
+  <article class="markdown book-article"><h1 id="সপরযগ-গরনড-উপপদয-নম">স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম<a class="anchor" href="#%e0%a6%b8%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97-%e0%a6%97%e0%a6%b0%e0%a6%a8%e0%a6%a1-%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af-%e0%a6%a8%e0%a6%ae">#</a></h1>
+<h2 id="ভমক">ভূমিকা<a class="anchor" href="#%e0%a6%ad%e0%a6%ae%e0%a6%95">#</a></h2>
+<p>এই উপপাদ্যটি তথাকথিত <strong>ইমপার্শিয়াল</strong> (পক্ষপাতহীন) দুই-খেলোয়াড়ের গেম বর্ণনা করে,
+অর্থাৎ যেগুলোতে উপলব্ধ চাল এবং জয়/পরাজয় শুধুমাত্র গেমের অবস্থার উপর নির্ভর করে।
+অন্য কথায়, দুই খেলোয়াড়ের মধ্যে একমাত্র পার্থক্য হলো তাদের একজন প্রথমে চাল দেয়।</p>
+<p>অতিরিক্তভাবে, আমরা ধরে নিচ্ছি গেমে <strong>পরিপূর্ণ তথ্য</strong> আছে, অর্থাৎ কোনো তথ্য খেলোয়াড়দের কাছ থেকে লুকানো নেই (তারা নিয়ম এবং সম্ভাব্য চাল জানে)।</p>
+<p>ধরে নেওয়া হয় গেমটি <strong>সসীম</strong>, অর্থাৎ একটি নির্দিষ্ট সংখ্যক চালের পরে, একজন খেলোয়াড় একটি পরাজিত অবস্থানে পড়বে — যেখান থেকে সে অন্য অবস্থানে যেতে পারবে না।
+অন্যদিকে, যে খেলোয়াড় প্রতিপক্ষকে এই অবস্থানে ফেলেছে সে জিতবে।
+বোঝাই যায়, এই গেমে কোনো ড্র নেই।</p>
+<p>এই ধরনের গেমকে সম্পূর্ণরূপে একটি <em>ডিরেক্টেড অ্যাসাইক্লিক গ্রাফ</em> দিয়ে বর্ণনা করা যায়: ভার্টেক্সগুলো হলো গেমের অবস্থা এবং এজগুলো হলো ট্রানজিশন (চাল)।
+কোনো আউটগোয়িং এজ নেই এমন ভার্টেক্স হলো পরাজিত ভার্টেক্স (এই ভার্টেক্স থেকে চাল দিতে বাধ্য খেলোয়াড় হারবে)।</p>
+<p>যেহেতু কোনো ড্র নেই, আমরা সব গেম অবস্থাকে <strong>জয়ী</strong> বা <strong>পরাজিত</strong> হিসেবে শ্রেণীবদ্ধ করতে পারি।
+জয়ী অবস্থা হলো সেগুলো যেখান থেকে এমন একটি চাল আছে যা প্রতিপক্ষের অনিবার্য পরাজয় ঘটায়, তার সেরা প্রতিক্রিয়া সত্ত্বেও।
+পরাজিত অবস্থা হলো সেগুলো যেখান থেকে সব চাল প্রতিপক্ষের জন্য জয়ী অবস্থায় নিয়ে যায়।
+সংক্ষেপে, একটি অবস্থা জয়ী যদি অন্তত একটি ট্রানজিশন একটি পরাজিত অবস্থায় যায় এবং পরাজিত যদি কোনো ট্রানজিশন পরাজিত অবস্থায় না যায়।</p>
+<p>আমাদের কাজ হলো প্রদত্ত গেমের অবস্থাগুলো শ্রেণীবদ্ধ করা।</p>
+<p>এই ধরনের গেমের তত্ত্ব স্বাধীনভাবে রোল্যান্ড স্প্র্যাগ ১৯৩৫ সালে এবং প্যাট্রিক মাইকেল গ্রান্ডি ১৯৩৯ সালে তৈরি করেছিলেন।</p>
+<h2 id="নম">নিম<a class="anchor" href="#%e0%a6%a8%e0%a6%ae">#</a></h2>
+<p>এই গেমটি উপরে বর্ণিত সীমাবদ্ধতাগুলো মেনে চলে।
+তদুপরি, <em>যেকোনো</em> পরিপূর্ণ-তথ্য ইমপার্শিয়াল দুই-খেলোয়াড়ের গেমকে নিম গেমে রূপান্তর করা যায়।
+এই গেমটি অধ্যয়ন করলে আমরা অন্য সব অনুরূপ গেম সমাধান করতে পারব, তবে সে বিষয়ে পরে আলোচনা।</p>
+<p>ঐতিহাসিকভাবে এই গেমটি প্রাচীনকালে জনপ্রিয় ছিল।
+এর উৎপত্তি সম্ভবত চীনে — বা অন্তত <em>জিয়ানশিজি</em> গেমটি এর সাথে খুবই সাদৃশ্যপূর্ণ।
+ইউরোপে এর প্রাচীনতম উল্লেখ ষোড়শ শতাব্দী থেকে।
+চার্লস বাউটন ১৯০১ সালে এই গেমের পূর্ণ বিশ্লেষণ প্রকাশ করে এটির নামকরণ করেন।</p>
+<h3 id="গমর-ববরণ">গেমের বিবরণ<a class="anchor" href="#%e0%a6%97%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%ac%e0%a6%b0%e0%a6%a3">#</a></h3>
+<p>বেশ কয়েকটি স্তূপ আছে, প্রতিটিতে কিছু পাথর।
+একটি চালে একজন খেলোয়াড় যেকোনো একটি স্তূপ থেকে যেকোনো ধনাত্মক সংখ্যক পাথর নিয়ে ফেলে দিতে পারে।
+একজন খেলোয়াড় হারে যদি সে চাল দিতে না পারে, যা ঘটে যখন সব স্তূপ খালি।</p>
+<p>গেমের অবস্থা একটি ধনাত্মক পূর্ণ সংখ্যার মাল্টিসেট দ্বারা দ্ব্যর্থহীনভাবে বর্ণনা করা যায়।
+একটি চাল হলো একটি নির্বাচিত পূর্ণ সংখ্যাকে কঠোরভাবে হ্রাস করা (এটি শূন্য হলে সেটি সেট থেকে সরিয়ে ফেলা হয়)।</p>
+<h3 id="সমধন">সমাধান<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8">#</a></h3>
+<p>চার্লস এল. বাউটনের সমাধানটি এরকম:</p>
+<p><strong>উপপাদ্য।</strong>
+বর্তমান খেলোয়াড়ের জয়ী কৌশল আছে যদি এবং কেবল যদি স্তূপের আকারগুলোর xor-যোগফল অশূন্য হয়।
+একটি ক্রম $a$-র xor-যোগফল হলো $a_1 \oplus a_2 \oplus \ldots \oplus  a_n$, যেখানে $\oplus$ হলো <em>বিটওয়াইজ এক্সক্লুসিভ অর</em>।</p>
+<p><strong>প্রমাণ।</strong>
+প্রমাণের মূল হলো <strong>প্রতিপক্ষের জন্য সিমেট্রিক কৌশলের</strong> উপস্থিতি।
+আমরা দেখাব যে xor-যোগফল শূন্য এমন একটি অবস্থানে একবার থাকলে, খেলোয়াড় দীর্ঘমেয়াদে এটিকে অশূন্য করতে পারবে না —
+যদি সে অশূন্য xor-যোগফলবিশিষ্ট অবস্থানে যায়, প্রতিপক্ষের সবসময় একটি চাল থাকবে xor-যোগফলকে শূন্যতে ফিরিয়ে আনার।</p>
+<p>আমরা গাণিতিক আরোহ দ্বারা উপপাদ্যটি প্রমাণ করব।</p>
+<p>একটি খালি নিমের জন্য (যেখানে সব স্তূপ খালি অর্থাৎ মাল্টিসেট খালি) xor-যোগফল শূন্য এবং উপপাদ্যটি সত্য।</p>
+<p>এখন ধরি আমরা একটি অ-খালি অবস্থায় আছি।
+আরোহ অনুমান ব্যবহার করে (এবং গেমের অচক্রাকার ধর্ম) আমরা ধরে নিচ্ছি যে বর্তমান অবস্থা থেকে পৌঁছানো সব অবস্থার জন্য উপপাদ্যটি প্রমাণিত।</p>
+<p>তখন প্রমাণটি দুই ভাগে বিভক্ত:
+যদি বর্তমান অবস্থানের xor-যোগফল $s = 0$ হয়, আমাদের প্রমাণ করতে হবে যে এই অবস্থা পরাজিত, অর্থাৎ সব পৌঁছানোযোগ্য অবস্থার xor-যোগফল $t \neq 0$।
+যদি $s \neq 0$, আমাদের প্রমাণ করতে হবে যে $t = 0$ এমন একটি অবস্থায় যাওয়ার চাল আছে।</p>
 <ul>
 <li>
-<p>Let $s = 0$ and let&rsquo;s consider any move.
-This move reduces the size of a pile $x$ to a size $y$.
-Using elementary properties of $\oplus$, we have</p>
-\[ t = s \oplus x \oplus y = 0 \oplus x \oplus y = x \oplus y \]<p>Since $y < x$, $y \oplus x$ can&rsquo;t be zero, so $t \neq 0$.
-That means any reachable state is a winning one (by the assumption of induction), so we are in a losing position.</p>
+<p>ধরি $s = 0$ এবং যেকোনো চাল বিবেচনা করি।
+এই চালটি একটি স্তূপের আকার $x$ থেকে $y$-তে কমায়।
+$\oplus$-র প্রাথমিক ধর্ম ব্যবহার করে, আমরা পাই</p>
+\[ t = s \oplus x \oplus y = 0 \oplus x \oplus y = x \oplus y \]<p>যেহেতু $y < x$, $y \oplus x$ শূন্য হতে পারে না, তাই $t \neq 0$।
+এর অর্থ যেকোনো পৌঁছানোযোগ্য অবস্থা জয়ী (আরোহ অনুমান অনুসারে), তাই আমরা পরাজিত অবস্থানে আছি।</p>
 </li>
 <li>
-<p>Let $s \neq 0$.
-Consider the binary representation of the number $s$.
-Let $d$ be the index of its leading (biggest value) non-zero bit.
-Our move will be on a pile whose size&rsquo;s bit number $d$ is set (it must exist, otherwise the bit wouldn&rsquo;t be set in $s$).
-We will reduce its size $x$ to $y = x \oplus s$.
-All bits at positions greater than $d$ in $x$ and $y$ match and bit $d$ is set in $x$ but not set in $y$.
-Therefore, $y < x$, which is all we need for a move to be legal.
-Now we have:</p>
-\[ t = s \oplus x \oplus y = s \oplus x \oplus (s \oplus x) = 0 \]<p>This means we found a reachable losing state (by the assumption of induction) and the current state is winning.</p>
+<p>ধরি $s \neq 0$।
+$s$ সংখ্যাটির বাইনারি প্রকাশ বিবেচনা করি।
+ধরি $d$ হলো এর সর্বোচ্চ (সবচেয়ে বড় মানের) অশূন্য বিটের ইনডেক্স।
+আমাদের চাল হবে সেই স্তূপে যার আকারের $d$ নম্বর বিট সেট আছে (এটি থাকতেই হবে, অন্যথায় বিটটি $s$-এ সেট থাকত না)।
+আমরা এর আকার $x$ থেকে $y = x \oplus s$-এ কমাব।
+$d$-র চেয়ে বড় অবস্থানের সব বিট $x$ ও $y$-তে মিলে যায় এবং বিট $d$ $x$-এ সেট কিন্তু $y$-তে সেট নয়।
+সুতরাং, $y < x$, যা চালটি বৈধ হওয়ার জন্য প্রয়োজন।
+এখন আমরা পাই:</p>
+\[ t = s \oplus x \oplus y = s \oplus x \oplus (s \oplus x) = 0 \]<p>এর অর্থ আমরা একটি পৌঁছানোযোগ্য পরাজিত অবস্থা খুঁজে পেয়েছি (আরোহ অনুমান অনুসারে) এবং বর্তমান অবস্থা জয়ী।</p>
 </li>
 </ul>
-<p><strong>Corollary.</strong>
-Any state of Nim can be replaced by an equivalent state as long as the xor-sum doesn&rsquo;t change.
-Moreover, when analyzing a Nim with several piles, we can replace it with a single pile of size $s$.</p>
-<h3 id="misère-game">Misère Game<a class="anchor" href="#mis%c3%a8re-game">#</a></h3>
-<p>In a <strong>misère game</strong>, the goal of the game is opposite, so the player who removes the last stick loses the game.
-It turns out that the misère nim game can be optimally played almost like a standard nim game.
-The idea is to first play the misère game like the standard game, but change the strategy at the end of the game.
-The new strategy will be introduced in a situation where each heap would contain at most one stick after the next move.
-In the standard game, we should choose a move after which there is an even number of heaps with one stick. However, in
-the misère game,we choose a move so that there is an odd number of heaps with one stick.
-This strategy works because a state where the strategy changes always appears in the game, and this state is a
-winning state, because it contains exactly one heap that has more than one stick so the nim sum is not 0.</p>
-<h2 id="the-equivalence-of-impartial-games-and-nim-sprague-grundy-theorem">The equivalence of impartial games and Nim (Sprague-Grundy theorem)<a class="anchor" href="#the-equivalence-of-impartial-games-and-nim-sprague-grundy-theorem">#</a></h2>
-<p>Now we will learn how to find, for any game state of any impartial game, a corresponding state of Nim.</p>
-<h3 id="lemma-about-nim-with-increases">Lemma about Nim with increases<a class="anchor" href="#lemma-about-nim-with-increases">#</a></h3>
-<p>We consider the following modification to Nim: we also allow <strong>adding stones to a chosen pile</strong>.
-The exact rules about how and when increasing is allowed <strong>do not interest us</strong>, however the rules should keep our game <strong>acyclic</strong>. In later sections, example games are considered.</p>
-<p><strong>Lemma.</strong>
-The addition of increasing to Nim doesn&rsquo;t change how winning and losing states are determined.
-In other words, increases are useless, and we don&rsquo;t have to use them in a winning strategy.</p>
-<p><strong>Proof.</strong>
-Suppose a player added stones to a pile. Then his opponent can simply undo his move — decrease the number back to the previous value.
-Since the game is acyclic, sooner or later the current player won&rsquo;t be able to use an increase move and will have to do the usual Nim move.</p>
-<h3 id="sprague-grundy-theorem">Sprague-Grundy theorem<a class="anchor" href="#sprague-grundy-theorem">#</a></h3>
-<p>Let&rsquo;s consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it (where $i \in \{ 1, 2, \dots, k \} , k \ge 0$).
-To this state, we can assign a fully equivalent game of Nim with one pile of size $x$.
-The number $x$ is called the Grundy value or nim-value of state $v$.</p>
-<p>Moreover, this number can be found in the following recursive way:</p>
-$$ x = \text{mex}\ \{ x_1, \ldots, x_k \}, $$<p>where $x_i$ is the Grundy value for state $v_i$ and the function $\text{mex}$ (<em>minimum excludant</em>) is the smallest non-negative integer not found in the given set.</p>
-<p>Viewing the game as a graph, we can gradually calculate the Grundy values starting from vertices without outgoing edges.
-Grundy value being equal to zero means a state is losing.</p>
-<p><strong>Proof.</strong>
-We will use a proof by induction.</p>
-<p>For vertices without a move, the value $x$ is the $\text{mex}$ of an empty set, which is zero.
-That is correct, since an empty Nim is losing.</p>
-<p>Now consider any other vertex $v$.
-By induction, we assume the values $x_i$ corresponding to its reachable vertices are already calculated.</p>
-<p>Let $p = \text{mex}\ \{ x_1, \ldots, x_k \}$.
-Then we know that for any integer $i \in [0, p)$ there exists a reachable vertex with Grundy value $i$.
-This means $v$ is <strong>equivalent to a state of the game of Nim with increases with one pile of size $p$</strong>.
-In such a game we have transitions to piles of every size smaller than $p$ and possibly transitions to piles with sizes greater than $p$.
-Therefore, $p$ is indeed the desired Grundy value for the currently considered state.</p>
-<h2 id="application-of-the-theorem">Application of the theorem<a class="anchor" href="#application-of-the-theorem">#</a></h2>
-<p>Finally, we describe an algorithm to determine the win/loss outcome of a game, which is applicable to any impartial two-player game.</p>
-<p>To calculate the Grundy value of a given state you need to:</p>
+<p><strong>অনুসিদ্ধান্ত।</strong>
+নিমের যেকোনো অবস্থা সমতুল্য অবস্থা দিয়ে প্রতিস্থাপন করা যায় যতক্ষণ xor-যোগফল পরিবর্তন না হয়।
+তদুপরি, একাধিক স্তূপবিশিষ্ট নিম বিশ্লেষণ করার সময়, আমরা এটিকে $s$ আকারের একটি মাত্র স্তূপ দিয়ে প্রতিস্থাপন করতে পারি।</p>
+<h3 id="মজর-গম">মিজের গেম<a class="anchor" href="#%e0%a6%ae%e0%a6%9c%e0%a6%b0-%e0%a6%97%e0%a6%ae">#</a></h3>
+<p>একটি <strong>মিজের গেমে</strong>, গেমের লক্ষ্য বিপরীত, তাই যে খেলোয়াড় শেষ কাঠি সরায় সে হারে।
+দেখা যায় যে মিজের নিম গেমটি প্রায় স্ট্যান্ডার্ড নিম গেমের মতোই অপটিমালভাবে খেলা যায়।
+ধারণাটি হলো প্রথমে মিজের গেমটি স্ট্যান্ডার্ড গেমের মতো খেলা, কিন্তু গেমের শেষে কৌশল পরিবর্তন করা।
+নতুন কৌশলটি এমন পরিস্থিতিতে চালু করা হবে যেখানে পরবর্তী চালের পরে প্রতিটি স্তূপে সর্বাধিক একটি কাঠি থাকবে।
+স্ট্যান্ডার্ড গেমে, আমাদের এমন চাল নির্বাচন করা উচিত যেখানে একটি কাঠিবিশিষ্ট স্তূপের সংখ্যা জোড়। তবে,
+মিজের গেমে, আমরা এমন চাল নির্বাচন করি যেখানে একটি কাঠিবিশিষ্ট স্তূপের সংখ্যা বিজোড়।
+এই কৌশলটি কাজ করে কারণ কৌশল পরিবর্তনের অবস্থা সবসময় গেমে আসে, এবং এই অবস্থা একটি
+জয়ী অবস্থা, কারণ এতে ঠিক একটি স্তূপ আছে যেখানে একের বেশি কাঠি আছে তাই নিম যোগফল ০ নয়।</p>
+<h2 id="ইমপরশযল-গম-এব-নমর-সমতলযত-সপরযগ-গরনড-উপপদয">ইমপার্শিয়াল গেম এবং নিমের সমতুল্যতা (স্প্র্যাগ-গ্রান্ডি উপপাদ্য)<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b0%e0%a6%b6%e0%a6%af%e0%a6%b2-%e0%a6%97%e0%a6%ae-%e0%a6%8f%e0%a6%ac-%e0%a6%a8%e0%a6%ae%e0%a6%b0-%e0%a6%b8%e0%a6%ae%e0%a6%a4%e0%a6%b2%e0%a6%af%e0%a6%a4-%e0%a6%b8%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97-%e0%a6%97%e0%a6%b0%e0%a6%a8%e0%a6%a1-%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af">#</a></h2>
+<p>এখন আমরা শিখব যেকোনো ইমপার্শিয়াল গেমের যেকোনো গেম অবস্থার জন্য নিমের একটি সংশ্লিষ্ট অবস্থা কীভাবে খুঁজে বের করতে হয়।</p>
+<h3 id="বদধসহ-নম-সমপরক-লম">বৃদ্ধিসহ নিম সম্পর্কে লেমা<a class="anchor" href="#%e0%a6%ac%e0%a6%a6%e0%a6%a7%e0%a6%b8%e0%a6%b9-%e0%a6%a8%e0%a6%ae-%e0%a6%b8%e0%a6%ae%e0%a6%aa%e0%a6%b0%e0%a6%95-%e0%a6%b2%e0%a6%ae">#</a></h3>
+<p>আমরা নিমের নিম্নলিখিত পরিবর্তন বিবেচনা করি: আমরা <strong>একটি নির্বাচিত স্তূপে পাথর যোগ করারও</strong> অনুমতি দিই।
+কীভাবে এবং কখন বৃদ্ধি অনুমোদিত তার সঠিক নিয়ম <strong>আমাদের আগ্রহের নয়</strong>, তবে নিয়মগুলো আমাদের গেমকে <strong>অচক্রাকার</strong> রাখতে হবে। পরবর্তী অনুচ্ছেদে উদাহরণ গেম বিবেচনা করা হয়েছে।</p>
+<p><strong>লেমা।</strong>
+নিমে বৃদ্ধি যোগ করা জয়ী ও পরাজিত অবস্থা নির্ধারণে কোনো পরিবর্তন আনে না।
+অন্য কথায়, বৃদ্ধি অর্থহীন, এবং জয়ী কৌশলে আমাদের এগুলো ব্যবহার করার দরকার নেই।</p>
+<p><strong>প্রমাণ।</strong>
+ধরি একজন খেলোয়াড় একটি স্তূপে পাথর যোগ করলো। তাহলে তার প্রতিপক্ষ সহজেই তার চাল বাতিল করতে পারে — সংখ্যাটিকে আগের মানে কমিয়ে আনতে পারে।
+যেহেতু গেমটি অচক্রাকার, কিছুক্ষণ পর বর্তমান খেলোয়াড় আর বৃদ্ধি চাল ব্যবহার করতে পারবে না এবং সাধারণ নিম চাল দিতে বাধ্য হবে।</p>
+<h3 id="সপরযগ-গরনড-উপপদয">স্প্র্যাগ-গ্রান্ডি উপপাদ্য<a class="anchor" href="#%e0%a6%b8%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97-%e0%a6%97%e0%a6%b0%e0%a6%a8%e0%a6%a1-%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af">#</a></h3>
+<p>ধরি $v$ একটি দুই-খেলোয়াড়ের ইমপার্শিয়াল গেমের একটি অবস্থা এবং $v_i$ হলো এটি থেকে পৌঁছানোযোগ্য অবস্থা (যেখানে $i \in \{ 1, 2, \dots, k \} , k \ge 0$)।
+এই অবস্থার জন্য, আমরা $x$ আকারের একটি স্তূপবিশিষ্ট নিমের একটি সম্পূর্ণ সমতুল্য গেম নির্ধারণ করতে পারি।
+$x$ সংখ্যাটিকে $v$ অবস্থার গ্রান্ডি মান বা নিম-মান বলা হয়।</p>
+<p>তদুপরি, এই সংখ্যাটি নিম্নলিখিত রিকার্সিভভাবে খুঁজে বের করা যায়:</p>
+$$ x = \text{mex}\ \{ x_1, \ldots, x_k \}, $$<p>যেখানে $x_i$ হলো $v_i$ অবস্থার গ্রান্ডি মান এবং $\text{mex}$ (<em>মিনিমাম এক্সক্লুড্যান্ট</em>) ফাংশনটি হলো প্রদত্ত সেটে পাওয়া যায় না এমন ক্ষুদ্রতম অ-ঋণাত্মক পূর্ণ সংখ্যা।</p>
+<p>গেমটিকে গ্রাফ হিসেবে দেখলে, আমরা ধাপে ধাপে আউটগোয়িং এজ নেই এমন ভার্টেক্স থেকে শুরু করে গ্রান্ডি মান হিসাব করতে পারি।
+গ্রান্ডি মান শূন্য হওয়ার অর্থ একটি পরাজিত অবস্থা।</p>
+<p><strong>প্রমাণ।</strong>
+আমরা আরোহ দ্বারা প্রমাণ ব্যবহার করব।</p>
+<p>চাল নেই এমন ভার্টেক্সের জন্য, $x$-র মান একটি খালি সেটের $\text{mex}$, যা শূন্য।
+এটি সঠিক, কারণ খালি নিম পরাজিত।</p>
+<p>এখন যেকোনো অন্য ভার্টেক্স $v$ বিবেচনা করি।
+আরোহ অনুসারে, আমরা ধরে নিচ্ছি এর পৌঁছানোযোগ্য ভার্টেক্সের সাথে সংশ্লিষ্ট $x_i$ মানগুলো ইতিমধ্যে হিসাব করা আছে।</p>
+<p>ধরি $p = \text{mex}\ \{ x_1, \ldots, x_k \}$।
+তাহলে আমরা জানি যে যেকোনো পূর্ণ সংখ্যা $i \in [0, p)$ এর জন্য গ্রান্ডি মান $i$ বিশিষ্ট একটি পৌঁছানোযোগ্য ভার্টেক্স আছে।
+এর অর্থ $v$ <strong>বৃদ্ধিসহ নিম গেমের $p$ আকারের একটি স্তূপবিশিষ্ট অবস্থার সমতুল্য</strong>।
+এই ধরনের গেমে আমরা $p$-র চেয়ে ছোট প্রতিটি আকারের স্তূপে ট্রানজিশন করতে পারি এবং সম্ভবত $p$-র চেয়ে বড় আকারের স্তূপেও ট্রানজিশন করতে পারি।
+সুতরাং, $p$ সত্যিই বর্তমান বিবেচিত অবস্থার কাঙ্ক্ষিত গ্রান্ডি মান।</p>
+<h2 id="উপপদযর-পরযগ">উপপাদ্যের প্রয়োগ<a class="anchor" href="#%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af%e0%a6%b0-%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97">#</a></h2>
+<p>সবশেষে, আমরা গেমের জয়/পরাজয় ফলাফল নির্ধারণ করার একটি অ্যালগরিদম বর্ণনা করি, যা যেকোনো ইমপার্শিয়াল দুই-খেলোয়াড়ের গেমে প্রযোজ্য।</p>
+<p>প্রদত্ত অবস্থার গ্রান্ডি মান হিসাব করতে আপনাকে:</p>
 <ul>
 <li>
-<p>Get all possible transitions from this state</p>
+<p>এই অবস্থা থেকে সব সম্ভাব্য ট্রানজিশন পেতে হবে</p>
 </li>
 <li>
-<p>Each transition can lead to a <strong>sum of independent games</strong> (one game in the degenerate case).
-Calculate the Grundy value for each independent game and xor-sum them.
-Of course xor does nothing if there is just one game.</p>
+<p>প্রতিটি ট্রানজিশন <strong>স্বাধীন গেমগুলোর যোগফলে</strong> নিয়ে যেতে পারে (অবক্ষয়িত ক্ষেত্রে একটি গেম)।
+প্রতিটি স্বাধীন গেমের গ্রান্ডি মান হিসাব করুন এবং এগুলোর xor-যোগফল নিন।
+শুধু একটি গেম থাকলে অবশ্যই xor কিছু করে না।</p>
 </li>
 <li>
-<p>After we calculated Grundy values for each transition we find the state&rsquo;s value as the $\text{mex}$ of these numbers.</p>
+<p>প্রতিটি ট্রানজিশনের গ্রান্ডি মান হিসাব করার পরে আমরা এই সংখ্যাগুলোর $\text{mex}$ হিসেবে অবস্থার মান খুঁজে পাই।</p>
 </li>
 <li>
-<p>If the value is zero, then the current state is losing, otherwise it is winning.</p>
+<p>যদি মান শূন্য হয়, তাহলে বর্তমান অবস্থা পরাজিত, অন্যথায় এটি জয়ী।</p>
 </li>
 </ul>
-<p>In comparison to the previous section, we take into account the fact that there can be transitions to combined games.
-We consider them a Nim with pile sizes equal to the independent games&rsquo; Grundy values.
-We can xor-sum them just like usual Nim according to Bouton&rsquo;s theorem.</p>
-<h2 id="patterns-in-grundy-values">Patterns in Grundy values<a class="anchor" href="#patterns-in-grundy-values">#</a></h2>
-<p>Very often when solving specific tasks using Grundy values, it may be beneficial to <strong>study the table of the values</strong> in search of patterns.</p>
-<p>In many games, which may seem rather difficult for theoretical analysis,
-the Grundy values turn out to be periodic or of an easily understandable form.
-In the overwhelming majority of cases the observed pattern turns out to be true and can be proved by induction if desired.</p>
-<p>However, Grundy values are far from <em>always</em> containing such regularities and even for some very simple games, the problem asking if those regularities exist is still open (e.g. &ldquo;Grundy&rsquo;s game&rdquo;).</p>
-<h2 id="example-games">Example games<a class="anchor" href="#example-games">#</a></h2>
-<h3 id="crosses-crosses">Crosses-crosses<a class="anchor" href="#crosses-crosses">#</a></h3>
-<p><strong>The rules.</strong>
-Consider a checkered strip of size $1 \times n$. In one move, the player must put one cross, but it is forbidden to put two crosses next to each other (in adjacent cells). As usual, the player without a valid move loses.</p>
-<p><strong>The solution.</strong>
-When a player puts a cross in any cell, we can think of the strip being split into two independent parts:
-to the left of the cross and to the right of it.
-In this case, the cell with a cross, as well as its left and right neighbours are destroyed — nothing more can be put in them.
-Therefore, if we number the cells from $1$ to $n$ then putting the cross in position $1 < i < n$ breaks the strip
-into two strips of length $i-2$ and $n-i-1$ i.e. we go to the sum of games $i-2$ and $n-i-1$.
-For the edge case of the cross being marked on position $1$ or $n$, we go to the game $n-2$.</p>
-<p>Thus, the Grundy value $g(n)$ has the form:</p>
-$$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\} \Bigr) .$$<p>So we&rsquo;ve got a $O(n^2)$ solution.</p>
-<p>In fact, $g(n)$ has a period of length 34 starting with $n=52$.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<p>পূর্ববর্তী অনুচ্ছেদের তুলনায়, আমরা বিবেচনায় নিচ্ছি যে সম্মিলিত গেমে ট্রানজিশন হতে পারে।
+আমরা এগুলোকে স্বাধীন গেমের গ্রান্ডি মানের সমান স্তূপ আকারবিশিষ্ট নিম হিসেবে বিবেচনা করি।
+বাউটনের উপপাদ্য অনুসারে আমরা সাধারণ নিমের মতোই এদের xor-যোগফল নিতে পারি।</p>
+<h2 id="গরনড-মন-পযটরন">গ্রান্ডি মানে প্যাটার্ন<a class="anchor" href="#%e0%a6%97%e0%a6%b0%e0%a6%a8%e0%a6%a1-%e0%a6%ae%e0%a6%a8-%e0%a6%aa%e0%a6%af%e0%a6%9f%e0%a6%b0%e0%a6%a8">#</a></h2>
+<p>অনেক সময় গ্রান্ডি মান ব্যবহার করে নির্দিষ্ট সমস্যা সমাধান করার সময়, <strong>মানগুলোর টেবিল অধ্যয়ন</strong> করে প্যাটার্ন খোঁজা উপকারী হতে পারে।</p>
+<p>অনেক গেমে, যেগুলো তাত্ত্বিক বিশ্লেষণের জন্য বেশ কঠিন মনে হতে পারে,
+গ্রান্ডি মানগুলো পর্যায়বৃত্তিক বা সহজে বোধগম্য আকারের হয়ে থাকে।
+অধিকাংশ ক্ষেত্রে পর্যবেক্ষিত প্যাটার্ন সত্য হয় এবং চাইলে আরোহ দ্বারা প্রমাণ করা যায়।</p>
+<p>তবে, গ্রান্ডি মানে <em>সবসময়</em> এই ধরনের নিয়মিততা থাকে না এবং এমনকি কিছু খুব সরল গেমের জন্যও, সেই নিয়মিততা আছে কিনা এই প্রশ্নটি এখনও উন্মুক্ত (যেমন &ldquo;গ্রান্ডির গেম&rdquo;)।</p>
+<h2 id="উদহরণ-গম">উদাহরণ গেম<a class="anchor" href="#%e0%a6%89%e0%a6%a6%e0%a6%b9%e0%a6%b0%e0%a6%a3-%e0%a6%97%e0%a6%ae">#</a></h2>
+<h3 id="করসস-করসস">ক্রসেস-ক্রসেস<a class="anchor" href="#%e0%a6%95%e0%a6%b0%e0%a6%b8%e0%a6%b8-%e0%a6%95%e0%a6%b0%e0%a6%b8%e0%a6%b8">#</a></h3>
+<p><strong>নিয়ম।</strong>
+$1 \times n$ আকারের একটি চেকারড স্ট্রিপ বিবেচনা করুন। একটি চালে, খেলোয়াড়কে একটি ক্রস বসাতে হবে, কিন্তু দুটি ক্রস পাশাপাশি (সংলগ্ন ঘরে) বসানো নিষিদ্ধ। যথারীতি, বৈধ চাল নেই এমন খেলোয়াড় হারে।</p>
+<p><strong>সমাধান।</strong>
+যখন কোনো খেলোয়াড় কোনো ঘরে ক্রস বসায়, আমরা ভাবতে পারি স্ট্রিপটি দুটি স্বাধীন অংশে বিভক্ত হচ্ছে:
+ক্রসের বামে এবং ডানে।
+এই ক্ষেত্রে, ক্রসবিশিষ্ট ঘর এবং তার বাম ও ডান প্রতিবেশী ধ্বংস হয়ে যায় — সেখানে আর কিছু বসানো যায় না।
+সুতরাং, যদি আমরা ঘরগুলোকে $1$ থেকে $n$ পর্যন্ত নম্বর দিই তাহলে $1 < i < n$ অবস্থানে ক্রস বসালে স্ট্রিপটি
+$i-2$ এবং $n-i-1$ দৈর্ঘ্যের দুটি স্ট্রিপে ভাঙে অর্থাৎ আমরা $i-2$ ও $n-i-1$ গেমের যোগফলে যাই।
+$1$ বা $n$ অবস্থানে ক্রস বসানোর প্রান্তিক ক্ষেত্রে, আমরা $n-2$ গেমে যাই।</p>
+<p>সুতরাং, গ্রান্ডি মান $g(n)$ এর আকার:</p>
+$$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\} \Bigr) .$$<p>এভাবে আমরা একটি $O(n^2)$ সমাধান পেয়েছি।</p>
+<p>আসলে, $g(n)$-র পর্যায়কাল ৩৪, $n=52$ থেকে শুরু।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://open.kattis.com/problems/snim">KATTIS S-Nim</a></li>
 <li><a href="https://codeforces.com/gym/101908/problem/B">CodeForces - Marbles (2018-2019 ACM-ICPC Brazil Subregional)</a></li>
@@ -2969,14 +2974,14 @@ $$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \le
     
       <a href="/game_theory/games_on_graphs/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Games on arbitrary graphs</span>
+        <span>যেকোনো গ্রাফে গেম</span>
       </a>
     
     </span>
     <span>
     
       <a href="/schedules/schedule_one_machine/" class="flex align-center">
-        <span>Scheduling jobs on one machine</span>
+        <span>একটি মেশিনে কাজ শিডিউলিং</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3017,28 +3022,28 @@ $$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \le
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#introduction">Introduction</a></li>
-    <li><a href="#nim">Nim</a>
+    <li><a href="#ভমক">ভূমিকা</a></li>
+    <li><a href="#নম">নিম</a>
       <ul>
-        <li><a href="#game-description">Game description</a></li>
-        <li><a href="#the-solution">The solution</a></li>
-        <li><a href="#misère-game">Misère Game</a></li>
+        <li><a href="#গমর-ববরণ">গেমের বিবরণ</a></li>
+        <li><a href="#সমধন">সমাধান</a></li>
+        <li><a href="#মজর-গম">মিজের গেম</a></li>
       </ul>
     </li>
-    <li><a href="#the-equivalence-of-impartial-games-and-nim-sprague-grundy-theorem">The equivalence of impartial games and Nim (Sprague-Grundy theorem)</a>
+    <li><a href="#ইমপরশযল-গম-এব-নমর-সমতলযত-সপরযগ-গরনড-উপপদয">ইমপার্শিয়াল গেম এবং নিমের সমতুল্যতা (স্প্র্যাগ-গ্রান্ডি উপপাদ্য)</a>
       <ul>
-        <li><a href="#lemma-about-nim-with-increases">Lemma about Nim with increases</a></li>
-        <li><a href="#sprague-grundy-theorem">Sprague-Grundy theorem</a></li>
+        <li><a href="#বদধসহ-নম-সমপরক-লম">বৃদ্ধিসহ নিম সম্পর্কে লেমা</a></li>
+        <li><a href="#সপরযগ-গরনড-উপপদয">স্প্র্যাগ-গ্রান্ডি উপপাদ্য</a></li>
       </ul>
     </li>
-    <li><a href="#application-of-the-theorem">Application of the theorem</a></li>
-    <li><a href="#patterns-in-grundy-values">Patterns in Grundy values</a></li>
-    <li><a href="#example-games">Example games</a>
+    <li><a href="#উপপদযর-পরযগ">উপপাদ্যের প্রয়োগ</a></li>
+    <li><a href="#গরনড-মন-পযটরন">গ্রান্ডি মানে প্যাটার্ন</a></li>
+    <li><a href="#উদহরণ-গম">উদাহরণ গেম</a>
       <ul>
-        <li><a href="#crosses-crosses">Crosses-crosses</a></li>
+        <li><a href="#করসস-করসস">ক্রসেস-ক্রসেস</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

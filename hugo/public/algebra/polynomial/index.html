@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,38 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Operations on polynomials and series#Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.
-This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.
-Basic Notion and facts#In this section, we focus more on the definitions and “intuitive” properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.
+<meta name="description" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন#প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
+মৌলিক ধারণা ও তথ্য#এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও “স্বজ্ঞাত” বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/algebra/polynomial/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/algebra/polynomial/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Operations on polynomials and series">
-  <meta property="og:description" content="Operations on polynomials and series#Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.
-This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.
-Basic Notion and facts#In this section, we focus more on the definitions and “intuitive” properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.">
+  <meta property="og:title" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন">
+  <meta property="og:description" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন#প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
+মৌলিক ধারণা ও তথ্য#এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও “স্বজ্ঞাত” বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="algebra">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Operations on polynomials and series">
-  <meta itemprop="description" content="Operations on polynomials and series#Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.
-This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.
-Basic Notion and facts#In this section, we focus more on the definitions and “intuitive” properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.">
-  <meta itemprop="wordCount" content="3927">
+  <meta itemprop="name" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন">
+  <meta itemprop="description" content="পলিনোমিয়াল ও সিরিজের উপর অপারেশন#প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
+মৌলিক ধারণা ও তথ্য#এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও “স্বজ্ঞাত” বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="3409">
 
-<title>Operations on polynomials and series | CP-Algorithms</title>
+<title>পলিনোমিয়াল ও সিরিজের উপর অপারেশন | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/algebra/polynomial/">
+<link rel="canonical" href="http://localhost:1313/algebra/polynomial/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -126,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -211,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -225,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -239,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -281,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -295,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -309,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -337,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -351,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -379,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -393,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -407,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -434,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="active">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -448,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="active">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -463,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -477,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -505,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -519,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -533,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -584,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -598,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -612,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -626,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -640,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -654,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -668,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -682,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -696,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -746,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -761,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -817,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -831,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -882,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -910,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -937,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -951,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -966,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -994,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1008,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1022,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1036,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1073,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1087,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1101,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1115,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1151,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1179,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1194,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1208,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1222,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1236,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1250,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1301,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1315,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1329,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1343,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1357,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1393,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1464,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1477,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1491,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1505,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1519,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1534,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1548,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1576,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1589,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1618,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1632,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1660,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1673,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1688,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1702,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1716,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1730,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1744,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1780,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1864,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1893,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1907,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1920,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1934,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1948,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1962,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1977,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1990,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2004,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2018,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2047,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2060,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2074,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2102,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2159,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2172,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2186,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2201,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2214,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2228,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2243,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2256,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2270,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2285,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2298,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2313,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2327,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2341,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2355,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2369,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2383,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2397,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2434,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2448,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2476,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2513,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2527,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2541,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2555,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2569,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2606,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2620,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2657,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2671,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2685,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2731,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Operations on polynomials and series</h3>
+  <h3>পলিনোমিয়াল ও সিরিজের উপর অপারেশন</h3>
 
   <label for="toc-control">
     
@@ -2747,45 +2749,45 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#basic-notion-and-facts">Basic Notion and facts</a>
+    <li><a href="#মলক-ধরণ-ও-তথয">মৌলিক ধারণা ও তথ্য</a>
       <ul>
-        <li><a href="#polynomial-multiplication">Polynomial multiplication</a></li>
-        <li><a href="#formal-power-series">Formal power series</a></li>
-        <li><a href="#long-polynomial-division">Long polynomial division</a></li>
+        <li><a href="#পলনমযল-গণন">পলিনোমিয়াল গুণন</a></li>
+        <li><a href="#ফরমল-পওযর-সরজ">ফর্মাল পাওয়ার সিরিজ</a></li>
+        <li><a href="#দরঘ-পলনমযল-ভগ">দীর্ঘ পলিনোমিয়াল ভাগ</a></li>
       </ul>
     </li>
-    <li><a href="#basic-implementation">Basic implementation</a></li>
-    <li><a href="#arithmetic">Arithmetic</a>
+    <li><a href="#মলক-ইমপলমনটশন">মৌলিক ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#পটগণত">পাটিগণিত</a>
       <ul>
-        <li><a href="#multiplication">Multiplication</a></li>
-        <li><a href="#inverse-series">Inverse series</a></li>
-        <li><a href="#euclidean-division">Euclidean division</a></li>
+        <li><a href="#গণন">গুণন</a></li>
+        <li><a href="#বপরত-সরজ">বিপরীত সিরিজ</a></li>
+        <li><a href="#ইউকলডয-ভগ">ইউক্লিডীয় ভাগ</a></li>
       </ul>
     </li>
-    <li><a href="#calculating-functions-of-polynomial">Calculating functions of polynomial</a>
+    <li><a href="#পলনমযলর-ফশন-গণন">পলিনোমিয়ালের ফাংশন গণনা</a>
       <ul>
-        <li><a href="#newtons-method">Newton&rsquo;s method</a></li>
-        <li><a href="#logarithm">Logarithm</a></li>
-        <li><a href="#inverse-series-1">Inverse series</a></li>
-        <li><a href="#exponent">Exponent</a></li>
-        <li><a href="#-th-power">-th power</a></li>
+        <li><a href="#নউটনর-পদধত">নিউটনের পদ্ধতি</a></li>
+        <li><a href="#লগরদম">লগারিদম</a></li>
+        <li><a href="#বপরত-সরজ-1">বিপরীত সিরিজ</a></li>
+        <li><a href="#সচকয">সূচকীয়</a></li>
+        <li><a href="#-তম-ঘত">-তম ঘাত</a></li>
       </ul>
     </li>
-    <li><a href="#evaluation-and-interpolation">Evaluation and Interpolation</a>
+    <li><a href="#মলযযন-ও-ইনটরপলশন">মূল্যায়ন ও ইন্টারপোলেশন</a>
       <ul>
-        <li><a href="#chirp-z-transform">Chirp-z Transform</a></li>
-        <li><a href="#multi-point-evaluation">Multi-point Evaluation</a></li>
-        <li><a href="#interpolation">Interpolation</a></li>
+        <li><a href="#চরপ-z-টরনসফরম">চার্প-z ট্রান্সফর্ম</a></li>
+        <li><a href="#বহবনদ-মলযযন">বহুবিন্দু মূল্যায়ন</a></li>
+        <li><a href="#ইনটরপলশন">ইন্টারপোলেশন</a></li>
       </ul>
     </li>
-    <li><a href="#gcd-and-resultants">GCD and Resultants</a>
+    <li><a href="#গসগ-ও-রজলটযনট">গসাগু ও রেজাল্ট্যান্ট</a>
       <ul>
-        <li><a href="#euclidean-algorithm">Euclidean algorithm</a></li>
-        <li><a href="#resultant">Resultant</a></li>
-        <li><a href="#half-gcd-algorithm">Half-GCD algorithm</a></li>
+        <li><a href="#ইউকলডয-অযলগরদম">ইউক্লিডীয় অ্যালগরিদম</a></li>
+        <li><a href="#রজলটযনট">রেজাল্ট্যান্ট</a></li>
+        <li><a href="#হফ-gcd-অযলগরদম">হাফ-GCD অ্যালগরিদম</a></li>
       </ul>
     </li>
-    <li><a href="#problems">Problems</a></li>
+    <li><a href="#সমসয">সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2798,301 +2800,297 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="operations-on-polynomials-and-series">Operations on polynomials and series<a class="anchor" href="#operations-on-polynomials-and-series">#</a></h1>
-<p>Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.</p>
-<p>This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.</p>
-<h2 id="basic-notion-and-facts">Basic Notion and facts<a class="anchor" href="#basic-notion-and-facts">#</a></h2>
-<p>In this section, we focus more on the definitions and &ldquo;intuitive&rdquo; properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.</p>
-<h3 id="polynomial-multiplication">Polynomial multiplication<a class="anchor" href="#polynomial-multiplication">#</a></h3>
+  <article class="markdown book-article"><h1 id="পলনমযল-ও-সরজর-উপর-অপরশন">পলিনোমিয়াল ও সিরিজের উপর অপারেশন<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2-%e0%a6%93-%e0%a6%b8%e0%a6%b0%e0%a6%9c%e0%a6%b0-%e0%a6%89%e0%a6%aa%e0%a6%b0-%e0%a6%85%e0%a6%aa%e0%a6%b0%e0%a6%b6%e0%a6%a8">#</a></h1>
+<p>প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।</p>
+<p>এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।</p>
+<h2 id="মলক-ধরণ-ও-তথয">মৌলিক ধারণা ও তথ্য<a class="anchor" href="#%e0%a6%ae%e0%a6%b2%e0%a6%95-%e0%a6%a7%e0%a6%b0%e0%a6%a3-%e0%a6%93-%e0%a6%a4%e0%a6%a5%e0%a6%af">#</a></h2>
+<p>এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও &ldquo;স্বজ্ঞাত&rdquo; বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।</p>
+<h3 id="পলনমযল-গণন">পলিনোমিয়াল গুণন<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-<strong>Univariate polynomial</strong> is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.</p>
-<p>The values $a_0, \dots, a_n$ are polynomial coefficients, typically taken from some set of numbers or number-like structures. In this article, we assume that the coefficients are taken from some <a href="https://en.wikipedia.org/wiki/Field_%28mathematics%29">field</a>, meaning that operations of addition, subtraction, multiplication and division are well-defined for them (except for division by $0$) and they generally behave in a similar way to real numbers.</p>
-<p>Typical example of such field is the field of remainders modulo prime number $p$.</p>
-<p>For simplicity we will drop the term <em>univariate</em>, as this is the only kind of polynomials we consider in this article. We will also write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.</p>
+<strong>একচলবিশিষ্ট পলিনোমিয়াল</strong> হলো $A(x) = a_0 + a_1 x + \dots + a_n x^n$ আকারের একটি রাশি।</p>
+<p>মান $a_0, \dots, a_n$ হলো পলিনোমিয়ালের সহগ, সাধারণত কোনো সংখ্যা বা সংখ্যা-সদৃশ কাঠামোর সেট থেকে নেওয়া। এই নিবন্ধে, আমরা ধরে নিচ্ছি সহগ কোনো <a href="https://en.wikipedia.org/wiki/Field_%28mathematics%29">ফিল্ড</a> থেকে নেওয়া, অর্থাৎ যোগ, বিয়োগ, গুণন ও ভাগের অপারেশন তাদের জন্য সুসংজ্ঞায়িত ($0$ দিয়ে ভাগ ছাড়া) এবং তারা সাধারণভাবে বাস্তব সংখ্যার মতোই আচরণ করে।</p>
+<p>এরকম ফিল্ডের সাধারণ উদাহরণ হলো মৌলিক সংখ্যা $p$ মডুলোতে ভাগশেষের ফিল্ড।</p>
+<p>সরলতার জন্য আমরা <em>একচলবিশিষ্ট</em> শব্দটি বাদ দেবো, কারণ এই নিবন্ধে আমরা শুধু এই ধরনের পলিনোমিয়ালই বিবেচনা করি। প্রসঙ্গ থেকে বোঝা যাবে বলে সম্ভব হলে আমরা $A(x)$ এর বদলে $A$-ও লিখবো। ধরে নেওয়া হয় $a_n \neq 0$ অথবা $A(x)=0$।</p>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-The <strong>product</strong> of two polynomials is defined by expanding it as an arithmetic expression:</p>
+দুটি পলিনোমিয়ালের <strong>গুণফল</strong> একটি বীজগণিতীয় রাশি হিসেবে প্রসারিত করে সংজ্ঞায়িত:</p>
 <pre><code>$$
 A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
 $$
 
-The sequence $c_0, c_1, \dots, c_{n+m}$ of the coefficients of $C(x)$ is called the **convolution** of $a_0, \dots, a_n$ and $b_0, \dots, b_m$.
+$C(x)$ এর সহগ ক্রম $c_0, c_1, \dots, c_{n+m}$ কে $a_0, \dots, a_n$ ও $b_0, \dots, b_m$ এর **কনভোলিউশন** বলা হয়।
 </code></pre>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-The <strong>degree</strong> of a polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$.</p>
-<pre><code>For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$.
+$a_n \neq 0$ বিশিষ্ট পলিনোমিয়াল $A$ এর <strong>ডিগ্রি</strong> $\deg A = n$ হিসেবে সংজ্ঞায়িত।</p>
+<pre><code>সামঞ্জস্যের জন্য, $A(x) = 0$ এর ডিগ্রি $\deg A = -\infty$ হিসেবে সংজ্ঞায়িত।
 </code></pre>
-<p>In this notion, $\deg AB = \deg A + \deg B$ for any polynomials $A$ and $B$.</p>
-<p>Convolutions are the basis of solving many enumerative problems.</p>
+<p>এই ধারণায়, যেকোনো পলিনোমিয়াল $A$ ও $B$ এর জন্য $\deg AB = \deg A + \deg B$।</p>
+<p>কনভোলিউশন অনেক গণনামূলক সমস্যা সমাধানের ভিত্তি।</p>
 <p>
 <div class="book-hint info">
   <strong>Example</strong>
 </div>
 
-You have $n$ objects of the first kind and $m$ objects of the second kind.</p>
-<pre><code>Objects of first kind are valued $a_1, \dots, a_n$, and objects of the second kind are valued $b_1, \dots, b_m$.
+আপনার কাছে প্রথম ধরনের $n$ টি বস্তু এবং দ্বিতীয় ধরনের $m$ টি বস্তু আছে।</p>
+<pre><code>প্রথম ধরনের বস্তুগুলোর মান $a_1, \dots, a_n$, এবং দ্বিতীয় ধরনের বস্তুগুলোর মান $b_1, \dots, b_m$।
 
-You pick a single object of the first kind and a single object of the second kind. How many ways are there to get the total value $k$?
+আপনি একটি প্রথম ধরনের ও একটি দ্বিতীয় ধরনের বস্তু বেছে নেন। মোট মান $k$ পাওয়ার কতগুলো উপায় আছে?
 </code></pre>
 <p><details>
-  <summary>Solution</summary>
+  <summary>সমাধান</summary>
   <div></div>
 </details>
 
-Consider the product $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$. If you expand it, each monomial will correspond to the pair $(a_i, b_j)$ and contribute to the coefficient near $x^{a_i+b_j}$. In other words, the answer is the coefficient near $x^k$ in the product.</p>
+গুণফল $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$ বিবেচনা করুন। প্রসারিত করলে, প্রতিটি পদ $(a_i, b_j)$ জোড়ার সাথে সংশ্লিষ্ট এবং $x^{a_i+b_j}$ এর কাছের সহগে অবদান রাখে। অন্য কথায়, উত্তর হলো গুণফলে $x^k$ এর কাছের সহগ।</p>
 <p>
 <div class="book-hint info">
   <strong>Example</strong>
 </div>
 
-You throw a $6$-sided die $n$ times and sum up the results from all throws. What is the probability of getting sum of $k$?</p>
+আপনি একটি $6$-পার্শ্ববিশিষ্ট ছক্কা $n$ বার ছোড়েন এবং সব ছোড়ার ফলাফল যোগ করেন। যোগফল $k$ পাওয়ার সম্ভাবনা কত?</p>
 <p><details>
-  <summary>Solution</summary>
+  <summary>সমাধান</summary>
   <div></div>
 </details>
 
-The answer is the number of outcomes having the sum $k$, divided by the total number of outcomes, which is $6^n$.</p>
-<pre><code>What is the number of outcomes having the sum $k$? For $n=1$, it may be represented by a polynomial $A(x) = x^1+x^2+\dots+x^6$.
+উত্তর হলো যোগফল $k$ হওয়া ফলাফলের সংখ্যাকে মোট ফলাফলের সংখ্যা $6^n$ দিয়ে ভাগ।</p>
+<pre><code>যোগফল $k$ হওয়া ফলাফলের সংখ্যা কত? $n=1$ এর জন্য, এটি $A(x) = x^1+x^2+\dots+x^6$ পলিনোমিয়াল দিয়ে উপস্থাপন করা যায়।
 
-For $n=2$, using the same approach as in the example above, we conclude that it is represented by the polynomial $(x^1+x^2+\dots+x^6)^2$.
+$n=2$ এর জন্য, উপরের উদাহরণের মতো একই পদ্ধতি ব্যবহার করে, আমরা সিদ্ধান্তে আসি এটি $(x^1+x^2+\dots+x^6)^2$ পলিনোমিয়াল দিয়ে উপস্থাপিত।
 
-That being said, the answer to the problem is the $k$-th coefficient of $(x^1+x^2+\dots+x^6)^n$, divided by $6^n$.
+এজন্য, সমস্যার উত্তর হলো $(x^1+x^2+\dots+x^6)^n$ এর $k$-তম সহগকে $6^n$ দিয়ে ভাগ।
 </code></pre>
-<p>The coefficient near $x^k$ in the polynomial $A(x)$ is denoted shortly as $[x^k]A$.</p>
-<h3 id="formal-power-series">Formal power series<a class="anchor" href="#formal-power-series">#</a></h3>
+<p>পলিনোমিয়াল $A(x)$ এ $x^k$ এর কাছের সহগকে সংক্ষেপে $[x^k]A$ দ্বারা চিহ্নিত করা হয়।</p>
+<h3 id="ফরমল-পওযর-সরজ">ফর্মাল পাওয়ার সিরিজ<a class="anchor" href="#%e0%a6%ab%e0%a6%b0%e0%a6%ae%e0%a6%b2-%e0%a6%aa%e0%a6%93%e0%a6%af%e0%a6%b0-%e0%a6%b8%e0%a6%b0%e0%a6%9c">#</a></h3>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-A <strong>formal power series</strong> is an infinite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.</p>
-<p>In other words, when we consider e.g. a sum $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$, we imply that it <em>converges</em> to $2$ when the number of summands approach infinity. However, formal series are only considered in terms of sequences that make them.</p>
+একটি <strong>ফর্মাল পাওয়ার সিরিজ</strong> হলো একটি অসীম যোগফল $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, যা এর অভিসারিতা বৈশিষ্ট্য নির্বিশেষে বিবেচিত।</p>
+<p>অন্য কথায়, যখন আমরা $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$ এর মতো যোগফল বিবেচনা করি, আমরা বোঝাই যে পদসংখ্যা অসীমে গেলে এটি $2$ তে <em>অভিসৃত</em> হয়। তবে, ফর্মাল সিরিজ শুধু তাদের গঠনকারী ক্রমের পরিপ্রেক্ষিতেই বিবেচিত।</p>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-The <strong>product</strong> of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arithmetic expression:</p>
+ফর্মাল পাওয়ার সিরিজ $A(x)$ ও $B(x)$ এর <strong>গুণফল</strong>-ও একটি বীজগণিতীয় রাশি হিসেবে প্রসারিত করে সংজ্ঞায়িত:</p>
 <pre><code>$$
 A(x) B(x) = \left(\sum\limits_{i=0}^\infty a_i x^i \right)\left(\sum\limits_{j=0}^\infty b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{\infty} c_k x^k = C(x),
 $$
 
-where the coefficients $c_0, c_1, \dots$ are define as finite sums
+যেখানে সহগ $c_0, c_1, \dots$ সসীম যোগফল হিসেবে সংজ্ঞায়িত
 
 $$
 c_k = \sum\limits_{i=0}^k a_i b_{k-i}.
 $$
 
-The sequence $c_0, c_1, \dots$ is also called a **convolution** of $a_0, a_1, \dots$ and $b_0, b_1, \dots$, generalizing the concept to infinite sequences.
+ক্রম $c_0, c_1, \dots$ কেও $a_0, a_1, \dots$ ও $b_0, b_1, \dots$ এর **কনভোলিউশন** বলা হয়, ধারণাটিকে অসীম ক্রমে সাধারণীকরণ করে।
 </code></pre>
-<p>Thus, polynomials may be considered formal power series, but with finite number of coefficients.</p>
-<p>Formal power series play a crucial role in enumerative combinatorics, where they&rsquo;re studied as <a href="https://en.wikipedia.org/wiki/Generating_function">generating functions</a> for various sequences. Detailed explanation of generating functions and the intuition behind them will, unfortunately, be out of scope for this article, therefore the curious reader is referenced e.g. <a href="https://codeforces.com/blog/entry/103979">here</a> for details about their combinatorial meaning.</p>
-<p>However, we will very briefly mention that if $A(x)$ and $B(x)$ are generating functions for sequences that enumerate some objects by number of &ldquo;atoms&rdquo; in them (e.g. trees by the number of vertices), then the product $A(x) B(x)$ enumerates objects that can be described as pairs of objects of kinds $A$ and $B$, enumerates by the total number of &ldquo;atoms&rdquo; in the pair.</p>
+<p>সুতরাং, পলিনোমিয়ালকে ফর্মাল পাওয়ার সিরিজ হিসেবে বিবেচনা করা যায়, কিন্তু সসীম সংখ্যক সহগ সহ।</p>
+<p>ফর্মাল পাওয়ার সিরিজ গণনামূলক সমাবেশ বিদ্যায় গুরুত্বপূর্ণ ভূমিকা পালন করে, যেখানে তাদের বিভিন্ন ক্রমের <a href="https://en.wikipedia.org/wiki/Generating_function">জেনারেটিং ফাংশন</a> হিসেবে অধ্যয়ন করা হয়। জেনারেটিং ফাংশনের বিস্তারিত ব্যাখ্যা ও তাদের পেছনের অন্তর্দৃষ্টি, দুর্ভাগ্যবশত, এই নিবন্ধের পরিসরের বাইরে, তাই কৌতূহলী পাঠককে তাদের সমাবেশ বিদ্যামূলক অর্থ সম্পর্কে বিস্তারিত জানতে যেমন <a href="https://codeforces.com/blog/entry/103979">এখানে</a> উল্লেখ করা হলো।</p>
+<p>তবে, আমরা অতি সংক্ষেপে উল্লেখ করবো যে যদি $A(x)$ ও $B(x)$ এমন ক্রমের জেনারেটিং ফাংশন হয় যা কিছু বস্তুকে তাদের &ldquo;পরমাণু&rdquo; সংখ্যা (যেমন শীর্ষ সংখ্যা দিয়ে ট্রি) দিয়ে গণনা করে, তাহলে $A(x) B(x)$ গুণফল $A$ ও $B$ ধরনের বস্তুর জোড়া হিসেবে বর্ণনাযোগ্য বস্তু গণনা করে, জোড়ায় মোট &ldquo;পরমাণু&rdquo; সংখ্যা দিয়ে গণনা করে।</p>
 <p>
 <div class="book-hint info">
   <strong>Example</strong>
 </div>
 
-Let $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ enumerate packs of stones, each stone colored in one of $2$ colors (so, there are $2^i$ such packs of size $i$) and $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ enumerate packs of stones, each stone colored in one of $3$ colors. Then $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ would enumerate objects that may be described as &ldquo;two packs of stones, first pack only of stones of type $A$, second pack only of stones of type $B$, with total number of stones being $k$&rdquo; for $c_k$.</p>
-<p>In a similar way, there is an intuitive meaning to some other functions over formal power series.</p>
-<h3 id="long-polynomial-division">Long polynomial division<a class="anchor" href="#long-polynomial-division">#</a></h3>
-<p>Similar to integers, it is possible to define long division on polynomials.</p>
+ধরি $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ পাথরের প্যাক গণনা করে, প্রতিটি পাথর $2$ রঙের একটিতে রং করা (তাই, আকার $i$ এর $2^i$ টি এরকম প্যাক আছে) এবং $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ পাথরের প্যাক গণনা করে, প্রতিটি পাথর $3$ রঙের একটিতে রং করা। তাহলে $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ এমন বস্তু গণনা করবে যাদের &ldquo;দুটি পাথরের প্যাক, প্রথম প্যাক শুধু $A$ ধরনের পাথর, দ্বিতীয় প্যাক শুধু $B$ ধরনের পাথর, মোট পাথর সংখ্যা $k$&rdquo; হিসেবে বর্ণনা করা যায় $c_k$ এর জন্য।</p>
+<p>অনুরূপভাবে, ফর্মাল পাওয়ার সিরিজের উপর অন্য কিছু ফাংশনেরও স্বজ্ঞাত অর্থ আছে।</p>
+<h3 id="দরঘ-পলনমযল-ভগ">দীর্ঘ পলিনোমিয়াল ভাগ<a class="anchor" href="#%e0%a6%a6%e0%a6%b0%e0%a6%98-%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2-%e0%a6%ad%e0%a6%97">#</a></h3>
+<p>পূর্ণসংখ্যার মতোই, পলিনোমিয়ালের উপর দীর্ঘ ভাগ সংজ্ঞায়িত করা সম্ভব।</p>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-For any polynomials $A$ and $B \neq 0$, one may represent $A$ as</p>
+যেকোনো পলিনোমিয়াল $A$ ও $B \neq 0$ এর জন্য, $A$ কে এভাবে উপস্থাপন করা যায়</p>
 <pre><code>$$
 A = D \cdot B + R,~ \deg R &lt; \deg B,
 $$
 
-where $R$ is called the **remainder** of $A$ modulo $B$ and $D$ is called the **quotient**.
+যেখানে $R$ কে $A$ মডুলো $B$ এর **ভাগশেষ** এবং $D$ কে **ভাগফল** বলা হয়।
 </code></pre>
-<p>Denoting $\deg A = n$ and $\deg B = m$, naive way to do it is to use long division, during which you multiply $B$ by the monomial $\frac{a_n}{b_m} x^{n - m}$ and subtract it from $A$, until the degree of $A$ is smaller than that of $B$. What remains of $A$ in the end will be the remainder (hence the name), and the polynomials with which you multiplied $B$ in the process, summed together, form the quotient.</p>
+<p>$\deg A = n$ ও $\deg B = m$ চিহ্নিত করলে, সহজ উপায়ে দীর্ঘ ভাগ ব্যবহার করা যায়, যেখানে আপনি $B$ কে $\frac{a_n}{b_m} x^{n - m}$ একপদী দিয়ে গুণ করেন এবং $A$ থেকে বিয়োগ করেন, যতক্ষণ না $A$ এর ডিগ্রি $B$ এর চেয়ে ছোট হয়। শেষে $A$ এর যা অবশিষ্ট থাকে তাই ভাগশেষ (তাই এই নাম), এবং প্রক্রিয়ায় আপনি $B$ কে যেগুলো দিয়ে গুণ করেছেন, তাদের যোগফলই ভাগফল।</p>
 <p>
 <div class="book-hint info">
-  <strong>Definition</strong>
+  <strong>সংজ্ঞা</strong>
 </div>
 
-If $A$ and $B$ have the same remainder modulo $C$, they&rsquo;re said to be <strong>equivalent</strong> modulo $C$, which is denoted as</p>
+যদি $A$ ও $B$ মডুলো $C$ তে একই ভাগশেষ দেয়, তাদের মডুলো $C$ তে <strong>সমতুল্য</strong> বলা হয়, যা এভাবে চিহ্নিত</p>
 <pre><code>$$
 A \equiv B \pmod{C}.
 $$
 </code></pre>
-<p>Polynomial long division is useful because of its many important properties:</p>
+<p>পলিনোমিয়াল দীর্ঘ ভাগ এর অনেক গুরুত্বপূর্ণ বৈশিষ্ট্যের কারণে কার্যকর:</p>
 <ul>
 <li>
-<p>$A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.</p>
+<p>$A$ $B$ এর গুণিতক যদি এবং কেবলমাত্র যদি $A \equiv 0 \pmod B$।</p>
 </li>
 <li>
-<p>It implies that $A \equiv B \pmod C$ if and only if $A-B$ is a multiple of $C$.</p>
+<p>এটি বোঝায় $A \equiv B \pmod C$ যদি এবং কেবলমাত্র যদি $A-B$ $C$ এর গুণিতক হয়।</p>
 </li>
 <li>
-<p>In particular, $A \equiv B \pmod{C \cdot D}$ implies $A \equiv B \pmod{C}$.</p>
+<p>বিশেষত, $A \equiv B \pmod{C \cdot D}$ বোঝায় $A \equiv B \pmod{C}$।</p>
 </li>
 <li>
-<p>For any linear polynomial $x-r$ it holds that $A(x) \equiv A(r) \pmod{x-r}$.</p>
+<p>যেকোনো রৈখিক পলিনোমিয়াল $x-r$ এর জন্য $A(x) \equiv A(r) \pmod{x-r}$।</p>
 </li>
 <li>
-<p>It implies that $A$ is a multiple of $x-r$ if and only if $A(r)=0$.</p>
+<p>এটি বোঝায় $A$ $x-r$ এর গুণিতক যদি এবং কেবলমাত্র যদি $A(r)=0$।</p>
 </li>
 <li>
-<p>For modulo being $x^k$, it holds that $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$.</p>
+<p>$x^k$ মডুলোর জন্য, $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$।</p>
 </li>
 </ul>
-<p>Note that long division can&rsquo;t be properly defined for formal power series. Instead, for any $A(x)$ such that $a_0 \neq 0$, it is possible to define an inverse formal power series $A^{-1}(x)$, such that $A(x) A^{-1}(x) = 1$. This fact, in turn, can be used to compute the result of long division for polynomials.</p>
-<h2 id="basic-implementation">Basic implementation<a class="anchor" href="#basic-implementation">#</a></h2>
-<p><a href="https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp">Here</a> you can find the basic implementation of polynomial algebra.</p>
-<p>It supports all trivial operations and some other useful methods. The main class is <code>poly&lt;T&gt;</code> for polynomials with coefficients of type <code>T</code>.</p>
-<p>All arithmetic operation <code>+</code>, <code>-</code>, <code>*</code>, <code>%</code> and <code>/</code> are supported, <code>%</code> and <code>/</code> standing for remainder and quotient in Euclidean division.</p>
-<p>There is also the class <code>modular&lt;m&gt;</code> for performing arithmetic operations on remainders modulo a prime number <code>m</code>.</p>
-<p>Other useful functions:</p>
+<p>লক্ষ্য করুন ফর্মাল পাওয়ার সিরিজের জন্য দীর্ঘ ভাগ সঠিকভাবে সংজ্ঞায়িত করা যায় না। বরং, $a_0 \neq 0$ বিশিষ্ট যেকোনো $A(x)$ এর জন্য, একটি বিপরীত ফর্মাল পাওয়ার সিরিজ $A^{-1}(x)$ সংজ্ঞায়িত করা সম্ভব, যেন $A(x) A^{-1}(x) = 1$। এই তথ্য পলিনোমিয়ালের দীর্ঘ ভাগের ফলাফল গণনা করতে ব্যবহার করা যায়।</p>
+<h2 id="মলক-ইমপলমনটশন">মৌলিক ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%ae%e0%a6%b2%e0%a6%95-%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p><a href="https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp">এখানে</a> আপনি পলিনোমিয়াল বীজগণিতের মৌলিক ইমপ্লিমেন্টেশন পাবেন।</p>
+<p>এটি সব তুচ্ছ অপারেশন ও কিছু অন্যান্য কার্যকর মেথড সমর্থন করে। প্রধান ক্লাস হলো <code>poly&lt;T&gt;</code> <code>T</code> ধরনের সহগ বিশিষ্ট পলিনোমিয়ালের জন্য।</p>
+<p>সব বীজগণিতীয় অপারেশন <code>+</code>, <code>-</code>, <code>*</code>, <code>%</code> ও <code>/</code> সমর্থিত, <code>%</code> ও <code>/</code> ইউক্লিডীয় ভাগে ভাগশেষ ও ভাগফলের জন্য।</p>
+<p>একটি <code>modular&lt;m&gt;</code> ক্লাসও আছে মৌলিক সংখ্যা <code>m</code> মডুলোতে ভাগশেষের উপর বীজগণিতীয় অপারেশন করতে।</p>
+<p>অন্যান্য কার্যকর ফাংশন:</p>
 <ul>
-<li><code>deriv()</code>: computes the derivative $P'(x)$ of $P(x)$.</li>
-<li><code>integr()</code>: computes the indefinite integral $Q(x) = \int P(x)$ of $P(x)$ such that $Q(0)=0$.</li>
-<li><code>inv(size_t n)</code>: calculate the first $n$ coefficients of $P^{-1}(x)$ in $O(n \log n)$.</li>
-<li><code>log(size_t n)</code>: calculate the first $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.</li>
-<li><code>exp(size_t n)</code>: calculate the first $n$ coefficients of $\exp P(x)$ in $O(n \log n)$.</li>
-<li><code>pow(size_t k, size_t n)</code>: calculate the first $n$ coefficients for $P^{k}(x)$ in $O(n \log nk)$.</li>
-<li><code>deg()</code>: returns the degree of $P(x)$.</li>
-<li><code>lead()</code>: returns the coefficient of $x^{\deg P(x)}$.</li>
-<li><code>resultant(poly&lt;T&gt; a, poly&lt;T&gt; b)</code>: computes the resultant of $a$ and $b$ in $O(|a| \cdot |b|)$.</li>
-<li><code>bpow(T x, size_t n)</code>: computes $x^n$.</li>
-<li><code>bpow(T x, size_t n, T m)</code>: computes $x^n \pmod{m}$.</li>
-<li><code>chirpz(T z, size_t n)</code>: computes $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ in $O(n \log n)$.</li>
-<li><code>vector&lt;T&gt; eval(vector&lt;T&gt; x)</code>: evaluates $P(x_1), \dots, P(x_n)$ in $O(n \log^2 n)$.</li>
-<li><code>poly&lt;T&gt; inter(vector&lt;T&gt; x, vector&lt;T&gt; y)</code>: interpolates a polynomial by a set of pairs $P(x_i) = y_i$ in $O(n \log^2 n)$.</li>
-<li>And some more, feel free to explore the code!</li>
+<li><code>deriv()</code>: $P(x)$ এর ডেরিভেটিভ $P'(x)$ গণনা করে।</li>
+<li><code>integr()</code>: $P(x)$ এর অনির্দিষ্ট সমাকলন $Q(x) = \int P(x)$ গণনা করে যেন $Q(0)=0$।</li>
+<li><code>inv(size_t n)</code>: $O(n \log n)$-এ $P^{-1}(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>log(size_t n)</code>: $O(n \log n)$-এ $\ln P(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>exp(size_t n)</code>: $O(n \log n)$-এ $\exp P(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>pow(size_t k, size_t n)</code>: $O(n \log nk)$-এ $P^{k}(x)$ এর প্রথম $n$ টি সহগ গণনা করে।</li>
+<li><code>deg()</code>: $P(x)$ এর ডিগ্রি রিটার্ন করে।</li>
+<li><code>lead()</code>: $x^{\deg P(x)}$ এর সহগ রিটার্ন করে।</li>
+<li><code>resultant(poly&lt;T&gt; a, poly&lt;T&gt; b)</code>: $O(|a| \cdot |b|)$-এ $a$ ও $b$ এর রেজাল্ট্যান্ট গণনা করে।</li>
+<li><code>bpow(T x, size_t n)</code>: $x^n$ গণনা করে।</li>
+<li><code>bpow(T x, size_t n, T m)</code>: $x^n \pmod{m}$ গণনা করে।</li>
+<li><code>chirpz(T z, size_t n)</code>: $O(n \log n)$-এ $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ গণনা করে।</li>
+<li><code>vector&lt;T&gt; eval(vector&lt;T&gt; x)</code>: $O(n \log^2 n)$-এ $P(x_1), \dots, P(x_n)$ মূল্যায়ন করে।</li>
+<li><code>poly&lt;T&gt; inter(vector&lt;T&gt; x, vector&lt;T&gt; y)</code>: $O(n \log^2 n)$-এ $P(x_i) = y_i$ জোড়ার সেট দিয়ে একটি পলিনোমিয়াল ইন্টারপোলেট করে।</li>
+<li>এবং আরো, কোড অন্বেষণ করুন!</li>
 </ul>
-<h2 id="arithmetic">Arithmetic<a class="anchor" href="#arithmetic">#</a></h2>
-<h3 id="multiplication">Multiplication<a class="anchor" href="#multiplication">#</a></h3>
-<p>The very core operation is the multiplication of two polynomials. That is, given the polynomials $A$ and $B$:</p>
-$$A = a_0 + a_1 x + \dots + a_n x^n$$$$B = b_0 + b_1 x + \dots + b_m x^m$$<p>You have to compute polynomial $C = A \cdot B$, which is defined as</p>
-$$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$<p>It can be computed in $O(n \log n)$ via the <a href="fft.md">Fast Fourier transform</a> and almost all methods here will use it as subroutine.</p>
-<h3 id="inverse-series">Inverse series<a class="anchor" href="#inverse-series">#</a></h3>
-<p>If $A(0) \neq 0$ there always exists an infinite formal power series $A^{-1}(x) = q_0+q_1 x + q_2 x^2 + \dots$ such that $A^{-1} A = 1$. It often proves useful to compute first $k$ coefficients of $A^{-1}$ (that is, to compute it modulo $x^k$). There are two major ways to calculate it.</p>
-<h4 id="divide-and-conquer">Divide and conquer<a class="anchor" href="#divide-and-conquer">#</a></h4>
-<p>This algorithm was mentioned in <a href="http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf">Schönhage&rsquo;s article</a> and is inspired by <a href="https://en.wikipedia.org/wiki/Graeffe%27s_method">Graeffe&rsquo;s method</a>. It is known that for $B(x)=A(x)A(-x)$ it holds that $B(x)=B(-x)$, that is, $B(x)$ is an even polynomial. It means that it only has non-zero coefficients with even numbers and can be represented as $B(x)=T(x^2)$. Thus, we can do the following transition:</p>
-$$A^{-1}(x) \equiv \frac{1}{A(x)} \equiv \frac{A(-x)}{A(x)A(-x)} \equiv \frac{A(-x)}{T(x^2)} \pmod{x^k}$$<p>Note that $T(x)$ can be computed with a single multiplication, after which we&rsquo;re only interested in the first half of coefficients of its inverse series. This effectively reduces the initial problem of computing $A^{-1} \pmod{x^k}$ to computing $T^{-1} \pmod{x^{\lceil k / 2 \rceil}}$.</p>
-<p>The complexity of this method can be estimated as</p>
-$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$<h4 id="sievekingkung-algorithm">Sieveking–Kung algorithm<a class="anchor" href="#sievekingkung-algorithm">#</a></h4>
-<p>The generic process described here is known as Hensel lifting, as it follows from Hensel&rsquo;s lemma. We&rsquo;ll cover it in more detail further below, but for now let&rsquo;s focus on ad hoc solution. &ldquo;Lifting&rdquo; part here means that we start with the approximation $B_0=q_0=a_0^{-1}$, which is $A^{-1} \pmod x$ and then iteratively lift from $\bmod x^a$ to $\bmod x^{2a}$.</p>
-<p>Let $B_k \equiv A^{-1} \pmod{x^a}$. The next approximation needs to follow the equation $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ and may be represented as $B_{k+1} = B_k + x^a C$. From this follows the equation</p>
-$$A(B_k + x^{a}C) \equiv 1 \pmod{x^{2a}}.$$<p>Let $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, then the equation above implies</p>
-$$x^a(D+AC) \equiv 0 \pmod{x^{2a}} \implies D \equiv -AC \pmod{x^a} \implies C \equiv -B_k D \pmod{x^a}.$$<p>From this, one can obtain the final formula, which is</p>
-$$x^a C \equiv -B_k x^a D  \equiv B_k(1-AB_k) \pmod{x^{2a}} \implies \boxed{B_{k+1} \equiv B_k(2-AB_k) \pmod{x^{2a}}}$$<p>Thus starting with $B_0 \equiv a_0^{-1} \pmod x$ we will compute the sequence $B_k$ such that $AB_k \equiv 1 \pmod{x^{2^k}}$ with the complexity</p>
-$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$<p>The algorithm here might seem a bit more complicated than the first one, but it has a very solid and practical reasoning behind it, as well as a great generalization potential if looked from a different perspective, which would be explained further below.</p>
-<h3 id="euclidean-division">Euclidean division<a class="anchor" href="#euclidean-division">#</a></h3>
-<p>Consider two polynomials $A(x)$ and $B(x)$ of degrees $n$ and $m$. As it was said earlier you can rewrite $A(x)$ as</p>
-$$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$<p>Let $n \geq m$, it would imply that $\deg D = n - m$ and the leading $n-m+1$ coefficients of $A$ don&rsquo;t influence $R$. It means that you can recover $D(x)$ from the largest $n-m+1$ coefficients of $A(x)$ and $B(x)$ if you consider it as a system of equations.</p>
-<p>The system of linear equations we&rsquo;re talking about can be written in the following form:</p>
+<h2 id="পটগণত">পাটিগণিত<a class="anchor" href="#%e0%a6%aa%e0%a6%9f%e0%a6%97%e0%a6%a3%e0%a6%a4">#</a></h2>
+<h3 id="গণন">গুণন<a class="anchor" href="#%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p>মূল অপারেশন হলো দুটি পলিনোমিয়ালের গুণন। অর্থাৎ, পলিনোমিয়াল $A$ ও $B$ দেওয়া আছে:</p>
+$$A = a_0 + a_1 x + \dots + a_n x^n$$$$B = b_0 + b_1 x + \dots + b_m x^m$$<p>পলিনোমিয়াল $C = A \cdot B$ গণনা করতে হবে, যা এভাবে সংজ্ঞায়িত</p>
+$$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$<p>এটি $O(n \log n)$-এ <a href="fft.md">ফাস্ট ফুরিয়ার ট্রান্সফর্ম</a> দিয়ে গণনা করা যায় এবং এখানকার প্রায় সব পদ্ধতি এটিকে সাবরুটিন হিসেবে ব্যবহার করবে।</p>
+<h3 id="বপরত-সরজ">বিপরীত সিরিজ<a class="anchor" href="#%e0%a6%ac%e0%a6%aa%e0%a6%b0%e0%a6%a4-%e0%a6%b8%e0%a6%b0%e0%a6%9c">#</a></h3>
+<p>যদি $A(0) \neq 0$ হয় তাহলে সবসময় একটি অসীম ফর্মাল পাওয়ার সিরিজ $A^{-1}(x) = q_0+q_1 x + q_2 x^2 + \dots$ থাকে যেন $A^{-1} A = 1$। $A^{-1}$ এর প্রথম $k$ সহগ গণনা (অর্থাৎ $x^k$ মডুলোতে গণনা) প্রায়ই কার্যকর। দুটি প্রধান উপায়ে এটি গণনা করা যায়।</p>
+<h4 id="বভজন-ও-জয">বিভাজন ও জয়<a class="anchor" href="#%e0%a6%ac%e0%a6%ad%e0%a6%9c%e0%a6%a8-%e0%a6%93-%e0%a6%9c%e0%a6%af">#</a></h4>
+<p>এই অ্যালগরিদম <a href="http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf">Schönhage-এর নিবন্ধে</a> উল্লেখিত এবং <a href="https://en.wikipedia.org/wiki/Graeffe%27s_method">Graeffe-এর পদ্ধতি</a> দ্বারা অনুপ্রাণিত। এটি জানা যে $B(x)=A(x)A(-x)$ এর জন্য $B(x)=B(-x)$, অর্থাৎ $B(x)$ একটি জোড় পলিনোমিয়াল। এর মানে এতে শুধু জোড় সংখ্যক সহগ অশূন্য এবং একে $B(x)=T(x^2)$ আকারে উপস্থাপন করা যায়। সুতরাং, নিম্নলিখিত রূপান্তর করা যায়:</p>
+$$A^{-1}(x) \equiv \frac{1}{A(x)} \equiv \frac{A(-x)}{A(x)A(-x)} \equiv \frac{A(-x)}{T(x^2)} \pmod{x^k}$$<p>লক্ষ্য করুন $T(x)$ একটি মাত্র গুণনে গণনা করা যায়, এরপর আমরা শুধু এর বিপরীত সিরিজের প্রথম অর্ধেক সহগেই আগ্রহী। এটি কার্যকরভাবে $A^{-1} \pmod{x^k}$ গণনার প্রাথমিক সমস্যাকে $T^{-1} \pmod{x^{\lceil k / 2 \rceil}}$ গণনায় সংকুচিত করে।</p>
+<p>এই পদ্ধতির কমপ্লেক্সিটি অনুমান করা যায়</p>
+$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$<h4 id="সভক-ক-অযলগরদম">সিভকিং-কুং অ্যালগরিদম<a class="anchor" href="#%e0%a6%b8%e0%a6%ad%e0%a6%95-%e0%a6%95-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h4>
+<p>এখানে বর্ণিত সাধারণ প্রক্রিয়া হেনসেল লিফটিং নামে পরিচিত, কারণ এটি হেনসেলের লেমা থেকে অনুসরণ করে। আমরা এটি পরে আরো বিস্তারিত আলোচনা করবো, কিন্তু আপাতত অ্যাড হক সমাধানে মনোযোগ দেই। এখানে &ldquo;লিফটিং&rdquo; অংশের মানে হলো আমরা আনুমানিক মান $B_0=q_0=a_0^{-1}$ দিয়ে শুরু করি, যা $A^{-1} \pmod x$ এবং তারপর পুনরাবৃত্তিমূলকভাবে $\bmod x^a$ থেকে $\bmod x^{2a}$ তে লিফট করি।</p>
+<p>ধরি $B_k \equiv A^{-1} \pmod{x^a}$। পরবর্তী আনুমানিক মান $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ সমীকরণ অনুসরণ করবে এবং $B_{k+1} = B_k + x^a C$ আকারে উপস্থাপন করা যায়। এ থেকে সমীকরণ পাই</p>
+$$A(B_k + x^{a}C) \equiv 1 \pmod{x^{2a}}.$$<p>ধরি $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, তাহলে উপরের সমীকরণ থেকে পাই</p>
+$$x^a(D+AC) \equiv 0 \pmod{x^{2a}} \implies D \equiv -AC \pmod{x^a} \implies C \equiv -B_k D \pmod{x^a}.$$<p>এ থেকে চূড়ান্ত সূত্র পাওয়া যায়</p>
+$$x^a C \equiv -B_k x^a D  \equiv B_k(1-AB_k) \pmod{x^{2a}} \implies \boxed{B_{k+1} \equiv B_k(2-AB_k) \pmod{x^{2a}}}$$<p>সুতরাং $B_0 \equiv a_0^{-1} \pmod x$ থেকে শুরু করে আমরা $B_k$ ক্রম গণনা করবো যেন $AB_k \equiv 1 \pmod{x^{2^k}}$ কমপ্লেক্সিটিতে</p>
+$$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$<p>এখানকার অ্যালগরিদম প্রথমটির চেয়ে কিছুটা জটিল মনে হতে পারে, কিন্তু এর পেছনে অত্যন্ত মজবুত ও ব্যবহারিক যুক্তি আছে, সেইসাথে ভিন্ন দৃষ্টিকোণ থেকে দেখলে দুর্দান্ত সাধারণীকরণ সম্ভাবনা আছে, যা পরে ব্যাখ্যা করা হবে।</p>
+<h3 id="ইউকলডয-ভগ">ইউক্লিডীয় ভাগ<a class="anchor" href="#%e0%a6%87%e0%a6%89%e0%a6%95%e0%a6%b2%e0%a6%a1%e0%a6%af-%e0%a6%ad%e0%a6%97">#</a></h3>
+<p>$n$ ও $m$ ডিগ্রির দুটি পলিনোমিয়াল $A(x)$ ও $B(x)$ বিবেচনা করুন। আগে বলা হয়েছে আপনি $A(x)$ কে এভাবে লিখতে পারেন</p>
+$$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$<p>ধরি $n \geq m$, এটি বোঝায় $\deg D = n - m$ এবং $A$ এর বৃহত্তম $n-m+1$ সহগ $R$ কে প্রভাবিত করে না। অর্থাৎ আপনি $A(x)$ ও $B(x)$ এর বৃহত্তম $n-m+1$ সহগ থেকে $D(x)$ উদ্ধার করতে পারেন যদি এটিকে রৈখিক সমীকরণ ব্যবস্থা হিসেবে বিবেচনা করেন।</p>
+<p>আমরা যে রৈখিক সমীকরণ ব্যবস্থার কথা বলছি তা নিম্নলিখিত আকারে লেখা যায়:</p>
 $$\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
 b_m & \dots & 0 & 0 \\
 \vdots & \ddots & \vdots & \vdots \\
 \dots & \dots & b_m & 0 \\
 \dots & \dots & b_{m-1} & b_m
-\end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$<p>From the looks of it, we can conclude that with the introduction of reversed polynomials</p>
-$$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$$$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$$$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$<p>the system may be rewritten as</p>
-$$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}.$$<p>From this you can unambiguously recover all coefficients of $D(x)$:</p>
-$$\boxed{D^R(x) \equiv A^R(x) (B^R(x))^{-1} \pmod{x^{n-m+1}}}$$<p>And from this, in turn, you can recover $R(x)$ as $R(x) = A(x) - B(x)D(x)$.</p>
-<p>Note that the matrix above is a so-called triangular <a href="https://en.wikipedia.org/wiki/Toeplitz_matrix">Toeplitz matrix</a> and, as we see here, solving system of linear equations with arbitrary Toeplitz matrix is, in fact, equivalent to polynomial inversion. Moreover, inverse matrix of it would also be triangular Toeplitz matrix and its entries, in terms used above, are the coefficients of $(B^R(x))^{-1} \pmod{x^{n-m+1}}$.</p>
-<h2 id="calculating-functions-of-polynomial">Calculating functions of polynomial<a class="anchor" href="#calculating-functions-of-polynomial">#</a></h2>
-<h3 id="newtons-method">Newton&rsquo;s method<a class="anchor" href="#newtons-method">#</a></h3>
-<p>Let&rsquo;s generalize the Sieveking–Kung algorithm. Consider equation $F(P) = 0$ where $P(x)$ should be a polynomial and $F(x)$ is some polynomial-valued function defined as</p>
-$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^i,$$<p>where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as</p>
-$$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$<p>where $F'(x)$ is the derivative formal power series defined as</p>
-$$F'(x) = \sum\limits_{i=0}^\infty (i+1)\alpha_{i+1}(x-\beta)^i,$$<p>and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.</p>
-<p>Let $F(Q_k) \equiv 0 \pmod{x^{a}}$. We need to find $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ such that $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$.</p>
-<p>Substituting $x = Q_{k+1}$ and $y=Q_k$ in the formula above, we get</p>
-$$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$<p>Since $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, it also holds that $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, thus</p>
-$$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$<p>The last formula gives us the value of $Q_{k+1}$:</p>
-$$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$<p>Thus, knowing how to invert polynomials and how to compute $F(Q_k)$, we can find $n$ coefficients of $P$ with the complexity</p>
-$$T(n) = T(n/2) + f(n),$$<p>where $f(n)$ is the time needed to compute $F(Q_k)$ and $F'(Q_k)^{-1}$ which is usually $O(n \log n)$.</p>
-<p>The iterative rule above is known in numerical analysis as <a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton&rsquo;s method</a>.</p>
-<h4 id="hensels-lemma">Hensel&rsquo;s lemma<a class="anchor" href="#hensels-lemma">#</a></h4>
-<p>As was mentioned earlier, formally and generically this result is known as <a href="https://en.wikipedia.org/wiki/Hensel%27s_lemma">Hensel&rsquo;s lemma</a> and it may in fact used in even broader sense when we work with a series of nested rings. In this particular case we worked with a sequence of polynomial remainders modulo $x$, $x^2$, $x^3$ and so on.</p>
-<p>Another example where Hensel&rsquo;s lifting might be helpful are so-called <a href="https://en.wikipedia.org/wiki/P-adic_number">p-adic numbers</a> where we, in fact, work with the sequence of integer remainders modulo $p$, $p^2$, $p^3$ and so on. For example, Newton&rsquo;s method can be used to find all possible <a href="https://en.wikipedia.org/wiki/Automorphic_number">automorphic numbers</a> (numbers that end on itself when squared) with a given number base. The problem is left as an exercise to the reader. You might consider <a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1698">this</a> problem to check if your solution works for $10$-based numbers.</p>
-<h3 id="logarithm">Logarithm<a class="anchor" href="#logarithm">#</a></h3>
-<p>For the function $\ln P(x)$ it&rsquo;s known that:</p>
+\end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$<p>এর চেহারা থেকে, আমরা উপসংহার টানতে পারি যে বিপরীত পলিনোমিয়ালের প্রবর্তনে</p>
+$$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$$$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$$$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$<p>ব্যবস্থাটি এভাবে পুনঃলেখা যায়</p>
+$$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}.$$<p>এ থেকে আপনি $D(x)$ এর সব সহগ দ্ব্যর্থহীনভাবে উদ্ধার করতে পারেন:</p>
+$$\boxed{D^R(x) \equiv A^R(x) (B^R(x))^{-1} \pmod{x^{n-m+1}}}$$<p>এবং এ থেকে, পালটা, $R(x) = A(x) - B(x)D(x)$ হিসেবে $R(x)$ উদ্ধার করা যায়।</p>
+<p>লক্ষ্য করুন উপরের ম্যাট্রিক্সটি তথাকথিত ত্রিভুজাকার <a href="https://en.wikipedia.org/wiki/Toeplitz_matrix">টোয়েপ্লিৎজ ম্যাট্রিক্স</a> এবং, এখানে দেখা যাচ্ছে, যেকোনো টোয়েপ্লিৎজ ম্যাট্রিক্স দিয়ে রৈখিক সমীকরণ ব্যবস্থা সমাধান করা আসলে পলিনোমিয়াল বিপরীতকরণের সমতুল্য।</p>
+<h2 id="পলনমযলর-ফশন-গণন">পলিনোমিয়ালের ফাংশন গণনা<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%a8%e0%a6%ae%e0%a6%af%e0%a6%b2%e0%a6%b0-%e0%a6%ab%e0%a6%b6%e0%a6%a8-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h2>
+<h3 id="নউটনর-পদধত">নিউটনের পদ্ধতি<a class="anchor" href="#%e0%a6%a8%e0%a6%89%e0%a6%9f%e0%a6%a8%e0%a6%b0-%e0%a6%aa%e0%a6%a6%e0%a6%a7%e0%a6%a4">#</a></h3>
+<p>সিভকিং-কুং অ্যালগরিদমকে সাধারণীকরণ করা যাক। $F(P) = 0$ সমীকরণ বিবেচনা করুন যেখানে $P(x)$ একটি পলিনোমিয়াল হওয়া উচিত এবং $F(x)$ একটি পলিনোমিয়াল-মানবিশিষ্ট ফাংশন যা এভাবে সংজ্ঞায়িত</p>
+$$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^i,$$<p>যেখানে $\beta$ একটি ধ্রুবক। এটি প্রমাণ করা যায় যে নতুন ফর্মাল চলক $y$ প্রবর্তন করলে $F(x)$ কে এভাবে প্রকাশ করা যায়</p>
+$$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$<p>যেখানে $F'(x)$ হলো ডেরিভেটিভ ফর্মাল পাওয়ার সিরিজ যা এভাবে সংজ্ঞায়িত</p>
+$$F'(x) = \sum\limits_{i=0}^\infty (i+1)\alpha_{i+1}(x-\beta)^i,$$<p>এবং $G(x, y)$ হলো $x$ ও $y$ এর কোনো ফর্মাল পাওয়ার সিরিজ। এই ফলাফল দিয়ে আমরা পুনরাবৃত্তিমূলকভাবে সমাধান খুঁজতে পারি।</p>
+<p>ধরি $F(Q_k) \equiv 0 \pmod{x^{a}}$। আমাদের $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ খুঁজতে হবে যেন $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$।</p>
+<p>উপরের সূত্রে $x = Q_{k+1}$ ও $y=Q_k$ বসিয়ে পাই</p>
+$$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$<p>যেহেতু $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, তাই $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, সুতরাং</p>
+$$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$<p>শেষ সূত্রটি আমাদের $Q_{k+1}$ এর মান দেয়:</p>
+$$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$<p>সুতরাং, পলিনোমিয়াল বিপরীতকরণ এবং $F(Q_k)$ গণনা জানলে, আমরা $P$ এর $n$ সহগ এই কমপ্লেক্সিটিতে খুঁজতে পারি</p>
+$$T(n) = T(n/2) + f(n),$$<p>যেখানে $f(n)$ হলো $F(Q_k)$ ও $F'(Q_k)^{-1}$ গণনার জন্য প্রয়োজনীয় সময় যা সাধারণত $O(n \log n)$।</p>
+<p>উপরের পুনরাবৃত্তি নিয়মটি সংখ্যাসূচক বিশ্লেষণে <a href="https://en.wikipedia.org/wiki/Newton%27s_method">নিউটনের পদ্ধতি</a> নামে পরিচিত।</p>
+<h4 id="হনসলর-লম">হেনসেলের লেমা<a class="anchor" href="#%e0%a6%b9%e0%a6%a8%e0%a6%b8%e0%a6%b2%e0%a6%b0-%e0%a6%b2%e0%a6%ae">#</a></h4>
+<p>আগে উল্লেখ করা হয়েছে, আনুষ্ঠানিকভাবে ও সাধারণভাবে এই ফলাফল <a href="https://en.wikipedia.org/wiki/Hensel%27s_lemma">হেনসেলের লেমা</a> নামে পরিচিত এবং আমরা নেস্টেড রিংয়ের একটি সিরিজ নিয়ে কাজ করলে আরো বৃহত্তর অর্থে ব্যবহার করা যায়। এই বিশেষ ক্ষেত্রে আমরা $x$, $x^2$, $x^3$ ইত্যাদি মডুলোতে পলিনোমিয়াল ভাগশেষের ক্রম নিয়ে কাজ করেছি।</p>
+<p>আরেকটি উদাহরণ যেখানে হেনসেলের লিফটিং সহায়ক হতে পারে তা হলো তথাকথিত <a href="https://en.wikipedia.org/wiki/P-adic_number">p-adic সংখ্যা</a> যেখানে আমরা $p$, $p^2$, $p^3$ ইত্যাদি মডুলোতে পূর্ণসংখ্যা ভাগশেষের ক্রম নিয়ে কাজ করি। উদাহরণস্বরূপ, নিউটনের পদ্ধতি একটি প্রদত্ত সংখ্যা ভিত্তিতে সব সম্ভব <a href="https://en.wikipedia.org/wiki/Automorphic_number">অটোমর্ফিক সংখ্যা</a> (যে সংখ্যা বর্গ করলে নিজের মধ্যে শেষ হয়) খুঁজতে ব্যবহার করা যায়। সমস্যাটি পাঠকের জন্য অনুশীলন হিসেবে রেখে দেওয়া হলো। আপনার সমাধান $10$-ভিত্তিক সংখ্যার জন্য কাজ করে কিনা পরীক্ষা করতে <a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1698">এটি</a> বিবেচনা করতে পারেন।</p>
+<h3 id="লগরদম">লগারিদম<a class="anchor" href="#%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>$\ln P(x)$ ফাংশনের জন্য জানা যে:</p>
 $$
 \boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}
-$$<p>Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.</p>
-<h3 id="inverse-series-1">Inverse series<a class="anchor" href="#inverse-series-1">#</a></h3>
-<p>Turns out, we can get the formula for $A^{-1}$ using Newton&rsquo;s method.
-For this we take the equation $A=Q^{-1}$, thus:</p>
-$$F(Q) = Q^{-1} - A$$$$F'(Q) = -Q^{-2}$$$$\boxed{Q_{k+1} \equiv Q_k(2-AQ_k) \pmod{x^{2^{k+1}}}}$$<h3 id="exponent">Exponent<a class="anchor" href="#exponent">#</a></h3>
-<p>Let&rsquo;s learn to calculate $e^{P(x)}=Q(x)$. It should hold that $\ln Q = P$, thus:</p>
-$$F(Q) = \ln Q - P$$$$F'(Q) = Q^{-1}$$$$\boxed{Q_{k+1} \equiv Q_k(1 + P - \ln Q_k) \pmod{x^{2^{k+1}}}}$$<h3 id="-th-power">$k$-th power<a class="anchor" href="#-th-power">#</a></h3>
-<p>Now we need to calculate $P^k(x)=Q$. This may be done via the following formula:</p>
-$$Q = \exp\left[k \ln P(x)\right]$$<p>Note though, that you can calculate the logarithms and the exponents correctly only if you can find some initial $Q_0$.</p>
-<p>To find it, you should calculate the logarithm or the exponent of the constant coefficient of the polynomial.</p>
-<p>But the only reasonable way to do it is if $P(0)=1$ for $Q = \ln P$ so $Q(0)=0$ and if $P(0)=0$ for $Q = e^P$ so $Q(0)=1$.</p>
-<p>Thus you can use formula above only if $P(0) = 1$. Otherwise if $P(x) = \alpha x^t T(x)$ where $T(0)=1$ you can write that:</p>
-$$\boxed{P^k(x) = \alpha^kx^{kt} \exp[k \ln T(x)]}$$<p>Note that you also can calculate some $k$-th root of a polynomial if you can calculate $\sqrt[k]{\alpha}$, for example for $\alpha=1$.</p>
-<h2 id="evaluation-and-interpolation">Evaluation and Interpolation<a class="anchor" href="#evaluation-and-interpolation">#</a></h2>
-<h3 id="chirp-z-transform">Chirp-z Transform<a class="anchor" href="#chirp-z-transform">#</a></h3>
-<p>For the particular case when you need to evaluate a polynomial in the points $x_r = z^{2r}$ you can do the following:</p>
-$$A(z^{2r}) = \sum\limits_{k=0}^n a_k z^{2kr}$$<p>Let&rsquo;s substitute $2kr = r^2+k^2-(r-k)^2$. Then this sum rewrites as:</p>
-$$\boxed{A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}}$$<p>Which is up to the factor $z^{r^2}$ equal to the convolution of the sequences $u_k = a_k z^{k^2}$ and $v_k = z^{-k^2}$.</p>
-<p>Note that $u_k$ has indexes from $0$ to $n$ here and $v_k$ has indexes from $-n$ to $m$ where $m$ is the maximum power of $z$ which you need.</p>
-<p>Now if you need to evaluate a polynomial in the points $x_r = z^{2r+1}$ you can reduce it to the previous task by the transformation $a_k \to a_k z^k$.</p>
-<p>It gives us an $O(n \log n)$ algorithm when you need to compute values in powers of $z$, thus you may compute the DFT for non-powers of two.</p>
-<p>Another observation is that $kr = \binom{k+r}{2} - \binom{k}{2} - \binom{r}{2}$. Then we have</p>
-$$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2}}\right)z^{\binom{k+r}{2}}}$$<p>The coefficient of $x^{n+r}$ of the product of the polynomials $A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ and $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ equals $z^{\binom{r}{2}}A(z^r)$. You can use the formula $z^{\binom{k+1}{2}}=z^{\binom{k}{2}+k}$ to calculate the coefficients of $A_0(x)$ and $A_1(x)$.</p>
-<h3 id="multi-point-evaluation">Multi-point Evaluation<a class="anchor" href="#multi-point-evaluation">#</a></h3>
-<p>Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:</p>
-<ol>
-<li>Compute a segment tree such that in the segment $[l,r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.</li>
-<li>Starting with $l=1$ and $r=n+1$ at the root node. Let $m=\lfloor(l+r)/2\rfloor$. Let&rsquo;s move down to $[l,m)$ with the polynomial $A(x) \pmod{P_{l,m}(x)}$.</li>
-<li>This will recursively compute $A(x_l), \dots, A(x_{m-1})$, now do the same for $[m,r)$ with $A(x) \pmod{P_{m,r}(x)}$.</li>
-<li>Concatenate the results from the first and second recursive call and return them.</li>
-</ol>
-<p>The whole procedure will run in $O(n \log^2 n)$.</p>
-<h3 id="interpolation">Interpolation<a class="anchor" href="#interpolation">#</a></h3>
-<p>There&rsquo;s a direct formula by Lagrange to interpolate a polynomial, given set of pairs $(x_i, y_i)$:</p>
-$$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i - x_j}}$$<p>Computing it directly is a hard thing but turns out, we may compute it in $O(n \log^2 n)$ with a divide and conquer approach:</p>
-<p>Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like:</p>
+$$<p>সুতরাং আমরা $O(n \log n)$-এ $\ln P(x)$ এর $n$ সহগ গণনা করতে পারি।</p>
+<h3 id="বপরত-সরজ-1">বিপরীত সিরিজ<a class="anchor" href="#%e0%a6%ac%e0%a6%aa%e0%a6%b0%e0%a6%a4-%e0%a6%b8%e0%a6%b0%e0%a6%9c-1">#</a></h3>
+<p>দেখা যায়, নিউটনের পদ্ধতি ব্যবহার করে $A^{-1}$ এর সূত্র পাওয়া যায়।
+এর জন্য আমরা $A=Q^{-1}$ সমীকরণ নিই, সুতরাং:</p>
+$$F(Q) = Q^{-1} - A$$$$F'(Q) = -Q^{-2}$$$$\boxed{Q_{k+1} \equiv Q_k(2-AQ_k) \pmod{x^{2^{k+1}}}}$$<h3 id="সচকয">সূচকীয়<a class="anchor" href="#%e0%a6%b8%e0%a6%9a%e0%a6%95%e0%a6%af">#</a></h3>
+<p>$e^{P(x)}=Q(x)$ গণনা শিখি। $\ln Q = P$ হওয়া উচিত, সুতরাং:</p>
+$$F(Q) = \ln Q - P$$$$F'(Q) = Q^{-1}$$$$\boxed{Q_{k+1} \equiv Q_k(1 + P - \ln Q_k) \pmod{x^{2^{k+1}}}}$$<h3 id="-তম-ঘত">$k$-তম ঘাত<a class="anchor" href="#-%e0%a6%a4%e0%a6%ae-%e0%a6%98%e0%a6%a4">#</a></h3>
+<p>এখন $P^k(x)=Q$ গণনা করতে হবে। এটি নিম্নলিখিত সূত্র দিয়ে করা যায়:</p>
+$$Q = \exp\left[k \ln P(x)\right]$$<p>লক্ষ্য করুন, লগারিদম ও সূচকীয় সঠিকভাবে গণনা করতে পারবেন শুধু যদি কোনো প্রাথমিক $Q_0$ খুঁজে পান।</p>
+<p>এটি খুঁজতে, পলিনোমিয়ালের ধ্রুবক সহগের লগারিদম বা সূচকীয় গণনা করতে হবে।</p>
+<p>কিন্তু এটি করার একমাত্র যুক্তিসঙ্গত উপায় হলো $Q = \ln P$ এর জন্য $P(0)=1$ যেন $Q(0)=0$ এবং $Q = e^P$ এর জন্য $P(0)=0$ যেন $Q(0)=1$।</p>
+<p>সুতরাং আপনি উপরের সূত্র শুধু $P(0) = 1$ হলেই ব্যবহার করতে পারেন। অন্যথায় যদি $P(x) = \alpha x^t T(x)$ যেখানে $T(0)=1$ তাহলে লেখা যায়:</p>
+$$\boxed{P^k(x) = \alpha^kx^{kt} \exp[k \ln T(x)]}$$<p>লক্ষ্য করুন আপনি পলিনোমিয়ালের কোনো $k$-তম মূলও গণনা করতে পারেন যদি $\sqrt[k]{\alpha}$ গণনা করতে পারেন, উদাহরণস্বরূপ $\alpha=1$ এর জন্য।</p>
+<h2 id="মলযযন-ও-ইনটরপলশন">মূল্যায়ন ও ইন্টারপোলেশন<a class="anchor" href="#%e0%a6%ae%e0%a6%b2%e0%a6%af%e0%a6%af%e0%a6%a8-%e0%a6%93-%e0%a6%87%e0%a6%a8%e0%a6%9f%e0%a6%b0%e0%a6%aa%e0%a6%b2%e0%a6%b6%e0%a6%a8">#</a></h2>
+<h3 id="চরপ-z-টরনসফরম">চার্প-z ট্রান্সফর্ম<a class="anchor" href="#%e0%a6%9a%e0%a6%b0%e0%a6%aa-z-%e0%a6%9f%e0%a6%b0%e0%a6%a8%e0%a6%b8%e0%a6%ab%e0%a6%b0%e0%a6%ae">#</a></h3>
+<p>যে বিশেষ ক্ষেত্রে আপনাকে $x_r = z^{2r}$ বিন্দুতে পলিনোমিয়াল মূল্যায়ন করতে হবে সেখানে নিচের কাজ করা যায়:</p>
+$$A(z^{2r}) = \sum\limits_{k=0}^n a_k z^{2kr}$$<p>$2kr = r^2+k^2-(r-k)^2$ প্রতিস্থাপন করি। তাহলে এই যোগফল এভাবে লেখা যায়:</p>
+$$\boxed{A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}}$$<p>যা $z^{r^2}$ গুণনীয়ক পর্যন্ত $u_k = a_k z^{k^2}$ ও $v_k = z^{-k^2}$ ক্রমের কনভোলিউশনের সমান।</p>
+<p>লক্ষ্য করুন $u_k$ এর ইনডেক্স $0$ থেকে $n$ এবং $v_k$ এর ইনডেক্স $-n$ থেকে $m$ যেখানে $m$ হলো $z$ এর সর্বোচ্চ ঘাত যা আপনার দরকার।</p>
+<p>এখন যদি $x_r = z^{2r+1}$ বিন্দুতে পলিনোমিয়াল মূল্যায়ন করতে হয় তাহলে $a_k \to a_k z^k$ রূপান্তর দিয়ে আগের কাজে সংকুচিত করা যায়।</p>
+<p>এটি আমাদের $O(n \log n)$ অ্যালগরিদম দেয় যখন $z$ এর ঘাতে মান গণনা করতে হয়, তাই ২ এর ঘাত নয় এমন সংখ্যার জন্যও DFT গণনা করা যায়।</p>
+<p>আরেকটি পর্যবেক্ষণ হলো $kr = \binom{k+r}{2} - \binom{k}{2} - \binom{r}{2}$। তাহলে</p>
+$$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2}}\right)z^{\binom{k+r}{2}}}$$<p>$A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ ও $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ পলিনোমিয়ালের গুণফলে $x^{n+r}$ এর সহগ $z^{\binom{r}{2}}A(z^r)$ এর সমান। $A_0(x)$ ও $A_1(x)$ এর সহগ গণনা করতে $z^{\binom{k+1}{2}}=z^{\binom{k}{2}+k}$ সূত্র ব্যবহার করা যায়।</p>
+<h3 id="বহবনদ-মলযযন">বহুবিন্দু মূল্যায়ন<a class="anchor" href="#%e0%a6%ac%e0%a6%b9%e0%a6%ac%e0%a6%a8%e0%a6%a6-%e0%a6%ae%e0%a6%b2%e0%a6%af%e0%a6%af%e0%a6%a8">#</a></h3>
+<p>ধরি আপনাকে $A(x_1), \dots, A(x_n)$ গণনা করতে হবে। আগে উল্লেখ করা হয়েছে, $A(x) \equiv A(x_i) \pmod{x-x_i}$। সুতরাং আপনি নিচের কাজ করতে পারেন:</p>
+<p>১. একটি সেগমেন্ট ট্রি গণনা করুন যেন $[l,r)$ সেগমেন্টে গুণফল $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$ থাকে।
+২. রুট নোডে $l=1$ ও $r=n+1$ দিয়ে শুরু করুন। ধরি $m=\lfloor(l+r)/2\rfloor$। $A(x) \pmod{P_{l,m}(x)}$ পলিনোমিয়াল নিয়ে $[l,m)$ এ নামুন।
+৩. এটি রিকার্সিভভাবে $A(x_l), \dots, A(x_{m-1})$ গণনা করবে, এখন $A(x) \pmod{P_{m,r}(x)}$ নিয়ে $[m,r)$ এর জন্যও একই করুন।
+৪. প্রথম ও দ্বিতীয় রিকার্সিভ কলের ফলাফল জুড়ে রিটার্ন করুন।</p>
+<p>পুরো প্রক্রিয়া $O(n \log^2 n)$-এ চলবে।</p>
+<h3 id="ইনটরপলশন">ইন্টারপোলেশন<a class="anchor" href="#%e0%a6%87%e0%a6%a8%e0%a6%9f%e0%a6%b0%e0%a6%aa%e0%a6%b2%e0%a6%b6%e0%a6%a8">#</a></h3>
+<p>ল্যাগ্রাঞ্জের একটি সরাসরি সূত্র আছে পলিনোমিয়াল ইন্টারপোলেট করতে, $(x_i, y_i)$ জোড়ার সেট দেওয়া আছে:</p>
+$$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i - x_j}}$$<p>সরাসরি গণনা কঠিন কিন্তু দেখা যায়, বিভাজন ও জয় পদ্ধতিতে $O(n \log^2 n)$-এ গণনা করা যায়:</p>
+<p>$P(x) = (x-x_1)\dots(x-x_n)$ বিবেচনা করুন। $A(x)$ এ হরের সহগ জানতে এরকম গুণফল গণনা করতে হবে:</p>
 $$
 P_i = \prod\limits_{j \neq i} (x_i-x_j)
-$$<p>But if you consider the derivative $P'(x)$ you&rsquo;ll find out that $P'(x_i) = P_i$. Thus you can compute $P_i$&rsquo;s via evaluation in $O(n \log^2 n)$.</p>
-<p>Now consider the recursive algorithm done on same segment tree as in the multi-point evaluation. It starts in the leaves with the value $\dfrac{y_i}{P_i}$ in each leaf.</p>
-<p>When we return from the recursion we should merge the results from the left and the right vertices as $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$.</p>
-<p>In this way when you return back to the root you&rsquo;ll have exactly $A(x)$ in it.
-The total procedure also works in $O(n \log^2 n)$.</p>
-<h2 id="gcd-and-resultants">GCD and Resultants<a class="anchor" href="#gcd-and-resultants">#</a></h2>
-<p>Assume you&rsquo;re given polynomials $A(x) = a_0 + a_1 x + \dots + a_n x^n$ and $B(x) = b_0 + b_1 x + \dots + b_m x^m$.</p>
-<p>Let $\lambda_0, \dots, \lambda_n$ be the roots of $A(x)$ and let $\mu_0, \dots, \mu_m$ be the roots of $B(x)$ counted with their multiplicities.</p>
-<p>You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two interconnected ways to do that.</p>
-<h3 id="euclidean-algorithm">Euclidean algorithm<a class="anchor" href="#euclidean-algorithm">#</a></h3>
-<p>Well, we already have an <a href="euclid-algorithm.md">article</a> about it. For an arbitrary  domain you can write the Euclidean algorithm as easy as:</p>
+$$<p>কিন্তু ডেরিভেটিভ $P'(x)$ বিবেচনা করলে দেখা যাবে $P'(x_i) = P_i$। সুতরাং $O(n \log^2 n)$-এ মূল্যায়নের মাধ্যমে $P_i$ গণনা করা যায়।</p>
+<p>এখন একই সেগমেন্ট ট্রিতে রিকার্সিভ অ্যালগরিদম বিবেচনা করুন যা বহুবিন্দু মূল্যায়নে ব্যবহৃত। এটি পাতায় প্রতিটি পাতায় $\dfrac{y_i}{P_i}$ মান দিয়ে শুরু করে।</p>
+<p>রিকার্শন থেকে ফিরে আসার সময় বাম ও ডান শীর্ষের ফলাফল $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$ হিসেবে মার্জ করতে হবে।</p>
+<p>এভাবে রুটে ফিরে আসলে ঠিক $A(x)$ পাওয়া যাবে।
+পুরো প্রক্রিয়াও $O(n \log^2 n)$-এ কাজ করে।</p>
+<h2 id="গসগ-ও-রজলটযনট">গসাগু ও রেজাল্ট্যান্ট<a class="anchor" href="#%e0%a6%97%e0%a6%b8%e0%a6%97-%e0%a6%93-%e0%a6%b0%e0%a6%9c%e0%a6%b2%e0%a6%9f%e0%a6%af%e0%a6%a8%e0%a6%9f">#</a></h2>
+<p>ধরি পলিনোমিয়াল $A(x) = a_0 + a_1 x + \dots + a_n x^n$ ও $B(x) = b_0 + b_1 x + \dots + b_m x^m$ দেওয়া আছে।</p>
+<p>ধরি $\lambda_0, \dots, \lambda_n$ হলো $A(x)$ এর মূল এবং $\mu_0, \dots, \mu_m$ হলো $B(x)$ এর মূল, বহুত্ব সহ গণনা করা।</p>
+<p>আপনি জানতে চান $A(x)$ ও $B(x)$ এর কোনো সাধারণ মূল আছে কিনা। দুটি পরস্পর সম্পর্কিত উপায়ে এটি করা যায়।</p>
+<h3 id="ইউকলডয-অযলগরদম">ইউক্লিডীয় অ্যালগরিদম<a class="anchor" href="#%e0%a6%87%e0%a6%89%e0%a6%95%e0%a6%b2%e0%a6%a1%e0%a6%af-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>এটি সম্পর্কে ইতিমধ্যে আমাদের একটি <a href="euclid-algorithm.md">নিবন্ধ</a> আছে। যেকোনো ডোমেনের জন্য ইউক্লিডীয় অ্যালগরিদম সহজেই লেখা যায়:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">gcd</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">b</span> <span class="o">==</span> <span class="n">T</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="nl">a</span> <span class="p">:</span> <span class="n">gcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>It can be proven that for polynomials $A(x)$ and $B(x)$ it will work in $O(nm)$.</p>
-<h3 id="resultant">Resultant<a class="anchor" href="#resultant">#</a></h3>
-<p>Let&rsquo;s calculate the product $A(\mu_0)\cdots A(\mu_m)$. It will be equal to zero if and only if some $\mu_i$ is the root of $A(x)$.</p>
-<p>For symmetry we can also multiply it with $b_m^n$ and rewrite the whole product in the following form:</p>
-$$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \prod\limits_{i=0}^n \prod\limits_{j=0}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=0}^n B(\lambda_i)}$$<p>The value defined above is called the resultant of the polynomials $A(x)$ and $B(x)$. From the definition you may find the following properties:</p>
-<ol>
-<li>$\mathcal R(A, B) = (-1)^{nm} \mathcal R(B, A)$.</li>
-<li>$\mathcal R(A, B)= a_n^m b_m^n$ when $n=0$ or $m=0$.</li>
-<li>If $b_m=1$ then $\mathcal R(A - CB, B) = \mathcal R(A, B)$ for an arbitrary polynomial $C(x)$ and $n,m \geq 1$.</li>
-<li>From this follows $\mathcal R(A, B) = b_m^{\deg(A) - \deg(A-CB)}\mathcal R(A - CB, B)$ for arbitrary $A(x)$, $B(x)$, $C(x)$.</li>
-</ol>
-<p>Miraculously it means that resultant of two polynomials is actually always from the same ring as their coefficients!</p>
-<p>Also these properties allow us to calculate the resultant alongside the Euclidean algorithm, which works in $O(nm)$.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>প্রমাণ করা যায় পলিনোমিয়াল $A(x)$ ও $B(x)$ এর জন্য এটি $O(nm)$-এ কাজ করবে।</p>
+<h3 id="রজলটযনট">রেজাল্ট্যান্ট<a class="anchor" href="#%e0%a6%b0%e0%a6%9c%e0%a6%b2%e0%a6%9f%e0%a6%af%e0%a6%a8%e0%a6%9f">#</a></h3>
+<p>$A(\mu_0)\cdots A(\mu_m)$ গুণফল গণনা করি। এটি শূন্য হবে যদি এবং কেবলমাত্র কোনো $\mu_i$ $A(x)$ এর মূল হয়।</p>
+<p>প্রতিসাম্যের জন্য $b_m^n$ দিয়েও গুণ করতে পারি এবং পুরো গুণফল নিম্নলিখিত আকারে লেখা যায়:</p>
+$$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \prod\limits_{i=0}^n \prod\limits_{j=0}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=0}^n B(\lambda_i)}$$<p>উপরে সংজ্ঞায়িত মানটিকে পলিনোমিয়াল $A(x)$ ও $B(x)$ এর রেজাল্ট্যান্ট বলা হয়। সংজ্ঞা থেকে নিম্নলিখিত বৈশিষ্ট্য পাওয়া যায়:</p>
+<p>১. $\mathcal R(A, B) = (-1)^{nm} \mathcal R(B, A)$।
+২. $\mathcal R(A, B)= a_n^m b_m^n$ যখন $n=0$ বা $m=0$।
+৩. $b_m=1$ হলে $\mathcal R(A - CB, B) = \mathcal R(A, B)$ যেকোনো পলিনোমিয়াল $C(x)$ এর জন্য এবং $n,m \geq 1$।
+৪. এ থেকে অনুসরণ করে $\mathcal R(A, B) = b_m^{\deg(A) - \deg(A-CB)}\mathcal R(A - CB, B)$ যেকোনো $A(x)$, $B(x)$, $C(x)$ এর জন্য।</p>
+<p>আশ্চর্যজনকভাবে এর মানে দুটি পলিনোমিয়ালের রেজাল্ট্যান্ট সবসময় তাদের সহগের একই রিং থেকে!</p>
+<p>এই বৈশিষ্ট্যগুলো আমাদের ইউক্লিডীয় অ্যালগরিদমের পাশাপাশি রেজাল্ট্যান্ট গণনা করতে দেয়, যা $O(nm)$-এ কাজ করে।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="n">T</span> <span class="n">resultant</span><span class="p">(</span><span class="n">poly</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">,</span> <span class="n">poly</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="p">.</span><span class="n">is_zero</span><span class="p">())</span> <span class="p">{</span>
@@ -3107,12 +3105,12 @@ $$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \p
 </span></span><span class="line"><span class="cl">		<span class="n">base</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">resultant</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="n">ans</span> <span class="o">*</span> <span class="n">mul</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="half-gcd-algorithm">Half-GCD algorithm<a class="anchor" href="#half-gcd-algorithm">#</a></h3>
-<p>There is a way to calculate the GCD and resultants in $O(n \log^2 n)$.</p>
-<p>The procedure to do so implements a $2 \times 2$ linear transform which maps a pair of polynomials $a(x)$, $b(x)$ into another pair $c(x), d(x)$ such that $\deg d(x) \leq \frac{\deg a(x)}{2}$. If you&rsquo;re careful enough, you can compute the half-GCD of any pair of polynomials with at most $2$ recursive calls to the polynomials which are at least $2$ times smaller.</p>
-<p>The specific details of the algorithm are somewhat tedious to explain, however you can find its implementation in the library, as <code>half_gcd</code> function.</p>
-<p>After half-GCD is implemented, you can repeatedly apply it to polynomials until you&rsquo;re reduced to the pair of $\gcd(a, b)$ and $0$.</p>
-<h2 id="problems">Problems<a class="anchor" href="#problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h3 id="হফ-gcd-অযলগরদম">হাফ-GCD অ্যালগরিদম<a class="anchor" href="#%e0%a6%b9%e0%a6%ab-gcd-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>$O(n \log^2 n)$-এ GCD ও রেজাল্ট্যান্ট গণনা করার একটি উপায় আছে।</p>
+<p>এই প্রক্রিয়া একটি $2 \times 2$ রৈখিক রূপান্তর ইমপ্লিমেন্ট করে যা পলিনোমিয়ালের $(a(x), b(x))$ জোড়াকে আরেকটি $(c(x), d(x))$ জোড়ায় রূপান্তর করে যেন $\deg d(x) \leq \frac{\deg a(x)}{2}$। আপনি যথেষ্ট সাবধান হলে, অন্তত ২ গুণ ছোট পলিনোমিয়ালে সর্বোচ্চ ২টি রিকার্সিভ কল দিয়ে যেকোনো পলিনোমিয়াল জোড়ার হাফ-GCD গণনা করতে পারেন।</p>
+<p>অ্যালগরিদমের নির্দিষ্ট বিবরণ ব্যাখ্যা করা কিছুটা ক্লান্তিকর, তবে আপনি লাইব্রেরিতে <code>half_gcd</code> ফাংশন হিসেবে এর ইমপ্লিমেন্টেশন পাবেন।</p>
+<p>হাফ-GCD ইমপ্লিমেন্ট হলে, $\gcd(a, b)$ ও $0$ এর জোড়ায় সংকুচিত না হওয়া পর্যন্ত পুনরাবৃত্তিমূলকভাবে পলিনোমিয়ালে এটি প্রয়োগ করা যায়।</p>
+<h2 id="সমসয">সমস্যা<a class="anchor" href="#%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://www.codechef.com/problems/RNG">CodeChef - RNG</a></li>
 <li><a href="https://codeforces.com/gym/102129/problem/D">CodeForces - Basis Change</a></li>
@@ -3147,16 +3145,16 @@ $$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \p
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/algebra/fibonacci-numbers/" class="flex align-center">
+      <a href="/algebra/factorial-modulo/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Fibonacci Numbers</span>
+        <span>Factorial modulo p</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/algebra/continued-fractions/" class="flex align-center">
-        <span>Continued fractions</span>
+      <a href="/algebra/fibonacci-numbers/" class="flex align-center">
+        <span>ফিবোনাচ্চি সংখ্যা</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3197,45 +3195,45 @@ $$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \p
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#basic-notion-and-facts">Basic Notion and facts</a>
+    <li><a href="#মলক-ধরণ-ও-তথয">মৌলিক ধারণা ও তথ্য</a>
       <ul>
-        <li><a href="#polynomial-multiplication">Polynomial multiplication</a></li>
-        <li><a href="#formal-power-series">Formal power series</a></li>
-        <li><a href="#long-polynomial-division">Long polynomial division</a></li>
+        <li><a href="#পলনমযল-গণন">পলিনোমিয়াল গুণন</a></li>
+        <li><a href="#ফরমল-পওযর-সরজ">ফর্মাল পাওয়ার সিরিজ</a></li>
+        <li><a href="#দরঘ-পলনমযল-ভগ">দীর্ঘ পলিনোমিয়াল ভাগ</a></li>
       </ul>
     </li>
-    <li><a href="#basic-implementation">Basic implementation</a></li>
-    <li><a href="#arithmetic">Arithmetic</a>
+    <li><a href="#মলক-ইমপলমনটশন">মৌলিক ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#পটগণত">পাটিগণিত</a>
       <ul>
-        <li><a href="#multiplication">Multiplication</a></li>
-        <li><a href="#inverse-series">Inverse series</a></li>
-        <li><a href="#euclidean-division">Euclidean division</a></li>
+        <li><a href="#গণন">গুণন</a></li>
+        <li><a href="#বপরত-সরজ">বিপরীত সিরিজ</a></li>
+        <li><a href="#ইউকলডয-ভগ">ইউক্লিডীয় ভাগ</a></li>
       </ul>
     </li>
-    <li><a href="#calculating-functions-of-polynomial">Calculating functions of polynomial</a>
+    <li><a href="#পলনমযলর-ফশন-গণন">পলিনোমিয়ালের ফাংশন গণনা</a>
       <ul>
-        <li><a href="#newtons-method">Newton&rsquo;s method</a></li>
-        <li><a href="#logarithm">Logarithm</a></li>
-        <li><a href="#inverse-series-1">Inverse series</a></li>
-        <li><a href="#exponent">Exponent</a></li>
-        <li><a href="#-th-power">-th power</a></li>
+        <li><a href="#নউটনর-পদধত">নিউটনের পদ্ধতি</a></li>
+        <li><a href="#লগরদম">লগারিদম</a></li>
+        <li><a href="#বপরত-সরজ-1">বিপরীত সিরিজ</a></li>
+        <li><a href="#সচকয">সূচকীয়</a></li>
+        <li><a href="#-তম-ঘত">-তম ঘাত</a></li>
       </ul>
     </li>
-    <li><a href="#evaluation-and-interpolation">Evaluation and Interpolation</a>
+    <li><a href="#মলযযন-ও-ইনটরপলশন">মূল্যায়ন ও ইন্টারপোলেশন</a>
       <ul>
-        <li><a href="#chirp-z-transform">Chirp-z Transform</a></li>
-        <li><a href="#multi-point-evaluation">Multi-point Evaluation</a></li>
-        <li><a href="#interpolation">Interpolation</a></li>
+        <li><a href="#চরপ-z-টরনসফরম">চার্প-z ট্রান্সফর্ম</a></li>
+        <li><a href="#বহবনদ-মলযযন">বহুবিন্দু মূল্যায়ন</a></li>
+        <li><a href="#ইনটরপলশন">ইন্টারপোলেশন</a></li>
       </ul>
     </li>
-    <li><a href="#gcd-and-resultants">GCD and Resultants</a>
+    <li><a href="#গসগ-ও-রজলটযনট">গসাগু ও রেজাল্ট্যান্ট</a>
       <ul>
-        <li><a href="#euclidean-algorithm">Euclidean algorithm</a></li>
-        <li><a href="#resultant">Resultant</a></li>
-        <li><a href="#half-gcd-algorithm">Half-GCD algorithm</a></li>
+        <li><a href="#ইউকলডয-অযলগরদম">ইউক্লিডীয় অ্যালগরিদম</a></li>
+        <li><a href="#রজলটযনট">রেজাল্ট্যান্ট</a></li>
+        <li><a href="#হফ-gcd-অযলগরদম">হাফ-GCD অ্যালগরিদম</a></li>
       </ul>
     </li>
-    <li><a href="#problems">Problems</a></li>
+    <li><a href="#সমসয">সমস্যা</a></li>
   </ul>
 </nav>
 

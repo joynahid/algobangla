@@ -1,0 +1,3259 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম#অ্যাসাইনমেন্ট সমস্যার বিবৃতি#অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
+$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
+একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/bn/graph/hungarian-algorithm/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম">
+  <meta property="og:description" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম#অ্যাসাইনমেন্ট সমস্যার বিবৃতি#অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
+$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
+একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।">
+  <meta property="og:locale" content="bn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="graph">
+
+
+  <meta itemprop="name" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম">
+  <meta itemprop="description" content="অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম#অ্যাসাইনমেন্ট সমস্যার বিবৃতি#অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
+$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
+একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।">
+  <meta itemprop="wordCount" content="3533">
+
+<title>অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/bn/graph/hungarian-algorithm/">
+  <link rel="alternate" hreflang="en" href="http://localhost:53425/en/graph/hungarian-algorithm/" title="Hungarian algorithm for solving the assignment problem">
+<link rel="stylesheet" href="/book.min.78425d2454aed079c91fb5d0cb3403bc4486a0fe295cb3e9dfec476916fec2a0.css" integrity="sha256-eEJdJFSu0HnJH7XQyzQDvESGoP4pXLPp3&#43;xHaRb&#43;wqA=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/bn.search.min.11a5b9bd43f3f91eeee3a723a5a5180c70aff27953f3d5058b4ec7a0c252de75.js" integrity="sha256-EaW5vUPz&#43;R7u46cjpaUYDHCv8nlT89UFi07HoMJS3nU=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-graph">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/bn/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="অনুসন্ধান"
+    aria-label="অনুসন্ধান"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        বাংলা
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/en/graph/hungarian-algorithm/" class="flex flex-auto">
+          English
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<button id="theme-toggle" onclick="
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc) sc.href = sc.href.replace(next === 'dark' ? 'syntax-light' : 'syntax-dark', next === 'dark' ? 'syntax-dark' : 'syntax-light');
+" title="Toggle light/dark mode">🌙</button>
+<script>
+(function() {
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc && t === 'dark') sc.href = sc.href.replace('syntax-light', 'syntax-dark');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-56e2ef6b2cb688e51d22de23bd16db61" class="toggle"  />
+    <label for="section-56e2ef6b2cb688e51d22de23bd16db61" class="flex">
+      <a href="/bn/algebra/" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/phi-function/" class="">
+      অয়লারের টোশেন্ট ফাংশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/sieve-of-eratosthenes/" class="">
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/euclid-algorithm/" class="">
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/gray-code/" class="">
+      গ্রে কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/divisors/" class="">
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/all-submasks/" class="">
+      সাবমাস্ক ইনিউমারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/big-integer/" class="">
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/extended-euclid-algorithm/" class="">
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primality_tests/" class="">
+      মৌলিকতা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/garners-algorithm/" class="">
+      গার্নারের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorization/" class="">
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/linear-diophantine-equation/" class="">
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/continued-fractions/" class="">
+      কন্টিনিউড ফ্র্যাকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-log/" class="">
+      ডিসক্রিট লগারিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/primitive-root/" class="">
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/discrete-root/" class="">
+      ডিসক্রিট রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/algebra/montgomery_multiplication/" class="">
+      মন্টগোমেরি গুণন</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d6ff24814678dd7cc46e7bec0eca9e50" class="toggle"  />
+    <label for="section-d6ff24814678dd7cc46e7bec0eca9e50" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/disjoint_set_union/" class="">
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/stack_queue_modification/" class="">
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/fenwick/" class="">
+      ফেনউইক ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sparse-table/" class="">
+      স্পার্স টেবিল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt_decomposition/" class="">
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/segment_tree/" class="">
+      সেগমেন্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/treap/" class="">
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/sqrt-tree/" class="">
+      স্কোয়ার্ট ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/data_structures/randomized_heap/" class="">
+      র‍্যান্ডমাইজড হিপ</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6d9b914b0bc10cfdd664923fa7f87e83" class="toggle"  />
+    <label for="section-6d9b914b0bc10cfdd664923fa7f87e83" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/divide-and-conquer-dp/" class="">
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/profile-dynamics/" class="">
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knuth-optimization/" class="">
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/dynamic_programming/longest_increasing_subsequence/" class="">
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-87fb60540539c20d49ff0bbbef794660" class="toggle"  />
+    <label for="section-87fb60540539c20d49ff0bbbef794660" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/expression_parsing/" class="">
+      এক্সপ্রেশন পার্সিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-tree-ukkonen/" class="">
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/main_lorentz/" class="">
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/prefix-function/" class="">
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/z-function/" class="">
+      জেড-ফাংশন এবং এর গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/suffix-array/" class="">
+      সাফিক্স অ্যারে</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/string/aho_corasick/" class="">
+      আহো-কোরাসিক অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-52c3be80108fdd17263f5678b6891a47" class="toggle"  />
+    <label for="section-52c3be80108fdd17263f5678b6891a47" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/linear-system-gauss/" class="">
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-gauss/" class="">
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/determinant-kraut/" class="">
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/linear_algebra/rank-matrix/" class="">
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b97332e3749ebe750962b0ecb6fabafb" class="toggle"  />
+    <label for="section-b97332e3749ebe750962b0ecb6fabafb" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/inclusion-exclusion/" class="">
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/binomial-coefficients/" class="">
+      দ্বিপদী সহগ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/burnside/" class="">
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/catalan-numbers/" class="">
+      ক্যাটালান সংখ্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/counting_labeled_graphs/" class="">
+      লেবেলড গ্রাফ গণনা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/stars_and_bars/" class="">
+      স্টার্স অ্যান্ড বার্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7334aaffd497c2236df166f8e735101b" class="toggle"  />
+    <label for="section-7334aaffd497c2236df166f8e735101b" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/binary_search/" class="">
+      বাইনারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simpson-integration/" class="">
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/ternary_search/" class="">
+      টার্নারি সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/roots_newton/" class="">
+      মূল নির্ণয়ে নিউটনের মেথড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/num_methods/simulated_annealing/" class="">
+      সিমুলেটেড অ্যানিলিং</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-24f5dcff931d689f2c1f0f52954a7628" class="toggle"  />
+    <label for="section-24f5dcff931d689f2c1f0f52954a7628" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex-hull/" class="">
+      কনভেক্স হাল নির্মাণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/intersecting_segments/" class="">
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-location/" class="">
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/point-in-convex-polygon/" class="">
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/vertical_decomposition/" class="">
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/minkowski/" class="">
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/segments-intersection/" class="">
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/picks-theorem/" class="">
+      পিকের উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/lattice-points/" class="">
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/enclosing-circle/" class="">
+      মিনিমাম এনক্লোজিং সার্কেল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/circle-circle-intersection/" class="">
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/tangents-to-two-circles/" class="">
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/geometry/length-of-segments-union/" class="">
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="toggle" checked />
+    <label for="section-a36d7f88fa5d5b3fd593762d16c05f3f" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/search-for-connected-components/" class="">
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/topological-sort/" class="">
+      টপোলজিক্যাল সর্টিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching/" class="">
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/fixed_length_paths/" class="">
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hungarian-algorithm/" class="active">
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/tree_painting/" class="">
+      ট্রি-র এজে রং করা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/cutpoints/" class="">
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/2sat/" class="">
+      ২-স্যাট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/rmq_linear/" class="">
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/kirchhoff-theorem/" class="">
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/mpm/" class="">
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strongly-connected-components/" class="">
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/flow_with_demands/" class="">
+      ডিমান্ডসহ ফ্লো</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/pruefer_code/" class="">
+      প্রুফার কোড</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/strong-orientation/" class="">
+      স্ট্রং ওরিয়েন্টেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/min_cost_flow/" class="">
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/graph/assignment-problem-min-flow/" class="">
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-399d866b7b0d1784ea9ef390af779ce8" class="toggle"  />
+    <label for="section-399d866b7b0d1784ea9ef390af779ce8" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/rmq/" class="">
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/k-th/" class="">
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/sequences/longest_increasing_subsequence/" class="">
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="toggle"  />
+    <label for="section-302f4a281ee5fd9cddf8bb1d5108ca82" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/tortoise_and_hare/" class="">
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/josephus_problem/" class="">
+      জোসেফাস সমস্যা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/maximum_average_segment/" class="">
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/15-puzzle/" class="">
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/others/stern_brocot_tree_farey_sequences/" class="">
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9a06795fb7e5894e4235290cd45cefa8" class="toggle"  />
+    <label for="section-9a06795fb7e5894e4235290cd45cefa8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/games_on_graphs/" class="">
+      যেকোনো গ্রাফে গেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/game_theory/sprague-grundy-nim/" class="">
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-dd25e072d4c017734490f50bcd6f67b6" class="toggle"  />
+    <label for="section-dd25e072d4c017734490f50bcd6f67b6" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_one_machine/" class="">
+      একটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule_two_machines/" class="">
+      দুটি মেশিনে কাজ শিডিউলিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/bn/schedules/schedule-with-completion-duration/" class="">
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#অযসইনমনট-সমসযর-ববত">অ্যাসাইনমেন্ট সমস্যার বিবৃতি</a></li>
+    <li><a href="#হঙগরযন-অযলগরদম">হাঙ্গেরিয়ান অ্যালগরিদম</a>
+      <ul>
+        <li><a href="#ঐতহসক-তথয">ঐতিহাসিক তথ্য</a></li>
+        <li><a href="#অযলগরদম"> অ্যালগরিদম</a></li>
+        <li><a href="#অযলগরদম-1"> অ্যালগরিদম</a></li>
+      </ul>
+    </li>
+    <li><a href="#হঙগরযন-অযলগরদমর-ইমপলমনটশন">হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#সকসসভ-শরটসট-পথ-অযলগরদমর-সথ-সমপরক">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক</a></li>
+    <li><a href="#কজর-উদহরণ">কাজের উদাহরণ</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="অযসইনমনট-সমসয-সমধনর-জনয-হঙগরযন-অযলগরদম">অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b8%e0%a6%87%e0%a6%a8%e0%a6%ae%e0%a6%a8%e0%a6%9f-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8%e0%a6%b0-%e0%a6%9c%e0%a6%a8%e0%a6%af-%e0%a6%b9%e0%a6%99%e0%a6%97%e0%a6%b0%e0%a6%af%e0%a6%a8-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h1>
+<h2 id="অযসইনমনট-সমসযর-ববত">অ্যাসাইনমেন্ট সমস্যার বিবৃতি<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b8%e0%a6%87%e0%a6%a8%e0%a6%ae%e0%a6%a8%e0%a6%9f-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af%e0%a6%b0-%e0%a6%ac%e0%a6%ac%e0%a6%a4">#</a></h2>
+<p>অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:</p>
+<ul>
+<li>
+<p>$n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।</p>
+</li>
+<li>
+<p>একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।</p>
+</li>
+<li>
+<p>একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, $n$ দৈর্ঘ্যের একটি পারমুটেশন $p$ খুঁজে বের করতে হবে যাতে $\sum A[i]\left[p[i]\right]$ মান সর্বনিম্ন হয়।</p>
+</li>
+<li>
+<p>প্রতি পার্টে $n$ টি ভার্টেক্স বিশিষ্ট একটি কমপ্লিট বাইপার্টাইট গ্রাফ বিবেচনা করুন, যেখানে প্রতিটি এজে একটি ওয়েট নির্ধারিত। লক্ষ্য হলো সর্বনিম্ন মোট ওয়েটের একটি পারফেক্ট ম্যাচিং খুঁজে বের করা।</p>
+</li>
+</ul>
+<p>এটি লক্ষ্য করা গুরুত্বপূর্ণ যে উপরের সমস্ত পরিস্থিতি &ldquo;<strong>বর্গাকার</strong>&rdquo; সমস্যা, অর্থাৎ উভয় মাত্রা সর্বদা $n$ এর সমান। বাস্তবে, প্রায়ই &ldquo;<strong>আয়তাকার</strong>&rdquo; রূপ দেখা যায় যেখানে $n$ $m$ এর সমান নয়, এবং কাজটি হলো $\min(n,m)$ টি উপাদান নির্বাচন করা। তবে, এটি লক্ষ্য করা যায় যে একটি &ldquo;আয়তাকার&rdquo; সমস্যা সবসময় শূন্য বা অসীম মানের সারি বা কলাম যোগ করে &ldquo;বর্গাকার&rdquo; সমস্যায় রূপান্তরিত করা যায়।</p>
+<p>আমরা এটিও লক্ষ্য করি যে <strong>সর্বনিম্ন</strong> সমাধান খোঁজার অনুরূপ, <strong>সর্বাধিক</strong> সমাধান খোঁজার সমস্যাও করা যায়। তবে, এই দুটি সমস্যা একে অপরের সমতুল্য: সমস্ত ওয়েটকে $-1$ দিয়ে গুণ করাই যথেষ্ট।</p>
+<h2 id="হঙগরযন-অযলগরদম">হাঙ্গেরিয়ান অ্যালগরিদম<a class="anchor" href="#%e0%a6%b9%e0%a6%99%e0%a6%97%e0%a6%b0%e0%a6%af%e0%a6%a8-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<h3 id="ঐতহসক-তথয">ঐতিহাসিক তথ্য<a class="anchor" href="#%e0%a6%90%e0%a6%a4%e0%a6%b9%e0%a6%b8%e0%a6%95-%e0%a6%a4%e0%a6%a5%e0%a6%af">#</a></h3>
+<p>এই অ্যালগরিদমটি হ্যারল্ড <strong>কুন</strong> ১৯৫৫ সালে তৈরি ও প্রকাশ করেন। কুন নিজেই এর নাম দেন &ldquo;হাঙ্গেরিয়ান&rdquo; কারণ এটি হাঙ্গেরিয়ান গণিতবিদ ডেনেশ ক্যোনিগ ও ইয়েনো এগেরভারির পূর্ববর্তী কাজের উপর ভিত্তি করে তৈরি।<br>
+১৯৫৭ সালে, জেমস <strong>মুঙ্করেশ</strong> দেখান যে এই অ্যালগরিদম (কঠোরভাবে) পলিনোমিয়াল সময়ে চলে, খরচ নির্বিশেষে।<br>
+তাই সাহিত্যে, এই অ্যালগরিদম শুধু &ldquo;হাঙ্গেরিয়ান&rdquo; নয়, বরং &ldquo;কুন-মুঙ্করেশ অ্যালগরিদম&rdquo; বা &ldquo;মুঙ্করেশ অ্যালগরিদম&rdquo; নামেও পরিচিত।<br>
+তবে, সম্প্রতি ২০০৬ সালে আবিষ্কৃত হয়েছে যে কুনের <strong>এক শতাব্দী আগে</strong> জার্মান গণিতবিদ কার্ল গুস্তাভ <strong>ইয়াকোবি</strong> একই অ্যালগরিদম আবিষ্কার করেছিলেন। তাঁর কাজ, <em>সাধারণ সাধারণ ডিফারেনশিয়াল সমীকরণের একটি সিস্টেমের ক্রম গবেষণা সম্পর্কে</em>, যেটি ১৮৯০ সালে মরণোত্তর প্রকাশিত হয়েছিল, অন্যান্য ফলাফলের মধ্যে, অ্যাসাইনমেন্ট সমস্যা সমাধানের একটি পলিনোমিয়াল অ্যালগরিদম ধারণ করেছিল। দুর্ভাগ্যবশত, প্রকাশনাটি ল্যাটিনে হওয়ায় এটি গণিতবিদদের দৃষ্টি এড়িয়ে যায়।</p>
+<p>এটিও উল্লেখযোগ্য যে কুনের মূল অ্যালগরিদমের অ্যাসিম্পটোটিক কমপ্লেক্সিটি ছিল $\mathcal{O}(n^4)$, এবং পরে জ্যাক <strong>এডমন্ডস</strong> ও রিচার্ড <strong>কার্প</strong> (এবং স্বাধীনভাবে <strong>তোমিজাওয়া</strong>) দেখান কীভাবে এটিকে $\mathcal{O}(n^3)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটিতে উন্নত করা যায়।</p>
+<h3 id="অযলগরদম">$\mathcal{O}(n^4)$ অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h3>
+<p>অস্পষ্টতা এড়াতে, আমরা এখনই উল্লেখ করি যে আমরা মূলত ম্যাট্রিক্স রূপে অ্যাসাইনমেন্ট সমস্যা নিয়ে কাজ করছি (অর্থাৎ একটি ম্যাট্রিক্স $A$ দেওয়া আছে, এটি থেকে $n$ টি সেল নির্বাচন করতে হবে যেগুলো ভিন্ন সারি এবং কলামে)। আমরা ১ থেকে শুরু করে অ্যারে ইনডেক্স করি, অর্থাৎ উদাহরণস্বরূপ একটি ম্যাট্রিক্স $A$ এর ইনডেক্স $A[1 \dots n][1 \dots n]$।</p>
+<p>আমরা এটিও ধরে নিই যে ম্যাট্রিক্স A-র সমস্ত সংখ্যা <strong>অ-ঋণাত্মক</strong> (যদি এটি না হয়, সমস্ত সংখ্যায় কোনো ধ্রুবক যোগ করে ম্যাট্রিক্সকে সর্বদা অ-ঋণাত্মক করা যায়)।</p>
+<p>আসুন সংখ্যার দুটি ইচ্ছামতো অ্যারে $u[1 \ldots n]$ এবং $v[1 \ldots n]$ কে একটি <strong>পটেনশিয়াল</strong> বলি, যাতে নিম্নলিখিত শর্ত পূরণ হয়:</p>
+$$u[i]+v[j]\leq A[i][j],\quad i=1\dots n,\ j=1\dots n$$<p>(যেমনটি দেখা যাচ্ছে, $u[i]$ $i$-তম সারির সাথে সম্পর্কিত, এবং $v[j]$ ম্যাট্রিক্সের $j$-তম কলামের সাথে সম্পর্কিত)।</p>
+<p>আসুন পটেনশিয়ালের <strong>মান $f$</strong> কে এর উপাদানগুলোর যোগফল বলি:</p>
+$$f=\sum_{i=1}^{n} u[i] + \sum_{j=1}^{n} v[j].$$<p>একদিকে, এটি দেখা সহজ যে কাঙ্ক্ষিত সমাধান $sol$ এর খরচ যেকোনো পটেনশিয়ালের মানের <strong>চেয়ে কম নয়</strong>।</p>
+<p>
+<div class="book-hint info">
+  <p><strong>Info</strong></p>
+<p><strong>লেমা।</strong> $sol\geq f.$</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>সমস্যার কাঙ্ক্ষিত সমাধান ম্যাট্রিক্স $A$ এর $n$ টি সেল নিয়ে গঠিত, তাই প্রতিটির জন্য $u[i]+v[j]\leq A[i][j]$। যেহেতু $sol$ এর সমস্ত উপাদান ভিন্ন সারি এবং কলামে, সমস্ত নির্বাচিত $A[i][j]$ এর উপর এই অসমতাগুলো যোগ করলে, অসমতার বাম পাশে $f$ এবং ডান পাশে $sol$ পাওয়া যায়।</div>
+</details>
+
+অন্যদিকে, দেখা যায় যে সর্বদা একটি সমাধান এবং একটি পটেনশিয়াল পাওয়া যায় যেটি এই অসমতাকে <strong>সমতায়</strong> পরিণত করে। নিচে বর্ণিত হাঙ্গেরিয়ান অ্যালগরিদম এই তথ্যের একটি গঠনমূলক প্রমাণ হবে। আপাতত, শুধু লক্ষ্য করি যে যদি কোনো সমাধানের খরচ কোনো পটেনশিয়ালের সমান হয়, তাহলে সেই সমাধান <strong>অপটিমাল</strong>।</p>
+<p>আসুন কোনো পটেনশিয়াল ঠিক করি। একটি এজ $(i,j)$ কে <strong>রিজিড</strong> বলি যদি $u[i]+v[j]=A[i][j].$</p>
+<p>বাইপার্টাইট গ্রাফে অ্যাসাইনমেন্ট সমস্যার বিকল্প রূপ স্মরণ করি। $H$ দিয়ে শুধুমাত্র রিজিড এজ দিয়ে গঠিত বাইপার্টাইট গ্রাফ বোঝাই। হাঙ্গেরিয়ান অ্যালগরিদম বর্তমান পটেনশিয়ালের জন্য গ্রাফ $H$ এর <strong>সর্বাধিক-এজ-সংখ্যার ম্যাচিং</strong> $M$ বজায় রাখবে। $M$ এ $n$ টি এজ থাকলেই সমস্যার সমাধান হলো $M$ (যেহেতু এটি এমন একটি সমাধান হবে যার খরচ পটেনশিয়ালের মানের সাথে মিলে যায়)।</p>
+<p>এখন সরাসরি <strong>অ্যালগরিদমের বর্ণনায়</strong> আসা যাক।</p>
+<p><strong>ধাপ ১।</strong> শুরুতে পটেনশিয়াল শূন্য ধরা হয় (সমস্ত $i$ এর জন্য $u[i]=v[i]=0$), এবং ম্যাচিং $M$ খালি ধরা হয়।</p>
+<p><strong>ধাপ ২।</strong> এরপর, অ্যালগরিদমের প্রতিটি ধাপে, আমরা পটেনশিয়াল পরিবর্তন না করে বর্তমান ম্যাচিং $M$ এর কার্ডিনালিটি এক বাড়ানোর চেষ্টা করি (স্মরণ করুন যে ম্যাচিং রিজিড এজের গ্রাফ $H$ এ খোঁজা হয়)। এর জন্য, <a href="kuhn_maximum_bipartite_matching.md">বাইপার্টাইট গ্রাফে ম্যাক্সিমাম ম্যাচিং খোঁজার কুন অ্যালগরিদম</a> ব্যবহৃত হয়। আসুন অ্যালগরিদমটি এখানে স্মরণ করি।
+ম্যাচিং $M$ এর সমস্ত এজ ডান অংশ থেকে বাম অংশে নির্দেশিত, এবং গ্রাফ $H$ এর অন্যান্য সমস্ত এজ বিপরীত দিকে নির্দেশিত।</p>
+<p>স্মরণ করি (ম্যাচিং খোঁজার পরিভাষা থেকে) যে একটি ভার্টেক্সকে স্যাচুরেটেড বলা হয় যদি বর্তমান ম্যাচিং-এর একটি এজ এর সাথে সংশ্লিষ্ট হয়। বর্তমান ম্যাচিং-এর কোনো এজের সাথে সংশ্লিষ্ট নয় এমন ভার্টেক্সকে আনস্যাচুরেটেড বলা হয়। বিজোড় দৈর্ঘ্যের একটি পাথ, যার প্রথম এজ ম্যাচিং-এ নেই, এবং পরবর্তী সমস্ত এজের জন্য ম্যাচিং-এ থাকা/না-থাকা পর্যায়ক্রমে হয় - একে অগমেন্টিং পাথ বলা হয়।
+বাম অংশের সমস্ত আনস্যাচুরেটেড ভার্টেক্স থেকে একটি <a href="depth-first-search.md">ডেপথ-ফার্স্ট</a> বা <a href="breadth-first-search.md">ব্রেডথ-ফার্স্ট</a> ট্রাভার্সাল শুরু করা হয়। সার্চের ফলে যদি ডান অংশের একটি আনস্যাচুরেটেড ভার্টেক্সে পৌঁছানো যায়, আমরা বাম অংশ থেকে ডান অংশে একটি অগমেন্টিং পাথ পেয়েছি। যদি আমরা পাথের বিজোড় এজগুলো ম্যাচিং-এ অন্তর্ভুক্ত করি এবং জোড় এজগুলো বাদ দিই (অর্থাৎ প্রথম এজ ম্যাচিং-এ অন্তর্ভুক্ত, দ্বিতীয় বাদ, তৃতীয় অন্তর্ভুক্ত ইত্যাদি), তাহলে আমরা ম্যাচিং কার্ডিনালিটি এক বাড়াব।</p>
+<p>যদি কোনো অগমেন্টিং পাথ না পাওয়া যায়, তাহলে বর্তমান ম্যাচিং $M$ গ্রাফ $H$ এ ম্যাক্সিমাল।</p>
+<p><strong>ধাপ ৩।</strong> যদি বর্তমান ধাপে বর্তমান ম্যাচিং-এর কার্ডিনালিটি বাড়ানো সম্ভব না হয়, তাহলে পটেনশিয়াল এমনভাবে পুনরায় গণনা করা হয় যাতে পরবর্তী ধাপে ম্যাচিং বাড়ানোর আরও সুযোগ তৈরি হয়।</p>
+<p>$Z_1$ দিয়ে কুন অ্যালগরিদমের শেষ ট্রাভার্সালে পরিদর্শিত বাম অংশের ভার্টেক্সের সেট এবং $Z_2$ দিয়ে পরিদর্শিত ডান অংশের ভার্টেক্সের সেট বোঝাই।</p>
+<p>$\Delta$ মানটি গণনা করি:</p>
+$$\Delta = \min_{i\in Z_1,\ j\notin Z_2} A[i][j]-u[i]-v[j].$$<p>
+<div class="book-hint info">
+  <p><strong>Info</strong></p>
+<p><strong>লেমা।</strong> $\Delta > 0.$</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>ধরি $\Delta=0$। তাহলে $i\in Z_1$ এবং $j\notin Z_2$ সহ একটি রিজিড এজ $(i,j)$ আছে। এর ফলে এজ $(i,j)$ ডান অংশ থেকে বাম অংশে নির্দেশিত হতে হবে, অর্থাৎ $(i,j)$ ম্যাচিং $M$ এ অন্তর্ভুক্ত হতে হবে। তবে, এটি অসম্ভব, কারণ আমরা $j$ থেকে $i$ তে যাওয়া এজ ছাড়া স্যাচুরেটেড ভার্টেক্স $i$ তে পৌঁছাতে পারতাম না। তাই $\Delta > 0$।</div>
+</details>
+
+এখন এভাবে <strong>পটেনশিয়াল পুনরায় গণনা</strong> করি:</p>
+<ul>
+<li>
+<p>সমস্ত ভার্টেক্স $i\in Z_1$ এর জন্য, $u[i] \gets u[i]+\Delta$ করি,</p>
+</li>
+<li>
+<p>সমস্ত ভার্টেক্স $j\in Z_2$ এর জন্য, $v[j] \gets v[j]-\Delta$ করি।</p>
+</li>
+</ul>
+<p>
+<div class="book-hint info">
+  <p><strong>Info</strong></p>
+<p><strong>লেমা।</strong> ফলস্বরূপ পটেনশিয়াল এখনো একটি সঠিক পটেনশিয়াল।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>আমরা দেখাব যে, পুনরায় গণনার পর, সমস্ত $i,j$ এর জন্য $u[i]+v[j]\leq A[i][j]$। $i\in Z_1$ এবং $j\in Z_2$ সহ $A$ এর সমস্ত উপাদানের জন্য, $u[i]+v[j]$ যোগফল পরিবর্তন হয় না, তাই অসমতা সত্য থাকে। $i\notin Z_1$ এবং $j\in Z_2$ সহ সমস্ত উপাদানের জন্য, $u[i]+v[j]$ যোগফল $\Delta$ কমে, তাই অসমতা এখনো সত্য। অন্যান্য উপাদানগুলোর জন্য যাদের $i\in Z_1$ এবং $j\notin Z_2$, যোগফল বাড়ে, কিন্তু অসমতা এখনো সংরক্ষিত, কারণ $\Delta$ মানটি, সংজ্ঞা অনুসারে, সেই সর্বাধিক বৃদ্ধি যা অসমতা পরিবর্তন করে না।</div>
+</details>
+
+
+<div class="book-hint info">
+  <p><strong>Info</strong></p>
+<p><strong>লেমা।</strong> পুরনো ম্যাচিং $M$ রিজিড এজের বৈধ, অর্থাৎ ম্যাচিং-এর সমস্ত এজ রিজিড থাকবে।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>কোনো রিজিড এজ $(i,j)$ পটেনশিয়াল পরিবর্তনের ফলে রিজিড না থাকতে হলে, সমতা $u[i] + v[j] = A[i][j]$ অসমতা $u[i] + v[j] < A[i][j]$ তে পরিণত হতে হবে। তবে, এটি শুধুমাত্র তখনই ঘটতে পারে যখন $i \notin Z_1$ এবং $j \in Z_2$। কিন্তু $i \notin Z_1$ বোঝায় যে এজ $(i,j)$ ম্যাচিং এজ হতে পারে না।</div>
+</details>
+
+
+<div class="book-hint info">
+  <p><strong>Info</strong></p>
+<p><strong>লেমা।</strong> পটেনশিয়ালের প্রতিটি পুনরায় গণনার পর, ট্রাভার্সাল দ্বারা গম্য ভার্টেক্সের সংখ্যা, অর্থাৎ $|Z_1|+|Z_2|$, কঠোরভাবে বৃদ্ধি পায়।</p>
+
+</div>
+
+<details>
+  <summary>প্রমাণ</summary>
+  <div>প্রথমত, লক্ষ্য করুন যে পুনরায় গণনার আগে যে কোনো ভার্টেক্স গম্য ছিল, সেটি এখনো গম্য। প্রকৃতপক্ষে, যদি কোনো ভার্টেক্স গম্য হয়, তাহলে বাম অংশের আনস্যাচুরেটেড ভার্টেক্স থেকে শুরু করে গম্য ভার্টেক্সের মধ্য দিয়ে কোনো পাথ আছে; যেহেতু $(i,j),\ i\in Z_1,\ j\in Z_2$ আকারের এজগুলোর জন্য $u[i]+v[j]$ যোগফল পরিবর্তন হয় না, পটেনশিয়াল পরিবর্তনের পরও এই সম্পূর্ণ পাথ সংরক্ষিত থাকবে।
+দ্বিতীয়ত, আমরা দেখাই যে পুনরায় গণনার পর, কমপক্ষে একটি নতুন ভার্টেক্স গম্য হবে। এটি $\Delta$ এর সংজ্ঞা থেকে অনুসরণ করে: যে এজ $(i,j)$ এর জন্য $\Delta$ নির্ধারিত সেটি রিজিড হয়ে যাবে, তাই ভার্টেক্স $j$ ভার্টেক্স $i$ থেকে গম্য হবে।</div>
+</details>
+
+শেষ লেমার কারণে, একটি অগমেন্টিং পাথ পাওয়া এবং ম্যাচিং $M$ এর কার্ডিনালিটি বাড়ানোর আগে <strong>সর্বাধিক $n$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে</strong>।
+এভাবে, একটি পারফেক্ট ম্যাচিং $M^*$ এর সাথে সম্পর্কিত একটি পটেনশিয়াল শীঘ্রই বা পরে পাওয়া যাবে, এবং $M^*$ হবে সমস্যার উত্তর।
+অ্যালগরিদমের কমপ্লেক্সিটি নিয়ে বললে, এটি $\mathcal{O}(n^4)$: মোটে সর্বাধিক $n$ বার ম্যাচিং বৃদ্ধি হওয়া উচিত, প্রতিটির আগে সর্বাধিক $n$ বার পটেনশিয়াল পুনরায় গণনা, যার প্রতিটি $\mathcal{O}(n^2)$ সময়ে সম্পাদিত হয়।</p>
+<p>আমরা এখানে $\mathcal{O}(n^4)$ অ্যালগরিদমের ইমপ্লিমেন্টেশন দেব না, কারণ এটি নিচে বর্ণিত $\mathcal{O}(n^3)$ এর ইমপ্লিমেন্টেশনের চেয়ে ছোট হবে না।</p>
+<h3 id="অযলগরদম-1">$\mathcal{O}(n^3)$ অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae-1">#</a></h3>
+<p>এখন শিখি কীভাবে একই অ্যালগরিদম $\mathcal{O}(n^3)$ এ ইমপ্লিমেন্ট করতে হয় (আয়তাকার সমস্যা $n \times m$ এর জন্য $\mathcal{O}(n^2m)$)।</p>
+<p>মূল ধারণা হলো <strong>ম্যাট্রিক্সের সারিগুলো একটি করে বিবেচনা করা</strong>, একবারে সব নয়। এভাবে, উপরে বর্ণিত অ্যালগরিদম নিম্নলিখিত রূপ নেবে:</p>
+<p>১.  ম্যাট্রিক্স $A$ এর পরবর্তী সারি বিবেচনা করুন।</p>
+<p>২.  যতক্ষণ এই সারি থেকে শুরু করে কোনো অগমেন্টিং পাথ না পাওয়া যায়, পটেনশিয়াল পুনরায় গণনা করুন।</p>
+<p>৩.  অগমেন্টিং পাথ পাওয়া মাত্র, এটি বরাবর ম্যাচিং প্রচার করুন (এভাবে শেষ এজটি ম্যাচিং-এ অন্তর্ভুক্ত করা), এবং ধাপ ১ থেকে পুনরায় শুরু করুন (পরবর্তী সারি বিবেচনা করতে)।</p>
+<p>প্রয়োজনীয় কমপ্লেক্সিটি অর্জন করতে, ধাপ ২-৩ ম্যাট্রিক্সের প্রতিটি সারির জন্য $\mathcal{O}(n^2)$ সময়ে (আয়তাকার সমস্যায় $\mathcal{O}(nm)$) ইমপ্লিমেন্ট করা প্রয়োজন।</p>
+<p>এটি করতে, উপরে প্রমাণিত দুটি তথ্য স্মরণ করি:</p>
+<ul>
+<li>
+<p>পটেনশিয়াল পরিবর্তনে, কুনের ট্রাভার্সাল দ্বারা গম্য ভার্টেক্সগুলো গম্যই থাকবে।</p>
+</li>
+<li>
+<p>মোটে, অগমেন্টিং পাথ পাওয়ার আগে শুধুমাত্র $\mathcal{O}(n)$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে।</p>
+</li>
+</ul>
+<p>এ থেকে এই <strong>মূল ধারণাগুলো</strong> অনুসরণ করে যা আমাদের প্রয়োজনীয় কমপ্লেক্সিটি অর্জন করতে দেয়:</p>
+<ul>
+<li>
+<p>অগমেন্টিং পাথের উপস্থিতি পরীক্ষা করতে, প্রতিটি পটেনশিয়াল পুনরায় গণনার পর কুন ট্রাভার্সাল আবার শুরু করার প্রয়োজন নেই। পরিবর্তে, আপনি কুন ট্রাভার্সালকে একটি <strong>ইটারেটিভ রূপে</strong> করতে পারেন: প্রতিটি পটেনশিয়াল পুনরায় গণনার পর, যোগ হওয়া রিজিড এজগুলো দেখুন এবং, যদি তাদের বাম প্রান্ত গম্য ছিল, তাদের ডান প্রান্তগুলোও গম্য হিসেবে চিহ্নিত করুন এবং সেখান থেকে ট্রাভার্সাল চালিয়ে যান।</p>
+</li>
+<li>
+<p>এই ধারণাটি আরও বিকশিত করে, আমরা অ্যালগরিদমকে এভাবে উপস্থাপন করতে পারি: লুপের প্রতিটি ধাপে পটেনশিয়াল পুনরায় গণনা করা হয়। পরবর্তীতে, একটি কলাম চিহ্নিত করা হয় যেটি গম্য হয়েছে (যেটি সর্বদা থাকবে কারণ প্রতিটি পটেনশিয়াল পুনরায় গণনার পর নতুন গম্য ভার্টেক্স আসে)। যদি কলামটি আনস্যাচুরেটেড হয়, একটি অগমেন্টিং চেইন আবিষ্কৃত হয়। বিপরীতভাবে, যদি কলামটি স্যাচুরেটেড হয়, ম্যাচিং সারিটিও গম্য হয়ে যায়।</p>
+</li>
+<li>
+<p>পটেনশিয়াল দ্রুত পুনরায় গণনা করতে ($\mathcal{O}(n^2)$ নেইভ সংস্করণের চেয়ে দ্রুত), প্রতিটি কলামের জন্য সহায়ক ন্যূনতম মান বজায় রাখতে হবে:</p>
+<p><br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br></p>
+<p>এটি দেখা সহজ যে কাঙ্ক্ষিত মান $\Delta$ এগুলো দিয়ে নিম্নরূপ প্রকাশ করা যায়:</p>
+<p><br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br></p>
+<p>এভাবে, $\Delta$ খোঁজা এখন $\mathcal{O}(n)$ এ করা যায়।</p>
+<p>নতুন পরিদর্শিত সারি আসলে $minv$ অ্যারে আপডেট করতে হবে। এটি যোগ করা সারির জন্য $\mathcal{O}(n)$ এ করা যায় (যা সমস্ত সারি মিলে $\mathcal{O}(n^2)$ হয়)। পটেনশিয়াল পুনরায় গণনার সময়ও $minv$ অ্যারে আপডেট করতে হবে, যেটিও $\mathcal{O}(n)$ সময়ে করা হয় ($minv$ শুধুমাত্র সেই কলামগুলোর জন্য পরিবর্তিত হয় যেগুলো এখনো গম্য হয়নি: যথা, এটি $\Delta$ কমে)।</p>
+</li>
+</ul>
+<p>এভাবে, অ্যালগরিদমটি নিম্নলিখিত রূপ নেয়: বাইরের লুপে, আমরা ম্যাট্রিক্সের সারিগুলো একটি করে বিবেচনা করি। প্রতিটি সারি $\mathcal{O}(n^2)$ সময়ে প্রক্রিয়া করা হয়, যেহেতু শুধুমাত্র $\mathcal{O}(n)$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে (প্রতিটি $\mathcal{O}(n)$ সময়ে), এবং $minv$ অ্যারে $\mathcal{O}(n^2)$ সময়ে বজায় রাখা হয়; কুনের অ্যালগরিদম $\mathcal{O}(n^2)$ সময়ে কাজ করবে (যেহেতু এটি $\mathcal{O}(n)$ ইটারেশনের রূপে উপস্থাপিত, যার প্রতিটি একটি নতুন কলাম পরিদর্শন করে)।</p>
+<p>ফলস্বরূপ কমপ্লেক্সিটি $\mathcal{O}(n^3)$ বা, সমস্যা আয়তাকার হলে, $\mathcal{O}(n^2m)$।</p>
+<h2 id="হঙগরযন-অযলগরদমর-ইমপলমনটশন">হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%b9%e0%a6%99%e0%a6%97%e0%a6%b0%e0%a6%af%e0%a6%a8-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>নিচের ইমপ্লিমেন্টেশনটি কয়েক বছর আগে <strong>আন্দ্রে লোপাতিন</strong> তৈরি করেছিলেন। এটি আশ্চর্যজনক সংক্ষিপ্ততায় আলাদা: সম্পূর্ণ অ্যালগরিদম <strong>৩০ লাইনের কোডে</strong> গঠিত।</p>
+<p>ইমপ্লিমেন্টেশনটি $A[1\dots n][1\dots m]$ আয়তাকার ম্যাট্রিক্সের জন্য সমাধান খুঁজে, যেখানে $n\leq m$। ম্যাট্রিক্সটি সুবিধা ও কোডের সংক্ষিপ্ততার জন্য ১-ভিত্তিক: এই ইমপ্লিমেন্টেশন একটি ডামি শূন্য সারি ও শূন্য কলাম প্রবর্তন করে, যা আমাদের অতিরিক্ত চেক ছাড়া অনেক সাইকেল সাধারণ রূপে লিখতে দেয়।</p>
+<p>$u[0 \ldots n]$ এবং $v[0 \ldots m]$ অ্যারে পটেনশিয়াল সংরক্ষণ করে। প্রাথমিকভাবে, এগুলো শূন্যে সেট করা হয়, যা শূন্য সারি ম্যাট্রিক্সের সাথে সামঞ্জস্যপূর্ণ (লক্ষ্য করুন যে এই ইমপ্লিমেন্টেশনের জন্য ম্যাট্রিক্স $A$ তে ঋণাত্মক সংখ্যা আছে কিনা তা গুরুত্বপূর্ণ নয়)।</p>
+<p>$p[0 \ldots m]$ অ্যারে একটি ম্যাচিং ধারণ করে: প্রতিটি কলাম $j = 1 \ldots m$ এর জন্য, এটি নির্বাচিত সারির সংখ্যা $p[j]$ সংরক্ষণ করে (বা $0$ যদি কিছু নির্বাচিত না হয়)। ইমপ্লিমেন্টেশনের সুবিধার্থে, $p[0]$ বর্তমান সারির সংখ্যার সমান ধরা হয়।</p>
+<p>$minv[1 \ldots m]$ অ্যারে, প্রতিটি কলাম $j$ এর জন্য, পটেনশিয়ালের দ্রুত পুনরায় গণনার জন্য প্রয়োজনীয় সহায়ক ন্যূনতম মান ধারণ করে, যেমন উপরে বর্ণিত হয়েছে।</p>
+<p>$way[1 \ldots m]$ অ্যারে তথ্য ধারণ করে কোথায় এই ন্যূনতম মানগুলো পৌঁছায় যাতে আমরা পরে অগমেন্টিং পাথ পুনর্গঠন করতে পারি। লক্ষ্য করুন যে, পাথ পুনর্গঠনের জন্য শুধু কলাম মান সংরক্ষণ করাই যথেষ্ট, কারণ সারি সংখ্যা ম্যাচিং (অর্থাৎ $p$ অ্যারে) থেকে নেওয়া যায়। এভাবে, প্রতিটি কলাম $j$ এর জন্য $way[j]$ পাথে পূর্ববর্তী কলামের সংখ্যা ধারণ করে (বা $0$ যদি না থাকে)।</p>
+<p>অ্যালগরিদমটি হলো <strong>ম্যাট্রিক্সের সারি দিয়ে</strong> বাইরের লুপ, যার ভেতরে $i$-তম সারি বিবেচনা করা হয়। প্রথম <em>do-while</em> লুপটি চলে যতক্ষণ না একটি মুক্ত কলাম $j0$ পাওয়া যায়। লুপের প্রতিটি ইটারেশন $j0$ নম্বরের একটি নতুন কলাম (শেষ ইটারেশনে গণিত; এবং প্রাথমিকভাবে শূন্যের সমান - অর্থাৎ আমরা ডামি কলাম থেকে শুরু করি) এবং একটি নতুন সারি $i0$ - ম্যাচিং-এ এর সংশ্লিষ্ট (অর্থাৎ $p[j0]$; এবং প্রাথমিকভাবে যখন $j0=0$ তখন $i$-তম সারি নেওয়া হয়) পরিদর্শিত হিসেবে চিহ্নিত করে। নতুন পরিদর্শিত সারি $i0$ এর কারণে, আপনাকে $minv$ অ্যারে এবং $\Delta$ সেই অনুযায়ী পুনরায় গণনা করতে হবে। যদি $\Delta$ আপডেট হয়, তাহলে $j1$ কলামটি পৌঁছানো ন্যূনতম হয়ে যায় (লক্ষ্য করুন যে এমন ইমপ্লিমেন্টেশনে $\Delta$ শূন্য হতে পারে, যার মানে বর্তমান ধাপে পটেনশিয়াল পরিবর্তন করা যায় না: ইতিমধ্যে একটি নতুন গম্য কলাম আছে)। এরপর, পটেনশিয়াল এবং $minv$ অ্যারে পুনরায় গণনা করা হয়। &ldquo;do-while&rdquo; লুপের শেষে, আমরা $j0$ কলামে শেষ হওয়া একটি অগমেন্টিং পাথ পেয়েছি যেটি পূর্বসূরি অ্যারে $way$ ব্যবহার করে &ldquo;আনরোল&rdquo; করা যায়।</p>
+<p><tt>INF</tt> ধ্রুবকটি হলো &ldquo;অসীম&rdquo;, অর্থাৎ এমন একটি সংখ্যা যা স্পষ্টতই ইনপুট ম্যাট্রিক্স $A$ এর সমস্ত সম্ভাব্য সংখ্যার চেয়ে বড়।</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">u</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">v</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">p</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">way</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">j0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">minv</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">INF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">used</span> <span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">used</span><span class="p">[</span><span class="n">j0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">i0</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">j0</span><span class="p">],</span>  <span class="n">delta</span> <span class="o">=</span> <span class="n">INF</span><span class="p">,</span>  <span class="n">j1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">used</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">int</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">u</span><span class="p">[</span><span class="n">i0</span><span class="p">]</span><span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&lt;</span> <span class="n">minv</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">minv</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cur</span><span class="p">,</span>  <span class="n">way</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">j0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">minv</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">delta</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">delta</span> <span class="o">=</span> <span class="n">minv</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>  <span class="n">j1</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">used</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="n">u</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">delta</span><span class="p">,</span>  <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="n">delta</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                <span class="n">minv</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="n">delta</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">j0</span> <span class="o">=</span> <span class="n">j1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">j0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">j1</span> <span class="o">=</span> <span class="n">way</span><span class="p">[</span><span class="n">j0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="p">[</span><span class="n">j0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">j1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">j0</span> <span class="o">=</span> <span class="n">j1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">j0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>আরও পরিচিত রূপে উত্তর পুনরুদ্ধার করতে, অর্থাৎ প্রতিটি সারি $i = 1 \ldots n$ এর জন্য এতে নির্বাচিত কলামের সংখ্যা $ans[i]$ খুঁজতে, নিম্নরূপ করা যায়:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ans</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ans</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span></span></span></code></pre></div><p>ম্যাচিং-এর খরচ কেবল শূন্য কলামের পটেনশিয়াল (বিপরীত চিহ্নসহ) হিসেবে নেওয়া যায়। প্রকৃতপক্ষে, কোড থেকে দেখা যায় যে $-v[0]$ সমস্ত $\Delta$ মানের যোগফল ধারণ করে, অর্থাৎ পটেনশিয়ালের মোট পরিবর্তন। যদিও একসাথে বেশ কয়েকটি $u[i]$ এবং $v[j]$ মান পরিবর্তিত হতে পারে, পটেনশিয়ালের মোট পরিবর্তন ঠিক $\Delta$ এর সমান, কারণ অগমেন্টিং পাথ না পাওয়া পর্যন্ত, গম্য সারির সংখ্যা গম্য কলামের সংখ্যার চেয়ে ঠিক এক বেশি (শুধুমাত্র বর্তমান সারি $i$ এর পরিদর্শিত কলামের রূপে &ldquo;জোড়া&rdquo; নেই):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="o">-</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></span></span></code></pre></div><h2 id="সকসসভ-শরটসট-পথ-অযলগরদমর-সথ-সমপরক">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক<a class="anchor" href="#%e0%a6%b8%e0%a6%95%e0%a6%b8%e0%a6%b8%e0%a6%ad-%e0%a6%b6%e0%a6%b0%e0%a6%9f%e0%a6%b8%e0%a6%9f-%e0%a6%aa%e0%a6%a5-%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%b0-%e0%a6%b8%e0%a6%a5-%e0%a6%b8%e0%a6%ae%e0%a6%aa%e0%a6%b0%e0%a6%95">#</a></h2>
+<p>হাঙ্গেরিয়ান অ্যালগরিদমকে <a href="min_cost_flow.md">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a> হিসেবে দেখা যায়, অ্যাসাইনমেন্ট সমস্যার জন্য অভিযোজিত। বিস্তারিত না গিয়ে, তাদের মধ্যে সম্পর্কের ব্যাপারে একটি স্বজ্ঞাত ধারণা দেওয়া যাক।</p>
+<p>সাক্সেসিভ পাথ অ্যালগরিদম জনসনের অ্যালগরিদমের একটি পরিবর্তিত সংস্করণ রিওয়েটিং টেকনিক হিসেবে ব্যবহার করে। এটি চারটি ধাপে বিভক্ত:</p>
+<ul>
+<li>সিঙ্ক $s$ থেকে শুরু করে <a href="bellman_ford.md">বেলম্যান-ফোর্ড</a> অ্যালগরিদম ব্যবহার করুন এবং, প্রতিটি নোডের জন্য, $s$ থেকে $v$ পর্যন্ত পাথের সর্বনিম্ন ওয়েট $h(v)$ খুঁজুন।</li>
+</ul>
+<p>মূল অ্যালগরিদমের প্রতিটি ধাপের জন্য:</p>
+<ul>
+<li>মূল গ্রাফের এজগুলো এভাবে রিওয়েট করুন: $w(u,v) \gets w(u,v)+h(u)-h(v)$।</li>
+<li>মূল নেটওয়ার্কের শর্টেস্ট-পাথ সাবগ্রাফ খুঁজতে <a href="dijkstra.md">ডায়াক্সট্রা</a> অ্যালগরিদম ব্যবহার করুন।</li>
+<li>পরবর্তী ইটারেশনের জন্য পটেনশিয়াল আপডেট করুন।</li>
+</ul>
+<p>এই বর্ণনা দেওয়া হলে, আমরা দেখতে পারি যে $h(v)$ এবং পটেনশিয়ালের মধ্যে একটি শক্তিশালী সাদৃশ্য আছে: এটি যাচাই করা যায় যে একটি ধ্রুবক অফসেট পর্যন্ত এগুলো সমান। এছাড়া, এটি দেখানো যায় যে, রিওয়েটিং-এর পরে, সমস্ত শূন্য-ওয়েট এজের সেট শর্টেস্ট-পাথ সাবগ্রাফ উপস্থাপন করে যেখানে মূল অ্যালগরিদম ফ্লো বাড়ানোর চেষ্টা করে। এটি হাঙ্গেরিয়ান অ্যালগরিদমেও ঘটে: আমরা রিজিড এজ দিয়ে (যেগুলোর জন্য $A[i][j]-u[i]-v[j]$ পরিমাণ শূন্য) একটি সাবগ্রাফ তৈরি করি, এবং ম্যাচিং-এর আকার বাড়ানোর চেষ্টা করি।</p>
+<p>ধাপ ৪-এ, সমস্ত $h(v)$ আপডেট করা হয়: প্রতিবার আমরা ফ্লো নেটওয়ার্ক পরিবর্তন করলে, নিশ্চিত করতে হবে যে সোর্স থেকে দূরত্বগুলো সঠিক (অন্যথায়, পরবর্তী ইটারেশনে ডায়াক্সট্রা অ্যালগরিদম ব্যর্থ হতে পারে)। এটি পটেনশিয়ালে করা আপডেটের মতো শোনায়, কিন্তু এক্ষেত্রে এগুলো সমানভাবে বৃদ্ধি পায় না।</p>
+<p>পটেনশিয়ালের গভীর বোঝাপড়ার জন্য, এই <a href="https://codeforces.com/blog/entry/105658">নিবন্ধটি</a> দেখুন।</p>
+<h2 id="কজর-উদহরণ">কাজের উদাহরণ<a class="anchor" href="#%e0%a6%95%e0%a6%9c%e0%a6%b0-%e0%a6%89%e0%a6%a6%e0%a6%b9%e0%a6%b0%e0%a6%a3">#</a></h2>
+<p>এখানে অ্যাসাইনমেন্ট সমস্যা সম্পর্কিত কিছু উদাহরণ দেওয়া হলো, খুব তুচ্ছ থেকে কম স্পষ্ট কাজ পর্যন্ত:</p>
+<ul>
+<li>
+<p>একটি বাইপার্টাইট গ্রাফ দেওয়া আছে, এতে <strong>সর্বনিম্ন ওয়েটের ম্যাক্সিমাম ম্যাচিং</strong> খুঁজে বের করতে হবে (অর্থাৎ প্রথমত ম্যাচিং-এর আকার সর্বাধিক করা হয়, এবং দ্বিতীয়ত এর খরচ সর্বনিম্ন করা হয়)।<br>
+এটি সমাধান করতে, আমরা কেবল অনুপস্থিত এজের জায়গায় &ldquo;অসীম&rdquo; সংখ্যা রেখে একটি অ্যাসাইনমেন্ট সমস্যা তৈরি করি। তারপর, আমরা হাঙ্গেরিয়ান অ্যালগরিদম দিয়ে সমস্যাটি সমাধান করি, এবং উত্তর থেকে অসীম ওয়েটের এজ সরিয়ে দিই (এগুলো উত্তরে প্রবেশ করতে পারে যদি সমস্যার পারফেক্ট ম্যাচিং আকারে সমাধান না থাকে)।</p>
+</li>
+<li>
+<p>একটি বাইপার্টাইট গ্রাফ দেওয়া আছে, এতে <strong>সর্বাধিক ওয়েটের ম্যাক্সিমাম ম্যাচিং</strong> খুঁজে বের করতে হবে।<br>
+সমাধান আবার স্পষ্ট, সমস্ত ওয়েটকে মাইনাস এক দিয়ে গুণ করতে হবে।</p>
+</li>
+<li>
+<p><strong>ইমেজে চলমান বস্তু সনাক্তকরণের</strong> কাজ: দুটি ইমেজ তোলা হয়েছে, যার ফলে দুটি স্থানাঙ্ক সেট পাওয়া গেছে। প্রথম ও দ্বিতীয় ইমেজের বস্তুগুলো সম্পর্কিত করতে হবে, অর্থাৎ দ্বিতীয় ইমেজের প্রতিটি বিন্দুর জন্য নির্ধারণ করতে হবে প্রথম ইমেজের কোন বিন্দুর সাথে এটি সম্পর্কিত ছিল। এক্ষেত্রে, তুলনা করা বিন্দুগুলোর মধ্যে দূরত্বের যোগফল সর্বনিম্ন করতে হবে (অর্থাৎ আমরা এমন একটি সমাধান খুঁজছি যেখানে বস্তুগুলো মোটে সবচেয়ে কম পথ অতিক্রম করেছে)।<br>
+সমাধানে, আমরা কেবল একটি অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করি, যেখানে এজের ওয়েট হলো বিন্দুগুলোর মধ্যে ইউক্লিডীয় দূরত্ব।</p>
+</li>
+<li>
+<p><strong>লোকেটর দ্বারা চলমান বস্তু সনাক্তকরণের</strong> কাজ: দুটি লোকেটর আছে যেগুলো বস্তুর অবস্থান নির্ণয় করতে পারে না, শুধু তার দিক জানতে পারে। উভয় লোকেটর (বিভিন্ন বিন্দুতে অবস্থিত) $n$ টি এমন দিক আকারে তথ্য পেয়েছে। বস্তুগুলোর অবস্থান নির্ণয় করতে হবে, অর্থাৎ বস্তুগুলোর প্রত্যাশিত অবস্থান এবং তাদের সংশ্লিষ্ট দিক জোড়া নির্ধারণ করতে হবে এমনভাবে যাতে বস্তু থেকে দিক রশ্মি পর্যন্ত দূরত্বের যোগফল সর্বনিম্ন হয়।<br>
+সমাধান: আবার, আমরা কেবল অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করি, যেখানে বাম অংশের ভার্টেক্সগুলো প্রথম লোকেটরের $n$ টি দিক, ডান অংশের ভার্টেক্সগুলো দ্বিতীয় লোকেটরের $n$ টি দিক, এবং এজের ওয়েটগুলো সংশ্লিষ্ট রশ্মির মধ্যে দূরত্ব।</p>
+</li>
+<li>
+<p><strong>ডিরেক্টেড অ্যাসাইক্লিক গ্রাফকে পাথ দিয়ে কভার করা</strong>: একটি ডিরেক্টেড অ্যাসাইক্লিক গ্রাফ দেওয়া আছে, সবচেয়ে কম সংখ্যক পাথ (সমান হলে, সর্বনিম্ন মোট ওয়েটসহ) খুঁজে বের করতে হবে যাতে গ্রাফের প্রতিটি ভার্টেক্স ঠিক একটি পাথে থাকে।<br>
+সমাধান হলো দেওয়া গ্রাফ থেকে সংশ্লিষ্ট বাইপার্টাইট গ্রাফ তৈরি করা এবং এতে সর্বনিম্ন ওয়েটের ম্যাক্সিমাম ম্যাচিং খোঁজা। আরও বিস্তারিতের জন্য আলাদা নিবন্ধ দেখুন।</p>
+</li>
+<li>
+<p><strong>ট্রি কালারিং বুক</strong>। একটি ট্রি দেওয়া আছে যেখানে পাতা ব্যতীত প্রতিটি ভার্টেক্সের ঠিক $k-1$ টি চাইল্ড আছে। প্রতিটি ভার্টেক্সের জন্য $k$ টি রংয়ের একটি বেছে নিতে হবে যাতে কোনো দুটি সংলগ্ন ভার্টেক্সের একই রং না হয়। এছাড়া, প্রতিটি ভার্টেক্স ও প্রতিটি রংয়ের জন্য, সেই ভার্টেক্সকে সেই রংয়ে রং করার খরচ জানা আছে, এবং মোট খরচ সর্বনিম্ন করতে হবে।<br>
+এই সমস্যা সমাধানে আমরা ডায়নামিক প্রোগ্রামিং ব্যবহার করি। যথা, আসুন $d[v][c]$ মান গণনা করতে শিখি, যেখানে $v$ হলো ভার্টেক্স নম্বর, $c$ হলো রং নম্বর, এবং $d[v][c]$ মানটি হলো $v$ তে রুটকৃত সাবট্রি-র সমস্ত ভার্টেক্স এবং ভার্টেক্স $v$ নিজেকে $c$ রংয়ে রং করতে প্রয়োজনীয় সর্বনিম্ন খরচ। $d[v][c]$ গণনা করতে, বাকি $k-1$ টি রং $v$ এর চাইল্ডদের মধ্যে বিতরণ করা প্রয়োজন, এবং এর জন্য অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করা প্রয়োজন (যেখানে বাম অংশের ভার্টেক্সগুলো রং, ডান অংশের ভার্টেক্সগুলো চাইল্ড, এবং এজের ওয়েটগুলো $d$ এর সংশ্লিষ্ট মান)।<br>
+এভাবে প্রতিটি $d[v][c]$ মান অ্যাসাইনমেন্ট সমস্যার সমাধান ব্যবহার করে গণনা করা হয়, যা চূড়ান্ত অ্যাসিম্পটোটিক $\mathcal{O}(nk^4)$ দেয়।</p>
+</li>
+<li>
+<p>যদি অ্যাসাইনমেন্ট সমস্যায় ওয়েট এজে নয়, ভার্টেক্সে থাকে, এবং শুধুমাত্র <strong>একই অংশের ভার্টেক্সে</strong>, তাহলে হাঙ্গেরিয়ান অ্যালগরিদম ব্যবহার করা প্রয়োজন নয়: কেবল ওয়েট অনুসারে ভার্টেক্স সর্ট করুন এবং সাধারণ <a href="kuhn_maximum_bipartite_matching.md">কুন অ্যালগরিদম</a> চালান (আরও বিস্তারিতের জন্য, <a href="http://e-maxx.ru/algo/vertex_weighted_matching">আলাদা নিবন্ধ</a> দেখুন)।</p>
+</li>
+<li>
+<p>নিম্নলিখিত <strong>বিশেষ ক্ষেত্র</strong> বিবেচনা করুন। বাম অংশের প্রতিটি ভার্টেক্সে একটি সংখ্যা $\alpha[i]$ এবং ডান অংশের প্রতিটিতে $\beta[j]$ নির্ধারিত। যেকোনো এজ $(i,j)$ এর ওয়েট $\alpha[i]\cdot \beta[j]$ এর সমান ($\alpha[i]$ এবং $\beta[j]$ সংখ্যাগুলো জানা)। অ্যাসাইনমেন্ট সমস্যা সমাধান করুন।<br>
+এটি হাঙ্গেরিয়ান অ্যালগরিদম ছাড়া সমাধান করতে, প্রথমে দুটি ভার্টেক্স বিশিষ্ট উভয় অংশের ক্ষেত্র বিবেচনা করুন। এক্ষেত্রে, সহজেই দেখা যায় যে ভার্টেক্সগুলো বিপরীত ক্রমে সংযুক্ত করা ভালো: ছোট $\alpha[i]$ বিশিষ্ট ভার্টেক্সটিকে বড় $\beta[j]$ বিশিষ্ট ভার্টেক্সের সাথে সংযুক্ত করুন। এই নিয়মটি সহজেই যেকোনো সংখ্যক ভার্টেক্সে সাধারণীকরণ করা যায়: প্রথম অংশের ভার্টেক্সগুলো $\alpha[i]$ মানের ঊর্ধ্বক্রমে, দ্বিতীয় অংশেরগুলো $\beta[j]$ মানের নিম্নক্রমে সর্ট করুন, এবং সেই ক্রমে ভার্টেক্সগুলো জোড়ায় জোড়ায় সংযুক্ত করুন। এভাবে, আমরা $\mathcal{O}(n\log n)$ কমপ্লেক্সিটির একটি সমাধান পাই।</p>
+</li>
+<li>
+<p><strong>পটেনশিয়ালের সমস্যা</strong>। একটি ম্যাট্রিক্স $A[1 \ldots n][1 \ldots m]$ দেওয়া আছে, দুটি অ্যারে $u[1 \ldots n]$ এবং $v[1 \ldots m]$ খুঁজে বের করতে হবে যাতে, যেকোনো $i$ এবং $j$ এর জন্য, $u[i] + v[j] \leq a[i][j]$ এবং অ্যারে $u$ ও $v$ এর উপাদানের যোগফল সর্বাধিক হয়।<br>
+হাঙ্গেরিয়ান অ্যালগরিদম জানলে, এই সমস্যার সমাধান কঠিন হবে না: হাঙ্গেরিয়ান অ্যালগরিদম ঠিক এমন পটেনশিয়াল $u, v$ খুঁজে পায় যেটি সমস্যার শর্ত পূরণ করে। অন্যদিকে, হাঙ্গেরিয়ান অ্যালগরিদমের জ্ঞান ছাড়া এমন সমস্যা সমাধান করা প্রায় অসম্ভব বলে মনে হয়।</p>
+<p>!!! info &ldquo;মন্তব্য&rdquo;</p>
+<pre><code>  এই কাজটি অ্যাসাইনমেন্ট সমস্যার **ডুয়াল সমস্যা** নামেও পরিচিত: অ্যাসাইনমেন্টের মোট খরচ সর্বনিম্ন করা পটেনশিয়ালের যোগফল সর্বাধিক করার সমতুল্য।
+</code></pre>
+</li>
+</ul>
+<h2 id="সহতয">সাহিত্য<a class="anchor" href="#%e0%a6%b8%e0%a6%b9%e0%a6%a4%e0%a6%af">#</a></h2>
+<ul>
+<li>
+<p><a href="https://books.google.it/books/about/Network_Flows.html?id=rFuLngEACAAJ&amp;redir_esc=y">Ravindra Ahuja, Thomas Magnanti, James Orlin. Network Flows [1993]</a></p>
+</li>
+<li>
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-540-68279-0_2">Harold Kuhn. The Hungarian Method for the Assignment Problem [1955]</a></p>
+</li>
+<li>
+<p><a href="https://www.jstor.org/stable/2098689">James Munkres. Algorithms for Assignment and Transportation Problems [1957]</a></p>
+</li>
+</ul>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
+<ul>
+<li>
+<p><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1687">UVA - Crime Wave - The Sequel</a></p>
+</li>
+<li>
+<p><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1829">UVA - Warehouse</a></p>
+</li>
+<li>
+<p><a href="http://acm.sgu.ru/problem.php?contest=0&amp;problem=210">SGU - Beloved Sons</a></p>
+</li>
+<li>
+<p><a href="http://livearchive.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1277">UVA - The Great Wall Game</a></p>
+</li>
+<li>
+<p><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=1237">UVA - Jogging Trails</a></p>
+</li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/bn/graph/bridge-searching-online/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>অনলাইনে ব্রিজ খোঁজা</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/bn/graph/tree_painting/" class="flex align-center">
+        <span>ট্রি-র এজে রং করা</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#অযসইনমনট-সমসযর-ববত">অ্যাসাইনমেন্ট সমস্যার বিবৃতি</a></li>
+    <li><a href="#হঙগরযন-অযলগরদম">হাঙ্গেরিয়ান অ্যালগরিদম</a>
+      <ul>
+        <li><a href="#ঐতহসক-তথয">ঐতিহাসিক তথ্য</a></li>
+        <li><a href="#অযলগরদম"> অ্যালগরিদম</a></li>
+        <li><a href="#অযলগরদম-1"> অ্যালগরিদম</a></li>
+      </ul>
+    </li>
+    <li><a href="#হঙগরযন-অযলগরদমর-ইমপলমনটশন">হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#সকসসভ-শরটসট-পথ-অযলগরদমর-সথ-সমপরক">সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক</a></li>
+    <li><a href="#কজর-উদহরণ">কাজের উদাহরণ</a></li>
+    <li><a href="#সহতয">সাহিত্য</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

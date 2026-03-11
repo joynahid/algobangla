@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rib_connectivity on algobangla</title>
+    <link>http://localhost:53425/en/tags/rib_connectivity/</link>
+    <description>Recent content in Rib_connectivity on algobangla</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://localhost:53425/en/tags/rib_connectivity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Edge connectivity / Vertex connectivity</title>
+      <link>http://localhost:53425/en/graph/edge_vertex_connectivity/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:53425/en/graph/edge_vertex_connectivity/</guid>
+      <description>&lt;h1 id=&#34;edge-connectivity--vertex-connectivity&#34;&gt;Edge connectivity / Vertex connectivity&lt;a class=&#34;anchor&#34; href=&#34;#edge-connectivity--vertex-connectivity&#34;&gt;#&lt;/a&gt;&lt;/h1&gt;&#xD;&#xA;&lt;h2 id=&#34;definition&#34;&gt;Definition&lt;a class=&#34;anchor&#34; href=&#34;#definition&#34;&gt;#&lt;/a&gt;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;Given an undirected graph $G$ with $n$ vertices and $m$ edges.&#xA;Both the edge connectivity and the vertex connectivity are characteristics describing the graph.&lt;/p&gt;&#xA;&lt;h3 id=&#34;edge-connectivity&#34;&gt;Edge connectivity&lt;a class=&#34;anchor&#34; href=&#34;#edge-connectivity&#34;&gt;#&lt;/a&gt;&lt;/h3&gt;&#xD;&#xA;&lt;p&gt;The &lt;strong&gt;edge connectivity&lt;/strong&gt; $\lambda$ of the graph $G$ is the minimum number of edges that need to be deleted, such that the graph $G$ gets disconnected.&lt;/p&gt;&#xA;&lt;p&gt;For example an already disconnected graph has an edge connectivity of $0$, a connected graph with at least one bridge has an edge connectivity of $1$, and a connected graph with no bridges has an edge connectivity of at least $2$.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

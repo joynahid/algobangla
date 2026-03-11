@@ -1,0 +1,3328 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=53425&amp;path=livereload" data-no-instant defer></script>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Treap (Cartesian tree)#A treap is a data structure which combines binary tree and binary heap (hence the name: tree &#43; heap $\Rightarrow$ Treap).
+More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$. If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:53425/en/data_structures/treap/">
+  <meta property="og:site_name" content="algobangla">
+  <meta property="og:title" content="Treap (Cartesian tree)">
+  <meta property="og:description" content="Treap (Cartesian tree)#A treap is a data structure which combines binary tree and binary heap (hence the name: tree &#43; heap $\Rightarrow$ Treap).
+More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$. If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="data_structures">
+    <meta property="article:tag" content="Translated">
+
+
+  <meta itemprop="name" content="Treap (Cartesian tree)">
+  <meta itemprop="description" content="Treap (Cartesian tree)#A treap is a data structure which combines binary tree and binary heap (hence the name: tree &#43; heap $\Rightarrow$ Treap).
+More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$. If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.">
+  <meta itemprop="wordCount" content="3735">
+  <meta itemprop="keywords" content="Translated">
+
+<title>Treap (Cartesian tree) | algobangla</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="http://localhost:53425/en/data_structures/treap/">
+  <link rel="alternate" hreflang="bn" href="http://localhost:53425/bn/data_structures/treap/" title="ট্রিপ (কার্তেসিয়ান ট্রি)">
+<link rel="stylesheet" href="/book.min.78425d2454aed079c91fb5d0cb3403bc4486a0fe295cb3e9dfec476916fec2a0.css" integrity="sha256-eEJdJFSu0HnJH7XQyzQDvESGoP4pXLPp3&#43;xHaRb&#43;wqA=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.179136d620b2862193643d68f236fb4c2847ba3120c213ed83c47fb3706ad4e3.js" integrity="sha256-F5E21iCyhiGTZD1o8jb7TChHujEgwhPtg8R/s3Bq1OM=" crossorigin="anonymous"></script>
+
+
+
+  
+<link rel="preconnect" href="https://fonts.maateen.me">
+<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/theme-toggle.css">
+
+
+<link rel="stylesheet" href="/syntax-light.css" id="syntax-css">
+
+
+<script>
+(function() {
+  var saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+})();
+</script>
+
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-data_structures">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/en/"><span>algobangla</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+  
+
+
+  
+    
+  
+
+
+  
+
+
+<ul class="book-languages">
+  <li>
+    <input type="checkbox" id="languages" class="toggle" />
+    <label for="languages" class="flex">
+      <a role="button">
+        <img src="/icons/translate.svg" class="book-icon" alt="Languages" />
+        English
+      </a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+
+    <ul>
+      
+      <li>
+        <a href="/bn/data_structures/treap/" class="flex flex-auto">
+          বাংলা
+        </a>
+      </li>
+      
+    </ul>
+  </li>
+</ul>
+
+
+
+<button id="theme-toggle" onclick="
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  this.textContent = next === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc) sc.href = sc.href.replace(next === 'dark' ? 'syntax-light' : 'syntax-dark', next === 'dark' ? 'syntax-dark' : 'syntax-light');
+" title="Toggle light/dark mode">🌙</button>
+<script>
+(function() {
+  var t = document.documentElement.getAttribute('data-theme');
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  var sc = document.getElementById('syntax-css');
+  if (sc && t === 'dark') sc.href = sc.href.replace('syntax-light', 'syntax-dark');
+})();
+</script>
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-f7b161d6fc71b7efd1e3549d2d75e744" class="toggle"  />
+    <label for="section-f7b161d6fc71b7efd1e3549d2d75e744" class="flex">
+      <a role="button" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/big-integer/" class="">
+      Arbitrary-Precision Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/balanced-ternary/" class="">
+      Balanced Ternary</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/binary-exp/" class="">
+      Binary Exponentiation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factoring-exp/" class="">
+      Binary Exponentiation by Factoring</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/bit-manipulation/" class="">
+      Bit manipulation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/chinese-remainder-theorem/" class="">
+      Chinese Remainder Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/continued-fractions/" class="">
+      Continued fractions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/discrete-log/" class="">
+      Discrete Logarithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/discrete-root/" class="">
+      Discrete Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/euclid-algorithm/" class="">
+      Euclidean algorithm for computing the greatest common divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/phi-function/" class="">
+      Euler&#39;s totient function</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/extended-euclid-algorithm/" class="">
+      Extended Euclidean Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/fft/" class="">
+      Fast Fourier transform</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/fibonacci-numbers/" class="">
+      Fibonacci Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorial-divisors/" class="">
+      Finding Power of Factorial Divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/garners-algorithm/" class="">
+      Garner&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/gray-code/" class="">
+      Gray code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/factorization/" class="">
+      Integer factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/linear_congruence_equation/" class="">
+      Linear Congruence Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/linear-diophantine-equation/" class="">
+      Linear Diophantine Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/prime-sieve-linear/" class="">
+      Linear Sieve</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/module-inverse/" class="">
+      Modular Multiplicative Inverse</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/montgomery_multiplication/" class="">
+      Montgomery Multiplication</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/divisors/" class="">
+      Number of divisors / sum of divisors</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/polynomial/" class="">
+      Operations on polynomials and series</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/primality_tests/" class="">
+      Primality tests</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/primitive-root/" class="">
+      Primitive Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/sieve-of-eratosthenes/" class="">
+      Sieve of Eratosthenes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/algebra/all-submasks/" class="">
+      Submask Enumeration</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-1de1310b23a223554d69f52536bcf700" class="toggle" checked />
+    <label for="section-1de1310b23a223554d69f52536bcf700" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/disjoint_set_union/" class="">
+      Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/fenwick/" class="">
+      Fenwick Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/stack_queue_modification/" class="">
+      Minimum stack / Minimum queue</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/randomized_heap/" class="">
+      Randomized Heap</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/segment_tree/" class="">
+      Segment Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sparse-table/" class="">
+      Sparse Table</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sqrt_decomposition/" class="">
+      Sqrt Decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/sqrt-tree/" class="">
+      Sqrt Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/data_structures/treap/" class="active">
+      Treap (Cartesian tree)</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-07b56d442029a5b6e28a3bcfe84575d9" class="toggle"  />
+    <label for="section-07b56d442029a5b6e28a3bcfe84575d9" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/divide-and-conquer-dp/" class="">
+      Divide and Conquer DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/profile-dynamics/" class="">
+      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/zero_matrix/" class="">
+      Finding the largest zero submatrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/intro-to-dp/" class="">
+      Introduction to Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/knapsack/" class="">
+      Knapsack Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/knuth-optimization/" class="">
+      Knuth&#39;s Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/dynamic_programming/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4b6134a05034a32f3bc298d1791becec" class="toggle"  />
+    <label for="section-4b6134a05034a32f3bc298d1791becec" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/aho_corasick/" class="">
+      Aho-Corasick algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/expression_parsing/" class="">
+      Expression parsing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/main_lorentz/" class="">
+      Finding repetitions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/lyndon_factorization/" class="">
+      Lyndon factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/prefix-function/" class="">
+      Prefix function. Knuth–Morris–Pratt algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/rabin-karp/" class="">
+      Rabin-Karp Algorithm for string matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/string-hashing/" class="">
+      String Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-array/" class="">
+      Suffix Array</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-automaton/" class="">
+      Suffix Automaton</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/suffix-tree-ukkonen/" class="">
+      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/string/z-function/" class="">
+      Z-function and its calculation</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2d004dfeee0260d865651fbcb658a355" class="toggle"  />
+    <label for="section-2d004dfeee0260d865651fbcb658a355" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/determinant-gauss/" class="">
+      Calculating the determinant of a matrix by Gauss</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/determinant-kraut/" class="">
+      Calculating the determinant using Kraut method</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/rank-matrix/" class="">
+      Finding the rank of a matrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/linear_algebra/linear-system-gauss/" class="">
+      Gauss method for solving system of linear equations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-cd939af048c7554d8e15861cf94ef5bd" class="toggle"  />
+    <label for="section-cd939af048c7554d8e15861cf94ef5bd" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/bracket_sequences/" class="">
+      Balanced bracket sequences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/binomial-coefficients/" class="">
+      Binomial Coefficients</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/burnside/" class="">
+      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/catalan-numbers/" class="">
+      Catalan Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/counting_labeled_graphs/" class="">
+      Counting labeled graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/bishops-on-chessboard/" class="">
+      Placing Bishops on a Chessboard</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/stars_and_bars/" class="">
+      Stars and bars</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/combinatorics/inclusion-exclusion/" class="">
+      The Inclusion-Exclusion Principle</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ef166827526ba2edc74d0ac681f2898f" class="toggle"  />
+    <label for="section-ef166827526ba2edc74d0ac681f2898f" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/binary_search/" class="">
+      Binary search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/simpson-integration/" class="">
+      Integration by Simpson&#39;s formula</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/roots_newton/" class="">
+      Newton&#39;s method for finding roots</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/simulated_annealing/" class="">
+      Simulated Annealing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/num_methods/ternary_search/" class="">
+      Ternary Search</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6fd838606809e0128aa80e44249f1a58" class="toggle"  />
+    <label for="section-6fd838606809e0128aa80e44249f1a58" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/basic-geometry/" class="">
+      Basic Geometry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/point-in-convex-polygon/" class="">
+      Check if point belongs to the convex polygon in O(log N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/check-segments-intersection/" class="">
+      Check if two segments intersect</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/circle-circle-intersection/" class="">
+      Circle-Circle Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/circle-line-intersection/" class="">
+      Circle-Line Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/convex-hull/" class="">
+      Convex Hull construction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/convex_hull_trick/" class="">
+      Convex hull trick and Li Chao tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/delaunay/" class="">
+      Delaunay triangulation and Voronoi diagram</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/area-of-simple-polygon/" class="">
+      Finding area of simple polygon in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/tangents-to-two-circles/" class="">
+      Finding common tangents to two circles</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/planar/" class="">
+      Finding faces of a planar graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/segments-intersection/" class="">
+      Finding intersection of two segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/segment-to-line/" class="">
+      Finding the equation of a line for a segment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/nearest_points/" class="">
+      Finding the nearest pair of points</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/halfplane-intersection/" class="">
+      Half-plane intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/lines-intersection/" class="">
+      Intersection Point of Lines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/lattice-points/" class="">
+      Lattice points inside non-lattice polygon</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/length-of-segments-union/" class="">
+      Length of the union of segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/manhattan-distance/" class="">
+      Manhattan Distance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/enclosing-circle/" class="">
+      Minimum Enclosing Circle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/minkowski/" class="">
+      Minkowski sum of convex polygons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/oriented-triangle-area/" class="">
+      Oriented area of a triangle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/picks-theorem/" class="">
+      Pick&#39;s Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/point-location/" class="">
+      Point location in O(log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/intersecting_segments/" class="">
+      Search for a pair of intersecting segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/geometry/vertical_decomposition/" class="">
+      Vertical decomposition</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c75c8866c99f042901fc5bb463c39422" class="toggle"  />
+    <label for="section-c75c8866c99f042901fc5bb463c39422" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/01_bfs/" class="">
+      0-1 BFS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/2sat/" class="">
+      2-SAT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bellman_ford/" class="">
+      Bellman-Ford Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/breadth-first-search/" class="">
+      Breadth-first search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bipartite-check/" class="">
+      Check whether a graph is bipartite</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/desopo_pape/" class="">
+      D´Esopo-Pape algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/depth-first-search/" class="">
+      Depth First Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dijkstra/" class="">
+      Dijkstra Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dijkstra_sparse/" class="">
+      Dijkstra on sparse graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/edge_vertex_connectivity/" class="">
+      Edge connectivity / Vertex connectivity</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/finding-negative-cycle-in-graph/" class="">
+      Finding a negative cycle in the graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/cutpoints/" class="">
+      Finding articulation points in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bridge-searching/" class="">
+      Finding bridges in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/bridge-searching-online/" class="">
+      Finding Bridges Online</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/flow_with_demands/" class="">
+      Flows with demands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      Floyd-Warshall Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/hld/" class="">
+      Heavy-light decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/hungarian-algorithm/" class="">
+      Hungarian algorithm for solving the assignment problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/kirchhoff-theorem/" class="">
+      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/kuhn_maximum_bipartite_matching/" class="">
+      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_binary_lifting/" class="">
+      Lowest Common Ancestor - Binary Lifting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_farachcoltonbender/" class="">
+      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/lca_tarjan/" class="">
+      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/dinic/" class="">
+      Maximum flow - Dinic&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/edmonds_karp/" class="">
+      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mpm/" class="">
+      Maximum flow - MPM algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/push-relabel/" class="">
+      Maximum flow - Push-relabel algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/push-relabel-faster/" class="">
+      Maximum flow - Push-relabel method improved</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_kruskal_with_dsu/" class="">
+      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_kruskal/" class="">
+      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/mst_prim/" class="">
+      Minimum spanning tree - Prim&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/min_cost_flow/" class="">
+      Minimum-cost flow - Successive shortest path algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/fixed_length_paths/" class="">
+      Number of paths of fixed length / Shortest paths of fixed length</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/tree_painting/" class="">
+      Paint the edges of the tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/pruefer_code/" class="">
+      Prüfer code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/search-for-connected-components/" class="">
+      Search for connected components in a graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/second_best_mst/" class="">
+      Second Best Minimum Spanning Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/rmq_linear/" class="">
+      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/assignment-problem-min-flow/" class="">
+      Solving assignment problem using min-cost-flow</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/strong-orientation/" class="">
+      Strong Orientation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/strongly-connected-components/" class="">
+      Strongly connected components and the condensation graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/graph/topological-sort/" class="">
+      Topological Sorting</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2e9f7f64f2dd8c3ce17273da578ea7c7" class="toggle"  />
+    <label for="section-2e9f7f64f2dd8c3ce17273da578ea7c7" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/k-th/" class="">
+      K-th order statistic in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/sequences/rmq/" class="">
+      Range Minimum Query</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-087953a613e1dd5765fcd218432eb5a8" class="toggle"  />
+    <label for="section-087953a613e1dd5765fcd218432eb5a8" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/game_theory/games_on_graphs/" class="">
+      Games on arbitrary graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/game_theory/sprague-grundy-nim/" class="">
+      Sprague-Grundy theorem. Nim</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9c5e8eca3f1b4797b5206dac0fd26770" class="toggle"  />
+    <label for="section-9c5e8eca3f1b4797b5206dac0fd26770" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule-with-completion-duration/" class="">
+      Optimal schedule of jobs given their deadlines and durations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule_one_machine/" class="">
+      Scheduling jobs on one machine</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/schedules/schedule_two_machines/" class="">
+      Scheduling jobs on two machines</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ae1361bcd366834155af8260a9179d66" class="toggle"  />
+    <label for="section-ae1361bcd366834155af8260a9179d66" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/15-puzzle/" class="">
+      15 Puzzle Game: Existence Of The Solution</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/tortoise_and_hare/" class="">
+      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/josephus_problem/" class="">
+      Josephus Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/maximum_average_segment/" class="">
+      Search the subarray with the maximum/minimum sum</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/others/stern_brocot_tree_farey_sequences/" class="">
+      The Stern-Brocot tree and Farey sequences</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/en/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Treap (Cartesian tree)</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#advantages-of-such-data-organisation">Advantages of such data organisation</a></li>
+    <li><a href="#operations">Operations</a></li>
+    <li><a href="#implementation-description">Implementation Description</a>
+      <ul>
+        <li><a href="#split">Split</a></li>
+        <li><a href="#merge">Merge</a></li>
+        <li><a href="#insert">Insert</a></li>
+        <li><a href="#erase">Erase</a></li>
+        <li><a href="#build">Build</a></li>
+        <li><a href="#union">Union</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#maintaining-the-sizes-of-subtrees">Maintaining the sizes of subtrees</a></li>
+    <li><a href="#building-a-treap-in--in-offline-mode">Building a Treap in  in offline mode</a></li>
+    <li><a href="#implicit-treaps">Implicit Treaps</a></li>
+    <li><a href="#literature">Literature</a></li>
+    <li><a href="#practice-problems">Practice Problems</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="treap-cartesian-tree">Treap (Cartesian tree)<a class="anchor" href="#treap-cartesian-tree">#</a></h1>
+<p>A treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).</p>
+<p>More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$.
+If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.</p>
+<p>A treap is also often referred to as a &ldquo;cartesian tree&rdquo;, as it is easy to embed it in a Cartesian plane:</p>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Treap.svg" width="350px"/>
+</center>
+<p>Treaps have been proposed by Raimund Siedel and Cecilia Aragon in 1989.</p>
+<h2 id="advantages-of-such-data-organisation">Advantages of such data organisation<a class="anchor" href="#advantages-of-such-data-organisation">#</a></h2>
+<p>In such implementation, $X$ values are the keys (and at same time the values stored in the treap), and $Y$ values are called <strong>priorities</strong>. Without priorities, the treap would be a regular binary search tree by $X$, and one set of $X$ values could correspond to a lot of different trees, some of them degenerate (for example, in the form of a linked list), and therefore extremely slow (the main operations would have $O(N)$ complexity).</p>
+<p>At the same time, <strong>priorities</strong> (when they&rsquo;re unique) allow to <strong>uniquely</strong> specify the tree that will be constructed (of course, it does not depend on the order in which values are added), which can be proven using corresponding theorem. Obviously, if you <strong>choose the priorities randomly</strong>, you will get non-degenerate trees on average, which will ensure $O(\log N)$ complexity for the main operations. Hence another name of this data structure - <strong>randomized binary search tree</strong>.</p>
+<h2 id="operations">Operations<a class="anchor" href="#operations">#</a></h2>
+<p>A treap provides the following operations:</p>
+<ul>
+<li><strong>Insert (X,Y)</strong> in $O(\log N)$.<br>
+Adds a new node to the tree. One possible variant is to pass only $X$ and generate $Y$ randomly inside the operation.</li>
+<li><strong>Search (X)</strong> in $O(\log N)$.<br>
+Looks for a node with the specified key value $X$. The implementation is the same as for an ordinary binary search tree.</li>
+<li><strong>Erase (X)</strong> in $O(\log N)$.<br>
+Looks for a node with the specified key value $X$ and removes it from the tree.</li>
+<li><strong>Build ($X_1$, &hellip;, $X_N$)</strong> in $O(N)$.<br>
+Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted).</li>
+<li><strong>Union ($T_1$, $T_2$)</strong> in $O(M \log (N/M))$.<br>
+Merges two trees, assuming that all the elements are different. It is possible to achieve the same complexity if duplicate elements should be removed during merge.</li>
+<li><strong>Intersect ($T_1$, $T_2$)</strong> in $O(M \log (N/M))$.<br>
+Finds the intersection of two trees (i.e. their common elements). We will not consider the implementation of this operation here.</li>
+</ul>
+<p>In addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the $K$-th largest element or finding the index of an element.</p>
+<h2 id="implementation-description">Implementation Description<a class="anchor" href="#implementation-description">#</a></h2>
+<p>In terms of implementation, each node contains $X$, $Y$ and pointers to the left ($L$) and right ($R$) children.</p>
+<p>We will implement all the required operations using just two auxiliary operations: Split and Merge.</p>
+<h3 id="split">Split<a class="anchor" href="#split">#</a></h3>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Treap_split.svg" width="450px"/>
+</center>
+<p><strong>Split ($T$, $X$)</strong> separates tree $T$ in 2 subtrees $L$ and $R$ trees (which are the return values of split) so that $L$ contains all elements with key $X_L \le X$, and $R$ contains all elements with key $X_R > X$. This operation has $O (\log N)$ complexity and is implemented using a clean recursion:</p>
+<ol>
+<li>If the value of the root node (R) is $\le X$, then <code>L</code> would at least consist of <code>R-&gt;L</code> and <code>R</code>. We then call split on <code>R-&gt;R</code>, and note its split result as <code>L'</code> and <code>R'</code>. Finally, <code>L</code> would also contain <code>L'</code>, whereas <code>R = R'</code>.</li>
+<li>If the value of the root node (R) is $> X$, then <code>R</code> would at least consist of <code>R</code> and <code>R-&gt;R</code>. We then call split on <code>R-&gt;L</code>, and note its split result as <code>L'</code> and <code>R'</code>. Finally, <code>L=L'</code>, whereas <code>R</code> would also contain <code>R'</code>.</li>
+</ol>
+<p>Thus, the split algorithm is:</p>
+<ol>
+<li>decide which subtree the root node would belong to (left or right)</li>
+<li>recursively call split on one of its children</li>
+<li>create the final result by reusing the recursive split call.</li>
+</ol>
+<h3 id="merge">Merge<a class="anchor" href="#merge">#</a></h3>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Treap_merge.svg" width="500px"/>
+</center>
+<p><strong>Merge ($T_1$, $T_2$)</strong> combines two subtrees $T_1$ and $T_2$ and returns the new tree. This operation also has $O (\log N)$ complexity. It works under the assumption that $T_1$ and $T_2$ are ordered (all keys $X$ in $T_1$ are smaller than keys in $T_2$). Thus, we need to combine these trees without violating the order of priorities $Y$. To do this, we choose as the root the tree which has higher priority $Y$ in the root node, and recursively call Merge for the other tree and the corresponding subtree of the selected root node.</p>
+<h3 id="insert">Insert<a class="anchor" href="#insert">#</a></h3>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Treap_insert.svg" width="500px"/>
+</center>
+<p>Now implementation of <strong>Insert ($X$, $Y$)</strong> becomes obvious. First we descend in the tree (as in a regular binary search tree by X), and stop at the first node in which the priority value is less than $Y$. We have found the place where we will insert the new element. Next, we call <strong>Split (T, X)</strong> on the subtree starting at the found node, and use returned subtrees $L$ and $R$ as left and right children of the new node.</p>
+<p>Alternatively, insert can be done by splitting the initial treap on $X$ and doing $2$ merges with the new node (see the picture).</p>
+<h3 id="erase">Erase<a class="anchor" href="#erase">#</a></h3>
+<center>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Treap_erase.svg" width="500px"/>
+</center>
+<p>Implementation of <strong>Erase ($X$)</strong> is also clear. First we descend in the tree (as in a regular binary search tree by $X$), looking for the element we want to delete. Once the node is found, we call <strong>Merge</strong> on its children and put the return value of the operation in the place of the element we&rsquo;re deleting.</p>
+<p>Alternatively, we can factor out the subtree holding $X$ with $2$ split operations and merge the remaining treaps (see the picture).</p>
+<h3 id="build">Build<a class="anchor" href="#build">#</a></h3>
+<p>We implement <strong>Build</strong> operation with $O (N \log N)$ complexity using $N$ <strong>Insert</strong> calls.</p>
+<h3 id="union">Union<a class="anchor" href="#union">#</a></h3>
+<p><strong>Union ($T_1$, $T_2$)</strong> has theoretical complexity $O (M \log (N / M))$, but in practice it works very well, probably with a very small hidden constant. Let&rsquo;s assume without loss of generality that $T_1 \rightarrow Y > T_2 \rightarrow Y$, i. e. root of $T_1$ will be the root of the result. To get the result, we need to merge trees $T_1 \rightarrow L$, $T_1 \rightarrow R$ and $T_2$ in two trees which could be children of $T_1$ root. To do this, we call Split ($T_2$, $T_1\rightarrow X$), thus splitting $T_2$ in two parts L and R, which we then recursively combine with children of $T_1$: Union ($T_1 \rightarrow L$, $L$) and Union ($T_1 \rightarrow R$, $R$), thus getting left and right subtrees of the result.</p>
+<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">prior</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">item</span> <span class="o">*</span><span class="n">l</span><span class="p">,</span> <span class="o">*</span><span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">item</span> <span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="o">:</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">prior</span><span class="p">(</span><span class="n">rand</span><span class="p">()),</span> <span class="n">l</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">r</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">item</span> <span class="p">(</span><span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">prior</span><span class="p">)</span> <span class="o">:</span> <span class="n">key</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">prior</span><span class="p">(</span><span class="n">prior</span><span class="p">),</span> <span class="n">l</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span> <span class="n">r</span><span class="p">(</span><span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="n">item</span><span class="o">*</span> <span class="n">pitem</span><span class="p">;</span></span></span></code></pre></div><p>This is our item defintion. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">split</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">l</span> <span class="o">=</span> <span class="n">r</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;=</span> <span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span>  <span class="n">l</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">        <span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">),</span>  <span class="n">r</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><code>t</code> is the treap to split, and <code>key</code> is the BST value by which to split. Note that we do not <code>return</code> the result values anywhere, instead, we just use them like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">pitem</span> <span class="n">l</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">split</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Left subtree size: &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;Right subtree size: &#34;</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span></span></span></code></pre></div><p>This <code>split</code> function can be tricky to understand, as it has both pointers (<code>pitem</code>) as well as reference to those pointers (<code>pitem &amp;l</code>). Let us understand in words what the function call <code>split(t, k, l, r)</code> intends: &ldquo;split treap <code>t</code> by value <code>k</code> into two treaps, and store the left treaps in <code>l</code> and right treap in <code>r</code>&rdquo;. Great! Now, let us apply this definition to the two recursive calls, using the case work we analyzed in the previous section: (The first if condition is a trivial base case for an empty treap)</p>
+<ol>
+<li>When the root node value is $\le$ key, we call <code>split (t-&gt;r, key, t-&gt;r, r)</code>, which means: &ldquo;split treap <code>t-&gt;r</code> (right subtree of <code>t</code>) by value <code>key</code> and store the left subtree in <code>t-&gt;r</code> and right subtree in <code>r</code>&rdquo;. After that, we set <code>l = t</code>. Note now that the <code>l</code> result value contains <code>t-&gt;l</code>, <code>t</code> as well as <code>t-&gt;r</code> (which is the result of the recursive call we made) all already merged in the correct order! You should pause to ensure that this result of <code>l</code> and <code>r</code> corresponds exactly with what we discussed earlier in Implementation Description.</li>
+<li>When the root node value is greater than key, we call <code>split (t-&gt;l, key, l, t-&gt;l)</code>, which means: &ldquo;split treap <code>t-&gt;l</code> (left subtree of <code>t</code>) by value <code>key</code> and store the left subtree in <code>l</code> and right subtree in <code>t-&gt;l</code>&rdquo;. After that, we set <code>r = t</code>. Note now that the <code>r</code> result value contains <code>t-&gt;l</code> (which is the result of the recursive call we made), <code>t</code> as well as <code>t-&gt;r</code>, all already merged in the correct order! You should pause to ensure that this result of <code>l</code> and <code>r</code> corresponds exactly with what we discussed earlier in Implementation Description.</li>
+</ol>
+<p>If you&rsquo;re still having trouble understanding the implementation, you should look at it <em>inductively</em>, that is: do <em>not</em> try to break down the recursive calls over and over again. Assume the split implementation works correct on empty treap, then try to run it for a single node treap, then a two node treap, and so on, each time reusing your knowledge that split on smaller treaps works.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">insert</span> <span class="p">(</span><span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">t</span> <span class="o">=</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">it</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">insert</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;=</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">?</span> <span class="n">t</span><span class="o">-&gt;</span><span class="nl">r</span> <span class="p">:</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">merge</span> <span class="p">(</span><span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">l</span> <span class="o">||</span> <span class="o">!</span><span class="n">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">t</span> <span class="o">=</span> <span class="n">l</span> <span class="o">?</span> <span class="nl">l</span> <span class="p">:</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">erase</span> <span class="p">(</span><span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">==</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">pitem</span> <span class="n">th</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">delete</span> <span class="n">th</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">erase</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">?</span> <span class="n">t</span><span class="o">-&gt;</span><span class="nl">l</span> <span class="p">:</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pitem</span> <span class="nf">unite</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">l</span> <span class="o">||</span> <span class="o">!</span><span class="n">r</span><span class="p">)</span>  <span class="k">return</span> <span class="n">l</span> <span class="o">?</span> <span class="nl">l</span> <span class="p">:</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>  <span class="n">swap</span> <span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pitem</span> <span class="n">lt</span><span class="p">,</span> <span class="n">rt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">split</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">,</span> <span class="n">lt</span><span class="p">,</span> <span class="n">rt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">l</span><span class="o">-&gt;</span><span class="n">l</span> <span class="o">=</span> <span class="n">unite</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">lt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">=</span> <span class="n">unite</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">rt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">l</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="maintaining-the-sizes-of-subtrees">Maintaining the sizes of subtrees<a class="anchor" href="#maintaining-the-sizes-of-subtrees">#</a></h2>
+<p>To extend the functionality of the treap, it is often necessary to store the number of nodes in subtree of each node - field <code>int cnt</code> in the <code>item</code> structure. For example, it can be used to find K-th largest element of tree in $O (\log N)$, or to find the index of the element in the sorted list with the same complexity. The implementation of these operations will be the same as for the regular binary search tree.</p>
+<p>When a tree changes (nodes are added or removed etc.), <code>cnt</code> of some nodes should be updated accordingly. We&rsquo;ll create two functions: <code>cnt()</code> will return the current value of <code>cnt</code> or 0 if the node does not exist, and <code>upd_cnt()</code> will update the value of <code>cnt</code> for this node assuming that for its children L and R the values of <code>cnt</code> have already been updated. Evidently it&rsquo;s sufficient to add calls of <code>upd_cnt()</code> to the end of <code>insert</code>, <code>erase</code>, <code>split</code> and <code>merge</code> to keep <code>cnt</code> values up-to-date.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">cnt</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">t</span> <span class="o">?</span> <span class="n">t</span><span class="o">-&gt;</span><span class="nl">cnt</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">upd_cnt</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">t</span><span class="o">-&gt;</span><span class="n">cnt</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">cnt</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">cnt</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="building-a-treap-in--in-offline-mode">Building a Treap in $O (N)$ in offline mode<a class="anchor" href="#building-a-treap-in--in-offline-mode">#</a></h2>
+<p>Given a sorted list of keys, it is possible to construct a treap faster than by inserting the keys one at a time which takes $O(N \log N)$. Since the keys are sorted, a balanced binary search tree can be easily constructed in linear time. The heap values $Y$ are initialized randomly and then can be heapified independent of the keys $X$ to <a href="https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap">build the heap</a> in $O(N)$.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">heapify</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pitem</span> <span class="n">max</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">max</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">max</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">max</span> <span class="o">=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">max</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">swap</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">,</span> <span class="n">max</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="n">heapify</span> <span class="p">(</span><span class="n">max</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pitem</span> <span class="nf">build</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Construct a treap on values {a[0], a[1], ..., a[n - 1]}
+</span></span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pitem</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">item</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">mid</span><span class="p">],</span> <span class="n">rand</span> <span class="p">());</span>
+</span></span><span class="line"><span class="cl">	<span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span> <span class="o">=</span> <span class="n">build</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">=</span> <span class="n">build</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">heapify</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">upd_cnt</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Note: calling <code>upd_cnt(t)</code> is only necessary if you need the subtree sizes.</p>
+<p>The approach above always provides a perfectly balanced tree, which is generally good for practical purposes, but at the cost of not preserving the priorities that were initially assigned to each node. Thus, this approach is not feasible to solve the following problem:</p>
+<p>
+<div class="book-hint info">
+  <p><strong><a href="https://codeforces.com/problemsets/acmsguru/problem/99999/155">acmsguru - Cartesian Tree</a></strong></p>
+<p>Given a sequence of pairs $(x_i, y_i)$, construct a cartesian tree on them. All $x_i$ and all $y_i$ are unique.</p>
+
+</div>
+
+Note that in this problem priorities are not random, hence just inserting vertices one by one could provide a quadratic solution.</p>
+<p>One of possible solutions here is to find for each element the closest elements to the left and to the right which have a smaller priority than this element. Among these two elements, the one with the larger priority must be the parent of the current element.</p>
+<p>This problem is solvable with a <a href="./stack_queue_modification.md">minimum stack</a> modification in linear time:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">connect</span><span class="p">(</span><span class="k">auto</span> <span class="n">from</span><span class="p">,</span> <span class="k">auto</span> <span class="n">to</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">pitem</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">it</span><span class="p">:</span> <span class="n">ranges</span><span class="o">::</span><span class="n">subrange</span><span class="p">(</span><span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">st</span><span class="p">.</span><span class="n">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">st</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">||</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&lt;</span> <span class="n">st</span><span class="p">.</span><span class="n">back</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">it</span><span class="o">-&gt;</span><span class="n">p</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="n">back</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">st</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">pitem</span> <span class="nf">build</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="n">pitem</span><span class="o">&gt;</span> <span class="n">nodes</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">item</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nodes</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">connect</span><span class="p">(</span><span class="n">nodes</span><span class="p">.</span><span class="n">rbegin</span><span class="p">(),</span> <span class="n">nodes</span><span class="p">.</span><span class="n">rend</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">key</span> <span class="o">&lt;</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">r</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">l</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">nodes</span><span class="p">[</span><span class="n">min_element</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="implicit-treaps">Implicit Treaps<a class="anchor" href="#implicit-treaps">#</a></h2>
+<p>Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in $O (\log N)$ in the online mode):</p>
+<ul>
+<li>Inserting an element in the array in any location</li>
+<li>Removal of an arbitrary element</li>
+<li>Finding sum, minimum / maximum element etc. on an arbitrary interval</li>
+<li>Addition, painting on an arbitrary interval</li>
+<li>Reversing elements on an arbitrary interval</li>
+</ul>
+<p>The idea is that the keys should be null-based <strong>indices</strong> of the elements in the array. But we will not store these values explicitly (otherwise, for example, inserting an element would cause changes of the key in $O (N)$ nodes of the tree).</p>
+<p>Note that the key of a node is the number of nodes less than it (such nodes can be present not only in its left subtree but also in left subtrees of its ancestors).
+More specifically, the <strong>implicit key</strong> for some node T is the number of vertices $cnt (T \rightarrow L)$ in the left subtree of this node plus similar values $cnt (P \rightarrow L) + 1$ for each ancestor P of the node T, if T is in the right subtree of P.</p>
+<p>Now it&rsquo;s clear how to calculate the implicit key of current node quickly. Since in all operations we arrive to any node by descending in the tree, we can just accumulate this sum and pass it to the function. If we go to the left subtree, the accumulated sum does not change, if we go to the right subtree it increases by $cnt (T \rightarrow L) +1$.</p>
+<p>Here are the new implementations of <strong>Split</strong> and <strong>Merge</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">merge</span> <span class="p">(</span><span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">l</span> <span class="o">||</span> <span class="o">!</span><span class="n">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">t</span> <span class="o">=</span> <span class="n">l</span> <span class="o">?</span> <span class="nl">l</span> <span class="p">:</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">upd_cnt</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">split</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">,</span> <span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">add</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kt">void</span><span class="p">(</span> <span class="n">l</span> <span class="o">=</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">cur_key</span> <span class="o">=</span> <span class="n">add</span> <span class="o">+</span> <span class="n">cnt</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">);</span> <span class="c1">//implicit key
+</span></span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;=</span> <span class="n">cur_key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">add</span><span class="p">),</span>  <span class="n">r</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">add</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">cnt</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">)),</span>  <span class="n">l</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">upd_cnt</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>In the implementation above, after the call of $split(T, T_1, T_2, k)$, the tree $T_1$ will consist of first $k$ elements of $T$ (that is, of elements having their implicit key less than $k$) and $T_2$ will consist of all the rest.</p>
+<p>Now let&rsquo;s consider the implementation of various operations on implicit treaps:</p>
+<ul>
+<li><strong>Insert element</strong>.<br>
+Suppose we need to insert an element at position $pos$. We divide the treap into two parts, which correspond to arrays $[0..pos-1]$ and $[pos..sz]$; to do this we call $split(T, T_1, T_2, pos)$. Then we can combine tree $T_1$ with the new vertex by calling $merge(T_1, T_1, \text{new item})$ (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into $T$ by calling $merge(T, T_1, T_2)$.</li>
+<li><strong>Delete element</strong>.<br>
+This operation is even easier: find the element to be deleted $T$, perform merge of its children $L$ and $R$, and replace the element $T$ with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.</li>
+<li>Find <strong>sum / minimum</strong>, etc. on the interval.<br>
+First, create an additional field $F$ in the <code>item</code> structure to store the value of the target function for this node&rsquo;s subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.<br>
+Second, we need to know how to process a query for an arbitrary interval $[A; B]$.<br>
+To get a part of tree which corresponds to the interval $[A; B]$, we need to call $split(T, T_2, T_3, B+1)$, and then $split(T_2, T_1, T_2, A)$: after this $T_2$ will consist of all the elements in the interval $[A; B]$, and only of them. Therefore, the response to the query will be stored in the field $F$ of the root of $T_2$. After the query is answered, the tree has to be restored by calling $merge(T, T_1, T_2)$ and $merge(T, T, T_3)$.</li>
+<li><strong>Addition / painting</strong> on the interval.<br>
+We act similarly to the previous paragraph, but instead of the field F we will store a field <code>add</code> which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to &ldquo;push&rdquo; this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up <code>add</code> in the parent node. This way after any changes to the tree the information will not be lost.</li>
+<li><strong>Reverse</strong> on the interval.<br>
+This is again similar to the previous operation: we have to add boolean flag <code>rev</code> and set it to true when the subtree of the current node has to be reversed. &ldquo;Pushing&rdquo; this value is a bit complicated - we swap children of this node and set this flag to true for them.</li>
+</ul>
+<p>Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called <code>value</code> which is the actual value of the array element at current position. We also provide implementation of the function <code>output()</code>, which outputs an array that corresponds to the current state of the implicit treap.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="nc">item</span> <span class="o">*</span> <span class="n">pitem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">item</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">prior</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">bool</span> <span class="n">rev</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pitem</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">cnt</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">it</span> <span class="o">?</span> <span class="n">it</span><span class="o">-&gt;</span><span class="nl">cnt</span> <span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">upd_cnt</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">it</span><span class="o">-&gt;</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">)</span> <span class="o">+</span> <span class="n">cnt</span><span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">push</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">it</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">it</span> <span class="o">&amp;&amp;</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">rev</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="n">it</span><span class="o">-&gt;</span><span class="n">rev</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">swap</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">it</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">)</span>  <span class="n">it</span><span class="o">-&gt;</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">rev</span> <span class="o">^=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">it</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">)</span>  <span class="n">it</span><span class="o">-&gt;</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">rev</span> <span class="o">^=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">merge</span> <span class="p">(</span><span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">push</span> <span class="p">(</span><span class="n">l</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">push</span> <span class="p">(</span><span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">l</span> <span class="o">||</span> <span class="o">!</span><span class="n">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">t</span> <span class="o">=</span> <span class="n">l</span> <span class="o">?</span> <span class="nl">l</span> <span class="p">:</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">prior</span> <span class="o">&gt;</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">prior</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">merge</span> <span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">),</span>  <span class="n">t</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">upd_cnt</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">split</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">,</span> <span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">l</span><span class="p">,</span> <span class="n">pitem</span> <span class="o">&amp;</span> <span class="n">r</span><span class="p">,</span> <span class="kt">int</span> <span class="n">key</span><span class="p">,</span> <span class="kt">int</span> <span class="n">add</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="kt">void</span><span class="p">(</span> <span class="n">l</span> <span class="o">=</span> <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">push</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">cur_key</span> <span class="o">=</span> <span class="n">add</span> <span class="o">+</span> <span class="n">cnt</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">key</span> <span class="o">&lt;=</span> <span class="n">cur_key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">add</span><span class="p">),</span>  <span class="n">r</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span>
+</span></span><span class="line"><span class="cl">		<span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">add</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">cnt</span><span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">)),</span>  <span class="n">l</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">upd_cnt</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">reverse</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">l</span><span class="p">,</span> <span class="kt">int</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pitem</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">split</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">l</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">split</span> <span class="p">(</span><span class="n">t2</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">,</span> <span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">t2</span><span class="o">-&gt;</span><span class="n">rev</span> <span class="o">^=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">merge</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">merge</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">t3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">output</span> <span class="p">(</span><span class="n">pitem</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span><span class="p">)</span>  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="n">push</span> <span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">output</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">printf</span> <span class="p">(</span><span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">output</span> <span class="p">(</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">r</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="literature">Literature<a class="anchor" href="#literature">#</a></h2>
+<ul>
+<li><a href="https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf">Blelloch, Reid-Miller &ldquo;Fast Set Operations Using Treaps&rdquo;</a></li>
+</ul>
+<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<ul>
+<li><a href="http://www.spoj.com/problems/ADAAPHID/">SPOJ - Ada and Aphids</a></li>
+<li><a href="http://www.spoj.com/problems/ADACROP/">SPOJ - Ada and Harvest</a></li>
+<li><a href="http://codeforces.com/contest/762/problem/E">Codeforces - Radio Stations</a></li>
+<li><a href="http://www.spoj.com/problems/COUNT1IT/">SPOJ - Ghost Town</a></li>
+<li><a href="http://www.spoj.com/problems/IITWPC4D/">SPOJ - Arrangement Validity</a></li>
+<li><a href="http://www.spoj.com/problems/ALLIN1/">SPOJ - All in One</a></li>
+<li><a href="http://codeforces.com/contest/847/problem/D">Codeforces - Dog Show</a></li>
+<li><a href="http://codeforces.com/contest/863/problem/D">Codeforces - Yet Another Array Queries Problem</a></li>
+<li><a href="http://www.spoj.com/problems/MEANARR/">SPOJ - Mean of Array</a></li>
+<li><a href="http://www.spoj.com/problems/TWIST/">SPOJ - TWIST</a></li>
+<li><a href="http://www.spoj.com/problems/KOILINE/">SPOJ - KOILINE</a></li>
+<li><a href="https://www.codechef.com/problems/PRESTIGE">CodeChef - The Prestige</a></li>
+<li><a href="https://codeforces.com/contest/702/problem/F">Codeforces - T-Shirts</a></li>
+<li><a href="https://codeforces.com/problemset/problem/167/D">Codeforces - Wizards and Roads</a></li>
+<li><a href="https://codeforces.com/contest/295/problem/E">Codeforces - Yaroslav and Points</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/en/data_structures/sqrt-tree/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Sqrt Tree</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/en/dynamic_programming/divide-and-conquer-dp/" class="flex align-center">
+        <span>Divide and Conquer DP</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#advantages-of-such-data-organisation">Advantages of such data organisation</a></li>
+    <li><a href="#operations">Operations</a></li>
+    <li><a href="#implementation-description">Implementation Description</a>
+      <ul>
+        <li><a href="#split">Split</a></li>
+        <li><a href="#merge">Merge</a></li>
+        <li><a href="#insert">Insert</a></li>
+        <li><a href="#erase">Erase</a></li>
+        <li><a href="#build">Build</a></li>
+        <li><a href="#union">Union</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#maintaining-the-sizes-of-subtrees">Maintaining the sizes of subtrees</a></li>
+    <li><a href="#building-a-treap-in--in-offline-mode">Building a Treap in  in offline mode</a></li>
+    <li><a href="#implicit-treaps">Implicit Treaps</a></li>
+    <li><a href="#literature">Literature</a></li>
+    <li><a href="#practice-problems">Practice Problems</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

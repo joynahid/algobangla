@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,41 +8,43 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Linear Diophantine Equation#A Linear Diophantine Equation (in two variables) is an equation of the general form:
-$$ax &#43; by = c$$where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
-In this article, we consider several classical problems on these equations:
-finding one solution finding all solutions finding the number of solutions and the solutions themselves in a given interval finding a solution with minimum value of $x &#43; y$ The degenerate case#A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
+<meta name="description" content="রৈখিক ডায়োফ্যান্টাইন সমীকরণ#একটি রৈখিক ডায়োফ্যান্টাইন সমীকরণ (দুটি চলকে) হলো নিম্নলিখিত সাধারণ আকারের একটি সমীকরণ:
+$$ax &#43; by = c$$যেখানে $a$, $b$, $c$ প্রদত্ত পূর্ণসংখ্যা, এবং $x$, $y$ অজানা পূর্ণসংখ্যা।
+এই নিবন্ধে, আমরা এই সমীকরণগুলোর উপর কিছু ক্লাসিক্যাল সমস্যা বিবেচনা করব:
+একটি সমাধান নির্ণয় সকল সমাধান নির্ণয় একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধানগুলো নির্ণয় $x &#43; y$-এর সর্বনিম্ন মানসহ একটি সমাধান নির্ণয় অধঃপতিত ক্ষেত্র#একটি অধঃপতিত ক্ষেত্র যেটির যত্ন নিতে হবে তা হলো যখন $a = b = 0$। সহজেই দেখা যায় যে $c = 0$ কিনা তার উপর নির্ভর করে হয় কোনো সমাধান নেই অথবা অসীম সংখ্যক সমাধান আছে। এই নিবন্ধের বাকি অংশে, আমরা এই ক্ষেত্রটি উপেক্ষা করব।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/algebra/linear-diophantine-equation/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/algebra/linear-diophantine-equation/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Linear Diophantine Equation">
-  <meta property="og:description" content="Linear Diophantine Equation#A Linear Diophantine Equation (in two variables) is an equation of the general form:
-$$ax &#43; by = c$$where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
-In this article, we consider several classical problems on these equations:
-finding one solution finding all solutions finding the number of solutions and the solutions themselves in a given interval finding a solution with minimum value of $x &#43; y$ The degenerate case#A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.">
+  <meta property="og:title" content="রৈখিক ডায়োফ্যান্টাইন সমীকরণ">
+  <meta property="og:description" content="রৈখিক ডায়োফ্যান্টাইন সমীকরণ#একটি রৈখিক ডায়োফ্যান্টাইন সমীকরণ (দুটি চলকে) হলো নিম্নলিখিত সাধারণ আকারের একটি সমীকরণ:
+$$ax &#43; by = c$$যেখানে $a$, $b$, $c$ প্রদত্ত পূর্ণসংখ্যা, এবং $x$, $y$ অজানা পূর্ণসংখ্যা।
+এই নিবন্ধে, আমরা এই সমীকরণগুলোর উপর কিছু ক্লাসিক্যাল সমস্যা বিবেচনা করব:
+একটি সমাধান নির্ণয় সকল সমাধান নির্ণয় একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধানগুলো নির্ণয় $x &#43; y$-এর সর্বনিম্ন মানসহ একটি সমাধান নির্ণয় অধঃপতিত ক্ষেত্র#একটি অধঃপতিত ক্ষেত্র যেটির যত্ন নিতে হবে তা হলো যখন $a = b = 0$। সহজেই দেখা যায় যে $c = 0$ কিনা তার উপর নির্ভর করে হয় কোনো সমাধান নেই অথবা অসীম সংখ্যক সমাধান আছে। এই নিবন্ধের বাকি অংশে, আমরা এই ক্ষেত্রটি উপেক্ষা করব।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="algebra">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Linear Diophantine Equation">
-  <meta itemprop="description" content="Linear Diophantine Equation#A Linear Diophantine Equation (in two variables) is an equation of the general form:
-$$ax &#43; by = c$$where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
-In this article, we consider several classical problems on these equations:
-finding one solution finding all solutions finding the number of solutions and the solutions themselves in a given interval finding a solution with minimum value of $x &#43; y$ The degenerate case#A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.">
-  <meta itemprop="wordCount" content="1558">
+  <meta itemprop="name" content="রৈখিক ডায়োফ্যান্টাইন সমীকরণ">
+  <meta itemprop="description" content="রৈখিক ডায়োফ্যান্টাইন সমীকরণ#একটি রৈখিক ডায়োফ্যান্টাইন সমীকরণ (দুটি চলকে) হলো নিম্নলিখিত সাধারণ আকারের একটি সমীকরণ:
+$$ax &#43; by = c$$যেখানে $a$, $b$, $c$ প্রদত্ত পূর্ণসংখ্যা, এবং $x$, $y$ অজানা পূর্ণসংখ্যা।
+এই নিবন্ধে, আমরা এই সমীকরণগুলোর উপর কিছু ক্লাসিক্যাল সমস্যা বিবেচনা করব:
+একটি সমাধান নির্ণয় সকল সমাধান নির্ণয় একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধানগুলো নির্ণয় $x &#43; y$-এর সর্বনিম্ন মানসহ একটি সমাধান নির্ণয় অধঃপতিত ক্ষেত্র#একটি অধঃপতিত ক্ষেত্র যেটির যত্ন নিতে হবে তা হলো যখন $a = b = 0$। সহজেই দেখা যায় যে $c = 0$ কিনা তার উপর নির্ভর করে হয় কোনো সমাধান নেই অথবা অসীম সংখ্যক সমাধান আছে। এই নিবন্ধের বাকি অংশে, আমরা এই ক্ষেত্রটি উপেক্ষা করব।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1411">
 
-<title>Linear Diophantine Equation | CP-Algorithms</title>
+<title>রৈখিক ডায়োফ্যান্টাইন সমীকরণ | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/algebra/linear-diophantine-equation/">
+<link rel="canonical" href="http://localhost:1313/algebra/linear-diophantine-equation/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -129,78 +131,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -214,7 +146,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -228,7 +230,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -242,35 +244,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -284,7 +258,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -298,7 +300,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -312,21 +314,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -340,7 +328,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -354,21 +356,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -382,7 +370,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -396,7 +384,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -410,7 +412,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="active">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -437,8 +439,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -451,8 +453,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -466,7 +468,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -480,21 +482,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -508,7 +496,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -522,7 +524,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -536,7 +538,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -587,7 +589,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -601,7 +603,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -615,7 +617,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -629,7 +631,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -643,7 +645,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -657,7 +659,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -671,7 +673,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -685,7 +687,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -699,7 +701,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -749,8 +751,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -764,49 +780,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -820,7 +794,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -834,7 +836,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -885,21 +887,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -913,7 +901,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -940,8 +942,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -954,8 +956,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -969,21 +971,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -997,7 +985,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1011,7 +1013,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1025,7 +1027,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1039,7 +1041,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1076,7 +1078,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1090,7 +1092,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1104,7 +1106,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1118,7 +1120,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1154,22 +1156,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1182,8 +1170,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1197,7 +1185,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1211,7 +1199,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1225,7 +1227,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1239,7 +1241,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1253,7 +1255,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1304,7 +1306,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1318,7 +1320,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1332,7 +1334,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1346,7 +1348,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1360,7 +1362,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1396,64 +1398,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1467,7 +1413,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1480,8 +1426,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1494,8 +1440,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1508,8 +1454,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1522,8 +1468,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1537,7 +1483,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1551,21 +1553,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1579,7 +1567,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1592,22 +1580,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1621,7 +1595,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1635,21 +1637,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1663,7 +1651,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1676,8 +1664,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1691,7 +1679,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1705,7 +1707,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1719,7 +1721,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1733,7 +1735,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1747,7 +1749,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1783,64 +1785,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1867,22 +1813,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1896,7 +1828,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1910,7 +1842,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1923,8 +1855,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1937,8 +1869,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1951,8 +1883,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1965,8 +1897,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1980,7 +1926,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1993,8 +1939,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2007,8 +1953,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2021,22 +1967,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2050,7 +1982,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2063,8 +1995,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2077,8 +2009,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2105,50 +2079,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2162,7 +2108,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2175,8 +2121,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2189,8 +2135,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2204,7 +2178,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2217,8 +2191,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2231,8 +2205,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2246,7 +2220,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2259,8 +2233,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2273,8 +2247,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2288,7 +2262,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2301,8 +2275,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2316,7 +2290,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2330,7 +2318,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2344,7 +2346,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2358,7 +2360,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2372,7 +2374,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2386,7 +2388,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2400,7 +2402,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2437,7 +2439,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2451,7 +2453,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2479,7 +2481,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2516,7 +2518,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2530,7 +2532,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2544,7 +2546,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2558,7 +2560,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2572,7 +2574,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2609,7 +2611,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2623,7 +2625,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2660,7 +2662,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2674,7 +2676,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2688,7 +2690,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2734,7 +2736,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Linear Diophantine Equation</h3>
+  <h3>রৈখিক ডায়োফ্যান্টাইন সমীকরণ</h3>
 
   <label for="toc-control">
     
@@ -2750,13 +2752,13 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#the-degenerate-case">The degenerate case</a></li>
-    <li><a href="#analytic-solution">Analytic solution</a></li>
-    <li><a href="#algorithmic-solution">Algorithmic solution</a></li>
-    <li><a href="#getting-all-solutions">Getting all solutions</a></li>
-    <li><a href="#finding-the-number-of-solutions-and-the-solutions-in-a-given-interval">Finding the number of solutions and the solutions in a given interval</a></li>
-    <li><a href="#find-the-solution-with-minimum-value-of---data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">Find the solution with minimum value of { data-toc-label=‘Find the solution with minimum value of ’ }</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#অধপতত-কষতর">অধঃপতিত ক্ষেত্র</a></li>
+    <li><a href="#বশলষণমলক-সমধন">বিশ্লেষণমূলক সমাধান</a></li>
+    <li><a href="#অযলগরদমক-সমধন">অ্যালগরিদমিক সমাধান</a></li>
+    <li><a href="#সকল-সমধন-নরণয">সকল সমাধান নির্ণয়</a></li>
+    <li><a href="#একট-পরদতত-বযবধন-সমধনর-সখয-এব-সমধন-নরণয">একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধান নির্ণয়</a></li>
+    <li><a href="#-এর-সরবনমন-মনসহ-সমধন-নরণয--data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">-এর সর্বনিম্ন মানসহ সমাধান নির্ণয় { data-toc-label=‘Find the solution with minimum value of ’ }</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2769,42 +2771,42 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="linear-diophantine-equation">Linear Diophantine Equation<a class="anchor" href="#linear-diophantine-equation">#</a></h1>
-<p>A Linear Diophantine Equation (in two variables) is an equation of the general form:</p>
-$$ax + by = c$$<p>where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.</p>
-<p>In this article, we consider several classical problems on these equations:</p>
+  <article class="markdown book-article"><h1 id="রখক-ডযফযনটইন-সমকরণ">রৈখিক ডায়োফ্যান্টাইন সমীকরণ<a class="anchor" href="#%e0%a6%b0%e0%a6%96%e0%a6%95-%e0%a6%a1%e0%a6%af%e0%a6%ab%e0%a6%af%e0%a6%a8%e0%a6%9f%e0%a6%87%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%95%e0%a6%b0%e0%a6%a3">#</a></h1>
+<p>একটি রৈখিক ডায়োফ্যান্টাইন সমীকরণ (দুটি চলকে) হলো নিম্নলিখিত সাধারণ আকারের একটি সমীকরণ:</p>
+$$ax + by = c$$<p>যেখানে $a$, $b$, $c$ প্রদত্ত পূর্ণসংখ্যা, এবং $x$, $y$ অজানা পূর্ণসংখ্যা।</p>
+<p>এই নিবন্ধে, আমরা এই সমীকরণগুলোর উপর কিছু ক্লাসিক্যাল সমস্যা বিবেচনা করব:</p>
 <ul>
-<li>finding one solution</li>
-<li>finding all solutions</li>
-<li>finding the number of solutions and the solutions themselves in a given interval</li>
-<li>finding a solution with minimum value of $x + y$</li>
+<li>একটি সমাধান নির্ণয়</li>
+<li>সকল সমাধান নির্ণয়</li>
+<li>একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধানগুলো নির্ণয়</li>
+<li>$x + y$-এর সর্বনিম্ন মানসহ একটি সমাধান নির্ণয়</li>
 </ul>
-<h2 id="the-degenerate-case">The degenerate case<a class="anchor" href="#the-degenerate-case">#</a></h2>
-<p>A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.</p>
-<h2 id="analytic-solution">Analytic solution<a class="anchor" href="#analytic-solution">#</a></h2>
-<p>When $a \neq 0$ and $b \neq 0$, the equation $ax+by=c$ can be equivalently treated as either of the following:</p>
+<h2 id="অধপতত-কষতর">অধঃপতিত ক্ষেত্র<a class="anchor" href="#%e0%a6%85%e0%a6%a7%e0%a6%aa%e0%a6%a4%e0%a6%a4-%e0%a6%95%e0%a6%b7%e0%a6%a4%e0%a6%b0">#</a></h2>
+<p>একটি অধঃপতিত ক্ষেত্র যেটির যত্ন নিতে হবে তা হলো যখন $a = b = 0$। সহজেই দেখা যায় যে $c = 0$ কিনা তার উপর নির্ভর করে হয় কোনো সমাধান নেই অথবা অসীম সংখ্যক সমাধান আছে। এই নিবন্ধের বাকি অংশে, আমরা এই ক্ষেত্রটি উপেক্ষা করব।</p>
+<h2 id="বশলষণমলক-সমধন">বিশ্লেষণমূলক সমাধান<a class="anchor" href="#%e0%a6%ac%e0%a6%b6%e0%a6%b2%e0%a6%b7%e0%a6%a3%e0%a6%ae%e0%a6%b2%e0%a6%95-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8">#</a></h2>
+<p>যখন $a \neq 0$ এবং $b \neq 0$, তখন সমীকরণ $ax+by=c$-কে সমতুল্যভাবে নিম্নলিখিত যেকোনোটি হিসেবে বিবেচনা করা যায়:</p>
 <p>\begin{align}
 ax &amp;\equiv c \pmod b \
 by &amp;\equiv c \pmod a
 \end{align}</p>
-<p>Without loss of generality, assume that $b \neq 0$ and consider the first equation. When $a$ and $b$ are co-prime, the solution to it is given as</p>
-$$x \equiv ca^{-1} \pmod b,$$<p>where $a^{-1}$ is the <a href="module-inverse.md">modular inverse</a> of $a$ modulo $b$.</p>
-<p>When $a$ and $b$ are not co-prime, values of $ax$ modulo $b$ for all integer $x$ are divisible by $g=\gcd(a, b)$, so the solution only exists when $c$ is divisible by $g$. In this case, one of solutions can be found by reducing the equation by $g$:</p>
-$$(a/g) x \equiv (c/g) \pmod{b/g}.$$<p>By the definition of $g$, the numbers $a/g$ and $b/g$ are co-prime, so the solution is given explicitly as</p>
+<p>সাধারণতা না হারিয়ে, ধরে নিই যে $b \neq 0$ এবং প্রথম সমীকরণটি বিবেচনা করি। যখন $a$ ও $b$ সহমৌলিক, তখন এর সমাধান হলো</p>
+$$x \equiv ca^{-1} \pmod b,$$<p>যেখানে $a^{-1}$ হলো $b$ মডুলোতে $a$-এর <a href="module-inverse.md">মডুলার ইনভার্স</a>।</p>
+<p>যখন $a$ ও $b$ সহমৌলিক নয়, তখন সকল পূর্ণসংখ্যা $x$-এর জন্য $ax$ মডুলো $b$-এর মান $g=\gcd(a, b)$ দ্বারা বিভাজ্য, তাই সমাধান কেবল তখনই বিদ্যমান যখন $c$, $g$ দ্বারা বিভাজ্য। সেক্ষেত্রে, সমীকরণটিকে $g$ দিয়ে ভাগ করে একটি সমাধান পাওয়া যায়:</p>
+$$(a/g) x \equiv (c/g) \pmod{b/g}.$$<p>$g$-এর সংজ্ঞা অনুসারে, $a/g$ ও $b/g$ সংখ্যাদুটি সহমৌলিক, তাই সমাধান স্পষ্টভাবে দেওয়া হয়</p>
 $$\begin{cases}
 x \equiv (c/g)(a/g)^{-1}\pmod{b/g},\\
 y = \frac{c-ax}{b}.
-\end{cases}$$<h2 id="algorithmic-solution">Algorithmic solution<a class="anchor" href="#algorithmic-solution">#</a></h2>
-<p><strong>Bézout&rsquo;s lemma</strong> (also called Bézout&rsquo;s identity) is a useful result that can be used to understand the following solution.</p>
+\end{cases}$$<h2 id="অযলগরদমক-সমধন">অ্যালগরিদমিক সমাধান<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae%e0%a6%95-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8">#</a></h2>
+<p><strong>বেজুর লেমা</strong> (বেজুর আইডেন্টিটিও বলা হয়) একটি দরকারি ফলাফল যা নিম্নলিখিত সমাধান বুঝতে ব্যবহার করা যায়।</p>
 <blockquote class='book-hint '>
-<p>Let $g = \gcd(a,b)$. Then there exist integers $x,y$ such that $ax + by = g$.</p>
-<p>Moreover, $g$ is the least such positive integer that can be written as $ax + by$; all integers of the form $ax + by$ are multiples of $g$.</p>
-</blockquote><p>To find one solution of the Diophantine equation with 2 unknowns, you can use the <a href="extended-euclid-algorithm.md">Extended Euclidean algorithm</a>. First, assume that $a$ and $b$ are non-negative. When we apply Extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:</p>
-$$a x_g + b y_g = g$$<p>If $c$ is divisible by $g = \gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.</p>
-<p>Now suppose that $c$ is divisible by $g$, then we have:</p>
-$$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$<p>Therefore one of the solutions of the Diophantine equation is:</p>
-$$x_0 = x_g \cdot \frac{c}{g},$$$$y_0 = y_g \cdot \frac{c}{g}.$$<p>The above idea still works when $a$ or $b$ or both of them are negative. We only need to change the sign of $x_0$ and $y_0$ when necessary.</p>
-<p>Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):</p>
+<p>মনে করি $g = \gcd(a,b)$। তাহলে এমন পূর্ণসংখ্যা $x,y$ বিদ্যমান যাদের জন্য $ax + by = g$।</p>
+<p>তদুপরি, $g$ হলো সবচেয়ে ছোট এমন ধনাত্মক পূর্ণসংখ্যা যা $ax + by$ আকারে লেখা যায়; $ax + by$ আকারের সকল পূর্ণসংখ্যা $g$-এর গুণিতক।</p>
+</blockquote><p>দুটি অজানা বিশিষ্ট ডায়োফ্যান্টাইন সমীকরণের একটি সমাধান বের করতে, আপনি <a href="extended-euclid-algorithm.md">এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম</a> ব্যবহার করতে পারেন। প্রথমে ধরে নিন যে $a$ ও $b$ অঋণাত্মক। যখন আমরা $a$ ও $b$-এর জন্য এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম প্রয়োগ করি, তখন আমরা তাদের গসাগু $g$ এবং দুটি সংখ্যা $x_g$ ও $y_g$ বের করতে পারি যেন:</p>
+$$a x_g + b y_g = g$$<p>যদি $c$, $g = \gcd(a, b)$ দ্বারা বিভাজ্য হয়, তাহলে প্রদত্ত ডায়োফ্যান্টাইন সমীকরণের সমাধান আছে, অন্যথায় এর কোনো সমাধান নেই। প্রমাণটি সরাসরি: দুটি সংখ্যার রৈখিক সংযোজন তাদের সাধারণ গুণনীয়ক দ্বারা বিভাজ্য।</p>
+<p>এখন ধরি যে $c$, $g$ দ্বারা বিভাজ্য, তাহলে আমরা পাই:</p>
+$$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$<p>সুতরাং ডায়োফ্যান্টাইন সমীকরণের একটি সমাধান হলো:</p>
+$$x_0 = x_g \cdot \frac{c}{g},$$$$y_0 = y_g \cdot \frac{c}{g}.$$<p>উপরের ধারণাটি $a$ বা $b$ অথবা উভয়ই ঋণাত্মক হলেও কাজ করে। আমাদের কেবল প্রয়োজনে $x_0$ ও $y_0$-এর চিহ্ন পরিবর্তন করতে হবে।</p>
+<p>পরিশেষে, আমরা এই ধারণাটি নিম্নরূপ ইমপ্লিমেন্ট করতে পারি (লক্ষ্য করুন এই কোড $a = b = 0$ কেসটি বিবেচনা করে না):</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">gcd</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -2829,25 +2831,25 @@ $$x_0 = x_g \cdot \frac{c}{g},$$$$y_0 = y_g \cdot \frac{c}{g}.$$<p>The above ide
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">x0</span> <span class="o">=</span> <span class="o">-</span><span class="n">x0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">y0</span> <span class="o">=</span> <span class="o">-</span><span class="n">y0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="getting-all-solutions">Getting all solutions<a class="anchor" href="#getting-all-solutions">#</a></h2>
-<p>From one solution $(x_0, y_0)$, we can obtain all the solutions of the given equation.</p>
-<p>Let $g = \gcd(a, b)$ and let $x_0, y_0$ be integers which satisfy the following:</p>
-$$a \cdot x_0 + b \cdot y_0 = c$$<p>Now, we should see that adding $b / g$ to $x_0$, and, at the same time subtracting $a / g$ from $y_0$ will not break the equality:</p>
-$$a \cdot \left(x_0 + \frac{b}{g}\right) + b \cdot \left(y_0 - \frac{a}{g}\right) = a \cdot x_0 + b \cdot y_0 + a \cdot \frac{b}{g} - b \cdot \frac{a}{g} = c$$<p>Obviously, this process can be repeated again, so all the numbers of the form:</p>
-$$x = x_0 + k \cdot \frac{b}{g}$$$$y = y_0 - k \cdot \frac{a}{g}$$<p>are solutions of the given Diophantine equation.</p>
-<p>Since the equation is linear, all solutions lie on the same line, and by the definition of $g$ this is the set of all possible solutions of the given Diophantine equation.</p>
-<h2 id="finding-the-number-of-solutions-and-the-solutions-in-a-given-interval">Finding the number of solutions and the solutions in a given interval<a class="anchor" href="#finding-the-number-of-solutions-and-the-solutions-in-a-given-interval">#</a></h2>
-<p>From previous section, it should be clear that if we don&rsquo;t impose any restrictions on the solutions, there would be infinite number of them. So in this section, we add some restrictions on the interval of $x$ and $y$, and we will try to count and enumerate all the solutions.</p>
-<p>Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let&rsquo;s say we only want to find the solutions in these two intervals.</p>
-<p>Note that if $a$ or $b$ is $0$, then the problem only has one solution. We don&rsquo;t consider this case here.</p>
-<p>First, we can find a solution which has minimum value of $x$, such that $x \ge min_x$. To do this, we first find any solution of the Diophantine equation. Then, we shift this solution to get $x \ge min_x$ (using what we know about the set of all solutions in previous section). This can be done in $O(1)$.
-Denote this minimum value of $x$ by $l_{x1}$.</p>
-<p>Similarly, we can find the maximum value of $x$ which satisfies $x \le max_x$. Denote this maximum value of $x$ by $r_{x1}$.</p>
-<p>Similarly, we can find the minimum value of $y$ $(y \ge min_y)$ and maximum value of $y$ $(y \le max_y)$. Denote the corresponding values of $x$ by $l_{x2}$ and $r_{x2}$.</p>
-<p>The final solution is all solutions with x in intersection of $[l_{x1}, r_{x1}]$ and $[l_{x2}, r_{x2}]$. Let denote this intersection by $[l_x, r_x]$.</p>
-<p>Following is the code implementing this idea.
-Notice that we divide $a$ and $b$ at the beginning by $g$.
-Since the equation $a x + b y = c$ is equivalent to the equation $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$, we can use this one instead and have $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$, which simplifies the formulas.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="সকল-সমধন-নরণয">সকল সমাধান নির্ণয়<a class="anchor" href="#%e0%a6%b8%e0%a6%95%e0%a6%b2-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8-%e0%a6%a8%e0%a6%b0%e0%a6%a3%e0%a6%af">#</a></h2>
+<p>একটি সমাধান $(x_0, y_0)$ থেকে, আমরা প্রদত্ত সমীকরণের সকল সমাধান পেতে পারি।</p>
+<p>মনে করি $g = \gcd(a, b)$ এবং $x_0, y_0$ পূর্ণসংখ্যা যারা নিম্নলিখিতটি সিদ্ধ করে:</p>
+$$a \cdot x_0 + b \cdot y_0 = c$$<p>এখন লক্ষ্য করা উচিত যে $x_0$-এর সাথে $b / g$ যোগ করলে, এবং একই সময়ে $y_0$ থেকে $a / g$ বিয়োগ করলে সমতা ভঙ্গ হবে না:</p>
+$$a \cdot \left(x_0 + \frac{b}{g}\right) + b \cdot \left(y_0 - \frac{a}{g}\right) = a \cdot x_0 + b \cdot y_0 + a \cdot \frac{b}{g} - b \cdot \frac{a}{g} = c$$<p>স্পষ্টতই, এই প্রক্রিয়া পুনরাবৃত্তি করা যায়, তাই নিম্নলিখিত আকারের সকল সংখ্যা:</p>
+$$x = x_0 + k \cdot \frac{b}{g}$$$$y = y_0 - k \cdot \frac{a}{g}$$<p>প্রদত্ত ডায়োফ্যান্টাইন সমীকরণের সমাধান।</p>
+<p>যেহেতু সমীকরণটি রৈখিক, সকল সমাধান একই সরলরেখায় অবস্থিত, এবং $g$-এর সংজ্ঞা অনুসারে এটিই প্রদত্ত ডায়োফ্যান্টাইন সমীকরণের সকল সম্ভাব্য সমাধানের সেট।</p>
+<h2 id="একট-পরদতত-বযবধন-সমধনর-সখয-এব-সমধন-নরণয">একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধান নির্ণয়<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%aa%e0%a6%b0%e0%a6%a6%e0%a6%a4%e0%a6%a4-%e0%a6%ac%e0%a6%af%e0%a6%ac%e0%a6%a7%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8%e0%a6%b0-%e0%a6%b8%e0%a6%96%e0%a6%af-%e0%a6%8f%e0%a6%ac-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8-%e0%a6%a8%e0%a6%b0%e0%a6%a3%e0%a6%af">#</a></h2>
+<p>পূর্ববর্তী বিভাগ থেকে, এটি স্পষ্ট হওয়া উচিত যে আমরা যদি সমাধানে কোনো সীমাবদ্ধতা আরোপ না করি, তাহলে অসীম সংখ্যক সমাধান থাকবে। তাই এই বিভাগে, আমরা $x$ ও $y$-এর ব্যবধানে কিছু সীমাবদ্ধতা যোগ করব, এবং সেই ব্যবধানে সকল সমাধান গণনা ও তালিকাভুক্ত করার চেষ্টা করব।</p>
+<p>মনে করি দুটি ব্যবধান আছে: $[min_x; max_x]$ এবং $[min_y; max_y]$ এবং ধরি আমরা কেবল এই দুটি ব্যবধানে সমাধান খুঁজতে চাই।</p>
+<p>লক্ষ্য করুন যে $a$ বা $b$ যদি $0$ হয়, তাহলে সমস্যায় কেবল একটি সমাধান আছে। আমরা এই ক্ষেত্রটি এখানে বিবেচনা করছি না।</p>
+<p>প্রথমে, আমরা এমন একটি সমাধান খুঁজতে পারি যার $x$-এর মান সর্বনিম্ন, যেন $x \ge min_x$। এটি করতে, আমরা প্রথমে ডায়োফ্যান্টাইন সমীকরণের যেকোনো একটি সমাধান বের করি। তারপর, পূর্ববর্তী বিভাগে সকল সমাধানের সেট সম্পর্কে আমরা যা জানি তা ব্যবহার করে এই সমাধানটিকে শিফট করি $x \ge min_x$ পেতে। এটি $O(1)$-তে করা যায়।
+$x$-এর এই সর্বনিম্ন মানকে $l_{x1}$ বলে চিহ্নিত করি।</p>
+<p>একইভাবে, $x \le max_x$ সিদ্ধ করে এমন $x$-এর সর্বোচ্চ মান বের করা যায়। $x$-এর এই সর্বোচ্চ মানকে $r_{x1}$ বলে চিহ্নিত করি।</p>
+<p>একইভাবে, $y$-এর সর্বনিম্ন মান $(y \ge min_y)$ এবং সর্বোচ্চ মান $(y \le max_y)$ বের করা যায়। $x$-এর সংশ্লিষ্ট মানগুলোকে $l_{x2}$ ও $r_{x2}$ বলে চিহ্নিত করি।</p>
+<p>চূড়ান্ত সমাধান হলো $[l_{x1}, r_{x1}]$ ও $[l_{x2}, r_{x2}]$-এর ছেদে x-সহ সকল সমাধান। এই ছেদকে $[l_x, r_x]$ দ্বারা চিহ্নিত করি।</p>
+<p>নিম্নে এই ধারণাটি ইমপ্লিমেন্ট করা কোড দেওয়া হলো।
+লক্ষ্য করুন যে শুরুতে আমরা $a$ ও $b$-কে $g$ দিয়ে ভাগ করি।
+যেহেতু সমীকরণ $a x + b y = c$ সমীকরণ $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$-এর সমতুল্য, আমরা পরিবর্তে এটি ব্যবহার করতে পারি এবং $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$ পেতে পারি, যা সূত্রগুলো সরল করে।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">shift_solution</span><span class="p">(</span><span class="kt">int</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">y</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cnt</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="o">+=</span> <span class="n">cnt</span> <span class="o">*</span> <span class="n">b</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="o">-=</span> <span class="n">cnt</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
@@ -2895,14 +2897,14 @@ Since the equation $a x + b y = c$ is equivalent to the equation $\frac{a}{g} x 
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">lx</span> <span class="o">&gt;</span> <span class="n">rx</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">rx</span> <span class="o">-</span> <span class="n">lx</span><span class="p">)</span> <span class="o">/</span> <span class="n">abs</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Once we have $l_x$ and $r_x$, it is also simple to enumerate through all the solutions. Just need to iterate through $x = l_x + k \cdot \frac{b}{g}$ for all $k \ge 0$ until $x = r_x$, and find the corresponding $y$ values using the equation $a x + b y = c$.</p>
-<h2 id="find-the-solution-with-minimum-value-of---data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">Find the solution with minimum value of $x + y$ { data-toc-label=&lsquo;Find the solution with minimum value of <script type="math/tex">x + y</script>&rsquo; }<a class="anchor" href="#find-the-solution-with-minimum-value-of---data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">#</a></h2>
-<p>Here, $x$ and $y$ also need to be given some restriction, otherwise, the answer may become negative infinity.</p>
-<p>The idea is similar to previous section: We find any solution of the Diophantine equation, and then shift the solution to satisfy some conditions.</p>
-<p>Finally, use the knowledge of the set of all solutions to find the minimum:</p>
-$$x' = x + k \cdot \frac{b}{g},$$$$y' = y - k \cdot \frac{a}{g}.$$<p>Note that $x + y$ change as follows:</p>
-$$x' + y' = x + y + k \cdot \left(\frac{b}{g} - \frac{a}{g}\right) = x + y + k \cdot \frac{b-a}{g}$$<p>If $a < b$, we need to select smallest possible value of $k$. If $a > b$, we need to select the largest possible value of $k$. If $a = b$, all solution will have the same sum $x + y$.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>$l_x$ ও $r_x$ পেলে, সকল সমাধান তালিকাভুক্ত করাও সহজ। শুধু সকল $k \ge 0$-এর জন্য $x = l_x + k \cdot \frac{b}{g}$ ইটারেট করতে হবে $x = r_x$ পর্যন্ত, এবং $a x + b y = c$ সমীকরণ ব্যবহার করে সংশ্লিষ্ট $y$ মান বের করতে হবে।</p>
+<h2 id="-এর-সরবনমন-মনসহ-সমধন-নরণয--data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">$x + y$-এর সর্বনিম্ন মানসহ সমাধান নির্ণয় { data-toc-label=&lsquo;Find the solution with minimum value of <script type="math/tex">x + y</script>&rsquo; }<a class="anchor" href="#-%e0%a6%8f%e0%a6%b0-%e0%a6%b8%e0%a6%b0%e0%a6%ac%e0%a6%a8%e0%a6%ae%e0%a6%a8-%e0%a6%ae%e0%a6%a8%e0%a6%b8%e0%a6%b9-%e0%a6%b8%e0%a6%ae%e0%a6%a7%e0%a6%a8-%e0%a6%a8%e0%a6%b0%e0%a6%a3%e0%a6%af--data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">#</a></h2>
+<p>এখানে, $x$ ও $y$-তেও কিছু সীমাবদ্ধতা দিতে হবে, অন্যথায়, উত্তর ঋণাত্মক অসীম হতে পারে।</p>
+<p>ধারণাটি পূর্ববর্তী বিভাগের মতোই: আমরা ডায়োফ্যান্টাইন সমীকরণের যেকোনো একটি সমাধান বের করি, তারপর সমাধানটিকে শিফট করি কিছু শর্ত পূরণ করতে।</p>
+<p>পরিশেষে, সকল সমাধানের সেটের জ্ঞান ব্যবহার করে সর্বনিম্ন খুঁজে বের করি:</p>
+$$x' = x + k \cdot \frac{b}{g},$$$$y' = y - k \cdot \frac{a}{g}.$$<p>লক্ষ্য করুন $x + y$ নিম্নরূপে পরিবর্তিত হয়:</p>
+$$x' + y' = x + y + k \cdot \left(\frac{b}{g} - \frac{a}{g}\right) = x + y + k \cdot \frac{b-a}{g}$$<p>যদি $a < b$ হয়, তাহলে $k$-এর সম্ভাব্য সর্বনিম্ন মান নির্বাচন করতে হবে। যদি $a > b$ হয়, তাহলে $k$-এর সম্ভাব্য সর্বোচ্চ মান নির্বাচন করতে হবে। যদি $a = b$ হয়, তাহলে সকল সমাধানে $x + y$-এর যোগফল একই থাকবে।</p>
+<h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="http://www.spoj.com/problems/CEQU/">Spoj - Crucial Equation</a></li>
 <li><a href="http://codeforces.com/problemsets/acmsguru/problem/99999/106">SGU 106</a></li>
@@ -2939,9 +2941,9 @@ $$x' + y' = x + y + k \cdot \left(\frac{b}{g} - \frac{a}{g}\right) = x + y + k \
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/algebra/factorization/" class="flex align-center">
+      <a href="/algebra/fft/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Integer factorization</span>
+        <span>ফাস্ট ফুরিয়ে ট্রান্সফর্ম</span>
       </a>
     
     </span>
@@ -2989,13 +2991,13 @@ $$x' + y' = x + y + k \cdot \left(\frac{b}{g} - \frac{a}{g}\right) = x + y + k \
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#the-degenerate-case">The degenerate case</a></li>
-    <li><a href="#analytic-solution">Analytic solution</a></li>
-    <li><a href="#algorithmic-solution">Algorithmic solution</a></li>
-    <li><a href="#getting-all-solutions">Getting all solutions</a></li>
-    <li><a href="#finding-the-number-of-solutions-and-the-solutions-in-a-given-interval">Finding the number of solutions and the solutions in a given interval</a></li>
-    <li><a href="#find-the-solution-with-minimum-value-of---data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">Find the solution with minimum value of { data-toc-label=‘Find the solution with minimum value of ’ }</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#অধপতত-কষতর">অধঃপতিত ক্ষেত্র</a></li>
+    <li><a href="#বশলষণমলক-সমধন">বিশ্লেষণমূলক সমাধান</a></li>
+    <li><a href="#অযলগরদমক-সমধন">অ্যালগরিদমিক সমাধান</a></li>
+    <li><a href="#সকল-সমধন-নরণয">সকল সমাধান নির্ণয়</a></li>
+    <li><a href="#একট-পরদতত-বযবধন-সমধনর-সখয-এব-সমধন-নরণয">একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধান নির্ণয়</a></li>
+    <li><a href="#-এর-সরবনমন-মনসহ-সমধন-নরণয--data-toc-labelfind-the-solution-with-minimum-value-of-x--y-">-এর সর্বনিম্ন মানসহ সমাধান নির্ণয় { data-toc-label=‘Find the solution with minimum value of ’ }</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

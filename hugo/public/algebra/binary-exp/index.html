@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,38 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Binary Exponentiation#Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
-It also has important applications in many tasks unrelated to arithmetic, since it can be used with any operations that have the property of associativity:
-$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$Most obviously this applies to modular multiplication, to multiplication of matrices and to other problems which we will discuss below.
+<meta name="description" content="বাইনারি এক্সপোনেনশিয়েশন#বাইনারি এক্সপোনেনশিয়েশন (যা স্কোয়ারিং-এর মাধ্যমে এক্সপোনেনশিয়েশন নামেও পরিচিত) একটি কৌশল যা $a^n$ গণনা করতে মাত্র $O(\log n)$ টি গুণ ব্যবহার করে (সাধারণ পদ্ধতিতে প্রয়োজনীয় $O(n)$ টি গুণের পরিবর্তে)।
+পাটিগণিতের বাইরেও এর গুরুত্বপূর্ণ অ্যাপ্লিকেশন রয়েছে, কারণ এটি সংযোজনীয়তা (associativity) বৈশিষ্ট্যযুক্ত যেকোনো অপারেশনে ব্যবহার করা যায়:
+$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$সবচেয়ে স্পষ্ট উদাহরণ হলো মডুলার গুণ, ম্যাট্রিক্স গুণ এবং অন্যান্য সমস্যা যা আমরা নিচে আলোচনা করব।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/algebra/binary-exp/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/algebra/binary-exp/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Binary Exponentiation">
-  <meta property="og:description" content="Binary Exponentiation#Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
-It also has important applications in many tasks unrelated to arithmetic, since it can be used with any operations that have the property of associativity:
-$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$Most obviously this applies to modular multiplication, to multiplication of matrices and to other problems which we will discuss below.">
+  <meta property="og:title" content="বাইনারি এক্সপোনেনশিয়েশন">
+  <meta property="og:description" content="বাইনারি এক্সপোনেনশিয়েশন#বাইনারি এক্সপোনেনশিয়েশন (যা স্কোয়ারিং-এর মাধ্যমে এক্সপোনেনশিয়েশন নামেও পরিচিত) একটি কৌশল যা $a^n$ গণনা করতে মাত্র $O(\log n)$ টি গুণ ব্যবহার করে (সাধারণ পদ্ধতিতে প্রয়োজনীয় $O(n)$ টি গুণের পরিবর্তে)।
+পাটিগণিতের বাইরেও এর গুরুত্বপূর্ণ অ্যাপ্লিকেশন রয়েছে, কারণ এটি সংযোজনীয়তা (associativity) বৈশিষ্ট্যযুক্ত যেকোনো অপারেশনে ব্যবহার করা যায়:
+$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$সবচেয়ে স্পষ্ট উদাহরণ হলো মডুলার গুণ, ম্যাট্রিক্স গুণ এবং অন্যান্য সমস্যা যা আমরা নিচে আলোচনা করব।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="algebra">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Binary Exponentiation">
-  <meta itemprop="description" content="Binary Exponentiation#Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
-It also has important applications in many tasks unrelated to arithmetic, since it can be used with any operations that have the property of associativity:
-$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$Most obviously this applies to modular multiplication, to multiplication of matrices and to other problems which we will discuss below.">
-  <meta itemprop="wordCount" content="2130">
+  <meta itemprop="name" content="বাইনারি এক্সপোনেনশিয়েশন">
+  <meta itemprop="description" content="বাইনারি এক্সপোনেনশিয়েশন#বাইনারি এক্সপোনেনশিয়েশন (যা স্কোয়ারিং-এর মাধ্যমে এক্সপোনেনশিয়েশন নামেও পরিচিত) একটি কৌশল যা $a^n$ গণনা করতে মাত্র $O(\log n)$ টি গুণ ব্যবহার করে (সাধারণ পদ্ধতিতে প্রয়োজনীয় $O(n)$ টি গুণের পরিবর্তে)।
+পাটিগণিতের বাইরেও এর গুরুত্বপূর্ণ অ্যাপ্লিকেশন রয়েছে, কারণ এটি সংযোজনীয়তা (associativity) বৈশিষ্ট্যযুক্ত যেকোনো অপারেশনে ব্যবহার করা যায়:
+$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$সবচেয়ে স্পষ্ট উদাহরণ হলো মডুলার গুণ, ম্যাট্রিক্স গুণ এবং অন্যান্য সমস্যা যা আমরা নিচে আলোচনা করব।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="1891">
 
-<title>Binary Exponentiation | CP-Algorithms</title>
+<title>বাইনারি এক্সপোনেনশিয়েশন | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/algebra/binary-exp/">
+<link rel="canonical" href="http://localhost:1313/algebra/binary-exp/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -126,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="active">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -211,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="active">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -225,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -239,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -281,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -295,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -309,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -337,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -351,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -379,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -393,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -407,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -434,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -448,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -463,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -477,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -505,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -519,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -533,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -584,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -598,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -612,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -626,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -640,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -654,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -668,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -682,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -696,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -746,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -761,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -817,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -831,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -882,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -910,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -937,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -951,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -966,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -994,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1008,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1022,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1036,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1073,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1087,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1101,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1115,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1151,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1179,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1194,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1208,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1222,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1236,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1250,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1301,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1315,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1329,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1343,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1357,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1393,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1464,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1477,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1491,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1505,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1519,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1534,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1548,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1576,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1589,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1618,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1632,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1660,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1673,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1688,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1702,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1716,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1730,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1744,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1780,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1864,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1893,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1907,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1920,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1934,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1948,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1962,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1977,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1990,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2004,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2018,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2047,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2060,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2074,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2102,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2159,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2172,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2186,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2201,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2214,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2228,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2243,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2256,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2270,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2285,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2298,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2313,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2327,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2341,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2355,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2369,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2383,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2397,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2434,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2448,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2476,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2513,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2527,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2541,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2555,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2569,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2606,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2620,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2657,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2671,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2685,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2731,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Binary Exponentiation</h3>
+  <h3>বাইনারি এক্সপোনেনশিয়েশন</h3>
 
   <label for="toc-control">
     
@@ -2747,19 +2749,19 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#algorithm">Algorithm</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#applications">Applications</a>
+    <li><a href="#অযলগরদম">অ্যালগরিদম</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#অযপলকশনসমহ">অ্যাপ্লিকেশনসমূহ</a>
       <ul>
-        <li><a href="#effective-computation-of-large-exponents-modulo-a-number">Effective computation of large exponents modulo a number</a></li>
-        <li><a href="#effective-computation-of-fibonacci-numbers">Effective computation of Fibonacci numbers</a></li>
-        <li><a href="#applying-a-permutation--times--data-toc-labelapplying-a-permutation-k-times-">Applying a permutation times { data-toc-label=‘Applying a permutation times’ }</a></li>
-        <li><a href="#fast-application-of-a-set-of-geometric-operations-to-a-set-of-points">Fast application of a set of geometric operations to a set of points</a></li>
-        <li><a href="#number-of-paths-of-length--in-a-graph--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">Number of paths of length in a graph { data-toc-label=‘Number of paths of length in a graph’ }</a></li>
-        <li><a href="#variation-of-binary-exponentiation-multiplying-two-numbers-modulo---data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">Variation of binary exponentiation: multiplying two numbers modulo { data-toc-label=‘Variation of binary exponentiation: multiplying two numbers modulo ’ }</a></li>
+        <li><a href="#একট-সখয-দবর-মডলত-বড-ঘতর-করযকর-গণন">একটি সংখ্যা দ্বারা মডুলোতে বড় ঘাতের কার্যকর গণনা</a></li>
+        <li><a href="#ফবনচচ-সখযর-করযকর-গণন">ফিবোনাচ্চি সংখ্যার কার্যকর গণনা</a></li>
+        <li><a href="#একট-পরমটশন--বর-পরযগ--data-toc-labelapplying-a-permutation-k-times-">একটি পারমুটেশন বার প্রয়োগ { data-toc-label=‘Applying a permutation times’ }</a></li>
+        <li><a href="#বনদসমহ-জযমতক-অপরশনর-দরত-পরযগ">বিন্দুসমূহে জ্যামিতিক অপারেশনের দ্রুত প্রয়োগ</a></li>
+        <li><a href="#একট-গরফ--দরঘযর-পথর-সখয--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">একটি গ্রাফে দৈর্ঘ্যের পথের সংখ্যা { data-toc-label=‘Number of paths of length in a graph’ }</a></li>
+        <li><a href="#বইনর-একসপননশযশনর-বচতর--মডলত-দট-সখযর-গণ--data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">বাইনারি এক্সপোনেনশিয়েশনের বৈচিত্র: মডুলোতে দুটি সংখ্যার গুণ { data-toc-label=‘Variation of binary exponentiation: multiplying two numbers modulo ’ }</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#পরযকটস-পরবলম">প্র্যাকটিস প্রবলেম</a></li>
   </ul>
 </nav>
 
@@ -2772,36 +2774,34 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="binary-exponentiation">Binary Exponentiation<a class="anchor" href="#binary-exponentiation">#</a></h1>
-<p>Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).</p>
-<p>It also has important applications in many tasks unrelated to arithmetic, since it
-can be used with any operations that have the property of <strong>associativity</strong>:</p>
-$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$<p>Most obviously this applies to modular multiplication, to multiplication of matrices and
-to other problems which we will discuss below.</p>
-<h2 id="algorithm">Algorithm<a class="anchor" href="#algorithm">#</a></h2>
-<p>Raising $a$ to the power of $n$ is expressed naively as multiplication by $a$ done $n - 1$ times:
-$a^{n} = a \cdot a \cdot \ldots \cdot a$. However, this approach is not practical for large $a$ or $n$.</p>
-<p>$a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.</p>
-<p>The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.</p>
-<p>Let&rsquo;s write $n$ in base 2, for example:</p>
-$$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$<p>Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log_2 n \rfloor}}$.</p>
-<p>So we only need to know a fast way to compute those.
-Luckily this is very easy, since an element in the sequence is just the square of the previous element.</p>
+  <article class="markdown book-article"><h1 id="বইনর-একসপননশযশন">বাইনারি এক্সপোনেনশিয়েশন<a class="anchor" href="#%e0%a6%ac%e0%a6%87%e0%a6%a8%e0%a6%b0-%e0%a6%8f%e0%a6%95%e0%a6%b8%e0%a6%aa%e0%a6%a8%e0%a6%a8%e0%a6%b6%e0%a6%af%e0%a6%b6%e0%a6%a8">#</a></h1>
+<p>বাইনারি এক্সপোনেনশিয়েশন (যা স্কোয়ারিং-এর মাধ্যমে এক্সপোনেনশিয়েশন নামেও পরিচিত) একটি কৌশল যা $a^n$ গণনা করতে মাত্র $O(\log n)$ টি গুণ ব্যবহার করে (সাধারণ পদ্ধতিতে প্রয়োজনীয় $O(n)$ টি গুণের পরিবর্তে)।</p>
+<p>পাটিগণিতের বাইরেও এর গুরুত্বপূর্ণ অ্যাপ্লিকেশন রয়েছে, কারণ এটি <strong>সংযোজনীয়তা (associativity)</strong> বৈশিষ্ট্যযুক্ত যেকোনো অপারেশনে ব্যবহার করা যায়:</p>
+$$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$<p>সবচেয়ে স্পষ্ট উদাহরণ হলো মডুলার গুণ, ম্যাট্রিক্স গুণ এবং অন্যান্য সমস্যা যা আমরা নিচে আলোচনা করব।</p>
+<h2 id="অযলগরদম">অ্যালগরিদম<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%b2%e0%a6%97%e0%a6%b0%e0%a6%a6%e0%a6%ae">#</a></h2>
+<p>$a$-কে $n$ ঘাতে উন্নীত করা সাধারণভাবে $a$ দিয়ে $n - 1$ বার গুণ হিসেবে প্রকাশ করা হয়:
+$a^{n} = a \cdot a \cdot \ldots \cdot a$। তবে, বড় $a$ বা $n$-এর জন্য এই পদ্ধতি ব্যবহারিক নয়।</p>
+<p>$a^{b+c} = a^b \cdot a^c$ এবং $a^{2b} = a^b \cdot a^b = (a^b)^2$।</p>
+<p>বাইনারি এক্সপোনেনশিয়েশনের মূল ধারণা হলো, আমরা সূচকের (exponent) বাইনারি উপস্থাপনা ব্যবহার করে কাজকে ভাগ করি।</p>
+<p>$n$-কে বেস ২-তে লেখা যাক, উদাহরণস্বরূপ:</p>
+$$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$<p>যেহেতু $n$ সংখ্যাটির বেস ২-তে ঠিক $\lfloor \log_2 n \rfloor + 1$ টি ডিজিট আছে, তাই আমাদের মাত্র $O(\log n)$ টি গুণ করতে হবে, যদি আমরা $a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log_2 n \rfloor}}$ ঘাতগুলো জানি।</p>
+<p>সুতরাং আমাদের শুধু এগুলো দ্রুত গণনা করার একটি উপায় জানতে হবে।
+সৌভাগ্যক্রমে এটি খুবই সহজ, কারণ ধারার প্রতিটি পদ আগের পদের বর্গ।</p>
 $$\begin{align}
 3^1 &= 3 \\
 3^2 &= \left(3^1\right)^2 = 3^2 = 9 \\
 3^4 &= \left(3^2\right)^2 = 9^2 = 81 \\
 3^8 &= \left(3^4\right)^2 = 81^2 = 6561
-\end{align}$$<p>So to get the final answer for $3^{13}$, we only need to multiply three of them (skipping $3^2$ because the corresponding bit in $n$ is not set):
+\end{align}$$<p>সুতরাং $3^{13}$-এর চূড়ান্ত উত্তর পেতে, আমাদের এদের মধ্যে শুধু তিনটি গুণ করতে হবে ($3^2$ বাদ দিয়ে, কারণ $n$-এ সংশ্লিষ্ট বিটটি সেট নেই):
 $3^{13} = 6561 \cdot 81 \cdot 3 = 1594323$</p>
-<p>The final complexity of this algorithm is $O(\log n)$: we have to compute $\log n$ powers of $a$, and then have to do at most $\log n$ multiplications to get the final answer from them.</p>
-<p>The following recursive approach expresses the same idea:</p>
+<p>এই অ্যালগরিদমের চূড়ান্ত কমপ্লেক্সিটি $O(\log n)$: আমাদের $a$-এর $\log n$ টি ঘাত গণনা করতে হবে এবং চূড়ান্ত উত্তর পেতে সর্বাধিক $\log n$ টি গুণ করতে হবে।</p>
+<p>নিম্নলিখিত রিকার্সিভ পদ্ধতি একই ধারণা প্রকাশ করে:</p>
 $$a^n = \begin{cases}
-1 &\text{if } n == 0 \\
-\left(a^{\frac{n}{2}}\right)^2 &\text{if } n > 0 \text{ and } n \text{ even}\\
-\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{if } n > 0 \text{ and } n \text{ odd}\\
-\end{cases}$$<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
-<p>First the recursive approach, which is a direct translation of the recursive formula:</p>
+1 &\text{যদি } n == 0 \\
+\left(a^{\frac{n}{2}}\right)^2 &\text{যদি } n > 0 \text{ এবং } n \text{ জোড়}\\
+\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{যদি } n > 0 \text{ এবং } n \text{ বিজোড়}\\
+\end{cases}$$<h2 id="ইমপলমনটশন">ইমপ্লিমেন্টেশন<a class="anchor" href="#%e0%a6%87%e0%a6%ae%e0%a6%aa%e0%a6%b2%e0%a6%ae%e0%a6%a8%e0%a6%9f%e0%a6%b6%e0%a6%a8">#</a></h2>
+<p>প্রথমে রিকার্সিভ পদ্ধতি, যা রিকার্সিভ সূত্রের সরাসরি রূপান্তর:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">binpow</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
@@ -2810,9 +2810,9 @@ $$a^n = \begin{cases}
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span> <span class="o">*</span> <span class="n">res</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">res</span> <span class="o">*</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>The second approach accomplishes the same task without recursion.
-It computes all the powers in a loop, and multiplies the ones with the corresponding set bit in $n$.
-Although the complexity of both approaches is identical, this approach will be faster in practice since we don&rsquo;t have the overhead of the recursive calls.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>দ্বিতীয় পদ্ধতি রিকার্সন ছাড়াই একই কাজ সম্পন্ন করে।
+এটি একটি লুপে সকল ঘাত গণনা করে এবং $n$-এ সংশ্লিষ্ট সেট বিটযুক্ত ঘাতগুলো গুণ করে।
+যদিও উভয় পদ্ধতির কমপ্লেক্সিটি অভিন্ন, এই পদ্ধতি বাস্তবে দ্রুততর হবে কারণ রিকার্সিভ কলের ওভারহেড নেই।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">binpow</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="kt">long</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
@@ -2822,13 +2822,13 @@ Although the complexity of both approaches is identical, this approach will be f
 </span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="applications">Applications<a class="anchor" href="#applications">#</a></h2>
-<h3 id="effective-computation-of-large-exponents-modulo-a-number">Effective computation of large exponents modulo a number<a class="anchor" href="#effective-computation-of-large-exponents-modulo-a-number">#</a></h3>
-<p><strong>Problem:</strong>
-Compute $x^n \bmod m$.
-This is a very common operation. For instance it is used in computing the <a href="module-inverse.md">modular multiplicative inverse</a>.</p>
-<p><strong>Solution:</strong>
-Since we know that the modulo operator doesn&rsquo;t interfere with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="অযপলকশনসমহ">অ্যাপ্লিকেশনসমূহ<a class="anchor" href="#%e0%a6%85%e0%a6%af%e0%a6%aa%e0%a6%b2%e0%a6%95%e0%a6%b6%e0%a6%a8%e0%a6%b8%e0%a6%ae%e0%a6%b9">#</a></h2>
+<h3 id="একট-সখয-দবর-মডলত-বড-ঘতর-করযকর-গণন">একটি সংখ্যা দ্বারা মডুলোতে বড় ঘাতের কার্যকর গণনা<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%b8%e0%a6%96%e0%a6%af-%e0%a6%a6%e0%a6%ac%e0%a6%b0-%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%a4-%e0%a6%ac%e0%a6%a1-%e0%a6%98%e0%a6%a4%e0%a6%b0-%e0%a6%95%e0%a6%b0%e0%a6%af%e0%a6%95%e0%a6%b0-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p><strong>সমস্যা:</strong>
+$x^n \bmod m$ গণনা করুন।
+এটি একটি অত্যন্ত সাধারণ অপারেশন। উদাহরণস্বরূপ, <a href="module-inverse.md">মডুলার গুণগত বিপরীত</a> গণনায় এটি ব্যবহৃত হয়।</p>
+<p><strong>সমাধান:</strong>
+যেহেতু আমরা জানি মডুলো অপারেটর গুণে হস্তক্ষেপ করে না ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), তাই আমরা সরাসরি একই কোড ব্যবহার করতে পারি, শুধু প্রতিটি গুণকে মডুলার গুণ দিয়ে প্রতিস্থাপন করলেই হবে:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">long</span> <span class="kt">long</span> <span class="nf">binpow</span><span class="p">(</span><span class="kt">long</span> <span class="kt">long</span> <span class="n">a</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">b</span><span class="p">,</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">m</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">a</span> <span class="o">%=</span> <span class="n">m</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">long</span> <span class="kt">long</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
@@ -2839,22 +2839,22 @@ Since we know that the modulo operator doesn&rsquo;t interfere with multiplicati
 </span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><strong>Note:</strong>
-It&rsquo;s possible to speed this algorithm for large $b >> m$.
-If $m$ is a positive number and $\gcd(x, m) = 1$, then  $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ for prime $m$, and $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$ for composite $m$.
-This follows directly from Fermat&rsquo;s little theorem and Euler&rsquo;s theorem, see the article about <a href="module-inverse.md#fermat-euler">Modular Inverses</a> for more details.</p>
-<h3 id="effective-computation-of-fibonacci-numbers">Effective computation of Fibonacci numbers<a class="anchor" href="#effective-computation-of-fibonacci-numbers">#</a></h3>
-<p><strong>Problem:</strong> Compute $n$-th Fibonacci number $F_n$.</p>
-<p><strong>Solution:</strong> For more details, see the <a href="fibonacci-numbers.md">Fibonacci Number article</a>.
-We will only go through an overview of the algorithm.
-To compute the next Fibonacci number, only the two previous ones are needed, as $F_n = F_{n-1} + F_{n-2}$.
-We can build a $2 \times 2$ matrix that describes this transformation:
-the transition from $F_i$ and $F_{i+1}$ to $F_{i+1}$ and $F_{i+2}$.
-For example, applying this transformation to the pair $F_0$ and $F_1$ would change it into $F_1$ and $F_2$.
-Therefore, we can raise this transformation matrix to the $n$-th power to find $F_n$ in time complexity $O(\log n)$.</p>
-<h3 id="applying-a-permutation--times--data-toc-labelapplying-a-permutation-k-times-">Applying a permutation $k$ times { data-toc-label=&lsquo;Applying a permutation <script type="math/tex">k</script> times&rsquo; }<a class="anchor" href="#applying-a-permutation--times--data-toc-labelapplying-a-permutation-k-times-">#</a></h3>
-<p><strong>Problem:</strong> You are given a sequence of length $n$. Apply to it a given permutation $k$ times.</p>
-<p><strong>Solution:</strong> Simply raise the permutation to $k$-th power using binary exponentiation, and then apply it to the sequence. This will give you a time complexity of $O(n \log k)$.</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><strong>লক্ষ্য করুন:</strong>
+বড় $b >> m$-এর জন্য এই অ্যালগরিদম দ্রুততর করা সম্ভব।
+যদি $m$ একটি ধনাত্মক সংখ্যা হয় এবং $\gcd(x, m) = 1$ হয়, তাহলে মৌলিক $m$-এর জন্য $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ এবং যৌগিক $m$-এর জন্য $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$।
+এটি সরাসরি ফার্মার ক্ষুদ্র উপপাদ্য এবং অয়লারের উপপাদ্য থেকে প্রাপ্ত, বিস্তারিত জানতে <a href="module-inverse.md#fermat-euler">মডুলার ইনভার্স</a> নিবন্ধটি দেখুন।</p>
+<h3 id="ফবনচচ-সখযর-করযকর-গণন">ফিবোনাচ্চি সংখ্যার কার্যকর গণনা<a class="anchor" href="#%e0%a6%ab%e0%a6%ac%e0%a6%a8%e0%a6%9a%e0%a6%9a-%e0%a6%b8%e0%a6%96%e0%a6%af%e0%a6%b0-%e0%a6%95%e0%a6%b0%e0%a6%af%e0%a6%95%e0%a6%b0-%e0%a6%97%e0%a6%a3%e0%a6%a8">#</a></h3>
+<p><strong>সমস্যা:</strong> $n$-তম ফিবোনাচ্চি সংখ্যা $F_n$ গণনা করুন।</p>
+<p><strong>সমাধান:</strong> বিস্তারিত জানতে <a href="fibonacci-numbers.md">ফিবোনাচ্চি সংখ্যা নিবন্ধ</a> দেখুন।
+আমরা এখানে শুধু অ্যালগরিদমের একটি সংক্ষিপ্ত বিবরণ দেব।
+পরবর্তী ফিবোনাচ্চি সংখ্যা গণনা করতে শুধু আগের দুটি সংখ্যা প্রয়োজন, কারণ $F_n = F_{n-1} + F_{n-2}$।
+আমরা একটি $2 \times 2$ ম্যাট্রিক্স তৈরি করতে পারি যা এই রূপান্তর বর্ণনা করে:
+$F_i$ এবং $F_{i+1}$ থেকে $F_{i+1}$ এবং $F_{i+2}$-তে রূপান্তর।
+উদাহরণস্বরূপ, $F_0$ এবং $F_1$ জোড়ায় এই রূপান্তর প্রয়োগ করলে এটি $F_1$ এবং $F_2$-তে পরিবর্তিত হবে।
+অতএব, $O(\log n)$ টাইম কমপ্লেক্সিটিতে $F_n$ বের করতে আমরা এই রূপান্তর ম্যাট্রিক্সকে $n$-তম ঘাতে উন্নীত করতে পারি।</p>
+<h3 id="একট-পরমটশন--বর-পরযগ--data-toc-labelapplying-a-permutation-k-times-">একটি পারমুটেশন $k$ বার প্রয়োগ { data-toc-label=&lsquo;Applying a permutation <script type="math/tex">k</script> times&rsquo; }<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%aa%e0%a6%b0%e0%a6%ae%e0%a6%9f%e0%a6%b6%e0%a6%a8--%e0%a6%ac%e0%a6%b0-%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97--data-toc-labelapplying-a-permutation-k-times-">#</a></h3>
+<p><strong>সমস্যা:</strong> আপনাকে $n$ দৈর্ঘ্যের একটি ক্রম দেওয়া হয়েছে। এতে একটি প্রদত্ত পারমুটেশন $k$ বার প্রয়োগ করুন।</p>
+<p><strong>সমাধান:</strong> বাইনারি এক্সপোনেনশিয়েশন ব্যবহার করে পারমুটেশনকে $k$-তম ঘাতে উন্নীত করুন, তারপর ক্রমে প্রয়োগ করুন। এতে টাইম কমপ্লেক্সিটি হবে $O(n \log k)$।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">applyPermutation</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sequence</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">permutation</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">newSequence</span><span class="p">(</span><span class="n">sequence</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">sequence</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
@@ -2872,22 +2872,22 @@ Therefore, we can raise this transformation matrix to the $n$-th power to find $
 </span></span><span class="line"><span class="cl">        <span class="n">k</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">sequence</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><strong>Note:</strong> This task can be solved more efficiently in linear time by building the permutation graph and considering each cycle independently. You could then compute $k$ modulo the size of the cycle and find the final position for each number which is part of this cycle.</p>
-<h3 id="fast-application-of-a-set-of-geometric-operations-to-a-set-of-points">Fast application of a set of geometric operations to a set of points<a class="anchor" href="#fast-application-of-a-set-of-geometric-operations-to-a-set-of-points">#</a></h3>
-<p><strong>Problem:</strong> Given $n$ points $p_i$, apply $m$ transformations to each of these points. Each transformation can be a shift, a scaling or a rotation around a given axis by a given angle. There is also a &ldquo;loop&rdquo; operation which applies a given list of transformations $k$ times (&ldquo;loop&rdquo; operations can be nested). You should apply all transformations faster than $O(n \cdot length)$, where $length$ is the total number of transformations to be applied (after unrolling &ldquo;loop&rdquo; operations).</p>
-<p><strong>Solution:</strong> Let&rsquo;s look at how the different types of transformations change the coordinates:</p>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p><strong>লক্ষ্য করুন:</strong> এই সমস্যাটি পারমুটেশন গ্রাফ তৈরি করে এবং প্রতিটি চক্র স্বাধীনভাবে বিবেচনা করে লিনিয়ার সময়ে আরও দক্ষতার সাথে সমাধান করা যায়। তখন আপনি চক্রের আকার দ্বারা $k$-এর মডুলো গণনা করতে পারেন এবং এই চক্রের অন্তর্ভুক্ত প্রতিটি সংখ্যার চূড়ান্ত অবস্থান নির্ণয় করতে পারেন।</p>
+<h3 id="বনদসমহ-জযমতক-অপরশনর-দরত-পরযগ">বিন্দুসমূহে জ্যামিতিক অপারেশনের দ্রুত প্রয়োগ<a class="anchor" href="#%e0%a6%ac%e0%a6%a8%e0%a6%a6%e0%a6%b8%e0%a6%ae%e0%a6%b9-%e0%a6%9c%e0%a6%af%e0%a6%ae%e0%a6%a4%e0%a6%95-%e0%a6%85%e0%a6%aa%e0%a6%b0%e0%a6%b6%e0%a6%a8%e0%a6%b0-%e0%a6%a6%e0%a6%b0%e0%a6%a4-%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97">#</a></h3>
+<p><strong>সমস্যা:</strong> $n$ টি বিন্দু $p_i$ দেওয়া আছে, প্রতিটি বিন্দুতে $m$ টি রূপান্তর প্রয়োগ করুন। প্রতিটি রূপান্তর হতে পারে একটি সরণ (shift), একটি স্কেলিং অথবা একটি নির্দিষ্ট অক্ষের চারপাশে নির্দিষ্ট কোণে ঘূর্ণন। একটি &ldquo;লুপ&rdquo; অপারেশনও আছে যা একটি প্রদত্ত রূপান্তর তালিকা $k$ বার প্রয়োগ করে (&ldquo;লুপ&rdquo; অপারেশন নেস্টেড হতে পারে)। সমস্ত রূপান্তর $O(n \cdot length)$-এর চেয়ে দ্রুত প্রয়োগ করতে হবে, যেখানে $length$ হলো প্রয়োগযোগ্য মোট রূপান্তরের সংখ্যা (&ldquo;লুপ&rdquo; অপারেশন উন্মোচনের পরে)।</p>
+<p><strong>সমাধান:</strong> দেখা যাক বিভিন্ন ধরনের রূপান্তর কীভাবে স্থানাঙ্ক পরিবর্তন করে:</p>
 <ul>
-<li>Shift operation: adds a different constant to each of the coordinates.</li>
-<li>Scaling operation: multiplies each of the coordinates by a different constant.</li>
-<li>Rotation operation: the transformation is more complicated (we won&rsquo;t go in details here), but each of the new coordinates still can be represented as a linear combination of the old ones.</li>
+<li>সরণ (Shift) অপারেশন: প্রতিটি স্থানাঙ্কে ভিন্ন ধ্রুবক যোগ করে।</li>
+<li>স্কেলিং অপারেশন: প্রতিটি স্থানাঙ্ককে ভিন্ন ধ্রুবক দিয়ে গুণ করে।</li>
+<li>ঘূর্ণন অপারেশন: রূপান্তরটি আরও জটিল (আমরা এখানে বিস্তারিত যাব না), তবে প্রতিটি নতুন স্থানাঙ্ক পুরানোগুলোর একটি রৈখিক সংযোজন হিসেবে উপস্থাপন করা যায়।</li>
 </ul>
-<p>As you can see, each of the transformations can be represented as a linear operation on the coordinates. Thus, a transformation can be written as a $4 \times 4$ matrix of the form:</p>
+<p>যেমন দেখা যাচ্ছে, প্রতিটি রূপান্তর স্থানাঙ্কের উপর একটি রৈখিক অপারেশন হিসেবে উপস্থাপন করা যায়। সুতরাং, একটি রূপান্তরকে নিম্নরূপ $4 \times 4$ ম্যাট্রিক্স আকারে লেখা যায়:</p>
 $$\begin{pmatrix}
 a_{11} & a_ {12} & a_ {13} & a_ {14} \\
 a_{21} & a_ {22} & a_ {23} & a_ {24} \\
 a_{31} & a_ {32} & a_ {33} & a_ {34} \\
 a_{41} & a_ {42} & a_ {43} & a_ {44}
-\end{pmatrix}$$<p>that, when multiplied by a vector with the old coordinates and a unit gives a new vector with the new coordinates and a unit:</p>
+\end{pmatrix}$$<p>যেটি পুরানো স্থানাঙ্ক এবং একটি একক সম্বলিত ভেক্টরের সাথে গুণ করলে নতুন স্থানাঙ্ক এবং একটি একক সম্বলিত নতুন ভেক্টর দেয়:</p>
 $$\begin{pmatrix} x & y & z & 1 \end{pmatrix} \cdot
 \begin{pmatrix}
 a_{11} & a_ {12} & a_ {13} & a_ {14} \\
@@ -2895,10 +2895,10 @@ a_{21} & a_ {22} & a_ {23} & a_ {24} \\
 a_{31} & a_ {32} & a_ {33} & a_ {34} \\
 a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}
- = \begin{pmatrix} x' & y' & z' & 1 \end{pmatrix}$$<p>(Why introduce a fictitious fourth coordinate, you ask? That is the beauty of <a href="https://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous coordinates</a>, which find great application in computer graphics. Without this, it would not be possible to implement affine operations like the shift operation as a single matrix multiplication, as it requires us to <em>add</em> a constant to the coordinates. The affine transformation becomes a linear transformation in the higher dimension!)</p>
-<p>Here are some examples of how transformations are represented in matrix form:</p>
+ = \begin{pmatrix} x' & y' & z' & 1 \end{pmatrix}$$<p>(কাল্পনিক চতুর্থ স্থানাঙ্ক কেন প্রবর্তন করা হলো, জিজ্ঞেস করছেন? এটাই হলো <a href="https://en.wikipedia.org/wiki/Homogeneous_coordinates">সমাঙ্গ স্থানাঙ্কের (homogeneous coordinates)</a> সৌন্দর্য, যা কম্পিউটার গ্রাফিক্সে দারুণ ব্যবহার পায়। এটি ছাড়া সরণের মতো অ্যাফাইন অপারেশনকে একটি মাত্র ম্যাট্রিক্স গুণ হিসেবে রূপায়ণ করা সম্ভব হতো না, কারণ এতে স্থানাঙ্কে ধ্রুবক <em>যোগ</em> করতে হয়। উচ্চতর মাত্রায় অ্যাফাইন রূপান্তর একটি রৈখিক রূপান্তরে পরিণত হয়!)</p>
+<p>নিচে কিছু উদাহরণ দেওয়া হলো কীভাবে রূপান্তরগুলো ম্যাট্রিক্স আকারে উপস্থাপিত হয়:</p>
 <ul>
-<li>Shift operation: shift $x$ coordinate by $5$, $y$ coordinate by $7$ and $z$ coordinate by $9$.</li>
+<li>সরণ অপারেশন: $x$ স্থানাঙ্ক $5$, $y$ স্থানাঙ্ক $7$ এবং $z$ স্থানাঙ্ক $9$ দ্বারা সরানো।</li>
 </ul>
 $$\begin{pmatrix}
 1 & 0 & 0 & 0 \\
@@ -2906,7 +2906,7 @@ $$\begin{pmatrix}
 0 & 0 & 1 & 0 \\
 5 & 7 & 9 & 1
 \end{pmatrix}$$<ul>
-<li>Scaling operation: scale the $x$ coordinate by $10$ and the other two by $5$.</li>
+<li>স্কেলিং অপারেশন: $x$ স্থানাঙ্ককে $10$ দিয়ে এবং বাকি দুটিকে $5$ দিয়ে স্কেল করা।</li>
 </ul>
 $$\begin{pmatrix}
 10 & 0 & 0 & 0 \\
@@ -2914,30 +2914,30 @@ $$\begin{pmatrix}
 0 & 0 & 5 & 0 \\
 0 & 0 & 0 & 1
 \end{pmatrix}$$<ul>
-<li>Rotation operation: rotate $\theta$ degrees around the $x$ axis following the right-hand rule (counter-clockwise direction).</li>
+<li>ঘূর্ণন অপারেশন: ডান-হাত নিয়ম অনুসরণ করে (ঘড়ির কাঁটার বিপরীত দিকে) $x$ অক্ষের চারপাশে $\theta$ ডিগ্রি ঘোরানো।</li>
 </ul>
 $$\begin{pmatrix}
 1 & 0 & 0 & 0 \\
 0 & \cos \theta & -\sin \theta & 0 \\
 0 & \sin \theta & \cos \theta & 0 \\
 0 & 0 & 0 & 1
-\end{pmatrix}$$<p>Now, once every transformation is described as a matrix, the sequence of transformations can be described as a product of these matrices, and a &ldquo;loop&rdquo; of $k$ repetitions can be described as the matrix raised to the power of $k$ (which can be calculated using binary exponentiation in $O(\log{k})$). This way, the matrix which represents all transformations can be calculated first in $O(m \log{k})$, and then it can be applied to each of the $n$ points in $O(n)$ for a total complexity of $O(n + m \log{k})$.</p>
-<h3 id="number-of-paths-of-length--in-a-graph--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">Number of paths of length $k$ in a graph { data-toc-label=&lsquo;Number of paths of length <script type="math/tex">k</script> in a graph&rsquo; }<a class="anchor" href="#number-of-paths-of-length--in-a-graph--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">#</a></h3>
-<p><strong>Problem:</strong> Given a directed unweighted graph of $n$ vertices, find the number of paths of length $k$ from any vertex $u$ to any other vertex $v$.</p>
-<p><strong>Solution:</strong> This problem is considered in more detail in <a href="../graph/fixed_length_paths.md">a separate article</a>. The algorithm consists of raising the adjacency matrix $M$ of the graph (a matrix where $m_{ij} = 1$ if there is an edge from $i$ to $j$, or $0$ otherwise) to the $k$-th power. Now $m_{ij}$ will be the number of paths of length $k$ from $i$ to $j$. The time complexity of this solution is $O(n^3 \log k)$.</p>
-<p><strong>Note:</strong> In that same article, another variation of this problem is considered: when the edges are weighted and it is required to find the minimum weight path containing exactly $k$ edges. As shown in that article, this problem is also solved by exponentiation of the adjacency matrix. The matrix would have the weight of the edge from $i$ to $j$, or $\infty$ if there is no such edge.
-Instead of the usual operation of multiplying two matrices, a modified one should be used:
-instead of multiplication, both values are added, and instead of a summation, a minimum is taken.
-That is: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$.</p>
-<h3 id="variation-of-binary-exponentiation-multiplying-two-numbers-modulo---data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">Variation of binary exponentiation: multiplying two numbers modulo $m$ { data-toc-label=&lsquo;Variation of binary exponentiation: multiplying two numbers modulo <script type="math/tex">m</script>&rsquo; }<a class="anchor" href="#variation-of-binary-exponentiation-multiplying-two-numbers-modulo---data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">#</a></h3>
-<p><strong>Problem:</strong> Multiply two numbers $a$ and $b$ modulo $m$. $a$ and $b$ fit in the built-in data types, but their product is too big to fit in a 64-bit integer. The idea is to compute $a \cdot b \pmod m$ without using bignum arithmetics.</p>
-<p><strong>Solution:</strong> We simply apply the binary construction algorithm described above, only performing additions instead of multiplications. In other words, we have &ldquo;expanded&rdquo; the multiplication of two numbers to $O (\log m)$ operations of addition and multiplication by two (which, in essence, is an addition).</p>
+\end{pmatrix}$$<p>এখন, প্রতিটি রূপান্তর ম্যাট্রিক্স হিসেবে বর্ণিত হলে, রূপান্তরের ক্রমকে এই ম্যাট্রিক্সগুলোর গুণফল হিসেবে এবং $k$ পুনরাবৃত্তির &ldquo;লুপ&quot;কে ম্যাট্রিক্সের $k$-তম ঘাত হিসেবে বর্ণনা করা যায় (যা বাইনারি এক্সপোনেনশিয়েশন ব্যবহার করে $O(\log{k})$-তে গণনা করা যায়)। এভাবে, সমস্ত রূপান্তর উপস্থাপনকারী ম্যাট্রিক্সটি প্রথমে $O(m \log{k})$-তে গণনা করা যায়, তারপর এটি $n$ টি বিন্দুর প্রতিটিতে $O(n)$-এ প্রয়োগ করা যায়, সর্বমোট কমপ্লেক্সিটি $O(n + m \log{k})$।</p>
+<h3 id="একট-গরফ--দরঘযর-পথর-সখয--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">একটি গ্রাফে $k$ দৈর্ঘ্যের পথের সংখ্যা { data-toc-label=&lsquo;Number of paths of length <script type="math/tex">k</script> in a graph&rsquo; }<a class="anchor" href="#%e0%a6%8f%e0%a6%95%e0%a6%9f-%e0%a6%97%e0%a6%b0%e0%a6%ab--%e0%a6%a6%e0%a6%b0%e0%a6%98%e0%a6%af%e0%a6%b0-%e0%a6%aa%e0%a6%a5%e0%a6%b0-%e0%a6%b8%e0%a6%96%e0%a6%af--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">#</a></h3>
+<p><strong>সমস্যা:</strong> $n$ টি ভার্টেক্সবিশিষ্ট একটি নির্দেশিত ওজনহীন গ্রাফ দেওয়া আছে, যেকোনো ভার্টেক্স $u$ থেকে অন্য যেকোনো ভার্টেক্স $v$-তে $k$ দৈর্ঘ্যের পথের সংখ্যা বের করুন।</p>
+<p><strong>সমাধান:</strong> এই সমস্যাটি <a href="../graph/fixed_length_paths.md">একটি পৃথক নিবন্ধে</a> বিস্তারিত আলোচনা করা হয়েছে। অ্যালগরিদমটি হলো গ্রাফের অ্যাডজেসেন্সি ম্যাট্রিক্স $M$ ($i$ থেকে $j$-তে এজ থাকলে $m_{ij} = 1$, অন্যথায় $0$) কে $k$-তম ঘাতে উন্নীত করা। এখন $m_{ij}$ হবে $i$ থেকে $j$-তে $k$ দৈর্ঘ্যের পথের সংখ্যা। এই সমাধানের টাইম কমপ্লেক্সিটি $O(n^3 \log k)$।</p>
+<p><strong>লক্ষ্য করুন:</strong> ঐ একই নিবন্ধে এই সমস্যার আরেকটি রূপ বিবেচনা করা হয়েছে: যখন এজগুলোতে ওজন আছে এবং ঠিক $k$ টি এজ সম্বলিত ন্যূনতম ওজনের পথ বের করতে হবে। যেমনটি ঐ নিবন্ধে দেখানো হয়েছে, এই সমস্যাটিও অ্যাডজেসেন্সি ম্যাট্রিক্সের এক্সপোনেনশিয়েশন দ্বারা সমাধান করা হয়। ম্যাট্রিক্সে $i$ থেকে $j$-তে এজের ওজন থাকবে, অথবা এমন কোনো এজ না থাকলে $\infty$।
+সাধারণ ম্যাট্রিক্স গুণের পরিবর্তে একটি পরিবর্তিত অপারেশন ব্যবহার করতে হবে:
+গুণের পরিবর্তে দুটি মান যোগ করা হয় এবং যোগফলের পরিবর্তে সর্বনিম্ন মান নেওয়া হয়।
+অর্থাৎ: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$।</p>
+<h3 id="বইনর-একসপননশযশনর-বচতর--মডলত-দট-সখযর-গণ--data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">বাইনারি এক্সপোনেনশিয়েশনের বৈচিত্র: $m$ মডুলোতে দুটি সংখ্যার গুণ { data-toc-label=&lsquo;Variation of binary exponentiation: multiplying two numbers modulo <script type="math/tex">m</script>&rsquo; }<a class="anchor" href="#%e0%a6%ac%e0%a6%87%e0%a6%a8%e0%a6%b0-%e0%a6%8f%e0%a6%95%e0%a6%b8%e0%a6%aa%e0%a6%a8%e0%a6%a8%e0%a6%b6%e0%a6%af%e0%a6%b6%e0%a6%a8%e0%a6%b0-%e0%a6%ac%e0%a6%9a%e0%a6%a4%e0%a6%b0--%e0%a6%ae%e0%a6%a1%e0%a6%b2%e0%a6%a4-%e0%a6%a6%e0%a6%9f-%e0%a6%b8%e0%a6%96%e0%a6%af%e0%a6%b0-%e0%a6%97%e0%a6%a3--data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">#</a></h3>
+<p><strong>সমস্যা:</strong> দুটি সংখ্যা $a$ এবং $b$-কে $m$ মডুলোতে গুণ করুন। $a$ এবং $b$ বিল্ট-ইন ডেটা টাইপে মাপসই হয়, কিন্তু তাদের গুণফল ৬৪-বিট ইন্টিজারে ধারণ করা যায় না। ধারণাটি হলো বিগনাম অ্যারিথমেটিক্স ব্যবহার না করে $a \cdot b \pmod m$ গণনা করা।</p>
+<p><strong>সমাধান:</strong> আমরা কেবল উপরে বর্ণিত বাইনারি গঠন অ্যালগরিদম প্রয়োগ করি, শুধু গুণের পরিবর্তে যোগ করি। অন্য কথায়, আমরা দুটি সংখ্যার গুণকে $O (\log m)$ টি যোগ ও ২ দিয়ে গুণের (যা মূলত একটি যোগ) অপারেশনে &ldquo;সম্প্রসারিত&rdquo; করেছি।</p>
 $$a \cdot b = \begin{cases}
-0 &\text{if }a = 0 \\
-2 \cdot \frac{a}{2} \cdot b &\text{if }a > 0 \text{ and }a \text{ even} \\
-2 \cdot \frac{a-1}{2} \cdot b + b &\text{if }a > 0 \text{ and }a \text{ odd}
-\end{cases}$$<p><strong>Note:</strong> You can solve this task in a different way by using floating-point operations. First compute the expression $\frac{a \cdot b}{m}$ using floating-point numbers and cast it to an unsigned integer $q$. Subtract $q \cdot m$ from $a \cdot b$ using unsigned integer arithmetics and take it modulo $m$ to find the answer. This solution looks rather unreliable, but it is very fast, and very easy to implement. See <a href="https://cs.stackexchange.com/questions/77016/modular-multiplication">here</a> for more information.</p>
-<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+0 &\text{যদি }a = 0 \\
+2 \cdot \frac{a}{2} \cdot b &\text{যদি }a > 0 \text{ এবং }a \text{ জোড়} \\
+2 \cdot \frac{a-1}{2} \cdot b + b &\text{যদি }a > 0 \text{ এবং }a \text{ বিজোড়}
+\end{cases}$$<p><strong>লক্ষ্য করুন:</strong> আপনি ফ্লোটিং-পয়েন্ট অপারেশন ব্যবহার করে ভিন্নভাবেও এই সমস্যাটি সমাধান করতে পারেন। প্রথমে ফ্লোটিং-পয়েন্ট সংখ্যা ব্যবহার করে $\frac{a \cdot b}{m}$ রাশিটি গণনা করুন এবং এটিকে একটি আনসাইনড ইন্টিজার $q$-তে রূপান্তর করুন। আনসাইনড ইন্টিজার অ্যারিথমেটিক্স ব্যবহার করে $a \cdot b$ থেকে $q \cdot m$ বিয়োগ করুন এবং উত্তর পেতে $m$ দিয়ে মডুলো নিন। এই সমাধানটি দেখতে অবিশ্বাস্য মনে হতে পারে, কিন্তু এটি অত্যন্ত দ্রুত এবং ইমপ্লিমেন্ট করা খুব সহজ। আরও তথ্যের জন্য <a href="https://cs.stackexchange.com/questions/77016/modular-multiplication">এখানে</a> দেখুন।</p>
+<h2 id="পরযকটস-পরবলম">প্র্যাকটিস প্রবলেম<a class="anchor" href="#%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%95%e0%a6%9f%e0%a6%b8-%e0%a6%aa%e0%a6%b0%e0%a6%ac%e0%a6%b2%e0%a6%ae">#</a></h2>
 <ul>
 <li><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=3671">UVa 1230 - MODEX</a></li>
 <li><a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=24&amp;page=show_problem&amp;problem=310">UVa 374 - Big Mod</a></li>
@@ -2982,16 +2982,16 @@ $$a \cdot b = \begin{cases}
   <div class="flex flex-wrap justify-between">
     <span>
     
-      <a href="/algebra/balanced-ternary/" class="flex align-center">
+      <a href="/algebra/factorial-divisors/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Balanced Ternary</span>
+        <span>ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</span>
       </a>
     
     </span>
     <span>
     
       <a href="/algebra/bit-manipulation/" class="flex align-center">
-        <span>Bit manipulation</span>
+        <span>বিট ম্যানিপুলেশন</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3032,19 +3032,19 @@ $$a \cdot b = \begin{cases}
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#algorithm">Algorithm</a></li>
-    <li><a href="#implementation">Implementation</a></li>
-    <li><a href="#applications">Applications</a>
+    <li><a href="#অযলগরদম">অ্যালগরিদম</a></li>
+    <li><a href="#ইমপলমনটশন">ইমপ্লিমেন্টেশন</a></li>
+    <li><a href="#অযপলকশনসমহ">অ্যাপ্লিকেশনসমূহ</a>
       <ul>
-        <li><a href="#effective-computation-of-large-exponents-modulo-a-number">Effective computation of large exponents modulo a number</a></li>
-        <li><a href="#effective-computation-of-fibonacci-numbers">Effective computation of Fibonacci numbers</a></li>
-        <li><a href="#applying-a-permutation--times--data-toc-labelapplying-a-permutation-k-times-">Applying a permutation times { data-toc-label=‘Applying a permutation times’ }</a></li>
-        <li><a href="#fast-application-of-a-set-of-geometric-operations-to-a-set-of-points">Fast application of a set of geometric operations to a set of points</a></li>
-        <li><a href="#number-of-paths-of-length--in-a-graph--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">Number of paths of length in a graph { data-toc-label=‘Number of paths of length in a graph’ }</a></li>
-        <li><a href="#variation-of-binary-exponentiation-multiplying-two-numbers-modulo---data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">Variation of binary exponentiation: multiplying two numbers modulo { data-toc-label=‘Variation of binary exponentiation: multiplying two numbers modulo ’ }</a></li>
+        <li><a href="#একট-সখয-দবর-মডলত-বড-ঘতর-করযকর-গণন">একটি সংখ্যা দ্বারা মডুলোতে বড় ঘাতের কার্যকর গণনা</a></li>
+        <li><a href="#ফবনচচ-সখযর-করযকর-গণন">ফিবোনাচ্চি সংখ্যার কার্যকর গণনা</a></li>
+        <li><a href="#একট-পরমটশন--বর-পরযগ--data-toc-labelapplying-a-permutation-k-times-">একটি পারমুটেশন বার প্রয়োগ { data-toc-label=‘Applying a permutation times’ }</a></li>
+        <li><a href="#বনদসমহ-জযমতক-অপরশনর-দরত-পরযগ">বিন্দুসমূহে জ্যামিতিক অপারেশনের দ্রুত প্রয়োগ</a></li>
+        <li><a href="#একট-গরফ--দরঘযর-পথর-সখয--data-toc-labelnumber-of-paths-of-length-k-in-a-graph-">একটি গ্রাফে দৈর্ঘ্যের পথের সংখ্যা { data-toc-label=‘Number of paths of length in a graph’ }</a></li>
+        <li><a href="#বইনর-একসপননশযশনর-বচতর--মডলত-দট-সখযর-গণ--data-toc-labelvariation-of-binary-exponentiation-multiplying-two-numbers-modulo-m-">বাইনারি এক্সপোনেনশিয়েশনের বৈচিত্র: মডুলোতে দুটি সংখ্যার গুণ { data-toc-label=‘Variation of binary exponentiation: multiplying two numbers modulo ’ }</a></li>
       </ul>
     </li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#পরযকটস-পরবলম">প্র্যাকটিস প্রবলেম</a></li>
   </ul>
 </nav>
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -8,38 +8,40 @@ https://github.com/alex-shpak/hugo-book
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Burnside’s lemma / Pólya enumeration theorem#Burnside’s lemma#Burnside’s lemma was formulated and proven by Burnside in 1897, but historically it was already discovered in 1887 by Frobenius, and even earlier in 1845 by Cauchy. Therefore it is also sometimes named the Cauchy-Frobenius lemma.
-Burnside’s lemma allows us to count the number of equivalence classes in sets, based on internal symmetry.
-Objects and representations#We have to clearly distinguish between the number of objects and the number of representations.
+<meta name="description" content="বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য#বার্নসাইডের লেমা#বার্নসাইডের লেমা ১৮৯৭ সালে বার্নসাইড দ্বারা প্রকাশিত ও প্রমাণিত হয়েছিল, কিন্তু ঐতিহাসিকভাবে এটি ১৮৮৭ সালে ফ্রোবেনিয়াস দ্বারা এবং আরো আগে ১৮৪৫ সালে কশি দ্বারা আবিষ্কৃত হয়েছিল। তাই একে কখনো কখনো কশি-ফ্রোবেনিয়াস লেমা-ও বলা হয়।
+বার্নসাইডের লেমা আমাদের সেটের অভ্যন্তরীণ প্রতিসাম্যের উপর ভিত্তি করে তুল্যতা শ্রেণীর সংখ্যা গণনা করতে দেয়।
+বস্তু ও উপস্থাপনা#আমাদের বস্তুর সংখ্যা এবং উপস্থাপনার সংখ্যার মধ্যে স্পষ্ট পার্থক্য করতে হবে।
 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/combinatorics/burnside/">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="http://localhost:1313/combinatorics/burnside/">
   <meta property="og:site_name" content="CP-Algorithms">
-  <meta property="og:title" content="Burnside&#39;s lemma / Pólya enumeration theorem">
-  <meta property="og:description" content="Burnside’s lemma / Pólya enumeration theorem#Burnside’s lemma#Burnside’s lemma was formulated and proven by Burnside in 1897, but historically it was already discovered in 1887 by Frobenius, and even earlier in 1845 by Cauchy. Therefore it is also sometimes named the Cauchy-Frobenius lemma.
-Burnside’s lemma allows us to count the number of equivalence classes in sets, based on internal symmetry.
-Objects and representations#We have to clearly distinguish between the number of objects and the number of representations.">
+  <meta property="og:title" content="বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য">
+  <meta property="og:description" content="বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য#বার্নসাইডের লেমা#বার্নসাইডের লেমা ১৮৯৭ সালে বার্নসাইড দ্বারা প্রকাশিত ও প্রমাণিত হয়েছিল, কিন্তু ঐতিহাসিকভাবে এটি ১৮৮৭ সালে ফ্রোবেনিয়াস দ্বারা এবং আরো আগে ১৮৪৫ সালে কশি দ্বারা আবিষ্কৃত হয়েছিল। তাই একে কখনো কখনো কশি-ফ্রোবেনিয়াস লেমা-ও বলা হয়।
+বার্নসাইডের লেমা আমাদের সেটের অভ্যন্তরীণ প্রতিসাম্যের উপর ভিত্তি করে তুল্যতা শ্রেণীর সংখ্যা গণনা করতে দেয়।
+বস্তু ও উপস্থাপনা#আমাদের বস্তুর সংখ্যা এবং উপস্থাপনার সংখ্যার মধ্যে স্পষ্ট পার্থক্য করতে হবে।">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="combinatorics">
+    <meta property="article:modified_time" content="2026-03-11T18:49:06+06:00">
 
 
-  <meta itemprop="name" content="Burnside&#39;s lemma / Pólya enumeration theorem">
-  <meta itemprop="description" content="Burnside’s lemma / Pólya enumeration theorem#Burnside’s lemma#Burnside’s lemma was formulated and proven by Burnside in 1897, but historically it was already discovered in 1887 by Frobenius, and even earlier in 1845 by Cauchy. Therefore it is also sometimes named the Cauchy-Frobenius lemma.
-Burnside’s lemma allows us to count the number of equivalence classes in sets, based on internal symmetry.
-Objects and representations#We have to clearly distinguish between the number of objects and the number of representations.">
-  <meta itemprop="wordCount" content="2522">
+  <meta itemprop="name" content="বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য">
+  <meta itemprop="description" content="বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য#বার্নসাইডের লেমা#বার্নসাইডের লেমা ১৮৯৭ সালে বার্নসাইড দ্বারা প্রকাশিত ও প্রমাণিত হয়েছিল, কিন্তু ঐতিহাসিকভাবে এটি ১৮৮৭ সালে ফ্রোবেনিয়াস দ্বারা এবং আরো আগে ১৮৪৫ সালে কশি দ্বারা আবিষ্কৃত হয়েছিল। তাই একে কখনো কখনো কশি-ফ্রোবেনিয়াস লেমা-ও বলা হয়।
+বার্নসাইডের লেমা আমাদের সেটের অভ্যন্তরীণ প্রতিসাম্যের উপর ভিত্তি করে তুল্যতা শ্রেণীর সংখ্যা গণনা করতে দেয়।
+বস্তু ও উপস্থাপনা#আমাদের বস্তুর সংখ্যা এবং উপস্থাপনার সংখ্যার মধ্যে স্পষ্ট পার্থক্য করতে হবে।">
+  <meta itemprop="dateModified" content="2026-03-11T18:49:06+06:00">
+  <meta itemprop="wordCount" content="2131">
 
-<title>Burnside&#39;s lemma / Pólya enumeration theorem | CP-Algorithms</title>
+<title>বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য | CP-Algorithms</title>
 <link rel="icon" href="/favicon.png" >
 <link rel="manifest" href="/manifest.json">
-<link rel="canonical" href="https://cp-algorithms.com/combinatorics/burnside/">
+<link rel="canonical" href="http://localhost:1313/combinatorics/burnside/">
 <link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
 
 
   <script defer src="/fuse.min.js"></script>
-  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.c5a2227101ac2e1e7c3a95ee6839301859e6805c27896d343b35d2923875aaf3.js" integrity="sha256-xaIicQGsLh58OpXuaDkwGFnmgFwniW00OzXSkjh1qvM=" crossorigin="anonymous"></script>
 
 
 
@@ -126,78 +128,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/balanced-ternary/" class="">
-      Balanced Ternary</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/binary-exp/" class="">
-      Binary Exponentiation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/bit-manipulation/" class="">
-      Bit manipulation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/algebra/phi-function/" class="">
-      Euler&#39;s totient function</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factorial-divisors/" class="">
-      Finding Power of Factorial Divisor</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/module-inverse/" class="">
-      Modular Multiplicative Inverse</a>
+      অয়লারের টোশেন্ট ফাংশন</a>
   
 
         </li>
@@ -211,7 +143,77 @@ MathJax = {
 
   
     <a href="/algebra/sieve-of-eratosthenes/" class="">
-      Sieve of Eratosthenes</a>
+      এরাটোস্থেনিসের সিভ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      বাইনারি এক্সপোনেনশিয়েশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      বিট ম্যানিপুলেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      ব্যালেন্সড টার্নারি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      মডুলার গুণনীয় বিপরীত</a>
   
 
         </li>
@@ -225,7 +227,7 @@ MathJax = {
 
   
     <a href="/algebra/euclid-algorithm/" class="">
-      Euclidean algorithm for computing the greatest common divisor</a>
+      গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম</a>
   
 
         </li>
@@ -239,35 +241,7 @@ MathJax = {
 
   
     <a href="/algebra/gray-code/" class="">
-      Gray code</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/linear_congruence_equation/" class="">
-      Linear Congruence Equation</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/prime-sieve-linear/" class="">
-      Linear Sieve</a>
+      গ্রে কোড</a>
   
 
         </li>
@@ -281,7 +255,35 @@ MathJax = {
 
   
     <a href="/algebra/divisors/" class="">
-      Number of divisors / sum of divisors</a>
+      ভাজকের সংখ্যা / ভাজকের যোগফল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      রৈখিক সর্বসমতা সমীকরণ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      লিনিয়ার সিভ</a>
   
 
         </li>
@@ -295,7 +297,7 @@ MathJax = {
 
   
     <a href="/algebra/all-submasks/" class="">
-      Submask Enumeration</a>
+      সাবমাস্ক ইনিউমারেশন</a>
   
 
         </li>
@@ -309,21 +311,7 @@ MathJax = {
 
   
     <a href="/algebra/big-integer/" class="">
-      Arbitrary-Precision Arithmetic</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/chinese-remainder-theorem/" class="">
-      Chinese Remainder Theorem</a>
+      আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক</a>
   
 
         </li>
@@ -337,7 +325,21 @@ MathJax = {
 
   
     <a href="/algebra/extended-euclid-algorithm/" class="">
-      Extended Euclidean Algorithm</a>
+      এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      চায়নিজ রিমেইন্ডার থিওরেম</a>
   
 
         </li>
@@ -351,21 +353,7 @@ MathJax = {
 
   
     <a href="/algebra/primality_tests/" class="">
-      Primality tests</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/fft/" class="">
-      Fast Fourier transform</a>
+      মৌলিকতা পরীক্ষা</a>
   
 
         </li>
@@ -379,7 +367,7 @@ MathJax = {
 
   
     <a href="/algebra/garners-algorithm/" class="">
-      Garner&#39;s algorithm</a>
+      গার্নারের অ্যালগরিদম</a>
   
 
         </li>
@@ -393,7 +381,21 @@ MathJax = {
 
   
     <a href="/algebra/factorization/" class="">
-      Integer factorization</a>
+      পূর্ণসংখ্যা ফ্যাক্টরাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      ফাস্ট ফুরিয়ে ট্রান্সফর্ম</a>
   
 
         </li>
@@ -407,7 +409,7 @@ MathJax = {
 
   
     <a href="/algebra/linear-diophantine-equation/" class="">
-      Linear Diophantine Equation</a>
+      রৈখিক ডায়োফ্যান্টাইন সমীকরণ</a>
   
 
         </li>
@@ -434,8 +436,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/fibonacci-numbers/" class="">
-      Fibonacci Numbers</a>
+    <a href="/algebra/polynomial/" class="">
+      পলিনোমিয়াল ও সিরিজের উপর অপারেশন</a>
   
 
         </li>
@@ -448,8 +450,8 @@ MathJax = {
   
 
   
-    <a href="/algebra/polynomial/" class="">
-      Operations on polynomials and series</a>
+    <a href="/algebra/fibonacci-numbers/" class="">
+      ফিবোনাচ্চি সংখ্যা</a>
   
 
         </li>
@@ -463,7 +465,7 @@ MathJax = {
 
   
     <a href="/algebra/continued-fractions/" class="">
-      Continued fractions</a>
+      কন্টিনিউড ফ্র্যাকশন</a>
   
 
         </li>
@@ -477,21 +479,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-log/" class="">
-      Discrete Logarithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/algebra/factoring-exp/" class="">
-      Binary Exponentiation by Factoring</a>
+      ডিসক্রিট লগারিদম</a>
   
 
         </li>
@@ -505,7 +493,21 @@ MathJax = {
 
   
     <a href="/algebra/primitive-root/" class="">
-      Primitive Root</a>
+      প্রিমিটিভ রুট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন</a>
   
 
         </li>
@@ -519,7 +521,7 @@ MathJax = {
 
   
     <a href="/algebra/discrete-root/" class="">
-      Discrete Root</a>
+      ডিসক্রিট রুট</a>
   
 
         </li>
@@ -533,7 +535,7 @@ MathJax = {
 
   
     <a href="/algebra/montgomery_multiplication/" class="">
-      Montgomery Multiplication</a>
+      মন্টগোমেরি গুণন</a>
   
 
         </li>
@@ -584,7 +586,7 @@ MathJax = {
 
   
     <a href="/data_structures/disjoint_set_union/" class="">
-      Disjoint Set Union</a>
+      ডিসজয়েন্ট সেট ইউনিয়ন</a>
   
 
         </li>
@@ -598,7 +600,7 @@ MathJax = {
 
   
     <a href="/data_structures/stack_queue_modification/" class="">
-      Minimum stack / Minimum queue</a>
+      মিনিমাম স্ট্যাক / মিনিমাম কিউ</a>
   
 
         </li>
@@ -612,7 +614,7 @@ MathJax = {
 
   
     <a href="/data_structures/fenwick/" class="">
-      Fenwick Tree</a>
+      ফেনউইক ট্রি</a>
   
 
         </li>
@@ -626,7 +628,7 @@ MathJax = {
 
   
     <a href="/data_structures/sparse-table/" class="">
-      Sparse Table</a>
+      স্পার্স টেবিল</a>
   
 
         </li>
@@ -640,7 +642,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt_decomposition/" class="">
-      Sqrt Decomposition</a>
+      স্কোয়ার্ট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -654,7 +656,7 @@ MathJax = {
 
   
     <a href="/data_structures/segment_tree/" class="">
-      Segment Tree</a>
+      সেগমেন্ট ট্রি</a>
   
 
         </li>
@@ -668,7 +670,7 @@ MathJax = {
 
   
     <a href="/data_structures/treap/" class="">
-      Treap (Cartesian tree)</a>
+      ট্রিপ (কার্তেসিয়ান ট্রি)</a>
   
 
         </li>
@@ -682,7 +684,7 @@ MathJax = {
 
   
     <a href="/data_structures/sqrt-tree/" class="">
-      Sqrt Tree</a>
+      স্কোয়ার্ট ট্রি</a>
   
 
         </li>
@@ -696,7 +698,7 @@ MathJax = {
 
   
     <a href="/data_structures/randomized_heap/" class="">
-      Randomized Heap</a>
+      র‍্যান্ডমাইজড হিপ</a>
   
 
         </li>
@@ -746,8 +748,22 @@ MathJax = {
   
 
   
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      ডায়নামিক প্রোগ্রামিং পরিচিতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
-      Divide and Conquer DP</a>
+      ডিভাইড অ্যান্ড কনকার ডিপি</a>
   
 
         </li>
@@ -761,49 +777,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/profile-dynamics/" class="">
-      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/intro-to-dp/" class="">
-      Introduction to Dynamic Programming</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/zero_matrix/" class="">
-      Finding the largest zero submatrix</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/dynamic_programming/knapsack/" class="">
-      Knapsack Problem</a>
+      ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। &#34;পার্কেট&#34; সমস্যা</a>
   
 
         </li>
@@ -817,7 +791,35 @@ MathJax = {
 
   
     <a href="/dynamic_programming/knuth-optimization/" class="">
-      Knuth&#39;s Optimization</a>
+      নুথের অপটিমাইজেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      ন্যাপস্যাক প্রবলেম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা</a>
   
 
         </li>
@@ -831,7 +833,7 @@ MathJax = {
 
   
     <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -882,21 +884,7 @@ MathJax = {
 
   
     <a href="/string/expression_parsing/" class="">
-      Expression parsing</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/string-hashing/" class="">
-      String Hashing</a>
+      এক্সপ্রেশন পার্সিং</a>
   
 
         </li>
@@ -910,7 +898,21 @@ MathJax = {
 
   
     <a href="/string/suffix-tree-ukkonen/" class="">
-      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+      সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      স্ট্রিং হ্যাশিং</a>
   
 
         </li>
@@ -937,8 +939,8 @@ MathJax = {
   
 
   
-    <a href="/string/rabin-karp/" class="">
-      Rabin-Karp Algorithm for string matching</a>
+    <a href="/string/suffix-automaton/" class="">
+      সাফিক্স অটোমেটন</a>
   
 
         </li>
@@ -951,8 +953,8 @@ MathJax = {
   
 
   
-    <a href="/string/suffix-automaton/" class="">
-      Suffix Automaton</a>
+    <a href="/string/rabin-karp/" class="">
+      স্ট্রিং ম্যাচিং-এর জন্য রবিন-কার্প অ্যালগরিদম</a>
   
 
         </li>
@@ -966,21 +968,7 @@ MathJax = {
 
   
     <a href="/string/main_lorentz/" class="">
-      Finding repetitions</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/string/lyndon_factorization/" class="">
-      Lyndon factorization</a>
+      পুনরাবৃত্তি (রিপিটিশন) খোঁজা</a>
   
 
         </li>
@@ -994,7 +982,21 @@ MathJax = {
 
   
     <a href="/string/prefix-function/" class="">
-      Prefix function. Knuth–Morris–Pratt algorithm</a>
+      প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      লিন্ডন ফ্যাক্টরাইজেশন</a>
   
 
         </li>
@@ -1008,7 +1010,7 @@ MathJax = {
 
   
     <a href="/string/z-function/" class="">
-      Z-function and its calculation</a>
+      জেড-ফাংশন এবং এর গণনা</a>
   
 
         </li>
@@ -1022,7 +1024,7 @@ MathJax = {
 
   
     <a href="/string/suffix-array/" class="">
-      Suffix Array</a>
+      সাফিক্স অ্যারে</a>
   
 
         </li>
@@ -1036,7 +1038,7 @@ MathJax = {
 
   
     <a href="/string/aho_corasick/" class="">
-      Aho-Corasick algorithm</a>
+      আহো-কোরাসিক অ্যালগরিদম</a>
   
 
         </li>
@@ -1073,7 +1075,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/linear-system-gauss/" class="">
-      Gauss method for solving system of linear equations</a>
+      লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড</a>
   
 
         </li>
@@ -1087,7 +1089,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-gauss/" class="">
-      Calculating the determinant of a matrix by Gauss</a>
+      গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1101,7 +1103,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/determinant-kraut/" class="">
-      Calculating the determinant using Kraut method</a>
+      ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়</a>
   
 
         </li>
@@ -1115,7 +1117,7 @@ MathJax = {
 
   
     <a href="/linear_algebra/rank-matrix/" class="">
-      Finding the rank of a matrix</a>
+      ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়</a>
   
 
         </li>
@@ -1151,22 +1153,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bishops-on-chessboard/" class="">
-      Placing Bishops on a Chessboard</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/combinatorics/inclusion-exclusion/" class="">
-      The Inclusion-Exclusion Principle</a>
+      ইনক্লুশন-এক্সক্লুশন নীতি</a>
   
 
         </li>
@@ -1179,8 +1167,8 @@ MathJax = {
   
 
   
-    <a href="/combinatorics/bracket_sequences/" class="">
-      Balanced bracket sequences</a>
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      দাবার বোর্ডে বিশপ বসানো</a>
   
 
         </li>
@@ -1194,7 +1182,7 @@ MathJax = {
 
   
     <a href="/combinatorics/binomial-coefficients/" class="">
-      Binomial Coefficients</a>
+      দ্বিপদী সহগ</a>
   
 
         </li>
@@ -1208,7 +1196,21 @@ MathJax = {
 
   
     <a href="/combinatorics/burnside/" class="active">
-      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+      বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      সুষম বন্ধনী ক্রম</a>
   
 
         </li>
@@ -1222,7 +1224,7 @@ MathJax = {
 
   
     <a href="/combinatorics/catalan-numbers/" class="">
-      Catalan Numbers</a>
+      ক্যাটালান সংখ্যা</a>
   
 
         </li>
@@ -1236,7 +1238,7 @@ MathJax = {
 
   
     <a href="/combinatorics/counting_labeled_graphs/" class="">
-      Counting labeled graphs</a>
+      লেবেলড গ্রাফ গণনা</a>
   
 
         </li>
@@ -1250,7 +1252,7 @@ MathJax = {
 
   
     <a href="/combinatorics/stars_and_bars/" class="">
-      Stars and bars</a>
+      স্টার্স অ্যান্ড বার্স</a>
   
 
         </li>
@@ -1301,7 +1303,7 @@ MathJax = {
 
   
     <a href="/num_methods/binary_search/" class="">
-      Binary search</a>
+      বাইনারি সার্চ</a>
   
 
         </li>
@@ -1315,7 +1317,7 @@ MathJax = {
 
   
     <a href="/num_methods/simpson-integration/" class="">
-      Integration by Simpson&#39;s formula</a>
+      সিম্পসনের সূত্র দ্বারা সমাকলন</a>
   
 
         </li>
@@ -1329,7 +1331,7 @@ MathJax = {
 
   
     <a href="/num_methods/ternary_search/" class="">
-      Ternary Search</a>
+      টার্নারি সার্চ</a>
   
 
         </li>
@@ -1343,7 +1345,7 @@ MathJax = {
 
   
     <a href="/num_methods/roots_newton/" class="">
-      Newton&#39;s method for finding roots</a>
+      মূল নির্ণয়ে নিউটনের মেথড</a>
   
 
         </li>
@@ -1357,7 +1359,7 @@ MathJax = {
 
   
     <a href="/num_methods/simulated_annealing/" class="">
-      Simulated Annealing</a>
+      সিমুলেটেড অ্যানিলিং</a>
   
 
         </li>
@@ -1393,64 +1395,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/basic-geometry/" class="">
-      Basic Geometry</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/geometry/convex-hull/" class="">
-      Convex Hull construction</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/planar/" class="">
-      Finding faces of a planar graph</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/nearest_points/" class="">
-      Finding the nearest pair of points</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/oriented-triangle-area/" class="">
-      Oriented area of a triangle</a>
+      কনভেক্স হাল নির্মাণ</a>
   
 
         </li>
@@ -1464,7 +1410,7 @@ MathJax = {
 
   
     <a href="/geometry/intersecting_segments/" class="">
-      Search for a pair of intersecting segments</a>
+      ছেদকারী রেখাংশের জোড়া খোঁজা</a>
   
 
         </li>
@@ -1477,8 +1423,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/convex_hull_trick/" class="">
-      Convex hull trick and Li Chao tree</a>
+    <a href="/geometry/oriented-triangle-area/" class="">
+      ত্রিভুজের অভিমুখী ক্ষেত্রফল</a>
   
 
         </li>
@@ -1491,8 +1437,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/delaunay/" class="">
-      Delaunay triangulation and Voronoi diagram</a>
+    <a href="/geometry/nearest_points/" class="">
+      নিকটতম বিন্দু জোড়া খুঁজে বের করা</a>
   
 
         </li>
@@ -1505,8 +1451,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/area-of-simple-polygon/" class="">
-      Finding area of simple polygon in O(N)</a>
+    <a href="/geometry/planar/" class="">
+      প্ল্যানার গ্রাফের ফেস খুঁজে বের করা</a>
   
 
         </li>
@@ -1519,8 +1465,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/segment-to-line/" class="">
-      Finding the equation of a line for a segment</a>
+    <a href="/geometry/basic-geometry/" class="">
+      মৌলিক জ্যামিতি</a>
   
 
         </li>
@@ -1534,7 +1480,63 @@ MathJax = {
 
   
     <a href="/geometry/point-location/" class="">
-      Point location in O(log n)</a>
+      $O(\log n)$-এ পয়েন্ট লোকেশন</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      কনভেক্স হাল ট্রিক এবং লি চাও ট্রি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়</a>
   
 
         </li>
@@ -1548,21 +1550,7 @@ MathJax = {
 
   
     <a href="/geometry/point-in-convex-polygon/" class="">
-      Check if point belongs to the convex polygon in O(log N)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/lines-intersection/" class="">
-      Intersection Point of Lines</a>
+      $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা</a>
   
 
         </li>
@@ -1576,7 +1564,7 @@ MathJax = {
 
   
     <a href="/geometry/vertical_decomposition/" class="">
-      Vertical decomposition</a>
+      ভার্টিক্যাল ডিকম্পোজিশন</a>
   
 
         </li>
@@ -1589,22 +1577,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/check-segments-intersection/" class="">
-      Check if two segments intersect</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/halfplane-intersection/" class="">
-      Half-plane intersection</a>
+    <a href="/geometry/lines-intersection/" class="">
+      সরলরেখার ছেদবিন্দু</a>
   
 
         </li>
@@ -1618,7 +1592,35 @@ MathJax = {
 
   
     <a href="/geometry/minkowski/" class="">
-      Minkowski sum of convex polygons</a>
+      উত্তল পলিগনের মিনকোস্কি সাম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      হাফ-প্লেন ইন্টারসেকশন</a>
   
 
         </li>
@@ -1632,21 +1634,7 @@ MathJax = {
 
   
     <a href="/geometry/segments-intersection/" class="">
-      Finding intersection of two segments</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/geometry/manhattan-distance/" class="">
-      Manhattan Distance</a>
+      দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়</a>
   
 
         </li>
@@ -1660,7 +1648,7 @@ MathJax = {
 
   
     <a href="/geometry/picks-theorem/" class="">
-      Pick&#39;s Theorem</a>
+      পিকের উপপাদ্য</a>
   
 
         </li>
@@ -1673,8 +1661,8 @@ MathJax = {
   
 
   
-    <a href="/geometry/circle-line-intersection/" class="">
-      Circle-Line Intersection</a>
+    <a href="/geometry/manhattan-distance/" class="">
+      ম্যানহাটন ডিস্ট্যান্স</a>
   
 
         </li>
@@ -1688,7 +1676,21 @@ MathJax = {
 
   
     <a href="/geometry/lattice-points/" class="">
-      Lattice points inside non-lattice polygon</a>
+      অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      বৃত্ত-রেখা ছেদবিন্দু</a>
   
 
         </li>
@@ -1702,7 +1704,7 @@ MathJax = {
 
   
     <a href="/geometry/enclosing-circle/" class="">
-      Minimum Enclosing Circle</a>
+      মিনিমাম এনক্লোজিং সার্কেল</a>
   
 
         </li>
@@ -1716,7 +1718,7 @@ MathJax = {
 
   
     <a href="/geometry/circle-circle-intersection/" class="">
-      Circle-Circle Intersection</a>
+      বৃত্ত-বৃত্ত ছেদবিন্দু</a>
   
 
         </li>
@@ -1730,7 +1732,7 @@ MathJax = {
 
   
     <a href="/geometry/tangents-to-two-circles/" class="">
-      Finding common tangents to two circles</a>
+      দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়</a>
   
 
         </li>
@@ -1744,7 +1746,7 @@ MathJax = {
 
   
     <a href="/geometry/length-of-segments-union/" class="">
-      Length of the union of segments</a>
+      রেখাংশের ইউনিয়নের দৈর্ঘ্য</a>
   
 
         </li>
@@ -1780,64 +1782,8 @@ MathJax = {
   
 
   
-    <a href="/graph/breadth-first-search/" class="">
-      Breadth-first search</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/bipartite-check/" class="">
-      Check whether a graph is bipartite</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
     <a href="/graph/finding-cycle/" class="">
       Checking a graph for acyclicity and finding a cycle in O(M)</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/dijkstra/" class="">
-      Dijkstra Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
-      Floyd-Warshall Algorithm</a>
   
 
         </li>
@@ -1864,22 +1810,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edmonds_karp/" class="">
-      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_prim/" class="">
-      Minimum spanning tree - Prim&#39;s algorithm</a>
+    <a href="/graph/bipartite-check/" class="">
+      একটি গ্রাফ বাইপার্টাইট কিনা যাচাই</a>
   
 
         </li>
@@ -1893,7 +1825,7 @@ MathJax = {
 
   
     <a href="/graph/search-for-connected-components/" class="">
-      Search for connected components in a graph</a>
+      গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা</a>
   
 
         </li>
@@ -1907,7 +1839,7 @@ MathJax = {
 
   
     <a href="/graph/topological-sort/" class="">
-      Topological Sorting</a>
+      টপোলজিক্যাল সর্টিং</a>
   
 
         </li>
@@ -1920,8 +1852,8 @@ MathJax = {
   
 
   
-    <a href="/graph/depth-first-search/" class="">
-      Depth First Search</a>
+    <a href="/graph/dijkstra/" class="">
+      ডায়াক্সট্রা অ্যালগরিদম</a>
   
 
         </li>
@@ -1934,8 +1866,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dijkstra_sparse/" class="">
-      Dijkstra on sparse graphs</a>
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম</a>
   
 
         </li>
@@ -1948,8 +1880,8 @@ MathJax = {
   
 
   
-    <a href="/graph/edge_vertex_connectivity/" class="">
-      Edge connectivity / Vertex connectivity</a>
+    <a href="/graph/breadth-first-search/" class="">
+      ব্রেডথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -1962,8 +1894,22 @@ MathJax = {
   
 
   
-    <a href="/graph/finding-negative-cycle-in-graph/" class="">
-      Finding a negative cycle in the graph</a>
+    <a href="/graph/mst_prim/" class="">
+      মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প</a>
   
 
         </li>
@@ -1977,7 +1923,7 @@ MathJax = {
 
   
     <a href="/graph/bridge-searching/" class="">
-      Finding bridges in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে ব্রিজ খোঁজা</a>
   
 
         </li>
@@ -1990,8 +1936,8 @@ MathJax = {
   
 
   
-    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
-      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি</a>
   
 
         </li>
@@ -2004,8 +1950,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_binary_lifting/" class="">
-      Lowest Common Ancestor - Binary Lifting</a>
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা</a>
   
 
         </li>
@@ -2018,22 +1964,8 @@ MathJax = {
   
 
   
-    <a href="/graph/push-relabel/" class="">
-      Maximum flow - Push-relabel algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal/" class="">
-      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+    <a href="/graph/depth-first-search/" class="">
+      ডেপথ-ফার্স্ট সার্চ</a>
   
 
         </li>
@@ -2047,7 +1979,7 @@ MathJax = {
 
   
     <a href="/graph/fixed_length_paths/" class="">
-      Number of paths of fixed length / Shortest paths of fixed length</a>
+      নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ</a>
   
 
         </li>
@@ -2060,8 +1992,8 @@ MathJax = {
   
 
   
-    <a href="/graph/bellman_ford/" class="">
-      Bellman-Ford Algorithm</a>
+    <a href="/graph/mst_kruskal/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ক্রুস্কালের অ্যালগরিদম</a>
   
 
         </li>
@@ -2074,8 +2006,50 @@ MathJax = {
   
 
   
-    <a href="/graph/bridge-searching-online/" class="">
-      Finding Bridges Online</a>
+    <a href="/graph/push-relabel/" class="">
+      ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      স্পার্স গ্রাফে ডায়াক্সট্রা</a>
   
 
         </li>
@@ -2102,50 +2076,22 @@ MathJax = {
   
 
   
+    <a href="/graph/bridge-searching-online/" class="">
+      অনলাইনে ব্রিজ খোঁজা</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <a href="/graph/hungarian-algorithm/" class="">
-      Hungarian algorithm for solving the assignment problem</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/lca_farachcoltonbender/" class="">
-      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/push-relabel-faster/" class="">
-      Maximum flow - Push-relabel method improved</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/graph/mst_kruskal_with_dsu/" class="">
-      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+      অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম</a>
   
 
         </li>
@@ -2159,7 +2105,7 @@ MathJax = {
 
   
     <a href="/graph/tree_painting/" class="">
-      Paint the edges of the tree</a>
+      ট্রি-র এজে রং করা</a>
   
 
         </li>
@@ -2172,8 +2118,8 @@ MathJax = {
   
 
   
-    <a href="/graph/01_bfs/" class="">
-      0-1 BFS</a>
+    <a href="/graph/bellman_ford/" class="">
+      বেলম্যান-ফোর্ড অ্যালগরিদম</a>
   
 
         </li>
@@ -2186,8 +2132,36 @@ MathJax = {
   
 
   
-    <a href="/graph/2sat/" class="">
-      2-SAT</a>
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম</a>
   
 
         </li>
@@ -2201,7 +2175,7 @@ MathJax = {
 
   
     <a href="/graph/cutpoints/" class="">
-      Finding articulation points in a graph in O(N&#43;M)</a>
+      $O(N&#43;M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা</a>
   
 
         </li>
@@ -2214,8 +2188,8 @@ MathJax = {
   
 
   
-    <a href="/graph/dinic/" class="">
-      Maximum flow - Dinic&#39;s algorithm</a>
+    <a href="/graph/01_bfs/" class="">
+      ০-১ বিএফএস</a>
   
 
         </li>
@@ -2228,8 +2202,8 @@ MathJax = {
   
 
   
-    <a href="/graph/second_best_mst/" class="">
-      Second Best Minimum Spanning Tree</a>
+    <a href="/graph/2sat/" class="">
+      ২-স্যাট</a>
   
 
         </li>
@@ -2243,7 +2217,7 @@ MathJax = {
 
   
     <a href="/graph/rmq_linear/" class="">
-      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+      এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান</a>
   
 
         </li>
@@ -2256,8 +2230,8 @@ MathJax = {
   
 
   
-    <a href="/graph/desopo_pape/" class="">
-      D´Esopo-Pape algorithm</a>
+    <a href="/graph/second_best_mst/" class="">
+      দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি</a>
   
 
         </li>
@@ -2270,8 +2244,8 @@ MathJax = {
   
 
   
-    <a href="/graph/hld/" class="">
-      Heavy-light decomposition</a>
+    <a href="/graph/dinic/" class="">
+      ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম</a>
   
 
         </li>
@@ -2285,7 +2259,7 @@ MathJax = {
 
   
     <a href="/graph/kirchhoff-theorem/" class="">
-      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+      কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া</a>
   
 
         </li>
@@ -2298,8 +2272,8 @@ MathJax = {
   
 
   
-    <a href="/graph/lca_tarjan/" class="">
-      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+    <a href="/graph/desopo_pape/" class="">
+      ডি&#39;এসোপো-পেপ অ্যালগরিদম</a>
   
 
         </li>
@@ -2313,7 +2287,21 @@ MathJax = {
 
   
     <a href="/graph/mpm/" class="">
-      Maximum flow - MPM algorithm</a>
+      ম্যাক্সিমাম ফ্লো - এমপিএম অ্যালগরিদম</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম</a>
   
 
         </li>
@@ -2327,7 +2315,21 @@ MathJax = {
 
   
     <a href="/graph/strongly-connected-components/" class="">
-      Strongly connected components and the condensation graph</a>
+      স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      হেভি-লাইট ডিকম্পোজিশন</a>
   
 
         </li>
@@ -2341,7 +2343,7 @@ MathJax = {
 
   
     <a href="/graph/flow_with_demands/" class="">
-      Flows with demands</a>
+      ডিমান্ডসহ ফ্লো</a>
   
 
         </li>
@@ -2355,7 +2357,7 @@ MathJax = {
 
   
     <a href="/graph/pruefer_code/" class="">
-      Prüfer code</a>
+      প্রুফার কোড</a>
   
 
         </li>
@@ -2369,7 +2371,7 @@ MathJax = {
 
   
     <a href="/graph/strong-orientation/" class="">
-      Strong Orientation</a>
+      স্ট্রং ওরিয়েন্টেশন</a>
   
 
         </li>
@@ -2383,7 +2385,7 @@ MathJax = {
 
   
     <a href="/graph/min_cost_flow/" class="">
-      Minimum-cost flow - Successive shortest path algorithm</a>
+      মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম</a>
   
 
         </li>
@@ -2397,7 +2399,7 @@ MathJax = {
 
   
     <a href="/graph/assignment-problem-min-flow/" class="">
-      Solving assignment problem using min-cost-flow</a>
+      মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান</a>
   
 
         </li>
@@ -2434,7 +2436,7 @@ MathJax = {
 
   
     <a href="/sequences/rmq/" class="">
-      Range Minimum Query</a>
+      রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)</a>
   
 
         </li>
@@ -2448,7 +2450,7 @@ MathJax = {
 
   
     <a href="/sequences/k-th/" class="">
-      K-th order statistic in O(N)</a>
+      $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান</a>
   
 
         </li>
@@ -2476,7 +2478,7 @@ MathJax = {
 
   
     <a href="/sequences/longest_increasing_subsequence/" class="">
-      Longest increasing subsequence</a>
+      দীর্ঘতম বর্ধমান সাবসিকোয়েন্স</a>
   
 
         </li>
@@ -2513,7 +2515,7 @@ MathJax = {
 
   
     <a href="/others/tortoise_and_hare/" class="">
-      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+      ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম</a>
   
 
         </li>
@@ -2527,7 +2529,7 @@ MathJax = {
 
   
     <a href="/others/josephus_problem/" class="">
-      Josephus Problem</a>
+      জোসেফাস সমস্যা</a>
   
 
         </li>
@@ -2541,7 +2543,7 @@ MathJax = {
 
   
     <a href="/others/maximum_average_segment/" class="">
-      Search the subarray with the maximum/minimum sum</a>
+      সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান</a>
   
 
         </li>
@@ -2555,7 +2557,7 @@ MathJax = {
 
   
     <a href="/others/15-puzzle/" class="">
-      15 Puzzle Game: Existence Of The Solution</a>
+      ১৫ পাজল গেম: সমাধানের অস্তিত্ব</a>
   
 
         </li>
@@ -2569,7 +2571,7 @@ MathJax = {
 
   
     <a href="/others/stern_brocot_tree_farey_sequences/" class="">
-      The Stern-Brocot tree and Farey sequences</a>
+      স্টার্ন-ব্রকট ট্রি এবং ফ্যারে সিকোয়েন্স</a>
   
 
         </li>
@@ -2606,7 +2608,7 @@ MathJax = {
 
   
     <a href="/game_theory/games_on_graphs/" class="">
-      Games on arbitrary graphs</a>
+      যেকোনো গ্রাফে গেম</a>
   
 
         </li>
@@ -2620,7 +2622,7 @@ MathJax = {
 
   
     <a href="/game_theory/sprague-grundy-nim/" class="">
-      Sprague-Grundy theorem. Nim</a>
+      স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম</a>
   
 
         </li>
@@ -2657,7 +2659,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_one_machine/" class="">
-      Scheduling jobs on one machine</a>
+      একটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2671,7 +2673,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule_two_machines/" class="">
-      Scheduling jobs on two machines</a>
+      দুটি মেশিনে কাজ শিডিউলিং</a>
   
 
         </li>
@@ -2685,7 +2687,7 @@ MathJax = {
 
   
     <a href="/schedules/schedule-with-completion-duration/" class="">
-      Optimal schedule of jobs given their deadlines and durations</a>
+      ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল</a>
   
 
         </li>
@@ -2731,7 +2733,7 @@ MathJax = {
     <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <h3>Burnside&#39;s lemma / Pólya enumeration theorem</h3>
+  <h3>বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য</h3>
 
   <label for="toc-control">
     
@@ -2747,23 +2749,23 @@ MathJax = {
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#burnsides-lemma">Burnside&rsquo;s lemma</a>
+    <li><a href="#বরনসইডর-লম">বার্নসাইডের লেমা</a>
       <ul>
-        <li><a href="#objects-and-representations">Objects and representations</a></li>
-        <li><a href="#example-coloring-of-binary-trees">Example: coloring of binary trees</a></li>
-        <li><a href="#invariant-permutations">Invariant permutations</a></li>
-        <li><a href="#the-statement-of-the-lemma">The statement of the lemma</a></li>
-        <li><a href="#proof-of-burnsides-lemma">Proof of Burnside&rsquo;s lemma</a></li>
+        <li><a href="#বসত-ও-উপসথপন">বস্তু ও উপস্থাপনা</a></li>
+        <li><a href="#উদহরণ-বইনর-টর-র-র-কর">উদাহরণ: বাইনারি ট্রি-র রং করা</a></li>
+        <li><a href="#অপরবরতনয-বনযস">অপরিবর্তনীয় বিন্যাস</a></li>
+        <li><a href="#লমর-ববত">লেমার বিবৃতি</a></li>
+        <li><a href="#বরনসইডর-লমর-পরমণ">বার্নসাইডের লেমার প্রমাণ</a></li>
       </ul>
     </li>
-    <li><a href="#pólya-enumeration-theorem">Pólya enumeration theorem</a>
+    <li><a href="#পলযর-গণন-উপপদয">পোলিয়ার গণনা উপপাদ্য</a>
       <ul>
-        <li><a href="#evidence">Evidence</a></li>
+        <li><a href="#পরমণ">প্রমাণ</a></li>
       </ul>
     </li>
-    <li><a href="#application-coloring-necklaces">Application: Coloring necklaces</a></li>
-    <li><a href="#application-coloring-a-torus">Application: Coloring a torus</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#পরযগ-নকলস-র-কর">প্রয়োগ: নেকলেস রং করা</a></li>
+    <li><a href="#পরযগ-টরস-র-কর">প্রয়োগ: টোরাস রং করা</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 
@@ -2776,138 +2778,137 @@ MathJax = {
 
       
       
-  <article class="markdown book-article"><h1 id="burnsides-lemma--pólya-enumeration-theorem">Burnside&rsquo;s lemma / Pólya enumeration theorem<a class="anchor" href="#burnsides-lemma--p%c3%b3lya-enumeration-theorem">#</a></h1>
-<h2 id="burnsides-lemma">Burnside&rsquo;s lemma<a class="anchor" href="#burnsides-lemma">#</a></h2>
-<p><strong>Burnside&rsquo;s lemma</strong> was formulated and proven by <strong>Burnside</strong> in 1897, but historically it was already discovered in 1887 by <strong>Frobenius</strong>, and even earlier in 1845 by <strong>Cauchy</strong>.
-Therefore it is also sometimes named the <strong>Cauchy-Frobenius lemma</strong>.</p>
-<p>Burnside&rsquo;s lemma allows us to count the number of equivalence classes in sets, based on internal symmetry.</p>
-<h3 id="objects-and-representations">Objects and representations<a class="anchor" href="#objects-and-representations">#</a></h3>
-<p>We have to clearly distinguish between the number of objects and the number of representations.</p>
-<p>Different representations can correspond to the same objects, but of course any representation corresponds to exactly one object.
-Consequently the set of all representations is divided into equivalence classes.
-Our task is to compute the number of objects, or equivalently, the number of equivalence classes.
-The following example will make the difference between object and representation clearer.</p>
-<h3 id="example-coloring-of-binary-trees">Example: coloring of binary trees<a class="anchor" href="#example-coloring-of-binary-trees">#</a></h3>
-<p>Suppose we have the following problem.
-We have to count the number of ways to color a rooted binary tree with $n$ vertices with two colors, where at each vertex we do not distinguish between the left and the right children.</p>
-<p>Here the set of objects is the set of different colorings of the tree.</p>
-<p>We now define the set of representations.
-A representation of a coloring is a function $f(v)$, which assigns each vertex a color (here we use the colors $0$ and $1$).
-The set of representations is the set containing all possible functions of this kind, and its size is obviously equal to $2^n$.</p>
-<p>At the same time we introduce a partition of this set into equivalence classes.</p>
-<p>For example, suppose $n = 3$, and the tree consists of the root $1$ and its two children $2$ and $3$.
-Then the following functions $f_1$ and $f_2$ are considered equivalent.</p>
+  <article class="markdown book-article"><h1 id="বরনসইডর-লম--পলযর-গণন-উপপদয">বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য<a class="anchor" href="#%e0%a6%ac%e0%a6%b0%e0%a6%a8%e0%a6%b8%e0%a6%87%e0%a6%a1%e0%a6%b0-%e0%a6%b2%e0%a6%ae--%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%b0-%e0%a6%97%e0%a6%a3%e0%a6%a8-%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af">#</a></h1>
+<h2 id="বরনসইডর-লম">বার্নসাইডের লেমা<a class="anchor" href="#%e0%a6%ac%e0%a6%b0%e0%a6%a8%e0%a6%b8%e0%a6%87%e0%a6%a1%e0%a6%b0-%e0%a6%b2%e0%a6%ae">#</a></h2>
+<p><strong>বার্নসাইডের লেমা</strong> ১৮৯৭ সালে <strong>বার্নসাইড</strong> দ্বারা প্রকাশিত ও প্রমাণিত হয়েছিল, কিন্তু ঐতিহাসিকভাবে এটি ১৮৮৭ সালে <strong>ফ্রোবেনিয়াস</strong> দ্বারা এবং আরো আগে ১৮৪৫ সালে <strong>কশি</strong> দ্বারা আবিষ্কৃত হয়েছিল।
+তাই একে কখনো কখনো <strong>কশি-ফ্রোবেনিয়াস লেমা</strong>-ও বলা হয়।</p>
+<p>বার্নসাইডের লেমা আমাদের সেটের অভ্যন্তরীণ প্রতিসাম্যের উপর ভিত্তি করে তুল্যতা শ্রেণীর সংখ্যা গণনা করতে দেয়।</p>
+<h3 id="বসত-ও-উপসথপন">বস্তু ও উপস্থাপনা<a class="anchor" href="#%e0%a6%ac%e0%a6%b8%e0%a6%a4-%e0%a6%93-%e0%a6%89%e0%a6%aa%e0%a6%b8%e0%a6%a5%e0%a6%aa%e0%a6%a8">#</a></h3>
+<p>আমাদের বস্তুর সংখ্যা এবং উপস্থাপনার সংখ্যার মধ্যে স্পষ্ট পার্থক্য করতে হবে।</p>
+<p>বিভিন্ন উপস্থাপনা একই বস্তুর সাথে সংশ্লিষ্ট হতে পারে, কিন্তু অবশ্যই প্রতিটি উপস্থাপনা ঠিক একটি বস্তুর সাথে সংশ্লিষ্ট।
+ফলে সব উপস্থাপনার সেট তুল্যতা শ্রেণীতে বিভক্ত হয়।
+আমাদের কাজ হলো বস্তুর সংখ্যা, অথবা সমতুল্যভাবে, তুল্যতা শ্রেণীর সংখ্যা গণনা করা।
+নিচের উদাহরণটি বস্তু ও উপস্থাপনার মধ্যে পার্থক্য আরো স্পষ্ট করবে।</p>
+<h3 id="উদহরণ-বইনর-টর-র-র-কর">উদাহরণ: বাইনারি ট্রি-র রং করা<a class="anchor" href="#%e0%a6%89%e0%a6%a6%e0%a6%b9%e0%a6%b0%e0%a6%a3-%e0%a6%ac%e0%a6%87%e0%a6%a8%e0%a6%b0-%e0%a6%9f%e0%a6%b0-%e0%a6%b0-%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h3>
+<p>ধরুন আমাদের নিম্নলিখিত সমস্যা আছে।
+আমাদের $n$ শীর্ষবিশিষ্ট একটি মূলযুক্ত বাইনারি ট্রি-কে দুটি রঙে রং করার কতগুলো উপায় আছে তা গুনতে হবে, যেখানে প্রতিটি শীর্ষে আমরা বাম ও ডান সন্তানের মধ্যে পার্থক্য করি না।</p>
+<p>এখানে বস্তুর সেট হলো ট্রি-র বিভিন্ন রং করার সেট।</p>
+<p>এখন আমরা উপস্থাপনার সেট সংজ্ঞায়িত করি।
+একটি রং করার উপস্থাপনা হলো একটি ফাংশন $f(v)$, যা প্রতিটি শীর্ষে একটি রং নির্ধারণ করে (এখানে আমরা রং $0$ এবং $1$ ব্যবহার করি)।
+উপস্থাপনার সেট হলো এই ধরনের সব সম্ভব ফাংশনের সেট, এবং এর আকার স্পষ্টতই $2^n$।</p>
+<p>একই সাথে আমরা এই সেটকে তুল্যতা শ্রেণীতে বিভক্ত করি।</p>
+<p>উদাহরণস্বরূপ, ধরি $n = 3$, এবং ট্রিটি মূল $1$ ও তার দুই সন্তান $2$ এবং $3$ নিয়ে গঠিত।
+তাহলে নিচের ফাংশন $f_1$ এবং $f_2$ সমতুল্য বলে বিবেচিত হবে।</p>
 $$\begin{array}{ll}
 f_1(1) = 0 & f_2(1) = 0\\
 f_1(2) = 1 & f_2(2) = 0\\
 f_1(3) = 0 & f_2(3) = 1
-\end{array}$$<h3 id="invariant-permutations">Invariant permutations<a class="anchor" href="#invariant-permutations">#</a></h3>
-<p>Why do these two function $f_1$ and $f_2$ belong to the same equivalence class?
-Intuitively this is understandable - we can rearrange the children of vertex $1$, the vertices $2$ and $3$, and after such a transformation of the function $f_1$ it will coincide with $f_2$.</p>
-<p>But formally this means that there exists an <strong>invariant permutation</strong> $\pi$ (i.e. a permutation which does not change the object itself, but only its representation), such that:</p>
-$$f_2 \pi \equiv f_1$$<p>So starting from the definition of objects, we can find all the invariant permutations, i.e. all permutations which do not change the object when applying the permutation to the representation.
-Then we can check whether two functions $f_1$ and $f_2$ are equivalent (i.e. if they correspond to the same object) by checking the condition $f_2 \pi \equiv f_1$ for each invariant permutation (or equivalently $f_1 \pi \equiv f_2$).
-If at least one permutation is found for which the condition is satisfied, then $f_1$ and $f_2$ are equivalent, otherwise they are not equivalent.</p>
-<p>Finding all such invariant permutations with respect to the object definition is a key step for the application of both Burnside&rsquo;s lemma and the Pólya enumeration theorem.
-It is clear that these invariant permutations depend on the specific problem, and their finding is a purely heuristic process based on intuitive considerations.
-However in most cases it is sufficient to manually find several &ldquo;basic&rdquo; permutations, with which all other permutations can be generated (and this part of the work can be shifted to a computer).</p>
-<p>It is not difficult to understand that invariant permutations form a <strong>group</strong>, since the product (composition) of invariant permutations is again an invariant permutation.
-We denote the <strong>group of invariant permutations</strong> by $G$.</p>
-<h3 id="the-statement-of-the-lemma">The statement of the lemma<a class="anchor" href="#the-statement-of-the-lemma">#</a></h3>
-<p>For the formulation of the lemma we need one more definition from algebra.
-A <strong>fixed point</strong> $f$ for a permutation $\pi$ is an element that is invariant under this permutation: $f \equiv f \pi$.
-For example in our example the fixed points are those functions $f$, which correspond to colorings that do not change when the permutation $\pi$ is applied to them (i.e. they do not change in the formal sense of the equality of functions).
-We denote by $I(\pi)$ the <strong>number of fixed points</strong> for the permutation $\pi$.</p>
-<p>Then <strong>Burnside&rsquo;s lemma</strong> goes as follows:
-the number of equivalence classes is equal to the sum of the numbers of fixed points with respect to all permutations from the group $G$, divided by the size of this group:</p>
-$$|\text{Classes}| = \frac{1}{|G|} \sum_{\pi \in G} I(\pi)$$<p>Although Burnside&rsquo;s lemma itself is not so convenient to use in practice (it is unclear how to quickly look for the value $I(\pi)$, it most clearly reveals the mathematical essence on which the idea of calculating equivalence classes is based.</p>
-<h3 id="proof-of-burnsides-lemma">Proof of Burnside&rsquo;s lemma<a class="anchor" href="#proof-of-burnsides-lemma">#</a></h3>
-<p>The proof of Burnside&rsquo;s lemma described here is not important for the practical applications, so it can be skipped on the first reading.</p>
-<p>The proof here is the simplest known, and does not use group theory.
-The proof was published by Kenneth P. Bogart in 1991.</p>
-<p>We need to prove the following statement:</p>
-$$|\text{Classes}| \cdot |G| = \sum_{\pi \in G} I(\pi)$$<p>The value on the right side is nothing more than the number of &ldquo;invariant pairs&rdquo; $(f, \pi)$, i.e. pairs such that $f \pi \equiv f$.
-It is obvious that we can change the order of summation.
-We let the sum iterate over all elements $f$ and sum over the values $J(f)$ - the number of permutations for which $f$ is a fixed point.</p>
-$$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$<p>To prove this formula we will compose a table with columns labeled with all functions $f_i$ and rows labeled with all permutations $\pi_j$.
-And we fill the cells with $f_i \pi_j$.
-If we look at the columns in this table as sets, then some of them will coincide, and this means that the corresponding functions $f$ for these columns are also equivalent.
-Thus the numbers of different (as sets) columns is equal to the number of classes.
-Incidentally, from the standpoint of group theory, the column labeled with $f_i$ is the orbit of this element.
-For equivalent elements the orbits coincides, and the number of orbits gives exactly the number of classes.</p>
-<p>Thus the columns of the table decompose into equivalence classes.
-Let us fix a class, and look at the columns in it.
-First, note that these columns can only contain elements $f_i$ of the equivalence class (otherwise some permutation $\pi_j$ moved one of the functions into a different equivalence class, which is impossible since we only look at invariant permutations).
-Secondly each element $f_i$ will occur the same number of times in each column (this also follows from the fact that the columns correspond to equivalent elements).
-From this we can conclude, that all the columns within the same equivalence class coincide with each other as multisets.</p>
-<p>Now fix an arbitrary element $f$.
-On the one hand, it occurs in its column exactly $J(f)$ times (by definition).
-On the other hand, all columns within the same equivalence class are the same as multisets.
-Therefore within each column of a given equivalence class any element $g$ occurs exactly $J(g)$ times.</p>
-<p>Thus if we arbitrarily take one column from each equivalence class, and sum the number of elements in them, we obtain on one hand $|\text{Classes}| \cdot |G|$ (simply by multiplying the number of columns by the number of rows), and on the other hand the sum of the quantities $J(f)$ for all $f$ (this follows from all the previous arguments):</p>
-$$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$<h2 id="pólya-enumeration-theorem">Pólya enumeration theorem<a class="anchor" href="#p%c3%b3lya-enumeration-theorem">#</a></h2>
-<p>The Pólya enumeration theorem is a generalization of Burnside&rsquo;s lemma, and it also provides a more convenient tool for finding the number of equivalence classes.
-It should be noted that this theorem was already discovered before Pólya by Redfield in 1927, but his publication went unnoticed by mathematicians.
-Pólya independently came to the same results in 1937, and his publication was more successful.</p>
-<p>Here we discuss only a special case of the Pólya enumeration theorem, which will turn out very useful in practice.
-The general formula of the theorem will not be discussed.</p>
-<p>We denote by $C(\pi)$ the number of cycles in the permutation $\pi$.
-Then the following formula (a <strong>special case of the Pólya enumeration theorem</strong>) holds:</p>
-$$|\text{Classes}| = \frac{1}{|G|} \sum_{\pi \in G} k^{C(\pi)}$$<p>$k$ is the number of values that each representation element can take, in the case of the coloring of a binary tree this would be $k = 2$.</p>
-<h3 id="evidence">Evidence<a class="anchor" href="#evidence">#</a></h3>
-<p>This formula is a direct consequence of Burnside&rsquo;s lemma.
-To get it, we just need to find an explicit expression for $I(\pi)$, which appears in the lemma.
-Recall, that $I(\pi)$ is the number of fixed points in the permutation $\pi$.</p>
-<p>Thus we consider a permutation $\pi$ and some element $f$.
-During the application of $\pi$, the elements in $f$ move via the cycles in the permutation.
-Since the result should obtain $f \equiv f \pi$, the elements touched by one cycle must all be equal.
-At the same time different cycles are independent.
-Thus for each permutation cycle $\pi$ we can choose one value (among $k$ possible) and thus we get the number of fixed points:</p>
-$$I(\pi) = k^{C(\pi)}$$<h2 id="application-coloring-necklaces">Application: Coloring necklaces<a class="anchor" href="#application-coloring-necklaces">#</a></h2>
-<p>The problem &ldquo;Necklace&rdquo; is one of the classical combinatorial problems.
-The task is to count the number of different necklaces from $n$ beads, each of which can be painted in one of the $k$ colors.
-When comparing two necklaces, they can be rotated, but not reversed (i.e. a cyclic shift is permitted).</p>
-<p>In this problem we can immediately find the group of invariant permutations:</p>
+\end{array}$$<h3 id="অপরবরতনয-বনযস">অপরিবর্তনীয় বিন্যাস<a class="anchor" href="#%e0%a6%85%e0%a6%aa%e0%a6%b0%e0%a6%ac%e0%a6%b0%e0%a6%a4%e0%a6%a8%e0%a6%af-%e0%a6%ac%e0%a6%a8%e0%a6%af%e0%a6%b8">#</a></h3>
+<p>কেন এই দুটি ফাংশন $f_1$ এবং $f_2$ একই তুল্যতা শ্রেণীতে পড়ে?
+স্বজ্ঞাতভাবে এটা বোধগম্য - আমরা শীর্ষ $1$ এর সন্তান, শীর্ষ $2$ এবং $3$, পুনর্বিন্যাস করতে পারি, এবং ফাংশন $f_1$ এর এরকম রূপান্তরের পর এটি $f_2$ এর সাথে মিলে যাবে।</p>
+<p>কিন্তু আনুষ্ঠানিকভাবে এর অর্থ হলো একটি <strong>অপরিবর্তনীয় পারমুটেশন</strong> $\pi$ আছে (অর্থাৎ একটি পারমুটেশন যা বস্তু নিজেকে পরিবর্তন করে না, শুধু এর উপস্থাপনা পরিবর্তন করে), যেন:</p>
+$$f_2 \pi \equiv f_1$$<p>সুতরাং বস্তুর সংজ্ঞা থেকে শুরু করে, আমরা সব অপরিবর্তনীয় পারমুটেশন খুঁজে পেতে পারি, অর্থাৎ সব পারমুটেশন যেগুলো উপস্থাপনায় প্রয়োগ করলে বস্তু পরিবর্তন করে না।
+তারপর আমরা পরীক্ষা করতে পারি দুটি ফাংশন $f_1$ এবং $f_2$ সমতুল্য কিনা (অর্থাৎ তারা একই বস্তুর সাথে সংশ্লিষ্ট কিনা) প্রতিটি অপরিবর্তনীয় পারমুটেশনের জন্য $f_2 \pi \equiv f_1$ শর্ত পরীক্ষা করে (অথবা সমতুল্যভাবে $f_1 \pi \equiv f_2$)।
+যদি অন্তত একটি পারমুটেশন পাওয়া যায় যার জন্য শর্ত পূরণ হয়, তাহলে $f_1$ এবং $f_2$ সমতুল্য, অন্যথায় তারা সমতুল্য নয়।</p>
+<p>বস্তুর সংজ্ঞার সাপেক্ষে এরকম সব অপরিবর্তনীয় পারমুটেশন খোঁজা বার্নসাইডের লেমা এবং পোলিয়ার গণনা উপপাদ্য উভয় প্রয়োগের জন্য একটি মূল ধাপ।
+এটা স্পষ্ট যে এই অপরিবর্তনীয় পারমুটেশনগুলো নির্দিষ্ট সমস্যার উপর নির্ভর করে, এবং তাদের খোঁজা সম্পূর্ণরূপে অন্তর্জ্ঞানমূলক বিবেচনার উপর ভিত্তি করে একটি হিউরিস্টিক প্রক্রিয়া।
+তবে বেশিরভাগ ক্ষেত্রে কয়েকটি &ldquo;মৌলিক&rdquo; পারমুটেশন হাতে খুঁজে বের করাই যথেষ্ট, যেগুলো দিয়ে বাকি সব পারমুটেশন তৈরি করা যায় (এবং কাজের এই অংশ কম্পিউটারে স্থানান্তরিত করা যায়)।</p>
+<p>বুঝতে অসুবিধা নেই যে অপরিবর্তনীয় পারমুটেশনগুলো একটি <strong>গ্রুপ</strong> গঠন করে, কারণ অপরিবর্তনীয় পারমুটেশনের গুণফল (সংযোজন)-ও একটি অপরিবর্তনীয় পারমুটেশন।
+আমরা <strong>অপরিবর্তনীয় পারমুটেশনের গ্রুপ</strong>কে $G$ দ্বারা চিহ্নিত করি।</p>
+<h3 id="লমর-ববত">লেমার বিবৃতি<a class="anchor" href="#%e0%a6%b2%e0%a6%ae%e0%a6%b0-%e0%a6%ac%e0%a6%ac%e0%a6%a4">#</a></h3>
+<p>লেমার সূত্রায়নের জন্য আমাদের বীজগণিত থেকে আরেকটি সংজ্ঞা দরকার।
+পারমুটেশন $\pi$ এর জন্য একটি <strong>স্থির বিন্দু</strong> $f$ হলো এমন একটি উপাদান যা এই পারমুটেশনের অধীনে অপরিবর্তিত থাকে: $f \equiv f \pi$।
+উদাহরণস্বরূপ আমাদের উদাহরণে স্থির বিন্দুগুলো হলো সেই ফাংশন $f$, যেগুলো এমন রং করার সাথে সংশ্লিষ্ট যা পারমুটেশন $\pi$ প্রয়োগ করলে পরিবর্তন হয় না (অর্থাৎ ফাংশনের সমতার আনুষ্ঠানিক অর্থে তারা পরিবর্তন হয় না)।
+আমরা পারমুটেশন $\pi$ এর জন্য <strong>স্থির বিন্দুর সংখ্যা</strong> $I(\pi)$ দ্বারা চিহ্নিত করি।</p>
+<p>তাহলে <strong>বার্নসাইডের লেমা</strong> বলে:
+তুল্যতা শ্রেণীর সংখ্যা গ্রুপ $G$ এর সব পারমুটেশনের সাপেক্ষে স্থির বিন্দুর সংখ্যার যোগফলকে এই গ্রুপের আকার দিয়ে ভাগ করলে পাওয়া যায়:</p>
+$$|\text{Classes}| = \frac{1}{|G|} \sum_{\pi \in G} I(\pi)$$<p>যদিও বার্নসাইডের লেমা নিজে ব্যবহারিকভাবে এতটা সুবিধাজনক নয় ($I(\pi)$ এর মান দ্রুত কীভাবে বের করতে হয় তা অস্পষ্ট), এটি সবচেয়ে স্পষ্টভাবে সেই গাণিতিক সারমর্ম প্রকাশ করে যার উপর তুল্যতা শ্রেণী গণনার ধারণা ভিত্তি করে।</p>
+<h3 id="বরনসইডর-লমর-পরমণ">বার্নসাইডের লেমার প্রমাণ<a class="anchor" href="#%e0%a6%ac%e0%a6%b0%e0%a6%a8%e0%a6%b8%e0%a6%87%e0%a6%a1%e0%a6%b0-%e0%a6%b2%e0%a6%ae%e0%a6%b0-%e0%a6%aa%e0%a6%b0%e0%a6%ae%e0%a6%a3">#</a></h3>
+<p>এখানে বর্ণিত বার্নসাইডের লেমার প্রমাণ ব্যবহারিক প্রয়োগের জন্য গুরুত্বপূর্ণ নয়, তাই প্রথম পাঠে এড়িয়ে যাওয়া যায়।</p>
+<p>এখানকার প্রমাণটি সবচেয়ে সরল পরিচিত প্রমাণ, এবং এতে গ্রুপ তত্ত্ব ব্যবহৃত হয়নি।
+প্রমাণটি Kenneth P. Bogart ১৯৯১ সালে প্রকাশ করেছিলেন।</p>
+<p>আমাদের নিম্নলিখিত বিবৃতি প্রমাণ করতে হবে:</p>
+$$|\text{Classes}| \cdot |G| = \sum_{\pi \in G} I(\pi)$$<p>ডান পক্ষের মান &ldquo;অপরিবর্তনীয় জোড়া&rdquo; $(f, \pi)$ এর সংখ্যা ছাড়া আর কিছুই নয়, অর্থাৎ এমন জোড়া যেন $f \pi \equiv f$।
+এটা স্পষ্ট যে আমরা যোগফলের ক্রম পরিবর্তন করতে পারি।
+আমরা যোগফলকে সব উপাদান $f$ এর উপর চালাই এবং $J(f)$ এর মান যোগ করি - যে কতগুলো পারমুটেশনের জন্য $f$ একটি স্থির বিন্দু।</p>
+$$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$<p>এই সূত্র প্রমাণ করতে আমরা একটি টেবিল তৈরি করবো যার কলামগুলো সব ফাংশন $f_i$ দিয়ে এবং সারিগুলো সব পারমুটেশন $\pi_j$ দিয়ে চিহ্নিত।
+এবং আমরা ঘরগুলো $f_i \pi_j$ দিয়ে পূরণ করি।
+যদি আমরা এই টেবিলের কলামগুলোকে সেট হিসেবে দেখি, তাহলে কিছু কলাম মিলে যাবে, এবং এর মানে সংশ্লিষ্ট ফাংশন $f$-ও সমতুল্য।
+সুতরাং ভিন্ন (সেট হিসেবে) কলামের সংখ্যা শ্রেণীর সংখ্যার সমান।
+আনুষঙ্গিকভাবে, গ্রুপ তত্ত্বের দৃষ্টিকোণ থেকে, $f_i$ দিয়ে চিহ্নিত কলামটি এই উপাদানের কক্ষপথ।
+সমতুল্য উপাদানের জন্য কক্ষপথ মিলে যায়, এবং কক্ষপথের সংখ্যাই ঠিক শ্রেণীর সংখ্যা দেয়।</p>
+<p>সুতরাং টেবিলের কলামগুলো তুল্যতা শ্রেণীতে বিভক্ত হয়।
+একটি শ্রেণী ঠিক করি, এবং এর কলামগুলো দেখি।
+প্রথমত লক্ষ্য করুন, এই কলামগুলোতে শুধুমাত্র তুল্যতা শ্রেণীর উপাদান $f_i$ থাকতে পারে (অন্যথায় কোনো পারমুটেশন $\pi_j$ কোনো একটি ফাংশনকে ভিন্ন তুল্যতা শ্রেণীতে সরিয়ে দিত, যা অসম্ভব কারণ আমরা শুধু অপরিবর্তনীয় পারমুটেশন বিবেচনা করছি)।
+দ্বিতীয়ত প্রতিটি উপাদান $f_i$ প্রতিটি কলামে সমান সংখ্যকবার উপস্থিত হবে (এটিও এই কারণে যে কলামগুলো সমতুল্য উপাদানের সাথে সংশ্লিষ্ট)।
+এ থেকে আমরা উপসংহার টানতে পারি যে একই তুল্যতা শ্রেণীর সব কলাম মাল্টিসেট হিসেবে পরস্পরের সাথে মিলে যায়।</p>
+<p>এখন একটি যেকোনো উপাদান $f$ ঠিক করি।
+একদিকে, এটি তার কলামে ঠিক $J(f)$ বার উপস্থিত হয় (সংজ্ঞা অনুসারে)।
+অন্যদিকে, একই তুল্যতা শ্রেণীর সব কলাম মাল্টিসেট হিসেবে একই।
+তাই একটি প্রদত্ত তুল্যতা শ্রেণীর প্রতিটি কলামে যেকোনো উপাদান $g$ ঠিক $J(g)$ বার উপস্থিত হয়।</p>
+<p>সুতরাং যদি আমরা প্রতিটি তুল্যতা শ্রেণী থেকে ইচ্ছামতো একটি কলাম নিই, এবং তাদের উপাদান সংখ্যা যোগ করি, আমরা একদিকে পাবো $|\text{Classes}| \cdot |G|$ (কলাম সংখ্যাকে সারি সংখ্যা দিয়ে গুণ করে), এবং অন্যদিকে সব $f$ এর জন্য $J(f)$ এর যোগফল (এটি পূর্ববর্তী সব যুক্তি থেকে অনুসরণ করে):</p>
+$$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$<h2 id="পলযর-গণন-উপপদয">পোলিয়ার গণনা উপপাদ্য<a class="anchor" href="#%e0%a6%aa%e0%a6%b2%e0%a6%af%e0%a6%b0-%e0%a6%97%e0%a6%a3%e0%a6%a8-%e0%a6%89%e0%a6%aa%e0%a6%aa%e0%a6%a6%e0%a6%af">#</a></h2>
+<p>পোলিয়ার গণনা উপপাদ্য বার্নসাইডের লেমার একটি সাধারণীকরণ, এবং এটি তুল্যতা শ্রেণীর সংখ্যা বের করার জন্য আরো সুবিধাজনক হাতিয়ার প্রদান করে।
+লক্ষণীয় যে এই উপপাদ্যটি পোলিয়ার আগেই ১৯২৭ সালে Redfield আবিষ্কার করেছিলেন, কিন্তু তাঁর প্রকাশনা গণিতবিদদের নজরে আসেনি।
+পোলিয়া স্বাধীনভাবে ১৯৩৭ সালে একই ফলাফলে পৌঁছেছিলেন, এবং তাঁর প্রকাশনা আরো সফল হয়েছিল।</p>
+<p>এখানে আমরা পোলিয়ার গণনা উপপাদ্যের শুধুমাত্র একটি বিশেষ ক্ষেত্র আলোচনা করবো, যা ব্যবহারিকভাবে অত্যন্ত কার্যকর হবে।
+উপপাদ্যের সাধারণ সূত্র আলোচনা করা হবে না।</p>
+<p>আমরা $C(\pi)$ দ্বারা পারমুটেশন $\pi$ তে চক্রের সংখ্যা চিহ্নিত করি।
+তাহলে নিম্নলিখিত সূত্র (<strong>পোলিয়ার গণনা উপপাদ্যের একটি বিশেষ ক্ষেত্র</strong>) সত্য:</p>
+$$|\text{Classes}| = \frac{1}{|G|} \sum_{\pi \in G} k^{C(\pi)}$$<p>$k$ হলো প্রতিটি উপস্থাপনা উপাদান কতগুলো মান নিতে পারে তার সংখ্যা, বাইনারি ট্রি রং করার ক্ষেত্রে এটি হবে $k = 2$।</p>
+<h3 id="পরমণ">প্রমাণ<a class="anchor" href="#%e0%a6%aa%e0%a6%b0%e0%a6%ae%e0%a6%a3">#</a></h3>
+<p>এই সূত্রটি বার্নসাইডের লেমার সরাসরি পরিণতি।
+এটি পেতে, আমাদের শুধু লেমায় উপস্থিত $I(\pi)$ এর একটি সুস্পষ্ট রাশি বের করতে হবে।
+মনে করুন, $I(\pi)$ হলো পারমুটেশন $\pi$ তে স্থির বিন্দুর সংখ্যা।</p>
+<p>সুতরাং আমরা একটি পারমুটেশন $\pi$ এবং কিছু উপাদান $f$ বিবেচনা করি।
+$\pi$ প্রয়োগের সময়, $f$ এর উপাদানগুলো পারমুটেশনের চক্র অনুসারে সরে যায়।
+যেহেতু ফলাফলে $f \equiv f \pi$ পেতে হবে, একটি চক্র দ্বারা স্পর্শিত উপাদানগুলো সবই সমান হতে হবে।
+একই সাথে বিভিন্ন চক্র স্বাধীন।
+সুতরাং প্রতিটি পারমুটেশন চক্র $\pi$ এর জন্য আমরা একটি মান ($k$ সম্ভব থেকে) বেছে নিতে পারি এবং এভাবে আমরা স্থির বিন্দুর সংখ্যা পাই:</p>
+$$I(\pi) = k^{C(\pi)}$$<h2 id="পরযগ-নকলস-র-কর">প্রয়োগ: নেকলেস রং করা<a class="anchor" href="#%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97-%e0%a6%a8%e0%a6%95%e0%a6%b2%e0%a6%b8-%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h2>
+<p>&ldquo;নেকলেস&rdquo; সমস্যাটি ক্লাসিক সমাবেশ বিদ্যার সমস্যাগুলোর একটি।
+কাজটি হলো $n$ টি পুঁতি দিয়ে কতগুলো ভিন্ন নেকলেস তৈরি করা যায় তা গণনা করা, যেখানে প্রতিটি পুঁতি $k$ টি রঙের যেকোনো একটিতে রং করা যায়।
+দুটি নেকলেস তুলনা করার সময়, তাদের ঘোরানো যায়, কিন্তু উল্টানো যায় না (অর্থাৎ চক্রাকার স্থানান্তর অনুমোদিত)।</p>
+<p>এই সমস্যায় আমরা তৎক্ষণাৎ অপরিবর্তনীয় পারমুটেশনের গ্রুপ পেতে পারি:</p>
 $$\begin{align}
 \pi_0 &= 1 2 3 \dots n\\
 \pi_1 &= 2 3 \dots n 1\\
 \pi_2 &= 3 \dots n 12\\
 &\dots\\
-\pi_{n-1} &= n 1 2 3\dots\end{align}$$<p>Let us find an explicit formula for calculating $C(\pi_i)$.
-First we note, that the permutation $\pi_i$ has at the $j$-th position the value $i + j$ (taken modulo $n$).
-If we check the cycle structure for $\pi_i$.
-We see that $1$ goes to $1 + i$, $1 + i$ goes to $1 + 2i$, which goes to $1 + 3i$, etc., until we come to a number of the form $1 + k n$.
-Similar statements can be made for the remaining elements.
-Hence we see that all cycles have the same length, namely $\frac{\text{lcm}(i, n)}{i} = \frac{n}{\gcd(i, n)}$.
-Thus the number of cycles in $\pi_i$ will be equal to $\gcd(i, n)$.</p>
-<p>Substituting these values into the Pólya enumeration theorem, we obtain the solution:</p>
-$$\frac{1}{n} \sum_{i=1}^n k^{\gcd(i, n)}$$<p>You can leave this formula in this form, or you can simplify it even more.
-Let transfer the sum so that it iterates over all divisors of $n$.
-In the original sum there will be many equivalent terms: if $i$ is not a divisor of $n$, then such a divisor can be found after computing $\gcd(i, n)$.
-Therefore for each divisor $d ~|~ n$ its term $k^{\gcd(d, n)} = k^d$ will appear in the sum multiple times, i.e. the answer to the problem can be rewritten as</p>
-$$\frac{1}{n} \sum_{d ~|~ n} C_d k^d,$$<p>where $C_d$ is the number of such numbers $i$ with $\gcd(i, n) = d$.
-We can find an explicit expression for this value.
-Any such number $i$ has the form $i = d j$ with $\gcd(j, n / d) = 1$ (otherwise $\gcd(i, n) > d$).
-So we can count the number of $j$ with this behavior.
-<a href="../algebra/phi-function.md">Euler&rsquo;s phi function</a> gives us the result $C_d = \phi(n / d)$, and therefore we get the answer:</p>
-$$\frac{1}{n} \sum_{d ~|~ n} \phi\left(\frac{n}{d}\right) k^d$$<h2 id="application-coloring-a-torus">Application: Coloring a torus<a class="anchor" href="#application-coloring-a-torus">#</a></h2>
-<p>Quite often we cannot obtain an explicit formula for the number of equivalence classes.
-In many problems the number of permutations in a group can be too large for manual calculations and it is not possible to compute analytically the number of cycles in them.</p>
-<p>In that case we should manually find several &ldquo;basic&rdquo; permutations, so that they can generate the entire group $G$.
-Next we can write a program that will generate all permutations of the group $G$, count the number of cycles in them, and compute the answer with the formula.</p>
-<p>Consider the example of the problem for coloring a torus.
-There is a checkered sheet of paper $n \times m$ ($n < m$), some of the cells are black.
-Then a cylinder is obtained from this sheet by gluing together the two sides with lengths $m$.
-Then a torus is obtained from the cylinder by gluing together the two circles (top and bottom) without twisting.
-The task is to compute the number of different colored tori, assuming that we cannot see the glued lines, and the torus can be turned and turned.</p>
-<p>We again start with a piece of $n \times m$ paper.
-It is easy to see that the following types of transformations preserve the equivalence class:
-a cyclic shift of the rows, a cyclic shift of the columns, and a rotation of the sheet by 180 degrees.
-It is also easy to see, that these transformations can generate the entire group of invariant transformations.
-If we somehow number the cells of the paper, then we can write three permutations $p_1$, $p_2$, $p_3$ corresponding to these types of transformation.</p>
-<p>Next it only remains to generate all permutations obtained as a product.
-It is obvious that all such permutations have the form $p_1^{i_1} p_2^{i_2} p_3^{i_3}$ where $i_1 = 0 \dots m-1$, $i_2 = 0 \dots n-1$, $i_3 = 0 \dots 1$.</p>
-<p>Thus we can write the implementations to this problem.</p>
+\pi_{n-1} &= n 1 2 3\dots\end{align}$$<p>$C(\pi_i)$ গণনার একটি সুস্পষ্ট সূত্র বের করা যাক।
+প্রথমে লক্ষ্য করি, পারমুটেশন $\pi_i$ এর $j$-তম অবস্থানে মান $i + j$ (মডুলো $n$ নেওয়া) আছে।
+$\pi_i$ এর চক্র কাঠামো পরীক্ষা করলে দেখি যে $1$ যায় $1 + i$ তে, $1 + i$ যায় $1 + 2i$ তে, যা যায় $1 + 3i$ তে, ইত্যাদি, যতক্ষণ না আমরা $1 + k n$ আকারের একটি সংখ্যায় পৌঁছাই।
+বাকি উপাদানগুলোর জন্যও একই কথা বলা যায়।
+ফলে আমরা দেখি সব চক্রের দৈর্ঘ্য একই, যথা $\frac{\text{lcm}(i, n)}{i} = \frac{n}{\gcd(i, n)}$।
+সুতরাং $\pi_i$ তে চক্রের সংখ্যা হবে $\gcd(i, n)$।</p>
+<p>পোলিয়ার গণনা উপপাদ্যে এই মানগুলো বসিয়ে আমরা সমাধান পাই:</p>
+$$\frac{1}{n} \sum_{i=1}^n k^{\gcd(i, n)}$$<p>আপনি এই সূত্রটি এই আকারে রাখতে পারেন, অথবা আরো সরলীকরণ করতে পারেন।
+যোগফলটি এমনভাবে রূপান্তর করি যাতে এটি $n$ এর সব ভাজকের উপর চলে।
+মূল যোগফলে অনেক সমতুল্য পদ থাকবে: যদি $i$ $n$ এর ভাজক না হয়, তাহলে $\gcd(i, n)$ গণনা করার পর এমন একটি ভাজক পাওয়া যাবে।
+তাই প্রতিটি ভাজক $d ~|~ n$ এর জন্য এর পদ $k^{\gcd(d, n)} = k^d$ যোগফলে একাধিকবার আসবে, অর্থাৎ সমস্যার উত্তর এভাবে লেখা যায়</p>
+$$\frac{1}{n} \sum_{d ~|~ n} C_d k^d,$$<p>যেখানে $C_d$ হলো $\gcd(i, n) = d$ এমন $i$ এর সংখ্যা।
+আমরা এই মানের একটি সুস্পষ্ট রাশি বের করতে পারি।
+এরকম যেকোনো $i$ এর আকার $i = d j$ যেখানে $\gcd(j, n / d) = 1$ (অন্যথায় $\gcd(i, n) > d$)।
+সুতরাং এই আচরণের $j$ এর সংখ্যা গুনতে পারি।
+<a href="../algebra/phi-function.md">অয়লারের ফি ফাংশন</a> আমাদের ফলাফল দেয় $C_d = \phi(n / d)$, এবং তাই আমরা উত্তর পাই:</p>
+$$\frac{1}{n} \sum_{d ~|~ n} \phi\left(\frac{n}{d}\right) k^d$$<h2 id="পরযগ-টরস-র-কর">প্রয়োগ: টোরাস রং করা<a class="anchor" href="#%e0%a6%aa%e0%a6%b0%e0%a6%af%e0%a6%97-%e0%a6%9f%e0%a6%b0%e0%a6%b8-%e0%a6%b0-%e0%a6%95%e0%a6%b0">#</a></h2>
+<p>প্রায়ই আমরা তুল্যতা শ্রেণীর সংখ্যার জন্য সুস্পষ্ট সূত্র পাই না।
+অনেক সমস্যায় একটি গ্রুপে পারমুটেশনের সংখ্যা হাতে গণনার জন্য অনেক বেশি হতে পারে এবং তাদের মধ্যে চক্রের সংখ্যা বিশ্লেষণমূলকভাবে গণনা করা সম্ভব হয় না।</p>
+<p>সেক্ষেত্রে আমাদের হাতে কয়েকটি &ldquo;মৌলিক&rdquo; পারমুটেশন খুঁজতে হবে, যাতে তারা সম্পূর্ণ গ্রুপ $G$ তৈরি করতে পারে।
+এরপর আমরা একটি প্রোগ্রাম লিখতে পারি যা গ্রুপ $G$ এর সব পারমুটেশন তৈরি করবে, তাদের চক্র সংখ্যা গুনবে, এবং সূত্র দিয়ে উত্তর গণনা করবে।</p>
+<p>টোরাস রং করার সমস্যার উদাহরণ বিবেচনা করি।
+একটি $n \times m$ ($n < m$) চেকওয়ালা কাগজের পাতা আছে, কিছু ঘর কালো।
+তারপর $m$ দৈর্ঘ্যের দুটি পাশ জোড়া লাগিয়ে এই পাতা থেকে একটি সিলিন্ডার পাওয়া যায়।
+তারপর দুটি বৃত্ত (উপর ও নিচ) মোচড় না দিয়ে জোড়া লাগিয়ে সিলিন্ডার থেকে একটি টোরাস পাওয়া যায়।
+কাজটি হলো ভিন্ন রঙিত টোরাসের সংখ্যা গণনা করা, ধরে নিয়ে যে আমরা জোড়া লাগানো রেখাগুলো দেখতে পাচ্ছি না, এবং টোরাসটি ঘোরানো ও পালটানো যায়।</p>
+<p>আবার আমরা $n \times m$ কাগজের টুকরো দিয়ে শুরু করি।
+নিম্নলিখিত ধরনের রূপান্তরগুলো তুল্যতা শ্রেণী সংরক্ষণ করে তা দেখা সহজ:
+সারিগুলোর চক্রাকার স্থানান্তর, কলামগুলোর চক্রাকার স্থানান্তর, এবং পাতাটিকে ১৮০ ডিগ্রি ঘোরানো।
+এটাও দেখা সহজ যে এই রূপান্তরগুলো অপরিবর্তনীয় রূপান্তরের সম্পূর্ণ গ্রুপ তৈরি করতে পারে।
+আমরা যদি কোনোভাবে কাগজের ঘরগুলো সংখ্যা দিই, তাহলে এই ধরনের রূপান্তরের সাথে সংশ্লিষ্ট তিনটি পারমুটেশন $p_1$, $p_2$, $p_3$ লেখা যায়।</p>
+<p>এরপর শুধু গুণফল হিসেবে প্রাপ্ত সব পারমুটেশন তৈরি করা বাকি।
+এটা স্পষ্ট যে এরকম সব পারমুটেশন $p_1^{i_1} p_2^{i_2} p_3^{i_3}$ আকারের যেখানে $i_1 = 0 \dots m-1$, $i_2 = 0 \dots n-1$, $i_3 = 0 \dots 1$।</p>
+<p>সুতরাং আমরা এই সমস্যার ইমপ্লিমেন্টেশন লিখতে পারি।</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">using</span> <span class="n">Permutation</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="k">operator</span><span class="o">*=</span><span class="p">(</span><span class="n">Permutation</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">,</span> <span class="n">Permutation</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
@@ -2957,7 +2958,7 @@ It is obvious that all such permutations have the form $p_1^{i_1} p_2^{i_2} p_3^
 </span></span><span class="line"><span class="cl">        <span class="n">sum</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">count_cycles</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">sum</span> <span class="o">/</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><h2 id="অনশলন-সমসয">অনুশীলন সমস্যা<a class="anchor" href="#%e0%a6%85%e0%a6%a8%e0%a6%b6%e0%a6%b2%e0%a6%a8-%e0%a6%b8%e0%a6%ae%e0%a6%b8%e0%a6%af">#</a></h2>
 <ul>
 <li><a href="https://cses.fi/problemset/task/2209">CSES - Counting Necklaces</a></li>
 <li><a href="https://cses.fi/problemset/task/2210">CSES - Counting Grids</a></li>
@@ -3004,14 +3005,14 @@ It is obvious that all such permutations have the form $p_1^{i_1} p_2^{i_2} p_3^
     
       <a href="/combinatorics/binomial-coefficients/" class="flex align-center">
         <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
-        <span>Binomial Coefficients</span>
+        <span>দ্বিপদী সহগ</span>
       </a>
     
     </span>
     <span>
     
-      <a href="/combinatorics/catalan-numbers/" class="flex align-center">
-        <span>Catalan Numbers</span>
+      <a href="/combinatorics/bracket_sequences/" class="flex align-center">
+        <span>সুষম বন্ধনী ক্রম</span>
         <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
       </a>
     
@@ -3052,23 +3053,23 @@ It is obvious that all such permutations have the form $p_1^{i_1} p_2^{i_2} p_3^
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#burnsides-lemma">Burnside&rsquo;s lemma</a>
+    <li><a href="#বরনসইডর-লম">বার্নসাইডের লেমা</a>
       <ul>
-        <li><a href="#objects-and-representations">Objects and representations</a></li>
-        <li><a href="#example-coloring-of-binary-trees">Example: coloring of binary trees</a></li>
-        <li><a href="#invariant-permutations">Invariant permutations</a></li>
-        <li><a href="#the-statement-of-the-lemma">The statement of the lemma</a></li>
-        <li><a href="#proof-of-burnsides-lemma">Proof of Burnside&rsquo;s lemma</a></li>
+        <li><a href="#বসত-ও-উপসথপন">বস্তু ও উপস্থাপনা</a></li>
+        <li><a href="#উদহরণ-বইনর-টর-র-র-কর">উদাহরণ: বাইনারি ট্রি-র রং করা</a></li>
+        <li><a href="#অপরবরতনয-বনযস">অপরিবর্তনীয় বিন্যাস</a></li>
+        <li><a href="#লমর-ববত">লেমার বিবৃতি</a></li>
+        <li><a href="#বরনসইডর-লমর-পরমণ">বার্নসাইডের লেমার প্রমাণ</a></li>
       </ul>
     </li>
-    <li><a href="#pólya-enumeration-theorem">Pólya enumeration theorem</a>
+    <li><a href="#পলযর-গণন-উপপদয">পোলিয়ার গণনা উপপাদ্য</a>
       <ul>
-        <li><a href="#evidence">Evidence</a></li>
+        <li><a href="#পরমণ">প্রমাণ</a></li>
       </ul>
     </li>
-    <li><a href="#application-coloring-necklaces">Application: Coloring necklaces</a></li>
-    <li><a href="#application-coloring-a-torus">Application: Coloring a torus</a></li>
-    <li><a href="#practice-problems">Practice Problems</a></li>
+    <li><a href="#পরযগ-নকলস-র-কর">প্রয়োগ: নেকলেস রং করা</a></li>
+    <li><a href="#পরযগ-টরস-র-কর">প্রয়োগ: টোরাস রং করা</a></li>
+    <li><a href="#অনশলন-সমসয">অনুশীলন সমস্যা</a></li>
   </ul>
 </nav>
 

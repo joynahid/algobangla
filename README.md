@@ -1,65 +1,89 @@
-# Algorithms for Competitive Programming
+# AlgoBangla — বাংলায় CP Algorithms
 
-[![Contributors](https://img.shields.io/github/contributors/cp-algorithms/cp-algorithms.svg)](https://github.com/cp-algorithms/cp-algorithms/graphs/contributors)
-[![Pull Requests](https://img.shields.io/github/issues-pr/cp-algorithms/cp-algorithms.svg)](https://github.com/cp-algorithms/cp-algorithms/pulls)
-[![Closed Pull Requests](https://img.shields.io/github/issues-pr-closed/cp-algorithms/cp-algorithms.svg)](https://github.com/cp-algorithms/cp-algorithms/pulls?q=is%3Apr+is%3Aclosed)
-[![Build](https://img.shields.io/github/actions/workflow/status/cp-algorithms/cp-algorithms/test.yml)](https://github.com/cp-algorithms/cp-algorithms/actions?query=branch%3Amain+workflow%3Atest)
-[![Translation Progress](https://img.shields.io/badge/translation_progress-85.2%25-yellowgreen.svg)](https://github.com/cp-algorithms/cp-algorithms/wiki/Translation-Progress)
+[![Website](https://img.shields.io/badge/website-algobangla.web.app-blue)](https://algobangla.web.app)
+[![Contributors](https://img.shields.io/github/contributors/joynahid/algobangla.svg)](https://github.com/joynahid/algobangla/graphs/contributors)
+[![Pull Requests](https://img.shields.io/github/issues-pr/joynahid/algobangla.svg)](https://github.com/joynahid/algobangla/pulls)
+[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![Build](https://img.shields.io/github/actions/workflow/status/joynahid/algobangla/deploy-hugo.yml)](https://github.com/joynahid/algobangla/actions)
 
-The goal of this project is to translate the wonderful resource
-[https://e-maxx.ru/algo](https://e-maxx.ru/algo) which provides descriptions of many algorithms
-and data structures especially popular in field of competitive programming.
-Moreover we want to improve the collected knowledge by extending the articles
-and adding new articles to the collection.
+**AlgoBangla** is a free, ad-free, bilingual reference for competitive programming algorithms and data structures — in **Bangla and English**.
 
-We're an ad-free, volunteer-run website that's free for everyone. Users can contribute articles or help sponsor bounties on articles for greater algorithmic coverage. Your help is greatly appreciated.
+It is a Bangla adaptation of [cp-algorithms.com](https://cp-algorithms.com), which itself is based on the legendary Russian resource [e-maxx.ru/algo](https://e-maxx.ru/algo). The goal is simple: make world-class algorithm knowledge accessible to the millions of Bengali-speaking students and programmers who think and learn best in their first language.
 
-Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorithms.com/).
+🌐 **Live site:** [algobangla.web.app](https://algobangla.web.app)
 
-## Become a Contributor
+---
 
-- [How to Contribute](https://cp-algorithms.com/contrib.html)
-- [Code of Conduct](https://cp-algorithms.com/code_of_conduct.html)
-- [Test-Your-Page Form](https://cp-algorithms.com/preview.html)
+## Vision
 
-## Sponsor Us
+There are hundreds of thousands of Bengali-speaking competitive programmers in Bangladesh and West Bengal. Bangladesh regularly qualifies for ICPC World Finals. Yet no comprehensive, well-organized algorithm reference existed in Bangla.
 
-- [Become a Financial Supporter](https://github.com/sponsors/cp-algorithms)
+English is a barrier — not because people can't read it, but because parsing dense mathematical explanations in a second language costs mental energy. That energy should go toward understanding algorithms, not decoding language.
 
-## Changelog
+**AlgoBangla's vision is to eliminate that barrier entirely.** Every article should read as naturally as a good textbook — clear, precise, and written in the language you think in.
 
-- August, 2025: Overhaul of CP-Algorithms [donation system](https://github.com/sponsors/cp-algorithms). Please consider supporting us, so that we can grow!
-- August, 2025: Launched a [Discord server](https://discord.gg/HZ5AecN3KX)!
-- October, 2024: Welcome new maintainers: [jxu](https://github.com/jxu), [mhayter](https://github.com/mhayter) and [kostero](https://github.com/kostero)!
-- October, 15, 2024: GitHub pages based mirror is now served at [https://gh.cp-algorithms.com/](https://gh.cp-algorithms.com/), and an auxiliary competitive programming library is available at [https://lib.cp-algorithms.com/](https://lib.cp-algorithms.com/).
-- July 16, 2024: Major overhaul of the [Finding strongly connected components / Building condensation graph](https://cp-algorithms.com/graph/strongly-connected-components.html) article.
-- June 26, 2023: Added automatic RSS feeds for [new articles](https://cp-algorithms.com/feed_rss_created.xml) and [updates in articles](https://cp-algorithms.com/feed_rss_updated.xml).
-- December 20, 2022: The repository name and the owning organizations were renamed! Now the repo is located at [https://github.com/cp-algorithms/cp-algorithms](https://github.com/cp-algorithms/cp-algorithms). It is recommended to update the upstream link in your local repositories, if you have any.
-- October 31, 2022: It is now possible to select and copy $\LaTeX$ source code of formulas within the articles.
-- June 8, 2022: Tags are enabled. Each article is now marked whether it is translated or original, overall tag info is present in the [tag index](https://cp-algorithms.com/tags.html). For translated articles, clicking on `From: X` tag would lead to the original article.
-- June 7, 2022: Date of last commit and author list with contribution percentage is tracked for each page.
-- June 5, 2022: Enabled content tabs and sidebar navigation. The navigation is moved to a [separate page](https://cp-algorithms.com/navigation.html) and its structure should be adjusted in [navigation.md](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/navigation.md) whenever a new article is created or an old one is moved.
-- January 16, 2022: Switched to the [MkDocs](https://www.mkdocs.org/) site generator with the [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) theme, which give the website a more modern look, brings a couple of new features (dark mode, better search, ...), makes the website more stable (in terms of rendering math formulas), and makes it easier to contribute.
+---
 
-### New articles
+## What's Covered
 
-- (19 August 2025) [Minimum Enclosing Circle](https://cp-algorithms.com/geometry/enclosing-circle.html)
-- (21 May 2025) [Simulated Annealing](https://cp-algorithms.com/num_methods/simulated_annealing.html)
-- (12 July 2024) [Manhattan distance](https://cp-algorithms.com/geometry/manhattan-distance.html)
-- (8 June 2024) [Knapsack Problem](https://cp-algorithms.com/dynamic_programming/knapsack.html)
-- (28 January 2024) [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
-- (8 December 2023) [Hungarian Algorithm](https://cp-algorithms.com/graph/hungarian-algorithm.html)
-- (10 September 2023) [Tortoise and Hare Algorithm](https://cp-algorithms.com/others/tortoise_and_hare.html)
-- (12 July 2023) [Finding faces of a planar graph](https://cp-algorithms.com/geometry/planar.html)
-- (18 April 2023) [Bit manipulation](https://cp-algorithms.com/algebra/bit-manipulation.html)
-- (17 October 2022) [Binary Search](https://cp-algorithms.com/num_methods/binary_search.html)
-- (17 October 2022) [MEX (Minimum Excluded element in an array)](https://cp-algorithms.com/sequences/mex.html)
-- (12 May 2022) [Factoring Exponentiation](https://cp-algorithms.com/algebra/factoring-exp.html)
-- (7 May 2022) [Knuth's Optimization](https://cp-algorithms.com/dynamic_programming/knuth-optimization.html)
-- (31 March 2022) [Continued fractions](https://cp-algorithms.com/algebra/continued-fractions.html)
+150+ articles across 13 topic areas:
 
-Full list of updates: [Commit History](https://github.com/cp-algorithms/cp-algorithms/commits/main)
+| Topic | Articles |
+|---|---|
+| Algebra & Number Theory | Binary exponentiation, Sieve, FFT, CRT, Discrete log, Euler's totient... |
+| Graph Algorithms | BFS/DFS, Dijkstra, Bellman-Ford, SCC, LCA, Max flow (Dinic, Push-Relabel)... |
+| Data Structures | Segment Tree, Fenwick Tree, Sparse Table, Treap, DSU, sqrt decomposition... |
+| Dynamic Programming | LIS, Knapsack, D&C DP, Knuth's optimization, Profile DP... |
+| String Algorithms | KMP, Z-function, Aho-Corasick, Suffix Array, Suffix Automaton, Manacher... |
+| Geometry | Convex Hull, halfplane intersection, Delaunay triangulation... |
+| Combinatorics | Binomial coefficients, Catalan numbers, inclusion-exclusion, Burnside... |
+| Linear Algebra | Gaussian elimination, Determinant, Rank... |
+| Numerical Methods | Binary search, Ternary search, Newton's method, Simpson integration... |
+| Game Theory | Sprague-Grundy theorem, Nim, Games on graphs... |
+| Sequences | LIS, RMQ, MEX, k-th order statistics... |
+| Schedules | Single/two-machine scheduling... |
+| Others | 15-puzzle, Josephus problem, Stern-Brocot tree... |
 
-Full list of articles: [Navigation](https://cp-algorithms.com/navigation.html)
+Every article is available at `/bn/` (Bangla) and `/en/` (English).
 
+---
 
+## Tech Stack
+
+- **Generator:** [Hugo](https://gohugo.io) with [hugo-book](https://github.com/alex-shpak/hugo-book) theme
+- **Hosting:** Firebase Hosting (global CDN)
+- **CI/CD:** GitHub Actions — auto-deploys on every push to `hugo` branch
+- **Math:** MathJax 3 (self-hosted)
+- **Fonts:** Kalpurush + Tiro Bangla (self-hosted)
+- **Content:** Markdown with LaTeX math
+
+Zero external CDN dependencies at runtime.
+
+---
+
+## Contribute
+
+The translations are AI-assisted — accurate but not always natural. **Native speakers can make them significantly better.**
+
+Ways to contribute:
+
+- **Fix a translation** — if something reads awkwardly, open a PR with a better version
+- **Improve math terminology** — follow NCTB Bangladesh conventions
+- **Write a new article** — in Bangla, English, or both
+- **Report issues** — broken formulas, wrong links, typos
+
+You don't need to know Git to get started. Open an [Issue](https://github.com/joynahid/algobangla/issues) and describe what you want to fix.
+
+Every article has an **"Edit this page on GitHub"** link at the bottom.
+
+---
+
+## License
+
+All content is licensed under [Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
+
+Original algorithm articles are credited to the [e-maxx / cp-algorithms](https://cp-algorithms.com) community. Bangla translations and adaptations are by AlgoBangla contributors.
+
+---
+
+*Built for the Bengali CP community. Free forever.*

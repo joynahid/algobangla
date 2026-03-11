@@ -2,20 +2,20 @@ baseURL = "https://algobangla.web.app/"
 title = "algobangla"
 theme = "hugo-book"
 enableGitInfo = true
-defaultContentLanguage = "en"
+defaultContentLanguage = "bn"
 defaultContentLanguageInSubdir = true
 
 [languages]
-  [languages.en]
-    languageName = "English"
-    contentDir = "content/en"
-    weight = 1
-    [languages.en.params]
-      BookSection = "/"
-
   [languages.bn]
     languageName = "বাংলা"
     contentDir = "content/bn"
+    weight = 1
+    [languages.bn.params]
+      BookSection = "/"
+
+  [languages.en]
+    languageName = "English"
+    contentDir = "content/en"
     weight = 2
     [languages.bn.params]
       BookSection = "/"

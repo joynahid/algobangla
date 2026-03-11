@@ -11,4 +11,4 @@ weight: 1
 
 ## কৃতজ্ঞতা
 
-- [Credits](credits.html)
+- [Credits](credits.md)

@@ -4,81 +4,81 @@ tags:
 e_maxx_link: min_cost_flow
 ---
 
-# Minimum-cost flow - Successive shortest path algorithm
+# মিনিমাম-কস্ট ফ্লো - সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম
 
-Given a network $G$ consisting of $n$ vertices and $m$ edges.
-For each edge (generally speaking, oriented edges, but see below), the capacity (a non-negative integer) and the cost per unit of flow along this edge (some integer) are given.
-Also the source $s$ and the sink $t$ are marked.
+$n$ টি ভার্টেক্স এবং $m$ টি এজ বিশিষ্ট একটি নেটওয়ার্ক $G$ দেওয়া আছে।
+প্রতিটি এজের জন্য (সাধারণত বলতে গেলে, ডিরেক্টেড এজ, তবে নিচে দেখুন), ক্যাপাসিটি (একটি অ-ঋণাত্মক পূর্ণ সংখ্যা) এবং এই এজ বরাবর ফ্লো-র প্রতি ইউনিটের কস্ট (কোনো পূর্ণ সংখ্যা) দেওয়া আছে।
+এছাড়াও সোর্স $s$ এবং সিঙ্ক $t$ চিহ্নিত করা আছে।
 
-For a given value $K$, we have to find a flow of this quantity, and among all flows of this quantity we have to choose the flow with the lowest cost.
-This task is called **minimum-cost flow problem**.
+একটি প্রদত্ত মান $K$-এর জন্য, আমাদের এই পরিমাণের একটি ফ্লো বের করতে হবে, এবং এই পরিমাণের সব ফ্লো-র মধ্যে সবচেয়ে কম কস্টের ফ্লো বেছে নিতে হবে।
+এই কাজটিকে **মিনিমাম-কস্ট ফ্লো সমস্যা** বলা হয়।
 
-Sometimes the task is given a little differently:
-you want to find the maximum flow, and among all maximal flows we want to find the one with the least cost.
-This is called the **minimum-cost maximum-flow problem**.
+কখনো কখনো কাজটি একটু ভিন্নভাবে দেওয়া হয়:
+আপনি ম্যাক্সিমাম ফ্লো বের করতে চান, এবং সব ম্যাক্সিমাল ফ্লো-র মধ্যে সবচেয়ে কম কস্টেরটি চান।
+একে **মিনিমাম-কস্ট ম্যাক্সিমাম-ফ্লো সমস্যা** বলা হয়।
 
-Both these problems can be solved effectively with the algorithm of successive shortest paths.
+এই দুটি সমস্যাই সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম দিয়ে কার্যকরভাবে সমাধান করা যায়।
 
-## Algorithm
+## অ্যালগরিদম
 
-This algorithm is very similar to the [Edmonds-Karp](edmonds_karp.md) for computing the maximum flow.
+এই অ্যালগরিদমটি ম্যাক্সিমাম ফ্লো গণনার জন্য [এডমন্ডস-কার্প](edmonds_karp.md) অ্যালগরিদমের সাথে খুবই সাদৃশ্যপূর্ণ।
 
-### Simplest case
+### সবচেয়ে সরল ক্ষেত্র
 
-First we only consider the simplest case, where the graph is oriented, and there is at most one edge between any pair of vertices (e.g. if $(i, j)$ is an edge in the graph, then $(j, i)$ cannot be part in it as well).
+প্রথমে আমরা শুধু সবচেয়ে সরল ক্ষেত্রটি বিবেচনা করি, যেখানে গ্রাফটি ডিরেক্টেড, এবং যেকোনো জোড়া ভার্টেক্সের মধ্যে সর্বোচ্চ একটি এজ আছে (যেমন যদি $(i, j)$ গ্রাফে একটি এজ হয়, তাহলে $(j, i)$ এতে থাকতে পারবে না)।
 
-Let $U_{i j}$ be the capacity of an edge $(i, j)$ if this edge exists.
-And let $C_{i j}$ be the cost per unit of flow along this edge $(i, j)$.
-And finally let $F_{i, j}$ be the flow along the edge $(i, j)$.
-Initially all flow values are zero.
+ধরি $U_{i j}$ হলো $(i, j)$ এজের ক্যাপাসিটি যদি এই এজটি বিদ্যমান থাকে।
+এবং ধরি $C_{i j}$ হলো $(i, j)$ এজ বরাবর ফ্লো-র প্রতি ইউনিটের কস্ট।
+এবং সবশেষে ধরি $F_{i, j}$ হলো $(i, j)$ এজ বরাবর ফ্লো।
+প্রাথমিকভাবে সব ফ্লো-র মান শূন্য।
 
-We **modify** the network as follows:
-for each edge $(i, j)$ we add the **reverse edge** $(j, i)$ to the network with the capacity $U_{j i} = 0$ and the cost $C_{j i} = -C_{i j}$.
-Since, according to our restrictions, the edge $(j, i)$ was not in the network before, we still have a network that is not a multigraph (graph with multiple edges).
-In addition we will always keep the condition $F_{j i} = -F_{i j}$ true during the steps of the algorithm.
+আমরা নেটওয়ার্কটি নিম্নরূপে **পরিবর্তন** করি:
+প্রতিটি $(i, j)$ এজের জন্য আমরা নেটওয়ার্কে **রিভার্স এজ** $(j, i)$ যোগ করি যার ক্যাপাসিটি $U_{j i} = 0$ এবং কস্ট $C_{j i} = -C_{i j}$।
+যেহেতু, আমাদের শর্তানুযায়ী, $(j, i)$ এজটি আগে নেটওয়ার্কে ছিল না, তাই আমাদের এখনো এমন একটি নেটওয়ার্ক আছে যেটি মাল্টিগ্রাফ নয় (মাল্টিপল এজযুক্ত গ্রাফ)।
+এছাড়াও আমরা অ্যালগরিদমের ধাপগুলোতে সর্বদা $F_{j i} = -F_{i j}$ শর্তটি বজায় রাখব।
 
-We define the **residual network** for some fixed flow $F$ as follow (just like in the Ford-Fulkerson algorithm):
-the residual network contains only unsaturated edges (i.e. edges in which $F_{i j} < U_{i j}$), and the residual capacity of each such edge is $R_{i j} = U_{i j} - F_{i j}$.
+আমরা কিছু নির্দিষ্ট ফ্লো $F$-এর জন্য **রেসিডুয়াল নেটওয়ার্ক** নিম্নরূপে সংজ্ঞায়িত করি (ফোর্ড-ফুলকারসন অ্যালগরিদমের মতোই):
+রেসিডুয়াল নেটওয়ার্কে শুধু আনস্যাচুরেটেড এজ থাকে (অর্থাৎ যেসব এজে $F_{i j} < U_{i j}$), এবং প্রতিটি এরকম এজের রেসিডুয়াল ক্যাপাসিটি $R_{i j} = U_{i j} - F_{i j}$।
 
-Now we can talk about the **algorithms** to compute the minimum-cost flow.
-At each iteration of the algorithm we find the shortest path in the residual graph from $s$ to $t$.
-In contrast to Edmonds-Karp, we look for the shortest path in terms of the cost of the path instead of the number of edges.
-If there doesn't exists a path anymore, then the algorithm terminates, and the stream $F$ is the desired one.
-If a path was found, we increase the flow along it as much as possible (i.e. we find the minimal residual capacity $R$ of the path, and increase the flow by it, and reduce the back edges by the same amount).
-If at some point the flow reaches the value $K$, then we stop the algorithm (note that in the last iteration of the algorithm it is necessary to increase the flow by only such an amount so that the final flow value doesn't surpass $K$).
+এখন আমরা মিনিমাম-কস্ট ফ্লো গণনার **অ্যালগরিদম** সম্পর্কে বলতে পারি।
+অ্যালগরিদমের প্রতিটি ইটারেশনে আমরা রেসিডুয়াল গ্রাফে $s$ থেকে $t$-তে শর্টেস্ট পাথ খুঁজি।
+এডমন্ডস-কার্পের বিপরীতে, আমরা এজ সংখ্যার পরিবর্তে পাথের কস্টের দিক থেকে শর্টেস্ট পাথ খুঁজি।
+যদি আর কোনো পাথ না থাকে, তাহলে অ্যালগরিদম শেষ হয়, এবং ফ্লো $F$ হলো কাঙ্ক্ষিত ফ্লো।
+যদি পাথ পাওয়া যায়, আমরা সেই পাথ বরাবর যতটা সম্ভব ফ্লো বাড়াই (অর্থাৎ পাথের মিনিমাল রেসিডুয়াল ক্যাপাসিটি $R$ খুঁজি, এবং ফ্লো সেই পরিমাণ বাড়াই, এবং ব্যাক এজগুলো একই পরিমাণ কমাই)।
+যদি কোনো সময়ে ফ্লো $K$ মানে পৌঁছে, তাহলে আমরা অ্যালগরিদম বন্ধ করি (লক্ষ্য করুন যে অ্যালগরিদমের শেষ ইটারেশনে ফ্লো শুধু এমন পরিমাণ বাড়ানো দরকার যেন চূড়ান্ত ফ্লো মান $K$ অতিক্রম না করে)।
 
-It is not difficult to see, that if we set $K$ to infinity, then the algorithm will find the minimum-cost maximum-flow.
-So both variations of the problem can be solved by the same algorithm.
+সহজেই দেখা যায় যে, যদি আমরা $K$-কে অসীমে সেট করি, তাহলে অ্যালগরিদম মিনিমাম-কস্ট ম্যাক্সিমাম-ফ্লো বের করবে।
+সুতরাং সমস্যার উভয় ভেরিয়েশন একই অ্যালগরিদম দিয়ে সমাধান করা যায়।
 
-### Undirected graphs / multigraphs
+### আনডিরেক্টেড গ্রাফ / মাল্টিগ্রাফ
 
-The case of an undirected graph or a multigraph doesn't differ conceptually from the algorithm above.
-The algorithm will also work on these graphs.
-However it becomes a little more difficult to implement it.
+আনডিরেক্টেড গ্রাফ বা মাল্টিগ্রাফের ক্ষেত্রটি উপরের অ্যালগরিদম থেকে ধারণাগতভাবে ভিন্ন নয়।
+অ্যালগরিদম এই গ্রাফগুলোতেও কাজ করবে।
+তবে ইমপ্লিমেন্ট করা একটু বেশি কঠিন হয়ে যায়।
 
-An **undirected edge** $(i, j)$ is actually the same as two oriented edges $(i, j)$ and $(j, i)$ with the same capacity and values.
-Since the above-described minimum-cost flow algorithm generates a back edge for each directed edge, so it splits the undirected edge into $4$ directed edges, and we actually get a **multigraph**.
+একটি **আনডিরেক্টেড এজ** $(i, j)$ আসলে একই ক্যাপাসিটি এবং মানসহ দুটি ডিরেক্টেড এজ $(i, j)$ এবং $(j, i)$-এর সমতুল্য।
+যেহেতু উপরে বর্ণিত মিনিমাম-কস্ট ফ্লো অ্যালগরিদম প্রতিটি ডিরেক্টেড এজের জন্য একটি ব্যাক এজ তৈরি করে, তাই এটি আনডিরেক্টেড এজকে $4$ টি ডিরেক্টেড এজে বিভক্ত করে, এবং আমরা আসলে একটি **মাল্টিগ্রাফ** পাই।
 
-How do we deal with **multiple edges**?
-First the flow for each of the multiple edges must be kept separately.
-Secondly, when searching for the shortest path, it is necessary to take into account that it is important which of the multiple edges is used in the path.
-Thus instead of the usual ancestor array we additionally must store the edge number from which we came from along with the ancestor.
-Thirdly, as the flow increases along a certain edge, it is necessary to reduce the flow along the back edge.
-Since we have multiple edges, we have to store the edge number for the reversed edge for each edge.
+**মাল্টিপল এজ** কীভাবে হ্যান্ডেল করব?
+প্রথমত, প্রতিটি মাল্টিপল এজের ফ্লো আলাদাভাবে রাখতে হবে।
+দ্বিতীয়ত, শর্টেস্ট পাথ খোঁজার সময়, পাথে কোন মাল্টিপল এজ ব্যবহৃত হচ্ছে তা গুরুত্বপূর্ণ।
+তাই সাধারণ অ্যানসেস্টর অ্যারের পাশাপাশি আমাদের অতিরিক্তভাবে সেই এজ নম্বরও সংরক্ষণ করতে হবে যেটি থেকে আমরা এসেছি।
+তৃতীয়ত, একটি নির্দিষ্ট এজ বরাবর ফ্লো বাড়ানোর সময়, ব্যাক এজ বরাবর ফ্লো কমাতে হবে।
+যেহেতু আমাদের মাল্টিপল এজ আছে, তাই আমাদের প্রতিটি এজের জন্য রিভার্স এজের নম্বর সংরক্ষণ করতে হবে।
 
-There are no other obstructions with undirected graphs or multigraphs.
+আনডিরেক্টেড গ্রাফ বা মাল্টিগ্রাফ নিয়ে এছাড়া আর কোনো বাধা নেই।
 
-### Complexity
+### কমপ্লেক্সিটি
 
-The algorithm here is generally exponential in the size of the input. To be more specific, in the worst case it may push only as much as $1$ unit of flow on each iteration, taking $O(F)$ iterations to find a minimum-cost flow of size $F$, making a total runtime to be $O(F \cdot T)$, where $T$ is the time required to find the shortest path from source to sink.
+এখানে অ্যালগরিদমটি সাধারণত ইনপুটের আকারে এক্সপোনেনশিয়াল। আরো সুনির্দিষ্টভাবে, সবচেয়ে খারাপ ক্ষেত্রে এটি প্রতিটি ইটারেশনে মাত্র $1$ ইউনিট ফ্লো পুশ করতে পারে, $F$ আকারের মিনিমাম-কস্ট ফ্লো খুঁজতে $O(F)$ ইটারেশন লাগে, মোট রানটাইম $O(F \cdot T)$, যেখানে $T$ হলো সোর্স থেকে সিঙ্কে শর্টেস্ট পাথ খুঁজতে যে সময় লাগে।
 
-If [Bellman-Ford](bellman_ford.md) algorithm is used for this, it makes the running time $O(F mn)$. It is also possible to modify [Dijkstra's algorithm](dijkstra.md), so that it needs $O(nm)$ pre-processing as an initial step and then works in $O(m \log n)$ per iteration, making the overall running time to be $O(mn + F m \log n)$. [Here](http://web.archive.org/web/20211009144446/https://min-25.hatenablog.com/entry/2018/03/19/235802) is a generator of a graph, on which such algorithm would require $O(2^{n/2} n^2 \log n)$ time.
+যদি এজন্য [বেলম্যান-ফোর্ড](bellman_ford.md) অ্যালগরিদম ব্যবহার করা হয়, তাহলে রানিং টাইম $O(F mn)$ হয়। [ডায়াক্সট্রার অ্যালগরিদম](dijkstra.md) পরিবর্তন করাও সম্ভব, যেন এটি প্রাথমিক ধাপ হিসেবে $O(nm)$ প্রিপ্রসেসিং নেয় এবং তারপর প্রতি ইটারেশনে $O(m \log n)$-এ কাজ করে, মোট রানিং টাইম $O(mn + F m \log n)$ করে। [এখানে](http://web.archive.org/web/20211009144446/https://min-25.hatenablog.com/entry/2018/03/19/235802) একটি গ্রাফ জেনারেটর আছে, যার উপর এই অ্যালগরিদমে $O(2^{n/2} n^2 \log n)$ সময় লাগবে।
 
-The modified Dijkstra's algorithm uses so-called potentials from [Johnson's algorithm](https://en.wikipedia.org/wiki/Johnson%27s_algorithm). It is possible to combine the ideas of this algorithm and Dinic's algorithm to reduce the number of iterations from $F$ to $\min(F, nC)$, where $C$ is the maximum cost found among edges. You may read further about potentials and their combination with Dinic algorithm [here](https://codeforces.com/blog/entry/105658).
+পরিবর্তিত ডায়াক্সট্রার অ্যালগরিদম [জনসনের অ্যালগরিদম](https://en.wikipedia.org/wiki/Johnson%27s_algorithm) থেকে তথাকথিত পটেনশিয়াল ব্যবহার করে। ইটারেশনের সংখ্যা $F$ থেকে $\min(F, nC)$-এ কমাতে এই অ্যালগরিদম এবং ডিনিকের অ্যালগরিদমের ধারণাগুলো একত্রিত করা সম্ভব, যেখানে $C$ হলো এজগুলোর মধ্যে পাওয়া সর্বোচ্চ কস্ট। পটেনশিয়াল এবং ডিনিক অ্যালগরিদমের সাথে তাদের সমন্বয় সম্পর্কে আরো পড়তে পারেন [এখানে](https://codeforces.com/blog/entry/105658)।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is an implementation using the [SPFA algorithm](bellman_ford.md) for the simplest case.
+এখানে সবচেয়ে সরল ক্ষেত্রের জন্য [SPFA অ্যালগরিদম](bellman_ford.md) ব্যবহার করে একটি ইমপ্লিমেন্টেশন দেওয়া হলো।
 
 ```{.cpp file=min_cost_flow_successive_shortest_path}
 struct Edge
@@ -134,7 +134,7 @@ int min_cost_flow(int N, vector<Edge> edges, int K, int s, int t) {
         shortest_paths(N, s, d, p);
         if (d[t] == INF)
             break;
-        
+
         // find max flow on that path
         int f = K - flow;
         int cur = t;
@@ -161,7 +161,7 @@ int min_cost_flow(int N, vector<Edge> edges, int K, int s, int t) {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [CSES - Task Assignment](https://cses.fi/problemset/task/2129)
 * [CSES - Grid Puzzle II](https://cses.fi/problemset/task/2131)

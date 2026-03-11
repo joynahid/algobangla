@@ -4,25 +4,25 @@ tags:
 e_maxx_link: segment_to_line
 ---
 
-# Finding the equation of a line for a segment
+# একটি রেখাখণ্ডের জন্য রেখার সমীকরণ নির্ণয়
 
-The task is: given the coordinates of the ends of a segment, construct a line passing through it.
+কাজটি হলো: একটি রেখাখণ্ডের প্রান্তবিন্দুগুলোর স্থানাঙ্ক দেওয়া আছে, এর মধ্য দিয়ে যাওয়া রেখাটি নির্মাণ করুন।
 
-We assume that the segment is non-degenerate, i.e. has a length greater than zero (otherwise, of course, infinitely many different lines pass through it).
+আমরা ধরে নিচ্ছি রেখাখণ্ডটি অধঃপতিত নয়, অর্থাৎ এর দৈর্ঘ্য শূন্যের চেয়ে বেশি (অন্যথায়, অবশ্যই, অসীম সংখ্যক ভিন্ন রেখা এর মধ্য দিয়ে যায়)।
 
-### Two-dimensional case
+### দ্বিমাত্রিক ক্ষেত্র
 
-Let the given segment be $PQ$ i.e. the known coordinates of its ends $P_x , P_y , Q_x , Q_y$ .
+ধরি প্রদত্ত রেখাখণ্ড হলো $PQ$ অর্থাৎ এর প্রান্তবিন্দুর পরিচিত স্থানাঙ্ক $P_x , P_y , Q_x , Q_y$।
 
-It is necessary to construct **the equation of a line in the plane** passing through this segment, i.e. find the coefficients $A , B , C$ in the equation of a line:
+**সমতলে রেখার সমীকরণ** নির্মাণ করতে হবে যেটি এই রেখাখণ্ডের মধ্য দিয়ে যায়, অর্থাৎ রেখার সমীকরণে $A , B , C$ সহগ নির্ণয় করতে হবে:
 
 $$A x + B y + C = 0.$$
 
-Note that for the required triples $(A, B, C)$ there are **infinitely many** solutions which describe the given segment:
-you can multiply all three coefficients by an arbitrary non-zero number and get the same straight line.
-Therefore, our task is to find one of these triples.
+লক্ষ্য করুন যে প্রয়োজনীয় ত্রয়ী $(A, B, C)$-র **অসীম সংখ্যক** সমাধান রয়েছে যা প্রদত্ত রেখাখণ্ড বর্ণনা করে:
+আপনি তিনটি সহগকেই একটি যেকোনো অশূন্য সংখ্যা দিয়ে গুণ করলে একই সরলরেখা পাবেন।
+তাই আমাদের কাজ হলো এই ত্রয়ীগুলোর একটি খুঁজে বের করা।
 
-It is easy to verify (by substitution of these expressions and the coordinates of the points $P$ and $Q$ into the equation of a straight line) that the following set of coefficients fits:
+সহজেই যাচাই করা যায় (এই রাশিগুলো ও $P$ ও $Q$ বিন্দুর স্থানাঙ্ক সরলরেখার সমীকরণে প্রতিস্থাপন করে) যে সহগের নিম্নলিখিত সেটটি খাপ খায়:
 
 $$\begin{align}
 A &= P_y - Q_y, \\
@@ -30,39 +30,39 @@ B &= Q_x - P_x, \\
 C &= - A P_x - B P_y.
 \end{align}$$
 
-### Integer case
+### পূর্ণসংখ্যা ক্ষেত্র
 
-An important advantage of this method of constructing a straight line is that if the coordinates of the ends were integer, then the coefficients obtained will also be **integer** . In some cases, this allows one to perform geometric operations without resorting to real numbers at all.
+সরলরেখা নির্মাণের এই পদ্ধতির একটি গুরুত্বপূর্ণ সুবিধা হলো যদি প্রান্তবিন্দুর স্থানাঙ্ক পূর্ণসংখ্যা হয়, তাহলে প্রাপ্ত সহগগুলোও **পূর্ণসংখ্যা** হবে। কিছু ক্ষেত্রে, এটি বাস্তব সংখ্যা ব্যবহার না করেই জ্যামিতিক অপারেশন সম্পাদন করতে দেয়।
 
-However, there is a small drawback: for the same straight line different triples of coefficients can be obtained.
-To avoid this, but do not go away from the integer coefficients, you can apply the following technique, often called **rationing**. Find the [greatest common divisor](../algebra/euclid-algorithm.md) of numbers $| A | , | B | , | C |$ , we divide all three coefficients by it, and then we make the normalization of the sign: if $A <0$ or $A = 0, B <0$ then multiply all three coefficients by $-1$ .
-As a result, we will come to the conclusion that for identical straight lines, identical triples of coefficients will be obtained, which makes it easy to check straight lines for equality.
+তবে, একটি ছোট অসুবিধা আছে: একই সরলরেখার জন্য ভিন্ন ত্রয়ী সহগ পাওয়া যেতে পারে।
+এটি এড়াতে, কিন্তু পূর্ণসংখ্যা সহগ থেকে সরে না গিয়ে, আপনি নিম্নলিখিত কৌশলটি প্রয়োগ করতে পারেন, যাকে প্রায়ই **রেশনিং** বলা হয়। $| A | , | B | , | C |$ সংখ্যাগুলোর [গরিষ্ঠ সাধারণ গুণনীয়ক](../algebra/euclid-algorithm.md) নির্ণয় করে তিনটি সহগকেই সেটি দিয়ে ভাগ করি, তারপর চিহ্নের নরমালাইজেশন করি: যদি $A <0$ বা $A = 0, B <0$ হয় তাহলে তিনটি সহগকেই $-1$ দিয়ে গুণ করি।
+ফলস্বরূপ, অভিন্ন সরলরেখাগুলোর জন্য অভিন্ন ত্রয়ী সহগ পাওয়া যাবে, যা সরলরেখাগুলোর সমতা পরীক্ষা করা সহজ করে দেয়।
 
-### Real case
+### বাস্তব সংখ্যা ক্ষেত্র
 
-When working with real numbers, you should always be aware of errors.
+বাস্তব সংখ্যা নিয়ে কাজ করার সময়, সর্বদা ত্রুটি সম্পর্কে সচেতন থাকা উচিত।
 
-The coefficients $A$ and $B$ will have the order of the original coordinates, the coefficient $C$ is of the order of the square of them. This may already be quite large numbers, and, for example, when we [intersect straight lines](lines-intersection.md), they will become even larger, which can lead to large rounding errors already when the coordinates of the end points are of order $10^3$.
+$A$ ও $B$ সহগের মান মূল স্থানাঙ্কের ক্রমের হবে, $C$ সহগ তাদের বর্গের ক্রমের। এটি ইতিমধ্যেই বেশ বড় সংখ্যা হতে পারে, এবং উদাহরণস্বরূপ, যখন আমরা [সরলরেখা ছেদ করি](lines-intersection.md), তারা আরও বড় হবে, যা প্রান্তবিন্দুর স্থানাঙ্ক $10^3$ ক্রমের হলেই বড় রাউন্ডিং ত্রুটি ঘটাতে পারে।
 
-Therefore, when working with real numbers, it is desirable to produce the so-called **normalization**, this is straightforward: namely, to make the coefficients such that $A ^ 2 + B ^ 2 = 1$ . To do this, calculate the number $Z$ :
+তাই, বাস্তব সংখ্যা নিয়ে কাজ করার সময়, তথাকথিত **নরমালাইজেশন** করা বাঞ্ছনীয়, এটি সরল: যথা, সহগগুলো এমন করা যে $A ^ 2 + B ^ 2 = 1$। এটি করতে, $Z$ সংখ্যাটি গণনা করুন:
 
 $$Z = \sqrt{A ^ 2 + B ^ 2},$$
 
-and divide all three coefficients $A , B , C$ by it.
+এবং তিনটি সহগ $A , B , C$ কেই এটি দিয়ে ভাগ করুন।
 
-Thus, the order of the coefficients $A$ and $B$ will not depend on the order of the input coordinates, and the coefficient $C$ will be of the same order as the input coordinates. In practice, this leads to a significant improvement in the accuracy of calculations.
+এভাবে, $A$ ও $B$ সহগের ক্রম ইনপুট স্থানাঙ্কের ক্রমের উপর নির্ভর করবে না, এবং $C$ সহগ ইনপুট স্থানাঙ্কের সমান ক্রমের হবে। বাস্তবে, এটি গণনার নির্ভুলতায় উল্লেখযোগ্য উন্নতি আনে।
 
-Finally, we mention the **comparison** of straight lines - in fact, after such a normalization, for the same straight line, only two triples of coefficients can be obtained: up to multiplication by $-1$.
-Accordingly, if we make an additional normalization taking into account the sign (if $A < -\varepsilon$  or $| A | < \varepsilon$, $B <- \varepsilon$ then multiply by $-1$ ), the resulting coefficients will be unique.
+সবশেষে, আমরা সরলরেখার **তুলনা** উল্লেখ করি — প্রকৃতপক্ষে, এই নরমালাইজেশনের পর, একই সরলরেখার জন্য শুধুমাত্র দুটি ত্রয়ী সহগ পাওয়া যেতে পারে: $-1$ দিয়ে গুণ পর্যন্ত।
+তদনুযায়ী, আমরা যদি চিহ্ন বিবেচনায় একটি অতিরিক্ত নরমালাইজেশন করি (যদি $A < -\varepsilon$ বা $| A | < \varepsilon$, $B <- \varepsilon$ হয় তাহলে $-1$ দিয়ে গুণ করি), তাহলে প্রাপ্ত সহগগুলো অনন্য হবে।
 
-### Three-dimensional and multidimensional case
+### ত্রিমাত্রিক ও বহুমাত্রিক ক্ষেত্র
 
-Already in the three-dimensional case there is **no simple equation** describing a straight line (it can be defined as the intersection of two planes, that is, a system of two equations, but this is an inconvenient method).
+ত্রিমাত্রিক ক্ষেত্রে ইতিমধ্যেই সরলরেখা বর্ণনাকারী **কোনো সরল সমীকরণ নেই** (এটিকে দুটি সমতলের ছেদ হিসেবে, অর্থাৎ দুটি সমীকরণের সিস্টেম হিসেবে সংজ্ঞায়িত করা যায়, কিন্তু এটি একটি অসুবিধাজনক পদ্ধতি)।
 
-Consequently, in the three-dimensional and multidimensional cases we must use the **parametric method of defining a straight line** , i.e. as a point $p$ and a vector $v$ :
+ফলস্বরূপ, ত্রিমাত্রিক ও বহুমাত্রিক ক্ষেত্রে আমাদের **সরলরেখার প্যারামেট্রিক পদ্ধতি** ব্যবহার করতে হবে, অর্থাৎ একটি বিন্দু $p$ ও একটি ভেক্টর $v$ হিসেবে:
 
 $$p + v t, ~~~ t \in \mathbb{R}.$$
 
-Those. a straight line is all points that can be obtained from a point $p$ adding a vector $v$ with an arbitrary coefficient.
+অর্থাৎ একটি সরলরেখা হলো সেই সব বিন্দু যা $p$ বিন্দু থেকে $v$ ভেক্টরকে যেকোনো সহগে যোগ করে পাওয়া যায়।
 
-The **construction** of a straight line in a parametric form along the coordinates of the ends of a segment is trivial, we just take one end of the segment for the point $p$, and the vector from the first to the second end — for the vector $v$.
+রেখাখণ্ডের প্রান্তবিন্দুর স্থানাঙ্ক থেকে প্যারামেট্রিক রূপে সরলরেখার **নির্মাণ** সরল, আমরা রেখাখণ্ডের এক প্রান্তকে বিন্দু $p$ হিসেবে এবং প্রথম থেকে দ্বিতীয় প্রান্ত পর্যন্ত ভেক্টরকে ভেক্টর $v$ হিসেবে নিই।

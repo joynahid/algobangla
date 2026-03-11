@@ -3,79 +3,79 @@ tags:
   - Original
 ---
 
-# Second Best Minimum Spanning Tree
+# দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি
 
-A Minimum Spanning Tree $T$ is a tree for the given graph $G$ which spans over all vertices of the given graph and has the minimum weight sum of all the edges, from all the possible spanning trees.
-A second best MST $T'$ is a spanning tree, that has the second minimum weight sum of all the edges, from all the possible spanning trees of the graph $G$.
+একটি মিনিমাম স্প্যানিং ট্রি $T$ হলো প্রদত্ত গ্রাফ $G$-এর জন্য এমন একটি ট্রি যেটি প্রদত্ত গ্রাফের সব ভার্টেক্সকে সংযুক্ত করে এবং সব সম্ভাব্য স্প্যানিং ট্রি-র মধ্যে সব এজের ওয়েট যোগফল সর্বনিম্ন।
+একটি দ্বিতীয় সেরা এমএসটি $T'$ হলো এমন একটি স্প্যানিং ট্রি, যার গ্রাফ $G$-এর সব সম্ভাব্য স্প্যানিং ট্রি-র মধ্যে সব এজের ওয়েট যোগফল দ্বিতীয় সর্বনিম্ন।
 
-## Observation
+## পর্যবেক্ষণ
 
-Let $T$ be the Minimum Spanning Tree of a graph $G$.
-It can be observed, that the second best Minimum Spanning Tree differs from $T$ by only one edge replacement. (For a proof of this statement refer to problem 23-1 [here](http://www-bcf.usc.edu/~shanghua/teaching/Spring2010/public_html/files/HW2_Solutions_A.pdf)).
+ধরি $T$ হলো গ্রাফ $G$-এর মিনিমাম স্প্যানিং ট্রি।
+পর্যবেক্ষণ করা যায় যে, দ্বিতীয় সেরা মিনিমাম স্প্যানিং ট্রি $T$ থেকে শুধুমাত্র একটি এজ প্রতিস্থাপনে পার্থক্য করে। (এই বিবৃতির প্রমাণের জন্য [এখানে](http://www-bcf.usc.edu/~shanghua/teaching/Spring2010/public_html/files/HW2_Solutions_A.pdf) সমস্যা ২৩-১ দেখুন)।
 
-So we need to find an edge $e_{new}$ which is in not in $T$, and replace it with an edge in $T$ (let it be $e_{old}$) such that the new graph $T' = (T \cup \{e_{new}\}) \setminus \{e_{old}\}$ is a spanning tree and the weight difference ($e_{new} - e_{old}$) is minimum.
-
-
-## Using Kruskal's Algorithm
-
-We can use Kruskal's algorithm to find the MST first, and then just try to remove a single edge from it and replace it with another.
-
-1. Sort the edges in $O(E \log E)$, then find a MST using Kruskal in $O(E)$.
-2. For each edge in the MST (we will have $V-1$ edges in it) temporarily exclude it from the edge list so that it cannot be chosen.
-3. Then, again try to find a MST in $O(E)$ using the remaining edges.
-4. Do this for all the edges in MST, and take the best of all.
-
-Note: we don’t need to sort the edges again in for Step 3.
-
-So, the overall time complexity will be $O(E \log V + E + V E)$ = $O(V E)$.
+তাই আমাদের এমন একটি এজ $e_{new}$ খুঁজতে হবে যেটি $T$-তে নেই, এবং $T$-এর একটি এজ দিয়ে (ধরি $e_{old}$) প্রতিস্থাপন করতে হবে যেন নতুন গ্রাফ $T' = (T \cup \{e_{new}\}) \setminus \{e_{old}\}$ একটি স্প্যানিং ট্রি হয় এবং ওয়েট পার্থক্য ($e_{new} - e_{old}$) সর্বনিম্ন হয়।
 
 
-## Modeling into a Lowest Common Ancestor (LCA) problem
+## ক্রুস্কালের অ্যালগরিদম ব্যবহার করে
 
-In the previous approach we tried all possibilities of removing one edge of the MST.
-Here we will do the exact opposite.
-We try to add every edge that is not already in the MST.
+আমরা প্রথমে এমএসটি বের করতে ক্রুস্কালের অ্যালগরিদম ব্যবহার করতে পারি, তারপর শুধু এটি থেকে একটি এজ সরিয়ে অন্য একটি দিয়ে প্রতিস্থাপন করার চেষ্টা করতে পারি।
 
-1. Sort the edges in $O(E \log E)$, then find a MST using Kruskal in $O(E)$.
-2. For each edge $e$ not already in the MST, temporarily add it to the MST, creating a cycle. The cycle will pass through the LCA.
-3. Find the edge $k$ with maximal weight in the cycle that is not equal to $e$, by following the parents of the nodes of edge $e$, up to the LCA.
-4. Remove $k$ temporarily, creating a new spanning tree.
-5. Compute the weight difference $\delta = weight(e) - weight(k)$, and remember it together with the changed edge.
-6. Repeat step 2 for all other edges, and return the spanning tree with the smallest weight difference to the MST.
+১. এজগুলো $O(E \log E)$-এ সর্ট করি, তারপর ক্রুস্কাল দিয়ে $O(E)$-এ এমএসটি বের করি।
+২. এমএসটি-র প্রতিটি এজের জন্য (আমাদের কাছে $V-1$ টি এজ থাকবে) সেটিকে সাময়িকভাবে এজ তালিকা থেকে বাদ দিই যেন এটি বেছে নেওয়া না যায়।
+৩. তারপর, বাকি এজগুলো ব্যবহার করে আবার $O(E)$-এ এমএসটি বের করার চেষ্টা করি।
+৪. এমএসটি-র সব এজের জন্য এটি করি, এবং সবগুলোর মধ্যে সেরাটি নিই।
 
-The time complexity of the algorithm depends on how we compute the $k$s, which are the maximum weight edges in step 2 of this algorithm.
-One way to compute them efficiently in $O(E \log V)$ is to transform the problem into a Lowest Common Ancestor (LCA) problem.
+লক্ষ্য করুন: ধাপ ৩-এর জন্য আমাদের এজগুলো আবার সর্ট করার দরকার নেই।
 
-We will preprocess the LCA by rooting the MST and will also compute the maximum edge weights for each node on the paths to their ancestors. 
-This can be done using [Binary Lifting](lca_binary_lifting.md) for LCA.
+সুতরাং, সামগ্রিক টাইম কমপ্লেক্সিটি হবে $O(E \log V + E + V E)$ = $O(V E)$।
 
-The final time complexity of this approach is $O(E \log V)$.
 
-For example:
+## লোয়েস্ট কমন অ্যানসেস্টর (এলসিএ) সমস্যায় মডেলিং
+
+আগের পদ্ধতিতে আমরা এমএসটি-র একটি এজ সরানোর সব সম্ভাবনা চেষ্টা করেছি।
+এখানে আমরা ঠিক উল্টোটা করব।
+আমরা যে এজ ইতোমধ্যে এমএসটি-তে নেই সেগুলো যোগ করার চেষ্টা করব।
+
+১. এজগুলো $O(E \log E)$-এ সর্ট করি, তারপর ক্রুস্কাল দিয়ে $O(E)$-এ এমএসটি বের করি।
+২. প্রতিটি এজ $e$ যেটি ইতোমধ্যে এমএসটি-তে নেই, সেটিকে সাময়িকভাবে এমএসটি-তে যোগ করি, একটি সাইকেল তৈরি করি। সাইকেলটি এলসিএ দিয়ে যাবে।
+৩. সাইকেলে $e$-এর সমান নয় এমন সর্বোচ্চ ওয়েটের এজ $k$ খুঁজি, $e$ এজের নোডগুলোর প্যারেন্ট ধরে এলসিএ পর্যন্ত গিয়ে।
+৪. $k$-কে সাময়িকভাবে সরিয়ে একটি নতুন স্প্যানিং ট্রি তৈরি করি।
+৫. ওয়েট পার্থক্য $\delta = weight(e) - weight(k)$ গণনা করি, এবং পরিবর্তিত এজসহ মনে রাখি।
+৬. অন্য সব এজের জন্য ধাপ ২ পুনরাবৃত্তি করি, এবং এমএসটি-র সাথে সবচেয়ে কম ওয়েট পার্থক্যের স্প্যানিং ট্রি রিটার্ন করি।
+
+অ্যালগরিদমের টাইম কমপ্লেক্সিটি নির্ভর করে আমরা কীভাবে $k$ গণনা করি, যেগুলো এই অ্যালগরিদমের ধাপ ২-এর সর্বোচ্চ ওয়েট এজ।
+$O(E \log V)$-এ দক্ষতার সাথে গণনা করার একটি উপায় হলো সমস্যাটিকে লোয়েস্ট কমন অ্যানসেস্টর (এলসিএ) সমস্যায় রূপান্তর করা।
+
+আমরা এমএসটি-কে রুট করে এলসিএ প্রিপ্রসেস করব এবং তাদের অ্যানসেস্টরদের পাথে সর্বোচ্চ এজ ওয়েটও গণনা করব।
+এটি এলসিএ-র জন্য [বাইনারি লিফটিং](lca_binary_lifting.md) ব্যবহার করে করা যায়।
+
+এই পদ্ধতির চূড়ান্ত টাইম কমপ্লেক্সিটি $O(E \log V)$।
+
+উদাহরণস্বরূপ:
 
 <div style="text-align: center;">
   <img src="second_best_mst_1.png" alt="MST">
   <img src="second_best_mst_2.png" alt="Second best MST">
   <br />
 
-*In the image left is the MST and right is the second best MST.*
+*ছবিতে বামে এমএসটি এবং ডানে দ্বিতীয় সেরা এমএসটি।*
 </div>
 
 
-In the given graph suppose we root the MST at the blue vertex on the top, and then run our algorithm by start picking the edges not in MST.
-Let the edge picked first be the edge $(u, v)$ with weight 36.
-Adding this edge to the tree forms a cycle 36 - 7 - 2 - 34.
+প্রদত্ত গ্রাফে ধরি আমরা উপরের নীল ভার্টেক্সে এমএসটি রুট করি, তারপর এমএসটি-তে নেই এমন এজগুলো বেছে নিয়ে আমাদের অ্যালগরিদম চালাই।
+ধরি প্রথমে বেছে নেওয়া এজটি হলো $(u, v)$ যার ওয়েট ৩৬।
+এই এজ ট্রি-তে যোগ করলে ৩৬ - ৭ - ২ - ৩৪ সাইকেল তৈরি হয়।
 
-Now we will find the maximum weight edge in this cycle by finding the $\text{LCA}(u, v) = p$.
-We compute the maximum weight edge on the paths from $u$ to $p$ and from $v$ to $p$.
-Note: the $\text{LCA}(u, v)$ can also be equal to $u$ or $v$ in some case.
-In this example we will get the edge with weight 34 as maximum edge weight in the cycle.
-By removing the edge we get a new spanning tree, that has a weight difference of only 2.
+এখন আমরা $\text{LCA}(u, v) = p$ বের করে এই সাইকেলে সর্বোচ্চ ওয়েট এজ খুঁজব।
+আমরা $u$ থেকে $p$ এবং $v$ থেকে $p$ পাথে সর্বোচ্চ ওয়েট এজ গণনা করি।
+লক্ষ্য করুন: $\text{LCA}(u, v)$ কিছু ক্ষেত্রে $u$ বা $v$-এর সমানও হতে পারে।
+এই উদাহরণে আমরা সাইকেলে সর্বোচ্চ এজ ওয়েট হিসেবে ৩৪ ওয়েটের এজ পাব।
+এই এজ সরিয়ে আমরা একটি নতুন স্প্যানিং ট্রি পাই, যার ওয়েট পার্থক্য মাত্র ২।
 
-After doing this also with all other edges that are not part of the initial MST, we can see that this spanning tree was also the second best spanning tree overall.
-Choosing the edge with weight 14 will increase the weight of the tree by 7, choosing the edge with weight 27 increases it by 14, choosing the edge with weight 28 increases it by 21, and choosing the edge with weight 39 will increase the tree by 5.
+এমএসটি-র অংশ নয় এমন অন্য সব এজ দিয়েও এটি করার পর, আমরা দেখতে পাই যে এই স্প্যানিং ট্রিটি সামগ্রিকভাবেও দ্বিতীয় সেরা স্প্যানিং ট্রি ছিল।
+১৪ ওয়েটের এজ বেছে নিলে ট্রি-র ওয়েট ৭ বাড়বে, ২৭ ওয়েটের এজ বেছে নিলে ১৪ বাড়বে, ২৮ ওয়েটের এজ বেছে নিলে ২১ বাড়বে, এবং ৩৯ ওয়েটের এজ বেছে নিলে ট্রি-র ওয়েট ৫ বাড়বে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 ```cpp
 struct edge {
     int s, e, w, id;
@@ -157,7 +157,7 @@ int main(void) {
         b = edges[i].e;
         w = edges[i].w;
         id = edges[i].id;
-        if (unite_set(a, b)) { 
+        if (unite_set(a, b)) {
             adj[a].emplace_back(b, w);
             adj[b].emplace_back(a, w);
             present[id] = 1;
@@ -195,10 +195,10 @@ int main(void) {
 }
 ```
 
-## References
+## রেফারেন্স
 
-1. Competitive Programming-3, by Steven Halim
-2. [web.mit.edu](http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf)
+১. Competitive Programming-3, by Steven Halim
+২. [web.mit.edu](http://web.mit.edu/6.263/www/quiz1-f05-sol.pdf)
 
-## Problems
+## সমস্যা
 * [Codeforces - Minimum spanning tree for each edge](https://codeforces.com/problemset/problem/609/E)

@@ -4,11 +4,11 @@ tags:
 e_maxx_link: euler_function
 ---
 
-# Euler's totient function
+# অয়লারের টোশেন্ট ফাংশন
 
-Euler's totient function, also known as **phi-function** $\phi (n)$, counts the number of integers between 1 and $n$ inclusive, which are coprime to $n$. Two numbers are coprime if their greatest common divisor equals $1$ ($1$ is considered to be coprime to any number).
+অয়লারের টোশেন্ট ফাংশন, যা **ফি-ফাংশন** $\phi (n)$ নামেও পরিচিত, ১ থেকে $n$ পর্যন্ত (১ ও $n$ সহ) $n$-এর সাথে সহমৌলিক এমন পূর্ণসংখ্যার সংখ্যা গণনা করে। দুটি সংখ্যা সহমৌলিক যদি তাদের গসাগু $1$ হয় ($1$-কে যেকোনো সংখ্যার সাথে সহমৌলিক ধরা হয়)।
 
-Here are values of $\phi(n)$ for the first few positive integers:
+প্রথম কয়েকটি ধনাত্মক পূর্ণসংখ্যার জন্য $\phi(n)$-এর মান এখানে দেওয়া হলো:
 
 $$\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -16,33 +16,33 @@ n & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 
 \phi(n) & 1 & 1 & 2 & 2 & 4 & 2 & 6 & 4 & 6 & 4 & 10 & 4 & 12 & 6 & 8 & 8 & 16 & 6 & 18 & 8 & 12 \\\\ \hline
 \end{array}$$
 
-## Properties
+## বৈশিষ্ট্যসমূহ
 
-The following properties of Euler totient function are sufficient to calculate it for any number:
+অয়লারের টোশেন্ট ফাংশনের নিম্নলিখিত বৈশিষ্ট্যগুলো যেকোনো সংখ্যার জন্য এটি গণনা করতে যথেষ্ট:
 
-  - If $p$ is a prime number, then $\gcd(p, q) = 1$ for all $1 \le q < p$. Therefore we have:
-  
+  - যদি $p$ একটি মৌলিক সংখ্যা হয়, তাহলে সকল $1 \le q < p$-এর জন্য $\gcd(p, q) = 1$। তাই:
+
 $$\phi (p) = p - 1.$$
 
-  - If $p$ is a prime number and $k \ge 1$, then there are exactly $p^k / p$ numbers between $1$ and $p^k$ that are divisible by $p$.
-    Which gives us:
-    
+  - যদি $p$ একটি মৌলিক সংখ্যা হয় এবং $k \ge 1$ হয়, তাহলে ১ থেকে $p^k$-এর মধ্যে ঠিক $p^k / p$টি সংখ্যা $p$ দ্বারা বিভাজ্য।
+    যা থেকে পাই:
+
 $$\phi(p^k) = p^k - p^{k-1}.$$
 
-  - If $a$ and $b$ are relatively prime, then:
-    
-    \[\phi(a b) = \phi(a) \cdot \phi(b).\]
-    
-    This relation is not trivial to see. It follows from the [Chinese remainder theorem](chinese-remainder-theorem.md). The Chinese remainder theorem guarantees, that for each $0 \le x < a$ and each $0 \le y < b$, there exists a unique $0 \le z < a b$ with $z \equiv x \pmod{a}$ and $z \equiv y \pmod{b}$. It's not hard to show that $z$ is coprime to $a b$ if and only if $x$ is coprime to $a$ and $y$ is coprime to $b$. Therefore the amount of integers coprime to $a b$ is equal to product of the amounts of $a$ and $b$.
+  - যদি $a$ ও $b$ পরস্পর সহমৌলিক হয়, তাহলে:
 
-  - In general, for not coprime $a$ and $b$, the equation
+    \[\phi(a b) = \phi(a) \cdot \phi(b).\]
+
+    এই সম্পর্কটি তুচ্ছভাবে দেখা যায় না। এটি [চাইনিজ রিমেইন্ডার থিওরেম](chinese-remainder-theorem.md) থেকে অনুসৃত হয়। চাইনিজ রিমেইন্ডার থিওরেম নিশ্চিত করে যে, প্রতিটি $0 \le x < a$ এবং প্রতিটি $0 \le y < b$-এর জন্য, একটি অনন্য $0 \le z < a b$ বিদ্যমান যেখানে $z \equiv x \pmod{a}$ এবং $z \equiv y \pmod{b}$। দেখানো কঠিন নয় যে $z$, $a b$-এর সাথে সহমৌলিক যদি এবং কেবল যদি $x$, $a$-এর সাথে সহমৌলিক হয় এবং $y$, $b$-এর সাথে সহমৌলিক হয়। তাই $a b$-এর সাথে সহমৌলিক পূর্ণসংখ্যার সংখ্যা $a$ ও $b$-এর পরিমাণের গুণফলের সমান।
+
+  - সাধারণভাবে, সহমৌলিক নয় এমন $a$ ও $b$-এর জন্য, সমীকরণ
 
     \[\phi(ab) = \phi(a) \cdot \phi(b) \cdot \dfrac{d}{\phi(d)}\]
 
-    with $d = \gcd(a, b)$ holds.
+    যেখানে $d = \gcd(a, b)$, এটি ধরে।
 
-Thus, using the first three properties, we can compute $\phi(n)$ through the factorization of $n$ (decomposition of $n$ into a product of its prime factors).
-If $n = {p_1}^{a_1} \cdot {p_2}^{a_2} \cdots {p_k}^{a_k}$, where $p_i$ are prime factors of $n$,
+সুতরাং, প্রথম তিনটি বৈশিষ্ট্য ব্যবহার করে, আমরা $n$-এর উৎপাদক বিশ্লেষণ ($n$-কে তার মৌলিক গুণনীয়কের গুণফলে বিভাজন) এর মাধ্যমে $\phi(n)$ গণনা করতে পারি।
+যদি $n = {p_1}^{a_1} \cdot {p_2}^{a_2} \cdots {p_k}^{a_k}$ হয়, যেখানে $p_i$ হলো $n$-এর মৌলিক গুণনীয়ক,
 
 $$\begin{align}
 \phi (n) &= \phi ({p_1}^{a_1}) \cdot \phi ({p_2}^{a_2}) \cdots  \phi ({p_k}^{a_k}) \\\\
@@ -51,9 +51,9 @@ $$\begin{align}
 &= n \cdot \left(1 - \frac{1}{p_1}\right) \cdot \left(1 - \frac{1}{p_2}\right) \cdots \left(1 - \frac{1}{p_k}\right)
 \end{align}$$
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is an implementation using factorization in $O(\sqrt{n})$:
+$O(\sqrt{n})$-এ উৎপাদক বিশ্লেষণ ব্যবহার করে একটি ইমপ্লিমেন্টেশন:
 
 ```cpp
 int phi(int n) {
@@ -71,20 +71,20 @@ int phi(int n) {
 }
 ```
 
-## Euler totient function from $1$ to $n$ in $O(n \log\log{n})$ { #etf_1_to_n data-toc-label="Euler totient function from 1 to n in <script type=\"math/tex\">O(n log log n)</script>" }
+## $1$ থেকে $n$ পর্যন্ত অয়লারের টোশেন্ট ফাংশন $O(n \log\log{n})$-এ { #etf_1_to_n data-toc-label="Euler totient function from 1 to n in <script type=\"math/tex\">O(n log log n)</script>" }
 
-If we need the totient of all numbers between $1$ and $n$, then factorizing all $n$ numbers is not efficient.
-We can use the same idea as the [Sieve of Eratosthenes](sieve-of-eratosthenes.md).
-It is still based on the property shown above, but instead of updating the temporary result for each prime factor for each number, we find all prime numbers and for each one update the temporary results of all numbers that are divisible by that prime number.
+$1$ থেকে $n$-এর মধ্যে সকল সংখ্যার টোশেন্ট প্রয়োজন হলে, সকল $n$টি সংখ্যার উৎপাদক বিশ্লেষণ করা দক্ষ নয়।
+আমরা [এরাটোস্থেনিসের সিভ](sieve-of-eratosthenes.md)-এর মতো একই ধারণা ব্যবহার করতে পারি।
+এটি এখনও উপরে দেখানো বৈশিষ্ট্যের উপর ভিত্তি করে, তবে প্রতিটি সংখ্যার জন্য প্রতিটি মৌলিক গুণনীয়কের জন্য অস্থায়ী ফলাফল আপডেট করার বদলে, আমরা সকল মৌলিক সংখ্যা খুঁজে বের করি এবং প্রতিটির জন্য সেই মৌলিক সংখ্যা দ্বারা বিভাজ্য সকল সংখ্যার অস্থায়ী ফলাফল আপডেট করি।
 
-Since this approach is basically identical to the Sieve of Eratosthenes, the complexity will also be the same: $O(n \log \log n)$
+যেহেতু এই পদ্ধতিটি এরাটোস্থেনিসের সিভের সাথে মূলত অভিন্ন, কমপ্লেক্সিটিও একই হবে: $O(n \log \log n)$
 
 ```cpp
 void phi_1_to_n(int n) {
     vector<int> phi(n + 1);
     for (int i = 0; i <= n; i++)
         phi[i] = i;
-    
+
     for (int i = 2; i <= n; i++) {
         if (phi[i] == i) {
             for (int j = i; j <= n; j += i)
@@ -94,11 +94,11 @@ void phi_1_to_n(int n) {
 }
 ```
 
-### Finding the totient from $L$ to $R$ using the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) { data-toc-label="Finding the totient from L to R using the segmented sieve" }
+### [সেগমেন্টেড সিভ](sieve-of-eratosthenes.md#segmented-sieve) ব্যবহার করে $L$ থেকে $R$ পর্যন্ত টোশেন্ট নির্ণয় { data-toc-label="Finding the totient from L to R using the segmented sieve" }
 
-If we need the totient of all numbers between $L$ and $R$, we can use the [segmented sieve](sieve-of-eratosthenes.md#segmented-sieve) approach.
+$L$ থেকে $R$-এর মধ্যে সকল সংখ্যার টোশেন্ট প্রয়োজন হলে, আমরা [সেগমেন্টেড সিভ](sieve-of-eratosthenes.md#segmented-sieve) পদ্ধতি ব্যবহার করতে পারি।
 
-The algorithm first precomputes all primes up to $\sqrt{R}$ using a [linear sieve](prime-sieve-linear.md) in $O(\sqrt{R})$ time and space. For each number in the range $[L, R]$, it then applies the factorization-based $\phi$ formula by iterating over these primes. We maintain a remainder array to track the unfactored part of each number. If a remainder is still greater than 1 after processing all small primes, it indicates a large prime factor greater than $\sqrt{R}$, which is handled in a final pass. The overall complexity for the range computation is $O((R - L + 1) \log \log R) + \sqrt{R}$.
+অ্যালগরিদমটি প্রথমে $\sqrt{R}$ পর্যন্ত সকল মৌলিক সংখ্যা একটি [লিনিয়ার সিভ](prime-sieve-linear.md) ব্যবহার করে $O(\sqrt{R})$ সময় ও স্থানে প্রিকম্পিউট করে। $[L, R]$ রেঞ্জের প্রতিটি সংখ্যার জন্য, এটি এই মৌলিক সংখ্যাগুলোর উপর ইটারেট করে উৎপাদক বিশ্লেষণ-ভিত্তিক $\phi$ সূত্র প্রয়োগ করে। আমরা প্রতিটি সংখ্যার অবিশ্লেষিত অংশ ট্র্যাক করতে একটি রিমেইন্ডার অ্যারে রাখি। সকল ছোট মৌলিক প্রক্রিয়া করার পরও যদি একটি রিমেইন্ডার ১-এর বেশি থাকে, তাহলে এটি $\sqrt{R}$-এর চেয়ে বড় একটি মৌলিক গুণনীয়ক নির্দেশ করে, যা চূড়ান্ত পাসে হ্যান্ডেল করা হয়। রেঞ্জ গণনার সামগ্রিক কমপ্লেক্সিটি $O((R - L + 1) \log \log R) + \sqrt{R}$।
 
 
 ```cpp
@@ -106,7 +106,7 @@ const long long MAX_RANGE = 1e6 + 6;
 vector<long long> primes;
 long long phi[MAX_RANGE], rem[MAX_RANGE];
 
-vector<int> linear_sieve(int n) { 
+vector<int> linear_sieve(int n) {
     vector<bool> composite(n + 1, 0);
     vector<int> prime;
 
@@ -124,7 +124,7 @@ vector<int> linear_sieve(int n) {
 }
 
 // To get the value of phi(x) for L <= x <= R, use phi[x - L].
-void segmented_phi(long long L, long long R) { 
+void segmented_phi(long long L, long long R) {
     for(long long i = L; i <= R; i++) {
         rem[i - L] = i;
         phi[i - L] = i;
@@ -143,21 +143,21 @@ void segmented_phi(long long L, long long R) {
 }
 ```
 
-## Divisor sum property { #divsum}
+## ভাজকের যোগফল বৈশিষ্ট্য { #divsum}
 
-This interesting property was established by Gauss:
+এই আকর্ষণীয় বৈশিষ্ট্যটি গাউস প্রতিষ্ঠা করেছিলেন:
 
 $$ \sum_{d|n} \phi{(d)} = n$$
 
-Here the sum is over all positive divisors $d$ of $n$.
+এখানে যোগফল $n$-এর সকল ধনাত্মক ভাজক $d$-এর উপর।
 
-For instance the divisors of 10 are 1, 2, 5 and 10.
-Hence $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$.
+উদাহরণস্বরূপ ১০-এর ভাজকগুলো হলো ১, ২, ৫ ও ১০।
+তাই $\phi{(1)} + \phi{(2)} + \phi{(5)} + \phi{(10)} = 1 + 1 + 4 + 4 = 10$।
 
-### Finding the totient from 1 to $n$ using the divisor sum property { data-toc-label="Finding the totient from 1 to n using the divisor sum property" }
+### ভাজকের যোগফল বৈশিষ্ট্য ব্যবহার করে ১ থেকে $n$ পর্যন্ত টোশেন্ট নির্ণয় { data-toc-label="Finding the totient from 1 to n using the divisor sum property" }
 
-The divisor sum property also allows us to compute the totient of all numbers between 1 and $n$.
-This implementation is a little simpler than the previous implementation based on the Sieve of Eratosthenes, however also has a slightly worse complexity: $O(n \log n)$
+ভাজকের যোগফল বৈশিষ্ট্য আমাদের ১ থেকে $n$-এর মধ্যে সকল সংখ্যার টোশেন্ট গণনা করতেও দেয়।
+এই ইমপ্লিমেন্টেশনটি এরাটোস্থেনিসের সিভ-ভিত্তিক আগের ইমপ্লিমেন্টেশনের চেয়ে একটু সরল, তবে সামান্য খারাপ কমপ্লেক্সিটি: $O(n \log n)$
 
 ```cpp
 void phi_1_to_n(int n) {
@@ -166,49 +166,49 @@ void phi_1_to_n(int n) {
     phi[1] = 1;
     for (int i = 2; i <= n; i++)
         phi[i] = i - 1;
-    
+
     for (int i = 2; i <= n; i++)
         for (int j = 2 * i; j <= n; j += i)
               phi[j] -= phi[i];
 }
 ```
 
-## Application in Euler's theorem { #application }
+## অয়লারের উপপাদ্যে প্রয়োগ { #application }
 
-The most famous and important property of Euler's totient function is expressed in **Euler's theorem**: 
+অয়লারের টোশেন্ট ফাংশনের সবচেয়ে বিখ্যাত ও গুরুত্বপূর্ণ বৈশিষ্ট্য **অয়লারের উপপাদ্যে** প্রকাশিত:
 
 $$a^{\phi(m)} \equiv 1 \pmod m \quad \text{if } a \text{ and } m \text{ are relatively prime.}$$
 
-In the particular case when $m$ is prime, Euler's theorem turns into **Fermat's little theorem**:
+বিশেষ ক্ষেত্রে যখন $m$ মৌলিক, অয়লারের উপপাদ্য **ফার্মার ক্ষুদ্র উপপাদ্যে** পরিণত হয়:
 
 $$a^{m - 1} \equiv 1 \pmod m$$
 
-Euler's theorem and Euler's totient function occur quite often in practical applications, for example both are used to compute the [modular multiplicative inverse](module-inverse.md).
+অয়লারের উপপাদ্য ও অয়লারের টোশেন্ট ফাংশন ব্যবহারিক প্রয়োগে বেশ ঘন ঘন দেখা যায়, উদাহরণস্বরূপ উভয়ই [মডুলার গুণনীয় বিপরীত](module-inverse.md) গণনায় ব্যবহৃত হয়।
 
-As immediate consequence we also get the equivalence:
+তাৎক্ষণিক ফলাফল হিসেবে আমরা এই সমতুল্যতাও পাই:
 
 $$a^n \equiv a^{n \bmod \phi(m)} \pmod m$$
 
-This allows computing $x^n \bmod m$ for very big $n$, especially if $n$ is the result of another computation, as it allows to compute $n$ under a modulo.
+এটি অত্যন্ত বড় $n$-এর জন্য $x^n \bmod m$ গণনা করতে দেয়, বিশেষত যদি $n$ অন্য কোনো গণনার ফলাফল হয়, কারণ এটি একটি মডুলোর অধীনে $n$ গণনা করতে দেয়।
 
-### Group Theory
-$\phi(n)$ is the [order of the multiplicative group mod n](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n) $(\mathbb Z / n\mathbb Z)^\times$, that is the group of units (elements with multiplicative inverses). The elements with multiplicative inverses are precisely those coprime to $n$.
+### গ্রুপ থিওরি
+$\phi(n)$ হলো [মডুলো n গুণনীয় গ্রুপ](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n) $(\mathbb Z / n\mathbb Z)^\times$-এর [অর্ডার](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n), অর্থাৎ ইউনিটের গ্রুপ (গুণনীয় বিপরীত বিশিষ্ট উপাদানসমূহ)। গুণনীয় বিপরীত বিশিষ্ট উপাদানগুলো ঠিক সেগুলোই যারা $n$-এর সাথে সহমৌলিক।
 
-The [multiplicative order](https://en.wikipedia.org/wiki/Multiplicative_order) of an element $a$ mod $n$, denoted $\operatorname{ord}_n(a)$, is the smallest $k>0$ such that $a^k \equiv 1 \pmod m$. $\operatorname{ord}_n(a)$ is the size of the subgroup generated by $a$, so by Lagrange's Theorem, the multiplicative order of any $a$ must divide $\phi(n)$. If the multiplicative order of $a$ is $\phi(n)$, the largest possible, then $a$ is a [primitive root](primitive-root.md) and the group is cyclic by definition. 
+একটি উপাদান $a$-এর মডুলো $n$-এ [গুণনীয় অর্ডার](https://en.wikipedia.org/wiki/Multiplicative_order), যা $\operatorname{ord}_n(a)$ দ্বারা চিহ্নিত, হলো সবচেয়ে ছোট $k>0$ যেন $a^k \equiv 1 \pmod m$। $\operatorname{ord}_n(a)$ হলো $a$ দ্বারা উৎপন্ন সাবগ্রুপের আকার, তাই ল্যাগ্রাঞ্জের উপপাদ্য অনুসারে, যেকোনো $a$-এর গুণনীয় অর্ডার $\phi(n)$-কে ভাগ করবে। যদি $a$-এর গুণনীয় অর্ডার $\phi(n)$ হয়, সর্বোচ্চ সম্ভাব্য, তাহলে $a$ একটি [আদিম মূল](primitive-root.md) এবং সংজ্ঞা অনুসারে গ্রুপটি চক্রীয়।
 
-## Generalization
+## সাধারণীকরণ
 
-There is a less known version of the last equivalence, that allows computing $x^n \bmod m$ efficiently for not coprime $x$ and $m$.
-For arbitrary $x, m$ and $n \geq \log_2 m$:
+শেষ সমতুল্যতার একটি কম পরিচিত সংস্করণ আছে, যা সহমৌলিক নয় এমন $x$ ও $m$-এর জন্যও দক্ষতার সাথে $x^n \bmod m$ গণনা করতে দেয়।
+ইচ্ছামতো $x, m$ এবং $n \geq \log_2 m$-এর জন্য:
 
 $$x^{n}\equiv x^{\phi(m)+[n \bmod \phi(m)]} \mod m$$
 
-Proof:
+প্রমাণ:
 
-Let $p_1, \dots, p_t$ be common prime divisors of $x$ and $m$, and $k_i$ their exponents in $m$.
-With those we define $a = p_1^{k_1} \dots p_t^{k_t}$, which makes $\frac{m}{a}$ coprime to $x$.
-And let $k$ be the smallest number such that $a$ divides $x^k$.
-Assuming $n \ge k$, we can write:
+মনে করি $p_1, \dots, p_t$ হলো $x$ ও $m$-এর সাধারণ মৌলিক ভাজক, এবং $k_i$ হলো $m$-এ তাদের সূচক।
+এগুলো দিয়ে সংজ্ঞায়িত করি $a = p_1^{k_1} \dots p_t^{k_t}$, যা $\frac{m}{a}$-কে $x$-এর সাথে সহমৌলিক করে।
+এবং মনে করি $k$ হলো সবচেয়ে ছোট সংখ্যা যেন $a$, $x^k$-কে ভাগ করে।
+$n \ge k$ ধরে, আমরা লিখতে পারি:
 
 $$\begin{align}x^n \bmod m &= \frac{x^k}{a}ax^{n-k}\bmod m \\
 &= \frac{x^k}{a}\left(ax^{n-k}\bmod m\right) \bmod m \\
@@ -217,20 +217,20 @@ $$\begin{align}x^n \bmod m &= \frac{x^k}{a}ax^{n-k}\bmod m \\
 &= x^k\left(x^{n-k} \bmod \frac{m}{a}\right)\bmod m
 \end{align}$$
 
-The equivalence between the third and forth line follows from the fact that $ab \bmod ac = a(b \bmod c)$.
-Indeed if $b = cd + r$ with $r < c$, then $ab = acd + ar$ with $ar < ac$.
+তৃতীয় ও চতুর্থ লাইনের মধ্যে সমতুল্যতা এই সত্য থেকে অনুসৃত যে $ab \bmod ac = a(b \bmod c)$।
+প্রকৃতপক্ষে যদি $b = cd + r$ যেখানে $r < c$, তাহলে $ab = acd + ar$ যেখানে $ar < ac$।
 
-Since $x$ and $\frac{m}{a}$ are coprime, we can apply Euler's theorem and get the efficient (since $k$ is very small; in fact $k \le \log_2 m$) formula:
+যেহেতু $x$ ও $\frac{m}{a}$ সহমৌলিক, আমরা অয়লারের উপপাদ্য প্রয়োগ করে দক্ষ সূত্র পাই (যেহেতু $k$ অত্যন্ত ছোট; প্রকৃতপক্ষে $k \le \log_2 m$):
 
 $$x^n \bmod m = x^k\left(x^{n-k \bmod \phi(\frac{m}{a})} \bmod \frac{m}{a}\right)\bmod m.$$
 
-This formula is difficult to apply, but we can use it to analyze the behavior of $x^n \bmod m$. We can see that the sequence of powers $(x^1 \bmod m, x^2 \bmod m, x^3 \bmod m, \dots)$ enters a cycle of length $\phi\left(\frac{m}{a}\right)$ after the first $k$ (or less) elements. 
-$\phi\left(\frac{m}{a}\right)$ divides $\phi(m)$ (because $a$ and $\frac{m}{a}$ are coprime we have $\phi(a) \cdot \phi\left(\frac{m}{a}\right) = \phi(m)$), therefore we can also say that the period has length $\phi(m)$.
-And since $\phi(m) \ge \log_2 m \ge k$, we can conclude the desired, much simpler, formula:
+এই সূত্রটি প্রয়োগ করা কঠিন, তবে আমরা এটি $x^n \bmod m$-এর আচরণ বিশ্লেষণে ব্যবহার করতে পারি। দেখা যায় ঘাতের ক্রম $(x^1 \bmod m, x^2 \bmod m, x^3 \bmod m, \dots)$ প্রথম $k$টি (বা কম) উপাদানের পর $\phi\left(\frac{m}{a}\right)$ দৈর্ঘ্যের একটি চক্রে প্রবেশ করে।
+$\phi\left(\frac{m}{a}\right)$, $\phi(m)$-কে ভাগ করে (কারণ $a$ ও $\frac{m}{a}$ সহমৌলিক বলে $\phi(a) \cdot \phi\left(\frac{m}{a}\right) = \phi(m)$), তাই আমরা বলতে পারি যে পর্যায়ের দৈর্ঘ্য $\phi(m)$।
+এবং যেহেতু $\phi(m) \ge \log_2 m \ge k$, আমরা কাঙ্ক্ষিত, অনেক সরল, সূত্রটি উপসংহার করতে পারি:
 
 $$ x^n \equiv x^{\phi(m)} x^{(n - \phi(m)) \bmod \phi(m)} \bmod m \equiv x^{\phi(m)+[n \bmod \phi(m)]} \mod m.$$
 
-## Practice Problems  
+## অনুশীলন সমস্যা
 
 * [SPOJ #4141 "Euler Totient Function" [Difficulty: CakeWalk]](http://www.spoj.com/problems/ETF/)
 * [UVA #10179 "Irreducible Basic Fractions" [Difficulty: Easy]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1120)

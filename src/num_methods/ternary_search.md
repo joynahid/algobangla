@@ -2,76 +2,76 @@
 tags:
   - Translated
 e_maxx_link: ternary_search
----	
+---
 
-# Ternary Search
+# টার্নারি সার্চ
 
-We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function: 
+আমাদের একটি ফাংশন $f(x)$ দেওয়া আছে যা একটি ব্যবধান $[l, r]$ এ ইউনিমোডাল। ইউনিমোডাল ফাংশন বলতে ফাংশনের দুটি আচরণের একটি বোঝায়:
 
-1. The function strictly increases first, reaches a maximum (at a single point or over an interval), and then strictly decreases.
+১. ফাংশনটি প্রথমে কঠোরভাবে বাড়ে, একটি সর্বোচ্চ মানে পৌঁছায় (একটি একক বিন্দুতে বা একটি ব্যবধানে), এবং তারপর কঠোরভাবে কমে।
 
-2. The function strictly decreases first, reaches a minimum, and then strictly increases.
+২. ফাংশনটি প্রথমে কঠোরভাবে কমে, একটি সর্বনিম্ন মানে পৌঁছায়, এবং তারপর কঠোরভাবে বাড়ে।
 
-In this article, we will assume the first scenario.
-The second scenario is completely symmetrical to the first.
+এই নিবন্ধে, আমরা প্রথম পরিস্থিতি ধরে নেব।
+দ্বিতীয় পরিস্থিতি প্রথমটির সম্পূর্ণ প্রতিসম।
 
-The task is to find the maximum of function $f(x)$ on the interval $[l, r]$.
+কাজটি হলো $[l, r]$ ব্যবধানে ফাংশন $f(x)$ এর সর্বোচ্চ মান খুঁজে বের করা।
 
-## Algorithm
+## অ্যালগরিদম
 
-Consider any 2 points $m_1$, and $m_2$ in this interval: $l < m_1 < m_2 < r$. We evaluate the function at $m_1$ and $m_2$, i.e. find the values of $f(m_1)$ and $f(m_2)$. Now, we get one of three options:
+এই ব্যবধানে যেকোনো ২টি বিন্দু $m_1$ এবং $m_2$ বিবেচনা করুন: $l < m_1 < m_2 < r$। আমরা $m_1$ এবং $m_2$ তে ফাংশনের মান গণনা করি, অর্থাৎ $f(m_1)$ এবং $f(m_2)$ এর মান বের করি। এখন, আমরা তিনটি বিকল্পের একটি পাই:
 
 -   $f(m_1) < f(m_2)$
 
-    The desired maximum can not be located on the left side of $m_1$, i.e. on the interval $[l, m_1]$, since either both points $m_1$ and $m_2$ or just $m_1$ belong to the area where the function increases. In either case, this means that we have to search for the maximum in the segment $[m_1, r]$.
+    কাঙ্ক্ষিত সর্বোচ্চ $m_1$ এর বাম দিকে থাকতে পারে না, অর্থাৎ $[l, m_1]$ ব্যবধানে, কারণ হয় $m_1$ এবং $m_2$ উভয় বিন্দু অথবা শুধু $m_1$ সেই অঞ্চলে পড়ে যেখানে ফাংশন বাড়ছে। উভয় ক্ষেত্রেই, এর মানে আমাদের $[m_1, r]$ ব্যবধানে সর্বোচ্চ অনুসন্ধান করতে হবে।
 
 -   $f(m_1) > f(m_2)$
 
-    This situation is symmetrical to the previous one: the maximum can not be located on the right side of $m_2$, i.e. on the interval $[m_2, r]$, and the search space is reduced to the segment $[l, m_2]$.
+    এই পরিস্থিতি পূর্ববর্তীটির প্রতিসম: সর্বোচ্চ $m_2$ এর ডান দিকে থাকতে পারে না, অর্থাৎ $[m_2, r]$ ব্যবধানে, এবং অনুসন্ধান পরিসর $[l, m_2]$ ব্যবধানে কমে আসে।
 
 -   $f(m_1) = f(m_2)$
 
-    We can see that either both of these points belong to the area where the value of the function is maximized, or $m_1$ is in the area of increasing values and $m_2$ is in the area of descending values (here we used the strictness of function increasing/decreasing). Thus, the search space is reduced to $[m_1, m_2]$. To simplify the code, this case can be combined with any of the previous cases.
+    আমরা দেখতে পাই যে হয় এই দুটি বিন্দুই সেই অঞ্চলে পড়ে যেখানে ফাংশনের মান সর্বোচ্চ, অথবা $m_1$ বাড়ন্ত অঞ্চলে এবং $m_2$ কমন্ত অঞ্চলে (এখানে আমরা ফাংশনের কঠোর বৃদ্ধি/হ্রাস ব্যবহার করেছি)। অতএব, অনুসন্ধান পরিসর $[m_1, m_2]$ তে কমে আসে। কোড সরল করতে, এই ক্ষেত্রটি পূর্ববর্তী যেকোনো ক্ষেত্রের সাথে একত্রিত করা যায়।
 
-Thus, based on the comparison of the values in the two inner points, we can replace the current interval $[l, r]$ with a new, shorter interval $[l^\prime, r^\prime]$. Repeatedly applying the described procedure to the interval, we can get an arbitrarily short interval. Eventually, its length will be less than a certain pre-defined constant (accuracy), and the process can be stopped. This is a numerical method, so we can assume that after that the function reaches its maximum at all points of the last interval $[l, r]$. Without loss of generality, we can take $f(l)$ as the return value.
+এইভাবে, দুটি অভ্যন্তরীণ বিন্দুতে মানের তুলনার ভিত্তিতে, আমরা বর্তমান ব্যবধান $[l, r]$ কে একটি নতুন, ছোট ব্যবধান $[l^\prime, r^\prime]$ দ্বারা প্রতিস্থাপন করতে পারি। বর্ণিত প্রক্রিয়াটি ব্যবধানে বারবার প্রয়োগ করে, আমরা যথেচ্ছ ছোট ব্যবধান পেতে পারি। অবশেষে, এর দৈর্ঘ্য একটি নির্দিষ্ট পূর্বনির্ধারিত ধ্রুবকের (নির্ভুলতা) চেয়ে কম হবে, এবং প্রক্রিয়াটি বন্ধ করা যাবে। এটি একটি সংখ্যাসূচক মেথড, তাই আমরা ধরে নিতে পারি যে এর পরে ফাংশন শেষ ব্যবধান $[l, r]$ এর সকল বিন্দুতে তার সর্বোচ্চ মানে পৌঁছায়। সাধারণতা হারানো ছাড়াই, আমরা $f(l)$ কে রিটার্ন মান হিসেবে নিতে পারি।
 
-We didn't impose any restrictions on the choice of points $m_1$ and $m_2$. This choice will define the convergence rate and the accuracy of the implementation. The most common way is to choose the points so that they divide the interval $[l, r]$ into three equal parts. Thus, we have
+আমরা $m_1$ এবং $m_2$ বিন্দু নির্বাচনে কোনো সীমাবদ্ধতা আরোপ করিনি। এই নির্বাচন অভিসারের হার এবং ইমপ্লিমেন্টেশনের নির্ভুলতা নির্ধারণ করবে। সবচেয়ে সাধারণ উপায় হলো বিন্দুগুলো এমনভাবে বেছে নেওয়া যাতে তারা $[l, r]$ ব্যবধানকে তিনটি সমান অংশে ভাগ করে। এইভাবে, আমরা পাই
 
 $$m_1 = l + \frac{(r - l)}{3}$$
 
-$$m_2 = r - \frac{(r - l)}{3}$$ 
+$$m_2 = r - \frac{(r - l)}{3}$$
 
-If $m_1$ and $m_2$ are chosen to be closer to each other, the convergence rate will increase slightly.
+$m_1$ এবং $m_2$ একে অপরের কাছাকাছি বেছে নিলে অভিসারের হার সামান্য বাড়বে।
 
-### Run time analysis
+### রান টাইম বিশ্লেষণ
 
 $$T(n) = T({2n}/{3}) + O(1) = \Theta(\log n)$$
 
-It can be visualized as follows: every time after evaluating the function at points $m_1$ and $m_2$, we are essentially ignoring about one third of the interval, either the left or right one. Thus the size of the search space is ${2n}/{3}$ of the original one. 
+এটি এভাবে কল্পনা করা যায়: প্রতিবার $m_1$ এবং $m_2$ বিন্দুতে ফাংশন মূল্যায়নের পর, আমরা মূলত ব্যবধানের প্রায় এক-তৃতীয়াংশ উপেক্ষা করছি, হয় বাম বা ডান। এইভাবে অনুসন্ধান পরিসরের আকার মূলটির ${2n}/{3}$ হয়।
 
-Applying [Master's Theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)), we get the desired complexity estimate.
+[মাস্টার্স থিওরেম](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)) প্রয়োগ করে, আমরা কাঙ্ক্ষিত কমপ্লেক্সিটি অনুমান পাই।
 
-### The case of the integer arguments
+### পূর্ণসংখ্যা আর্গুমেন্টের ক্ষেত্র
 
-If $f(x)$ takes integer parameter, the interval $[l, r]$ becomes discrete. Since we did not impose any restrictions on the choice of points $m_1$ and $m_2$, the correctness of the algorithm is not affected. $m_1$ and $m_2$ can still be chosen to divide $[l, r]$ into 3 approximately equal parts.
+যদি $f(x)$ পূর্ণসংখ্যা প্যারামিটার নেয়, তাহলে $[l, r]$ ব্যবধান ডিসক্রিট হয়ে যায়। যেহেতু আমরা $m_1$ এবং $m_2$ নির্বাচনে কোনো সীমাবদ্ধতা আরোপ করিনি, অ্যালগরিদমের সঠিকতা প্রভাবিত হয় না। $m_1$ এবং $m_2$ এখনও $[l, r]$ কে প্রায় ৩ সমান অংশে ভাগ করতে বেছে নেওয়া যায়।
 
-The difference occurs in the stopping criterion of the algorithm. Ternary search will have to stop when $(r - l) < 3$, because in that case we can no longer select $m_1$ and $m_2$ to be different from each other as well as from $l$ and $r$, and this can cause an infinite loop. Once $(r - l) < 3$, the remaining pool of candidate points $(l, l + 1, \ldots, r)$ needs to be checked to find the point which produces the maximum value $f(x)$.
+পার্থক্যটি অ্যালগরিদমের থামার শর্তে। টার্নারি সার্চকে থামতে হবে যখন $(r - l) < 3$, কারণ সেক্ষেত্রে আমরা আর $m_1$ এবং $m_2$ কে একে অপরের থেকে এবং $l$ ও $r$ থেকে আলাদা নির্বাচন করতে পারি না, এবং এটি অসীম লুপের কারণ হতে পারে। $(r - l) < 3$ হলে, অবশিষ্ট প্রার্থী বিন্দুগুলো $(l, l + 1, \ldots, r)$ পরীক্ষা করে সর্বোচ্চ $f(x)$ মান উৎপন্নকারী বিন্দু খুঁজে বের করতে হবে।
 
-### Golden section search
+### গোল্ডেন সেকশন সার্চ
 
-In some cases computing $f(x)$ may be quite slow, but reducing the number of iterations is infeasible due to precision issues. Fortunately, it is possible to compute $f(x)$ only once at each iteration (except the first one).
+কিছু ক্ষেত্রে $f(x)$ গণনা বেশ ধীর হতে পারে, কিন্তু নির্ভুলতার সমস্যার কারণে ইটারেশন সংখ্যা কমানো অসম্ভব। সৌভাগ্যবশত, প্রতিটি ইটারেশনে (প্রথমটি ব্যতীত) $f(x)$ শুধু একবার গণনা করা সম্ভব।
 
-To see how to do this, let's revisit the selection method for $m_1$ and $m_2$. Suppose that we select $m_1$ and $m_2$ on $[l, r]$ in such a way that $\frac{r - l}{r - m_1} = \frac{r - l}{m_2 - l} = \varphi$ where $\varphi$ is some constant. In order to reduce the amount of computations, we want to select such $\varphi$ that on the next iteration one of the new evaluation points $m_1'$, $m_2'$ will coincide with either $m_1$ or $m_2$, so that we can reuse the already computed function value.
+এটি কীভাবে করতে হয় তা দেখতে, $m_1$ এবং $m_2$ নির্বাচন পদ্ধতি পুনর্বিবেচনা করি। ধরি আমরা $[l, r]$ এ $m_1$ এবং $m_2$ এমনভাবে নির্বাচন করি যাতে $\frac{r - l}{r - m_1} = \frac{r - l}{m_2 - l} = \varphi$ যেখানে $\varphi$ কোনো ধ্রুবক। গণনার পরিমাণ কমাতে, আমরা এমন $\varphi$ নির্বাচন করতে চাই যাতে পরবর্তী ইটারেশনে নতুন মূল্যায়ন বিন্দু $m_1'$, $m_2'$ এর একটি $m_1$ বা $m_2$ এর সাথে মিলে যায়, যাতে আমরা ইতিমধ্যে গণনা করা ফাংশন মান পুনরায় ব্যবহার করতে পারি।
 
-Now suppose that after the current iteration we set $l = m_1$. Then the point $m_1'$ will satisfy $\frac{r - m_1}{r - m_1'} = \varphi$. We want this point to coincide with $m_2$, meaning that $\frac{r - m_1}{r - m_2} = \varphi$.
+এখন ধরি বর্তমান ইটারেশনের পর আমরা $l = m_1$ সেট করি। তাহলে বিন্দু $m_1'$ সন্তুষ্ট করবে $\frac{r - m_1}{r - m_1'} = \varphi$। আমরা চাই এই বিন্দু $m_2$ এর সাথে মিলে যাক, অর্থাৎ $\frac{r - m_1}{r - m_2} = \varphi$।
 
-Multiplying both sides of $\frac{r - m_1}{r - m_2} = \varphi$ by $\frac{r - m_2}{r - l}$ we obtain $\frac{r - m_1}{r - l} = \varphi\frac{r - m_2}{r - l}$. Note that $\frac{r - m_1}{r - l} = \frac{1}{\varphi}$ and $\frac{r - m_2}{r - l} = \frac{r - l + l - m_2}{r - l} = 1 - \frac{1}{\varphi}$. Substituting that and multiplying by $\varphi$, we obtain the following equation:
+$\frac{r - m_1}{r - m_2} = \varphi$ এর উভয় পক্ষকে $\frac{r - m_2}{r - l}$ দ্বারা গুণ করলে পাই $\frac{r - m_1}{r - l} = \varphi\frac{r - m_2}{r - l}$। লক্ষ্য করুন $\frac{r - m_1}{r - l} = \frac{1}{\varphi}$ এবং $\frac{r - m_2}{r - l} = \frac{r - l + l - m_2}{r - l} = 1 - \frac{1}{\varphi}$। প্রতিস্থাপন করে এবং $\varphi$ দ্বারা গুণ করে, আমরা নিম্নলিখিত সমীকরণ পাই:
 
 $\varphi^2 - \varphi - 1 = 0$
 
-This is a well-known golden section equation. Solving it yields $\frac{1 \pm \sqrt{5}}{2}$. Since $\varphi$ must be positive, we obtain $\varphi = \frac{1 + \sqrt{5}}{2}$. By applying the same logic to the case when we set $r = m_2$ and want $m_2'$ to coincide with $m_1$, we obtain the same value of $\varphi$ as well. So, if we choose $m_1 = l + \frac{r - l}{1 + \varphi}$ and $m_2 = r - \frac{r - l}{1 + \varphi}$, on each iteration we can re-use one of the values $f(x)$ computed on the previous iteration.
+এটি সুপরিচিত গোল্ডেন সেকশন সমীকরণ। সমাধান করলে পাওয়া যায় $\frac{1 \pm \sqrt{5}}{2}$। যেহেতু $\varphi$ ধনাত্মক হতে হবে, আমরা পাই $\varphi = \frac{1 + \sqrt{5}}{2}$। $r = m_2$ সেট করে $m_2'$ কে $m_1$ এর সাথে মেলাতে চাওয়ার ক্ষেত্রেও একই যুক্তি প্রয়োগ করলে একই $\varphi$ মান পাওয়া যায়। সুতরাং, যদি আমরা $m_1 = l + \frac{r - l}{1 + \varphi}$ এবং $m_2 = r - \frac{r - l}{1 + \varphi}$ বেছে নিই, প্রতিটি ইটারেশনে আমরা পূর্ববর্তী ইটারেশনে গণনা করা $f(x)$ এর একটি মান পুনরায় ব্যবহার করতে পারি।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 double ternary_search(double l, double r) {
@@ -90,11 +90,11 @@ double ternary_search(double l, double r) {
 }
 ```
 
-Here `eps` is in fact the absolute error (not taking into account errors due to the inaccurate calculation of the function).
+এখানে `eps` আসলে পরম ত্রুটি (ফাংশনের ভুল গণনার কারণে সৃষ্ট ত্রুটি বিবেচনা না করে)।
 
-Instead of the criterion `r - l > eps`, we can select a constant number of iterations as a stopping criterion. The number of iterations should be chosen to ensure the required accuracy. Typically, in most programming challenges the error limit is ${10}^{-6}$ and thus 200 - 300 iterations are sufficient. Also, the number of iterations doesn't depend on the values of $l$ and $r$, so the number of iterations corresponds to the required relative error.
+`r - l > eps` শর্তের পরিবর্তে, আমরা থামার শর্ত হিসেবে একটি নির্দিষ্ট সংখ্যক ইটারেশন নির্বাচন করতে পারি। প্রয়োজনীয় নির্ভুলতা নিশ্চিত করতে ইটারেশন সংখ্যা বেছে নেওয়া উচিত। সাধারণত, অধিকাংশ প্রোগ্রামিং চ্যালেঞ্জে ত্রুটির সীমা ${10}^{-6}$ এবং তাই ২০০ - ৩০০ ইটারেশন যথেষ্ট। এছাড়াও, ইটারেশন সংখ্যা $l$ এবং $r$ এর মানের উপর নির্ভর করে না, তাই ইটারেশন সংখ্যা প্রয়োজনীয় আপেক্ষিক ত্রুটির সাথে সঙ্গতিপূর্ণ।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [Codeforces - New Bakery](https://codeforces.com/problemset/problem/1978/B)
 - [Codechef - Race time](https://www.codechef.com/problems/AMCS03)

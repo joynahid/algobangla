@@ -4,66 +4,66 @@ tags:
 e_maxx_link: string_hashes
 ---
 
-# String Hashing
+# স্ট্রিং হ্যাশিং
 
-Hashing algorithms are helpful in solving a lot of problems.
+হ্যাশিং অ্যালগরিদম অনেক সমস্যা সমাধানে সহায়ক।
 
-We want to solve the problem of comparing strings efficiently.
-The brute force way of doing so is just to compare the letters of both strings, which has a time complexity of $O(\min(n_1, n_2))$ if $n_1$ and $n_2$ are the sizes of the two strings.
-We want to do better.
-The idea behind the string hashing is the following: we map each string into an integer and compare those instead of the strings.
-Doing this allows us to reduce the execution time of the string comparison to $O(1)$.
+আমরা স্ট্রিং দক্ষতার সাথে তুলনা করার সমস্যাটি সমাধান করতে চাই।
+ব্রুট ফোর্স পদ্ধতি হলো উভয় স্ট্রিং-এর অক্ষরগুলো তুলনা করা, যার টাইম কমপ্লেক্সিটি $O(\min(n_1, n_2))$ যদি $n_1$ এবং $n_2$ দুটি স্ট্রিং-এর আকার হয়।
+আমরা আরও ভালো করতে চাই।
+স্ট্রিং হ্যাশিং-এর পেছনের ধারণাটি নিম্নরূপ: আমরা প্রতিটি স্ট্রিংকে একটি পূর্ণসংখ্যায় ম্যাপ করি এবং স্ট্রিং-এর পরিবর্তে সেগুলো তুলনা করি।
+এটি করলে স্ট্রিং তুলনার এক্সিকিউশন সময় $O(1)$-এ কমানো যায়।
 
-For the conversion, we need a so-called **hash function**.
-The goal of it is to convert a string into an integer, the so-called **hash** of the string.
-The following condition has to hold: if two strings $s$ and $t$ are equal ($s = t$), then their hashes also have to be equal ($\text{hash}(s) = \text{hash}(t)$).
-Otherwise, we will not be able to compare strings.
+রূপান্তরের জন্য, আমাদের একটি তথাকথিত **হ্যাশ ফাংশন** দরকার।
+এর লক্ষ্য হলো একটি স্ট্রিংকে একটি পূর্ণসংখ্যায় রূপান্তর করা, যাকে স্ট্রিং-এর তথাকথিত **হ্যাশ** বলা হয়।
+নিম্নলিখিত শর্তটি পূরণ হতে হবে: যদি দুটি স্ট্রিং $s$ এবং $t$ সমান হয় ($s = t$), তাহলে তাদের হ্যাশও সমান হতে হবে ($\text{hash}(s) = \text{hash}(t)$)।
+অন্যথায়, আমরা স্ট্রিং তুলনা করতে পারব না।
 
-Notice, the opposite direction doesn't have to hold.
-If the hashes are equal ($\text{hash}(s) = \text{hash}(t)$), then the strings do not necessarily have to be equal.
-E.g. a valid hash function would be simply $\text{hash}(s) = 0$ for each $s$.
-Now, this is just a stupid example, because this function will be completely useless, but it is a valid hash function.
-The reason why the opposite direction doesn't have to hold, is because there are exponentially many strings.
-If we only want this hash function to distinguish between all strings consisting of lowercase characters of length smaller than 15, then already the hash wouldn't fit into a 64-bit integer (e.g. unsigned long long) any more, because there are so many of them.
-And of course, we don't want to compare arbitrary long integers, because this will also have the complexity $O(n)$.
+লক্ষ্য করুন, বিপরীত দিকটি সত্য হতে হবে না।
+যদি হ্যাশ সমান হয় ($\text{hash}(s) = \text{hash}(t)$), তাহলে স্ট্রিংগুলো অগত্যা সমান হতে হবে না।
+যেমন একটি বৈধ হ্যাশ ফাংশন হতে পারে কেবল $\text{hash}(s) = 0$ প্রতিটি $s$-এর জন্য।
+এখন, এটি একটি বোকামি উদাহরণ, কারণ এই ফাংশন সম্পূর্ণ অকেজো হবে, কিন্তু এটি একটি বৈধ হ্যাশ ফাংশন।
+বিপরীত দিকটি সত্য হতে না হওয়ার কারণ হলো, সূচকীয় সংখ্যক স্ট্রিং আছে।
+যদি আমরা এই হ্যাশ ফাংশন দিয়ে শুধুমাত্র ১৫-এর কম দৈর্ঘ্যের ছোট হাতের অক্ষরের সকল স্ট্রিং আলাদা করতে চাই, তাহলেই হ্যাশ একটি ৬৪-বিট ইন্টিজারে (যেমন unsigned long long) আর ফিট করবে না, কারণ এত বেশি স্ট্রিং আছে।
+এবং অবশ্যই, আমরা নির্বিচারে দীর্ঘ ইন্টিজার তুলনা করতে চাই না, কারণ এতেও $O(n)$ কমপ্লেক্সিটি হবে।
 
-So usually we want the hash function to map strings onto numbers of a fixed range $[0, m)$, then comparing strings is just a comparison of two integers with a fixed length.
-And of course, we want $\text{hash}(s) \neq \text{hash}(t)$ to be very likely if $s \neq t$.
+তাই সাধারণত আমরা চাই হ্যাশ ফাংশন স্ট্রিংগুলোকে একটি নির্দিষ্ট রেঞ্জ $[0, m)$-এর সংখ্যায় ম্যাপ করুক, তাহলে স্ট্রিং তুলনা শুধু দুটি নির্দিষ্ট দৈর্ঘ্যের পূর্ণসংখ্যার তুলনা।
+এবং অবশ্যই, আমরা চাই $s \neq t$ হলে $\text{hash}(s) \neq \text{hash}(t)$ হওয়ার সম্ভাবনা খুব বেশি হোক।
 
-That's the important part that you have to keep in mind.
-Using hashing will not be 100% deterministically correct, because two complete different strings might have the same hash (the hashes collide).
-However, in a wide majority of tasks, this can be safely ignored as the probability of the hashes of two different strings colliding is still very small.
-And we will discuss some techniques in this article how to keep the probability of collisions very low.
+এটি গুরুত্বপূর্ণ অংশ যা মনে রাখতে হবে।
+হ্যাশিং ব্যবহার ১০০% নিশ্চিতভাবে সঠিক হবে না, কারণ দুটি সম্পূর্ণ ভিন্ন স্ট্রিং-এর একই হ্যাশ থাকতে পারে (হ্যাশ কলিশন হয়)।
+তবে, বেশিরভাগ কাজে এটি নিরাপদে উপেক্ষা করা যায় কারণ দুটি ভিন্ন স্ট্রিং-এর হ্যাশ কলিশনের সম্ভাবনা এখনও খুব কম।
+এবং আমরা এই নিবন্ধে কিছু কৌশল আলোচনা করব কিভাবে কলিশনের সম্ভাবনা খুব কম রাখা যায়।
 
-## Calculation of the hash of a string
+## একটি স্ট্রিং-এর হ্যাশ গণনা
 
-The good and widely used way to define the hash of a string $s$ of length $n$ is
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$-এর হ্যাশ সংজ্ঞায়িত করার ভালো এবং বহুল ব্যবহৃত উপায় হলো
 
 $$\begin{align}
 \text{hash}(s) &= s[0] + s[1] \cdot p + s[2] \cdot p^2 + ... + s[n-1] \cdot p^{n-1} \mod m \\
 &= \sum_{i=0}^{n-1} s[i] \cdot p^i \mod m,
 \end{align}$$
 
-where $p$ and $m$ are some chosen, positive numbers.
-It is called a **polynomial rolling hash function**.
+যেখানে $p$ এবং $m$ হলো কিছু নির্বাচিত, ধনাত্মক সংখ্যা।
+এটিকে **পলিনোমিয়াল রোলিং হ্যাশ ফাংশন** বলা হয়।
 
-It is reasonable to make $p$ a prime number roughly equal to the number of characters in the input alphabet.
-For example, if the input is composed of only lowercase letters of the English alphabet, $p = 31$ is a good choice.
-If the input may contain both uppercase and lowercase letters, then $p = 53$ is a possible choice.
-The code in this article will use $p = 31$.
+$p$-কে ইনপুট বর্ণমালার অক্ষর সংখ্যার কাছাকাছি একটি মৌলিক সংখ্যা করা যুক্তিসঙ্গত।
+উদাহরণস্বরূপ, যদি ইনপুট শুধু ইংরেজি বর্ণমালার ছোট হাতের অক্ষর নিয়ে গঠিত হয়, $p = 31$ একটি ভালো পছন্দ।
+যদি ইনপুটে বড় হাতের এবং ছোট হাতের উভয় অক্ষর থাকতে পারে, তাহলে $p = 53$ একটি সম্ভাব্য পছন্দ।
+এই নিবন্ধের কোডে $p = 31$ ব্যবহার করা হবে।
 
-Obviously $m$ should be a large number since the probability of two random strings colliding is about $\approx \frac{1}{m}$.
-Sometimes $m = 2^{64}$ is chosen, since then the integer overflows of 64-bit integers work exactly like the modulo operation.
-However, there exists a method, which generates colliding strings (which work independently from the choice of $p$).
-So in practice, $m = 2^{64}$ is not recommended.
-A good choice for $m$ is some large prime number.
-The code in this article will just use $m = 10^9+9$.
-This is a large number, but still small enough so that we can perform multiplication of two values using 64-bit integers.
+স্পষ্টতই $m$ একটি বড় সংখ্যা হওয়া উচিত কারণ দুটি র‍্যান্ডম স্ট্রিং-এর কলিশনের সম্ভাবনা প্রায় $\approx \frac{1}{m}$।
+কখনও কখনও $m = 2^{64}$ বেছে নেওয়া হয়, যেহেতু তখন ৬৪-বিট ইন্টিজারের পূর্ণসংখ্যা ওভারফ্লো ঠিক মডুলো অপারেশনের মতো কাজ করে।
+তবে, এমন একটি পদ্ধতি আছে, যা কলিশন করা স্ট্রিং তৈরি করে ($p$-এর পছন্দ নির্বিশেষে)।
+তাই বাস্তবে, $m = 2^{64}$ সুপারিশ করা হয় না।
+$m$-এর জন্য একটি ভালো পছন্দ হলো কোনো বড় মৌলিক সংখ্যা।
+এই নিবন্ধের কোডে $m = 10^9+9$ ব্যবহার করা হবে।
+এটি একটি বড় সংখ্যা, কিন্তু যথেষ্ট ছোট যাতে আমরা ৬৪-বিট ইন্টিজার ব্যবহার করে দুটি মানের গুণ করতে পারি।
 
-Here is an example of calculating the hash of a string $s$, which contains only lowercase letters.
-We convert each character of $s$ to an integer.
-Here we use the conversion $a \rightarrow 1$, $b \rightarrow 2$, $\dots$, $z \rightarrow 26$.
-Converting $a \rightarrow 0$ is not a good idea, because then the hashes of the strings $a$, $aa$, $aaa$, $\dots$ all evaluate to $0$.
+এখানে একটি স্ট্রিং $s$-এর হ্যাশ গণনার একটি উদাহরণ, যেটিতে শুধু ছোট হাতের অক্ষর আছে।
+আমরা $s$-এর প্রতিটি অক্ষরকে একটি পূর্ণসংখ্যায় রূপান্তর করি।
+এখানে আমরা রূপান্তর $a \rightarrow 1$, $b \rightarrow 2$, $\dots$, $z \rightarrow 26$ ব্যবহার করি।
+$a \rightarrow 0$ রূপান্তর করা ভালো ধারণা নয়, কারণ তাহলে $a$, $aa$, $aaa$, $\dots$ স্ট্রিংগুলোর হ্যাশ সব $0$ হবে।
 
 ```{.cpp file=hashing_function}
 long long compute_hash(string const& s) {
@@ -79,18 +79,18 @@ long long compute_hash(string const& s) {
 }
 ```
 
-Precomputing the powers of $p$ might give a performance boost.
+$p$-এর পাওয়ারগুলো আগে থেকে গণনা করলে পারফরম্যান্স বাড়তে পারে।
 
-## Example tasks
+## উদাহরণ কাজ
 
-### Search for duplicate strings in an array of strings
+### স্ট্রিং-এর অ্যারেতে ডুপ্লিকেট স্ট্রিং খোঁজা
 
-Problem: Given a list of $n$ strings $s_i$, each no longer than $m$ characters, find all the duplicate strings and divide them into groups.
+সমস্যা: $n$ সংখ্যক স্ট্রিং $s_i$-এর একটি তালিকা দেওয়া আছে, প্রতিটি সর্বোচ্চ $m$ অক্ষরের, সকল ডুপ্লিকেট স্ট্রিং খুঁজুন এবং গ্রুপে ভাগ করুন।
 
-From the obvious algorithm involving sorting the strings, we would get a time complexity of $O(n m \log n)$ where the sorting requires $O(n \log n)$ comparisons and each comparison take $O(m)$ time.
-However, by using hashes, we reduce the comparison time to $O(1)$, giving us an algorithm that runs in $O(n m + n \log n)$ time.
+স্ট্রিং সর্ট করার স্পষ্ট অ্যালগরিদম থেকে, আমরা $O(n m \log n)$ টাইম কমপ্লেক্সিটি পেতাম যেখানে সর্টিং-এ $O(n \log n)$ তুলনা প্রয়োজন এবং প্রতিটি তুলনায় $O(m)$ সময় লাগে।
+তবে, হ্যাশ ব্যবহার করে, আমরা তুলনার সময় $O(1)$-এ কমাই, যা $O(n m + n \log n)$ সময়ে চলা অ্যালগরিদম দেয়।
 
-We calculate the hash for each string, sort the hashes together with the indices, and then group the indices by identical hashes.
+আমরা প্রতিটি স্ট্রিং-এর হ্যাশ গণনা করি, ইনডেক্সসহ হ্যাশগুলো সর্ট করি, এবং তারপর অভিন্ন হ্যাশ অনুযায়ী ইনডেক্সগুলো গ্রুপ করি।
 
 ```{.cpp file=hashing_group_identical_strings}
 vector<vector<int>> group_identical_strings(vector<string> const& s) {
@@ -111,55 +111,55 @@ vector<vector<int>> group_identical_strings(vector<string> const& s) {
 }
 ```
 
-### Fast hash calculation of substrings of given string
+### প্রদত্ত স্ট্রিং-এর সাবস্ট্রিং-এর দ্রুত হ্যাশ গণনা
 
-Problem: Given a string $s$ and indices $i$ and $j$, find the hash of the substring $s [i \dots j]$.
+সমস্যা: একটি স্ট্রিং $s$ এবং ইনডেক্স $i$ ও $j$ দেওয়া আছে, সাবস্ট্রিং $s [i \dots j]$-এর হ্যাশ বের করুন।
 
-By definition, we have:
+সংজ্ঞা অনুযায়ী, আমাদের আছে:
 
 $$\text{hash}(s[i \dots j]) = \sum_{k = i}^j s[k] \cdot p^{k-i} \mod m$$
 
-Multiplying by $p^i$ gives:
+$p^i$ দিয়ে গুণ করলে পাই:
 
 $$\begin{align}
 \text{hash}(s[i \dots j]) \cdot p^i &= \sum_{k = i}^j s[k] \cdot p^k \mod m \\
 &= \text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1]) \mod m
 \end{align}$$
 
-So by knowing the hash value of each prefix of the string $s$, we can compute the hash of any substring directly using this formula.
-The only problem that we face in calculating it is that we must be able to divide $\text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1])$ by $p^i$.
-Therefore we need to find the [modular multiplicative inverse](../algebra/module-inverse.md) of $p^i$ and then perform multiplication with this inverse.
-We can precompute the inverse of every $p^i$, which allows computing the hash of any substring of $s$ in $O(1)$ time.
+তাই স্ট্রিং $s$-এর প্রতিটি প্রিফিক্সের হ্যাশ মান জানা থাকলে, আমরা এই সূত্র ব্যবহার করে সরাসরি যেকোনো সাবস্ট্রিং-এর হ্যাশ গণনা করতে পারি।
+একমাত্র সমস্যা হলো $\text{hash}(s[0 \dots j]) - \text{hash}(s[0 \dots i-1])$-কে $p^i$ দিয়ে ভাগ করতে হবে।
+তাই আমাদের $p^i$-এর [মডুলার গুণাত্মক বিপরীত](../algebra/module-inverse.md) খুঁজতে হবে এবং তারপর এই বিপরীত দিয়ে গুণ করতে হবে।
+আমরা প্রতিটি $p^i$-এর বিপরীত আগে থেকে গণনা করতে পারি, যা $s$-এর যেকোনো সাবস্ট্রিং-এর হ্যাশ $O(1)$ সময়ে গণনা করার অনুমতি দেয়।
 
-However, there does exist an easier way.
-In most cases, rather than calculating the hashes of substring exactly, it is enough to compute the hash multiplied by some power of $p$.
-Suppose we have two hashes of two substrings, one multiplied by $p^i$ and the other by $p^j$.
-If $i < j$ then we multiply the first hash by $p^{j-i}$, otherwise, we multiply the second hash by $p^{i-j}$.
-By doing this, we get both the hashes multiplied by the same power of $p$ (which is the maximum of $i$ and $j$) and now these hashes can be compared easily with no need for any division.
+তবে, একটি সহজ উপায়ও আছে।
+বেশিরভাগ ক্ষেত্রে, সাবস্ট্রিং-এর হ্যাশ সুনির্দিষ্টভাবে গণনার পরিবর্তে, $p$-এর কোনো পাওয়ার দিয়ে গুণিত হ্যাশ গণনা করাই যথেষ্ট।
+ধরুন আমাদের দুটি সাবস্ট্রিং-এর দুটি হ্যাশ আছে, একটি $p^i$ দিয়ে এবং অন্যটি $p^j$ দিয়ে গুণিত।
+যদি $i < j$ হয় তাহলে আমরা প্রথম হ্যাশকে $p^{j-i}$ দিয়ে গুণ করি, অন্যথায়, আমরা দ্বিতীয় হ্যাশকে $p^{i-j}$ দিয়ে গুণ করি।
+এভাবে, আমরা উভয় হ্যাশকে $p$-এর একই পাওয়ার দিয়ে গুণিত পাই ($i$ এবং $j$-এর সর্বোচ্চ) এবং এখন এই হ্যাশগুলো কোনো ভাগ ছাড়াই সহজে তুলনা করা যায়।
 
-## Applications of Hashing
+## হ্যাশিং-এর প্রয়োগ
 
-Here are some typical applications of Hashing:
+এখানে হ্যাশিং-এর কিছু সাধারণ প্রয়োগ:
 
-* [Rabin-Karp algorithm](rabin-karp.md) for pattern matching in a string in $O(n)$ time
-* Calculating the number of different substrings of a string in $O(n^2)$ (see below)
-* Calculating the number of palindromic substrings in a string.
+* $O(n)$ সময়ে স্ট্রিং-এ প্যাটার্ন ম্যাচিং-এর জন্য [রবিন-কার্প অ্যালগরিদম](rabin-karp.md)
+* $O(n^2)$-এ একটি স্ট্রিং-এর ভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা (নিচে দেখুন)
+* একটি স্ট্রিং-এ প্যালিন্ড্রোমিক সাবস্ট্রিং-এর সংখ্যা গণনা।
 
-### Determine the number of different substrings in a string
+### একটি স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা নির্ণয়
 
-Problem: Given a string $s$ of length $n$, consisting only of lowercase English letters, find the number of different substrings in this string.
+সমস্যা: $n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে, যাতে শুধু ইংরেজির ছোট হাতের অক্ষর আছে, এই স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা বের করুন।
 
-To solve this problem, we iterate over all substring lengths $l = 1 \dots n$.
-For every substring length $l$ we construct an array of hashes of all substrings of length $l$ multiplied by the same power of $p$.
-The number of different elements in the array is equal to the number of distinct substrings of length $l$ in the string.
-This number is added to the final answer.
+এই সমস্যা সমাধানের জন্য, আমরা সকল সাবস্ট্রিং দৈর্ঘ্য $l = 1 \dots n$-এর উপর ইটারেট করি।
+প্রতিটি সাবস্ট্রিং দৈর্ঘ্য $l$-এর জন্য আমরা $p$-এর একই পাওয়ার দিয়ে গুণিত সকল $l$ দৈর্ঘ্যের সাবস্ট্রিং-এর হ্যাশের একটি অ্যারে তৈরি করি।
+অ্যারেতে ভিন্ন উপাদানের সংখ্যা স্ট্রিং-এ $l$ দৈর্ঘ্যের ভিন্ন সাবস্ট্রিং-এর সংখ্যার সমান।
+এই সংখ্যাটি চূড়ান্ত উত্তরে যোগ করা হয়।
 
-For convenience, we will use $h[i]$ as the hash of the prefix with $i$ characters, and define $h[0] = 0$.
+সুবিধার জন্য, আমরা $h[i]$-কে $i$ অক্ষরের প্রিফিক্সের হ্যাশ হিসেবে ব্যবহার করব, এবং $h[0] = 0$ সংজ্ঞায়িত করব।
 
 ```{.cpp file=hashing_count_unique_substrings}
 int count_unique_substrings(string const& s) {
     int n = s.size();
-    
+
     const int p = 31;
     const int m = 1e9 + 9;
     vector<long long> p_pow(n);
@@ -185,26 +185,26 @@ int count_unique_substrings(string const& s) {
 }
 ```
 
-Notice, that $O(n^2)$ is not the best possible time complexity for this problem.
-A solution with $O(n \log n)$ is described in the article about [Suffix Arrays](suffix-array.md), and it's even possible to compute it in $O(n)$ using a [Suffix Tree](./suffix-tree-ukkonen.md) or a [Suffix Automaton](./suffix-automaton.md).
+লক্ষ্য করুন, $O(n^2)$ এই সমস্যার সর্বোত্তম সম্ভাব্য টাইম কমপ্লেক্সিটি নয়।
+$O(n \log n)$ এর একটি সমাধান [সাফিক্স অ্যারে](suffix-array.md) সম্পর্কিত নিবন্ধে বর্ণিত হয়েছে, এবং [সাফিক্স ট্রি](./suffix-tree-ukkonen.md) বা [সাফিক্স অটোমেটন](./suffix-automaton.md) ব্যবহার করে এটি $O(n)$-এও গণনা করা সম্ভব।
 
-## Improve no-collision probability
+## নো-কলিশন সম্ভাবনা উন্নত করা
 
-Quite often the above mentioned polynomial hash is good enough, and no collisions will happen during tests.
-Remember, the probability that collision happens is only $\approx \frac{1}{m}$.
-For $m = 10^9 + 9$ the probability is $\approx 10^{-9}$ which is quite low.
-But notice, that we only did one comparison.
-What if we compared a string $s$ with $10^6$ different strings.
-The probability that at least one collision happens is now $\approx 10^{-3}$.
-And if we want to compare $10^6$ different strings with each other (e.g. by counting how many unique strings exists), then the probability of at least one collision happening is already $\approx 1$.
-It is pretty much guaranteed that this task will end with a collision and returns the wrong result.
+প্রায়শই উপরে উল্লিখিত পলিনোমিয়াল হ্যাশ যথেষ্ট ভালো, এবং পরীক্ষার সময় কোনো কলিশন হবে না।
+মনে রাখবেন, কলিশন হওয়ার সম্ভাবনা শুধু $\approx \frac{1}{m}$।
+$m = 10^9 + 9$ এর জন্য সম্ভাবনা $\approx 10^{-9}$ যা বেশ কম।
+কিন্তু লক্ষ্য করুন, আমরা শুধু একটি তুলনা করেছি।
+যদি আমরা একটি স্ট্রিং $s$-কে $10^6$ বিভিন্ন স্ট্রিং-এর সাথে তুলনা করি?
+কমপক্ষে একটি কলিশন হওয়ার সম্ভাবনা এখন $\approx 10^{-3}$।
+এবং যদি আমরা $10^6$ বিভিন্ন স্ট্রিংকে পরস্পরের সাথে তুলনা করতে চাই (যেমন কতগুলো অনন্য স্ট্রিং আছে গণনা করা), তাহলে কমপক্ষে একটি কলিশন হওয়ার সম্ভাবনা ইতিমধ্যে $\approx 1$।
+এটি প্রায় নিশ্চিত যে এই কাজটি কলিশনসহ শেষ হবে এবং ভুল ফলাফল দেবে।
 
-There is a really easy trick to get better probabilities.
-We can just compute two different hashes for each string (by using two different $p$, and/or different $m$, and compare these pairs instead.
-If $m$ is about $10^9$ for each of the two hash functions than this is more or less equivalent as having one hash function with $m \approx 10^{18}$.
-When comparing $10^6$ strings with each other, the probability that at least one collision happens is now reduced to $\approx 10^{-6}$.
+আরও ভালো সম্ভাবনা পেতে একটি সত্যিই সহজ কৌশল আছে।
+আমরা কেবল প্রতিটি স্ট্রিং-এর জন্য দুটি ভিন্ন হ্যাশ গণনা করতে পারি (দুটি ভিন্ন $p$, এবং/অথবা ভিন্ন $m$ ব্যবহার করে), এবং এই জোড়াগুলো তুলনা করতে পারি।
+যদি প্রতিটি হ্যাশ ফাংশনের জন্য $m$ প্রায় $10^9$ হয় তাহলে এটি $m \approx 10^{18}$ এর একটি হ্যাশ ফাংশনের সমতুল্য।
+$10^6$ স্ট্রিং পরস্পরের সাথে তুলনা করার সময়, কমপক্ষে একটি কলিশন হওয়ার সম্ভাবনা এখন $\approx 10^{-6}$-এ কমে যায়।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Good Substrings - Codeforces](https://codeforces.com/contest/271/problem/D)
 * [A Needle in the Haystack - SPOJ](http://www.spoj.com/problems/NHAY/)
 * [String Hashing - Kattis](https://open.kattis.com/problems/hashing)
@@ -224,5 +224,3 @@ When comparing $10^6$ strings with each other, the probability that at least one
 * [Codeforces - Palindrome Degree](http://codeforces.com/contest/7/problem/D)
 * [Codeforces - Deletion of Repeats](http://codeforces.com/contest/19/problem/C)
 * [HackerRank - Gift Boxes](https://www.hackerrank.com/contests/womens-codesprint-5/challenges/gift-boxes)
-
-

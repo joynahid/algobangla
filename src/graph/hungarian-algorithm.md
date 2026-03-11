@@ -4,34 +4,34 @@ tags:
 e_maxx_link: assignment_hungary
 ---
 
-# Hungarian algorithm for solving the assignment problem
+# অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য হাঙ্গেরিয়ান অ্যালগরিদম
 
-## Statement of the assignment problem
+## অ্যাসাইনমেন্ট সমস্যার বিবৃতি
 
-There are several standard formulations of the assignment problem (all of which are essentially equivalent). Here are some of them:
+অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি মান সূত্র রয়েছে (যার সবগুলি মূলত সমতুল্য)। এখানে কয়েকটি রয়েছে:
 
-- There are $n$ jobs and $n$ workers. Each worker specifies the amount of money they expect for a particular job. Each worker can be assigned to only one job. The objective is to assign jobs to workers in a way that minimizes the total cost.
+- $n$ টি চাকরি এবং $n$ জন কর্মচারী রয়েছে। প্রতিটি কর্মচারী একটি নির্দিষ্ট চাকরির জন্য যে পরিমাণ অর্থ প্রত্যাশা করে তা নির্দিষ্ট করে। প্রতিটি কর্মচারী শুধুমাত্র একটি চাকরিতে নিয়োগ করা যায়। উদ্দেশ্য হল চাকরিগুলি কর্মচারীদের এমনভাবে নির্ধারণ করা যা মোট খরচ কমায়।
 
-- Given an $n \times n$ matrix $A$, the task is to select one number from each row such that exactly one number is chosen from each column, and the sum of the selected numbers is minimized.
+- একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া হলে, কাজটি প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করা যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয় এবং নির্বাচিত সংখ্যাগুলির যোগফল কমানো হয়।
 
-- Given an $n \times n$ matrix $A$, the task is to find a permutation $p$ of length $n$ such that the value $\sum A[i]\left[p[i]\right]$ is minimized.
+- একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া হলে, কাজটি দৈর্ঘ্য $n$ এর একটি ক্রমপরিবর্তন $p$ খুঁজে বের করা যাতে মান $\sum A[i]\left[p[i]\right]$ কমানো হয়।
 
-- Consider a complete bipartite graph with $n$ vertices per part, where each edge is assigned a weight. The objective is to find a perfect matching with the minimum total weight.
+- $n$ টি ভার্টেক্স প্রতি অংশে একটি সম্পূর্ণ দ্বিপার্শ্বিক গ্রাফ বিবেচনা করুন, যেখানে প্রতিটি এজ একটি ওজন নির্ধারিত হয়। উদ্দেশ্য হল ন্যূনতম মোট ওজন সহ একটি নিখুঁত ম্যাচিং খুঁজে বের করা।
 
 It is important to note that all the above scenarios are "**square**" problems, meaning both dimensions are always equal to $n$. In practice, similar "**rectangular**" formulations are often encountered, where $n$ is not equal to $m$, and the task is to select $\min(n,m)$ elements. However, it can be observed that a "rectangular" problem can always be transformed into a "square" problem by adding rows or columns with zero or infinite values, respectively.
 
 We also note that by analogy with the search for a **minimum** solution, one can also pose the problem of finding a **maximum** solution. However, these two problems are equivalent to each other: it is enough to multiply all the weights by $-1$.
 
-## Hungarian algorithm
+## হাঙ্গেরিয়ান অ্যালগরিদম
 
-### Historical reference
+### ঐতিহাসিক উল্লেখ
 
-The algorithm was developed and published by Harold **Kuhn** in 1955. Kuhn himself gave it the name "Hungarian" because it was based on the earlier work by Hungarian mathematicians Dénes Kőnig and Jenő Egerváry.<br>
-In 1957, James **Munkres** showed that this algorithm runs in (strictly) polynomial time, independently from the cost.<br>
-Therefore, in literature, this algorithm is known not only as the "Hungarian", but also as the "Kuhn-Mankres algorithm" or "Mankres algorithm".<br>
-However, it was recently discovered in 2006 that the same algorithm was invented **a century before Kuhn** by the German mathematician Carl Gustav **Jacobi**. His work, _About the research of the order of a system of arbitrary ordinary differential equations_, which was published posthumously in 1890, contained, among other findings, a polynomial algorithm for solving the assignment problem. Unfortunately, since the publication was in Latin, it went unnoticed among mathematicians.
+অ্যালগরিদমটি ১৯৫৫ সালে হ্যারল্ড **কুহন** দ্বারা বিকাশিত এবং প্রকাশিত হয়েছিল। কুহন নিজেই এটির নাম "হাঙ্গেরিয়ান" দিয়েছিলেন কারণ এটি হাঙ্গেরীয় গণিতবিদ ডেনেস কোনিগ এবং জেনো এগারভারির পূর্ববর্তী কাজের উপর ভিত্তি করে ছিল।<br>
+১৯৫৭ সালে, জেমস **মুনকরেস** দেখিয়েছিলেন যে এই অ্যালগরিদম খরচের থেকে স্বাধীনভাবে (কঠোরভাবে) পলিনোমিয়াল সময়ে চলে।<br>
+অতএব, সাহিত্যে, এই অ্যালগরিদম শুধুমাত্র "হাঙ্গেরিয়ান" নয়, বরং "কুহন-মুনকরেস অ্যালগরিদম" বা "মুনকরেস অ্যালগরিদম" হিসাবেও পরিচিত।<br>
+তবে, ২০০৬ সালে সম্প্রতি আবিষ্কৃত হয়েছে যে একই অ্যালগরিদম কুহনের **শত বছর আগে** জার্মান গণিতবিদ কার্ল গুস্তাফ **জ্যাকোবি** দ্বারা আবিষ্কৃত হয়েছিল। তার কাজ, _স্বেচ্ছাচারী সাধারণ ডিফারেনশিয়াল সমীকরণের একটি সিস্টেমের ক্রমের গবেষণা সম্পর্কে_, যা ১৮৯০ সালে মরণোত্তর প্রকাশিত হয়েছিল, অন্যান্য অনুসন্ধানের মধ্যে, অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য একটি পলিনোমিয়াল অ্যালগরিদম রয়েছে। দুর্ভাগ্যবশত, প্রকাশনাটি লাতিনে ছিল বলে এটি গণিতবিদদের মধ্যে অলক্ষিত ছিল।
 
-It is also worth noting that Kuhn's original algorithm had an asymptotic complexity of $\mathcal{O}(n^4)$, and only later Jack **Edmonds** and Richard **Karp** (and independently **Tomizawa**) showed how to improve it to an asymptotic complexity of $\mathcal{O}(n^3)$.
+এটি লক্ষ করার যোগ্য যে কুহনের মূল অ্যালগরিদমের $\mathcal{O}(n^4)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটি ছিল, এবং শুধুমাত্র পরে জ্যাক **এডমন্ডস** এবং রিচার্ড **কার্প** (এবং স্বাধীনভাবে **তমিজাওয়া**) দেখিয়েছিলেন কীভাবে এটিকে $\mathcal{O}(n^3)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটিতে উন্নত করতে হয়।
 
 ### The $\mathcal{O}(n^4)$ algorithm
 
@@ -300,7 +300,7 @@ Here are a few examples related to the assignment problem, from very trivial to 
 
 - [James Munkres. Algorithms for Assignment and Transportation Problems [1957]](https://www.jstor.org/stable/2098689)
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [UVA - Crime Wave - The Sequel](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1687)
 

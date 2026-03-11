@@ -1,44 +1,44 @@
 ---
 tags:
-  - Original
+  - Translated
 ---
 
-# Operations on polynomials and series
+# পলিনোমিয়াল এবং সিরিজের উপর অপারেশন
 
-Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.
+প্রতিযোগিতামূলক প্রোগ্রামিং-এ সমস্যা, বিশেষ করে যেগুলি কিছু ধরনের গণনা জড়িত, প্রায়শই সমস্যাটিকে পলিনোমিয়াল এবং ফর্মাল পাওয়ার সিরিজে কিছু গণনা করার জন্য হ্রাস করে সমাধান করা হয়।
 
-This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.
+এতে পলিনোমিয়াল গুণন, ইন্টারপোলেশন এবং আরও জটিল ধারণা রয়েছে, যেমন পলিনোমিয়াল লগারিদম এবং এক্সপোনেন্ট। এই নিবন্ধে, এই ধরনের অপারেশন এবং তাদের সাধারণ পদ্ধতির একটি সংক্ষিপ্ত সারসংক্ষেপ উপস্থাপন করা হয়।
 
-## Basic Notion and facts
+## মৌলিক ধারণা এবং সত্য
 
-In this section, we focus more on the definitions and "intuitive" properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.
+এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা এবং "স্বজ্ঞাত" ধর্মগুলিতে আরও বেশি মনোনিবেশ করি। তাদের ইমপ্লিমেন্টেশন এবং কমপ্লেক্সিটির প্রযুক্তিগত বিশদ পরবর্তী বিভাগগুলিতে কভার করা হবে।
 
-### Polynomial multiplication
+### পলিনোমিয়াল গুণন
 
-!!! info "Definition"
-	**Univariate polynomial** is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
+!!! info "সংজ্ঞা"
+	**একপরিবর্তনশীল পলিনোমিয়াল** হল $A(x) = a_0 + a_1 x + \dots + a_n x^n$ আকারের একটি অভিব্যক্তি।
 
-The values $a_0, \dots, a_n$ are polynomial coefficients, typically taken from some set of numbers or number-like structures. In this article, we assume that the coefficients are taken from some [field](https://en.wikipedia.org/wiki/Field_(mathematics)), meaning that operations of addition, subtraction, multiplication and division are well-defined for them (except for division by $0$) and they generally behave in a similar way to real numbers.
-	
-Typical example of such field is the field of remainders modulo prime number $p$.
+মান $a_0, \dots, a_n$ পলিনোমিয়াল সহগ, সাধারণত সংখ্যা বা সংখ্যার মতো কাঠামোর কিছু সেট থেকে নেওয়া হয়। এই নিবন্ধে, আমরা অনুমান করি যে সহগ কিছু [ক্ষেত্র](https://en.wikipedia.org/wiki/Field_(mathematics)) থেকে নেওয়া হয়, যার অর্থ যোগ, বিয়োগ, গুণন এবং ভাগের অপারেশন তাদের জন্য ভালভাবে সংজ্ঞায়িত (শূন্য দ্বারা ভাগ ব্যতিক্রম) এবং তারা সাধারণত বাস্তব সংখ্যার মতোই আচরণ করে।
 
-For simplicity we will drop the term _univariate_, as this is the only kind of polynomials we consider in this article. We will also write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.
+এই ধরনের ক্ষেত্রের একটি সাধারণ উদাহরণ হল প্রাইম সংখ্যা $p$ মডুলো অবশেষের ক্ষেত্র।
 
-!!! info "Definition"
-	The **product** of two polynomials is defined by expanding it as an arithmetic expression:
+সরলতার জন্য আমরা _একপরিবর্তনশীল_ পদটি বাদ দেব, কারণ এটি এই নিবন্ধে আমরা যে একমাত্র ধরনের পলিনোমিয়াল বিবেচনা করি। আমরা যখনই সম্ভব $A(x)$ এর পরিবর্তে $A$ লিখব, যা প্রসঙ্গ থেকে বোধগম্য হবে। এটি অনুমান করা হয় যে হয় $a_n \neq 0$ বা $A(x)=0$।
+
+!!! info "সংজ্ঞা"
+	দুটি পলিনোমিয়ালের **গুণফল** এটি একটি গাণিতিক অভিব্যক্তি হিসাবে প্রসারিত করে সংজ্ঞায়িত করা হয়:
 
 	$$
 	A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
 	$$
 
-	The sequence $c_0, c_1, \dots, c_{n+m}$ of the coefficients of $C(x)$ is called the **convolution** of $a_0, \dots, a_n$ and $b_0, \dots, b_m$.
+	$C(x)$ এর সহগের ক্রম $c_0, c_1, \dots, c_{n+m}$ কে $a_0, \dots, a_n$ এবং $b_0, \dots, b_m$ এর **কনভোলিউশন** বলা হয়।
 
-!!! info "Definition"
-	The **degree** of a polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$.
-	
-	For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$.
+!!! info "সংজ্ঞা"
+	$a_n \neq 0$ সহ একটি পলিনোমিয়াল $A$ এর **ডিগ্রি** সংজ্ঞায়িত হয় $\deg A = n$ হিসাবে।
 
-In this notion, $\deg AB = \deg A + \deg B$ for any polynomials $A$ and $B$.
+	সামঞ্জস্যের জন্য, $A(x) = 0$ এর ডিগ্রি সংজ্ঞায়িত হয় $\deg A = -\infty$ হিসাবে।
+
+এই ধারণায়, যেকোনো পলিনোমিয়াল $A$ এবং $B$ এর জন্য $\deg AB = \deg A + \deg B$।
 
 Convolutions are the basis of solving many enumerative problems.
 
@@ -139,14 +139,14 @@ Polynomial long division is useful because of its many important properties:
 
 Note that long division can't be properly defined for formal power series. Instead, for any $A(x)$ such that $a_0 \neq 0$, it is possible to define an inverse formal power series $A^{-1}(x)$, such that $A(x) A^{-1}(x) = 1$. This fact, in turn, can be used to compute the result of long division for polynomials.
 
-## Basic implementation
-[Here](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp) you can find the basic implementation of polynomial algebra.
+## মৌলিক ইমপ্লিমেন্টেশন
+[এখানে](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp) আপনি পলিনোমিয়াল বীজগণিতের মৌলিক ইমপ্লিমেন্টেশন খুঁজে পেতে পারেন।
 
-It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
+এটি সমস্ত তুচ্ছ অপারেশন এবং অন্যান্য কিছু দরকারি পদ্ধতি সমর্থন করে। প্রধান ক্লাস হল `poly<T>` টাইপ `T` এর সহগ সহ পলিনোমিয়ালের জন্য।
 
-All arithmetic operation `+`, `-`, `*`, `%` and `/` are supported, `%` and `/` standing for remainder and quotient in Euclidean division.
+সমস্ত গাণিতিক অপারেশন `+`, `-`, `*`, `%` এবং `/` সমর্থিত, `%` এবং `/` ইউক্লিডীয় ভাগে অবশেষ এবং ভাগফল দাঁড়িয়ে আছে।
 
-There is also the class `modular<m>` for performing arithmetic operations on remainders modulo a prime number `m`.
+প্রাইম সংখ্যা `m` মডুলো অবশেষে গাণিতিক অপারেশন সম্পাদনের জন্য `modular<m>` ক্লাসও রয়েছে।
 
 Other useful functions:
 
@@ -166,21 +166,21 @@ Other useful functions:
 - `poly<T> inter(vector<T> x, vector<T> y)`: interpolates a polynomial by a set of pairs $P(x_i) = y_i$ in $O(n \log^2 n)$.
 - And some more, feel free to explore the code!
 
-## Arithmetic
+## গণিত
 
-### Multiplication
+### গুণন
 
-The very core operation is the multiplication of two polynomials. That is, given the polynomials $A$ and $B$:
+খুবই মূল অপারেশন হল দুটি পলিনোমিয়ালের গুণন। অর্থাৎ, পলিনোমিয়াল $A$ এবং $B$ দেওয়া:
 
 $$A = a_0 + a_1 x + \dots + a_n x^n$$
 
 $$B = b_0 + b_1 x + \dots + b_m x^m$$
 
-You have to compute polynomial $C = A \cdot B$, which is defined as
+আপনাকে পলিনোমিয়াল $C = A \cdot B$ গণনা করতে হবে, যা সংজ্ঞায়িত হয়
 
 $$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$
 
-It can be computed in $O(n \log n)$ via the [Fast Fourier transform](fft.md) and almost all methods here will use it as subroutine.
+এটি [দ্রুত ফুরিয়ার ট্রান্সফর্ম](fft.md) এর মাধ্যমে $O(n \log n)$ তে গণনা করা যায় এবং এখানে প্রায় সমস্ত পদ্ধতি এটি একটি সাবরুটিন হিসাবে ব্যবহার করবে।
 
 ### Inverse series
 

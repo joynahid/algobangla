@@ -4,16 +4,16 @@ tags:
 e_maxx_link: kirchhoff_theorem
 ---
 
-# Kirchhoff's theorem. Finding the number of spanning trees
+# কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া
 
-Problem: You are given a connected undirected graph (with possible multiple edges) represented using an adjacency matrix. Find the number of different spanning trees of this graph.
+সমস্যা: আপনাকে একটি সংযুক্ত অনিয়ন্ত্রিত গ্রাফ (সম্ভাব্য একাধিক এজ সহ) দেওয়া হয় যা একটি সংলগ্নতা ম্যাট্রিক্স ব্যবহার করে প্রতিনিধিত্ব করা হয়। এই গ্রাফের বিভিন্ন স্প্যানিং ট্রির সংখ্যা খুঁজে বের করুন।
 
-The following formula was proven by Kirchhoff in 1847.
+১৮৪৭ সালে কির্শহফ দ্বারা নিম্নলিখিত সূত্রটি প্রমাণ করা হয়েছিল।
 
-## Kirchhoff's matrix tree theorem
+## কির্শহফের ম্যাট্রিক্স ট্রি উপপাদ্য
 
-Let $A$ be the adjacency matrix of the graph: $A_{u,v}$ is the number of edges between $u$ and $v$.
-Let $D$ be the degree matrix of the graph: a diagonal matrix with $D_{u,u}$ being the degree of vertex $u$ (including multiple edges and loops - edges which connect vertex $u$ with itself).
+$A$ গ্রাফের সংলগ্নতা ম্যাট্রিক্স হতে দিন: $A_{u,v}$ হল $u$ এবং $v$ এর মধ্যে এজের সংখ্যা।
+$D$ গ্রাফের ডিগ্রি ম্যাট্রিক্স হতে দিন: একটি কর্ণ ম্যাট্রিক্স যেখানে $D_{u,u}$ হল ভার্টেক্স $u$ এর ডিগ্রি (একাধিক এজ এবং লুপ সহ - এজ যা ভার্টেক্স $u$ কে নিজের সাথে সংযুক্ত করে)।
 
 The Laplacian matrix of the graph is defined as $L = D - A$.
 According to Kirchhoff's theorem, all cofactors of this matrix are equal to each other, and they are equal to the number of spanning trees of the graph.
@@ -35,7 +35,7 @@ $T^j$ is the matrix with row and column $j$ removed, $T^{(i,j)}$ is the matrix w
 
 Kirchhoff's theorem gives this formula geometric meaning.
 
-## Practice Problems
+## অনুশীলন সমস্যা
  - [CODECHEF: Roads in Stars](https://www.codechef.com/problems/STARROAD)
  - [SPOJ: Maze](http://www.spoj.com/problems/KPMAZE/)
  - [CODECHEF: Complement Spanning Trees](https://www.codechef.com/problems/CSTREE)

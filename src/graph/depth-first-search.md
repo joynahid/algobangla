@@ -4,87 +4,87 @@ tags:
 e_maxx_link: dfs
 ---
 
-# Depth First Search
+# ডেপথ-ফার্স্ট সার্চ
 
-Depth First Search is one of the main graph algorithms.
+ডেপথ-ফার্স্ট সার্চ হলো প্রধান গ্রাফ অ্যালগরিদমগুলোর মধ্যে একটি।
 
-Depth First Search finds the lexicographical first path in the graph from a source vertex $u$ to each vertex.
-Depth First Search will also find the shortest paths in a tree (because there only exists one simple path), but on general graphs this is not the case.
+ডেপথ-ফার্স্ট সার্চ একটি সোর্স ভার্টেক্স $u$ থেকে প্রতিটি ভার্টেক্সে যাওয়ার লেক্সিকোগ্রাফিক্যালি প্রথম পাথ খুঁজে বের করে।
+ডেপথ-ফার্স্ট সার্চ একটি ট্রিতে শর্টেস্ট পাথও খুঁজে বের করবে (কারণ সেখানে কেবল একটি সিম্পল পাথ থাকে), কিন্তু সাধারণ গ্রাফের ক্ষেত্রে এটি প্রযোজ্য নয়।
 
-The algorithm works in $O(m + n)$ time where $n$ is the number of vertices and $m$ is the number of edges.
+অ্যালগরিদমটি $O(m + n)$ সময়ে কাজ করে, যেখানে $n$ হলো ভার্টেক্সের সংখ্যা এবং $m$ হলো এজের সংখ্যা।
 
-## Description of the algorithm
+## অ্যালগরিদমের বর্ণনা
 
-The idea behind DFS is to go as deep into the graph as possible, and backtrack once you are at a vertex without any unvisited adjacent vertices.
+ডিএফএস-এর মূল ধারণা হলো গ্রাফে যতটা সম্ভব গভীরে যাওয়া, এবং যখন এমন একটি ভার্টেক্সে পৌঁছানো যায় যার কোনো অভিজিটেড অ্যাডজেসেন্ট ভার্টেক্স নেই, তখন ব্যাকট্র্যাক করা।
 
-It is very easy to describe / implement the algorithm recursively:
-We start the search at one vertex.
-After visiting a vertex, we further perform a DFS for each adjacent vertex that we haven't visited before.
-This way we visit all vertices that are reachable from the starting vertex.
+অ্যালগরিদমটি রিকার্সিভভাবে বর্ণনা/ইমপ্লিমেন্ট করা খুবই সহজ:
+আমরা একটি ভার্টেক্স থেকে সার্চ শুরু করি।
+একটি ভার্টেক্স ভিজিট করার পর, আমরা প্রতিটি অ্যাডজেসেন্ট ভার্টেক্সের জন্য ডিএফএস চালাই যেটি আমরা আগে ভিজিট করিনি।
+এভাবে আমরা স্টার্টিং ভার্টেক্স থেকে রিচেবল সব ভার্টেক্স ভিজিট করি।
 
-For more details check out the implementation.
+আরও বিস্তারিত জানতে ইমপ্লিমেন্টেশন দেখুন।
 
-## Applications of Depth First Search
+## ডেপথ-ফার্স্ট সার্চের অ্যাপ্লিকেশন
 
-  * Find any path in the graph from source vertex $u$ to all vertices.
-  
-  * Find lexicographical first path in the graph from source $u$ to all vertices.
-  
-  * Check if a vertex in a tree is an ancestor of some other vertex:
-  
-    At the beginning and end of each search call we remember the entry and exit "time" of each vertex.
-    Now you can find the answer for any pair of vertices $(i, j)$ in $O(1)$:
-    vertex $i$ is an ancestor of vertex $j$ if and only if $\text{entry}[i] < \text{entry}[j]$ and $\text{exit}[i] > \text{exit}[j]$.
-  
-  * Find the lowest common ancestor (LCA) of two vertices.
-  
-  * Topological sorting:
-  
-    Run a series of depth first searches so as to visit each vertex exactly once in $O(n + m)$ time.
-    The required topological ordering will be the vertices sorted in descending order of exit time.
-  
-  
-  * Check whether a given graph is acyclic and find cycles in a graph. (As mentioned below by counting back edges in every connected components).
-  
-  * Find strongly connected components in a directed graph:
-  
-    First do a topological sorting of the graph.
-    Then transpose the graph and run another series of depth first searches in the order defined by the topological sort. For each DFS call the component created by it is a strongly connected component.
-  
-  * Find bridges in an undirected graph:
-  
-    First convert the given graph into a directed graph by running a series of depth first searches and making each edge directed as we go through it, in the direction we went. Second, find the strongly connected components in this directed graph. Bridges are the edges whose ends belong to different strongly connected components.
+  * সোর্স ভার্টেক্স $u$ থেকে সব ভার্টেক্সে গ্রাফে যেকোনো পাথ খুঁজে বের করা।
 
-## Classification of edges of a graph
+  * সোর্স $u$ থেকে সব ভার্টেক্সে গ্রাফে লেক্সিকোগ্রাফিক্যালি প্রথম পাথ খুঁজে বের করা।
 
-We can classify the edges of a graph, $G$, using the entry and exit time of the end nodes $u$ and $v$ of the edges $(u,v)$.
-These classifications are often used for problems like [finding bridges](bridge-searching.md) and [finding articulation points](cutpoints.md).
+  * একটি ট্রিতে কোনো ভার্টেক্স অন্য কোনো ভার্টেক্সের অ্যানসেস্টর কিনা পরীক্ষা করা:
 
-We perform a DFS and classify the encountered edges using the following rules:
+    প্রতিটি সার্চ কলের শুরুতে ও শেষে আমরা প্রতিটি ভার্টেক্সের এন্ট্রি ও এক্সিট "টাইম" মনে রাখি।
+    এখন যেকোনো ভার্টেক্স জোড়া $(i, j)$-এর জন্য $O(1)$-এ উত্তর বের করা যায়:
+    ভার্টেক্স $i$, ভার্টেক্স $j$-এর অ্যানসেস্টর হবে যদি এবং কেবল যদি $\text{entry}[i] < \text{entry}[j]$ এবং $\text{exit}[i] > \text{exit}[j]$ হয়।
 
-If $v$ is not visited:
+  * দুটি ভার্টেক্সের লোয়েস্ট কমন অ্যানসেস্টর (LCA) খুঁজে বের করা।
 
-* Tree Edge - If $v$ is visited after $u$ then edge $(u,v)$ is called a tree edge. In other words, if $v$ is visited for the first time and $u$ is currently being visited then $(u,v)$ is called tree edge.
-These edges form a DFS tree and hence the name tree edges.
+  * টপোলজিক্যাল সর্টিং:
 
-If $v$ is visited before $u$:
+    একাধিক ডেপথ-ফার্স্ট সার্চ চালিয়ে প্রতিটি ভার্টেক্স ঠিক একবার ভিজিট করা হয় $O(n + m)$ সময়ে।
+    এক্সিট টাইমের উতরতি ক্রমে ভার্টেক্সগুলো সাজালেই প্রয়োজনীয় টপোলজিক্যাল অর্ডারিং পাওয়া যায়।
 
-* Back edges - If $v$ is an ancestor of $u$, then the edge $(u,v)$ is a back edge. $v$ is an ancestor exactly if we already entered $v$, but not exited it yet. Back edges complete a cycle as there is a path from ancestor $v$ to descendant $u$ (in the recursion of DFS) and an edge from descendant $u$ to ancestor $v$ (back edge), thus a cycle is formed. Cycles can be detected using back edges.
 
-* Forward Edges - If $v$ is a descendant of $u$, then edge $(u, v)$ is a forward edge. In other words, if we already visited and exited $v$ and $\text{entry}[u] < \text{entry}[v]$ then the edge $(u,v)$ forms a forward edge.
-* Cross Edges: if $v$ is neither an ancestor or descendant of $u$, then edge $(u, v)$ is a cross edge. In other words, if we already visited and exited $v$ and $\text{entry}[u] > \text{entry}[v]$ then $(u,v)$ is a cross edge.
+  * প্রদত্ত গ্রাফটি অ্যাসাইক্লিক কিনা পরীক্ষা করা এবং গ্রাফে সাইকেল খুঁজে বের করা। (নিচে উল্লেখ করা হয়েছে, প্রতিটি কানেক্টেড কম্পোনেন্টে ব্যাক এজ গণনা করে)।
 
-**Theorem**. Let $G$ be an undirected graph. Then, performing a DFS upon $G$ will classify every encountered edge as either a tree edge or back edge, i.e., forward and cross edges only exist in directed graphs.
+  * একটি ডিরেক্টেড গ্রাফে স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করা:
 
-Suppose $(u,v)$ is an arbitrary edge of $G$ and without loss of generality, $u$ is visited before $v$, i.e., $\text{entry}[u] < \text{entry}[v]$. Because the DFS only processes edges once, there are only two ways in which we can process the edge $(u,v)$ and thus classify it: 
+    প্রথমে গ্রাফের টপোলজিক্যাল সর্টিং করতে হবে।
+    তারপর গ্রাফটি ট্রান্সপোজ করে টপোলজিক্যাল সর্ট দ্বারা নির্ধারিত ক্রমে আরেকটি ডেপথ-ফার্স্ট সার্চ সিরিজ চালাতে হবে। প্রতিটি ডিএফএস কলে তৈরি কম্পোনেন্টটি একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট।
 
-* The first time we explore the edge $(u,v)$ is in the direction from $u$ to $v$. Because $\text{entry}[u] < \text{entry}[v]$, the recursive nature of the DFS means that node $v$ will be fully explored and thus exited before we can "move back up the call stack" to exit node $u$. Thus, node $v$ must be unvisited when the DFS first explores the edge $(u,v)$ from $u$ to $v$ because otherwise the search would have explored $(u,v)$ from $v$ to $u$ before exiting node $v$, as nodes $u$ and $v$ are neighbors. Therefore, edge $(u,v)$ is a tree edge.
+  * একটি আনডিরেক্টেড গ্রাফে ব্রিজ খুঁজে বের করা:
 
-* The first time we explore the edge $(u,v)$ is in the direction from $v$ to $u$. Because we discovered node $u$ before discovering node $v$, and we only process edges once, the only way that we could explore the edge $(u,v)$ in the direction from $v$ to $u$ is if there's another path from $u$ to $v$ that does not involve the edge $(u,v)$, thus making $u$ an ancestor of $v$. The edge $(u,v)$ thus completes a cycle as it is going from the descendant, $v$, to the ancestor, $u$, which we have not exited yet. Therefore, edge $(u,v)$ is a back edge.
+    প্রথমে একাধিক ডেপথ-ফার্স্ট সার্চ চালিয়ে প্রদত্ত গ্রাফটিকে একটি ডিরেক্টেড গ্রাফে রূপান্তর করতে হবে, প্রতিটি এজকে আমরা যে দিকে ট্রাভার্স করি সেই দিকে ডিরেক্ট করে। দ্বিতীয়ত, এই ডিরেক্টেড গ্রাফে স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজতে হবে। ব্রিজ হলো সেই এজগুলো যাদের দুই প্রান্ত ভিন্ন স্ট্রংলি কানেক্টেড কম্পোনেন্টে অবস্থিত।
 
-Since there are only two ways to process the edge $(u,v)$, with the two cases and their resulting classifications outlined above, performing a DFS upon $G$ will therefore classify every encountered edge as either a tree edge or back edge, i.e., forward and cross edges only exist in directed graphs. This completes the proof.
+## গ্রাফের এজের শ্রেণিবিভাগ
 
-## Implementation
+আমরা একটি গ্রাফ $G$-এর এজগুলোকে শ্রেণিবিভাগ করতে পারি, এজ $(u,v)$-এর প্রান্তবিন্দু $u$ ও $v$-এর এন্ট্রি ও এক্সিট টাইম ব্যবহার করে।
+এই শ্রেণিবিভাগগুলো প্রায়ই [ব্রিজ খোঁজা](bridge-searching.md) এবং [আর্টিকুলেশন পয়েন্ট খোঁজা](cutpoints.md)-র মতো সমস্যায় ব্যবহৃত হয়।
+
+আমরা একটি ডিএফএস চালাই এবং নিম্নলিখিত নিয়ম ব্যবহার করে প্রাপ্ত এজগুলোকে শ্রেণিবিভাগ করি:
+
+যদি $v$ ভিজিটেড না হয়:
+
+* ট্রি এজ - যদি $u$-এর পরে $v$ ভিজিট হয়, তাহলে এজ $(u,v)$-কে ট্রি এজ বলা হয়। অন্যভাবে বলতে গেলে, যদি $v$ প্রথমবার ভিজিট হচ্ছে এবং $u$ বর্তমানে ভিজিট হচ্ছে, তাহলে $(u,v)$-কে ট্রি এজ বলা হয়।
+এই এজগুলো একটি ডিএফএস ট্রি গঠন করে, তাই এদের নাম ট্রি এজ।
+
+যদি $v$, $u$-এর আগে ভিজিটেড হয়:
+
+* ব্যাক এজ - যদি $v$, $u$-এর একটি অ্যানসেস্টর হয়, তাহলে এজ $(u,v)$ একটি ব্যাক এজ। $v$ তখনই অ্যানসেস্টর যখন আমরা ইতিমধ্যে $v$-এ এন্টার করেছি, কিন্তু এখনও এক্সিট করিনি। ব্যাক এজ একটি সাইকেল সম্পূর্ণ করে কারণ অ্যানসেস্টর $v$ থেকে ডিসেন্ড্যান্ট $u$ পর্যন্ত একটি পাথ আছে (ডিএফএস-এর রিকার্সনে) এবং ডিসেন্ড্যান্ট $u$ থেকে অ্যানসেস্টর $v$-তে একটি এজ আছে (ব্যাক এজ), ফলে একটি সাইকেল তৈরি হয়। ব্যাক এজ ব্যবহার করে সাইকেল ডিটেক্ট করা যায়।
+
+* ফরওয়ার্ড এজ - যদি $v$, $u$-এর একটি ডিসেন্ড্যান্ট হয়, তাহলে এজ $(u, v)$ একটি ফরওয়ার্ড এজ। অন্যভাবে বলতে গেলে, যদি আমরা ইতিমধ্যে $v$ ভিজিট করে এক্সিট করেছি এবং $\text{entry}[u] < \text{entry}[v]$ হয়, তাহলে এজ $(u,v)$ একটি ফরওয়ার্ড এজ।
+* ক্রস এজ: যদি $v$, $u$-এর অ্যানসেস্টর বা ডিসেন্ড্যান্ট কোনোটিই না হয়, তাহলে এজ $(u, v)$ একটি ক্রস এজ। অন্যভাবে বলতে গেলে, যদি আমরা ইতিমধ্যে $v$ ভিজিট করে এক্সিট করেছি এবং $\text{entry}[u] > \text{entry}[v]$ হয়, তাহলে $(u,v)$ একটি ক্রস এজ।
+
+**উপপাদ্য।** ধরি $G$ একটি আনডিরেক্টেড গ্রাফ। তাহলে, $G$-এর উপর ডিএফএস চালালে প্রতিটি প্রাপ্ত এজকে ট্রি এজ বা ব্যাক এজ হিসেবে শ্রেণিবিভাগ করা হবে, অর্থাৎ ফরওয়ার্ড এজ ও ক্রস এজ শুধুমাত্র ডিরেক্টেড গ্রাফে বিদ্যমান।
+
+ধরি $(u,v)$ হলো $G$-এর একটি যেকোনো এজ এবং সাধারণতা না হারিয়ে, $u$, $v$-এর আগে ভিজিটেড, অর্থাৎ $\text{entry}[u] < \text{entry}[v]$। যেহেতু ডিএফএস প্রতিটি এজ কেবল একবার প্রসেস করে, এজ $(u,v)$ প্রসেস ও শ্রেণিবিভাগ করার মাত্র দুটি উপায় আছে:
+
+* প্রথমবার আমরা এজ $(u,v)$ এক্সপ্লোর করি $u$ থেকে $v$ দিকে। যেহেতু $\text{entry}[u] < \text{entry}[v]$, ডিএফএস-এর রিকার্সিভ প্রকৃতির কারণে নোড $v$ সম্পূর্ণ এক্সপ্লোর হয়ে এক্সিট হবে আমরা "কল স্ট্যাকে ওপরে উঠে" নোড $u$ এক্সিট করার আগে। সুতরাং, ডিএফএস যখন প্রথমবার $u$ থেকে $v$ দিকে এজ $(u,v)$ এক্সপ্লোর করে তখন নোড $v$ অবশ্যই অভিজিটেড থাকবে, কারণ অন্যথায় সার্চটি নোড $v$ এক্সিট করার আগে $v$ থেকে $u$ দিকে $(u,v)$ এক্সপ্লোর করত, যেহেতু নোড $u$ ও $v$ নেইবার। অতএব, এজ $(u,v)$ একটি ট্রি এজ।
+
+* প্রথমবার আমরা এজ $(u,v)$ এক্সপ্লোর করি $v$ থেকে $u$ দিকে। যেহেতু আমরা নোড $v$-এর আগে নোড $u$ আবিষ্কার করেছি, এবং আমরা প্রতিটি এজ কেবল একবার প্রসেস করি, $v$ থেকে $u$ দিকে এজ $(u,v)$ এক্সপ্লোর করার একমাত্র উপায় হলো $u$ থেকে $v$-তে অন্য একটি পাথ থাকা যেটি এজ $(u,v)$ অন্তর্ভুক্ত করে না, ফলে $u$ হয় $v$-এর অ্যানসেস্টর। এজ $(u,v)$ তাই একটি সাইকেল সম্পূর্ণ করে কারণ এটি ডিসেন্ড্যান্ট $v$ থেকে অ্যানসেস্টর $u$-তে যাচ্ছে, যেটি আমরা এখনও এক্সিট করিনি। অতএব, এজ $(u,v)$ একটি ব্যাক এজ।
+
+যেহেতু এজ $(u,v)$ প্রসেস করার মাত্র দুটি উপায় আছে, উপরে বর্ণিত দুটি ক্ষেত্র ও তাদের শ্রেণিবিভাগ অনুসারে, $G$-এর উপর ডিএফএস চালালে প্রতিটি প্রাপ্ত এজকে ট্রি এজ বা ব্যাক এজ হিসেবে শ্রেণিবিভাগ করা হবে, অর্থাৎ ফরওয়ার্ড এজ ও ক্রস এজ শুধুমাত্র ডিরেক্টেড গ্রাফে বিদ্যমান। এতে প্রমাণ সম্পূর্ণ হলো।
+
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 vector<vector<int>> adj; // graph represented as an adjacency list
@@ -100,11 +100,11 @@ void dfs(int v) {
     }
 }
 ```
-This is the most simple implementation of Depth First Search.
-As described in the applications it might be useful to also compute the entry and exit times and vertex color.
-We will color all vertices with the color 0, if we haven't visited them, with the color 1 if we visited them, and with the color 2, if we already exited the vertex.
+এটি ডেপথ-ফার্স্ট সার্চের সবচেয়ে সরল ইমপ্লিমেন্টেশন।
+অ্যাপ্লিকেশন অংশে বর্ণিত হিসাবে, এন্ট্রি ও এক্সিট টাইম এবং ভার্টেক্স কালার কম্পিউট করাও কাজে আসতে পারে।
+আমরা সব ভার্টেক্সকে কালার ০ দিয়ে চিহ্নিত করব যদি আমরা সেগুলো ভিজিট না করে থাকি, কালার ১ দিয়ে যদি আমরা সেগুলো ভিজিট করে থাকি, এবং কালার ২ দিয়ে যদি আমরা ইতিমধ্যে ভার্টেক্সটি থেকে এক্সিট করে থাকি।
 
-Here is a generic implementation that additionally computes those:
+এখানে একটি জেনেরিক ইমপ্লিমেন্টেশন দেওয়া হলো যা অতিরিক্তভাবে এগুলো কম্পিউট করে:
 
 ```cpp
 vector<vector<int>> adj; // graph represented as an adjacency list
@@ -126,7 +126,7 @@ void dfs(int v) {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [SPOJ: ABCPATH](http://www.spoj.com/problems/ABCPATH/)
 * [SPOJ: EAGLE1](http://www.spoj.com/problems/EAGLE1/)

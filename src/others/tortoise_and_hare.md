@@ -3,41 +3,41 @@ tags:
   - Original
 ---
 
-# Floyd's Linked List Cycle Finding Algorithm
+# ফ্লয়েডের লিংকড লিস্ট সাইকেল ফাইন্ডিং অ্যালগরিদম
 
-Given a linked list where the starting point of that linked list is denoted by **head**, and there may or may not be a cycle present. For instance:
+একটি লিংকড লিস্ট দেওয়া আছে যেখানে সেই লিংকড লিস্টের শুরুর বিন্দু **head** দ্বারা চিহ্নিত, এবং সেখানে সাইকেল থাকতেও পারে, নাও থাকতে পারে। উদাহরণস্বরূপ:
 
 <div style="text-align: center;">
   <img src="tortoise_hare_algo.png" alt=""Linked list with cycle"">
 </div>
 
-Here we need to find out the point **C**, i.e the starting point of the cycle.
+এখানে আমাদের **C** বিন্দুটি খুঁজে বের করতে হবে, অর্থাৎ সাইকেলের শুরুর বিন্দু।
 
-## Proposed algorithm
-The algorithm is called **Floyd’s Cycle Algorithm or Tortoise And Hare algorithm**.
-In order to figure out the starting point of the cycle, we need to figure out if a cycle even exists.
-This involves two steps:
-1. Figure out the presence of the cycle.
-2. Find out the starting point of the cycle.
+## প্রস্তাবিত অ্যালগরিদম
+এই অ্যালগরিদমটিকে **ফ্লয়েডের সাইকেল অ্যালগরিদম বা টর্টয়েজ অ্যান্ড হেয়ার অ্যালগরিদম** বলা হয়।
+সাইকেলের শুরুর বিন্দু খুঁজে বের করতে, আমাদের প্রথমে জানতে হবে সাইকেল আদৌ বিদ্যমান কি না।
+এতে দুটি ধাপ জড়িত:
+১. সাইকেলের উপস্থিতি নির্ণয় করা।
+২. সাইকেলের শুরুর বিন্দু খুঁজে বের করা।
 
-### Step 1: Presence of the cycle
-1. Take two pointers $slow$ and $fast$.
-2. Both of them will point to head of the linked list initially.
-3. $slow$ will move one step at a time.
-4. $fast$ will move two steps at a time. (twice as speed as $slow$ pointer).
-5. Check if at any point they point to the same node before any one(or both) reach null.
-6. If they point to the same node at any point of their journey, it indicates that a cycle indeed exists in the linked list.
-7. If we get null, it indicates that the linked list has no cycle.
+### ধাপ ১: সাইকেলের উপস্থিতি
+১. দুটি পয়েন্টার $slow$ এবং $fast$ নিন।
+২. উভয়ই প্রাথমিকভাবে লিংকড লিস্টের head-এ পয়েন্ট করবে।
+৩. $slow$ একবারে একটি ধাপ এগোবে।
+৪. $fast$ একবারে দুটি ধাপ এগোবে ($slow$ পয়েন্টারের দ্বিগুণ গতিতে)।
+৫. কোনো একটি (বা উভয়) null-এ পৌঁছানোর আগে কোনো সময়ে তারা একই নোডে পয়েন্ট করে কি না তা পরীক্ষা করুন।
+৬. যদি তাদের যাত্রার কোনো সময়ে তারা একই নোডে পয়েন্ট করে, তাহলে এটি নির্দেশ করে যে লিংকড লিস্টে প্রকৃতপক্ষে একটি সাইকেল বিদ্যমান।
+৭. যদি আমরা null পাই, তাহলে এটি নির্দেশ করে যে লিংকড লিস্টে কোনো সাইকেল নেই।
 
 <div style="text-align: center;">
   <img src="tortoise_hare_cycle_found.png" alt=""Found cycle"">
 </div>
 
-Now, that we have figured out if there is a cycle present in the linked list, for the next step we need to find out the starting point of cycle, i.e., **C**.
-### Step 2: Starting point of the cycle
-1. Reset the $slow$ pointer to the **head** of the linked list.
-2. Move both pointers one step at a time.
-3. The point they will meet at will be the starting point of the cycle.
+এখন, আমরা নির্ণয় করেছি যে লিংকড লিস্টে সাইকেল আছে কি না, পরবর্তী ধাপে আমাদের সাইকেলের শুরুর বিন্দু, অর্থাৎ **C** খুঁজে বের করতে হবে।
+### ধাপ ২: সাইকেলের শুরুর বিন্দু
+১. $slow$ পয়েন্টারকে লিংকড লিস্টের **head**-এ রিসেট করুন।
+২. উভয় পয়েন্টারকে একবারে একটি ধাপ করে এগোন।
+৩. যে বিন্দুতে তারা মিলিত হবে সেটিই হবে সাইকেলের শুরুর বিন্দু।
 
 ```java
 // Presence of cycle
@@ -68,22 +68,22 @@ while(slow!=fast){
 return slow; // the starting point of the cycle.
 ```
 
-## Why does it work
+## এটি কেন কাজ করে
 
-### Step 1: Presence of the cycle
-Since the pointer $fast$ is moving with twice as speed as $slow$, we can say that at any point of time, $fast$ would have covered twice as much distance as $slow$.
-We can also deduce that the difference between the distance covered by both of these pointers is increasing by $1$. 
+### ধাপ ১: সাইকেলের উপস্থিতি
+যেহেতু পয়েন্টার $fast$, $slow$-এর দ্বিগুণ গতিতে চলছে, আমরা বলতে পারি যে যেকোনো সময়ে, $fast$ $slow$-এর দ্বিগুণ দূরত্ব অতিক্রম করেছে।
+আমরা আরও বলতে পারি যে এই দুটি পয়েন্টারের অতিক্রান্ত দূরত্বের পার্থক্য ১ করে বাড়ছে।
 ```
 slow: 0 --> 1 --> 2 --> 3 --> 4 (distance covered)
 fast: 0 --> 2 --> 4 --> 6 --> 8 (distance covered)
 diff: 0 --> 1 --> 2 --> 3 --> 4 (difference between distance covered by both pointers)
 ```
-Let $L$ denote the length of the cycle, and $a$ represent the number of steps required for the slow pointer to reach the entry of cycle. There exists a positive integer $k$ ($k > 0$) such that $k \cdot L \geq a$.
-When the slow pointer has moved $k \cdot L$ steps, and the fast pointer has covered $2 \cdot k \cdot L$ steps, both pointers find themselves within the cycle. At this point, there is a separation of $k \cdot L$ between them. Given that the cycle's length remains $L$, this signifies that they meet at the same point within the cycle, resulting in their encounter.
+ধরি $L$ সাইকেলের দৈর্ঘ্য চিহ্নিত করে, এবং $a$ slow পয়েন্টারের সাইকেলের প্রবেশবিন্দুতে পৌঁছাতে প্রয়োজনীয় ধাপের সংখ্যা উপস্থাপন করে। এমন একটি ধনাত্মক পূর্ণসংখ্যা $k$ ($k > 0$) বিদ্যমান যেন $k \cdot L \geq a$।
+যখন slow পয়েন্টার $k \cdot L$ ধাপ চলেছে, এবং fast পয়েন্টার $2 \cdot k \cdot L$ ধাপ অতিক্রম করেছে, উভয় পয়েন্টারই সাইকেলের মধ্যে থাকে। এই সময়ে, তাদের মধ্যে $k \cdot L$ দূরত্ব আছে। যেহেতু সাইকেলের দৈর্ঘ্য $L$ থাকে, এটি নির্দেশ করে যে তারা সাইকেলের মধ্যে একই বিন্দুতে মিলিত হয়, ফলে তাদের সাক্ষাৎ ঘটে।
 
-### Step 2: Starting point of the cycle
+### ধাপ ২: সাইকেলের শুরুর বিন্দু
 
-Lets try to calculate the distance covered by both of the pointers till they point they met within the cycle.
+সাইকেলের মধ্যে মিলিত হওয়ার বিন্দু পর্যন্ত উভয় পয়েন্টারের অতিক্রান্ত দূরত্ব হিসাব করার চেষ্টা করি।
 
 <div style="text-align: center;">
   <img src="tortoise_hare_proof.png" alt=""Proof"">
@@ -93,30 +93,29 @@ $slowDist = a + xL + b$            , $x\ge0$
 
 $fastDist = a + yL + b$            , $y\ge0$
 
-- $slowDist$ is the total distance covered by slow pointer.
-- $fastDist$ is the total distance covered by fast pointer.
-- $a$ is the number of steps both pointers need to take to enter the cycle.
-- $b$ is the distance between **C** and **G**, i.e., distance between the starting point of cycle and meeting point of both pointers.
-- $x$ is the number of times the slow pointer has looped inside the cycle, starting from and ending at **C**.
-- $y$ is the number of times the fast pointer has looped inside the cycle, starting from and ending at **C**.
+- $slowDist$ হলো slow পয়েন্টারের মোট অতিক্রান্ত দূরত্ব।
+- $fastDist$ হলো fast পয়েন্টারের মোট অতিক্রান্ত দূরত্ব।
+- $a$ হলো উভয় পয়েন্টারের সাইকেলে প্রবেশ করতে প্রয়োজনীয় ধাপের সংখ্যা।
+- $b$ হলো **C** এবং **G**-এর মধ্যবর্তী দূরত্ব, অর্থাৎ সাইকেলের শুরুর বিন্দু এবং উভয় পয়েন্টারের মিলন বিন্দুর মধ্যবর্তী দূরত্ব।
+- $x$ হলো slow পয়েন্টার সাইকেলের মধ্যে কতবার লুপ করেছে তার সংখ্যা, **C** থেকে শুরু করে **C**-তে শেষ করে।
+- $y$ হলো fast পয়েন্টার সাইকেলের মধ্যে কতবার লুপ করেছে তার সংখ্যা, **C** থেকে শুরু করে **C**-তে শেষ করে।
 
 $fastDist = 2 \cdot (slowDist)$
 
 $a + yL + b = 2(a + xL + b)$
 
-Resolving the formula we get:
+সূত্রটি সমাধান করলে পাই:
 
 $a=(y-2x)L-b$
 
-where $y-2x$ is an integer
+যেখানে $y-2x$ একটি পূর্ণসংখ্যা
 
-This basically means that $a$ steps is same as doing some number of full loops in cycle and go $b$ steps backwards.
-Since the fast pointer already is $b$ steps ahead of the entry of cycle, if fast pointer moves another $a$ steps it will end up at the entry of the cycle.
-And since we let the slow pointer start at the start of the linked list, after $a$ steps it will also end up at the cycle entry. So, if they both move $a$ step they both will meet the entry of cycle.
+এর মানে মূলত এই যে $a$ ধাপ চলা হলো সাইকেলে কিছু সংখ্যক পূর্ণ লুপ করা এবং $b$ ধাপ পেছনে যাওয়ার সমান।
+যেহেতু fast পয়েন্টার ইতোমধ্যেই সাইকেলের প্রবেশবিন্দু থেকে $b$ ধাপ এগিয়ে আছে, fast পয়েন্টার আরও $a$ ধাপ চললে সে সাইকেলের প্রবেশবিন্দুতে পৌঁছাবে।
+এবং যেহেতু আমরা slow পয়েন্টারকে লিংকড লিস্টের শুরুতে রাখি, $a$ ধাপ পর এটিও সাইকেলের প্রবেশবিন্দুতে পৌঁছাবে। সুতরাং, যদি তারা উভয়ই $a$ ধাপ চলে তাহলে তারা উভয়ই সাইকেলের প্রবেশবিন্দুতে মিলিত হবে।
 
-# Problems:
+# সমস্যাসমূহ:
 - [Linked List Cycle (EASY)](https://leetcode.com/problems/linked-list-cycle/)
 - [Happy Number (Easy)](https://leetcode.com/problems/happy-number/)
 - [Find the Duplicate Number (Medium)](https://leetcode.com/problems/find-the-duplicate-number/)
 - [Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
-

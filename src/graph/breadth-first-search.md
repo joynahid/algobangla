@@ -4,35 +4,30 @@ tags:
 e_maxx_link: bfs
 ---
 
-# Breadth-first search
+# ব্রেডথ-ফার্স্ট সার্চ
 
-Breadth first search is one of the basic and essential searching algorithms on graphs.
+ব্রেডথ-ফার্স্ট সার্চ হলো গ্রাফে সার্চ করার মৌলিক এবং অপরিহার্য অ্যালগরিদমগুলোর মধ্যে একটি।
 
-As a result of how the algorithm works, the path found by breadth first search to any node is the shortest path to that node, i.e the path that contains the smallest number of edges in unweighted graphs.
+এই অ্যালগরিদম যেভাবে কাজ করে, তার ফলস্বরূপ ব্রেডথ-ফার্স্ট সার্চের মাধ্যমে যেকোনো নোডে পাওয়া পাথটি সেই নোডের শর্টেস্ট পাথ হয়, অর্থাৎ আনওয়েটেড গ্রাফে সবচেয়ে কম সংখ্যক এজ বিশিষ্ট পাথ।
 
-The algorithm works in $O(n + m)$ time, where $n$ is number of vertices and $m$ is the number of edges.
+অ্যালগরিদমটি $O(n + m)$ সময়ে কাজ করে, যেখানে $n$ হলো ভার্টেক্সের সংখ্যা এবং $m$ হলো এজের সংখ্যা।
 
-## Description of the algorithm
+## অ্যালগরিদমের বর্ণনা
 
-The algorithm takes as input an unweighted graph and the id of the source vertex $s$. The input graph can be directed or undirected,
-it does not matter to the algorithm.
+অ্যালগরিদমটি ইনপুট হিসেবে একটি আনওয়েটেড গ্রাফ এবং সোর্স ভার্টেক্স $s$-এর আইডি নেয়। ইনপুট গ্রাফটি ডিরেক্টেড বা আনডিরেক্টেড হতে পারে, অ্যালগরিদমের জন্য এটি কোনো বিষয় নয়।
 
-The algorithm can be understood as a fire spreading on the graph: at the zeroth step only the source $s$ is on fire. At each step, the fire burning at each vertex spreads to all of its neighbors. In one iteration of the algorithm, the "ring of
-fire" is expanded in width by one unit (hence the name of the algorithm).
+অ্যালগরিদমটি গ্রাফে আগুন ছড়িয়ে পড়ার মতো করে বোঝা যায়: শূন্যতম ধাপে শুধুমাত্র সোর্স $s$-এ আগুন জ্বলছে। প্রতিটি ধাপে, প্রতিটি ভার্টেক্সে জ্বলতে থাকা আগুন তার সমস্ত প্রতিবেশীতে ছড়িয়ে পড়ে। অ্যালগরিদমের একটি ইটারেশনে, "আগুনের বলয়" প্রস্থে এক একক প্রসারিত হয় (এ কারণেই অ্যালগরিদমের এই নাম)।
 
-More precisely, the algorithm can be stated as follows: Create a queue $q$ which will contain the vertices to be processed and a
-Boolean array $used[]$ which indicates for each vertex, if it has been lit (or visited) or not.
+আরও সুনির্দিষ্টভাবে, অ্যালগরিদমটি নিম্নরূপ বর্ণনা করা যায়: একটি কিউ $q$ তৈরি করুন যেটিতে প্রসেস করার জন্য ভার্টেক্সগুলো থাকবে এবং একটি বুলিয়ান অ্যারে $used[]$ তৈরি করুন যা প্রতিটি ভার্টেক্সের জন্য নির্দেশ করে যে এটি আলোকিত (বা ভিজিটেড) হয়েছে কি না।
 
-Initially, push the source $s$ to the queue and set $used[s] = true$, and for all other vertices $v$ set $used[v] = false$.
-Then, loop until the queue is empty and in each iteration, pop a vertex from the front of the queue. Iterate through all the edges going out
-of this vertex and if some of these edges go to vertices that are not already lit, set them on fire and place them in the queue.
+প্রথমে, সোর্স $s$-কে কিউতে পুশ করুন এবং $used[s] = true$ সেট করুন, এবং অন্য সমস্ত ভার্টেক্স $v$-এর জন্য $used[v] = false$ সেট করুন। তারপর, কিউ খালি না হওয়া পর্যন্ত লুপ চালান এবং প্রতিটি ইটারেশনে কিউয়ের সামনে থেকে একটি ভার্টেক্স পপ করুন। এই ভার্টেক্স থেকে বের হওয়া সমস্ত এজ ইটারেট করুন এবং যদি এই এজগুলোর কোনোটি এমন ভার্টেক্সে যায় যেগুলো ইতিমধ্যে আলোকিত হয়নি, তাহলে সেগুলোতে আগুন ধরিয়ে দিন এবং কিউতে রাখুন।
 
-As a result, when the queue is empty, the "ring of fire" contains all vertices reachable from the source $s$, with each vertex reached in the shortest possible way.
-You can also calculate the lengths of the shortest paths (which just requires maintaining an array of path lengths $d[]$) as well as save information to restore all of these shortest paths (for this, it is necessary to maintain an array of "parents" $p[]$, which stores for each vertex the vertex from which we reached it).
+ফলস্বরূপ, কিউ খালি হয়ে গেলে, "আগুনের বলয়" সোর্স $s$ থেকে পৌঁছানো যায় এমন সমস্ত ভার্টেক্স ধারণ করে, এবং প্রতিটি ভার্টেক্সে সম্ভাব্য সবচেয়ে সংক্ষিপ্ত পথে পৌঁছানো হয়েছে।
+আপনি শর্টেস্ট পাথের দৈর্ঘ্যও হিসাব করতে পারেন (এর জন্য শুধু পাথের দৈর্ঘ্যের একটি অ্যারে $d[]$ বজায় রাখা প্রয়োজন) এবং সেই সাথে এই সমস্ত শর্টেস্ট পাথ পুনরুদ্ধারের জন্য তথ্য সংরক্ষণ করতে পারেন (এর জন্য "প্যারেন্ট"-এর একটি অ্যারে $p[]$ বজায় রাখা প্রয়োজন, যা প্রতিটি ভার্টেক্সের জন্য সেই ভার্টেক্সটি সংরক্ষণ করে যেটি থেকে আমরা এখানে পৌঁছেছি)।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-We write code for the described algorithm in C++ and Java.
+আমরা বর্ণিত অ্যালগরিদমের কোড C++ এবং Java-তে লিখছি।
 
 === "C++"
     ```cpp
@@ -63,7 +58,7 @@ We write code for the described algorithm in C++ and Java.
 === "Java"
     ```java
     ArrayList<ArrayList<Integer>> adj = new ArrayList<>(); // adjacency list representation
-        
+
     int n; // number of nodes
     int s; // source vertex
 
@@ -88,9 +83,9 @@ We write code for the described algorithm in C++ and Java.
         }
     }
     ```
-    
-If we have to restore and display the shortest path from the source to some vertex $u$, it can be done in the following manner:
-    
+
+যদি আমাদের সোর্স থেকে কোনো ভার্টেক্স $u$-তে শর্টেস্ট পাথ পুনরুদ্ধার ও প্রদর্শন করতে হয়, তাহলে নিম্নলিখিত উপায়ে তা করা যেতে পারে:
+
 === "C++"
     ```cpp
     if (!used[u]) {
@@ -118,46 +113,46 @@ If we have to restore and display the shortest path from the source to some vert
             System.out.println(v);
     }
     ```
-    
-## Applications of BFS
 
-* Find the shortest path from a source to other vertices in an unweighted graph.
+## BFS-এর অ্যাপ্লিকেশন
 
-* Find all connected components in an undirected graph in $O(n + m)$ time:
-To do this, we just run BFS starting from each vertex, except for vertices which have already been visited from previous runs.
-Thus, we perform normal BFS from each of the vertices, but do not reset the array $used[]$ each and every time we get a new connected component, and the total running time will still be $O(n + m)$ (performing multiple BFS on the graph without zeroing the array $used []$ is called a series of breadth first searches).
+* আনওয়েটেড গ্রাফে একটি সোর্স থেকে অন্যান্য ভার্টেক্সে শর্টেস্ট পাথ বের করা।
 
-* Finding a solution to a problem or a game with the least number of moves, if each state of the game can be represented by a vertex of the graph, and the transitions from one state to the other are the edges of the graph.
+* $O(n + m)$ সময়ে একটি আনডিরেক্টেড গ্রাফের সমস্ত কানেক্টেড কম্পোনেন্ট বের করা:
+এর জন্য, আমরা প্রতিটি ভার্টেক্স থেকে BFS চালাই, তবে পূর্ববর্তী রানে ইতিমধ্যে ভিজিটেড হয়ে যাওয়া ভার্টেক্সগুলো বাদ দিই।
+এভাবে, আমরা প্রতিটি ভার্টেক্স থেকে স্বাভাবিক BFS চালাই, কিন্তু প্রতিবার নতুন কানেক্টেড কম্পোনেন্ট পেলে $used[]$ অ্যারে রিসেট করি না, এবং মোট রানিং টাইম তখনও $O(n + m)$ থাকে ($used []$ অ্যারে শূন্য না করে গ্রাফে একাধিক BFS চালানোকে ব্রেডথ-ফার্স্ট সার্চের সিরিজ বলা হয়)।
 
-* Finding the shortest path in a graph with weights 0 or 1:
-This requires just a little modification to normal breadth-first search: Instead of maintaining array $used[]$, we will now check if the distance to vertex is shorter than current found distance, then if the current edge is of zero weight, we add it to the front of the queue else we add it to the back of the queue.This modification is explained in more detail in the article [0-1 BFS](01_bfs.md).
+* কোনো সমস্যা বা গেমের সবচেয়ে কম সংখ্যক মুভে সমাধান বের করা, যদি গেমের প্রতিটি স্টেটকে গ্রাফের একটি ভার্টেক্স হিসেবে এবং এক স্টেট থেকে অন্য স্টেটে ট্রানজিশনকে গ্রাফের এজ হিসেবে উপস্থাপন করা যায়।
 
-* Finding the shortest cycle in a directed unweighted graph:
-Start a breadth-first search from each vertex.
-As soon as we try to go from the current vertex back to the source vertex, we have found the shortest cycle containing the source vertex.
-At this point we can stop the BFS, and start a new BFS from the next vertex.
-From all such cycles (at most one from each BFS) choose the shortest.
+* ০ বা ১ ওয়েট বিশিষ্ট গ্রাফে শর্টেস্ট পাথ বের করা:
+এর জন্য স্বাভাবিক ব্রেডথ-ফার্স্ট সার্চে সামান্য পরিবর্তন প্রয়োজন: $used[]$ অ্যারে বজায় রাখার পরিবর্তে, আমরা এখন পরীক্ষা করব ভার্টেক্সের দূরত্ব বর্তমানে পাওয়া দূরত্বের চেয়ে কম কি না, তারপর বর্তমান এজের ওয়েট যদি শূন্য হয়, তাহলে এটিকে কিউয়ের সামনে যোগ করি, অন্যথায় কিউয়ের পেছনে যোগ করি। এই পরিবর্তন [0-1 BFS](01_bfs.md) আর্টিকেলে আরও বিস্তারিত ব্যাখ্যা করা হয়েছে।
 
-* Find all the edges that lie on any shortest path between a given pair of vertices $(a, b)$.
-To do this, run two breadth first searches:
-one from $a$ and one from $b$.
-Let $d_a []$ be the array containing shortest distances obtained from the first BFS (from $a$) and $d_b []$ be the array containing shortest distances obtained from the second BFS from $b$.
-Now for every edge $(u, v)$ it is easy to check whether that edge lies on any shortest path between $a$ and $b$:
-the criterion is the condition $d_a [u] + 1 + d_b [v] = d_a [b]$.
+* ডিরেক্টেড আনওয়েটেড গ্রাফে শর্টেস্ট সাইকেল বের করা:
+প্রতিটি ভার্টেক্স থেকে ব্রেডথ-ফার্স্ট সার্চ শুরু করুন।
+বর্তমান ভার্টেক্স থেকে সোর্স ভার্টেক্সে ফিরে যাওয়ার চেষ্টা করা মাত্রই, আমরা সোর্স ভার্টেক্সকে ধারণ করে এমন শর্টেস্ট সাইকেল পেয়ে গেছি।
+এই পয়েন্টে আমরা BFS বন্ধ করতে পারি এবং পরবর্তী ভার্টেক্স থেকে নতুন BFS শুরু করতে পারি।
+এরকম সমস্ত সাইকেল থেকে (প্রতিটি BFS থেকে সর্বোচ্চ একটি) সবচেয়ে ছোটটি বেছে নিন।
 
-* Find all the vertices on any shortest path between a given pair of vertices $(a, b)$.
-To accomplish that, run two breadth first searches:
-one from $a$ and one from $b$.
-Let $d_a []$ be the array containing shortest distances obtained from the first BFS (from $a$) and $d_b []$ be the array containing shortest distances obtained from the second BFS (from $b$).
-Now for each vertex it is easy to check whether it lies on any shortest path between $a$ and $b$:
-the criterion is the condition $d_a [v] + d_b [v] = d_a [b]$.
+* প্রদত্ত ভার্টেক্স জোড়া $(a, b)$-এর মধ্যে যেকোনো শর্টেস্ট পাথে অবস্থিত সমস্ত এজ বের করা।
+এর জন্য, দুটি ব্রেডথ-ফার্স্ট সার্চ চালান:
+একটি $a$ থেকে এবং একটি $b$ থেকে।
+ধরি $d_a []$ হলো প্রথম BFS ($a$ থেকে) থেকে প্রাপ্ত শর্টেস্ট দূরত্বের অ্যারে এবং $d_b []$ হলো $b$ থেকে দ্বিতীয় BFS থেকে প্রাপ্ত শর্টেস্ট দূরত্বের অ্যারে।
+এখন প্রতিটি এজ $(u, v)$-এর জন্য সহজেই পরীক্ষা করা যায় যে সেই এজটি $a$ ও $b$-এর মধ্যে কোনো শর্টেস্ট পাথে আছে কি না:
+শর্ত হলো $d_a [u] + 1 + d_b [v] = d_a [b]$।
 
-* Find the shortest walk of even length from a source vertex $s$ to a target vertex $t$ in an unweighted graph:
-For this, we must construct an auxiliary graph, whose vertices are the state $(v, c)$, where $v$ - the current node, $c = 0$ or $c = 1$ - the current parity.
-Any edge $(u, v)$ of the original graph in this new column will turn into two edges $((u, 0), (v, 1))$ and $((u, 1), (v, 0))$.
-After that we run a BFS to find the shortest walk from the starting vertex $(s, 0)$ to the end vertex $(t, 0)$.<br>**Note**: This item uses the term "_walk_" rather than a "_path_" for a reason, as the vertices may potentially repeat in the found walk in order to make its length even. The problem of finding the shortest _path_ of even length is NP-Complete in directed graphs, and [solvable in linear time](https://onlinelibrary.wiley.com/doi/abs/10.1002/net.3230140403) in undirected graphs, but with a much more involved approach.
+* প্রদত্ত ভার্টেক্স জোড়া $(a, b)$-এর মধ্যে যেকোনো শর্টেস্ট পাথে অবস্থিত সমস্ত ভার্টেক্স বের করা।
+এটি সম্পন্ন করতে, দুটি ব্রেডথ-ফার্স্ট সার্চ চালান:
+একটি $a$ থেকে এবং একটি $b$ থেকে।
+ধরি $d_a []$ হলো প্রথম BFS ($a$ থেকে) থেকে প্রাপ্ত শর্টেস্ট দূরত্বের অ্যারে এবং $d_b []$ হলো $b$ থেকে দ্বিতীয় BFS থেকে প্রাপ্ত শর্টেস্ট দূরত্বের অ্যারে।
+এখন প্রতিটি ভার্টেক্সের জন্য সহজেই পরীক্ষা করা যায় যে এটি $a$ ও $b$-এর মধ্যে কোনো শর্টেস্ট পাথে আছে কি না:
+শর্ত হলো $d_a [v] + d_b [v] = d_a [b]$।
 
-## Practice Problems
+* আনওয়েটেড গ্রাফে সোর্স ভার্টেক্স $s$ থেকে টার্গেট ভার্টেক্স $t$-এ জোড় দৈর্ঘ্যের শর্টেস্ট ওয়াক বের করা:
+এর জন্য, আমাদের একটি সহায়ক গ্রাফ তৈরি করতে হবে, যার ভার্টেক্সগুলো হলো স্টেট $(v, c)$, যেখানে $v$ - বর্তমান নোড, $c = 0$ বা $c = 1$ - বর্তমান প্যারিটি।
+মূল গ্রাফের যেকোনো এজ $(u, v)$ এই নতুন গ্রাফে দুটি এজে পরিণত হবে: $((u, 0), (v, 1))$ এবং $((u, 1), (v, 0))$।
+এরপর আমরা শুরু ভার্টেক্স $(s, 0)$ থেকে শেষ ভার্টেক্স $(t, 0)$-এ শর্টেস্ট ওয়াক বের করতে BFS চালাই।<br>**লক্ষ্য করুন:** এই আইটেমে "_পাথ_"-এর পরিবর্তে "_ওয়াক_" শব্দটি ব্যবহার করা হয়েছে কারণ ওয়াকের দৈর্ঘ্য জোড় করতে পাওয়া ওয়াকে ভার্টেক্স পুনরাবৃত্তি হতে পারে। জোড় দৈর্ঘ্যের শর্টেস্ট _পাথ_ বের করার সমস্যাটি ডিরেক্টেড গ্রাফে NP-Complete, এবং আনডিরেক্টেড গ্রাফে [লিনিয়ার টাইমে সমাধানযোগ্য](https://onlinelibrary.wiley.com/doi/abs/10.1002/net.3230140403), তবে অনেক বেশি জটিল পদ্ধতিতে।
+
+## প্র্যাকটিস প্রবলেম
 
 * [SPOJ: AKBAR](http://spoj.com/problems/AKBAR)
 * [SPOJ: NAKANJ](http://www.spoj.com/problems/NAKANJ/)

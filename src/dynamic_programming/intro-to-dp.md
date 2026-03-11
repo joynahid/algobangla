@@ -3,11 +3,11 @@ tags:
   - Original
 ---
 
-# Introduction to Dynamic Programming
+# ডায়নামিক প্রোগ্রামিং পরিচিতি
 
-The essence of dynamic programming is to avoid repeated calculation.  Often, dynamic programming problems are naturally solvable by recursion. In such cases, it's easiest to write the recursive solution, then save repeated states in a lookup table. This process is known as top-down dynamic programming with memoization. That's read "memoization" (like we are writing in a memo pad) not memorization.
+ডায়নামিক প্রোগ্রামিং-এর মূল কথা হলো পুনরাবৃত্তিমূলক গণনা এড়িয়ে চলা। অনেক সময়, ডায়নামিক প্রোগ্রামিং সমস্যাগুলো স্বাভাবিকভাবেই রিকার্সন দিয়ে সমাধানযোগ্য। এই ক্ষেত্রে, সবচেয়ে সহজ উপায় হলো প্রথমে রিকার্সিভ সমাধানটি লেখা, তারপর পুনরাবৃত্ত স্টেটগুলো একটি লুকআপ টেবিলে সংরক্ষণ করা। এই প্রক্রিয়াটিকে মেমোয়াইজেশন সহ টপ-ডাউন ডায়নামিক প্রোগ্রামিং বলা হয়। এটি "মেমোয়াইজেশন" (যেন আমরা একটি মেমো প্যাডে লিখছি), "মেমোরাইজেশন" নয়।
 
-One of the most basic, classic examples of this process is the fibonacci sequence. Its recursive formulation is $f(n) = f(n-1) + f(n-2)$ where $n \ge 2$ and $f(0)=0$ and $f(1)=1$. In C++, this would be expressed as:
+এই প্রক্রিয়ার সবচেয়ে মৌলিক ও ক্লাসিক উদাহরণগুলোর একটি হলো ফিবোনাচ্চি সিকোয়েন্স। এর রিকার্সিভ সূত্র হলো $f(n) = f(n-1) + f(n-2)$ যেখানে $n \ge 2$ এবং $f(0)=0$ ও $f(1)=1$। C++-এ এটি এভাবে প্রকাশ করা হবে:
 
 ```cpp
 int f(int n) {
@@ -17,15 +17,15 @@ int f(int n) {
 }
 ```
 
-The runtime of this recursive function is exponential - approximately $O(2^n)$ since one function call ( $f(n)$ ) results in 2 similarly sized function calls ($f(n-1)$ and $f(n-2)$ ).
+এই রিকার্সিভ ফাংশনের রানটাইম এক্সপোনেনশিয়াল — প্রায় $O(2^n)$, কারণ একটি ফাংশন কল ($f(n)$) থেকে প্রায় একই আকারের ২টি ফাংশন কল ($f(n-1)$ এবং $f(n-2)$) তৈরি হয়।
 
-## Speeding up Fibonacci with Dynamic Programming (Memoization)
+## মেমোয়াইজেশন দিয়ে ফিবোনাচ্চি দ্রুততর করা (ডায়নামিক প্রোগ্রামিং)
 
-Our recursive function currently solves fibonacci in exponential time. This means that we can only handle small input values before the problem becomes too difficult. For instance, $f(29)$ results in *over 1 million* function calls!
+আমাদের বর্তমান রিকার্সিভ ফাংশনটি এক্সপোনেনশিয়াল সময়ে ফিবোনাচ্চি সমাধান করে। অর্থাৎ, সমস্যাটি অত্যন্ত কঠিন হয়ে ওঠার আগে আমরা কেবল ছোট ইনপুট মান নিয়ে কাজ করতে পারি। উদাহরণস্বরূপ, $f(29)$-এর ফলে *১০ লক্ষেরও বেশি* ফাংশন কল হয়!
 
-To increase the speed, we recognize that the number of subproblems is only $O(n)$. That is, in order to calculate $f(n)$ we only need to know $f(n-1),f(n-2), \dots ,f(0)$. Therefore, instead of recalculating these subproblems, we solve them once and then save the result in a lookup table.  Subsequent calls will use this lookup table and immediately return a result, thus eliminating exponential work! 
+গতি বাড়ানোর জন্য, আমরা লক্ষ্য করি যে সাবপ্রবলেমের সংখ্যা মাত্র $O(n)$। অর্থাৎ, $f(n)$ গণনা করতে আমাদের শুধু $f(n-1),f(n-2), \dots ,f(0)$ জানা দরকার। সুতরাং, এই সাবপ্রবলেমগুলো বারবার গণনা না করে আমরা সেগুলো একবার সমাধান করব এবং ফলাফল একটি লুকআপ টেবিলে সংরক্ষণ করব। পরবর্তী কলগুলো এই লুকআপ টেবিল ব্যবহার করবে এবং সাথে সাথে ফলাফল ফেরত দেবে, ফলে এক্সপোনেনশিয়াল কাজ দূর হবে!
 
-Each recursive call will check against a lookup table to see if the value has been calculated. This is done in $O(1)$ time.  If we have previously calculated it, return the result, otherwise, we calculate the function normally. The overall runtime is $O(n)$. This is an enormous improvement over our previous exponential time algorithm!
+প্রতিটি রিকার্সিভ কল একটি লুকআপ টেবিলে পরীক্ষা করবে মানটি আগে গণনা করা হয়েছে কিনা। এটি $O(1)$ সময়ে সম্পন্ন হয়। যদি আমরা আগেই এটি গণনা করে থাকি, তাহলে ফলাফল ফেরত দেওয়া হয়; অন্যথায়, আমরা ফাংশনটি স্বাভাবিকভাবে গণনা করি। সামগ্রিক রানটাইম হলো $O(n)$। আমাদের আগের এক্সপোনেনশিয়াল সময়ের অ্যালগরিদমের তুলনায় এটি একটি বিশাল উন্নতি!
 
 ```cpp
 const int MAXN = 100;
@@ -42,11 +42,11 @@ int f(int n) {
 }
 ```
 
-With our new memoized recursive function, $f(29)$, which used to result in *over 1 million calls*, now results in *only 57* calls, nearly *20,000 times* fewer function calls! Ironically, we are now limited by our data type. $f(46)$ is the last fibonacci number that can fit into a signed 32-bit integer.
+আমাদের নতুন মেমোয়াইজড রিকার্সিভ ফাংশনে, $f(29)$, যেটি আগে *১০ লক্ষেরও বেশি কল* তৈরি করত, এখন মাত্র *৫৭টি* কল তৈরি করে — প্রায় *২০,০০০ গুণ* কম ফাংশন কল! মজার বিষয় হলো, এখন আমরা ডেটা টাইপ দ্বারা সীমাবদ্ধ। $f(46)$ হলো শেষ ফিবোনাচ্চি সংখ্যা যেটি signed ৩২-বিট ইন্টিজারে ধারণ করা যায়।
 
-Typically, we try to save states in arrays, if possible, since the lookup time is $O(1)$ with minimal overhead.  However, more generically, we can save states any way we like. Other examples include binary search trees (`map` in C++) or hash tables (`unordered_map` in C++).
+সাধারণত, আমরা স্টেটগুলো অ্যারেতে সংরক্ষণ করার চেষ্টা করি, কারণ লুকআপ সময় $O(1)$ এবং ওভারহেড সর্বনিম্ন। তবে, আরও সাধারণভাবে, আমরা যেকোনো উপায়ে স্টেট সংরক্ষণ করতে পারি। অন্যান্য উদাহরণের মধ্যে রয়েছে বাইনারি সার্চ ট্রি (C++-এ `map`) অথবা হ্যাশ টেবিল (C++-এ `unordered_map`)।
 
-An example of this might be:
+এর একটি উদাহরণ হতে পারে:
 
 ```cpp
 unordered_map<int, int> memo;
@@ -59,7 +59,7 @@ int f(int n) {
 }
 ```
 
-Or analogously:
+অথবা অনুরূপভাবে:
 
 ```cpp
 map<int, int> memo;
@@ -72,23 +72,23 @@ int f(int n) {
 }
 ```
 
-Both of these will almost always be slower than the array-based version for a generic memoized recursive function.
-These alternative ways of saving state are primarily useful when saving vectors or strings as part of the state space.
+এই দুটিই প্রায় সবসময় একটি সাধারণ মেমোয়াইজড রিকার্সিভ ফাংশনের জন্য অ্যারে-ভিত্তিক সংস্করণের চেয়ে ধীর হবে।
+স্টেট সংরক্ষণের এই বিকল্প পদ্ধতিগুলো মূলত তখনই কাজে আসে যখন স্টেট স্পেসের অংশ হিসেবে ভেক্টর বা স্ট্রিং সংরক্ষণ করতে হয়।
 
-The layman's way of analyzing the runtime of a memoized recursive function is:
+মেমোয়াইজড রিকার্সিভ ফাংশনের রানটাইম বিশ্লেষণের সহজ পদ্ধতি হলো:
 
-$$\text{work per subproblem} * \text{number of subproblems}$$
+$$\text{প্রতি সাবপ্রবলেমে কাজ} * \text{সাবপ্রবলেমের সংখ্যা}$$
 
-Using a binary search tree (map in C++) to save states will technically result in $O(n \log n)$ as each lookup and insertion will take $O(\log n)$ work and with $O(n)$ unique subproblems we have $O(n \log n)$ time.
+বাইনারি সার্চ ট্রি (C++-এ map) ব্যবহার করে স্টেট সংরক্ষণ করলে প্রযুক্তিগতভাবে $O(n \log n)$ সময় লাগবে, কারণ প্রতিটি লুকআপ ও ইনসার্শনে $O(\log n)$ কাজ হয় এবং $O(n)$-টি ইউনিক সাবপ্রবলেম থাকায় মোট সময় $O(n \log n)$।
 
-This approach is called top-down, as we can call the function with a query value and the calculation starts going from the top (queried value) down to the bottom (base cases of the recursion), and makes shortcuts via memoization on the way.
+এই পদ্ধতিকে টপ-ডাউন বলা হয়, কারণ আমরা একটি কোয়েরি মান দিয়ে ফাংশন কল করি এবং গণনা উপর থেকে (কোয়েরি করা মান) শুরু হয়ে নিচের দিকে (রিকার্সনের বেস কেস) যায়, এবং পথে মেমোয়াইজেশনের মাধ্যমে শর্টকাট নেয়।
 
-## Bottom-up Dynamic Programming
+## বটম-আপ ডায়নামিক প্রোগ্রামিং
 
-Until now you've only seen top-down dynamic programming with memoization. However, we can also solve problems with bottom-up dynamic programming. 
-Bottom-up is exactly the opposite of top-down, you start at the bottom (base cases of the recursion), and extend it to more and more values.
+এখন পর্যন্ত আপনি শুধু মেমোয়াইজেশন সহ টপ-ডাউন ডায়নামিক প্রোগ্রামিং দেখেছেন। তবে, আমরা বটম-আপ ডায়নামিক প্রোগ্রামিং দিয়েও সমস্যা সমাধান করতে পারি।
+বটম-আপ হলো টপ-ডাউনের ঠিক বিপরীত — আপনি নিচ থেকে (রিকার্সনের বেস কেস) শুরু করেন এবং ক্রমশ আরও বেশি মানে প্রসারিত করেন।
 
-To create a bottom-up approach for fibonacci numbers, we initialize the base cases in an array. Then, we simply use the recursive definition on array:
+ফিবোনাচ্চি সংখ্যার জন্য বটম-আপ পদ্ধতি তৈরি করতে, আমরা একটি অ্যারেতে বেস কেসগুলো ইনিশিয়ালাইজ করি। তারপর, কেবল অ্যারেতে রিকার্সিভ সংজ্ঞাটি ব্যবহার করি:
 
 ```cpp
 const int MAXN = 100;
@@ -103,11 +103,11 @@ int f(int n) {
 }
 ```
 
-Of course, as written, this is a bit silly for two reasons: 
-Firstly, we do repeated work if we call the function more than once. 
-Secondly, we only need to use the two previous values to calculate the current element. Therefore, we can reduce our memory from $O(n)$ to $O(1)$. 
+অবশ্যই, এভাবে লেখা দুটি কারণে কিছুটা অযৌক্তিক:
+প্রথমত, আমরা যদি ফাংশনটি একাধিকবার কল করি তাহলে পুনরাবৃত্তিমূলক কাজ হয়।
+দ্বিতীয়ত, বর্তমান উপাদানটি গণনা করতে আমাদের শুধু আগের দুটি মান দরকার। সুতরাং, আমরা মেমোরি $O(n)$ থেকে $O(1)$-এ কমিয়ে আনতে পারি।
 
-An example of a bottom-up dynamic programming solution for fibonacci which uses $O(1)$ memory might be:
+ফিবোনাচ্চির একটি বটম-আপ ডায়নামিক প্রোগ্রামিং সমাধানের উদাহরণ যেটি $O(1)$ মেমোরি ব্যবহার করে:
 
 ```cpp
 const int MAX_SAVE = 3;
@@ -123,33 +123,33 @@ int f(int n) {
 }
 ```
 
-Note that we've changed the constant from `MAXN` TO `MAX_SAVE`. This is because the total number of elements we need to access is only 3. It no longer scales with the size of input and is, by definition, $O(1)$ memory. Additionally, we use a common trick (using the modulo operator) only maintaining the values we need.
+**লক্ষ্য করুন:** আমরা কনস্ট্যান্টটি `MAXN` থেকে `MAX_SAVE`-এ পরিবর্তন করেছি। কারণ আমাদের মোট যতগুলো উপাদানে অ্যাক্সেস দরকার সেটি মাত্র ৩টি। এটি আর ইনপুটের আকারের সাথে বাড়ে না এবং সংজ্ঞা অনুসারে $O(1)$ মেমোরি। এছাড়া, আমরা একটি সাধারণ কৌশল (মডুলো অপারেটর ব্যবহার করে) প্রয়োগ করে শুধু প্রয়োজনীয় মানগুলো সংরক্ষণ করি।
 
-That's it. That's the basics of dynamic programming: Don't repeat the work you've done before.
+এটাই মূল কথা। এটাই ডায়নামিক প্রোগ্রামিং-এর মূল ভিত্তি: আগে যে কাজ করেছেন সেটা আবার করবেন না।
 
-One of the tricks to getting better at dynamic programming is to study some of the classic examples.
+ডায়নামিক প্রোগ্রামিং-এ আরও দক্ষ হওয়ার একটি কৌশল হলো কিছু ক্লাসিক উদাহরণ অধ্যয়ন করা।
 
-## Classic Dynamic Programming Problems
-| Name                                           | Description/Example                                                                                                                                                                                                            |
+## ক্লাসিক ডায়নামিক প্রোগ্রামিং সমস্যা
+| নাম                                           | বিবরণ/উদাহরণ                                                                                                                                                                                                            |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [0-1 Knapsack](../dynamic_programming/knapsack.md)                                   | Given $N$ items with weights $w_i$ and values $v_i$ and maximum weight $W$, what is the maximum $\sum_{i=1}^{k} v_i$ for each subset of items of size $k$ ($1 \le k \le N$) while ensuring $\sum_{i=1}^{k} w_i \le W$?                  |
-| Subset Sum                                     | Given $N$ integers and $T$, determine whether there exists a subset of the given set whose elements sum up to the $T$.                                                                                                         |
-| [Longest Increasing Subsequence (LIS)](../dynamic_programming/longest_increasing_subsequence.md)           | You are given an array containing $N$ integers. Your task is to determine the LIS in the array, i.e., a subsequence where every element is larger than the previous one.                                                       |
-| Counting Paths in a 2D Array                   | Given $N$ and $M$, count all possible distinct paths from $(1,1)$ to $(N, M)$, where each step is either from $(i,j)$ to $(i+1,j)$ or $(i,j+1)$.                                                                               |
-| Longest Common Subsequence                     | You are given strings $s$ and $t$. Find the length of the longest string that is a subsequence of both $s$ and $t$.                                                                                                            |
-| Longest Path in a Directed Acyclic Graph (DAG) | Finding the longest path in Directed Acyclic Graph (DAG).                                                                                                                                                                      |
-| Longest Palindromic Subsequence                | Finding the Longest Palindromic Subsequence (LPS) of a given string.                                                                                                                                                           |
-| Rod Cutting                                    | Given a rod of length $n$ units, Given an integer array cuts where cuts[i] denotes a position you should perform a cut at. The cost of one cut is the length of the rod to be cut. What is the minimum total cost of the cuts. |
-| Edit Distance                                  | The edit distance between two strings is the minimum number of operations required to transform one string into the other. Operations are ["Add", "Remove", "Replace"]                                                         |
+| [০-১ ন্যাপস্যাক](../dynamic_programming/knapsack.md)                                   | $N$টি আইটেম দেওয়া আছে যাদের ওজন $w_i$, মান $v_i$ এবং সর্বোচ্চ ওজন $W$। $k$ আকারের ($1 \le k \le N$) প্রতিটি সাবসেটের জন্য সর্বোচ্চ $\sum_{i=1}^{k} v_i$ কত, যেখানে $\sum_{i=1}^{k} w_i \le W$ নিশ্চিত করতে হবে?                  |
+| সাবসেট সাম                                     | $N$টি পূর্ণসংখ্যা এবং $T$ দেওয়া আছে। প্রদত্ত সেটের এমন কোনো সাবসেট আছে কিনা নির্ণয় করুন যার উপাদানগুলোর যোগফল $T$ হয়।                                                                                                         |
+| [লংগেস্ট ইনক্রিজিং সাবসিকোয়েন্স (LIS)](../dynamic_programming/longest_increasing_subsequence.md)           | $N$টি পূর্ণসংখ্যা বিশিষ্ট একটি অ্যারে দেওয়া আছে। অ্যারেতে LIS নির্ণয় করুন, অর্থাৎ এমন একটি সাবসিকোয়েন্স যেখানে প্রতিটি উপাদান আগেরটির চেয়ে বড়।                                                       |
+| ২-মাত্রিক অ্যারেতে পথ গণনা                   | $N$ এবং $M$ দেওয়া আছে। $(1,1)$ থেকে $(N, M)$ পর্যন্ত সব সম্ভাব্য ভিন্ন পথ গণনা করুন, যেখানে প্রতিটি ধাপ $(i,j)$ থেকে $(i+1,j)$ অথবা $(i,j+1)$-এ যায়।                                                                               |
+| লংগেস্ট কমন সাবসিকোয়েন্স                     | স্ট্রিং $s$ এবং $t$ দেওয়া আছে। দীর্ঘতম স্ট্রিং-এর দৈর্ঘ্য নির্ণয় করুন যেটি $s$ এবং $t$ উভয়ের সাবসিকোয়েন্স।                                                                                                            |
+| ডিরেক্টেড অ্যাসাইক্লিক গ্রাফে (DAG) দীর্ঘতম পথ | ডিরেক্টেড অ্যাসাইক্লিক গ্রাফে (DAG) দীর্ঘতম পথ নির্ণয়।                                                                                                                                                                      |
+| লংগেস্ট প্যালিনড্রমিক সাবসিকোয়েন্স                | একটি প্রদত্ত স্ট্রিং-এর লংগেস্ট প্যালিনড্রমিক সাবসিকোয়েন্স (LPS) নির্ণয়।                                                                                                                                                           |
+| রড কাটিং                                    | $n$ একক দৈর্ঘ্যের একটি রড দেওয়া আছে। একটি পূর্ণসংখ্যা অ্যারে cuts দেওয়া আছে যেখানে cuts[i] নির্দেশ করে কোথায় কাটতে হবে। একটি কাটের খরচ হলো কাটা রডের দৈর্ঘ্য। কাটগুলোর সর্বনিম্ন মোট খরচ কত? |
+| এডিট ডিস্ট্যান্স                                  | দুটি স্ট্রিং-এর মধ্যে এডিট ডিস্ট্যান্স হলো একটি স্ট্রিংকে অন্যটিতে রূপান্তর করতে প্রয়োজনীয় সর্বনিম্ন অপারেশন সংখ্যা। অপারেশনগুলো হলো ["Add", "Remove", "Replace"]।                                                         |
 
-## Related Topics
-* [Bitmask Dynamic Programming](../dynamic_programming/profile-dynamics.md)
-* Digit Dynamic Programming
-* Dynamic Programming on Trees
+## সম্পর্কিত বিষয়
+* [বিটমাস্ক ডায়নামিক প্রোগ্রামিং](../dynamic_programming/profile-dynamics.md)
+* ডিজিট ডায়নামিক প্রোগ্রামিং
+* ট্রি-তে ডায়নামিক প্রোগ্রামিং
 
-Of course, the most important trick is to practice.
+অবশ্যই, সবচেয়ে গুরুত্বপূর্ণ কৌশল হলো অনুশীলন করা।
 
-## Practice Problems
+## প্র্যাকটিস প্রবলেম
 * [LeetCode - 1137. N-th Tribonacci Number](https://leetcode.com/problems/n-th-tribonacci-number/description/)
 * [LeetCode - 118. Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/description/)
 * [LeetCode - 1025. Divisor Game](https://leetcode.com/problems/divisor-game/description/)
@@ -159,7 +159,6 @@ Of course, the most important trick is to practice.
 * [LeetCode - 221. Maximal Square](https://leetcode.com/problems/maximal-square/description/)
 * [LeetCode - 1039. Minimum Score Triangulation of Polygon](https://leetcode.com/problems/minimum-score-triangulation-of-polygon/description/)
 
-## DP Contests
+## DP কন্টেস্ট
 * [Atcoder - Educational DP Contest](https://atcoder.jp/contests/dp/tasks)
 * [CSES - Dynamic Programming](https://cses.fi/problemset/list/)
-

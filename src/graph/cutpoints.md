@@ -1,44 +1,44 @@
 ---
-title: Finding articulation points in a graph in O(N+M)
+title: $O(N+M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা
 tags:
   - Translated
 e_maxx_link: cutpoints
 ---
-# Finding articulation points in a graph in $O(N+M)$
+# $O(N+M)$ এ গ্রাফে আর্টিকুলেশন পয়েন্ট খোঁজা
 
-We are given an undirected graph. An articulation point (or cut vertex) is defined as a vertex which, when removed along with associated edges, makes the graph disconnected (or more precisely, increases the number of connected components in the graph). The task is to find all articulation points in the given graph.
+আমাদের একটি অনির্দেশিত গ্রাফ দেওয়া আছে। একটি আর্টিকুলেশন পয়েন্ট (বা কাটপয়েন্ট) হলো এমন একটি ভার্টেক্স যেটিকে এর সংশ্লিষ্ট এজসহ সরিয়ে দিলে গ্রাফ বিচ্ছিন্ন হয়ে যায় (বা আরও সুনির্দিষ্টভাবে, গ্রাফে কানেক্টেড কম্পোনেন্টের সংখ্যা বাড়ে)। কাজ হলো দেওয়া গ্রাফে সমস্ত আর্টিকুলেশন পয়েন্ট খুঁজে বের করা।
 
-The algorithm described here is based on [depth first search](depth-first-search.md) and has $O(N+M)$ complexity, where $N$ is the number of vertices and $M$ is the number of edges in the graph.
+এখানে বর্ণিত অ্যালগরিদমটি [ডেপথ-ফার্স্ট সার্চ](depth-first-search.md) এর উপর ভিত্তি করে এবং এর কমপ্লেক্সিটি $O(N+M)$, যেখানে $N$ হলো ভার্টেক্সের সংখ্যা এবং $M$ হলো গ্রাফে এজের সংখ্যা।
 
-## Algorithm
+## অ্যালগরিদম
 
-Pick an arbitrary vertex of the graph $root$ and run [depth first search](depth-first-search.md) from it. Note the following fact (which is easy to prove):
+গ্রাফের একটি ইচ্ছামতো ভার্টেক্স $root$ নিন এবং সেখান থেকে [ডেপথ-ফার্স্ট সার্চ](depth-first-search.md) চালান। নিম্নলিখিত তথ্যটি লক্ষ্য করুন (যা প্রমাণ করা সহজ):
 
-- Let's say we are in the DFS, looking through the edges starting from vertex $v\ne root$.
-If the current edge $(v, to)$ is such that none of the vertices $to$ or its descendants in the DFS traversal tree has a back-edge to any of ancestors of $v$, then $v$ is an articulation point. Otherwise, $v$ is not an articulation point.
+- ধরা যাক আমরা DFS-এ আছি, ভার্টেক্স $v\ne root$ থেকে শুরু করে এজগুলো দেখছি।
+যদি বর্তমান এজ $(v, to)$ এমন হয় যে ভার্টেক্স $to$ বা DFS ট্রাভার্সাল ট্রি-তে এর কোনো বংশধরের $v$ এর কোনো পূর্বসূরিতে ব্যাক-এজ না থাকে, তাহলে $v$ একটি আর্টিকুলেশন পয়েন্ট। অন্যথায়, $v$ আর্টিকুলেশন পয়েন্ট নয়।
 
-- Let's consider the remaining case of $v=root$.
-This vertex will be the point of articulation if and only if this vertex has more than one child in the DFS tree.
+- বাকি ক্ষেত্র $v=root$ বিবেচনা করি।
+এই ভার্টেক্সটি আর্টিকুলেশন পয়েন্ট হবে যদি এবং কেবল যদি DFS ট্রি-তে এই ভার্টেক্সের একাধিক চাইল্ড থাকে।
 
-Now we have to learn to check this fact for each vertex efficiently. We'll use "time of entry into node" computed by the depth first search.
+এখন আমাদের প্রতিটি ভার্টেক্সের জন্য এই তথ্যটি দক্ষতার সাথে পরীক্ষা করা শিখতে হবে। আমরা ডেপথ-ফার্স্ট সার্চ দ্বারা গণিত "নোডে প্রবেশের সময়" ব্যবহার করব।
 
-So, let $tin[v]$ denote entry time for node $v$. We introduce an array $low[v]$ which will let us check the fact for each vertex $v$. $low[v]$ is the minimum of $tin[v]$, the entry times $tin[p]$ for each node $p$ that is connected to node $v$ via a back-edge $(v, p)$ and the values of $low[to]$ for each vertex $to$ which is a direct descendant of $v$ in the DFS tree:
+তাই, $tin[v]$ দিয়ে নোড $v$ এর প্রবেশ সময় বোঝাই। আমরা একটি অ্যারে $low[v]$ প্রবর্তন করি যেটি আমাদের প্রতিটি ভার্টেক্স $v$ এর জন্য তথ্য পরীক্ষা করতে দেবে। $low[v]$ হলো $tin[v]$, ব্যাক-এজ $(v, p)$ দ্বারা নোড $v$ এর সাথে সংযুক্ত প্রতিটি নোড $p$ এর প্রবেশ সময় $tin[p]$ এবং DFS ট্রি-তে $v$ এর প্রত্যক্ষ বংশধর প্রতিটি ভার্টেক্স $to$ এর $low[to]$ মানের মধ্যে সর্বনিম্ন:
 
 $$low[v] = \min \begin{cases} tin[v] \\ tin[p] &\text{ for all }p\text{ for which }(v, p)\text{ is a back edge} \\ low[to]& \text{ for all }to\text{ for which }(v, to)\text{ is a tree edge} \end{cases}$$
 
-Now, there is a back edge from vertex $v$ or one of its descendants to one of its ancestors if and only if vertex $v$ has a child $to$ for which $low[to] < tin[v]$. If $low[to] = tin[v]$, the back edge comes directly to $v$, otherwise it comes to one of the ancestors of $v$.
+এখন, ভার্টেক্স $v$ বা এর কোনো বংশধর থেকে এর কোনো পূর্বসূরিতে একটি ব্যাক এজ আছে যদি এবং কেবল যদি ভার্টেক্স $v$ এর একটি চাইল্ড $to$ থাকে যার জন্য $low[to] < tin[v]$। যদি $low[to] = tin[v]$ হয়, তাহলে ব্যাক এজ সরাসরি $v$ তে আসে, অন্যথায় এটি $v$ এর কোনো পূর্বসূরিতে আসে।
 
-Thus, the vertex $v$ in the DFS tree is an articulation point if and only if $low[to] \geq tin[v]$.
+অতএব, DFS ট্রি-তে ভার্টেক্স $v$ একটি আর্টিকুলেশন পয়েন্ট হবে যদি এবং কেবল যদি $low[to] \geq tin[v]$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The implementation needs to distinguish three cases: when we go down the edge in DFS tree, when we find a back edge to an ancestor of the vertex and when we return to a parent of the vertex. These are the cases:
+ইমপ্লিমেন্টেশনে তিনটি ক্ষেত্র আলাদা করা প্রয়োজন: যখন আমরা DFS ট্রি-তে এজ বরাবর নিচে যাই, যখন আমরা ভার্টেক্সের পূর্বসূরিতে একটি ব্যাক এজ খুঁজে পাই এবং যখন আমরা ভার্টেক্সের প্যারেন্টে ফিরে আসি। এই ক্ষেত্রগুলো হলো:
 
-- $visited[to] = false$ - the edge is part of DFS tree;
-- $visited[to] = true$ && $to \neq parent$ - the edge is back edge to one of the ancestors;
-- $to = parent$ - the edge leads back to parent in DFS tree.
+- $visited[to] = false$ - এজটি DFS ট্রি-র অংশ;
+- $visited[to] = true$ && $to \neq parent$ - এজটি কোনো পূর্বসূরিতে ব্যাক এজ;
+- $to = parent$ - এজটি DFS ট্রি-তে প্যারেন্টে ফিরে যায়।
 
-To implement this, we need a depth first search function which accepts the parent vertex of the current node.
+এটি ইমপ্লিমেন্ট করতে, আমাদের একটি ডেপথ-ফার্স্ট সার্চ ফাংশন দরকার যেটি বর্তমান নোডের প্যারেন্ট ভার্টেক্স গ্রহণ করে।
 
 ```cpp
 int n; // number of nodes
@@ -47,7 +47,7 @@ vector<vector<int>> adj; // adjacency list of graph
 vector<bool> visited;
 vector<int> tin, low;
 int timer;
- 
+
 void dfs(int v, int p = -1) {
     visited[v] = true;
     tin[v] = low[v] = timer++;
@@ -67,7 +67,7 @@ void dfs(int v, int p = -1) {
     if(p == -1 && children > 1)
         IS_CUTPOINT(v);
 }
- 
+
 void find_cutpoints() {
     timer = 0;
     visited.assign(n, false);
@@ -80,11 +80,11 @@ void find_cutpoints() {
 }
 ```
 
-Main function is `find_cutpoints`; it performs necessary initialization and starts depth first search in each connected component of the graph.
+মূল ফাংশন হলো `find_cutpoints`; এটি প্রয়োজনীয় ইনিশিয়ালাইজেশন সম্পাদন করে এবং গ্রাফের প্রতিটি কানেক্টেড কম্পোনেন্টে ডেপথ-ফার্স্ট সার্চ শুরু করে।
 
-Function `IS_CUTPOINT(a)` is some function that will process the fact that vertex $a$ is an articulation point, for example, print it (Caution that this can be called multiple times for a vertex).
+`IS_CUTPOINT(a)` ফাংশন হলো একটি ফাংশন যেটি ভার্টেক্স $a$ একটি আর্টিকুলেশন পয়েন্ট হওয়ার তথ্য প্রক্রিয়া করবে, উদাহরণস্বরূপ, এটি প্রিন্ট করবে (সতর্কতা: একটি ভার্টেক্সের জন্য এটি একাধিকবার কল হতে পারে)।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [UVA #10199 "Tourist Guide"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=13&page=show_problem&problem=1140) [difficulty: low]
 - [UVA #315 "Network"](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=5&page=show_problem&problem=251) [difficulty: low]

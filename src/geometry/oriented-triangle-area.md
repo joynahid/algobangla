@@ -4,22 +4,22 @@ tags:
 e_maxx_link: oriented_area
 ---
 
-# Oriented area of a triangle
+# ত্রিভুজের অভিমুখী ক্ষেত্রফল
 
-Given three points $p_1$, $p_2$ and $p_3$, calculate an oriented (signed) area of a triangle formed by them. The sign of the area is determined in the following way: imagine you are standing in the plane at point $p_1$ and are facing $p_2$. You go to $p_2$ and if $p_3$ is to your right (then we say the three vectors turn "clockwise"), the sign of the area is negative, otherwise it is positive. If the three points are collinear, the area is zero.
+তিনটি বিন্দু $p_1$, $p_2$ ও $p_3$ দেওয়া আছে, তাদের দ্বারা গঠিত ত্রিভুজের অভিমুখী (চিহ্নসহ) ক্ষেত্রফল গণনা করুন। ক্ষেত্রফলের চিহ্ন নিম্নরূপে নির্ধারিত হয়: কল্পনা করুন আপনি সমতলে $p_1$ বিন্দুতে দাঁড়িয়ে আছেন এবং $p_2$-এর দিকে মুখ করে আছেন। আপনি $p_2$-তে যান এবং যদি $p_3$ আপনার ডানদিকে থাকে (তখন আমরা বলি তিনটি ভেক্টর "ঘড়ির কাঁটার দিকে" ঘোরে), ক্ষেত্রফলের চিহ্ন ঋণাত্মক, অন্যথায় ধনাত্মক। তিনটি বিন্দু সমরেখ হলে, ক্ষেত্রফল শূন্য।
 
-Using this signed area, we can both get the regular unsigned area (as the absolute value of the signed area) and determine if the points lie clockwise or counterclockwise in their specified order (which is useful, for example, in convex hull algorithms).
+এই চিহ্নসহ ক্ষেত্রফল ব্যবহার করে, আমরা সাধারণ চিহ্নহীন ক্ষেত্রফল (চিহ্নসহ ক্ষেত্রফলের পরম মান হিসেবে) পেতে পারি এবং বিন্দুগুলো তাদের নির্দিষ্ট ক্রমে ঘড়ির কাঁটার দিকে নাকি ঘড়ির কাঁটার বিপরীত দিকে আছে তা নির্ণয় করতে পারি (যা, উদাহরণস্বরূপ, কনভেক্স হাল অ্যালগরিদমে উপযোগী)।
 
 
-## Calculation
-We can use the fact that a determinant of a $2\times 2$ matrix is equal to the signed area of a parallelogram spanned by column (or row) vectors of the matrix.
-This is analog to the definition of the cross product in 2D (see [Basic Geometry](basic-geometry.md)).
-By dividing this area by two we get the area of a triangle that we are interested in.
-We will use $\vec{p_1p_2}$ and $\vec{p_2p_3}$ as the column vectors and calculate a $2\times 2$ determinant:
+## গণনা
+আমরা এই তথ্য ব্যবহার করতে পারি যে একটি $2\times 2$ ম্যাট্রিক্সের ডিটারমিন্যান্ট ম্যাট্রিক্সের কলাম (বা সারি) ভেক্টর দ্বারা বিস্তৃত সামান্তরিকের চিহ্নসহ ক্ষেত্রফলের সমান।
+এটি ২D-তে ক্রস প্রোডাক্টের সংজ্ঞার সাদৃশ্য (দেখুন [বেসিক জিওমেট্রি](basic-geometry.md))।
+এই ক্ষেত্রফলকে দুই দিয়ে ভাগ করলে আমরা ত্রিভুজের ক্ষেত্রফল পাই যেটি আমাদের দরকার।
+আমরা $\vec{p_1p_2}$ ও $\vec{p_2p_3}$ কে কলাম ভেক্টর হিসেবে ব্যবহার করব এবং একটি $2\times 2$ ডিটারমিন্যান্ট গণনা করব:
 
 $$2S=\left|\begin{matrix}x_2-x_1 & x_3-x_2\\y_2-y_1 & y_3-y_2\end{matrix}\right|=(x_2-x_1)(y_3-y_2)-(x_3-x_2)(y_2-y_1)$$
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int signed_area_parallelogram(point2d p1, point2d p2, point2d p3) {
@@ -39,5 +39,5 @@ bool counter_clockwise(point2d p1, point2d p2, point2d p3) {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Codechef - Chef and Polygons](https://www.codechef.com/problems/CHEFPOLY)

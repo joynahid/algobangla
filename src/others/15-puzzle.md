@@ -4,39 +4,39 @@ tags:
 e_maxx_link: 15_puzzle
 ---
 
-# 15 Puzzle Game: Existence Of The Solution
+# ১৫ পাজল গেম: সমাধানের অস্তিত্ব
 
-This game is played on a $4 \times 4$ board. On this board there are $15$ playing tiles numbered from 1 to 15. One cell is left empty (denoted by 0). You need to get the board to the position presented below by repeatedly moving one of the tiles to the free space:
+এই গেমটি একটি $4 \times 4$ বোর্ডে খেলা হয়। এই বোর্ডে ১ থেকে ১৫ পর্যন্ত নম্বরযুক্ত $15$ টি খেলার টাইল আছে। একটি ঘর খালি রাখা হয় (০ দ্বারা চিহ্নিত)। আপনাকে বারবার একটি টাইলকে খালি জায়গায় সরিয়ে নিচে উপস্থাপিত অবস্থানে বোর্ড নিয়ে যেতে হবে:
 
 $$\begin{matrix} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ 9 & 10 & 11 & 12 \\ 13 & 14 & 15 & 0 \end{matrix}$$
 
-The game "15 Puzzle” was created by Noyes Chapman in 1880.
+"১৫ পাজল" গেমটি ১৮৮০ সালে নয়েস চ্যাপম্যান তৈরি করেছিলেন।
 
-## Existence Of The Solution
+## সমাধানের অস্তিত্ব
 
-Let's consider this problem: given a position on the board, determine whether a sequence of moves which leads to a solution exists.
+আসুন এই সমস্যাটি বিবেচনা করি: বোর্ডের একটি অবস্থান দেওয়া আছে, নির্ণয় করুন সমাধানে পৌঁছানোর কোনো চালের ক্রম আছে কিনা।
 
-Suppose we have some position on the board:
+ধরি বোর্ডে আমাদের কোনো অবস্থান আছে:
 
 $$\begin{matrix} a_1 & a_2 & a_3 & a_4 \\ a_5 & a_6 & a_7 & a_8 \\ a_9 & a_{10} & a_{11} & a_{12} \\ a_{13} & a_{14} & a_{15} & a_{16} \end{matrix}$$
 
-where one of the elements equals zero and indicates an empty cell $a_z  = 0$
+যেখানে উপাদানগুলোর একটি শূন্যের সমান এবং একটি খালি ঘর নির্দেশ করে $a_z  = 0$
 
-Let’s consider the permutation:
+আসুন পারমুটেশনটি বিবেচনা করি:
 
 $$a_1 a_2 ... a_{z-1} a_{z+1} ... a_{15} a_{16}$$
 
-i.e. the permutation of numbers corresponding to the position on the board without a zero element
+অর্থাৎ শূন্য উপাদান ছাড়া বোর্ডের অবস্থানের সাথে সঙ্গতিপূর্ণ সংখ্যাগুলোর পারমুটেশন
 
-Let $N$ be the number of inversions in this permutation (i.e. the number of such elements $a_i$  and $a_j$  that $i < j$, but $a_i  > a_j$).
+ধরি $N$ হলো এই পারমুটেশনে ইনভার্সনের সংখ্যা (অর্থাৎ এমন উপাদান $a_i$ এবং $a_j$ এর সংখ্যা যেখানে $i < j$, কিন্তু $a_i  > a_j$)।
 
-Suppose $K$ is an index of a row where the empty element is located (i.e. using our convention, $K = (z - 1) \div \ 4 + 1$).
+ধরি $K$ হলো সেই সারির ইনডেক্স যেখানে খালি উপাদানটি অবস্থিত (অর্থাৎ আমাদের প্রথা অনুযায়ী, $K = (z - 1) \div \ 4 + 1$)।
 
-Then, **the solution exists iff $N + K$ is even**.
+তাহলে, **সমাধান বিদ্যমান যদি এবং কেবল যদি $N + K$ জোড় হয়**।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The algorithm above can be illustrated with the following program code:
+উপরের অ্যালগরিদমটি নিম্নলিখিত প্রোগ্রাম কোড দিয়ে চিত্রিত করা যায়:
 
 ```cpp
 int a[16];
@@ -56,14 +56,14 @@ for (int i=0; i<16; ++i)
 puts ((inv & 1) ? "No Solution" : "Solution Exists");
 ```
 
-## Proof
+## প্রমাণ
 
-In 1879 Johnson proved that if $N + K$ is odd, then the solution doesn’t exist, and in the same year Story proved that all positions when $N + K$ is even have a solution.
+১৮৭৯ সালে জনসন প্রমাণ করেছিলেন যে যদি $N + K$ বিজোড় হয়, তাহলে সমাধান নেই, এবং একই বছরে স্টোরি প্রমাণ করেছিলেন যে $N + K$ জোড় হলে সকল অবস্থানের সমাধান আছে।
 
-However, all these proofs were quite complex.
+তবে, এই সকল প্রমাণ বেশ জটিল ছিল।
 
-In 1999 Archer proposed a much simpler proof (you can download his article [here](http://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/15-puzzle.pdf)).
+১৯৯৯ সালে আর্চার একটি অনেক সরল প্রমাণ প্রস্তাব করেছিলেন (আপনি তাঁর নিবন্ধটি [এখানে](http://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/15-puzzle.pdf) ডাউনলোড করতে পারেন)।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Hackerrank - N-puzzle](https://www.hackerrank.com/challenges/n-puzzle)

@@ -4,49 +4,49 @@ tags:
 e_maxx_link: tree_painting
 ---
 
-# Paint the edges of the tree
+# ট্রি-র এজে রং করা
 
-This is a fairly common task. Given a tree $G$ with $N$ vertices. There are two types of queries: the first one is to paint an edge, the second one is to query the number of colored edges between two vertices.
+এটি একটি বেশ সাধারণ কাজ। $N$ টি ভার্টেক্স বিশিষ্ট একটি ট্রি $G$ দেওয়া আছে। দুই ধরনের কুয়েরি আছে: প্রথমটি হলো একটি এজ রং করা, দ্বিতীয়টি হলো দুটি ভার্টেক্সের মধ্যে রঙিন এজের সংখ্যা জানতে চাওয়া।
 
-Here we will describe a fairly simple solution (using a [segment tree](../data_structures/segment_tree.md)) that will answer each query in $O(\log N)$ time.
-The preprocessing step will take $O(N)$ time.
+এখানে আমরা একটি মোটামুটি সরল সমাধান বর্ণনা করব ([সেগমেন্ট ট্রি](../data_structures/segment_tree.md) ব্যবহার করে) যেটি প্রতিটি কুয়েরির উত্তর $O(\log N)$ সময়ে দেবে।
+প্রিপ্রসেসিং ধাপে $O(N)$ সময় লাগবে।
 
-## Algorithm
+## অ্যালগরিদম
 
-First, we need to find the [LCA](lca.md) to reduce each query of the second kind $(i,j)$ into two queries $(l,i)$ and $(l,j)$, where $l$ is the LCA of $i$ and $j$.
-The answer of the query $(i,j)$ will be the sum of both subqueries.
-Both these queries have a special structure, the first vertex is an ancestor of the second one.
-For the rest of the article we will only talk about these special kind of queries.
+প্রথমে, দ্বিতীয় ধরনের প্রতিটি কুয়েরি $(i,j)$ দুটি কুয়েরি $(l,i)$ এবং $(l,j)$-তে রিডিউস করতে আমাদের [এলসিএ](lca.md) বের করতে হবে, যেখানে $l$ হলো $i$ এবং $j$-এর এলসিএ।
+$(i,j)$ কুয়েরির উত্তর হবে দুটি সাবকুয়েরির যোগফল।
+এই দুটি কুয়েরির একটি বিশেষ গঠন আছে, প্রথম ভার্টেক্স দ্বিতীয়টির অ্যানসেস্টর।
+নিবন্ধের বাকি অংশে আমরা শুধু এই বিশেষ ধরনের কুয়েরি নিয়ে কথা বলব।
 
-We will start by describing the **preprocessing** step.
-Run a depth-first search from the root of the tree and record the Euler tour of this depth-first search (each vertex is added to the list when the search visits it first and every time we return from one of its children).
-The same technique can be used in the LCA preprocessing.
+আমরা **প্রিপ্রসেসিং** ধাপ বর্ণনা দিয়ে শুরু করব।
+ট্রি-র রুট থেকে একটি ডেপথ-ফার্স্ট সার্চ চালান এবং এই ডেপথ-ফার্স্ট সার্চের অয়লার ট্যুর রেকর্ড করুন (প্রতিটি ভার্টেক্স যখন প্রথম ভিজিট হয় তখন তালিকায় যোগ হয় এবং প্রতিবার তার কোনো চাইল্ড থেকে ফিরে আসলেও)।
+একই কৌশল এলসিএ প্রিপ্রসেসিং-এও ব্যবহার করা যায়।
 
-This list will contain each edge (in the sense that if $i$ and $j$ are the ends of the edge, then there will be a place in the list where $i$ and $j$ are neighbors in the list), and it appear exactly two times: in the forward direction (from $i$ to $j$, where vertex $i$ is closer to the root than vertex $j$) and in the opposite direction (from $j$ to $i$).
+এই তালিকায় প্রতিটি এজ থাকবে (এই অর্থে যে $i$ এবং $j$ যদি এজের দুই প্রান্ত হয়, তাহলে তালিকায় এমন একটি জায়গা থাকবে যেখানে $i$ এবং $j$ তালিকায় পাশাপাশি আছে), এবং এটি ঠিক দুইবার দেখা যাবে: ফরওয়ার্ড দিকে ($i$ থেকে $j$, যেখানে ভার্টেক্স $i$ রুটের কাছে $j$-এর চেয়ে) এবং বিপরীত দিকে ($j$ থেকে $i$)।
 
-We will build two lists for these edges.
-The first one will store the color of all edges in the forward direction, and the second one the color of all edges in the opposite direction.
-We will use $1$ if the edge is colored, and $0$ otherwise.
-Over these two lists we will build each a segment tree (for sum with a single modification), let's call them $T1$ and $T2$.
+আমরা এই এজগুলোর জন্য দুটি তালিকা তৈরি করব।
+প্রথমটি ফরওয়ার্ড দিকের সব এজের রং সংরক্ষণ করবে, এবং দ্বিতীয়টি বিপরীত দিকের সব এজের রং।
+এজ রঙিন হলে $1$ এবং অন্যথায় $0$ ব্যবহার করব।
+এই দুটি তালিকার উপর প্রতিটিতে একটি সেগমেন্ট ট্রি তৈরি করব (যোগফলসহ একক পরিবর্তনের জন্য), এদের $T1$ এবং $T2$ বলি।
 
-Let us answer a query of the form $(i,j)$, where $i$ is the ancestor of $j$.
-We need to determine how many edges are painted on the path between $i$ and $j$.
-Let's find $i$ and $j$ in the Euler tour for the first time, let it be the positions $p$ and $q$ (this can be done in $O(1)$ if we calculate these positions in advance during preprocessing).
-Then the **answer** to the query is the sum $T1[p..q-1]$ minus the sum $T2[p..q-1]$.
+ধরি আমরা $(i,j)$ আকারের একটি কুয়েরির উত্তর দিচ্ছি, যেখানে $i$ হলো $j$-এর অ্যানসেস্টর।
+আমাদের $i$ এবং $j$-এর মধ্যকার পাথে কতগুলো এজ রঙিন তা নির্ধারণ করতে হবে।
+অয়লার ট্যুরে প্রথমবারের মতো $i$ এবং $j$ খুঁজি, ধরি সেগুলো $p$ এবং $q$ অবস্থানে (প্রিপ্রসেসিং-এর সময় আগে থেকে গণনা করলে এটি $O(1)$-এ করা যায়)।
+তাহলে কুয়েরির **উত্তর** হলো $T1[p..q-1]$-এর যোগফল বিয়োগ $T2[p..q-1]$-এর যোগফল।
 
-**Why?**
-Consider the segment $[p;q]$ in the Euler tour.
-It contains all edges of the path we need from $i$ to $j$ but also contains a set of edges that lie on other paths from $i$.
-However there is one big difference between the edges we need and the rest of the edges: the edges we need will be listed only once in the forward direction, and all the other edges appear twice: once in the forward and once in the opposite direction.
-Hence, the difference $T1[p..q-1] - T2[p..q-1]$ will give us the correct answer (minus one is necessary because otherwise, we will capture an extra edge going out from vertex $j$).
-The sum query in the segment tree is executed in $O(\log N)$.
+**কেন?**
+অয়লার ট্যুরে $[p;q]$ সেগমেন্ট বিবেচনা করুন।
+এতে $i$ থেকে $j$ পর্যন্ত আমাদের প্রয়োজনীয় পাথের সব এজ আছে কিন্তু $i$ থেকে অন্য পাথের এজগুলোও আছে।
+তবে আমাদের প্রয়োজনীয় এজ এবং বাকি এজগুলোর মধ্যে একটি বড় পার্থক্য আছে: আমাদের প্রয়োজনীয় এজগুলো শুধু একবার ফরওয়ার্ড দিকে তালিকাভুক্ত হবে, এবং অন্য সব এজ দুইবার দেখা যাবে: একবার ফরওয়ার্ড এবং একবার বিপরীত দিকে।
+তাই, পার্থক্য $T1[p..q-1] - T2[p..q-1]$ আমাদের সঠিক উত্তর দেবে (মাইনাস ওয়ান প্রয়োজনীয় কারণ অন্যথায়, আমরা ভার্টেক্স $j$ থেকে বের হওয়া একটি অতিরিক্ত এজ ধরে ফেলব)।
+সেগমেন্ট ট্রি-তে যোগফল কুয়েরি $O(\log N)$-এ সম্পাদিত হয়।
 
-Answering the **first type of query** (painting an edge) is even easier - we just need to update $T1$ and $T2$, namely to perform a single update of the element that corresponds to our edge (finding the edge in the list, again, is possible in $O(1)$, if you perform this search during preprocessing).
-A single modification in the segment tree is performed in $O(\log N)$.
+**প্রথম ধরনের কুয়েরির** (একটি এজ রং করা) উত্তর দেওয়া আরো সহজ - আমাদের শুধু $T1$ এবং $T2$ আপডেট করতে হবে, অর্থাৎ আমাদের এজের সাথে সংশ্লিষ্ট উপাদানের একক আপডেট করতে হবে (তালিকায় এজ খোঁজাও $O(1)$-এ সম্ভব, যদি প্রিপ্রসেসিং-এর সময় এই সার্চ করে রাখেন)।
+সেগমেন্ট ট্রি-তে একক পরিবর্তন $O(\log N)$-এ সম্পাদিত হয়।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is the full implementation of the solution, including LCA computation:
+এখানে এলসিএ গণনাসহ সমাধানের সম্পূর্ণ ইমপ্লিমেন্টেশন দেওয়া হলো:
 
 ```cpp
 const int INF = 1000 * 1000 * 1000;

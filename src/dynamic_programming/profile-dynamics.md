@@ -4,28 +4,28 @@ tags:
 e_maxx_link: profile_dynamics
 ---
 
-# Dynamic Programming on Broken Profile. Problem "Parquet"
+# ব্রোকেন প্রোফাইলে ডায়নামিক প্রোগ্রামিং। "পার্কেট" সমস্যা
 
-Common problems solved using DP on broken profile include:
+ব্রোকেন প্রোফাইলে ডিপি ব্যবহার করে সমাধান করা সাধারণ সমস্যাগুলোর মধ্যে রয়েছে:
 
-- finding number of ways to fully fill an area (e.g. chessboard/grid) with some figures (e.g. dominoes)
-- finding a way to fill an area with minimum number of figures
-- finding a partial fill with minimum number of unfilled space (or cells, in case of grid)
-- finding a partial fill with the minimum number of figures, such that no more figures can be added
+- একটি এলাকা (যেমন দাবার বোর্ড/গ্রিড) কিছু চিত্র (যেমন ডমিনো) দিয়ে সম্পূর্ণভাবে পূরণ করার উপায়ের সংখ্যা বের করা
+- ন্যূনতম সংখ্যক চিত্র দিয়ে একটি এলাকা পূরণ করার উপায় বের করা
+- ন্যূনতম সংখ্যক পূরণ না হওয়া স্থান (বা গ্রিডের ক্ষেত্রে ঘর) সহ আংশিক পূরণ বের করা
+- ন্যূনতম সংখ্যক চিত্র দিয়ে আংশিক পূরণ বের করা, যাতে আর কোনো চিত্র যোগ করা না যায়
 
-## Problem "Parquet"
+## "পার্কেট" সমস্যা
 
-**Problem description.** Given a grid of size $N \times M$. Find number of ways to fill the grid with figures of size $2 \times 1$ (no cell should be left unfilled, and figures should not overlap each other).
+**সমস্যার বিবরণ।** $N \times M$ আকারের একটি গ্রিড দেওয়া আছে। $2 \times 1$ আকারের চিত্র দিয়ে গ্রিডটি পূরণ করার উপায়ের সংখ্যা বের করুন (কোনো ঘর খালি থাকবে না, এবং চিত্রগুলো একে অপরের উপর ওভারল্যাপ করবে না)।
 
-Let the DP state be: $dp[i, mask]$, where $i = 1, \ldots N$ and $mask = 0, \ldots 2^M - 1$.
+ধরি ডিপি স্টেট হলো: $dp[i, mask]$, যেখানে $i = 1, \ldots N$ এবং $mask = 0, \ldots 2^M - 1$।
 
-$i$ represents number of rows in the current grid, and $mask$ is the state of last row of current grid. If $j$-th bit of $mask$ is $0$ then the corresponding cell is filled, otherwise it is unfilled.
+$i$ বর্তমান গ্রিডের সারির সংখ্যা উপস্থাপন করে, এবং $mask$ হলো বর্তমান গ্রিডের শেষ সারির অবস্থা। যদি $mask$-এর $j$-তম বিট $0$ হয় তাহলে সংশ্লিষ্ট ঘরটি পূরণ করা হয়েছে, অন্যথায় এটি পূরণ হয়নি।
 
-Clearly, the answer to the problem will be $dp[N, 0]$.
+স্পষ্টতই, সমস্যার উত্তর হবে $dp[N, 0]$।
 
-We will be building the DP state by iterating over each $i = 1, \cdots N$ and each $mask = 0, \ldots 2^M - 1$, and for each $mask$ we will be only transitioning forward, that is, we will be _adding_ figures to the current grid.
+আমরা প্রতিটি $i = 1, \cdots N$ এবং প্রতিটি $mask = 0, \ldots 2^M - 1$ এর উপর ইটারেট করে ডিপি স্টেট তৈরি করব, এবং প্রতিটি $mask$-এর জন্য আমরা শুধুমাত্র সামনের দিকে ট্রানজিশন করব, অর্থাৎ বর্তমান গ্রিডে চিত্র _যোগ_ করব।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```cpp
 int n, m;
@@ -68,7 +68,7 @@ int main()
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [UVA 10359 - Tiling](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1300)
 - [UVA 10918 - Tri Tiling](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1859)
@@ -84,7 +84,7 @@ int main()
 - [Timus 1519 - Formula 1](https://acm.timus.ru/problem.aspx?space=1&num=1519)
 - [Codeforces Parquet](https://codeforces.com/problemset/problem/26/C)
 
-## References
+## রেফারেন্স
 
 - [Blog by EvilBunny](https://web.archive.org/web/20180712171735/https://blog.evilbuggy.com/2018/05/broken-profile-dynamic-programming.html)
 - [TopCoder Recipe by "syg96"](https://apps.topcoder.com/forums/?module=Thread&start=0&threadID=697369)

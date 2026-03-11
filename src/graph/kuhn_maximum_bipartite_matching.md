@@ -4,33 +4,32 @@ tags:
 e_maxx_link: kuhn_matching
 ---
 
-# Kuhn's Algorithm for Maximum Bipartite Matching
+# সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং-এর জন্য কুহনের অ্যালগরিদম
 
-## Problem
-You are given a bipartite graph $G$ containing $n$ vertices and $m$ edges. Find the maximum matching, i.e., select as many edges as possible so 
-that no selected edge shares a vertex with any other selected edge.
+## সমস্যা
+আপনাকে একটি দ্বিপার্শ্বিক গ্রাফ $G$ দেওয়া হয় যা $n$ টি ভার্টেক্স এবং $m$ টি এজ রয়েছে। সর্বাধিক ম্যাচিং খুঁজে বের করুন, অর্থাৎ যতটা সম্ভব এজ নির্বাচন করুন যাতে
+কোনো নির্বাচিত এজ অন্য কোনো নির্বাচিত এজের সাথে একটি ভার্টেক্স শেয়ার না করে।
 
-## Algorithm Description
+## অ্যালগরিদম বর্ণনা
 
-### Required Definitions
+### প্রয়োজনীয় সংজ্ঞা
 
-* A **matching** $M$ is a set of pairwise non-adjacent edges of a graph (in other words, no more than one edge from the set should be incident to any vertex of the graph $M$). 
-The **cardinality** of a matching is the number of edges in it.
-All those vertices that have an adjacent edge from the matching (i.e., which have degree exactly one in the subgraph formed by $M$) are called **saturated** 
-by this matching.
+* একটি **ম্যাচিং** $M$ হল একটি গ্রাফের জোড়ায় অ-সংলগ্ন এজের একটি সেট (অন্য কথায়, সেটের একাধিকেরও বেশি এজ গ্রাফ $M$ এর যেকোনো ভার্টেক্সের সাথে সংযুক্ত হওয়া উচিত নয়)।
+একটি ম্যাচিং-এর **কার্ডিনালিটি** এতে এজের সংখ্যা।
+সেই সমস্ত ভার্টেক্স যাদের ম্যাচিং থেকে একটি সংলগ্ন এজ রয়েছে (অর্থাৎ, যার $M$ দ্বারা গঠিত সাবগ্রাফে ঠিক একটি ডিগ্রি রয়েছে) এই ম্যাচিং দ্বারা **স্যাচুরেট** বলা হয়।
 
-* A **maximal matching** is a matching $M$ of a graph $G$ that is not a subset of any other matching.
+* একটি **ম্যাক্সিমাল ম্যাচিং** একটি গ্রাফ $G$ এর একটি ম্যাচিং $M$ যা অন্য কোনো ম্যাচিং-এর সাবসেট নয়।
 
-* A **maximum matching** (also known as maximum-cardinality matching) is a matching that contains the largest possible number of edges. Every maximum matching is a maximal matching.
+* একটি **সর্বাধিক ম্যাচিং** (সর্বাধিক-কার্ডিনালিটি ম্যাচিং নামেও পরিচিত) একটি ম্যাচিং যা সর্বাধিক সম্ভাব্য সংখ্যক এজ রয়েছে। প্রতিটি সর্বাধিক ম্যাচিং একটি ম্যাক্সিমাল ম্যাচিং।
 
-* A **path** of length $k$ here means a *simple* path (i.e. not containing repeated vertices or edges) containing $k$ edges, unless specified otherwise.
+* দৈর্ঘ্য $k$ এর একটি **পথ** এখানে একটি *সরল* পথ (অর্থাৎ পুনরাবৃত্ত ভার্টেক্স বা এজ ধারণ করে না) $k$ টি এজ রয়েছে, অন্যথায় নির্দিষ্ট না হলে।
 
-* An **alternating path** (in a bipartite graph, with respect to some matching) is a path in which the edges alternately belong / do not belong to the matching.
+* একটি **পরিবর্তনকারী পথ** (একটি দ্বিপার্শ্বিক গ্রাফে, কিছু ম্যাচিং-এর সাথে) একটি পথ যেখানে এজগুলি ম্যাচিং-এ অ্যালটারনেটভাবে অন্তর্গত / অন্তর্গত নয়।
 
-* An **augmenting path** (in a bipartite graph, with respect to some matching) is an alternating path whose initial and final vertices are unsaturated, i.e., 
-they do not belong in the matching. 
+* একটি **বর্ধনশীল পথ** (একটি দ্বিপার্শ্বিক গ্রাফে, কিছু ম্যাচিং-এর সাথে) একটি পরিবর্তনকারী পথ যার প্রাথমিক এবং চূড়ান্ত ভার্টেক্স অসংতৃপ্ত, অর্থাৎ,
+তারা ম্যাচিং-এ অন্তর্গত নয়।
 
-* The **symmetric difference** (also known as the **disjunctive union**) of sets $A$ and $B$, represented by $A \oplus B$, is the set of all elements that belong to exactly one of $A$ or $B$, but not to both. 
+* **প্রতিসম পার্থক্য** (যাকে **বিচ্ছিন্ন সংমিশ্রণ**ও বলা হয়) সেট $A$ এবং $B$ এর, $A \oplus B$ দ্বারা প্রতিনিধিত্ব করা হয়, সমস্ত উপাদানের সেট যা ঠিক $A$ বা $B$ এর একটিতে অন্তর্গত, কিন্তু উভয়েই নয়। 
 That is, $A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B)$.
 
 ### Berge's lemma
@@ -227,7 +226,7 @@ there is a test case against it, on which it will find a matching that is much s
     **Hopcroft-Karp-Karzanov algorithm**, which runs in $O(\sqrt{n}m)$ time.
 * The [minimum vertex cover problem](https://en.wikipedia.org/wiki/Vertex_cover) is NP-hard for general graphs.  However, [Kőnig's theorem](https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)) gives that, for bipartite graphs, the cardinality of the maximum matching equals the cardinality of the minimum vertex cover.  Hence, we can use maximum bipartite matching algorithms to solve the minimum vertex cover problem in polynomial time for bipartite graphs.
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Kattis - Gopher II](https://open.kattis.com/problems/gopher2)
 * [Kattis - Borders](https://open.kattis.com/problems/borders)

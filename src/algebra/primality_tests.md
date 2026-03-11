@@ -3,20 +3,20 @@ tags:
     - Original
 ---
 
-# Primality tests
+# মৌলিকতা পরীক্ষা
 
-This article describes multiple algorithms to determine if a number is prime or not.
+এই নিবন্ধে একটি সংখ্যা মৌলিক কিনা তা নির্ণয়ের জন্য একাধিক অ্যালগরিদম বর্ণনা করা হয়েছে।
 
-## Trial division
+## ট্রায়াল ডিভিশন
 
-By definition a prime number doesn't have any divisors other than $1$ and itself.
-A composite number has at least one additional divisor, let's call it $d$.
-Naturally $\frac{n}{d}$ is also a divisor of $n$.
-It's easy to see, that either $d \le \sqrt{n}$ or $\frac{n}{d} \le \sqrt{n}$, therefore one of the divisors $d$ and $\frac{n}{d}$ is $\le \sqrt{n}$.
-We can use this information to check for primality.
+সংজ্ঞা অনুসারে একটি মৌলিক সংখ্যার $1$ এবং নিজে ছাড়া অন্য কোনো ভাজক নেই।
+একটি যৌগিক সংখ্যার অন্তত একটি অতিরিক্ত ভাজক আছে, একে $d$ বলি।
+স্বাভাবিকভাবেই $\frac{n}{d}$-ও $n$ এর একটি ভাজক।
+সহজেই দেখা যায় যে, হয় $d \le \sqrt{n}$ অথবা $\frac{n}{d} \le \sqrt{n}$, সুতরাং $d$ এবং $\frac{n}{d}$ ভাজকদ্বয়ের একটি $\le \sqrt{n}$।
+আমরা মৌলিকতা পরীক্ষায় এই তথ্য ব্যবহার করতে পারি।
 
-We try to find a non-trivial divisor, by checking if any of the numbers between $2$ and $\sqrt{n}$ is a divisor of $n$.
-If it is a divisor, then $n$ is definitely not prime, otherwise it is.
+আমরা $2$ থেকে $\sqrt{n}$ পর্যন্ত কোনো সংখ্যা $n$ এর ভাজক কিনা পরীক্ষা করে একটি অ-তুচ্ছ ভাজক খুঁজে বের করার চেষ্টা করি।
+যদি এটি ভাজক হয়, তাহলে $n$ অবশ্যই মৌলিক নয়, অন্যথায় এটি মৌলিক।
 
 ```cpp
 bool isPrime(int x) {
@@ -28,34 +28,34 @@ bool isPrime(int x) {
 }
 ```
 
-This is the simplest form of a prime check.
-You can optimize this function quite a bit, for instance by only checking all odd numbers in the loop, since the only even prime number is 2.
-Multiple such optimizations are described in the article about [integer factorization](factorization.md).
+এটি মৌলিকতা পরীক্ষার সবচেয়ে সরল রূপ।
+লুপে শুধুমাত্র বিজোড় সংখ্যাগুলো পরীক্ষা করে এই ফাংশনটিকে যথেষ্ট অপটিমাইজ করা যায়, কারণ একমাত্র জোড় মৌলিক সংখ্যা হলো ২।
+এরকম একাধিক অপটিমাইজেশন [পূর্ণ সংখ্যার উৎপাদক বিভাজন](factorization.md) সংক্রান্ত নিবন্ধে বর্ণনা করা হয়েছে।
 
-## Fermat primality test
+## ফার্মার মৌলিকতা পরীক্ষা
 
-This is a probabilistic test.
+এটি একটি প্রোবাবিলিস্টিক পরীক্ষা।
 
-Fermat's little theorem (see also [Euler's totient function](phi-function.md)) states, that for a prime number $p$ and a coprime integer $a$ the following equation holds:
+ফার্মার ক্ষুদ্র উপপাদ্য (দেখুন [অয়লারের টোশেন্ট ফাংশন](phi-function.md)) বলে যে, একটি মৌলিক সংখ্যা $p$ এবং $p$ এর সাথে সহমৌলিক একটি পূর্ণ সংখ্যা $a$ এর জন্য নিচের সমীকরণটি সত্য:
 
 $$a^{p-1} \equiv 1 \bmod p$$
 
-In general this theorem doesn't hold for composite numbers.
+সাধারণত এই উপপাদ্যটি যৌগিক সংখ্যাদের জন্য সত্য হয় না।
 
-This can be used to create a primality test.
-We pick an integer $2 \le a \le p - 2$, and check if the equation holds or not.
-If it doesn't hold, e.g. $a^{p-1} \not\equiv 1 \bmod p$, we know that $p$ cannot be a prime number.
-In this case we call the base $a$ a *Fermat witness* for the compositeness of $p$.
+এটি মৌলিকতা পরীক্ষা তৈরিতে ব্যবহার করা যায়।
+আমরা একটি পূর্ণ সংখ্যা $2 \le a \le p - 2$ বেছে নিই, এবং সমীকরণটি সত্য হয় কিনা পরীক্ষা করি।
+যদি সত্য না হয়, যেমন $a^{p-1} \not\equiv 1 \bmod p$, তাহলে আমরা জানি $p$ মৌলিক সংখ্যা হতে পারে না।
+এই ক্ষেত্রে আমরা ভিত্তি $a$ কে $p$ এর যৌগিকতার *ফার্মা উইটনেস* বলি।
 
-However it is also possible, that the equation holds for a composite number.
-So if the equation holds, we don't have a proof for primality.
-We only can say that $p$ is *probably prime*.
-If it turns out that the number is actually composite, we call the base $a$ a *Fermat liar*.
+তবে এটাও সম্ভব যে যৌগিক সংখ্যার জন্যও সমীকরণটি সত্য হয়।
+তাই সমীকরণটি সত্য হলে, আমাদের কাছে মৌলিকতার প্রমাণ নেই।
+আমরা শুধু বলতে পারি যে $p$ *সম্ভবত মৌলিক*।
+যদি দেখা যায় যে সংখ্যাটি আসলে যৌগিক, তাহলে আমরা ভিত্তি $a$ কে *ফার্মা লায়ার* বলি।
 
-By running the test for all possible bases $a$, we can actually prove that a number is prime.
-However this is not done in practice, since this is a lot more effort that just doing *trial division*.
-Instead the test will be repeated multiple times with random choices for $a$.
-If we find no witness for the compositeness, it is very likely that the number is in fact prime.
+সব সম্ভাব্য ভিত্তি $a$ এর জন্য পরীক্ষা চালিয়ে, আমরা আসলে একটি সংখ্যা মৌলিক কিনা তা প্রমাণ করতে পারি।
+তবে বাস্তবে এটি করা হয় না, কারণ এটি শুধু *ট্রায়াল ডিভিশন* করার চেয়ে অনেক বেশি প্রচেষ্টা।
+এর পরিবর্তে $a$ এর র‍্যান্ডম মান বেছে পরীক্ষাটি একাধিকবার পুনরাবৃত্তি করা হয়।
+যদি আমরা যৌগিকতার কোনো উইটনেস না পাই, তাহলে এটি অত্যন্ত সম্ভাব্য যে সংখ্যাটি আসলে মৌলিক।
 
 ```cpp
 bool probablyPrimeFermat(int n, int iter=5) {
@@ -71,26 +71,26 @@ bool probablyPrimeFermat(int n, int iter=5) {
 }
 ```
 
-We use [Binary Exponentiation](binary-exp.md) to efficiently compute the power $a^{p-1}$.
+আমরা $a^{p-1}$ ঘাত দক্ষতার সাথে হিসাব করতে [বাইনারি এক্সপোনেনশিয়েশন](binary-exp.md) ব্যবহার করি।
 
-There is one bad news though:
-there exist some composite numbers where $a^{n-1} \equiv 1 \bmod n$ holds for all $a$ coprime to $n$, for instance for the number $561 = 3 \cdot 11 \cdot 17$.
-Such numbers are called *Carmichael numbers*.
-The Fermat primality test can identify these numbers only, if we have immense luck and choose a base $a$ with $\gcd(a, n) \ne 1$.
+তবে একটি খারাপ খবর আছে:
+কিছু যৌগিক সংখ্যা আছে যেখানে $n$ এর সাথে সহমৌলিক সব $a$ এর জন্য $a^{n-1} \equiv 1 \bmod n$ সত্য হয়, যেমন $561 = 3 \cdot 11 \cdot 17$ সংখ্যাটি।
+এই ধরনের সংখ্যাকে *কারমাইকেল সংখ্যা* বলে।
+ফার্মার মৌলিকতা পরীক্ষা এই সংখ্যাগুলো শুধুমাত্র তখনই শনাক্ত করতে পারে, যদি আমরা অত্যন্ত ভাগ্যবান হয়ে এমন ভিত্তি $a$ বেছে নিই যেখানে $\gcd(a, n) \ne 1$।
 
-The Fermat test is still being used in practice, as it is very fast and Carmichael numbers are very rare.
-E.g. there only exist 646 such numbers below $10^9$.
+ফার্মা পরীক্ষা এখনো বাস্তবে ব্যবহৃত হয়, কারণ এটি অত্যন্ত দ্রুত এবং কারমাইকেল সংখ্যা অত্যন্ত বিরল।
+যেমন $10^9$ এর নিচে মাত্র ৬৪৬টি এরকম সংখ্যা আছে।
 
-## Miller-Rabin primality test
+## মিলার-রাবিন মৌলিকতা পরীক্ষা
 
-The Miller-Rabin test extends the ideas from the Fermat test.
+মিলার-রাবিন পরীক্ষা ফার্মা পরীক্ষার ধারণাকে সম্প্রসারিত করে।
 
-For an odd number $n$, $n-1$ is even and we can factor out all powers of 2.
-We can write:
+একটি বিজোড় সংখ্যা $n$ এর জন্য, $n-1$ জোড় এবং আমরা ২ এর সব ঘাত বের করে আনতে পারি।
+আমরা লিখতে পারি:
 
-$$n - 1 = 2^s \cdot d,~\text{with}~d~\text{odd}.$$
+$$n - 1 = 2^s \cdot d,~\text{যেখানে}~d~\text{বিজোড়।}$$
 
-This allows us to factorize the equation of Fermat's little theorem:
+এটি আমাদের ফার্মার ক্ষুদ্র উপপাদ্যের সমীকরণকে উৎপাদক বিভাজন করতে দেয়:
 
 $$\begin{array}{rl}
 a^{n-1} \equiv 1 \bmod n &\Longleftrightarrow a^{2^s d} - 1 \equiv 0 \bmod n \\\\
@@ -100,30 +100,30 @@ a^{n-1} \equiv 1 \bmod n &\Longleftrightarrow a^{2^s d} - 1 \equiv 0 \bmod n \\\
 &\Longleftrightarrow (a^{2^{s-1} d} + 1) (a^{2^{s-2} d} + 1) \cdots (a^{d} + 1) (a^{d} - 1) \equiv 0 \bmod n \\\\
 \end{array}$$
 
-If $n$ is prime, then $n$ has to divide one of these factors.
-And in the Miller-Rabin primality test we check exactly that statement, which is a more stricter version of the statement of the Fermat test.
-For a base $2 \le a \le n-2$ we check if either
+যদি $n$ মৌলিক হয়, তাহলে $n$ কে এই গুণনীয়কগুলোর একটিকে ভাগ করতে হবে।
+এবং মিলার-রাবিন মৌলিকতা পরীক্ষায় আমরা ঠিক এই বিবৃতিটিই পরীক্ষা করি, যা ফার্মা পরীক্ষার বিবৃতির একটি কঠোরতর সংস্করণ।
+একটি ভিত্তি $2 \le a \le n-2$ এর জন্য আমরা পরীক্ষা করি হয়
 
 $$a^d \equiv 1 \bmod n$$
 
-holds or
+সত্য হয় অথবা
 
 $$a^{2^r d} \equiv -1 \bmod n$$
 
-holds for some $0 \le r \le s - 1$.
+কোনো $0 \le r \le s - 1$ এর জন্য সত্য হয়।
 
-If we found a base $a$ which doesn't satisfy any of the above equalities, then we found a *witness* for the compositeness of $n$.
-In this case we have proven that $n$ is not a prime number.
+যদি আমরা এমন ভিত্তি $a$ পাই যেটি উপরের কোনো সমতাই পূরণ করে না, তাহলে আমরা $n$ এর যৌগিকতার একটি *উইটনেস* পেয়েছি।
+এই ক্ষেত্রে আমরা প্রমাণ করেছি যে $n$ মৌলিক সংখ্যা নয়।
 
-Similar to the Fermat test, it is also possible that the set of equations is satisfied for a composite number.
-In that case the base $a$ is called a *strong liar*.
-If a base $a$ satisfies the equations (one of them), $n$ is only *strong probable prime*.
-However, there are no numbers like the Carmichael numbers, where all non-trivial bases lie.
-In fact it is possible to show, that at most $\frac{1}{4}$ of the bases can be strong liars.
-If $n$ is composite, we have a probability of $\ge 75\%$ that a random base will tell us that it is composite.
-By doing multiple iterations, choosing different random bases, we can tell with very high probability if the number is truly prime or if it is composite.
+ফার্মা পরীক্ষার মতো, এখানেও সম্ভব যে যৌগিক সংখ্যার জন্য সমীকরণগুলোর সেট পূরণ হয়।
+সেক্ষেত্রে ভিত্তি $a$ কে *স্ট্রং লায়ার* বলা হয়।
+যদি একটি ভিত্তি $a$ সমীকরণগুলো পূরণ করে (যেকোনো একটি), $n$ শুধু *স্ট্রং প্রোবেবল প্রাইম*।
+তবে, কারমাইকেল সংখ্যার মতো কোনো সংখ্যা নেই যেখানে সব অ-তুচ্ছ ভিত্তি মিথ্যা বলে।
+প্রকৃতপক্ষে দেখানো সম্ভব যে সর্বোচ্চ $\frac{1}{4}$ ভিত্তি স্ট্রং লায়ার হতে পারে।
+যদি $n$ যৌগিক হয়, তাহলে একটি র‍্যান্ডম ভিত্তি যে আমাদের বলবে এটি যৌগিক তার সম্ভাবনা $\ge 75\%$।
+বিভিন্ন র‍্যান্ডম ভিত্তি বেছে একাধিক ইটারেশন করলে, আমরা অত্যন্ত উচ্চ সম্ভাবনায় বলতে পারি সংখ্যাটি সত্যিই মৌলিক না যৌগিক।
 
-Here is an implementation for 64 bit integer.
+এখানে ৬৪ বিট ইন্টিজারের জন্য একটি ইমপ্লিমেন্টেশন দেওয়া হলো।
 
 ```cpp
 using u64 = uint64_t;
@@ -153,7 +153,7 @@ bool check_composite(u64 n, u64 a, u64 d, int s) {
     return true;
 };
 
-bool MillerRabin(u64 n, int iter=5) { // returns true if n is probably prime, else returns false.
+bool MillerRabin(u64 n, int iter=5) { // n সম্ভবত মৌলিক হলে true রিটার্ন করে, অন্যথায় false।
     if (n < 4)
         return n == 2 || n == 3;
 
@@ -173,25 +173,25 @@ bool MillerRabin(u64 n, int iter=5) { // returns true if n is probably prime, el
 }
 ```
 
-Before the Miller-Rabin test you can test additionally if one of the first few prime numbers is a divisor.
-This can speed up the test by a lot, since most composite numbers have very small prime divisors.
-E.g. $88\%$ of all numbers have a prime factor smaller than $100$.
+মিলার-রাবিন পরীক্ষার আগে অতিরিক্তভাবে পরীক্ষা করা যায় যে প্রথম কয়েকটি মৌলিক সংখ্যার কোনোটি ভাজক কিনা।
+এটি পরীক্ষাকে অনেক দ্রুত করতে পারে, কারণ বেশিরভাগ যৌগিক সংখ্যার অত্যন্ত ছোট মৌলিক গুণনীয়ক আছে।
+যেমন $100$ এর চেয়ে ছোট মৌলিক গুণনীয়ক আছে সব সংখ্যার $88\%$ এর।
 
-### Deterministic version
+### ডিটারমিনিস্টিক সংস্করণ
 
-Miller showed that it is possible to make the algorithm deterministic by only checking all bases $\le O((\ln n)^2)$.
-Bach later gave a concrete bound, it is only necessary to test all bases $a \le 2 \ln(n)^2$.
+মিলার দেখিয়েছেন যে শুধুমাত্র $\le O((\ln n)^2)$ সব ভিত্তি পরীক্ষা করে অ্যালগরিদমটিকে ডিটারমিনিস্টিক করা সম্ভব।
+Bach পরে একটি সুনির্দিষ্ট সীমা দিয়েছেন, শুধুমাত্র $a \le 2 \ln(n)^2$ সব ভিত্তি পরীক্ষা করাই যথেষ্ট।
 
-This is still a pretty large number of bases.
-So people have invested quite a lot of computation power into finding lower bounds.
-It turns out, for testing a 32 bit integer it is only necessary to check the first 4 prime bases: 2, 3, 5 and 7.
-The smallest composite number that fails this test is $3,215,031,751 = 151 \cdot 751 \cdot 28351$.
-And for testing 64 bit integer it is enough to check the first 12 prime bases: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37.
+এটি এখনো বেশ বড় সংখ্যক ভিত্তি।
+তাই মানুষ নিম্ন সীমা খুঁজে বের করতে প্রচুর কম্পিউটেশন শক্তি বিনিয়োগ করেছে।
+দেখা যায় যে, ৩২ বিট ইন্টিজার পরীক্ষার জন্য শুধুমাত্র প্রথম ৪টি মৌলিক ভিত্তি পরীক্ষা করা প্রয়োজন: ২, ৩, ৫ এবং ৭।
+এই পরীক্ষায় ব্যর্থ হওয়া ক্ষুদ্রতম যৌগিক সংখ্যা হলো $3,215,031,751 = 151 \cdot 751 \cdot 28351$।
+এবং ৬৪ বিট ইন্টিজার পরীক্ষার জন্য প্রথম ১২টি মৌলিক ভিত্তি পরীক্ষা করাই যথেষ্ট: ২, ৩, ৫, ৭, ১১, ১৩, ১৭, ১৯, ২৩, ২৯, ৩১, এবং ৩৭।
 
-This results in the following deterministic implementation:
+এটি নিচের ডিটারমিনিস্টিক ইমপ্লিমেন্টেশনে পরিণত হয়:
 
 ```cpp
-bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
+bool MillerRabin(u64 n) { // n মৌলিক হলে true রিটার্ন করে, অন্যথায় false।
     if (n < 2)
         return false;
 
@@ -212,10 +212,10 @@ bool MillerRabin(u64 n) { // returns true if n is prime, else returns false.
 }
 ```
 
-It's also possible to do the check with only 7 bases: 2, 325, 9375, 28178, 450775, 9780504 and 1795265022.
-However, since these numbers (except 2) are not prime, you need to check additionally if the number you are checking is equal to any prime divisor of those bases: 2, 3, 5, 13, 19, 73, 193, 407521, 299210837.
+শুধুমাত্র ৭টি ভিত্তি দিয়েও পরীক্ষা করা সম্ভব: ২, ৩২৫, ৯৩৭৫, ২৮১৭৮, ৪৫০৭৭৫, ৯৭৮০৫০৪ এবং ১৭৯৫২৬৫০২২।
+তবে, যেহেতু এই সংখ্যাগুলো (২ ব্যতীত) মৌলিক নয়, তাই আপনাকে অতিরিক্তভাবে পরীক্ষা করতে হবে যে আপনি যে সংখ্যাটি পরীক্ষা করছেন সেটি ওই ভিত্তিগুলোর কোনো মৌলিক ভাজকের সমান কিনা: ২, ৩, ৫, ১৩, ১৯, ৭৩, ১৯৩, ৪০৭৫২১, ২৯৯২১০৮৩৭।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [SPOJ - Prime or Not](https://www.spoj.com/problems/PON/)
 - [Project euler - Investigating a Prime Pattern](https://projecteuler.net/problem=146)

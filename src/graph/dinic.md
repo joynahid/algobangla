@@ -4,72 +4,72 @@ tags:
 e_maxx_link: dinic
 ---
 
-# Maximum flow - Dinic's algorithm
+# ম্যাক্সিমাম ফ্লো - ডিনিকের অ্যালগরিদম
 
-Dinic's algorithm solves the maximum flow problem in $O(V^2E)$. The maximum flow problem is defined in this article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md). This algorithm was discovered by Yefim Dinitz in 1970.
+ডিনিকের অ্যালগরিদম ম্যাক্সিমাম ফ্লো সমস্যা $O(V^2E)$ এ সমাধান করে। ম্যাক্সিমাম ফ্লো সমস্যাটি [ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প](edmonds_karp.md) নিবন্ধে সংজ্ঞায়িত করা হয়েছে। এই অ্যালগরিদমটি ইয়েফিম ডিনিৎজ ১৯৭০ সালে আবিষ্কার করেন।
 
-## Definitions
+## সংজ্ঞাসমূহ
 
-A **residual network** $G^R$ of network $G$ is a network which contains two edges for each edge $(v, u)\in G$:<br>
+নেটওয়ার্ক $G$ এর একটি **রেসিডুয়াল নেটওয়ার্ক** $G^R$ হলো এমন একটি নেটওয়ার্ক যেটি $G$ এর প্রতিটি এজ $(v, u)\in G$ এর জন্য দুটি এজ ধারণ করে:<br>
 
-- $(v, u)$ with capacity $c_{vu}^R = c_{vu} - f_{vu}$
-- $(u, v)$ with capacity $c_{uv}^R = f_{vu}$
+- $(v, u)$ যার ক্যাপাসিটি $c_{vu}^R = c_{vu} - f_{vu}$
+- $(u, v)$ যার ক্যাপাসিটি $c_{uv}^R = f_{vu}$
 
-A **blocking flow** of some network is such a flow that every path from $s$ to $t$ contains at least one edge which is saturated by this flow. Note that a blocking flow is not necessarily maximal.
+কোনো নেটওয়ার্কের একটি **ব্লকিং ফ্লো** হলো এমন একটি ফ্লো যাতে $s$ থেকে $t$ পর্যন্ত প্রতিটি পাথে কমপক্ষে একটি এজ থাকে যেটি এই ফ্লো দ্বারা স্যাচুরেটেড। লক্ষ্য করুন যে একটি ব্লকিং ফ্লো অগত্যা ম্যাক্সিমাল নয়।
 
-A **layered network** of a network $G$ is a network built in the following way. Firstly, for each vertex $v$ we calculate $level[v]$ - the shortest path (unweighted) from $s$ to this vertex using only edges with positive capacity. Then we keep only those edges $(v, u)$ for which $level[v] + 1 = level[u]$. Obviously, this network is acyclic.
+একটি নেটওয়ার্ক $G$ এর একটি **লেয়ার্ড নেটওয়ার্ক** হলো নিম্নলিখিত উপায়ে নির্মিত একটি নেটওয়ার্ক। প্রথমত, প্রতিটি ভার্টেক্স $v$ এর জন্য আমরা $level[v]$ গণনা করি - শুধুমাত্র পজিটিভ ক্যাপাসিটির এজ ব্যবহার করে $s$ থেকে এই ভার্টেক্স পর্যন্ত শর্টেস্ট পাথ (আনওয়েটেড)। তারপর আমরা শুধু সেই এজ $(v, u)$ রাখি যাদের জন্য $level[v] + 1 = level[u]$। স্পষ্টতই, এই নেটওয়ার্কটি অ্যাসাইক্লিক।
 
-## Algorithm
+## অ্যালগরিদম
 
-The algorithm consists of several phases. On each phase we construct the layered network of the residual network of $G$. Then we find an arbitrary blocking flow in the layered network and add it to the current flow.
+অ্যালগরিদমটি কয়েকটি ফেজে গঠিত। প্রতিটি ফেজে আমরা $G$ এর রেসিডুয়াল নেটওয়ার্কের লেয়ার্ড নেটওয়ার্ক তৈরি করি। তারপর আমরা লেয়ার্ড নেটওয়ার্কে একটি ইচ্ছামতো ব্লকিং ফ্লো খুঁজি এবং এটি বর্তমান ফ্লো-তে যোগ করি।
 
-## Proof of correctness
+## সঠিকতার প্রমাণ
 
-Let's show that if the algorithm terminates, it finds the maximum flow.
+দেখাই যে অ্যালগরিদম শেষ হলে এটি ম্যাক্সিমাম ফ্লো খুঁজে পায়।
 
-If the algorithm terminated, it couldn't find a blocking flow in the layered network. It means that the layered network doesn't have any path from $s$ to $t$.  It means that the residual network doesn't have any path from $s$ to $t$. It means that the flow is maximum.
+যদি অ্যালগরিদম শেষ হয়ে যায়, তাহলে এটি লেয়ার্ড নেটওয়ার্কে কোনো ব্লকিং ফ্লো খুঁজে পায়নি। এর মানে হলো লেয়ার্ড নেটওয়ার্কে $s$ থেকে $t$ পর্যন্ত কোনো পাথ নেই। এর মানে হলো রেসিডুয়াল নেটওয়ার্কে $s$ থেকে $t$ পর্যন্ত কোনো পাথ নেই। এর মানে হলো ফ্লোটি ম্যাক্সিমাম।
 
-## Number of phases
+## ফেজের সংখ্যা
 
-The algorithm terminates in less than $V$ phases. To prove this, we must firstly prove two lemmas.
+অ্যালগরিদম $V$ এর কম ফেজে শেষ হয়। এটি প্রমাণ করতে আমাদের প্রথমে দুটি লেমা প্রমাণ করতে হবে।
 
-**Lemma 1.** The distances from $s$ to each vertex don't decrease after each iteration, i. e. $level_{i+1}[v] \ge level_i[v]$.
+**লেমা ১।** প্রতিটি ইটারেশনের পর $s$ থেকে প্রতিটি ভার্টেক্সের দূরত্ব কমে না, অর্থাৎ $level_{i+1}[v] \ge level_i[v]$।
 
-**Proof.** Fix a phase $i$ and a vertex $v$. Consider any shortest path $P$ from $s$ to $v$ in $G_{i+1}^R$. The length of $P$ equals $level_{i+1}[v]$. Note that $G_{i+1}^R$ can only contain edges from $G_i^R$ and back edges for edges from $G_i^R$. If $P$ has no back edges for $G_i^R$, then $level_{i+1}[v] \ge level_i[v]$ because $P$ is also a path in $G_i^R$. Now, suppose that $P$ has at least one back edge. Let the first such edge be $(u, w)$.Then $level_{i+1}[u] \ge level_i[u]$ (because of the first case). The edge $(u, w)$ doesn't belong to $G_i^R$, so the edge $(w, u)$ was affected by the blocking flow on the previous iteration. It means that $level_i[u] = level_i[w] + 1$. Also, $level_{i+1}[w] = level_{i+1}[u] + 1$. From these two equations and $level_{i+1}[u] \ge level_i[u]$ we obtain $level_{i+1}[w] \ge level_i[w] + 2$. Now we can use the same idea for the rest of the path.
+**প্রমাণ।** একটি ফেজ $i$ এবং একটি ভার্টেক্স $v$ ঠিক করুন। $G_{i+1}^R$ এ $s$ থেকে $v$ পর্যন্ত যেকোনো শর্টেস্ট পাথ $P$ বিবেচনা করুন। $P$ এর দৈর্ঘ্য $level_{i+1}[v]$ এর সমান। লক্ষ্য করুন যে $G_{i+1}^R$ শুধুমাত্র $G_i^R$ এর এজ এবং $G_i^R$ এর এজের ব্যাক এজ ধারণ করতে পারে। যদি $P$ তে $G_i^R$ এর কোনো ব্যাক এজ না থাকে, তাহলে $level_{i+1}[v] \ge level_i[v]$ কারণ $P$ $G_i^R$ এও একটি পাথ। এখন ধরি $P$ তে কমপক্ষে একটি ব্যাক এজ আছে। প্রথম এমন এজটি হোক $(u, w)$। তখন $level_{i+1}[u] \ge level_i[u]$ (প্রথম ক্ষেত্রের কারণে)। এজ $(u, w)$ $G_i^R$ এ নেই, তাই এজ $(w, u)$ পূর্ববর্তী ইটারেশনে ব্লকিং ফ্লো দ্বারা প্রভাবিত হয়েছে। এর মানে $level_i[u] = level_i[w] + 1$। এছাড়া, $level_{i+1}[w] = level_{i+1}[u] + 1$। এই দুটি সমীকরণ এবং $level_{i+1}[u] \ge level_i[u]$ থেকে আমরা পাই $level_{i+1}[w] \ge level_i[w] + 2$। এখন আমরা পাথের বাকি অংশের জন্য একই ধারণা ব্যবহার করতে পারি।
 
-**Lemma 2.** $level_{i+1}[t] > level_i[t]$
+**লেমা ২।** $level_{i+1}[t] > level_i[t]$
 
-**Proof.** From the previous lemma, $level_{i+1}[t] \ge level_i[t]$. Suppose that $level_{i+1}[t] = level_i[t]$. Note that $G_{i+1}^R$ can only contain edges from $G_i^R$ and back edges for edges from $G_i^R$. It means that there is a shortest path in $G_i^R$ which wasn't blocked by the blocking flow. It's a contradiction.
+**প্রমাণ।** পূর্ববর্তী লেমা থেকে, $level_{i+1}[t] \ge level_i[t]$। ধরি $level_{i+1}[t] = level_i[t]$। লক্ষ্য করুন যে $G_{i+1}^R$ শুধুমাত্র $G_i^R$ এর এজ এবং $G_i^R$ এর এজের ব্যাক এজ ধারণ করতে পারে। এর মানে $G_i^R$ এ একটি শর্টেস্ট পাথ আছে যেটি ব্লকিং ফ্লো দ্বারা ব্লক করা হয়নি। এটি একটি বৈপরীত্য।
 
-From these two lemmas we conclude that there are less than $V$ phases because $level[t]$ increases, but it can't be greater than $V - 1$.
+এই দুটি লেমা থেকে আমরা সিদ্ধান্তে আসি যে $V$ এর কম ফেজ আছে কারণ $level[t]$ বাড়ে, কিন্তু এটি $V - 1$ এর চেয়ে বেশি হতে পারে না।
 
-## Finding blocking flow
+## ব্লকিং ফ্লো খোঁজা
 
-In order to find the blocking flow on each iteration, we may simply try pushing flow with DFS from $s$ to $t$ in the layered network while it can be pushed. In order to do it more quickly, we must remove the edges which can't be used to push anymore. To do this we can keep a pointer in each vertex which points to the next edge which can be used.
+প্রতিটি ইটারেশনে ব্লকিং ফ্লো খুঁজতে, আমরা কেবল লেয়ার্ড নেটওয়ার্কে $s$ থেকে $t$ পর্যন্ত DFS দিয়ে ফ্লো পুশ করার চেষ্টা করতে পারি যতক্ষণ পুশ করা যায়। এটি আরও দ্রুত করতে, আমাদের সেই এজগুলো সরাতে হবে যেগুলো আর পুশ করতে ব্যবহার করা যায় না। এটি করতে আমরা প্রতিটি ভার্টেক্সে একটি পয়েন্টার রাখতে পারি যেটি পরবর্তী ব্যবহারযোগ্য এজকে নির্দেশ করে।
 
-A single DFS run takes $O(k+V)$ time, where $k$ is the number of pointer advances on this run. Summed up over all runs, number of pointer advances can not exceed $E$. On the other hand, total number of runs won't exceed $E$, as every run saturates at least one edge. In this way, total running time of finding a blocking flow is $O(VE)$.
+একটি একক DFS রান $O(k+V)$ সময় নেয়, যেখানে $k$ হলো এই রানে পয়েন্টার অ্যাডভান্সের সংখ্যা। সমস্ত রানে মোট পয়েন্টার অ্যাডভান্সের সংখ্যা $E$ অতিক্রম করতে পারে না। অন্যদিকে, মোট রানের সংখ্যা $E$ অতিক্রম করবে না, যেহেতু প্রতিটি রান কমপক্ষে একটি এজ স্যাচুরেট করে। এভাবে, ব্লকিং ফ্লো খুঁজতে মোট রানিং টাইম $O(VE)$।
 
-## Complexity
+## কমপ্লেক্সিটি
 
-There are less than $V$ phases, so the total complexity is $O(V^2E)$.
+$V$ এর কম ফেজ আছে, তাই মোট কমপ্লেক্সিটি $O(V^2E)$।
 
-## Unit networks
+## ইউনিট নেটওয়ার্ক
 
-A **unit network** is a network in which for any vertex except $s$ and $t$ **either incoming or outgoing edge is unique and has unit capacity**. That's exactly the case with the network we build to solve the maximum matching problem with flows.
+একটি **ইউনিট নেটওয়ার্ক** হলো এমন একটি নেটওয়ার্ক যেখানে $s$ এবং $t$ ব্যতীত যেকোনো ভার্টেক্সের জন্য **হয় ইনকামিং বা আউটগোয়িং এজ অনন্য এবং ইউনিট ক্যাপাসিটি বিশিষ্ট**। এটি ঠিক সেই ক্ষেত্র যেটি আমরা ফ্লো দিয়ে ম্যাক্সিমাম ম্যাচিং সমস্যা সমাধান করতে নেটওয়ার্ক তৈরি করি।
 
-On unit networks Dinic's algorithm works in $O(E\sqrt{V})$. Let's prove this.
+ইউনিট নেটওয়ার্কে ডিনিকের অ্যালগরিদম $O(E\sqrt{V})$ এ কাজ করে। এটি প্রমাণ করি।
 
-Firstly, each phase now works in $O(E)$ because each edge will be considered at most once.
+প্রথমত, প্রতিটি ফেজ এখন $O(E)$ তে কাজ করে কারণ প্রতিটি এজ সর্বাধিক একবার বিবেচিত হবে।
 
-Secondly, suppose there have already been $\sqrt{V}$ phases. Then all the augmenting paths with the length $\le\sqrt{V}$ have been found. Let $f$ be the current flow, $f'$ be the maximum flow. Consider their difference $f' - f$. It is a flow in $G^R$ of value $|f'| - |f|$ and on each edge it is either $0$ or $1$. It can be decomposed into $|f'| - |f|$ paths from $s$ to $t$ and possibly cycles. As the network is unit, they can't have common vertices, so the total number of vertices is $\ge (|f'| - |f|)\sqrt{V}$, but it is also $\le V$, so in another $\sqrt{V}$ iterations we will definitely find the maximum flow.
+দ্বিতীয়ত, ধরি ইতিমধ্যে $\sqrt{V}$ টি ফেজ হয়ে গেছে। তখন $\le\sqrt{V}$ দৈর্ঘ্যের সমস্ত অগমেন্টিং পাথ পাওয়া গেছে। $f$ কে বর্তমান ফ্লো, $f'$ কে ম্যাক্সিমাম ফ্লো হতে দিন। তাদের পার্থক্য $f' - f$ বিবেচনা করুন। এটি $G^R$ এ $|f'| - |f|$ মানের একটি ফ্লো এবং প্রতিটি এজে এটি হয় $0$ বা $1$। এটি $|f'| - |f|$ টি $s$ থেকে $t$ পাথ এবং সম্ভবত সাইকেলে বিভক্ত করা যায়। যেহেতু নেটওয়ার্ক ইউনিট, তাদের কমন ভার্টেক্স থাকতে পারে না, তাই মোট ভার্টেক্স সংখ্যা $\ge (|f'| - |f|)\sqrt{V}$, কিন্তু এটি $\le V$ ও, তাই আরও $\sqrt{V}$ ইটারেশনে আমরা অবশ্যই ম্যাক্সিমাম ফ্লো পাব।
 
-### Unit capacities networks
+### ইউনিট ক্যাপাসিটি নেটওয়ার্ক
 
-In a more generic settings when all edges have unit capacities, _but the number of incoming and outgoing edges is unbounded_, the paths can't have common edges rather than common vertices. In a similar way it allows to prove the bound of $\sqrt E$ on the number of iterations, hence the running time of Dinic algorithm on such networks is at most $O(E \sqrt E)$.
+আরও সাধারণ সেটিংয়ে যখন সব এজের ইউনিট ক্যাপাসিটি আছে, _কিন্তু ইনকামিং এবং আউটগোয়িং এজের সংখ্যা সীমাহীন_, পাথগুলোর কমন ভার্টেক্সের বদলে কমন এজ থাকতে পারে না। একইভাবে ইটারেশন সংখ্যার উপর $\sqrt E$ বাউন্ড প্রমাণ করা যায়, তাই এমন নেটওয়ার্কে ডিনিক অ্যালগরিদমের রানিং টাইম সর্বাধিক $O(E \sqrt E)$।
 
-Finally, it is also possible to prove that the number of phases on unit capacity networks doesn't exceed $O(V^{2/3})$, providing an alternative estimate of $O(EV^{2/3})$ on the networks with particularly large number of edges.
+পরিশেষে, এটিও প্রমাণ করা সম্ভব যে ইউনিট ক্যাপাসিটি নেটওয়ার্কে ফেজের সংখ্যা $O(V^{2/3})$ অতিক্রম করে না, যা বিশেষভাবে বেশি এজ সংখ্যা বিশিষ্ট নেটওয়ার্কে $O(EV^{2/3})$ এর একটি বিকল্প অনুমান প্রদান করে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```{.cpp file=dinic}
 struct FlowEdge {
@@ -155,6 +155,6 @@ struct Dinic {
 };
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [SPOJ: FASTFLOW](https://www.spoj.com/problems/FASTFLOW/)

@@ -4,73 +4,73 @@ tags:
 e_maxx_link: discrete_log
 ---
 
-# Discrete Logarithm
+# ডিসক্রিট লগারিদম
 
-The discrete logarithm is an integer $x$ satisfying the equation
+ডিসক্রিট লগারিদম হলো এমন একটি পূর্ণসংখ্যা $x$ যা নিম্নলিখিত সমীকরণ পূরণ করে
 
 $$a^x \equiv b \pmod m$$
 
-for given integers $a$, $b$ and $m$.
+প্রদত্ত পূর্ণসংখ্যা $a$, $b$ এবং $m$-এর জন্য।
 
-The discrete logarithm does not always exist, for instance there is no solution to $2^x \equiv 3 \pmod 7$. There is no simple condition to determine if the discrete logarithm exists.
+ডিসক্রিট লগারিদম সর্বদা বিদ্যমান থাকে না, উদাহরণস্বরূপ $2^x \equiv 3 \pmod 7$-এর কোনো সমাধান নেই। ডিসক্রিট লগারিদম বিদ্যমান কিনা নির্ধারণ করার কোনো সরল শর্ত নেই।
 
-In this article, we describe the **Baby-step giant-step** algorithm, an algorithm to compute the discrete logarithm proposed by Shanks in 1971, which has the time complexity $O(\sqrt{m})$. This is a **meet-in-the-middle** algorithm because it uses the technique of separating tasks in half.
+এই আর্টিকেলে, আমরা **বেবি-স্টেপ জায়ান্ট-স্টেপ** অ্যালগরিদম বর্ণনা করব, ডিসক্রিট লগারিদম গণনার একটি অ্যালগরিদম যা ১৯৭১ সালে শ্যাংকস প্রস্তাব করেছিলেন, যার টাইম কমপ্লেক্সিটি $O(\sqrt{m})$। এটি একটি **মিট-ইন-দ্য-মিডল** অ্যালগরিদম কারণ এটি কাজকে অর্ধেকে ভাগ করার কৌশল ব্যবহার করে।
 
-## Algorithm
+## অ্যালগরিদম
 
-Consider the equation:
+সমীকরণটি বিবেচনা করুন:
 
 $$a^x \equiv b \pmod m,$$
 
-where $a$ and $m$ are relatively prime.
+যেখানে $a$ এবং $m$ পরস্পর সহমৌলিক।
 
-Let $x = np - q$, where $n$ is some pre-selected constant (we will describe how to select $n$ later). $p$ is known as **giant step**, since increasing it by one increases $x$ by $n$. Similarly, $q$ is known as **baby step**.
+ধরি $x = np - q$, যেখানে $n$ একটি পূর্বনির্ধারিত ধ্রুবক (পরে আমরা $n$ কীভাবে নির্বাচন করতে হয় তা বর্ণনা করব)। $p$-কে **জায়ান্ট স্টেপ** বলা হয়, কারণ এটি এক বৃদ্ধি করলে $x$ $n$ বৃদ্ধি পায়। একইভাবে, $q$-কে **বেবি স্টেপ** বলা হয়।
 
-Obviously, any number $x$ in the interval $[0; m)$ can be represented in this form, where $p \in [1; \lceil \frac{m}{n} \rceil ]$ and $q \in [0; n]$.
+স্পষ্টতই, $[0; m)$ ব্যবধানে যেকোনো সংখ্যা $x$ এই ফর্মে উপস্থাপন করা যায়, যেখানে $p \in [1; \lceil \frac{m}{n} \rceil ]$ এবং $q \in [0; n]$।
 
-Then, the equation becomes:
+তাহলে, সমীকরণটি হয়:
 
 $$a^{np - q} \equiv b \pmod m.$$
 
-Using the fact that $a$ and $m$ are relatively prime, we obtain:
+$a$ এবং $m$ সহমৌলিক এই তথ্য ব্যবহার করে, আমরা পাই:
 
 $$a^{np} \equiv ba^q \pmod m$$
 
-This new equation can be rewritten in a simplified form:
+এই নতুন সমীকরণটি সরলীকৃত আকারে লেখা যায়:
 
 $$f_1(p) = f_2(q).$$
 
-This problem can be solved using the meet-in-the-middle method as follows:
+এই সমস্যাটি মিট-ইন-দ্য-মিডল পদ্ধতি ব্যবহার করে নিম্নরূপে সমাধান করা যায়:
 
-* Calculate $f_1$ for all possible arguments $p$. Sort the array of value-argument pairs.
-* For all possible arguments $q$, calculate $f_2$ and look for the corresponding $p$ in the sorted array using binary search.
+* সকল সম্ভাব্য আর্গুমেন্ট $p$-এর জন্য $f_1$ গণনা করুন। মান-আর্গুমেন্ট জোড়ার অ্যারে সর্ট করুন।
+* সকল সম্ভাব্য আর্গুমেন্ট $q$-এর জন্য, $f_2$ গণনা করুন এবং বাইনারি সার্চ ব্যবহার করে সর্ট করা অ্যারেতে সংশ্লিষ্ট $p$ খুঁজুন।
 
-## Complexity
+## কমপ্লেক্সিটি
 
-We can calculate $f_1(p)$ in $O(\log m)$ using the [binary exponentiation algorithm](binary-exp.md). Similarly for $f_2(q)$.
+আমরা [বাইনারি এক্সপোনেনশিয়েশন](binary-exp.md) অ্যালগরিদম ব্যবহার করে $O(\log m)$-এ $f_1(p)$ গণনা করতে পারি। $f_2(q)$-এর জন্যও একইভাবে।
 
-In the first step of the algorithm, we need to calculate $f_1$ for every possible argument $p$ and then sort the values. Thus, this step has complexity:
+অ্যালগরিদমের প্রথম ধাপে, আমাদের প্রতিটি সম্ভাব্য আর্গুমেন্ট $p$-এর জন্য $f_1$ গণনা করতে হবে এবং তারপর মানগুলো সর্ট করতে হবে। তাই, এই ধাপের কমপ্লেক্সিটি:
 
 $$O\left(\left\lceil \frac{m}{n} \right\rceil \left(\log m + \log \left\lceil \frac{m}{n} \right\rceil \right)\right) = O\left( \left\lceil \frac {m}{n} \right\rceil \log m\right)$$
 
-In the second step of the algorithm, we need to calculate $f_2(q)$ for every possible argument $q$ and then do a binary search on the array of values of $f_1$, thus this step has complexity:
+অ্যালগরিদমের দ্বিতীয় ধাপে, আমাদের প্রতিটি সম্ভাব্য আর্গুমেন্ট $q$-এর জন্য $f_2(q)$ গণনা করতে হবে এবং তারপর $f_1$-এর মানের অ্যারেতে বাইনারি সার্চ করতে হবে, তাই এই ধাপের কমপ্লেক্সিটি:
 
 $$O\left(n \left(\log m + \log \frac{m}{n} \right) \right) = O\left(n \log m\right).$$
 
-Now, when we add these two complexities, we get $\log m$ multiplied by the sum of $n$ and $m/n$, which is minimal when $n = m/n$, which means, to achieve optimal performance, $n$ should be chosen such that:
+এখন, এই দুই কমপ্লেক্সিটি যোগ করলে, আমরা $\log m$ কে $n$ এবং $m/n$-এর যোগফল দ্বারা গুণিত পাই, যা $n = m/n$ হলে ন্যূনতম, অর্থাৎ সর্বোত্তম পারফর্মেন্স অর্জনের জন্য $n$ এমনভাবে বেছে নেওয়া উচিত যাতে:
 
 $$n = \sqrt{m}.$$
 
-Then, the complexity of the algorithm becomes:
+তাহলে, অ্যালগরিদমের কমপ্লেক্সিটি হয়:
 
 $$O(\sqrt {m} \log m).$$
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-### The simplest implementation
+### সবচেয়ে সরল ইমপ্লিমেন্টেশন
 
-In the following code, the function `powmod` calculates $a^b \pmod m$ and the function `solve` produces a proper solution to the problem.
-It returns $-1$ if there is no solution and returns one of the possible solutions otherwise.
+নিম্নলিখিত কোডে, `powmod` ফাংশন $a^b \pmod m$ গণনা করে এবং `solve` ফাংশন সমস্যার একটি সঠিক সমাধান প্রদান করে।
+কোনো সমাধান না থাকলে এটি $-1$ রিটার্ন করে এবং অন্যথায় সম্ভাব্য সমাধানগুলোর একটি রিটার্ন করে।
 
 ```cpp
 int powmod(int a, int b, int m) {
@@ -102,34 +102,34 @@ int solve(int a, int b, int m) {
 }
 ```
 
-In this code, we used `map` from the C++ standard library to store the values of $f_1$.
-Internally, `map` uses a red-black tree to store values.
-Thus this code is a little bit slower than if we had used an array and binary searched, but is much easier to write.
+এই কোডে, আমরা $f_1$-এর মানগুলো সংরক্ষণ করতে C++ স্ট্যান্ডার্ড লাইব্রেরি থেকে `map` ব্যবহার করেছি।
+অভ্যন্তরীণভাবে, `map` মান সংরক্ষণ করতে একটি রেড-ব্ল্যাক ট্রি ব্যবহার করে।
+তাই এই কোড অ্যারে এবং বাইনারি সার্চ ব্যবহারের চেয়ে একটু ধীর, তবে লিখতে অনেক সহজ।
 
-Notice that our code assumes $0^0 = 1$, i.e. the code will compute $0$ as solution for the equation $0^x \equiv 1 \pmod m$ and also as solution for $0^x \equiv 0 \pmod 1$.
-This is an often used convention in algebra, but it's also not universally accepted in all areas.
-Sometimes $0^0$ is simply undefined.
-If you don't like our convention, then you need to handle the case $a=0$ separately:
+লক্ষ্য করুন যে আমাদের কোড $0^0 = 1$ ধরে নেয়, অর্থাৎ কোড সমীকরণ $0^x \equiv 1 \pmod m$-এর সমাধান হিসেবে $0$ এবং $0^x \equiv 0 \pmod 1$-এর সমাধান হিসেবেও $0$ গণনা করবে।
+এটি বীজগণিতে একটি প্রায়ই ব্যবহৃত কনভেনশন, তবে এটি সকল ক্ষেত্রে সার্বজনীনভাবে গৃহীত নয়।
+কখনো কখনো $0^0$ কেবল অসংজ্ঞায়িত।
+আপনি যদি আমাদের কনভেনশন পছন্দ না করেন, তাহলে $a=0$ কেসটি আলাদাভাবে হ্যান্ডেল করতে হবে:
 
 ```cpp
     if (a == 0)
         return b == 0 ? 1 : -1;
 ```
 
-Another thing to note is that, if there are multiple arguments $p$ that map to the same value of $f_1$, we only store one such argument.
-This works in this case because we only want to return one possible solution.
-If we need to return all possible solutions, we need to change `map<int, int>` to, say, `map<int, vector<int>>`.
-We also need to change the second step accordingly.
+আরেকটি বিষয় লক্ষণীয় যে, একাধিক আর্গুমেন্ট $p$ $f_1$-এর একই মানে ম্যাপ করলে, আমরা শুধু একটি আর্গুমেন্ট সংরক্ষণ করি।
+এই ক্ষেত্রে এটি কাজ করে কারণ আমরা শুধু একটি সম্ভাব্য সমাধান রিটার্ন করতে চাই।
+যদি সকল সম্ভাব্য সমাধান রিটার্ন করতে হয়, তাহলে `map<int, int>` কে `map<int, vector<int>>`-এ পরিবর্তন করতে হবে।
+দ্বিতীয় ধাপটিও সেই অনুযায়ী পরিবর্তন করতে হবে।
 
-## Improved implementation
+## উন্নত ইমপ্লিমেন্টেশন
 
-A possible improvement is to get rid of binary exponentiation.
-This can be done by keeping a variable that is multiplied by $a$ each time we increase $q$ and a variable that is multiplied by $a^n$ each time we increase $p$.
-With this change, the complexity of the algorithm is still the same, but now the $\log$ factor is only for the `map`.
-Instead of a `map`, we can also use a hash table (`unordered_map` in C++) which has the average time complexity $O(1)$ for inserting and searching.
+একটি সম্ভাব্য উন্নতি হলো বাইনারি এক্সপোনেনশিয়েশন থেকে মুক্তি পাওয়া।
+এটি করা যায় একটি ভেরিয়েবল রেখে যা প্রতিবার $q$ বৃদ্ধি করলে $a$ দ্বারা গুণিত হয় এবং অন্য একটি ভেরিয়েবল যা প্রতিবার $p$ বৃদ্ধি করলে $a^n$ দ্বারা গুণিত হয়।
+এই পরিবর্তনে, অ্যালগরিদমের কমপ্লেক্সিটি একই থাকে, তবে এখন $\log$ ফ্যাক্টরটি শুধুমাত্র `map`-এর জন্য।
+`map`-এর পরিবর্তে, আমরা একটি হ্যাশ টেবিলও ব্যবহার করতে পারি (C++-এ `unordered_map`) যার গড় টাইম কমপ্লেক্সিটি ইনসার্ট এবং সার্চের জন্য $O(1)$।
 
-Problems often ask for the minimum $x$ which satisfies the solution.  
-It is possible to get all answers and take the minimum, or reduce the first found answer using [Euler's theorem](phi-function.md#application), but we can be smart about the order in which we calculate values and ensure the first answer we find is the minimum.
+সমস্যাগুলো প্রায়ই সমাধান পূরণ করে এমন ন্যূনতম $x$ চায়।
+সকল উত্তর পেয়ে ন্যূনতমটি নেওয়া সম্ভব, অথবা [অয়লারের উপপাদ্য](phi-function.md#application) ব্যবহার করে প্রথম পাওয়া উত্তর কমানো সম্ভব, তবে আমরা মান গণনার ক্রম সম্পর্কে চতুর হতে পারি এবং নিশ্চিত করতে পারি যে আমরা প্রথম যে উত্তর পাব সেটিই ন্যূনতম।
 
 ```{.cpp file=discrete_log}
 // Returns minimum x for which a ^ x % m = b % m, a and m are coprime.
@@ -158,14 +158,14 @@ int solve(int a, int b, int m) {
 }
 ```
 
-The complexity is $O(\sqrt{m})$ using `unordered_map`.
+`unordered_map` ব্যবহার করে কমপ্লেক্সিটি $O(\sqrt{m})$।
 
-## When $a$ and $m$ are not coprime { data-toc-label='When a and m are not coprime' }
-Let $g = \gcd(a, m)$, and $g > 1$. Clearly $a^x \bmod m$ for every $x \ge 1$ will be divisible by $g$.
+## যখন $a$ এবং $m$ সহমৌলিক নয় { data-toc-label='When a and m are not coprime' }
+ধরি $g = \gcd(a, m)$, এবং $g > 1$। স্পষ্টতই প্রতি $x \ge 1$-এর জন্য $a^x \bmod m$ $g$ দ্বারা বিভাজ্য হবে।
 
-If $g \nmid b$, there is no solution for $x$.
+যদি $g \nmid b$ হয়, তাহলে $x$-এর কোনো সমাধান নেই।
 
-If $g \mid b$, let $a = g \alpha, b = g \beta, m = g \nu$.
+যদি $g \mid b$ হয়, ধরি $a = g \alpha, b = g \beta, m = g \nu$।
 
 $$
 \begin{aligned}
@@ -175,7 +175,7 @@ a^x & \equiv b \mod m \\\
 \end{aligned}
 $$
 
-The baby-step giant-step algorithm can be easily extended to solve $ka^{x} \equiv b \pmod m$ for $x$.
+বেবি-স্টেপ জায়ান্ট-স্টেপ অ্যালগরিদম সহজেই $ka^{x} \equiv b \pmod m$ সমীকরণে $x$-এর জন্য সমাধান করতে সম্প্রসারিত করা যায়।
 
 ```{.cpp file=discrete_log_extended}
 // Returns minimum x for which a ^ x % m = b % m.
@@ -213,15 +213,15 @@ int solve(int a, int b, int m) {
 }
 ```
 
-The time complexity remains $O(\sqrt{m})$ as before since the initial reduction to coprime $a$ and $m$ is done in $O(\log^2 m)$.
+টাইম কমপ্লেক্সিটি আগের মতোই $O(\sqrt{m})$ থাকে কারণ সহমৌলিক $a$ এবং $m$-এ প্রাথমিক রিডাকশন $O(\log^2 m)$-এ সম্পন্ন হয়।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Spoj - Power Modulo Inverted](http://www.spoj.com/problems/MOD/)
 * [Topcoder - SplittingFoxes3](https://community.topcoder.com/stat?c=problem_statement&pm=14386&rd=16801)
 * [CodeChef - Inverse of a Function](https://www.codechef.com/problems/INVXOR/)
-* [Hard Equation](https://codeforces.com/gym/101853/problem/G) (assume that $0^0$ is undefined)
+* [Hard Equation](https://codeforces.com/gym/101853/problem/G) ($0^0$ অসংজ্ঞায়িত ধরুন)
 * [CodeChef - Chef and Modular Sequence](https://www.codechef.com/problems/CHEFMOD)
 
-## References
+## রেফারেন্স
 * [Wikipedia - Baby-step giant-step](https://en.wikipedia.org/wiki/Baby-step_giant-step)
 * [Answer by Zander on Mathematics StackExchange](https://math.stackexchange.com/a/133054)

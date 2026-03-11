@@ -4,12 +4,12 @@ tags:
 e_maxx_link: treap
 ---
 
-# Treap (Cartesian tree)
+# ট্রিপ (কার্টেসিয়ান ট্রি)
 
-A treap is a data structure which combines binary tree and binary heap (hence the name: tree + heap $\Rightarrow$ Treap).
+একটি ট্রিপ একটি ডেটা স্ট্রাকচার যা বাইনারি ট্রি এবং বাইনারি হিপকে একত্রিত করে (তাই নাম: ট্রি + হিপ $\Rightarrow$ ট্রিপ)।
 
-More specifically, treap is a data structure that stores pairs $(X, Y)$ in a binary tree in such a way that it is a binary search tree by $X$ and a binary heap by $Y$.
-If some node of the tree contains values $(X_0, Y_0)$, all nodes in the left subtree have $X \leq X_0$, all nodes in the right subtree have $X_0 \leq X$, and all nodes in both left and right subtrees have $Y \leq Y_0$.
+আরও নির্দিষ্টভাবে, ট্রিপ একটি ডেটা স্ট্রাকচার যা জোড়া $(X, Y)$ একটি বাইনারি ট্রিতে এমনভাবে সংরক্ষণ করে যে এটি $X$ দ্বারা একটি বাইনারি সার্চ ট্রি এবং $Y$ দ্বারা একটি বাইনারি হিপ।
+যদি ট্রির কোনো নোড মানগুলি $(X_0, Y_0)$ রাখে, তাহলে বাম সাবট্রির সমস্ত নোডের $X \leq X_0$, ডান সাবট্রির সমস্ত নোডের $X_0 \leq X$, এবং বাম এবং ডান উভয় সাবট্রির সমস্ত নোডের $Y \leq Y_0$ থাকে।
 
 A treap is also often referred to as a "cartesian tree", as it is easy to embed it in a Cartesian plane:
 
@@ -19,28 +19,28 @@ A treap is also often referred to as a "cartesian tree", as it is easy to embed 
 
 Treaps have been proposed by Raimund Siedel and Cecilia Aragon in 1989.
 
-## Advantages of such data organisation
+## এই ধরনের ডেটা সংগঠনের সুবিধা
 
-In such implementation, $X$ values are the keys (and at same time the values stored in the treap), and $Y$ values are called **priorities**. Without priorities, the treap would be a regular binary search tree by $X$, and one set of $X$ values could correspond to a lot of different trees, some of them degenerate (for example, in the form of a linked list), and therefore extremely slow (the main operations would have $O(N)$ complexity).
+এই ইমপ্লিমেন্টেশনে, $X$ মানগুলি হল চাবি (এবং একই সাথে ট্রিপে সংরক্ষিত মানগুলি), এবং $Y$ মানগুলিকে **অগ্রাধিকার** বলা হয়। অগ্রাধিকার ছাড়া, ট্রিপ $X$ দ্বারা একটি নিয়মিত বাইনারি সার্চ ট্রি হবে, এবং $X$ মানগুলির একটি সেট অনেক বিভিন্ন গাছের সাথে মিলিত হতে পারে, যার কিছু অবক্ষয়িত হতে পারে (উদাহরণস্বরূপ, লিংকড তালিকার আকারে), এবং তাই অত্যন্ত ধীর (প্রধান অপারেশনগুলির $O(N)$ কমপ্লেক্সিটি থাকবে)।
 
-At the same time, **priorities** (when they're unique) allow to **uniquely** specify the tree that will be constructed (of course, it does not depend on the order in which values are added), which can be proven using corresponding theorem. Obviously, if you **choose the priorities randomly**, you will get non-degenerate trees on average, which will ensure $O(\log N)$ complexity for the main operations. Hence another name of this data structure - **randomized binary search tree**.
+একই সময়ে, **অগ্রাধিকারগুলি** (যখন তারা অনন্য) যে গাছটি নির্মিত হবে তা **অনন্যভাবে** নির্দিষ্ট করতে অনুমতি দেয় (অবশ্যই, এটি যে ক্রমে মানগুলি যোগ করা হয় তার উপর নির্ভর করে না), যা সংশ্লিষ্ট উপপাদ্য ব্যবহার করে প্রমাণ করা যায়। স্পষ্টতই, যদি আপনি **অগ্রাধিকারগুলি র্যান্ডমলি বেছে নেন**, আপনি গড়ে অবক্ষয়িত নয় এমন গাছ পাবেন, যা প্রধান অপারেশনগুলির জন্য $O(\log N)$ কমপ্লেক্সিটি নিশ্চিত করবে। তাই এই ডেটা স্ট্রাকচারের আরেকটি নাম - **র্যান্ডমাইজড বাইনারি সার্চ ট্রি**।
 
-## Operations
+## অপারেশন
 
-A treap provides the following operations:
+একটি ট্রিপ নিম্নলিখিত অপারেশন প্রদান করে:
 
-- **Insert (X,Y)** in $O(\log N)$.  
-  Adds a new node to the tree. One possible variant is to pass only $X$ and generate $Y$ randomly inside the operation.
-- **Search (X)** in $O(\log N)$.  
-  Looks for a node with the specified key value $X$. The implementation is the same as for an ordinary binary search tree.
-- **Erase (X)** in $O(\log N)$.  
-  Looks for a node with the specified key value $X$ and removes it from the tree.
-- **Build ($X_1$, ..., $X_N$)** in $O(N)$.  
-  Builds a tree from a list of values. This can be done in linear time (assuming that $X_1, ..., X_N$ are sorted).
-- **Union ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
-  Merges two trees, assuming that all the elements are different. It is possible to achieve the same complexity if duplicate elements should be removed during merge.
-- **Intersect ($T_1$, $T_2$)** in $O(M \log (N/M))$.  
-  Finds the intersection of two trees (i.e. their common elements). We will not consider the implementation of this operation here.
+- **সন্নিবেশ (X,Y)** $O(\log N)$ তে।
+  গাছে একটি নতুন নোড যোগ করে। একটি সম্ভাব্য রূপ হল শুধুমাত্র $X$ পাস করা এবং অপারেশনের মধ্যে $Y$ র্যান্ডমলি তৈরি করা।
+- **অনুসন্ধান (X)** $O(\log N)$ তে।
+  নির্দিষ্ট কী মান $X$ সহ একটি নোড খুঁজে বের করে। ইমপ্লিমেন্টেশন একটি সাধারণ বাইনারি সার্চ ট্রির মতোই।
+- **মুছে ফেলা (X)** $O(\log N)$ তে।
+  নির্দিষ্ট কী মান $X$ সহ একটি নোড খুঁজে বের করে এবং এটি গাছ থেকে সরিয়ে দেয়।
+- **নির্মাণ ($X_1$, ..., $X_N$)** $O(N)$ তে।
+  মানগুলির একটি তালিকা থেকে একটি গাছ নির্মাণ করে। এটি লিনিয়ার সময়ে করা যায় (ধরে নিয়ে যে $X_1, ..., X_N$ সাজানো আছে)।
+- **ইউনিয়ন ($T_1$, $T_2$)** $O(M \log (N/M))$ তে।
+  দুটি গাছ একত্রিত করে, ধরে নিয়ে যে সমস্ত উপাদান ভিন্ন। মার্জের সময় ডুপ্লিকেট উপাদানগুলি সরিয়ে দিতে হলে একই কমপ্লেক্সিটি অর্জন করা সম্ভব।
+- **ছেদ ($T_1$, $T_2$)** $O(M \log (N/M))$ তে।
+  দুটি গাছের ছেদ খুঁজে বের করে (অর্থাৎ তাদের সাধারণ উপাদান)। আমরা এই অপারেশনের ইমপ্লিমেন্টেশন এখানে বিবেচনা করব না।
 
 In addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the $K$-th largest element or finding the index of an element.
 
@@ -416,7 +416,7 @@ void output (pitem t) {
 
 * [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [SPOJ - Ada and Aphids](http://www.spoj.com/problems/ADAAPHID/)
 * [SPOJ - Ada and Harvest](http://www.spoj.com/problems/ADACROP/)

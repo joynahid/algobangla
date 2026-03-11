@@ -4,82 +4,82 @@ tags:
 e_maxx_link: strong_connected_components
 ---
 
-# Strongly connected components and the condensation graph
+# স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং কনডেনসেশন গ্রাফ
 
-## Definitions
-Let $G=(V,E)$ be a directed graph with vertices $V$ and edges $E \subseteq V \times V$. We denote with $n=|V|$ the number of vertices and with $m=|E|$ the number of edges in $G$. It is easy to extend all definitions in this article to multigraphs, but we will not focus on that.
+## সংজ্ঞাসমূহ
+ধরি $G=(V,E)$ একটি ডিরেক্টেড গ্রাফ যার ভার্টেক্স $V$ এবং এজ $E \subseteq V \times V$। আমরা $n=|V|$ দিয়ে ভার্টেক্স সংখ্যা এবং $m=|E|$ দিয়ে $G$-তে এজ সংখ্যা বোঝাই। এই নিবন্ধের সব সংজ্ঞা মাল্টিগ্রাফে সম্প্রসারণ করা সহজ, তবে আমরা সেদিকে মনোযোগ দেব না।
 
-A subset of vertices $C \subseteq V$ is called a **strongly connected component** if the following conditions hold:
+$C \subseteq V$ ভার্টেক্সের একটি উপসেটকে **স্ট্রংলি কানেক্টেড কম্পোনেন্ট** বলা হয় যদি নিম্নলিখিত শর্তগুলো পূরণ হয়:
 
-- for all $u,v\in C$, if $u \neq v$ there exists a path from $u$ to $v$ and a path from $v$ to $u$, and
-- $C$ is maximal, in the sense that no vertex can be added without violating the above condition.
+- $C$-এর সব $u,v$-এর জন্য, যদি $u \neq v$ হয় তাহলে $u$ থেকে $v$-তে একটি পাথ এবং $v$ থেকে $u$-তে একটি পাথ বিদ্যমান, এবং
+- $C$ ম্যাক্সিমাল, অর্থাৎ উপরের শর্ত লঙ্ঘন না করে কোনো ভার্টেক্স যোগ করা যায় না।
 
-We denote with $\text{SCC}(G)$ the set of strongly connected components of $G$. These strongly connected components do not intersect with each other, and cover all vertices in the graph. Thus, the set $\text{SCC}(G)$ is a partition of $V$. 
+আমরা $\text{SCC}(G)$ দিয়ে $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর সেট বোঝাই। এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো পরস্পরকে ছেদ করে না এবং গ্রাফের সব ভার্টেক্স আবৃত করে। সুতরাং, $\text{SCC}(G)$ সেটটি $V$-এর একটি পার্টিশন।
 
-Consider this graph $G_\text{example}$, in which the strongly connected components are highlighted:
+এই গ্রাফ $G_\text{example}$ বিবেচনা করুন, যেখানে স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো হাইলাইট করা হয়েছে:
 
 <center><img src="strongly-connected-components-tikzpicture/graph.svg" alt="drawing" style="width:700px;"/></center>
 
-Here we have $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ We can confirm that within each strongly connected component, all vertices are reachable from each other.
+এখানে $\text{SCC}(G_\text{example})=\{\{0,7\},\{1,2,3,5,6\},\{4,9\},\{8\}\}.$ আমরা নিশ্চিত করতে পারি যে প্রতিটি স্ট্রংলি কানেক্টেড কম্পোনেন্টের ভেতরে সব ভার্টেক্স পরস্পরের কাছে পৌঁছানো যায়।
 
-We define the **condensation graph** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ as follows:
+আমরা **কনডেনসেশন গ্রাফ** $G^{\text{SCC}}=(V^{\text{SCC}}, E^{\text{SCC}})$ নিম্নরূপে সংজ্ঞায়িত করি:
 
-- the vertices of $G^{\text{SCC}}$ are the strongly connected components of $G$; i.e., $V^{\text{SCC}} = \text{SCC}(G)$, and
-- for all vertices $C_i,C_j$ of the condensation graph, there is an edge from $C_i$ to $C_j$ if and only if $C_i \neq C_j$ and there exist $a\in C_i$ and $b\in C_j$ such that there is an edge from $a$ to $b$ in $G$.
+- $G^{\text{SCC}}$-এর ভার্টেক্স হলো $G$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্ট; অর্থাৎ, $V^{\text{SCC}} = \text{SCC}(G)$, এবং
+- কনডেনসেশন গ্রাফের সব ভার্টেক্স $C_i,C_j$-এর জন্য, $C_i$ থেকে $C_j$-তে একটি এজ আছে যদি এবং কেবল যদি $C_i \neq C_j$ এবং $C_i$-তে কোনো $a$ ও $C_j$-তে কোনো $b$ বিদ্যমান থাকে যেন $G$-তে $a$ থেকে $b$-তে একটি এজ থাকে।
 
-The condensation graph of $G_\text{example}$ looks as follows:
+$G_\text{example}$-এর কনডেনসেশন গ্রাফ নিম্নরূপ:
 
 <center><img src="strongly-connected-components-tikzpicture/cond_graph.svg" alt="drawing" style="width:600px;"/></center>
 
 
-The most important property of the condensation graph is that it is **acyclic**. Indeed, there are no 'self-loops' in the condensation graph by definition, and if there were a cycle going through two or more vertices (strongly connected components) in the condensation graph, then due to reachability, the union of these strongly connected components would have to be one strongly connected component itself: contradiction.
+কনডেনসেশন গ্রাফের সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্য হলো এটি **অ্যাসাইক্লিক**। প্রকৃতপক্ষে, সংজ্ঞা অনুযায়ী কনডেনসেশন গ্রাফে কোনো 'সেল্ফ-লুপ' নেই, এবং যদি দুই বা ততোধিক ভার্টেক্সের (স্ট্রংলি কানেক্টেড কম্পোনেন্ট) মধ্য দিয়ে কোনো সাইকেল থাকত, তাহলে পৌঁছানোযোগ্যতার কারণে এই স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর ইউনিয়ন নিজেই একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট হতো: বিরোধ।
 
-The algorithm described in the next section finds all strongly connected components in a given graph. After that, the condensation graph can be constructed.
+পরবর্তী বিভাগে বর্ণিত অ্যালগরিদম একটি প্রদত্ত গ্রাফে সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করে। এরপর, কনডেনসেশন গ্রাফ তৈরি করা যায়।
 
-## Kosaraju's algorithm
+## কোসারাজুর অ্যালগরিদম
 
-### Description of the algorithm
-The described algorithm was independently suggested by Kosaraju and Sharir around 1980. It is based on two series of [depth first search](depth-first-search.md), with a runtime of $O(n + m)$.
+### অ্যালগরিদমের বর্ণনা
+বর্ণিত অ্যালগরিদমটি স্বাধীনভাবে কোসারাজু এবং শরীর ১৯৮০ সালের দিকে প্রস্তাব করেছিলেন। এটি দুটি সিরিজের [ডেপথ ফার্স্ট সার্চ](depth-first-search.md)-এর উপর ভিত্তি করে, রানটাইম $O(n + m)$।
 
-In the first step of the algorithm, we perform a sequence of depth first searches (`dfs`), visiting the entire graph. That is, as long as there are still unvisited vertices, we take one of them, and initiate a depth first search from that vertex. For each vertex, we keep track of the *exit time* $t_\text{out}[v]$. This is the 'timestamp' at which the execution of `dfs` on vertex $v$ finishes, i.e., the moment at which all vertices reachable from $v$ have been visited and the algorithm is back at $v$. The timestamp counter should *not* be reset between consecutive calls to `dfs`. The exit times play a key role in the algorithm, which will become clear when we discuss the following theorem.
+অ্যালগরিদমের প্রথম ধাপে, আমরা সম্পূর্ণ গ্রাফ ভিজিট করে ডেপথ ফার্স্ট সার্চের একটি ক্রম সম্পাদন করি (`dfs`)। অর্থাৎ, যতক্ষণ অভিজিত ভার্টেক্স আছে, আমরা তাদের একটি নিই এবং সেই ভার্টেক্স থেকে ডেপথ ফার্স্ট সার্চ শুরু করি। প্রতিটি ভার্টেক্সের জন্য, আমরা *এক্সিট টাইম* $t_\text{out}[v]$ ট্র্যাক রাখি। এটি সেই 'টাইমস্ট্যাম্প' যখন ভার্টেক্স $v$-তে `dfs`-এর এক্সিকিউশন শেষ হয়, অর্থাৎ $v$ থেকে পৌঁছানো সব ভার্টেক্স ভিজিট হয়ে গেছে এবং অ্যালগরিদম $v$-তে ফিরে এসেছে। টাইমস্ট্যাম্প কাউন্টার পরপর `dfs` কলের মধ্যে *রিসেট হওয়া উচিত নয়*। এক্সিট টাইম অ্যালগরিদমে গুরুত্বপূর্ণ ভূমিকা পালন করে, যা নিম্নলিখিত উপপাদ্য আলোচনা করলে স্পষ্ট হবে।
 
-First, we define the exit time $t_\text{out}[C]$ of a strongly connected component $C$ as the maximum of the values $t_\text{out}[v]$ for all $v \in C.$ Furthermore, in the proof of the theorem, we will mention the *entry time* $t_{\text{in}}[v]$ for each vertex $v\in G$. The number $t_{\text{in}}[v]$ represents the 'timestamp' at which the recursive function `dfs` is called on vertex $v$ in the first step of the algorithm. For a strongly connected component $C$, we define $t_{\text{in}}[C]$ to be the minimum of the values $t_{\text{in}}[v]$ for all $v \in C$.
+প্রথমে, আমরা একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট $C$-এর এক্সিট টাইম $t_\text{out}[C]$ সংজ্ঞায়িত করি $C$-এর সব $v$-এর $t_\text{out}[v]$ মানের সর্বোচ্চ হিসেবে। এছাড়াও, উপপাদ্যের প্রমাণে, আমরা প্রতিটি ভার্টেক্স $v\in G$-এর *এন্ট্রি টাইম* $t_{\text{in}}[v]$ উল্লেখ করব। $t_{\text{in}}[v]$ সংখ্যাটি সেই 'টাইমস্ট্যাম্প' যখন অ্যালগরিদমের প্রথম ধাপে ভার্টেক্স $v$-তে রিকার্সিভ ফাংশন `dfs` কল করা হয়। একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট $C$-এর জন্য, আমরা $t_{\text{in}}[C]$ সংজ্ঞায়িত করি $C$-এর সব $v$-এর $t_{\text{in}}[v]$ মানের সর্বনিম্ন হিসেবে।
 
-!!! info "Theorem"
+!!! info "উপপাদ্য"
 
-    Let $C$ and $C'$ be two different strongly connected components, and let there be an edge from $C$ to $C'$ in the condensation graph. Then, $t_\text{out}[C] > t_\text{out}[C']$.
+    ধরি $C$ এবং $C'$ দুটি ভিন্ন স্ট্রংলি কানেক্টেড কম্পোনেন্ট, এবং কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে একটি এজ আছে। তাহলে, $t_\text{out}[C] > t_\text{out}[C']$।
 
-??? note "Proof"
+??? note "প্রমাণ"
 
-    There are two different cases, depending on which component will first be reached by depth first search:
+    দুটি ভিন্ন ক্ষেত্র আছে, কোন কম্পোনেন্ট ডেপথ ফার্স্ট সার্চে আগে পৌঁছানো হবে তার উপর নির্ভর করে:
 
-    - Case 1: the component $C$ was reached first (i.e., $t_{\text{in}}[C] < t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, not only are all other vertices in $C$ reachable from $v$ in $G$, but all vertices in $C'$ are reachable as well. This means that this `dfs` execution, which is running from vertex $v$, will also visit all other vertices of the components $C$ and $C'$ in the future, so these vertices will be descendants of $v$ in the depth first search tree. This implies that for each vertex $u \in (C \cup C')\setminus \{v\},$ we have that $t_\text{out}[v] > t_\text{out}[u]$. Therefore, $t_\text{out}[C] > t_\text{out}[C']$, which completes this case of the proof.
+    - ক্ষেত্র ১: কম্পোনেন্ট $C$ আগে পৌঁছানো হয়েছে (অর্থাৎ, $t_{\text{in}}[C] < t_{\text{in}}[C']$)। এক্ষেত্রে, ডেপথ ফার্স্ট সার্চ কোনো সময়ে $C$-এর কোনো ভার্টেক্স $v$ ভিজিট করে যখন $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্স এখনো অভিজিত। যেহেতু কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে এজ আছে, তাই $C$-র অন্য সব ভার্টেক্সের পাশাপাশি $C'$-এর সব ভার্টেক্সও $v$ থেকে পৌঁছানো যায়। এর মানে $v$ থেকে চলমান এই `dfs` এক্সিকিউশন ভবিষ্যতে $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্সও ভিজিট করবে, তাই এই ভার্টেক্সগুলো ডেপথ ফার্স্ট সার্চ ট্রি-তে $v$-এর ডিসেন্ডেন্ট হবে। এ থেকে বোঝা যায় যে প্রতিটি ভার্টেক্স $u \in (C \cup C')\setminus \{v\}$-এর জন্য, $t_\text{out}[v] > t_\text{out}[u]$। সুতরাং, $t_\text{out}[C] > t_\text{out}[C']$, যা এই ক্ষেত্রের প্রমাণ সম্পূর্ণ করে।
 
-    - Case 2: the component $C'$ was reached first (i.e., $t_{\text{in}}[C] > t_{\text{in}}[C']$). In this case, depth first search visits some vertex $v \in C'$ at some moment at which all other vertices of the components $C$ and $C'$ are not visited yet. Since there is an edge from $C$ to $C'$ in the condensation graph, $C$ is not reachable from $C'$, by the acyclicity property. Hence, the `dfs` execution that is running from vertex $v$ will not reach any vertices of $C$, but it will visit all vertices of $C'$. The vertices of $C$ will be visited by some `dfs` execution later during this step of the algorithm, so indeed we have $t_\text{out}[C] > t_\text{out}[C']$. This completes the proof.
+    - ক্ষেত্র ২: কম্পোনেন্ট $C'$ আগে পৌঁছানো হয়েছে (অর্থাৎ, $t_{\text{in}}[C] > t_{\text{in}}[C']$)। এক্ষেত্রে, ডেপথ ফার্স্ট সার্চ কোনো সময়ে $C'$-এর কোনো ভার্টেক্স $v$ ভিজিট করে যখন $C$ এবং $C'$ কম্পোনেন্টের অন্য সব ভার্টেক্স এখনো অভিজিত। যেহেতু কনডেনসেশন গ্রাফে $C$ থেকে $C'$-তে এজ আছে, অ্যাসাইক্লিসিটি বৈশিষ্ট্য অনুযায়ী $C'$ থেকে $C$ পৌঁছানো যায় না। তাই $v$ থেকে চলমান `dfs` এক্সিকিউশন $C$-এর কোনো ভার্টেক্সে পৌঁছাবে না, কিন্তু এটি $C'$-এর সব ভার্টেক্স ভিজিট করবে। $C$-এর ভার্টেক্সগুলো এই ধাপে পরে কোনো `dfs` এক্সিকিউশনে ভিজিট হবে, তাই প্রকৃতপক্ষে $t_\text{out}[C] > t_\text{out}[C']$। এটি প্রমাণ সম্পূর্ণ করে।
 
-The proved theorem is very important for finding strongly connected components. It means that any edge in the condensation graph goes from a component with a larger value of $t_\text{out}$ to a component with a smaller value.
+প্রমাণিত উপপাদ্যটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করার জন্য অত্যন্ত গুরুত্বপূর্ণ। এর অর্থ হলো কনডেনসেশন গ্রাফের যেকোনো এজ বেশি $t_\text{out}$ মানের কম্পোনেন্ট থেকে কম $t_\text{out}$ মানের কম্পোনেন্টে যায়।
 
-If we sort all vertices $v \in V$ in decreasing order of their exit time $t_\text{out}[v]$, then the first vertex $u$ will belong to the "root" strongly connected component, which has no incoming edges in the condensation graph. Now we want to run some type of search from this vertex $u$ so that it will visit all vertices in its strongly connected component, but not other vertices. By repeatedly doing so, we can gradually find all strongly connected components: we remove all vertices belonging to the first found component, then we find the next remaining vertex with the largest value of $t_\text{out}$, and run this search from it, and so on. In the end, we will have found all strongly connected components. In order to find a search method that behaves like we want, we consider the following theorem:
+যদি আমরা সব ভার্টেক্স $v \in V$-কে তাদের এক্সিট টাইম $t_\text{out}[v]$-এর নিম্নক্রমে সাজাই, তাহলে প্রথম ভার্টেক্স $u$ "রুট" স্ট্রংলি কানেক্টেড কম্পোনেন্টে থাকবে, যার কনডেনসেশন গ্রাফে কোনো ইনকামিং এজ নেই। এখন আমরা এই ভার্টেক্স $u$ থেকে এমন কোনো সার্চ চালাতে চাই যেটি তার স্ট্রংলি কানেক্টেড কম্পোনেন্টের সব ভার্টেক্স ভিজিট করবে, কিন্তু অন্য ভার্টেক্স নয়। বারবার এটি করে, আমরা ধীরে ধীরে সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে পেতে পারি: প্রথম পাওয়া কম্পোনেন্টের সব ভার্টেক্স সরিয়ে, $t_\text{out}$-এর সবচেয়ে বড় মানের পরবর্তী অবশিষ্ট ভার্টেক্স খুঁজে সেখান থেকে এই সার্চ চালাই, এভাবে চলতে থাকবে। শেষে, আমরা সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে পাব। আমাদের ইচ্ছামতো আচরণ করে এমন একটি সার্চ পদ্ধতি খুঁজতে, নিম্নলিখিত উপপাদ্য বিবেচনা করুন:
 
-!!! info "Theorem"
+!!! info "উপপাদ্য"
 
-    Let $G^T$ denote the *transpose graph* of $G$, obtained by reversing the edge directions in $G$. Then, $\text{SCC}(G)=\text{SCC}(G^T)$. Furthermore, the condensation graph of $G^T$ is the transpose of the condensation graph of $G$.
+    ধরি $G^T$ হলো $G$-এর *ট্রান্সপোজ গ্রাফ*, যেটি $G$-এর এজের দিক উল্টিয়ে পাওয়া যায়। তাহলে, $\text{SCC}(G)=\text{SCC}(G^T)$। এছাড়াও, $G^T$-এর কনডেনসেশন গ্রাফ হলো $G$-এর কনডেনসেশন গ্রাফের ট্রান্সপোজ।
 
-The proof is omitted (but straightforward). As a consequence of this theorem, there will be no edges from the "root" component to the other components in the condensation graph of $G^T$. Thus, in order to visit the whole "root" strongly connected component, containing vertex $v$, we can just run a depth first search from vertex $v$ in the transpose graph $G^T$! This will visit precisely all vertices of this strongly connected component. As was mentioned before, we can then remove these vertices from the graph. Then, we find the next vertex with a maximal value of $t_\text{out}[v]$, and run the search in the transpose graph starting from that vertex to find the next strongly connected component. Repeating this, we find all strongly connected components.
+প্রমাণ বাদ দেওয়া হলো (তবে সরলরেখীয়)। এই উপপাদ্যের ফলস্বরূপ, $G^T$-এর কনডেনসেশন গ্রাফে "রুট" কম্পোনেন্ট থেকে অন্য কম্পোনেন্টে কোনো এজ থাকবে না। সুতরাং, ভার্টেক্স $v$ ধারণকারী পুরো "রুট" স্ট্রংলি কানেক্টেড কম্পোনেন্ট ভিজিট করতে, আমরা ট্রান্সপোজ গ্রাফ $G^T$-এ ভার্টেক্স $v$ থেকে একটি ডেপথ ফার্স্ট সার্চ চালাতে পারি! এটি ঠিক এই স্ট্রংলি কানেক্টেড কম্পোনেন্টের সব ভার্টেক্স ভিজিট করবে। পূর্বে উল্লেখ করা হয়েছে, আমরা তারপর এই ভার্টেক্সগুলো গ্রাফ থেকে সরাতে পারি। তারপর, $t_\text{out}[v]$-এর সর্বোচ্চ মানের পরবর্তী ভার্টেক্স খুঁজে সেই ভার্টেক্স থেকে ট্রান্সপোজ গ্রাফে সার্চ চালিয়ে পরবর্তী স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করি। পুনরাবৃত্তি করে, আমরা সব স্ট্রংলি কানেক্টেড কম্পোনেন্ট পাই।
 
-Thus, in summary, we discussed the following algorithm to find strongly connected components:
+সুতরাং, সংক্ষেপে, আমরা স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে বের করার নিম্নলিখিত অ্যালগরিদম আলোচনা করলাম:
 
- - Step 1. Run a sequence of depth first searches on $G$, which will yield some list (e.g. `order`) of vertices, sorted on increasing exit time $t_\text{out}$.
+ - ধাপ ১। $G$-তে ডেপথ ফার্স্ট সার্চের একটি ক্রম চালান, যেটি ভার্টেক্সের একটি তালিকা (যেমন `order`) দেবে, ক্রমবর্ধমান এক্সিট টাইম $t_\text{out}$ অনুসারে সাজানো।
 
-- Step 2. Build the transpose graph $G^T$, and run a series of depth first searches on the vertices in reverse order (i.e., in decreasing order of exit times). Each depth first search will yield one strongly connected component.
+- ধাপ ২। ট্রান্সপোজ গ্রাফ $G^T$ তৈরি করুন, এবং বিপরীত ক্রমে (অর্থাৎ এক্সিট টাইমের নিম্নক্রমে) ভার্টেক্সগুলোতে ডেপথ ফার্স্ট সার্চের একটি সিরিজ চালান। প্রতিটি ডেপথ ফার্স্ট সার্চ একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেবে।
 
-- Step 3 (optional). Build the condensation graph.
+- ধাপ ৩ (ঐচ্ছিক)। কনডেনসেশন গ্রাফ তৈরি করুন।
 
-The runtime complexity of the algorithm is $O(n + m)$, because depth first search is performed twice. Building the condensation graph is also $O(n+m).$
+অ্যালগরিদমের রানটাইম কমপ্লেক্সিটি $O(n + m)$, কারণ ডেপথ ফার্স্ট সার্চ দুইবার করা হয়। কনডেনসেশন গ্রাফ তৈরিও $O(n+m)$।
 
-Finally, it is appropriate to mention [topological sort](topological-sort.md) here. In step 1, we find the vertices in the order of increasing exit time. If $G$ is acyclic, this corresponds to a (reversed) topological sort of $G$. In step 2, the algorithm finds strongly connected components in decreasing order of their exit times. Thus, it finds components - vertices of the condensation graph - in an order corresponding to a topological sort of the condensation graph.
+সবশেষে, এখানে [টপোলজিক্যাল সর্ট](topological-sort.md) উল্লেখ করা যথাযথ। ধাপ ১-এ, আমরা ভার্টেক্সগুলো ক্রমবর্ধমান এক্সিট টাইমের ক্রমে পাই। যদি $G$ অ্যাসাইক্লিক হয়, এটি $G$-এর একটি (বিপরীত) টপোলজিক্যাল সর্টের সাথে মিলে যায়। ধাপ ২-এ, অ্যালগরিদম স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো তাদের এক্সিট টাইমের নিম্নক্রমে খুঁজে পায়। সুতরাং, এটি কম্পোনেন্টগুলো — কনডেনসেশন গ্রাফের ভার্টেক্স — কনডেনসেশন গ্রাফের টপোলজিক্যাল সর্টের সাথে মিলে যায় এমন ক্রমে খুঁজে পায়।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 ```{.cpp file=strongly_connected_components}
 vector<bool> visited; // keeps track of which vertices are already visited
 
@@ -142,150 +142,150 @@ void strongly_connected_components(vector<vector<int>> const& adj,
 }
 ```
 
-The function `dfs` implements depth first search. It takes as input an adjacency list and a starting vertex. It also takes a reference to the vector `output`: each visited vertex will be appended to `output` when `dfs` leaves that vertex.
+`dfs` ফাংশনটি ডেপথ ফার্স্ট সার্চ ইমপ্লিমেন্ট করে। এটি ইনপুট হিসেবে একটি অ্যাডজেসেন্সি লিস্ট এবং একটি স্টার্টিং ভার্টেক্স নেয়। এটি `output` ভেক্টরের একটি রেফারেন্সও নেয়: প্রতিটি ভিজিট করা ভার্টেক্স `dfs` সেটি ছেড়ে যাওয়ার সময় `output`-এ যোগ হবে।
 
-Note that we use the function `dfs` both in the first and second step of the algorithm. In the first step, we pass in the adjacency list of $G$, and during consecutive calls to `dfs`, we keep passing in the same 'output vector' `order`, so that eventually we obtain a list of vertices in increasing order of exit times. In the second step, we pass in the adjacency list of $G^T$, and in each call, we pass in an empty 'output vector' `component`, which will give us one strongly connected component at a time.
+লক্ষ্য করুন যে আমরা `dfs` ফাংশন অ্যালগরিদমের প্রথম এবং দ্বিতীয় উভয় ধাপেই ব্যবহার করি। প্রথম ধাপে, আমরা $G$-এর অ্যাডজেসেন্সি লিস্ট পাস করি, এবং পরপর `dfs` কলে আমরা একই 'আউটপুট ভেক্টর' `order` পাস করতে থাকি, যেন শেষ পর্যন্ত আমরা ক্রমবর্ধমান এক্সিট টাইমের ক্রমে ভার্টেক্সের তালিকা পাই। দ্বিতীয় ধাপে, আমরা $G^T$-এর অ্যাডজেসেন্সি লিস্ট পাস করি, এবং প্রতিটি কলে একটি খালি 'আউটপুট ভেক্টর' `component` পাস করি, যেটি আমাদের একটি করে স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেবে।
 
-## Tarjan's strongly connected components algorithm
+## টারজানের স্ট্রংলি কানেক্টেড কম্পোনেন্ট অ্যালগরিদম
 
-### Description of the algorithm
+### অ্যালগরিদমের বর্ণনা
 
-The described algorithm was first suggested by Tarjan in 1972.
-It is based on performing a sequence of DFS calls, using information inherent to its structure to determine the strongly connected components (SCC), with a runtime of $O(n+m)$.
+বর্ণিত অ্যালগরিদমটি প্রথম ১৯৭২ সালে টারজান প্রস্তাব করেছিলেন।
+এটি DFS কলের একটি ক্রম সম্পাদনের উপর ভিত্তি করে, এর গঠনের অন্তর্নিহিত তথ্য ব্যবহার করে স্ট্রংলি কানেক্টেড কম্পোনেন্ট (এসসিসি) নির্ধারণ করে, রানটাইম $O(n+m)$।
 
-When applying the DFS on a vertex, we will traverse its adjacency list, and in case we find a vertex that hasn't been visited, we recursively apply the DFS to it.
+একটি ভার্টেক্সে DFS প্রয়োগ করার সময়, আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স করব, এবং যদি কোনো অভিজিত ভার্টেক্স পাই, আমরা রিকার্সিভভাবে সেটিতে DFS প্রয়োগ করব।
 
-Let's consider the tree induced by the sequence of DFS calls, which we will call **DFS tree**.
-Once we first call a DFS on a vertex from an SCC, all the vertices of its SCC will be visited before this call ends, since they are all reachable from each other.
-In the DFS tree, this first vertex will be a common ancestor to all other vertices of the SCC; we define this vertex to be the **root of the SCC**.
+আসুন DFS কলের ক্রম দ্বারা উদ্ভূত ট্রি বিবেচনা করি, যেটিকে আমরা **DFS ট্রি** বলব।
+একটি এসসিসি-র কোনো ভার্টেক্সে প্রথম DFS কল করলে, সেই কল শেষ হওয়ার আগেই তার এসসিসি-র সব ভার্টেক্স ভিজিট হবে, কারণ তারা সবাই পরস্পরের কাছে পৌঁছানো যায়।
+DFS ট্রি-তে, এই প্রথম ভার্টেক্সটি এসসিসি-র অন্য সব ভার্টেক্সের কমন অ্যানসেস্টর হবে; আমরা এই ভার্টেক্সকে **এসসিসি-র রুট** হিসেবে সংজ্ঞায়িত করি।
 
-!!! info "Theorem"
+!!! info "উপপাদ্য"
 
-    All vertices of an SCC induce a connected subgraph of the DFS tree.
+    একটি এসসিসি-র সব ভার্টেক্স DFS ট্রি-র একটি কানেক্টেড সাবগ্রাফ গঠন করে।
 
-??? note "Proof"
+??? note "প্রমাণ"
 
-    We have determined that all vertices of an SCC have a common ancestor, the first vertex to be visited by a DFS call.
-    Let's consider a vertex $v$ and its root, vertex $r$.
-    All the vertices in the path from $r$ to $v$ belong to the same SCC. All these vertices are reachable from $r$, and all of them reach $v$, and since by definition $v$ reaches $r$, all these vertices reach each other.
-    Since all paths from a root to every other vertex of the SCC belong to the same SCC, the subgraph formed is connected.
+    আমরা নির্ধারণ করেছি যে একটি এসসিসি-র সব ভার্টেক্সের একটি কমন অ্যানসেস্টর আছে, DFS কল দ্বারা প্রথম ভিজিট করা ভার্টেক্স।
+    ধরি একটি ভার্টেক্স $v$ এবং তার রুট, ভার্টেক্স $r$।
+    $r$ থেকে $v$ পর্যন্ত পাথের সব ভার্টেক্স একই এসসিসি-তে থাকে। এই সব ভার্টেক্স $r$ থেকে পৌঁছানো যায়, এবং এরা সবাই $v$-তে পৌঁছায়, এবং যেহেতু সংজ্ঞা অনুযায়ী $v$ থেকে $r$ পৌঁছায়, এই সব ভার্টেক্স পরস্পরে পৌঁছায়।
+    যেহেতু রুট থেকে এসসিসি-র প্রতিটি অন্য ভার্টেক্সের সব পাথ একই এসসিসি-তে থাকে, গঠিত সাবগ্রাফটি কানেক্টেড।
 
-Note that the SCCs perfectly split the DFS tree in connected subgraphs.
+লক্ষ্য করুন যে এসসিসিগুলো DFS ট্রিকে কানেক্টেড সাবগ্রাফে নিখুঁতভাবে বিভক্ত করে।
 
-The idea of the algorithm is then the following:
+অ্যালগরিদমের ধারণা নিম্নরূপ:
 
-- We perform a sequence of DFS calls, recursively applying them to vertices of the adjacency lists.
+- আমরা DFS কলের একটি ক্রম সম্পাদন করি, অ্যাডজেসেন্সি লিস্টের ভার্টেক্সগুলোতে রিকার্সিভভাবে প্রয়োগ করি।
 
-- Once we finish traversing the adjacency list of a vertex, we somehow are able to determine whether it is a root or not.
-This method will be explained later.
+- একটি ভার্টেক্সের অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ হলে, আমরা কোনোভাবে নির্ধারণ করতে পারি এটি রুট কি না।
+এই পদ্ধতি পরে ব্যাখ্যা করা হবে।
 
-- In case the vertex is a root, we will then immediately find and claim all the vertices of its SCC.
+- ভার্টেক্সটি রুট হলে, আমরা তৎক্ষণাৎ তার এসসিসি-র সব ভার্টেক্স খুঁজে বের করব এবং দাবি করব।
 
-When all calls finish, all roots will have been detected and all vertices will have been claimed as part of some SCC.
+সব কল শেষ হলে, সব রুট শনাক্ত হয়ে যাবে এবং সব ভার্টেক্স কোনো না কোনো এসসিসি-র অংশ হিসেবে দাবি করা হয়ে যাবে।
 
-Let's now analyze the properties of the DFS when this claiming process is introduced.
+আসুন এখন এই দাবি করার প্রক্রিয়া প্রবর্তন করলে DFS-এর বৈশিষ্ট্যগুলো বিশ্লেষণ করি।
 
-!!! info "Theorem"
+!!! info "উপপাদ্য"
 
-    Let's consider vertex $v$ and let's consider we just finished traversing its adjacency list.
-    All unclaimed vertices in its subtree belong to the same SCC.
+    ধরি ভার্টেক্স $v$ এবং ধরি আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ করেছি।
+    তার সাবট্রি-র সব অদাবিকৃত ভার্টেক্স একই এসসিসি-তে থাকে।
 
-??? note "Proof"
+??? note "প্রমাণ"
 
-    The algorithm will claim the vertices of an SCC when its root is found.
-    Since the adjacency list of $v$ has been traversed, all DFS calls on its subtree have finished, the roots have been detected and the vertices belonging to their SCCs have been claimed.
-    The root of the remaining unclaimed vertices will be an ancestor whose claiming process has not yet executed, so it's either $v$ or an ancestor of $v$.
-    Since $v$ is in the path from all vertices to their root and SCCs must induce a connected subgraph of the tree, both $v$ and all the remaining vertices belong to the same SCC.
+    অ্যালগরিদম একটি এসসিসি-র ভার্টেক্সগুলো দাবি করবে যখন এর রুট পাওয়া যায়।
+    যেহেতু $v$-এর অ্যাডজেসেন্সি লিস্ট ট্রাভার্স হয়ে গেছে, তার সাবট্রি-র সব DFS কল শেষ হয়েছে, রুটগুলো শনাক্ত হয়েছে এবং তাদের এসসিসি-র ভার্টেক্সগুলো দাবি করা হয়েছে।
+    অবশিষ্ট অদাবিকৃত ভার্টেক্সগুলোর রুট হবে এমন কোনো অ্যানসেস্টর যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, তাই এটি হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর।
+    যেহেতু $v$ সব ভার্টেক্স থেকে তাদের রুট পর্যন্ত পাথে আছে এবং এসসিসিকে ট্রি-র একটি কানেক্টেড সাবগ্রাফ গঠন করতে হবে, $v$ এবং সব অবশিষ্ট ভার্টেক্স একই এসসিসি-তে থাকে।
 
-!!! info "Theorem"
+!!! info "উপপাদ্য"
 
-    Let's consider vertex $v$ and let's consider we are traversing it's adjacency list, currently processing edge $(v, u)$.
-    If $u$ was already visited by some DFS call and remains unclaimed, $v$ and $u$ belong to the same SCC.
+    ধরি ভার্টেক্স $v$ এবং ধরি আমরা তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স করছি, বর্তমানে $(v, u)$ এজ প্রসেস করছি।
+    যদি $u$ ইতোমধ্যে কোনো DFS কলে ভিজিট হয়ে থাকে এবং অদাবিকৃত থাকে, তাহলে $v$ এবং $u$ একই এসসিসি-তে থাকে।
 
-??? note "Proof"
+??? note "প্রমাণ"
 
-    There are different cases depending on the kind of edge:
+    এজের ধরনের উপর নির্ভর করে বিভিন্ন ক্ষেত্র আছে:
 
-    - Tree-edge: if this is a tree-edge, this is the first time we are finding vertex $u$. This means we must first recursively apply the DFS call on $u$ and consider it after its DFS call has finished. If vertex $u$ remains unclaimed, its root is either $v$ or an ancestor of $v$, so they must belong to the same SCC.
+    - ট্রি-এজ: যদি এটি ট্রি-এজ হয়, এটি প্রথমবার আমরা ভার্টেক্স $u$ খুঁজে পাচ্ছি। তার মানে আমাদের প্রথমে $u$-তে রিকার্সিভভাবে DFS কল করতে হবে এবং তার DFS কল শেষ হওয়ার পরে বিবেচনা করতে হবে। যদি ভার্টেক্স $u$ অদাবিকৃত থাকে, তার রুট হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর, তাই তারা একই এসসিসি-তে থাকতে হবে।
 
-    - Back-edge: this is the simpler case, if $u$ is an ancestor of $v$, they are reachable from each other and by definition belong to the same SCC.
+    - ব্যাক-এজ: এটি সহজ ক্ষেত্র, যদি $u$ হয় $v$-এর অ্যানসেস্টর, তারা পরস্পরের কাছে পৌঁছানো যায় এবং সংজ্ঞা অনুযায়ী একই এসসিসি-তে থাকে।
 
-    - Forward-edge: before this edge was processed, there was a sequence of DFS calls that finished without finding the root of $u$, having returned to $v$ whose DFS call proceeded.
-    The root of $u$ will then be an ancestor whose claiming process has not yet executed, so it's either $v$ or an ancestor of $v$, so they must belong to the same SCC.
+    - ফরওয়ার্ড-এজ: এই এজ প্রসেস হওয়ার আগে, DFS কলের একটি ক্রম ছিল যেগুলো $u$-এর রুট না পেয়ে শেষ হয়ে $v$-তে ফিরে এসেছে যার DFS কল চলমান।
+    $u$-এর রুট তখন এমন একটি অ্যানসেস্টর হবে যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, তাই এটি হয় $v$ অথবা $v$-এর কোনো অ্যানসেস্টর, তাই তারা একই এসসিসি-তে থাকতে হবে।
 
-    - Cross-edge: similarly, before this edge was processed, there was a sequence of DFS calls that finished without finding the root of $u$, having returned to a common ancestor of $u$ and $v$ whose DFS call proceeded and initiated a new sequence of DFS calls that lead to a call on $v$.
-    The root of $u$ will then be an ancestor whose claiming process has not yet executed, and all of the possible candidates are common ancestors with $v$.
-    Since the root of $u$ is an ancestor of $v$, it reaches $v$, and since $v$ now reaches $u$, they must belong to the same SCC.
+    - ক্রস-এজ: একইভাবে, এই এজ প্রসেস হওয়ার আগে, DFS কলের একটি ক্রম ছিল যেগুলো $u$-এর রুট না পেয়ে শেষ হয়ে $u$ এবং $v$-এর কমন অ্যানসেস্টরে ফিরে এসেছে যার DFS কল চলমান এবং DFS কলের নতুন ক্রম শুরু করেছে যা $v$-তে কল করেছে।
+    $u$-এর রুট তখন এমন একটি অ্যানসেস্টর হবে যার দাবি করার প্রক্রিয়া এখনো চালু হয়নি, এবং সব সম্ভাব্য প্রার্থী $v$-এর সাথে কমন অ্যানসেস্টর।
+    যেহেতু $u$-এর রুট $v$-এর অ্যানসেস্টর, এটি $v$-তে পৌঁছায়, এবং যেহেতু $v$ এখন $u$-তে পৌঁছায়, তারা একই এসসিসি-তে থাকতে হবে।
 
-Note, when two vertices belong to the same component, their root must be a common ancestor of both vertices.
+লক্ষ্য করুন, যখন দুটি ভার্টেক্স একই কম্পোনেন্টে থাকে, তাদের রুট অবশ্যই উভয় ভার্টেক্সের কমন অ্যানসেস্টর হতে হবে।
 
-!!! info "Theorem"
+!!! info "উপপাদ্য"
 
-    Let $v$ be a vertex. The following statements are equivalent:
+    ধরি $v$ একটি ভার্টেক্স। নিম্নলিখিত বিবৃতিগুলো সমতুল্য:
 
-    1. Some vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
-    2. $v$ is not the root of an SCC.
+    ১. $v$-এর সাবট্রি-র কোনো ভার্টেক্স সাবট্রি-র বাইরে একটি অদাবিকৃত ভার্টেক্সে পৌঁছায়।
+    ২. $v$ কোনো এসসিসি-র রুট নয়।
 
-??? note "Proof"
+??? note "প্রমাণ"
 
     - $1. \implies 2.$:
-    Let's assume some vertex $u$ in the subtree of $v$ reaches an unclaimed vertex $w$ outside of the subtree.
-    We have established that $u$ and $w$ belong to the same SCC and that their root must be a common ancestor to both of them.
-    This common ancestor is necessarily outside of the subtree, and it will also be an ancestor of $v$.
-    Since $v$ is in the path from the root to $u$, it must belong to the same SCC, the root of which is not $v$.
+    ধরি $v$-এর সাবট্রি-র কোনো ভার্টেক্স $u$ সাবট্রি-র বাইরে একটি অদাবিকৃত ভার্টেক্স $w$-তে পৌঁছায়।
+    আমরা প্রতিষ্ঠিত করেছি যে $u$ এবং $w$ একই এসসিসি-তে থাকে এবং তাদের রুট অবশ্যই উভয়ের কমন অ্যানসেস্টর হতে হবে।
+    এই কমন অ্যানসেস্টর অবশ্যই সাবট্রি-র বাইরে, এবং এটি $v$-এরও অ্যানসেস্টর হবে।
+    যেহেতু $v$ রুট থেকে $u$ পর্যন্ত পাথে আছে, এটি অবশ্যই একই এসসিসি-তে থাকবে, যার রুট $v$ নয়।
 
     - $\neg 1. \implies \neg 2.$:
-    Let's assume no vertex in the subtree of $v$ reaches an unclaimed vertex outside of the subtree.
-    This must mean that no vertex in the subtree of $v$ reaches an ancestor of $v$.
-    The only possible edges to vertices outside of the subtree are cross-edges to vertices that have already been claimed;
-    these vertices cannot reach an ancestor of $v$, since if they did, they would belong to the same SCC as $v$, which is impossible since their SCC has already been determined.
-    Since no ancestor of $v$ is reachable from its subtree, the root of $v$ must be $v$ itself.
+    ধরি $v$-এর সাবট্রি-র কোনো ভার্টেক্স সাবট্রি-র বাইরে কোনো অদাবিকৃত ভার্টেক্সে পৌঁছায় না।
+    এর মানে $v$-এর সাবট্রি-র কোনো ভার্টেক্স $v$-এর কোনো অ্যানসেস্টরে পৌঁছায় না।
+    সাবট্রি-র বাইরে ভার্টেক্সে যাওয়ার একমাত্র সম্ভাব্য এজ হলো ক্রস-এজ যেগুলো ইতোমধ্যে দাবিকৃত ভার্টেক্সে যায়;
+    এই ভার্টেক্সগুলো $v$-এর কোনো অ্যানসেস্টরে পৌঁছাতে পারে না, কারণ পারলে তারা $v$-এর সাথে একই এসসিসি-তে থাকত, যা অসম্ভব কারণ তাদের এসসিসি ইতোমধ্যে নির্ধারিত।
+    যেহেতু $v$-এর অ্যানসেস্টর তার সাবট্রি থেকে পৌঁছানো যায় না, $v$-এর রুট অবশ্যই $v$ নিজেই।
 
-Now, we must find the method that lets us determine if a vertex is a root or not, and the claiming process properties are necessary for its correctness.
-To this end, we define the entry time $t_{in}[v]$ for each vertex $v \in G$ which corresponds to the 'timestamp' at which the DFS was called on $v$.
-By definition, the root is the first vertex of an SCC to be visited by the DFS so it will have the minimal value of $t_{in}$ of its SCC.
+এখন, আমাদের সেই পদ্ধতি খুঁজতে হবে যেটি নির্ধারণ করবে একটি ভার্টেক্স রুট কি না, এবং দাবি করার প্রক্রিয়ার বৈশিষ্ট্যগুলো এর সঠিকতার জন্য প্রয়োজনীয়।
+এজন্য, আমরা প্রতিটি ভার্টেক্স $v \in G$-এর জন্য এন্ট্রি টাইম $t_{in}[v]$ সংজ্ঞায়িত করি যেটি DFS-এ $v$-তে কল করার 'টাইমস্ট্যাম্প'।
+সংজ্ঞা অনুযায়ী, রুট হলো তার এসসিসি-র প্রথম ভিজিট করা ভার্টেক্স তাই এটির $t_{in}$ মান তার এসসিসি-র সর্বনিম্ন হবে।
 
-Let $v$ be a vertex and let's consider its subtree.
-At the moment we finish traversing its adjacency list, any vertex already visited by a DFS outside of the subtree will have a smaller value of $t_{in}$, since the DFS was first called on them before it started on $v$.
+ধরি $v$ একটি ভার্টেক্স এবং তার সাবট্রি বিবেচনা করি।
+তার অ্যাডজেসেন্সি লিস্ট ট্রাভার্স শেষ করার সময়ে, সাবট্রি-র বাইরে DFS দ্বারা ইতোমধ্যে ভিজিত যেকোনো ভার্টেক্সের $t_{in}$ মান ছোট হবে, কারণ $v$-তে শুরু হওয়ার আগেই তাদের উপর DFS কল করা হয়েছিল।
 
-When considering the claiming process, the value of $t_{in}$ of all unclaimed vertices outside of the subtree of $v$ is smaller than $t_{in}[v]$.
-Now we can see how to use $t_{in}$ to determine the roots.
-We consider the minimal value of $t_{in}$ of the unclaimed vertices we can reach and we propagate this information to the ancestors through tree-edges.
-We will call the propagated value $t_{low}$.
+দাবি করার প্রক্রিয়া বিবেচনা করলে, $v$-এর সাবট্রি-র বাইরে সব অদাবিকৃত ভার্টেক্সের $t_{in}$ মান $t_{in}[v]$ থেকে ছোট।
+এখন আমরা দেখতে পাচ্ছি কীভাবে $t_{in}$ ব্যবহার করে রুট নির্ধারণ করা যায়।
+আমরা পৌঁছাতে পারা অদাবিকৃত ভার্টেক্সগুলোর $t_{in}$-এর সর্বনিম্ন মান বিবেচনা করি এবং ট্রি-এজের মাধ্যমে এই তথ্য অ্যানসেস্টরদের কাছে প্রচার করি।
+প্রচারিত মানকে আমরা $t_{low}$ বলব।
 
-More formally, we define $t_{low}[v]$ to be the lowest value of $t_{in}$ a vertex in the subtree of $v$ can reach through a direct edge.
-We therefore can detect whether a vertex $v$ is a root or not by checking if $t_{low}[v] < t_{in}[v]$.
+আরো আনুষ্ঠানিকভাবে, আমরা $t_{low}[v]$-কে সংজ্ঞায়িত করি $v$-এর সাবট্রি-র কোনো ভার্টেক্স থেকে সরাসরি এজের মাধ্যমে পৌঁছানো যায় এমন সর্বনিম্ন $t_{in}$ মান হিসেবে।
+তাই আমরা $t_{low}[v] < t_{in}[v]$ পরীক্ষা করে একটি ভার্টেক্স $v$ রুট কি না শনাক্ত করতে পারি।
 
-Lastly, to claim the vertices, there are many ways to do it, such as another graph traversal algorithm, but it's also possible to use a simple data structure to keep track of the unclaimed vertices.
-To determine the data structure from first principles, let's go through the methods it must implement, which are only two:
+সবশেষে, ভার্টেক্সগুলো দাবি করতে অনেক উপায় আছে, যেমন আরেকটি গ্রাফ ট্রাভার্সাল অ্যালগরিদম, তবে অদাবিকৃত ভার্টেক্সগুলো ট্র্যাক রাখতে একটি সরল ডেটা স্ট্রাকচারও ব্যবহার করা যায়।
+প্রথম নীতি থেকে ডেটা স্ট্রাকচার নির্ধারণ করতে, আসুন এটি যে মেথডগুলো ইমপ্লিমেন্ট করতে হবে তা দেখি, যেগুলো শুধু দুটি:
 
-- When we first visit a vertex, we must simply insert it in the data structure, since this vertex is unclaimed.
+- যখন আমরা প্রথম একটি ভার্টেক্স ভিজিট করি, আমাদের শুধু এটি ডেটা স্ট্রাকচারে ইনসার্ট করতে হবে, কারণ এই ভার্টেক্স অদাবিকৃত।
 
-- When we find a root, we must find all the remaining unclaimed vertices in its subtree and remove them from the data structure.
+- যখন আমরা একটি রুট পাই, আমাদের তার সাবট্রি-র সব অবশিষ্ট অদাবিকৃত ভার্টেক্স খুঁজে বের করে ডেটা স্ট্রাকচার থেকে সরাতে হবে।
 
-We can find an alternative way to describe the removal operation by noticing that immediately after traversing the adjacency list of a vertex $v$, all the vertices placed in the data structure after $v$ all belong to its subtree.
-If $v$ is a root, all the vertices remaining that were inserted after $v$ must be removed.
-So the removal operation can instead be described as:
+আমরা রিমুভাল অপারেশন বর্ণনা করার বিকল্প উপায় খুঁজতে পারি, লক্ষ্য করে যে একটি ভার্টেক্স $v$-এর অ্যাডজেসেন্সি লিস্ট ট্রাভার্সের ঠিক পরে, $v$-এর পরে ডেটা স্ট্রাকচারে রাখা সব ভার্টেক্স তার সাবট্রি-তে থাকে।
+যদি $v$ রুট হয়, $v$-এর পরে ইনসার্ট করা সব অবশিষ্ট ভার্টেক্স সরাতে হবে।
+তাই রিমুভাল অপারেশন এভাবে বর্ণনা করা যায়:
 
-- When we find a root, we must find and remove all the remaining vertices that were inserted after it.
+- যখন আমরা একটি রুট পাই, আমাদের এর পরে ইনসার্ট করা সব অবশিষ্ট ভার্টেক্স খুঁজে বের করে সরাতে হবে।
 
-We can now see that this can be implemented with a stack:
+আমরা এখন দেখতে পাচ্ছি যে এটি একটি স্ট্যাক দিয়ে ইমপ্লিমেন্ট করা যায়:
 
-- When we first visit a vertex, we push it onto the stack.
+- যখন আমরা প্রথম একটি ভার্টেক্স ভিজিট করি, আমরা এটি স্ট্যাকে পুশ করি।
 
-- When we find a root, we pop all the elements until we pop the root itself.
+- যখন আমরা একটি রুট পাই, আমরা রুট নিজেকে পপ করা পর্যন্ত সব এলিমেন্ট পপ করি।
 
-This finally lets us implement the algorithm.
+এটি অবশেষে আমাদের অ্যালগরিদম ইমপ্লিমেন্ট করতে দেয়।
 
-The runtime complexity of the sequence of DFS calls is $O(n + m)$.
-Considering the stack, its complexity amortizes to $O(n)$ since each node is only pushed and popped once.
-The total runtime complexity is therefore $O(n + m)$.
+DFS কলের ক্রমের রানটাইম কমপ্লেক্সিটি $O(n + m)$।
+স্ট্যাক বিবেচনা করলে, এর কমপ্লেক্সিটি $O(n)$-এ অ্যামর্টাইজ হয় কারণ প্রতিটি নোড শুধু একবার পুশ এবং পপ করা হয়।
+মোট রানটাইম কমপ্লেক্সিটি তাই $O(n + m)$।
 
-As an additional remark, the roots are found in reversed topological order.
-In the algorithm, the vertex is a root if there are no edges to unclaimed vertices outside of its subtree, meaning all other reachable components are either in its subtree (and therefore their roots were already found) or they connect to already claimed vertices outside of the subtree (whose roots were also already found).
-So all reachable components were already found, meaning they are introduced in a valid reversed topological ordering of the condensation graph.
+অতিরিক্ত মন্তব্য হিসেবে, রুটগুলো বিপরীত টপোলজিক্যাল ক্রমে পাওয়া যায়।
+অ্যালগরিদমে, একটি ভার্টেক্স রুট যদি তার সাবট্রি-র বাইরে অদাবিকৃত ভার্টেক্সে কোনো এজ না থাকে, অর্থাৎ অন্য সব পৌঁছানো যায় এমন কম্পোনেন্ট হয় তার সাবট্রি-তে (এবং তাই তাদের রুট ইতোমধ্যে পাওয়া হয়েছে) অথবা সাবট্রি-র বাইরে ইতোমধ্যে দাবিকৃত ভার্টেক্সে কানেক্ট করে (যাদের রুটও ইতোমধ্যে পাওয়া হয়েছে)।
+তাই সব পৌঁছানো যায় এমন কম্পোনেন্ট ইতোমধ্যে পাওয়া হয়েছে, অর্থাৎ তারা কনডেনসেশন গ্রাফের একটি ভ্যালিড বিপরীত টপোলজিক্যাল অর্ডারে প্রবর্তিত হয়।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```{.cpp file=tarjan_scc}
 vector<int> st;    // - stack holding the unclaimed vertices
@@ -358,10 +358,10 @@ void strongly_connected_components(vector<vector<int>> const &adj,
 }
 ```
 
-We have an [accepted submission](https://judge.yosupo.jp/submission/334251) with this code in Library Checker.
+আমাদের এই কোড Library Checker-এ একটি [অ্যাকসেপ্টেড সাবমিশন](https://judge.yosupo.jp/submission/334251) আছে।
 
-As a last remark, there's an alternative way to iterate through the adjacency list.
-Currently, we are doing the following:
+শেষ মন্তব্য হিসেবে, অ্যাডজেসেন্সি লিস্ট ইটারেট করার একটি বিকল্প উপায় আছে।
+বর্তমানে, আমরা নিম্নলিখিতভাবে করছি:
 
 ```c++
 for (auto u : adj[v]) {
@@ -374,7 +374,7 @@ for (auto u : adj[v]) {
 }
 ```
 
-Alternatively, we could do:
+বিকল্পভাবে, আমরা এটি করতে পারি:
 
 ```c++
 for (auto u : adj[v]) {
@@ -385,23 +385,23 @@ for (auto u : adj[v]) {
 }
 ```
 
-$t_{low}$ is used to propagate the information to the root, and when we perform `t_low[v] = min(t_low[v], t_in[u])`, we know that $u$ and $v$ belong to the same SCC.
-If $t_{low}[u]$ is propagated until the root of $u$, it can also be propagated through $v$ since the root is the same.
-Since $t_{low}[u] \leq t_{in}[u]$, this does not introduce any conflicts, instead only improving the bound on the root of $v$.
+$t_{low}$ রুটে তথ্য প্রচারের জন্য ব্যবহৃত হয়, এবং যখন আমরা `t_low[v] = min(t_low[v], t_in[u])` করি, আমরা জানি যে $u$ এবং $v$ একই এসসিসি-তে থাকে।
+যদি $t_{low}[u]$ $u$-এর রুট পর্যন্ত প্রচারিত হয়, এটি $v$-এর মাধ্যমেও প্রচারিত হতে পারে কারণ রুট একই।
+যেহেতু $t_{low}[u] \leq t_{in}[u]$, এটি কোনো বিরোধ তৈরি করে না, বরং $v$-এর রুটের বাউন্ড উন্নত করে।
 
-## Building the Condensation Graph
+## কনডেনসেশন গ্রাফ তৈরি
 
-When building the adjacency list of the condensation graph, we select the *root* of each component as the first vertex in its list of vertices (this is an arbitrary choice). This root vertex represents its entire SCC. For each vertex `v`, the value `roots[v]` indicates the root vertex of the SCC which `v` belongs to.
+কনডেনসেশন গ্রাফের অ্যাডজেসেন্সি লিস্ট তৈরি করার সময়, আমরা প্রতিটি কম্পোনেন্টের ভার্টেক্স তালিকার প্রথম ভার্টেক্সকে *রুট* হিসেবে নির্বাচন করি (এটি একটি ইচ্ছামূলক পছন্দ)। এই রুট ভার্টেক্স তার সম্পূর্ণ এসসিসি-কে উপস্থাপন করে। প্রতিটি ভার্টেক্স `v`-এর জন্য, `roots[v]` মান সেই রুট ভার্টেক্স নির্দেশ করে যেই এসসিসি-তে `v` থাকে।
 
-Our condensation graph is now given by the vertices `components` (one strongly connected component corresponds to one vertex in the condensation graph), and the adjacency list is given by `adj_cond`, using only the root vertices of the strongly connected components. Notice that we generate one edge from $C$ to $C'$ in $G^\text{SCC}$ for each edge from some $a\in C$ to some $b\in C'$ in $G$ (if $C\neq C'$). This implies that in our implementation, we can have multiple edges between two components in the condensation graph.
+আমাদের কনডেনসেশন গ্রাফ এখন ভার্টেক্স `components` (একটি স্ট্রংলি কানেক্টেড কম্পোনেন্ট কনডেনসেশন গ্রাফের একটি ভার্টেক্সের সাথে মিলে যায়) এবং অ্যাডজেসেন্সি লিস্ট `adj_cond` দ্বারা দেওয়া, শুধু স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলোর রুট ভার্টেক্স ব্যবহার করে। লক্ষ্য করুন যে $G$-তে কোনো $a\in C$ থেকে কোনো $b\in C'$-তে প্রতিটি এজের জন্য আমরা $G^\text{SCC}$-তে $C$ থেকে $C'$-তে একটি এজ তৈরি করি (যদি $C\neq C'$)। এর মানে আমাদের ইমপ্লিমেন্টেশনে, কনডেনসেশন গ্রাফে দুটি কম্পোনেন্টের মধ্যে মাল্টিপল এজ থাকতে পারে।
 
-## Literature
+## সাহিত্য
 
 * Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005].
 * M. Sharir. A strong-connectivity algorithm and its applications in data-flow analysis [1979].
 * Robert Tarjan. Depth-first search and linear graph algorithms [1972].
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [SPOJ - Good Travels](http://www.spoj.com/problems/GOODA/)
 * [SPOJ - Lego](http://www.spoj.com/problems/LEGO/)

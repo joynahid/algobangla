@@ -3,48 +3,48 @@ tags:
   - Original
 ---
 
-# Knapsack Problem
-Prerequisite knowledge: [Introduction to Dynamic Programming](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
+# ন্যাপস্যাক প্রবলেম
+পূর্বশর্ত জ্ঞান: [ডায়নামিক প্রোগ্রামিং পরিচিতি](https://cp-algorithms.com/dynamic_programming/intro-to-dp.html)
 
-## Introduction
-Consider the following example:
+## ভূমিকা
+নিচের উদাহরণটি বিবেচনা করুন:
 
-### [[USACO07 Dec] Charm Bracelet](https://www.acmicpc.net/problem/6144) 
-There are $n$ distinct items and a knapsack of capacity $W$. Each item has 2 attributes, weight ($w_{i}$) and value ($v_{i}$). 
-You have to select a subset of items to put into the knapsack such that the total weight does not exceed the capacity $W$ and the total value is maximized.
+### [[USACO07 Dec] Charm Bracelet](https://www.acmicpc.net/problem/6144)
+$n$ টি স্বতন্ত্র আইটেম এবং $W$ ক্যাপাসিটির একটি ন্যাপস্যাক আছে। প্রতিটি আইটেমের ২টি বৈশিষ্ট্য আছে, ওয়েট ($w_{i}$) এবং ভ্যালু ($v_{i}$)।
+আপনাকে ন্যাপস্যাকে রাখার জন্য আইটেমের একটি সাবসেট নির্বাচন করতে হবে যাতে মোট ওয়েট ক্যাপাসিটি $W$ এর বেশি না হয় এবং মোট ভ্যালু সর্বাধিক হয়।
 
-In the example above, each object has only two possible states (taken or not taken),
-corresponding to binary 0 and 1. Thus, this type of problem is called "0-1 knapsack problem".
+উপরের উদাহরণে, প্রতিটি বস্তুর মাত্র দুটি সম্ভাব্য স্টেট আছে (নেওয়া বা না নেওয়া),
+যা বাইনারি ০ এবং ১ এর সাথে সঙ্গতিপূর্ণ। তাই, এই ধরনের সমস্যাকে "০-১ ন্যাপস্যাক প্রবলেম" বলা হয়।
 
-## 0-1 Knapsack
+## ০-১ ন্যাপস্যাক
 
-### Explanation
+### ব্যাখ্যা
 
-In the example above, the input to the problem is the following: the weight of $i^{th}$ item $w_{i}$, the value of $i^{th}$ item $v_{i}$, and the total capacity of the knapsack $W$.
+উপরের উদাহরণে, সমস্যার ইনপুট হলো: $i$ তম আইটেমের ওয়েট $w_{i}$, $i$ তম আইটেমের ভ্যালু $v_{i}$, এবং ন্যাপস্যাকের মোট ক্যাপাসিটি $W$।
 
-Let $f_{i, j}$ be the dynamic programming state holding the maximum total value the knapsack can carry with capacity $j$, when only the first $i$ items are considered.
+ধরি $f_{i, j}$ হলো ডায়নামিক প্রোগ্রামিং স্টেট যা $j$ ক্যাপাসিটিতে শুধুমাত্র প্রথম $i$ টি আইটেম বিবেচনা করলে ন্যাপস্যাকের সর্বাধিক মোট ভ্যালু ধারণ করে।
 
-Assuming that all states of the first $i-1$ items have been processed, what are the options for the $i^{th}$ item?
+ধরে নিই প্রথম $i-1$ টি আইটেমের সকল স্টেট প্রসেস করা হয়েছে, তাহলে $i$ তম আইটেমের জন্য অপশনগুলো কী?
 
-- When it is not put into the knapsack, the remaining capacity remains unchanged and total value does not change. Therefore, the maximum value in this case is $f_{i-1, j}$
-- When it is put into the knapsack, the remaining capacity decreases by $w_{i}$ and the total value increases by $v_{i}$,
-so the maximum value in this case is $f_{i-1, j-w_i} + v_i$
+- যখন এটি ন্যাপস্যাকে রাখা হয় না, তখন অবশিষ্ট ক্যাপাসিটি অপরিবর্তিত থাকে এবং মোট ভ্যালু পরিবর্তন হয় না। সুতরাং, এই ক্ষেত্রে সর্বাধিক ভ্যালু হলো $f_{i-1, j}$
+- যখন এটি ন্যাপস্যাকে রাখা হয়, তখন অবশিষ্ট ক্যাপাসিটি $w_{i}$ কমে যায় এবং মোট ভ্যালু $v_{i}$ বৃদ্ধি পায়,
+তাই এই ক্ষেত্রে সর্বাধিক ভ্যালু হলো $f_{i-1, j-w_i} + v_i$
 
-From this we can derive the dp transition equation:
+এখান থেকে আমরা ডিপি ট্রানজিশন সমীকরণ বের করতে পারি:
 
 $$f_{i, j} = \max(f_{i-1, j}, f_{i-1, j-w_i} + v_i)$$
 
-Further, as $f_{i}$ is only dependent on $f_{i-1}$, we can remove the first dimension. We obtain the transition rule
+এছাড়া, যেহেতু $f_{i}$ শুধুমাত্র $f_{i-1}$ এর উপর নির্ভরশীল, আমরা প্রথম ডাইমেনশন বাদ দিতে পারি। আমরা নিচের ট্রানজিশন রুল পাই
 
 $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
-that should be executed in the **decreasing** order of $j$ (so that $f_{j-w_i}$ implicitly corresponds to $f_{i-1,j-w_i}$ and not $f_{i,j-w_i}$).
+যা $j$ এর **ক্রমহ্রাসমান** ক্রমে এক্সিকিউট করতে হবে (যাতে $f_{j-w_i}$ পরোক্ষভাবে $f_{i-1,j-w_i}$ কে নির্দেশ করে, $f_{i,j-w_i}$ কে নয়)।
 
-**It is important to understand this transition rule, because most of the transitions for knapsack problems are derived in a similar way.**
+**এই ট্রানজিশন রুলটি বোঝা অত্যন্ত গুরুত্বপূর্ণ, কারণ অধিকাংশ ন্যাপস্যাক প্রবলেমের ট্রানজিশন একই পদ্ধতিতে বের করা হয়।**
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The algorithm described can be implemented in $O(nW)$ as:
+বর্ণিত অ্যালগরিদমটি $O(nW)$ এ ইমপ্লিমেন্ট করা যায়:
 
 ```.c++
 for (int i = 1; i <= n; i++)
@@ -52,37 +52,37 @@ for (int i = 1; i <= n; i++)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
 
-Again, note the order of execution. It should be strictly followed to ensure the following invariant: Right before the pair $(i, j)$ is processed, $f_k$ corresponds to $f_{i,k}$ for $k > j$, but to $f_{i-1,k}$ for $k < j$. This ensures that $f_{j-w_i}$ is taken from the $(i-1)$-th step, rather than from the $i$-th one.
+আবারও, এক্সিকিউশনের ক্রম লক্ষ্য করুন। নিম্নলিখিত ইনভ্যারিয়েন্ট নিশ্চিত করতে এটি কঠোরভাবে অনুসরণ করতে হবে: $(i, j)$ জোড়া প্রসেস করার ঠিক আগে, $k > j$ এর জন্য $f_k$ হলো $f_{i,k}$, কিন্তু $k < j$ এর জন্য $f_k$ হলো $f_{i-1,k}$। এটি নিশ্চিত করে যে $f_{j-w_i}$ $(i-1)$ তম ধাপ থেকে নেওয়া হচ্ছে, $i$ তম ধাপ থেকে নয়।
 
-## Complete Knapsack
+## কমপ্লিট ন্যাপস্যাক
 
-The complete knapsack model is similar to the 0-1 knapsack, the only difference from the 0-1 knapsack is that an item can be selected an unlimited number of times instead of only once.
+কমপ্লিট ন্যাপস্যাক মডেলটি ০-১ ন্যাপস্যাকের মতোই, একমাত্র পার্থক্য হলো একটি আইটেম শুধু একবার নয়, সীমাহীন সংখ্যকবার নির্বাচন করা যায়।
 
-We can refer to the idea of 0-1 knapsack to define the state: $f_{i, j}$, the maximum value the knapsack can obtain using the first $i$ items with maximum capacity $j$.
+আমরা ০-১ ন্যাপস্যাকের ধারণা অনুসরণ করে স্টেট সংজ্ঞায়িত করতে পারি: $f_{i, j}$, সর্বাধিক ক্যাপাসিটি $j$ সহ প্রথম $i$ টি আইটেম ব্যবহার করে ন্যাপস্যাকের সর্বাধিক ভ্যালু।
 
-It should be noted that although the state definition is similar to that of a 0-1 knapsack, its transition rule is different from that of a 0-1 knapsack.
+লক্ষ্য করুন যে স্টেটের সংজ্ঞা ০-১ ন্যাপস্যাকের মতো হলেও, এর ট্রানজিশন রুল ০-১ ন্যাপস্যাক থেকে ভিন্ন।
 
-### Explanation
+### ব্যাখ্যা
 
-The trivial approach is, for the first $i$ items, enumerate how many times each item is to be taken. The time complexity of this is $O(n^2W)$.
+সরল পদ্ধতি হলো, প্রথম $i$ টি আইটেমের জন্য, প্রতিটি আইটেম কতবার নেওয়া হবে তা গণনা করা। এর টাইম কমপ্লেক্সিটি $O(n^2W)$।
 
-This yields the following transition equation:
+এতে নিম্নলিখিত ট্রানজিশন সমীকরণ পাওয়া যায়:
 
 $$f_{i, j} = \max\limits_{k=0}^{\infty}(f_{i-1, j-k\cdot w_i} + k\cdot v_i)$$
 
-At the same time, it simplifies into a "flat" equation:
+একই সাথে, এটি একটি "সমতল" সমীকরণে সরলীকৃত হয়:
 
 $$f_{i, j} = \max(f_{i-1, j},f_{i, j-w_i} + v_i)$$
 
-The reason this works is that $f_{i, j-w_i}$ has already been updated by $f_{i, j-2\cdot w_i}$ and so on.
+এটি কাজ করার কারণ হলো $f_{i, j-w_i}$ ইতোমধ্যে $f_{i, j-2\cdot w_i}$ এবং এরপরের ভ্যালু দ্বারা আপডেট হয়ে গেছে।
 
-Similar to the 0-1 knapsack, we can remove the first dimension to optimize the space complexity. This gives us the same transition rule as 0-1 knapsack.
+০-১ ন্যাপস্যাকের মতোই, আমরা স্পেস কমপ্লেক্সিটি অপটিমাইজ করতে প্রথম ডাইমেনশন বাদ দিতে পারি। এতে আমরা ০-১ ন্যাপস্যাকের মতোই ট্রানজিশন রুল পাই।
 
 $$f_j \gets \max(f_j, f_{j-w_i}+v_i)$$
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The algorithm described can be implemented in $O(nW)$ as:
+বর্ণিত অ্যালগরিদমটি $O(nW)$ এ ইমপ্লিমেন্ট করা যায়:
 
 ```.c++
 for (int i = 1; i <= n; i++)
@@ -90,39 +90,39 @@ for (int i = 1; i <= n; i++)
     f[j] = max(f[j], f[j - w[i]] + v[i]);
 ```
 
-Despite having the same transition rule, the code above is incorrect for 0-1 knapsack.
+একই ট্রানজিশন রুল থাকা সত্ত্বেও, উপরের কোড ০-১ ন্যাপস্যাকের জন্য ভুল।
 
-Observing the code carefully, we see that for the currently processed item $i$ and the current state $f_{i,j}$, 
-when $j\geqslant w_{i}$, $f_{i,j}$ will be affected by $f_{i,j-w_{i}}$. 
-This is equivalent to being able to put item $i$ into the backpack multiple times, which is consistent with the complete knapsack problem and not the 0-1 knapsack problem.
+কোডটি সতর্কভাবে পর্যবেক্ষণ করলে দেখা যায়, বর্তমানে প্রসেসকৃত আইটেম $i$ এবং বর্তমান স্টেট $f_{i,j}$ এর জন্য,
+যখন $j\geqslant w_{i}$, তখন $f_{i,j}$ $f_{i,j-w_{i}}$ দ্বারা প্রভাবিত হবে।
+এটি আইটেম $i$ কে একাধিকবার ব্যাকপ্যাকে রাখতে পারার সমতুল্য, যা কমপ্লিট ন্যাপস্যাক প্রবলেমের সাথে সঙ্গতিপূর্ণ, ০-১ ন্যাপস্যাক প্রবলেমের সাথে নয়।
 
-## Multiple Knapsack
+## মাল্টিপল ন্যাপস্যাক
 
-Multiple knapsack is also a variant of 0-1 knapsack. The main difference is that there are $k_i$ of each item instead of just $1$.
+মাল্টিপল ন্যাপস্যাকও ০-১ ন্যাপস্যাকের একটি ভ্যারিয়েন্ট। প্রধান পার্থক্য হলো প্রতিটি আইটেম মাত্র $1$ টির পরিবর্তে $k_i$ টি আছে।
 
-### Explanation
+### ব্যাখ্যা
 
-A very simple idea is: "choose each item $k_i$ times" is equivalent to "$k_i$ of the same item is selected one by one". Thus converting it to a 0-1 knapsack model, which can be described by the transition function:
+একটি খুব সহজ ধারণা হলো: "প্রতিটি আইটেম $k_i$ বার বেছে নাও" এটি "$k_i$ টি একই আইটেম একটি একটি করে নির্বাচন করা" এর সমতুল্য। এভাবে এটি ০-১ ন্যাপস্যাক মডেলে রূপান্তরিত হয়, যা নিম্নলিখিত ট্রানজিশন ফাংশন দ্বারা বর্ণনা করা যায়:
 
 $$f_{i, j} = \max_{k=0}^{k_i}(f_{i-1,j-k\cdot w_i} + k\cdot v_i)$$
 
-The time complexity of this process is $O(W\sum\limits_{i=1}^{n}k_i)$
+এই প্রক্রিয়ার টাইম কমপ্লেক্সিটি $O(W\sum\limits_{i=1}^{n}k_i)$
 
-### Binary Grouping Optimization
+### বাইনারি গ্রুপিং অপটিমাইজেশন
 
-We still consider converting the multiple knapsack model into a 0-1 knapsack model for optimization. The time complexity $O(Wn)$ can not be further optimized with the approach above, so we focus on $O(\sum k_i)$ component.
+আমরা এখনও অপটিমাইজেশনের জন্য মাল্টিপল ন্যাপস্যাক মডেলকে ০-১ ন্যাপস্যাক মডেলে রূপান্তর করার কথা বিবেচনা করব। উপরের পদ্ধতিতে টাইম কমপ্লেক্সিটি $O(Wn)$ আর কমানো সম্ভব নয়, তাই আমরা $O(\sum k_i)$ অংশের দিকে মনোযোগ দিই।
 
-Let $A_{i, j}$ denote the $j^{th}$ item split from the $i^{th}$ item. In the trivial approach discussed above, $A_{i, j}$ represents the same item for all $j \leq k_i$. The main reason for our low efficiency is that we are doing a lot of repetetive work. For example, consider selecting $\{A_{i, 1},A_{i, 2}\}$, and selecting $\{A_{i, 2}, A_{i, 3}\}$. These two situations are completely equivalent. Thus optimizing the splitting method will greatly reduce the time complexity.
+ধরি $A_{i, j}$ হলো $i$ তম আইটেম থেকে বিভক্ত $j$ তম আইটেম। উপরে আলোচিত সরল পদ্ধতিতে, $A_{i, j}$ সকল $j \leq k_i$ এর জন্য একই আইটেম নির্দেশ করে। আমাদের কম দক্ষতার প্রধান কারণ হলো আমরা অনেক পুনরাবৃত্তিমূলক কাজ করছি। উদাহরণস্বরূপ, $\{A_{i, 1},A_{i, 2}\}$ নির্বাচন করা এবং $\{A_{i, 2}, A_{i, 3}\}$ নির্বাচন করা বিবেচনা করুন। এই দুটি পরিস্থিতি সম্পূর্ণ সমতুল্য। তাই বিভাজন পদ্ধতি অপটিমাইজ করলে টাইম কমপ্লেক্সিটি অনেক কমবে।
 
-The grouping is made more efficient by using binary grouping.
+বাইনারি গ্রুপিং ব্যবহার করে গ্রুপিং আরও দক্ষ করা হয়।
 
-Specifically, $A_{i, j}$ holds $2^j$ individual items ($j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$).If $k_i + 1$ is not an integer power of $2$, another bundle of size $k_i-(2^{\lfloor \log_2(k_i+1)\rfloor}-1)$ is used to make up for it.
+সুনির্দিষ্টভাবে, $A_{i, j}$ তে $2^j$ টি পৃথক আইটেম থাকে ($j\in[0,\lfloor \log_2(k_i+1)\rfloor-1]$)। যদি $k_i + 1$ ২ এর পূর্ণসংখ্যা ঘাত না হয়, তাহলে $k_i-(2^{\lfloor \log_2(k_i+1)\rfloor}-1)$ সাইজের আরেকটি বান্ডেল পূরণের জন্য ব্যবহৃত হয়।
 
-Through the above splitting method, it is possible to obtain any sum of $\leq k_i$ items by selecting a few $A_{i, j}$'s. After splitting each item in the described way, it is sufficient to use 0-1 knapsack method to solve the new formulation of the problem.
+উপরের বিভাজন পদ্ধতির মাধ্যমে, কয়েকটি $A_{i, j}$ নির্বাচন করে $\leq k_i$ আইটেমের যেকোনো যোগফল পাওয়া সম্ভব। বর্ণিত উপায়ে প্রতিটি আইটেম বিভক্ত করার পর, সমস্যার নতুন সূত্র সমাধানে ০-১ ন্যাপস্যাক পদ্ধতি ব্যবহার করাই যথেষ্ট।
 
-This optimization gives us a time complexity of $O(W\sum\limits_{i=1}^{n}\log k_i)$.
+এই অপটিমাইজেশন আমাদের $O(W\sum\limits_{i=1}^{n}\log k_i)$ টাইম কমপ্লেক্সিটি দেয়।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```c++
 index = 0;
@@ -140,27 +140,27 @@ for (int i = 1; i <= n; i++) {
 }
 ```
 
-### Monotone Queue Optimization
+### মনোটোন কিউ অপটিমাইজেশন
 
-In this optimization, we aim to convert the knapsack problem into a [maximum queue](https://cp-algorithms.com/data_structures/stack_queue_modification.html) one.
+এই অপটিমাইজেশনে, আমরা ন্যাপস্যাক প্রবলেমকে একটি [ম্যাক্সিমাম কিউ](https://cp-algorithms.com/data_structures/stack_queue_modification.html) প্রবলেমে রূপান্তর করতে চাই।
 
-For convenience of description, let $g_{x, y} = f_{i, x \cdot w_i + y} ,\space g'_{x, y} = f_{i-1, x \cdot w_i + y}$. Then the transition rule can be written as:
+বর্ণনার সুবিধার জন্য, ধরি $g_{x, y} = f_{i, x \cdot w_i + y} ,\space g'_{x, y} = f_{i-1, x \cdot w_i + y}$। তাহলে ট্রানজিশন রুলটি এভাবে লেখা যায়:
 
 $$g_{x, y} = \max_{k=0}^{k_i}(g'_{x-k, y} + v_i \cdot k)$$
 
-Further, let $G_{x, y} = g'_{x, y} - v_i \cdot x$. Then the transition rule can be expressed as:
+এছাড়া, ধরি $G_{x, y} = g'_{x, y} - v_i \cdot x$। তাহলে ট্রানজিশন রুলটি এভাবে প্রকাশ করা যায়:
 
 $$g_{x, y} \gets \max_{k=0}^{k_i}(G_{x-k, y}) + v_i \cdot x$$
 
-This transforms into a classic monotone queue optimization form. $G_{x, y}$ can be calculated in $O(1)$, so for a fixed $y$, we can calculate $g_{x, y}$ in $O(\lfloor \frac{W}{w_i} \rfloor)$ time.
-Therefore, the complexity of finding all $g_{x, y}$ is $O(\lfloor \frac{W}{w_i} \rfloor) \times O(w_i) = O(W)$.
-In this way, the total complexity of the algorithm is reduced to $O(nW)$. 
+এটি একটি ক্লাসিক মনোটোন কিউ অপটিমাইজেশন ফর্মে রূপান্তরিত হয়। $G_{x, y}$ $O(1)$ এ গণনা করা যায়, তাই একটি নির্দিষ্ট $y$ এর জন্য, আমরা $g_{x, y}$ $O(\lfloor \frac{W}{w_i} \rfloor)$ সময়ে গণনা করতে পারি।
+অতএব, সকল $g_{x, y}$ বের করার কমপ্লেক্সিটি হলো $O(\lfloor \frac{W}{w_i} \rfloor) \times O(w_i) = O(W)$।
+এভাবে, অ্যালগরিদমের মোট কমপ্লেক্সিটি কমে $O(nW)$ হয়।
 
-## Mixed Knapsack
+## মিক্সড ন্যাপস্যাক
 
-The mixed knapsack problem involves a combination of the three problems described above. That is, some items can only be taken once, some can be taken infinitely, and some can be taken atmost $k$ times.
+মিক্সড ন্যাপস্যাক প্রবলেমে উপরে বর্ণিত তিনটি সমস্যার সংমিশ্রণ থাকে। অর্থাৎ, কিছু আইটেম শুধু একবার নেওয়া যায়, কিছু সীমাহীনবার নেওয়া যায়, এবং কিছু সর্বাধিক $k$ বার নেওয়া যায়।
 
-The problem may seem daunting, but as long as you understand the core ideas of the previous knapsack problems and combine them together, you can do it. The pseudo code for the solution is as:
+সমস্যাটি কঠিন মনে হতে পারে, কিন্তু আপনি যদি পূর্ববর্তী ন্যাপস্যাক প্রবলেমগুলোর মূল ধারণা বুঝে থাকেন এবং সেগুলোকে একত্রিত করেন, তাহলে এটি সমাধান করা সম্ভব। সমাধানের সিউডো কোড হলো:
 
 ```c++
 for (each item) {
@@ -173,7 +173,7 @@ for (each item) {
 }
 ```
 
-## Practise Problems
+## অনুশীলন সমস্যা
 
 - [Atcoder: Knapsack-1](https://atcoder.jp/contests/dp/tasks/dp_d)
 - [Atcoder: Knapsack-2](https://atcoder.jp/contests/dp/tasks/dp_e)

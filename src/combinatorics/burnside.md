@@ -4,39 +4,39 @@ tags:
 e_maxx_link: burnside_polya
 ---
 
-# Burnside's lemma / Pólya enumeration theorem
+# বার্নসাইডের লেমা / পোলিয়ার গণনা উপপাদ্য
 
-## Burnside's lemma
+## বার্নসাইডের লেমা
 
-**Burnside's lemma** was formulated and proven by **Burnside** in 1897, but historically it was already discovered in 1887 by **Frobenius**, and even earlier in 1845 by **Cauchy**.
-Therefore it is also sometimes named the **Cauchy-Frobenius lemma**.
+**বার্নসাইডের লেমা** ১৮৯৭ সালে **বার্নসাইড** দ্বারা প্রকাশিত ও প্রমাণিত হয়েছিল, কিন্তু ঐতিহাসিকভাবে এটি ১৮৮৭ সালে **ফ্রোবেনিয়াস** দ্বারা এবং আরো আগে ১৮৪৫ সালে **কশি** দ্বারা আবিষ্কৃত হয়েছিল।
+তাই একে কখনো কখনো **কশি-ফ্রোবেনিয়াস লেমা**-ও বলা হয়।
 
-Burnside's lemma allows us to count the number of equivalence classes in sets, based on internal symmetry.
+বার্নসাইডের লেমা আমাদের সেটের অভ্যন্তরীণ প্রতিসাম্যের উপর ভিত্তি করে তুল্যতা শ্রেণীর সংখ্যা গণনা করতে দেয়।
 
-### Objects and representations
+### বস্তু ও উপস্থাপনা
 
-We have to clearly distinguish between the number of objects and the number of representations.
+আমাদের বস্তুর সংখ্যা এবং উপস্থাপনার সংখ্যার মধ্যে স্পষ্ট পার্থক্য করতে হবে।
 
-Different representations can correspond to the same objects, but of course any representation corresponds to exactly one object.
-Consequently the set of all representations is divided into equivalence classes.
-Our task is to compute the number of objects, or equivalently, the number of equivalence classes.
-The following example will make the difference between object and representation clearer.
+বিভিন্ন উপস্থাপনা একই বস্তুর সাথে সংশ্লিষ্ট হতে পারে, কিন্তু অবশ্যই প্রতিটি উপস্থাপনা ঠিক একটি বস্তুর সাথে সংশ্লিষ্ট।
+ফলে সব উপস্থাপনার সেট তুল্যতা শ্রেণীতে বিভক্ত হয়।
+আমাদের কাজ হলো বস্তুর সংখ্যা, অথবা সমতুল্যভাবে, তুল্যতা শ্রেণীর সংখ্যা গণনা করা।
+নিচের উদাহরণটি বস্তু ও উপস্থাপনার মধ্যে পার্থক্য আরো স্পষ্ট করবে।
 
-### Example: coloring of binary trees
+### উদাহরণ: বাইনারি ট্রি-র রং করা
 
-Suppose we have the following problem.
-We have to count the number of ways to color a rooted binary tree with $n$ vertices with two colors, where at each vertex we do not distinguish between the left and the right children.
+ধরুন আমাদের নিম্নলিখিত সমস্যা আছে।
+আমাদের $n$ শীর্ষবিশিষ্ট একটি মূলযুক্ত বাইনারি ট্রি-কে দুটি রঙে রং করার কতগুলো উপায় আছে তা গুনতে হবে, যেখানে প্রতিটি শীর্ষে আমরা বাম ও ডান সন্তানের মধ্যে পার্থক্য করি না।
 
-Here the set of objects is the set of different colorings of the tree.
+এখানে বস্তুর সেট হলো ট্রি-র বিভিন্ন রং করার সেট।
 
-We now define the set of representations.
-A representation of a coloring is a function $f(v)$, which assigns each vertex a color (here we use the colors $0$ and $1$).
-The set of representations is the set containing all possible functions of this kind, and its size is obviously equal to $2^n$.
+এখন আমরা উপস্থাপনার সেট সংজ্ঞায়িত করি।
+একটি রং করার উপস্থাপনা হলো একটি ফাংশন $f(v)$, যা প্রতিটি শীর্ষে একটি রং নির্ধারণ করে (এখানে আমরা রং $0$ এবং $1$ ব্যবহার করি)।
+উপস্থাপনার সেট হলো এই ধরনের সব সম্ভব ফাংশনের সেট, এবং এর আকার স্পষ্টতই $2^n$।
 
-At the same time we introduce a partition of this set into equivalence classes.
+একই সাথে আমরা এই সেটকে তুল্যতা শ্রেণীতে বিভক্ত করি।
 
-For example, suppose $n = 3$, and the tree consists of the root $1$ and its two children $2$ and $3$.
-Then the following functions $f_1$ and $f_2$ are considered equivalent.
+উদাহরণস্বরূপ, ধরি $n = 3$, এবং ট্রিটি মূল $1$ ও তার দুই সন্তান $2$ এবং $3$ নিয়ে গঠিত।
+তাহলে নিচের ফাংশন $f_1$ এবং $f_2$ সমতুল্য বলে বিবেচিত হবে।
 
 $$\begin{array}{ll}
 f_1(1) = 0 & f_2(1) = 0\\
@@ -44,116 +44,116 @@ f_1(2) = 1 & f_2(2) = 0\\
 f_1(3) = 0 & f_2(3) = 1
 \end{array}$$
 
-### Invariant permutations
+### অপরিবর্তনীয় বিন্যাস
 
-Why do these two function $f_1$ and $f_2$ belong to the same equivalence class?
-Intuitively this is understandable - we can rearrange the children of vertex $1$, the vertices $2$ and $3$, and after such a transformation of the function $f_1$ it will coincide with $f_2$.
+কেন এই দুটি ফাংশন $f_1$ এবং $f_2$ একই তুল্যতা শ্রেণীতে পড়ে?
+স্বজ্ঞাতভাবে এটা বোধগম্য - আমরা শীর্ষ $1$ এর সন্তান, শীর্ষ $2$ এবং $3$, পুনর্বিন্যাস করতে পারি, এবং ফাংশন $f_1$ এর এরকম রূপান্তরের পর এটি $f_2$ এর সাথে মিলে যাবে।
 
-But formally this means that there exists an **invariant permutation** $\pi$ (i.e. a permutation which does not change the object itself, but only its representation), such that:
+কিন্তু আনুষ্ঠানিকভাবে এর অর্থ হলো একটি **অপরিবর্তনীয় পারমুটেশন** $\pi$ আছে (অর্থাৎ একটি পারমুটেশন যা বস্তু নিজেকে পরিবর্তন করে না, শুধু এর উপস্থাপনা পরিবর্তন করে), যেন:
 
 $$f_2 \pi \equiv f_1$$
 
-So starting from the definition of objects, we can find all the invariant permutations, i.e. all permutations which do not change the object when applying the permutation to the representation.
-Then we can check whether two functions $f_1$ and $f_2$ are equivalent (i.e. if they correspond to the same object) by checking the condition $f_2 \pi \equiv f_1$ for each invariant permutation (or equivalently $f_1 \pi \equiv f_2$).
-If at least one permutation is found for which the condition is satisfied, then $f_1$ and $f_2$ are equivalent, otherwise they are not equivalent.
+সুতরাং বস্তুর সংজ্ঞা থেকে শুরু করে, আমরা সব অপরিবর্তনীয় পারমুটেশন খুঁজে পেতে পারি, অর্থাৎ সব পারমুটেশন যেগুলো উপস্থাপনায় প্রয়োগ করলে বস্তু পরিবর্তন করে না।
+তারপর আমরা পরীক্ষা করতে পারি দুটি ফাংশন $f_1$ এবং $f_2$ সমতুল্য কিনা (অর্থাৎ তারা একই বস্তুর সাথে সংশ্লিষ্ট কিনা) প্রতিটি অপরিবর্তনীয় পারমুটেশনের জন্য $f_2 \pi \equiv f_1$ শর্ত পরীক্ষা করে (অথবা সমতুল্যভাবে $f_1 \pi \equiv f_2$)।
+যদি অন্তত একটি পারমুটেশন পাওয়া যায় যার জন্য শর্ত পূরণ হয়, তাহলে $f_1$ এবং $f_2$ সমতুল্য, অন্যথায় তারা সমতুল্য নয়।
 
-Finding all such invariant permutations with respect to the object definition is a key step for the application of both Burnside's lemma and the Pólya enumeration theorem.
-It is clear that these invariant permutations depend on the specific problem, and their finding is a purely heuristic process based on intuitive considerations.
-However in most cases it is sufficient to manually find several "basic" permutations, with which all other permutations can be generated (and this part of the work can be shifted to a computer).
+বস্তুর সংজ্ঞার সাপেক্ষে এরকম সব অপরিবর্তনীয় পারমুটেশন খোঁজা বার্নসাইডের লেমা এবং পোলিয়ার গণনা উপপাদ্য উভয় প্রয়োগের জন্য একটি মূল ধাপ।
+এটা স্পষ্ট যে এই অপরিবর্তনীয় পারমুটেশনগুলো নির্দিষ্ট সমস্যার উপর নির্ভর করে, এবং তাদের খোঁজা সম্পূর্ণরূপে অন্তর্জ্ঞানমূলক বিবেচনার উপর ভিত্তি করে একটি হিউরিস্টিক প্রক্রিয়া।
+তবে বেশিরভাগ ক্ষেত্রে কয়েকটি "মৌলিক" পারমুটেশন হাতে খুঁজে বের করাই যথেষ্ট, যেগুলো দিয়ে বাকি সব পারমুটেশন তৈরি করা যায় (এবং কাজের এই অংশ কম্পিউটারে স্থানান্তরিত করা যায়)।
 
-It is not difficult to understand that invariant permutations form a **group**, since the product (composition) of invariant permutations is again an invariant permutation.
-We denote the **group of invariant permutations** by $G$.
+বুঝতে অসুবিধা নেই যে অপরিবর্তনীয় পারমুটেশনগুলো একটি **গ্রুপ** গঠন করে, কারণ অপরিবর্তনীয় পারমুটেশনের গুণফল (সংযোজন)-ও একটি অপরিবর্তনীয় পারমুটেশন।
+আমরা **অপরিবর্তনীয় পারমুটেশনের গ্রুপ**কে $G$ দ্বারা চিহ্নিত করি।
 
-### The statement of the lemma
+### লেমার বিবৃতি
 
-For the formulation of the lemma we need one more definition from algebra.
-A **fixed point** $f$ for a permutation $\pi$ is an element that is invariant under this permutation: $f \equiv f \pi$.
-For example in our example the fixed points are those functions $f$, which correspond to colorings that do not change when the permutation $\pi$ is applied to them (i.e. they do not change in the formal sense of the equality of functions).
-We denote by $I(\pi)$ the **number of fixed points** for the permutation $\pi$.
+লেমার সূত্রায়নের জন্য আমাদের বীজগণিত থেকে আরেকটি সংজ্ঞা দরকার।
+পারমুটেশন $\pi$ এর জন্য একটি **স্থির বিন্দু** $f$ হলো এমন একটি উপাদান যা এই পারমুটেশনের অধীনে অপরিবর্তিত থাকে: $f \equiv f \pi$।
+উদাহরণস্বরূপ আমাদের উদাহরণে স্থির বিন্দুগুলো হলো সেই ফাংশন $f$, যেগুলো এমন রং করার সাথে সংশ্লিষ্ট যা পারমুটেশন $\pi$ প্রয়োগ করলে পরিবর্তন হয় না (অর্থাৎ ফাংশনের সমতার আনুষ্ঠানিক অর্থে তারা পরিবর্তন হয় না)।
+আমরা পারমুটেশন $\pi$ এর জন্য **স্থির বিন্দুর সংখ্যা** $I(\pi)$ দ্বারা চিহ্নিত করি।
 
-Then **Burnside's lemma** goes as follows:
-the number of equivalence classes is equal to the sum of the numbers of fixed points with respect to all permutations from the group $G$, divided by the size of this group:
+তাহলে **বার্নসাইডের লেমা** বলে:
+তুল্যতা শ্রেণীর সংখ্যা গ্রুপ $G$ এর সব পারমুটেশনের সাপেক্ষে স্থির বিন্দুর সংখ্যার যোগফলকে এই গ্রুপের আকার দিয়ে ভাগ করলে পাওয়া যায়:
 
 $$|\text{Classes}| = \frac{1}{|G|} \sum_{\pi \in G} I(\pi)$$
 
-Although Burnside's lemma itself is not so convenient to use in practice (it is unclear how to quickly look for the value $I(\pi)$, it most clearly reveals the mathematical essence on which the idea of calculating equivalence classes is based.
+যদিও বার্নসাইডের লেমা নিজে ব্যবহারিকভাবে এতটা সুবিধাজনক নয় ($I(\pi)$ এর মান দ্রুত কীভাবে বের করতে হয় তা অস্পষ্ট), এটি সবচেয়ে স্পষ্টভাবে সেই গাণিতিক সারমর্ম প্রকাশ করে যার উপর তুল্যতা শ্রেণী গণনার ধারণা ভিত্তি করে।
 
-### Proof of Burnside's lemma
+### বার্নসাইডের লেমার প্রমাণ
 
-The proof of Burnside's lemma described here is not important for the practical applications, so it can be skipped on the first reading.
+এখানে বর্ণিত বার্নসাইডের লেমার প্রমাণ ব্যবহারিক প্রয়োগের জন্য গুরুত্বপূর্ণ নয়, তাই প্রথম পাঠে এড়িয়ে যাওয়া যায়।
 
-The proof here is the simplest known, and does not use group theory.
-The proof was published by Kenneth P. Bogart in 1991.
+এখানকার প্রমাণটি সবচেয়ে সরল পরিচিত প্রমাণ, এবং এতে গ্রুপ তত্ত্ব ব্যবহৃত হয়নি।
+প্রমাণটি Kenneth P. Bogart ১৯৯১ সালে প্রকাশ করেছিলেন।
 
-We need to prove the following statement:
+আমাদের নিম্নলিখিত বিবৃতি প্রমাণ করতে হবে:
 
 $$|\text{Classes}| \cdot |G| = \sum_{\pi \in G} I(\pi)$$
 
-The value on the right side is nothing more than the number of "invariant pairs" $(f, \pi)$, i.e. pairs such that $f \pi \equiv f$.
-It is obvious that we can change the order of summation.
-We let the sum iterate over all elements $f$ and sum over the values $J(f)$ - the number of permutations for which $f$ is a fixed point.
+ডান পক্ষের মান "অপরিবর্তনীয় জোড়া" $(f, \pi)$ এর সংখ্যা ছাড়া আর কিছুই নয়, অর্থাৎ এমন জোড়া যেন $f \pi \equiv f$।
+এটা স্পষ্ট যে আমরা যোগফলের ক্রম পরিবর্তন করতে পারি।
+আমরা যোগফলকে সব উপাদান $f$ এর উপর চালাই এবং $J(f)$ এর মান যোগ করি - যে কতগুলো পারমুটেশনের জন্য $f$ একটি স্থির বিন্দু।
 
 $$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$
 
-To prove this formula we will compose a table with columns labeled with all functions $f_i$ and rows labeled with all permutations $\pi_j$.
-And we fill the cells with $f_i \pi_j$.
-If we look at the columns in this table as sets, then some of them will coincide, and this means that the corresponding functions $f$ for these columns are also equivalent.
-Thus the numbers of different (as sets) columns is equal to the number of classes.
-Incidentally, from the standpoint of group theory, the column labeled with $f_i$ is the orbit of this element.
-For equivalent elements the orbits coincides, and the number of orbits gives exactly the number of classes.
+এই সূত্র প্রমাণ করতে আমরা একটি টেবিল তৈরি করবো যার কলামগুলো সব ফাংশন $f_i$ দিয়ে এবং সারিগুলো সব পারমুটেশন $\pi_j$ দিয়ে চিহ্নিত।
+এবং আমরা ঘরগুলো $f_i \pi_j$ দিয়ে পূরণ করি।
+যদি আমরা এই টেবিলের কলামগুলোকে সেট হিসেবে দেখি, তাহলে কিছু কলাম মিলে যাবে, এবং এর মানে সংশ্লিষ্ট ফাংশন $f$-ও সমতুল্য।
+সুতরাং ভিন্ন (সেট হিসেবে) কলামের সংখ্যা শ্রেণীর সংখ্যার সমান।
+আনুষঙ্গিকভাবে, গ্রুপ তত্ত্বের দৃষ্টিকোণ থেকে, $f_i$ দিয়ে চিহ্নিত কলামটি এই উপাদানের কক্ষপথ।
+সমতুল্য উপাদানের জন্য কক্ষপথ মিলে যায়, এবং কক্ষপথের সংখ্যাই ঠিক শ্রেণীর সংখ্যা দেয়।
 
-Thus the columns of the table decompose into equivalence classes.
-Let us fix a class, and look at the columns in it.
-First, note that these columns can only contain elements $f_i$ of the equivalence class (otherwise some permutation $\pi_j$ moved one of the functions into a different equivalence class, which is impossible since we only look at invariant permutations).
-Secondly each element $f_i$ will occur the same number of times in each column (this also follows from the fact that the columns correspond to equivalent elements).
-From this we can conclude, that all the columns within the same equivalence class coincide with each other as multisets.
+সুতরাং টেবিলের কলামগুলো তুল্যতা শ্রেণীতে বিভক্ত হয়।
+একটি শ্রেণী ঠিক করি, এবং এর কলামগুলো দেখি।
+প্রথমত লক্ষ্য করুন, এই কলামগুলোতে শুধুমাত্র তুল্যতা শ্রেণীর উপাদান $f_i$ থাকতে পারে (অন্যথায় কোনো পারমুটেশন $\pi_j$ কোনো একটি ফাংশনকে ভিন্ন তুল্যতা শ্রেণীতে সরিয়ে দিত, যা অসম্ভব কারণ আমরা শুধু অপরিবর্তনীয় পারমুটেশন বিবেচনা করছি)।
+দ্বিতীয়ত প্রতিটি উপাদান $f_i$ প্রতিটি কলামে সমান সংখ্যকবার উপস্থিত হবে (এটিও এই কারণে যে কলামগুলো সমতুল্য উপাদানের সাথে সংশ্লিষ্ট)।
+এ থেকে আমরা উপসংহার টানতে পারি যে একই তুল্যতা শ্রেণীর সব কলাম মাল্টিসেট হিসেবে পরস্পরের সাথে মিলে যায়।
 
-Now fix an arbitrary element $f$.
-On the one hand, it occurs in its column exactly $J(f)$ times (by definition).
-On the other hand, all columns within the same equivalence class are the same as multisets.
-Therefore within each column of a given equivalence class any element $g$ occurs exactly $J(g)$ times.
+এখন একটি যেকোনো উপাদান $f$ ঠিক করি।
+একদিকে, এটি তার কলামে ঠিক $J(f)$ বার উপস্থিত হয় (সংজ্ঞা অনুসারে)।
+অন্যদিকে, একই তুল্যতা শ্রেণীর সব কলাম মাল্টিসেট হিসেবে একই।
+তাই একটি প্রদত্ত তুল্যতা শ্রেণীর প্রতিটি কলামে যেকোনো উপাদান $g$ ঠিক $J(g)$ বার উপস্থিত হয়।
 
-Thus if we arbitrarily take one column from each equivalence class, and sum the number of elements in them, we obtain on one hand $|\text{Classes}| \cdot |G|$ (simply by multiplying the number of columns by the number of rows), and on the other hand the sum of the quantities $J(f)$ for all $f$ (this follows from all the previous arguments):
+সুতরাং যদি আমরা প্রতিটি তুল্যতা শ্রেণী থেকে ইচ্ছামতো একটি কলাম নিই, এবং তাদের উপাদান সংখ্যা যোগ করি, আমরা একদিকে পাবো $|\text{Classes}| \cdot |G|$ (কলাম সংখ্যাকে সারি সংখ্যা দিয়ে গুণ করে), এবং অন্যদিকে সব $f$ এর জন্য $J(f)$ এর যোগফল (এটি পূর্ববর্তী সব যুক্তি থেকে অনুসরণ করে):
 
 $$|\text{Classes}| \cdot |G| = \sum_{f} J(f)$$
 
-## Pólya enumeration theorem
+## পোলিয়ার গণনা উপপাদ্য
 
-The Pólya enumeration theorem is a generalization of Burnside's lemma, and it also provides a more convenient tool for finding the number of equivalence classes.
-It should be noted that this theorem was already discovered before Pólya by Redfield in 1927, but his publication went unnoticed by mathematicians.
-Pólya independently came to the same results in 1937, and his publication was more successful.
+পোলিয়ার গণনা উপপাদ্য বার্নসাইডের লেমার একটি সাধারণীকরণ, এবং এটি তুল্যতা শ্রেণীর সংখ্যা বের করার জন্য আরো সুবিধাজনক হাতিয়ার প্রদান করে।
+লক্ষণীয় যে এই উপপাদ্যটি পোলিয়ার আগেই ১৯২৭ সালে Redfield আবিষ্কার করেছিলেন, কিন্তু তাঁর প্রকাশনা গণিতবিদদের নজরে আসেনি।
+পোলিয়া স্বাধীনভাবে ১৯৩৭ সালে একই ফলাফলে পৌঁছেছিলেন, এবং তাঁর প্রকাশনা আরো সফল হয়েছিল।
 
-Here we discuss only a special case of the Pólya enumeration theorem, which will turn out very useful in practice.
-The general formula of the theorem will not be discussed.
+এখানে আমরা পোলিয়ার গণনা উপপাদ্যের শুধুমাত্র একটি বিশেষ ক্ষেত্র আলোচনা করবো, যা ব্যবহারিকভাবে অত্যন্ত কার্যকর হবে।
+উপপাদ্যের সাধারণ সূত্র আলোচনা করা হবে না।
 
-We denote by $C(\pi)$ the number of cycles in the permutation $\pi$.
-Then the following formula (a **special case of the Pólya enumeration theorem**) holds:
+আমরা $C(\pi)$ দ্বারা পারমুটেশন $\pi$ তে চক্রের সংখ্যা চিহ্নিত করি।
+তাহলে নিম্নলিখিত সূত্র (**পোলিয়ার গণনা উপপাদ্যের একটি বিশেষ ক্ষেত্র**) সত্য:
 
 $$|\text{Classes}| = \frac{1}{|G|} \sum_{\pi \in G} k^{C(\pi)}$$
 
-$k$ is the number of values that each representation element can take, in the case of the coloring of a binary tree this would be $k = 2$.
+$k$ হলো প্রতিটি উপস্থাপনা উপাদান কতগুলো মান নিতে পারে তার সংখ্যা, বাইনারি ট্রি রং করার ক্ষেত্রে এটি হবে $k = 2$।
 
-### Evidence
+### প্রমাণ
 
-This formula is a direct consequence of Burnside's lemma.
-To get it, we just need to find an explicit expression for $I(\pi)$, which appears in the lemma.
-Recall, that $I(\pi)$ is the number of fixed points in the permutation $\pi$.
+এই সূত্রটি বার্নসাইডের লেমার সরাসরি পরিণতি।
+এটি পেতে, আমাদের শুধু লেমায় উপস্থিত $I(\pi)$ এর একটি সুস্পষ্ট রাশি বের করতে হবে।
+মনে করুন, $I(\pi)$ হলো পারমুটেশন $\pi$ তে স্থির বিন্দুর সংখ্যা।
 
-Thus we consider a permutation $\pi$ and some element $f$.
-During the application of $\pi$, the elements in $f$ move via the cycles in the permutation.
-Since the result should obtain $f \equiv f \pi$, the elements touched by one cycle must all be equal.
-At the same time different cycles are independent.
-Thus for each permutation cycle $\pi$ we can choose one value (among $k$ possible) and thus we get the number of fixed points:
+সুতরাং আমরা একটি পারমুটেশন $\pi$ এবং কিছু উপাদান $f$ বিবেচনা করি।
+$\pi$ প্রয়োগের সময়, $f$ এর উপাদানগুলো পারমুটেশনের চক্র অনুসারে সরে যায়।
+যেহেতু ফলাফলে $f \equiv f \pi$ পেতে হবে, একটি চক্র দ্বারা স্পর্শিত উপাদানগুলো সবই সমান হতে হবে।
+একই সাথে বিভিন্ন চক্র স্বাধীন।
+সুতরাং প্রতিটি পারমুটেশন চক্র $\pi$ এর জন্য আমরা একটি মান ($k$ সম্ভব থেকে) বেছে নিতে পারি এবং এভাবে আমরা স্থির বিন্দুর সংখ্যা পাই:
 
 $$I(\pi) = k^{C(\pi)}$$
 
-## Application: Coloring necklaces
+## প্রয়োগ: নেকলেস রং করা
 
-The problem "Necklace" is one of the classical combinatorial problems.
-The task is to count the number of different necklaces from $n$ beads, each of which can be painted in one of the $k$ colors.
-When comparing two necklaces, they can be rotated, but not reversed (i.e. a cyclic shift is permitted).
+"নেকলেস" সমস্যাটি ক্লাসিক সমাবেশ বিদ্যার সমস্যাগুলোর একটি।
+কাজটি হলো $n$ টি পুঁতি দিয়ে কতগুলো ভিন্ন নেকলেস তৈরি করা যায় তা গণনা করা, যেখানে প্রতিটি পুঁতি $k$ টি রঙের যেকোনো একটিতে রং করা যায়।
+দুটি নেকলেস তুলনা করার সময়, তাদের ঘোরানো যায়, কিন্তু উল্টানো যায় না (অর্থাৎ চক্রাকার স্থানান্তর অনুমোদিত)।
 
-In this problem we can immediately find the group of invariant permutations:
+এই সমস্যায় আমরা তৎক্ষণাৎ অপরিবর্তনীয় পারমুটেশনের গ্রুপ পেতে পারি:
 
 $$\begin{align}
 \pi_0 &= 1 2 3 \dots n\\
@@ -162,57 +162,56 @@ $$\begin{align}
 &\dots\\
 \pi_{n-1} &= n 1 2 3\dots\end{align}$$
 
-Let us find an explicit formula for calculating $C(\pi_i)$.
-First we note, that the permutation $\pi_i$ has at the $j$-th position the value $i + j$ (taken modulo $n$).
-If we check the cycle structure for $\pi_i$.
-We see that $1$ goes to $1 + i$, $1 + i$ goes to $1 + 2i$, which goes to $1 + 3i$, etc., until we come to a number of the form $1 + k n$.
-Similar statements can be made for the remaining elements.
-Hence we see that all cycles have the same length, namely $\frac{\text{lcm}(i, n)}{i} = \frac{n}{\gcd(i, n)}$.
-Thus the number of cycles in $\pi_i$ will be equal to $\gcd(i, n)$.
+$C(\pi_i)$ গণনার একটি সুস্পষ্ট সূত্র বের করা যাক।
+প্রথমে লক্ষ্য করি, পারমুটেশন $\pi_i$ এর $j$-তম অবস্থানে মান $i + j$ (মডুলো $n$ নেওয়া) আছে।
+$\pi_i$ এর চক্র কাঠামো পরীক্ষা করলে দেখি যে $1$ যায় $1 + i$ তে, $1 + i$ যায় $1 + 2i$ তে, যা যায় $1 + 3i$ তে, ইত্যাদি, যতক্ষণ না আমরা $1 + k n$ আকারের একটি সংখ্যায় পৌঁছাই।
+বাকি উপাদানগুলোর জন্যও একই কথা বলা যায়।
+ফলে আমরা দেখি সব চক্রের দৈর্ঘ্য একই, যথা $\frac{\text{lcm}(i, n)}{i} = \frac{n}{\gcd(i, n)}$।
+সুতরাং $\pi_i$ তে চক্রের সংখ্যা হবে $\gcd(i, n)$।
 
-Substituting these values into the Pólya enumeration theorem, we obtain the solution:
+পোলিয়ার গণনা উপপাদ্যে এই মানগুলো বসিয়ে আমরা সমাধান পাই:
 
 $$\frac{1}{n} \sum_{i=1}^n k^{\gcd(i, n)}$$
 
-You can leave this formula in this form, or you can simplify it even more.
-Let transfer the sum so that it iterates over all divisors of $n$.
-In the original sum there will be many equivalent terms: if $i$ is not a divisor of $n$, then such a divisor can be found after computing $\gcd(i, n)$.
-Therefore for each divisor $d ~|~ n$ its term $k^{\gcd(d, n)} = k^d$ will appear in the sum multiple times, i.e. the answer to the problem can be rewritten as
+আপনি এই সূত্রটি এই আকারে রাখতে পারেন, অথবা আরো সরলীকরণ করতে পারেন।
+যোগফলটি এমনভাবে রূপান্তর করি যাতে এটি $n$ এর সব ভাজকের উপর চলে।
+মূল যোগফলে অনেক সমতুল্য পদ থাকবে: যদি $i$ $n$ এর ভাজক না হয়, তাহলে $\gcd(i, n)$ গণনা করার পর এমন একটি ভাজক পাওয়া যাবে।
+তাই প্রতিটি ভাজক $d ~|~ n$ এর জন্য এর পদ $k^{\gcd(d, n)} = k^d$ যোগফলে একাধিকবার আসবে, অর্থাৎ সমস্যার উত্তর এভাবে লেখা যায়
 
 $$\frac{1}{n} \sum_{d ~|~ n} C_d k^d,$$
 
-where $C_d$ is the number of such numbers $i$ with $\gcd(i, n) = d$.
-We can find an explicit expression for this value.
-Any such number $i$ has the form $i = d j$ with $\gcd(j, n / d) = 1$ (otherwise $\gcd(i, n) > d$).
-So we can count the number of $j$ with this behavior.
-[Euler's phi function](../algebra/phi-function.md) gives us the result $C_d = \phi(n / d)$, and therefore we get the answer:
+যেখানে $C_d$ হলো $\gcd(i, n) = d$ এমন $i$ এর সংখ্যা।
+আমরা এই মানের একটি সুস্পষ্ট রাশি বের করতে পারি।
+এরকম যেকোনো $i$ এর আকার $i = d j$ যেখানে $\gcd(j, n / d) = 1$ (অন্যথায় $\gcd(i, n) > d$)।
+সুতরাং এই আচরণের $j$ এর সংখ্যা গুনতে পারি।
+[অয়লারের ফি ফাংশন](../algebra/phi-function.md) আমাদের ফলাফল দেয় $C_d = \phi(n / d)$, এবং তাই আমরা উত্তর পাই:
 
 $$\frac{1}{n} \sum_{d ~|~ n} \phi\left(\frac{n}{d}\right) k^d$$
 
-## Application: Coloring a torus
+## প্রয়োগ: টোরাস রং করা
 
-Quite often we cannot obtain an explicit formula for the number of equivalence classes.
-In many problems the number of permutations in a group can be too large for manual calculations and it is not possible to compute analytically the number of cycles in them.
+প্রায়ই আমরা তুল্যতা শ্রেণীর সংখ্যার জন্য সুস্পষ্ট সূত্র পাই না।
+অনেক সমস্যায় একটি গ্রুপে পারমুটেশনের সংখ্যা হাতে গণনার জন্য অনেক বেশি হতে পারে এবং তাদের মধ্যে চক্রের সংখ্যা বিশ্লেষণমূলকভাবে গণনা করা সম্ভব হয় না।
 
-In that case we should manually find several "basic" permutations, so that they can generate the entire group $G$.
-Next we can write a program that will generate all permutations of the group $G$, count the number of cycles in them, and compute the answer with the formula.
+সেক্ষেত্রে আমাদের হাতে কয়েকটি "মৌলিক" পারমুটেশন খুঁজতে হবে, যাতে তারা সম্পূর্ণ গ্রুপ $G$ তৈরি করতে পারে।
+এরপর আমরা একটি প্রোগ্রাম লিখতে পারি যা গ্রুপ $G$ এর সব পারমুটেশন তৈরি করবে, তাদের চক্র সংখ্যা গুনবে, এবং সূত্র দিয়ে উত্তর গণনা করবে।
 
-Consider the example of the problem for coloring a torus.
-There is a checkered sheet of paper $n \times m$ ($n < m$), some of the cells are black.
-Then a cylinder is obtained from this sheet by gluing together the two sides with lengths $m$.
-Then a torus is obtained from the cylinder by gluing together the two circles (top and bottom) without twisting.
-The task is to compute the number of different colored tori, assuming that we cannot see the glued lines, and the torus can be turned and turned.
+টোরাস রং করার সমস্যার উদাহরণ বিবেচনা করি।
+একটি $n \times m$ ($n < m$) চেকওয়ালা কাগজের পাতা আছে, কিছু ঘর কালো।
+তারপর $m$ দৈর্ঘ্যের দুটি পাশ জোড়া লাগিয়ে এই পাতা থেকে একটি সিলিন্ডার পাওয়া যায়।
+তারপর দুটি বৃত্ত (উপর ও নিচ) মোচড় না দিয়ে জোড়া লাগিয়ে সিলিন্ডার থেকে একটি টোরাস পাওয়া যায়।
+কাজটি হলো ভিন্ন রঙিত টোরাসের সংখ্যা গণনা করা, ধরে নিয়ে যে আমরা জোড়া লাগানো রেখাগুলো দেখতে পাচ্ছি না, এবং টোরাসটি ঘোরানো ও পালটানো যায়।
 
-We again start with a piece of $n \times m$ paper.
-It is easy to see that the following types of transformations preserve the equivalence class:
-a cyclic shift of the rows, a cyclic shift of the columns, and a rotation of the sheet by 180 degrees.
-It is also easy to see, that these transformations can generate the entire group of invariant transformations.
-If we somehow number the cells of the paper, then we can write three permutations $p_1$, $p_2$, $p_3$ corresponding to these types of transformation.
+আবার আমরা $n \times m$ কাগজের টুকরো দিয়ে শুরু করি।
+নিম্নলিখিত ধরনের রূপান্তরগুলো তুল্যতা শ্রেণী সংরক্ষণ করে তা দেখা সহজ:
+সারিগুলোর চক্রাকার স্থানান্তর, কলামগুলোর চক্রাকার স্থানান্তর, এবং পাতাটিকে ১৮০ ডিগ্রি ঘোরানো।
+এটাও দেখা সহজ যে এই রূপান্তরগুলো অপরিবর্তনীয় রূপান্তরের সম্পূর্ণ গ্রুপ তৈরি করতে পারে।
+আমরা যদি কোনোভাবে কাগজের ঘরগুলো সংখ্যা দিই, তাহলে এই ধরনের রূপান্তরের সাথে সংশ্লিষ্ট তিনটি পারমুটেশন $p_1$, $p_2$, $p_3$ লেখা যায়।
 
-Next it only remains to generate all permutations obtained as a product.
-It is obvious that all such permutations have the form $p_1^{i_1} p_2^{i_2} p_3^{i_3}$ where $i_1 = 0 \dots m-1$, $i_2 = 0 \dots n-1$, $i_3 = 0 \dots 1$.
+এরপর শুধু গুণফল হিসেবে প্রাপ্ত সব পারমুটেশন তৈরি করা বাকি।
+এটা স্পষ্ট যে এরকম সব পারমুটেশন $p_1^{i_1} p_2^{i_2} p_3^{i_3}$ আকারের যেখানে $i_1 = 0 \dots m-1$, $i_2 = 0 \dots n-1$, $i_3 = 0 \dots 1$।
 
-Thus we can write the implementations to this problem.
+সুতরাং আমরা এই সমস্যার ইমপ্লিমেন্টেশন লিখতে পারি।
 
 ```{.cpp file=burnside_tori}
 using Permutation = vector<int>;
@@ -266,7 +265,7 @@ int solve(int n, int m) {
     return sum / s.size();
 }
 ```
-## Practice Problems
+## অনুশীলন সমস্যা
 * [CSES - Counting Necklaces](https://cses.fi/problemset/task/2209)
 * [CSES - Counting Grids](https://cses.fi/problemset/task/2210)
 * [Codeforces - Buildings](https://codeforces.com/gym/101873/problem/B)

@@ -4,45 +4,41 @@ tags:
 e_maxx_link: convex_hull_graham
 ---
 
-# Convex Hull construction
+# কনভেক্স হাল নির্মাণ
 
-In this article we will discuss the problem of constructing a convex hull from a set of points.
+এই আর্টিকেলে আমরা বিন্দুর সেট থেকে কনভেক্স হাল নির্মাণের সমস্যা আলোচনা করব।
 
-Consider $N$ points given on a plane, and the objective is to generate a convex hull, i.e. the smallest
-convex polygon that contains all the given points.
+$N$ টি বিন্দু সমতলে দেওয়া আছে, এবং লক্ষ্য হলো একটি কনভেক্স হাল তৈরি করা, অর্থাৎ সবচেয়ে ছোট
+কনভেক্স পলিগন যা সমস্ত প্রদত্ত বিন্দু ধারণ করে।
 
-We will see the **Graham's scan** algorithm published in 1972 by Graham, and
-also the **Monotone chain** algorithm published in 1979 by Andrew. Both
-are $\mathcal{O}(N \log N)$, and are asymptotically optimal (as it is proven that there
-is no algorithm asymptotically better), with the exception of a few problems where
-parallel or online processing is involved.
+আমরা দেখব **গ্রাহাম স্ক্যান** অ্যালগরিদম যা ১৯৭২ সালে Graham প্রকাশ করেছেন, এবং
+**মনোটোন চেইন** অ্যালগরিদম যা ১৯৭৯ সালে Andrew প্রকাশ করেছেন। উভয়ই
+$\mathcal{O}(N \log N)$, এবং অ্যাসিম্পটোটিকভাবে অপটিমাল (কারণ এটি প্রমাণিত যে এর চেয়ে
+অ্যাসিম্পটোটিকভাবে ভালো কোনো অ্যালগরিদম নেই), কিছু সমস্যা ব্যতীত যেখানে
+প্যারালেল বা অনলাইন প্রসেসিং জড়িত।
 
-## Graham's scan Algorithm
-The algorithm first finds the bottom-most point $P_0$. If there are multiple points
-with the same Y coordinate, the one with the smaller X coordinate is considered. This
-step takes $\mathcal{O}(N)$ time.
+## গ্রাহাম স্ক্যান অ্যালগরিদম
+অ্যালগরিদমটি প্রথমে সবচেয়ে নিচের বিন্দু $P_0$ খুঁজে বের করে। যদি একই Y স্থানাঙ্কে একাধিক বিন্দু থাকে, তাহলে ছোট X স্থানাঙ্কবিশিষ্ট বিন্দুটি বিবেচনা করা হয়। এই
+ধাপটি $\mathcal{O}(N)$ সময়ে সম্পন্ন হয়।
 
-Next, all the other points are sorted by polar angle in clockwise order.
-If the polar angle between two or more points is the same, the tie should be broken by distance from $P_0$, in increasing order.
+এরপর, অন্য সব বিন্দু পোলার কোণ অনুসারে ঘড়ির কাঁটার দিকে সাজানো হয়।
+যদি দুই বা ততোধিক বিন্দুর পোলার কোণ একই হয়, তাহলে $P_0$ থেকে দূরত্ব অনুসারে ক্রমবর্ধমান ক্রমে টাই ব্রেক করা হয়।
 
-Then we iterate through each point one by one, and make sure that the current
-point and the two before it make a clockwise turn, otherwise the previous
-point is discarded, since it would make a non-convex shape. Checking for clockwise or anticlockwise
-nature can be done by checking the [orientation](oriented-triangle-area.md).
+তারপর আমরা প্রতিটি বিন্দুর মধ্য দিয়ে একে একে ইটারেট করি, এবং নিশ্চিত করি বর্তমান
+বিন্দু এবং এর আগের দুটি বিন্দু ঘড়ির কাঁটার দিকে বাঁক নেয়, অন্যথায় পূর্ববর্তী
+বিন্দু বাদ দেওয়া হয়, কারণ এটি একটি অ-কনভেক্স আকৃতি তৈরি করবে। ঘড়ির কাঁটার দিকে বা বিপরীত দিকে কিনা পরীক্ষা করা
+[অরিয়েন্টেশন](oriented-triangle-area.md) পরীক্ষার মাধ্যমে করা যায়।
 
-We use a stack to store the points, and once we reach the original point $P_0$,
-the algorithm is done and we return the stack containing all the points of the
-convex hull in clockwise order.
+আমরা বিন্দু সংরক্ষণের জন্য একটি স্ট্যাক ব্যবহার করি, এবং মূল বিন্দু $P_0$-তে পৌঁছালে
+অ্যালগরিদম শেষ হয় এবং আমরা কনভেক্স হালের সব বিন্দু ঘড়ির কাঁটার ক্রমে ধারণকারী স্ট্যাক রিটার্ন করি।
 
-If you need to include the collinear points while doing a Graham scan, you need
-another step after sorting. You need to get the points that have the biggest
-polar distance from $P_0$ (these should be at the end of the sorted vector) and are collinear.
-The points in this line should be reversed so that we can output all the
-collinear points, otherwise the algorithm would get the nearest point in this
-line and bail. This step shouldn't be included in the non-collinear version
-of the algorithm, otherwise you wouldn't get the smallest convex hull.
+গ্রাহাম স্ক্যান করার সময় সমরেখ বিন্দু অন্তর্ভুক্ত করতে চাইলে, সাজানোর পরে আরেকটি
+ধাপ প্রয়োজন। $P_0$ থেকে সবচেয়ে বেশি পোলার দূরত্ববিশিষ্ট বিন্দুগুলো (যেগুলো সাজানো ভেক্টরের শেষে থাকবে) এবং সমরেখ বিন্দুগুলো নিতে হবে।
+এই রেখার বিন্দুগুলো উল্টো করতে হবে যাতে আমরা সব সমরেখ
+বিন্দু আউটপুট করতে পারি, অন্যথায় অ্যালগরিদম এই রেখার নিকটতম বিন্দু নিয়ে থেমে যাবে। এই ধাপটি অ্যালগরিদমের অ-সমরেখ সংস্করণে অন্তর্ভুক্ত করা উচিত নয়,
+অন্যথায় আপনি ক্ষুদ্রতম কনভেক্স হাল পাবেন না।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```{.cpp file=graham_scan}
 struct pt {
@@ -96,42 +92,37 @@ void convex_hull(vector<pt>& a, bool include_collinear = false) {
 }
 ```
 
-## Monotone chain Algorithm
-The algorithm first finds the leftmost and rightmost points A and B. In the event multiple such points exist,
-the lowest among the left (lowest Y-coordinate) is taken as A, and the highest among the right (highest Y-coordinate)
-is taken as B. Clearly, A and B must both belong to the convex hull as they are the farthest away and they cannot be contained
-by any line formed by a pair among the given points.
+## মনোটোন চেইন অ্যালগরিদম
+অ্যালগরিদমটি প্রথমে সবচেয়ে বামের ও সবচেয়ে ডানের বিন্দু A ও B খুঁজে বের করে। একাধিক এরকম বিন্দু থাকলে,
+বামদের মধ্যে সবচেয়ে নিচেরটি (সর্বনিম্ন Y-স্থানাঙ্ক) A হিসেবে এবং ডানদের মধ্যে সবচেয়ে উপরেরটি (সর্বোচ্চ Y-স্থানাঙ্ক)
+B হিসেবে নেওয়া হয়। স্পষ্টতই, A ও B উভয়কেই কনভেক্স হালে থাকতে হবে কারণ তারা সবচেয়ে দূরে এবং
+প্রদত্ত বিন্দুগুলোর কোনো জোড়ার রেখা দ্বারা ধারণ করা যায় না।
 
-Now, draw a line through AB. This divides all the other points into two sets, S1 and S2, where S1 contains all the points
-above the line connecting A and B, and S2 contains all the points below the line joining A and B. The points that lie on
-the line joining A and B may belong to either set. The points A and B belong to both sets. Now the algorithm
-constructs the upper set S1 and the lower set S2 and then combines them to obtain the answer. 
+এখন, AB দিয়ে একটি রেখা আঁকুন। এটি অন্য সব বিন্দুকে দুটি সেটে ভাগ করে, S1 ও S2, যেখানে S1-এ A ও B সংযোগকারী রেখার উপরের সব বিন্দু এবং S2-তে A ও B যোগকারী রেখার নিচের সব বিন্দু আছে। A ও B সংযোগকারী রেখার উপর থাকা বিন্দু যেকোনো সেটে থাকতে পারে। A ও B বিন্দু উভয় সেটেই থাকে। এখন অ্যালগরিদম
+উপরের সেট S1 ও নিচের সেট S2 তৈরি করে এবং তারপর উত্তর পেতে এগুলো একত্রিত করে।
 
-To get the upper set, we sort all points by the x-coordinate. For each point we check if either - the current point is the last point,
-(which we defined as B), or if the orientation between the line between A and the current point and the line between the current point and B is clockwise. In those cases the 
-current point belongs to the upper set S1. Checking for clockwise or anticlockwise nature can be done by checking the [orientation](oriented-triangle-area.md).
+উপরের সেট পেতে, আমরা সব বিন্দু x-স্থানাঙ্ক অনুসারে সাজাই। প্রতিটি বিন্দুর জন্য পরীক্ষা করি — বর্তমান বিন্দু শেষ বিন্দু
+(যা আমরা B হিসেবে সংজ্ঞায়িত করেছি) কিনা, অথবা A ও বর্তমান বিন্দুর রেখা এবং বর্তমান বিন্দু ও B-র রেখার মধ্যবর্তী অরিয়েন্টেশন ঘড়ির কাঁটার দিকে কিনা। সেই ক্ষেত্রগুলোতে
+বর্তমান বিন্দু উপরের সেট S1-এ থাকে। ঘড়ির কাঁটার দিকে বা বিপরীত দিকে পরীক্ষা করা [অরিয়েন্টেশন](oriented-triangle-area.md) পরীক্ষার মাধ্যমে করা যায়।
 
-If the given point belongs to the upper set, we check the angle made by the line connecting the second last point and the last point in the upper convex hull,
-with the line connecting the last point in the upper convex hull and the current point. If the angle is not clockwise, we remove the most recent point added
-to the upper convex hull as the current point will be able to contain the previous point once it is added to the convex
-hull.
+প্রদত্ত বিন্দু উপরের সেটে থাকলে, আমরা উপরের কনভেক্স হালের দ্বিতীয় শেষ ও শেষ বিন্দু সংযোগকারী রেখা এবং
+শেষ বিন্দু ও বর্তমান বিন্দু সংযোগকারী রেখার দ্বারা গঠিত কোণ পরীক্ষা করি। যদি কোণটি ঘড়ির কাঁটার দিকে না হয়, তাহলে উপরের কনভেক্স হালে সবশেষে যোগ করা বিন্দুটি সরিয়ে দিই কারণ বর্তমান বিন্দু কনভেক্স হালে যোগ হলে পূর্ববর্তী বিন্দুটি ধারণ করতে পারবে।
 
-The same logic applies for the lower set S2. If either - the current point is B, or the orientation of the lines, formed by A and the 
-current point and the current point and B, is counterclockwise - then it belongs to S2.
+নিচের সেট S2-র জন্যও একই যুক্তি প্রযোজ্য। যদি — বর্তমান বিন্দু B হয়, অথবা A ও
+বর্তমান বিন্দু এবং বর্তমান বিন্দু ও B দ্বারা গঠিত রেখার অরিয়েন্টেশন ঘড়ির কাঁটার বিপরীত হয় — তাহলে এটি S2-তে থাকে।
 
-If the given point belongs to the lower set, we act similarly as for a point on the upper set except we check for a counterclockwise
-orientation instead of a clockwise orientation. Thus, if the angle made by the line connecting the second last point and the last point in the lower convex hull,
-with the line connecting the last point in the lower convex hull and the current point is not counterclockwise, we remove the most recent point added to the lower convex hull as the current point will be able to contain
-the previous point once added to the hull.
+প্রদত্ত বিন্দু নিচের সেটে থাকলে, আমরা উপরের সেটের বিন্দুর মতোই কাজ করি শুধু ঘড়ির কাঁটার দিকের পরিবর্তে ঘড়ির কাঁটার বিপরীত অরিয়েন্টেশন পরীক্ষা করি। সুতরাং, নিচের কনভেক্স হালের দ্বিতীয় শেষ ও শেষ বিন্দু সংযোগকারী রেখা এবং
+শেষ বিন্দু ও বর্তমান বিন্দু সংযোগকারী রেখার কোণ ঘড়ির কাঁটার বিপরীত না হলে, নিচের কনভেক্স হালে সবশেষে যোগ করা বিন্দু সরিয়ে দিই কারণ বর্তমান বিন্দু হালে যোগ হলে
+পূর্ববর্তী বিন্দু ধারণ করতে পারবে।
 
-The final convex hull is obtained from the union of the upper and lower convex hull, forming a clockwise hull, and the implementation is as follows.
+চূড়ান্ত কনভেক্স হাল উপরের ও নিচের কনভেক্স হালের ইউনিয়ন থেকে পাওয়া যায়, ঘড়ির কাঁটার দিকে একটি হাল গঠন করে, এবং ইমপ্লিমেন্টেশন নিম্নরূপ।
 
-If you need collinear points, you just need to check for them in the clockwise/counterclockwise routines.
-However, this allows for a degenerate case where all the input points are collinear in a single line, and the algorithm would output repeated points.
-To solve this, we check whether the upper hull contains all the points, and if it does, we just return the points in reverse, as that
-is what Graham's implementation would return in this case.
+সমরেখ বিন্দু প্রয়োজন হলে, ঘড়ির কাঁটার দিকে/বিপরীত রুটিনে সেগুলো পরীক্ষা করতে হবে।
+তবে, এটি একটি অবক্ষয়িত ক্ষেত্র অনুমতি দেয় যেখানে সব ইনপুট বিন্দু একটি রেখায় সমরেখ, এবং অ্যালগরিদম পুনরাবৃত্ত বিন্দু আউটপুট করবে।
+এটি সমাধান করতে, আমরা পরীক্ষা করি উপরের হালে সব বিন্দু আছে কিনা, এবং থাকলে বিন্দুগুলো উল্টো করে রিটার্ন করি, কারণ
+গ্রাহাম ইমপ্লিমেন্টেশন এই ক্ষেত্রে তাই রিটার্ন করবে।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```{.cpp file=monotone_chain}
 struct pt {
@@ -190,7 +181,7 @@ void convex_hull(vector<pt>& a, bool include_collinear = false) {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Kattis - Convex Hull](https://open.kattis.com/problems/convexhull)
 * [Kattis - Keep the Parade Safe](https://open.kattis.com/problems/parade)

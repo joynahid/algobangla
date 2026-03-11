@@ -1,67 +1,67 @@
 ---
-title: Finding faces of a planar graph
+title: প্ল্যানার গ্রাফের ফেস খুঁজে বের করা
 tags:
   - Translated
 e_maxx_link: facets
 ---
-# Finding faces of a planar graph
+# প্ল্যানার গ্রাফের ফেস খুঁজে বের করা
 
-Consider a graph $G$ with $n$ vertices and $m$ edges, which can be drawn on a plane in such a way that two edges intersect only at a common vertex (if it exists).
-Such graphs are called **planar**. Now suppose that we are given a planar graph together with its straight-line embedding, which means that for each vertex $v$ we have a corresponding point $(x, y)$ and all edges are drawn as line segments between these points without intersection (such embedding always exists). These line segments split the plane into several regions, which are called faces. Exactly one of the faces is unbounded. This face is called **outer**, while the other faces are called **inner**.
+একটি গ্রাফ $G$ বিবেচনা করুন যার $n$ টি ভার্টেক্স ও $m$ টি এজ আছে, এবং যেটি সমতলে এমনভাবে আঁকা যায় যে দুটি এজ শুধুমাত্র একটি সাধারণ ভার্টেক্সে (যদি থাকে) ছেদ করে।
+এই ধরনের গ্রাফকে **প্ল্যানার** বলা হয়। এখন ধরুন আমাদের একটি প্ল্যানার গ্রাফ তার স্ট্রেট-লাইন এমবেডিং সহ দেওয়া আছে, অর্থাৎ প্রতিটি ভার্টেক্স $v$-এর জন্য আমাদের কাছে একটি বিন্দু $(x, y)$ আছে এবং সব এজ এই বিন্দুগুলোর মধ্যে রেখাখণ্ড হিসেবে ছেদ ছাড়াই আঁকা (এমন এমবেডিং সবসময় বিদ্যমান)। এই রেখাখণ্ডগুলো সমতলকে কয়েকটি অঞ্চলে ভাগ করে, যাদের ফেস বলা হয়। ঠিক একটি ফেস সীমাহীন। এই ফেসকে **বাইরের** ফেস বলা হয়, বাকিগুলোকে **ভেতরের** ফেস বলা হয়।
 
-In this article we will deal with finding both inner and outer faces of a planar graph. We will assume that the graph is connected.
+এই নিবন্ধে আমরা একটি প্ল্যানার গ্রাফের ভেতরের ও বাইরের উভয় ফেস খুঁজে বের করার বিষয়ে আলোচনা করব। আমরা ধরে নেব গ্রাফটি সংযুক্ত।
 
-## Some facts about planar graphs
+## প্ল্যানার গ্রাফ সম্পর্কে কিছু তথ্য
 
-In this section we present several facts about planar graphs without proof. Readers who are interested in proofs should refer to [Graph Theory by R. Diestel](https://www.math.uni-hamburg.de/home/diestel/books/graph.theory/preview/Ch4.pdf) (see also [video lectures on planarity](https://www.youtube.com/@DiestelGraphTheory) based on this book) or some other book.
+এই অংশে আমরা প্ল্যানার গ্রাফ সম্পর্কে কিছু তথ্য প্রমাণ ছাড়া উপস্থাপন করব। যে পাঠকরা প্রমাণে আগ্রহী তাদের [Graph Theory by R. Diestel](https://www.math.uni-hamburg.de/home/diestel/books/graph.theory/preview/Ch4.pdf) (এই বইয়ের উপর ভিত্তি করে [প্ল্যানারিটি সম্পর্কিত ভিডিও লেকচারও](https://www.youtube.com/@DiestelGraphTheory) দেখুন) বা অন্য কোনো বই দেখা উচিত।
 
-### Euler's theorem
-Euler's theorem states that any correct embedding of a connected planar graph with $n$ vertices, $m$ edges and $f$ faces satisfies:
+### অয়লারের উপপাদ্য
+অয়লারের উপপাদ্য বলে যে $n$ টি ভার্টেক্স, $m$ টি এজ ও $f$ টি ফেস বিশিষ্ট একটি সংযুক্ত প্ল্যানার গ্রাফের যেকোনো সঠিক এমবেডিং নিম্নলিখিত শর্ত পূরণ করে:
 
 $$n - m + f = 2$$
 
-And more generally, every planar graph with $k$ connected components satisfies:
+এবং আরও সাধারণভাবে, $k$ টি সংযুক্ত উপাদান বিশিষ্ট প্রতিটি প্ল্যানার গ্রাফ নিম্নলিখিত শর্ত পূরণ করে:
 
 $$n - m + f = 1 + k$$
 
-### Number of edges of a planar graph.
-If $n \ge 3$ then the maximum number of edges of a planar graph with $n$ vertices is $3n - 6$. This number is achieved by any connected planar graph where each face is bounded by a triangle. In terms of complexity this fact means that $m = O(n)$ for any planar graph.
+### প্ল্যানার গ্রাফের এজ সংখ্যা
+যদি $n \ge 3$ হয় তাহলে $n$ ভার্টেক্স বিশিষ্ট প্ল্যানার গ্রাফের সর্বাধিক এজ সংখ্যা $3n - 6$। এই সংখ্যা যেকোনো সংযুক্ত প্ল্যানার গ্রাফে অর্জিত হয় যেখানে প্রতিটি ফেস একটি ত্রিভুজ দ্বারা সীমাবদ্ধ। কমপ্লেক্সিটির দিক থেকে এই তথ্যের অর্থ হলো যেকোনো প্ল্যানার গ্রাফের জন্য $m = O(n)$।
 
-### Number of faces of a planar graph.
-As a direct consequence of the above fact, if $n \ge 3$ then the maximum number of faces of a planar graph with $n$ vertices is $2n - 4$.
+### প্ল্যানার গ্রাফের ফেস সংখ্যা
+উপরের তথ্যের সরাসরি ফলাফল হিসেবে, যদি $n \ge 3$ হয় তাহলে $n$ ভার্টেক্স বিশিষ্ট প্ল্যানার গ্রাফের সর্বাধিক ফেস সংখ্যা $2n - 4$।
 
-### Minimum vertex degree in a planar graph.
-Every planar graph has a vertex of degree 5 or less.
+### প্ল্যানার গ্রাফে সর্বনিম্ন ভার্টেক্স ডিগ্রি
+প্রতিটি প্ল্যানার গ্রাফে ৫ বা তার কম ডিগ্রি বিশিষ্ট একটি ভার্টেক্স থাকে।
 
-## The algorithm
+## অ্যালগরিদম
 
-Firstly, sort the adjacent edges for each vertex by polar angle.
-Now let's traverse the graph in the following way. Suppose that we entered vertex $u$ through the edge $(v, u)$ and $(u, w)$ is the next edge after $(v, u)$ in the sorted adjacency list of $u$. Then the next vertex will be $w$. It turns out that if we start this traversal at some edge $(v, u)$, we will traverse exactly one of the faces adjacent to $(v, u)$, the exact face depending on whether our first step is from $u$ to $v$ or from $v$ to $u$.
+প্রথমে, প্রতিটি ভার্টেক্সের জন্য সংলগ্ন এজগুলো পোলার কোণ অনুযায়ী সাজান।
+এখন গ্রাফটি নিম্নরূপে ট্রাভার্স করি। ধরুন আমরা $(v, u)$ এজ দিয়ে ভার্টেক্স $u$-তে প্রবেশ করেছি এবং $u$-এর সাজানো অ্যাডজাসেন্সি লিস্টে $(v, u)$-এর পরবর্তী এজ হলো $(u, w)$। তখন পরবর্তী ভার্টেক্স হবে $w$। দেখা যায় যে আমরা যদি কোনো এজ $(v, u)$ থেকে এই ট্রাভার্সাল শুরু করি, আমরা $(v, u)$-র সংলগ্ন ফেসগুলোর ঠিক একটি ট্রাভার্স করব, কোন ফেস তা নির্ভর করবে আমাদের প্রথম পদক্ষেপ $u$ থেকে $v$ নাকি $v$ থেকে $u$।
 
-Now the algorithm is quite obvious. We must iterate over all edges of the graph and start the traversal for each edge that wasn't visited by one of the previous traversals. This way we will find each face exactly once, and each edge will be traversed twice (once in each direction).
+এখন অ্যালগরিদমটি বেশ স্পষ্ট। আমাদের গ্রাফের সব এজের উপর ইটারেট করতে হবে এবং প্রতিটি এজের জন্য ট্রাভার্সাল শুরু করতে হবে যেটি পূর্ববর্তী কোনো ট্রাভার্সালে ভিজিট হয়নি। এভাবে আমরা প্রতিটি ফেস ঠিক একবার পাব, এবং প্রতিটি এজ দুবার ট্রাভার্স হবে (প্রতিটি দিকে একবার)।
 
-### Finding the next edge
-During the traversal we have to find the next edge in counter-clockwise order. The most obvious way to find the next edge is binary search by angle. However, given the counter-clockwise order of adjacent edges for each vertex, we can precompute the next edges and store them in a hash table. If the edges are already sorted by angle, the complexity of finding all faces in this case becomes linear.
+### পরবর্তী এজ খুঁজে বের করা
+ট্রাভার্সালের সময় আমাদের ঘড়ির কাঁটার বিপরীত ক্রমে পরবর্তী এজ খুঁজতে হবে। পরবর্তী এজ খোঁজার সবচেয়ে সুস্পষ্ট উপায় হলো কোণ দিয়ে বাইনারি সার্চ। তবে, প্রতিটি ভার্টেক্সের সংলগ্ন এজগুলোর ঘড়ির কাঁটার বিপরীত ক্রম দেওয়া থাকলে, আমরা পরবর্তী এজগুলো আগে থেকে গণনা করে একটি হ্যাশ টেবিলে সংরক্ষণ করতে পারি। এজগুলো ইতিমধ্যে কোণ অনুযায়ী সাজানো থাকলে, এই ক্ষেত্রে সব ফেস খোঁজার কমপ্লেক্সিটি লিনিয়ার হয়ে যায়।
 
-### Finding the outer face
-It's not hard to see that the algorithm traverses each inner face in a clockwise order and the outer face in the counter-clockwise order, so the outer face can be found by checking the order of each face.
+### বাইরের ফেস খুঁজে বের করা
+দেখা সহজ যে অ্যালগরিদম প্রতিটি ভেতরের ফেস ঘড়ির কাঁটার দিকে এবং বাইরের ফেস ঘড়ির কাঁটার বিপরীত দিকে ট্রাভার্স করে, তাই বাইরের ফেস প্রতিটি ফেসের ক্রম পরীক্ষা করে পাওয়া যায়।
 
-### Complexity
-It's quite clear that the complexity of the algorithm is $O(m \log m)$ because of sorting, and since $m = O(n)$, it's actually $O(n \log n)$. As mentioned before, without sorting the complexity becomes $O(n)$.
+### কমপ্লেক্সিটি
+এটা বেশ স্পষ্ট যে অ্যালগরিদমের কমপ্লেক্সিটি সাজানোর কারণে $O(m \log m)$, এবং যেহেতু $m = O(n)$, এটি আসলে $O(n \log n)$। আগে উল্লেখ করা হয়েছে, সাজানো ছাড়া কমপ্লেক্সিটি $O(n)$ হয়ে যায়।
 
-## What if the graph isn't connected?
+## গ্রাফ সংযুক্ত না হলে কী হবে?
 
-At the first glance it may seem that finding faces of a disconnected graph is not much harder because we can run the same algorithm for each connected component. However, the components may be drawn in a nested way, forming **holes** (see the image below). In this case the inner face of some component becomes the outer face of some other components and has a complex disconnected border. Dealing with such cases is quite hard, one possible approach is to identify nested components with [point location](point-location.md) algorithms. 
+প্রথম দৃষ্টিতে মনে হতে পারে যে বিচ্ছিন্ন গ্রাফের ফেস খোঁজা খুব কঠিন নয় কারণ আমরা প্রতিটি সংযুক্ত উপাদানের জন্য একই অ্যালগরিদম চালাতে পারি। তবে, উপাদানগুলো নেস্টেড পদ্ধতিতে আঁকা হতে পারে, **ছিদ্র** (holes) তৈরি করে (নিচের ছবি দেখুন)। এই ক্ষেত্রে কোনো উপাদানের ভেতরের ফেস অন্য কোনো উপাদানের বাইরের ফেস হয়ে যায় এবং এর একটি জটিল বিচ্ছিন্ন সীমানা থাকে। এমন ক্ষেত্র সামলানো বেশ কঠিন, একটি সম্ভাব্য পদ্ধতি হলো [পয়েন্ট লোকেশন](point-location.md) অ্যালগরিদম দিয়ে নেস্টেড উপাদান চিহ্নিত করা।
 
 <div style="text-align: center;">
   <img src="planar_hole.png" alt="Planar graph with holes">
 </div>
 
-## Implementation
-The following implementation returns a vector of vertices for each face, outer face goes first.
-Inner faces are returned in counter-clockwise orders and the outer face is returned in clockwise order.
+## ইমপ্লিমেন্টেশন
+নিম্নলিখিত ইমপ্লিমেন্টেশন প্রতিটি ফেসের জন্য ভার্টেক্সের একটি ভেক্টর ফেরত দেয়, বাইরের ফেস প্রথমে আসে।
+ভেতরের ফেসগুলো ঘড়ির কাঁটার বিপরীত ক্রমে এবং বাইরের ফেস ঘড়ির কাঁটার ক্রমে ফেরত দেওয়া হয়।
 
-For simplicity we find the next edge by doing binary search by angle.
+সরলতার জন্য আমরা কোণ দিয়ে বাইনারি সার্চ করে পরবর্তী এজ খুঁজি।
 ```{.cpp file=planar}
 struct Point {
     int64_t x, y;
@@ -145,15 +145,15 @@ std::vector<std::vector<size_t>> find_faces(std::vector<Point> vertices, std::ve
 }
 ```
 
-## Building planar graph from line segments
+## রেখাখণ্ড থেকে প্ল্যানার গ্রাফ তৈরি
 
-Sometimes you are not given a graph explicitly, but rather as a set of line segments on a plane, and the actual graph is formed by intersecting those segments, as shown in the picture below. In this case you have to build the graph manually. The easiest way to do so is as follows. Fix a segment and intersect it with all other segments. Then sort all intersection points together with the two endpoints of the segment lexicographically and add them to the graph as vertices. Also link each two adjacent vertices in lexicographical order by an edge. After doing this procedure for all edges we will obtain the graph. Of course, we should ensure that two equal intersection points will always correspond to the same vertex. The easiest way to do this is to store the points in a map by their coordinates, regarding points whose coordinates differ by a small number (say, less than $10^{-9}$) as equal. This algorithm works in $O(n^2 \log n)$.
+কখনো কখনো আপনাকে সরাসরি গ্রাফ দেওয়া হয় না, বরং সমতলে রেখাখণ্ডের একটি সেট দেওয়া হয়, এবং প্রকৃত গ্রাফটি সেই রেখাখণ্ডগুলোর ছেদ থেকে তৈরি হয়, নিচের ছবিতে যেমন দেখানো হয়েছে। এই ক্ষেত্রে আপনাকে ম্যানুয়ালি গ্রাফটি তৈরি করতে হবে। সবচেয়ে সহজ উপায় নিম্নরূপ। একটি রেখাখণ্ড ধরুন এবং এটিকে অন্য সব রেখাখণ্ডের সাথে ছেদ করুন। তারপর সব ছেদবিন্দু ও রেখাখণ্ডের দুই প্রান্তবিন্দু অভিধানক্রমে সাজান এবং গ্রাফে ভার্টেক্স হিসেবে যোগ করুন। এছাড়াও অভিধানক্রমে প্রতিটি দুটি পরপর ভার্টেক্সকে একটি এজ দিয়ে সংযুক্ত করুন। সব এজের জন্য এই প্রক্রিয়া সম্পন্ন করলে আমরা গ্রাফটি পাব। অবশ্যই, আমাদের নিশ্চিত করতে হবে যে দুটি সমান ছেদবিন্দু সবসময় একই ভার্টেক্সের সাথে সম্পর্কিত হবে। সবচেয়ে সহজ উপায় হলো বিন্দুগুলো তাদের স্থানাঙ্ক অনুযায়ী একটি ম্যাপে সংরক্ষণ করা, যেসব বিন্দুর স্থানাঙ্ক একটি ছোট সংখ্যার (ধরি, $10^{-9}$-এর কম) চেয়ে কম পার্থক্য বিশিষ্ট তাদের সমান ধরে। এই অ্যালগরিদম $O(n^2 \log n)$-এ কাজ করে।
 
 <div style="text-align: center;">
   <img src="planar_implicit.png" alt="Implicitly defined graph">
 </div>
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 ```{.cpp file=planar_implicit}
 using dbl = long double;
 
@@ -250,7 +250,7 @@ std::vector<Point> interSegSeg(Line l1, Line l2){
 		if (l2[0] == l2[1]) {
 			if (l1[0] == l2[0])
                 return {l1[0]};
-			else 
+			else
                 return {};
 		} else {
 			if (l2.hasPointSeg(l1[0]))
@@ -262,7 +262,7 @@ std::vector<Point> interSegSeg(Line l1, Line l2){
 	if (l2[0] == l2[1]) {
 		if (l1.hasPointSeg(l2[0]))
             return {l2[0]};
-		else 
+		else
             return {};
 	}
 	auto li = interLineLine(l1, l2);
@@ -286,13 +286,13 @@ std::vector<Point> interSegSeg(Line l1, Line l2){
             res.pop_back();
 		if (res.size() == 2u && res[1] < res[0])
             return {};
-		else 
+		else
             return res;
 	}
 	Point cand = li[0];
 	if (l1.hasPointSeg(cand) && l2.hasPointSeg(cand))
         return {cand};
-	else 
+	else
         return {};
 }
 
@@ -344,6 +344,6 @@ std::pair<std::vector<Point>, std::vector<std::vector<size_t>>> build_graph(std:
 }
 ```
 
-## Problems
+## অনুশীলন সমস্যা
  * [TIMUS 1664 Pipeline Transportation](https://acm.timus.ru/problem.aspx?space=1&num=1664)
  * [TIMUS 1681 Brother Bear's Garden](https://acm.timus.ru/problem.aspx?space=1&num=1681)

@@ -4,115 +4,115 @@ tags:
 e_maxx_link: heavy_light
 ---
 
-# Heavy-light decomposition
+# হেভি-লাইট ডিকম্পোজিশন
 
-**Heavy-light decomposition** is a fairly general technique that allows us to effectively solve many problems that come down to **queries on a tree** .
-
-
-## Description
-
-Let there be a tree $G$ of $n$ vertices, with an arbitrary root.
-
-The essence of this tree decomposition is to **split the tree into several paths** so that we can reach the root vertex from any $v$ by traversing at most $\log n$ paths. In addition, none of these paths should intersect with another.
-
-It is clear that if we find such a decomposition for any tree, it will allow us to reduce certain single queries of the form *“calculate something on the path from $a$ to $b$”* to several queries of the type *”calculate something on the segment $[l, r]$ of the $k^{th}$ path”*.
+**হেভি-লাইট ডিকম্পোজিশন** হলো একটি মোটামুটি সাধারণ টেকনিক যা আমাদের কার্যকরভাবে এমন অনেক সমস্যা সমাধান করতে দেয় যেগুলো **ট্রি-তে কুয়েরি** তে পরিণত হয়।
 
 
-### Construction algorithm
+## বর্ণনা
 
-We calculate for each vertex $v$ the size of its subtree  $s(v)$, i.e. the number of vertices in the subtree of the vertex $v$ including itself.
+ধরা যাক, একটি ইচ্ছামতো রুট বিশিষ্ট $n$ টি ভার্টেক্সের একটি ট্রি $G$ আছে।
 
-Next, consider all the edges leading to the children of a vertex $v$. We call an edge  **heavy** if it leads to a vertex $c$ such that:
+এই ট্রি ডিকম্পোজিশনের সারমর্ম হলো **ট্রি-কে কয়েকটি পাথে বিভক্ত করা** যাতে যেকোনো $v$ থেকে রুট ভার্টেক্সে পৌঁছাতে সর্বাধিক $\log n$ টি পাথ অতিক্রম করতে হয়। এছাড়া, এই পাথগুলোর কোনোটি অন্যটির সাথে ছেদ করা উচিত নয়।
+
+এটি স্পষ্ট যে যদি আমরা যেকোনো ট্রি-র জন্য এমন একটি ডিকম্পোজিশন খুঁজে পাই, তাহলে এটি আমাদের *"$a$ থেকে $b$ পাথে কিছু গণনা করো"* ধরনের নির্দিষ্ট একক কুয়েরিগুলোকে *"$k$-তম পাথের $[l, r]$ সেগমেন্টে কিছু গণনা করো"* ধরনের একাধিক কুয়েরিতে রূপান্তর করতে দেবে।
+
+
+### নির্মাণ অ্যালগরিদম
+
+আমরা প্রতিটি ভার্টেক্স $v$ এর জন্য তার সাবট্রি-র আকার $s(v)$ গণনা করি, অর্থাৎ ভার্টেক্স $v$ এর সাবট্রি-তে ভার্টেক্সের সংখ্যা যেটিতে $v$ নিজেও অন্তর্ভুক্ত।
+
+এরপর, একটি ভার্টেক্স $v$ এর চাইল্ডদের দিকে যাওয়া সমস্ত এজ বিবেচনা করি। আমরা একটি এজকে **হেভি** বলি যদি এটি এমন একটি ভার্টেক্স $c$ তে নিয়ে যায় যাতে:
 
 $$
 s(c) \ge \frac{s(v)}{2} \iff \text{edge }(v, c)\text{ is heavy}
 $$
 
-All other edges are labeled **light**.
+অন্যান্য সব এজকে **লাইট** হিসেবে লেবেল করা হয়।
 
-It is obvious that at most one heavy edge can emanate from one vertex downward, because otherwise the vertex $v$ would have at least two children of size $\ge \frac{s(v)}{2}$, and therefore the size of subtree of $v$ would be too big, $s(v) \ge 1 + 2 \frac{s(v)}{2} > s(v)$, which leads to a contradiction.
+এটি স্পষ্ট যে একটি ভার্টেক্স থেকে নিচের দিকে সর্বাধিক একটি হেভি এজ বের হতে পারে, কারণ অন্যথায় ভার্টেক্স $v$ এর কমপক্ষে $\ge \frac{s(v)}{2}$ আকারের দুটি চাইল্ড থাকত, এবং তাই $v$ এর সাবট্রি-র আকার অনেক বড় হয়ে যেত, $s(v) \ge 1 + 2 \frac{s(v)}{2} > s(v)$, যা একটি বৈপরীত্য।
 
-Now we will decompose the tree into disjoint paths. Consider all the vertices from which no heavy edges come down. We will go up from each such vertex until we reach the root of the tree or go through a light edge. As a result, we will get several paths which are made up of zero or more heavy edges plus one light edge. The path which has an end at the root is an exception to this and will not have a light edge. Let these be called **heavy paths** - these are the desired paths of heavy-light decomposition.
+এখন আমরা ট্রি-কে ডিসজয়েন্ট পাথে বিভক্ত করব। সেই সমস্ত ভার্টেক্স বিবেচনা করি যেখান থেকে নিচের দিকে কোনো হেভি এজ আসে না। আমরা প্রতিটি এমন ভার্টেক্স থেকে উপরে যাব যতক্ষণ না ট্রি-র রুটে পৌঁছাই বা একটি লাইট এজের মধ্য দিয়ে যাই। ফলে, আমরা কয়েকটি পাথ পাব যেগুলো শূন্য বা তার বেশি হেভি এজ এবং একটি লাইট এজ দিয়ে গঠিত। রুটে শেষ হওয়া পাথটি এর ব্যতিক্রম এবং এতে লাইট এজ থাকবে না। এগুলোকে **হেভি পাথ** বলি - এগুলোই হেভি-লাইট ডিকম্পোজিশনের কাঙ্ক্ষিত পাথ।
 
 
-### Proof of correctness
+### সঠিকতার প্রমাণ
 
-First, we note that the heavy paths obtained by the algorithm will be **disjoint** . In fact, if two such paths have a common edge, it would imply that there are two heavy edges coming out of one vertex, which is impossible.
+প্রথমত, আমরা লক্ষ্য করি যে অ্যালগরিদম দ্বারা প্রাপ্ত হেভি পাথগুলো **ডিসজয়েন্ট** হবে। আসলে, যদি দুটি এমন পাথের একটি কমন এজ থাকত, তাহলে এর মানে হতো একটি ভার্টেক্স থেকে দুটি হেভি এজ বের হচ্ছে, যা অসম্ভব।
 
-Secondly, we will show that going down from the root of the tree to an arbitrary vertex, we will **change no more than $\log n$ heavy paths along the way** . Moving down a light edge reduces the size of the current subtree to half or lower:
+দ্বিতীয়ত, আমরা দেখাব যে ট্রি-র রুট থেকে যেকোনো ইচ্ছামতো ভার্টেক্সে নামতে গিয়ে, আমরা **পথে সর্বাধিক $\log n$ টি হেভি পাথ পরিবর্তন করব**। একটি লাইট এজ বরাবর নামলে বর্তমান সাবট্রি-র আকার অর্ধেক বা তার কমে নেমে আসে:
 
 $$
 s(c) < \frac{s(v)}{2} \iff \text{edge }(v, c)\text{ is light}
 $$
 
 
-Thus, we can go through at most $\log n$ light edges before subtree size reduces to one.
+তাই, সাবট্রি আকার এক হওয়ার আগে আমরা সর্বাধিক $\log n$ টি লাইট এজের মধ্য দিয়ে যেতে পারি।
 
-Since we can move from one heavy path to another only through a light edge (each heavy path, except the one starting at the root, has one light edge), we cannot change heavy paths more than $\log n$ times along the path from the root to any vertex, as required.
+যেহেতু আমরা একটি হেভি পাথ থেকে অন্যটিতে শুধুমাত্র একটি লাইট এজের মধ্য দিয়ে যেতে পারি (প্রতিটি হেভি পাথের, রুটে শুরু হওয়াটি ব্যতীত, একটি লাইট এজ থাকে), আমরা রুট থেকে যেকোনো ভার্টেক্সে যাওয়ার পাথে সর্বাধিক $\log n$ বারের বেশি হেভি পাথ পরিবর্তন করতে পারি না, যা প্রয়োজন ছিল।
 
 
-The following image illustrates the decomposition of a sample tree. The heavy edges are thicker than the light edges. The heavy paths are marked by dotted boundaries.
+নিম্নলিখিত চিত্রটি একটি নমুনা ট্রি-র ডিকম্পোজিশন দেখায়। হেভি এজগুলো লাইট এজের চেয়ে মোটা। হেভি পাথগুলো ডটেড সীমারেখা দ্বারা চিহ্নিত।
 
 <div style="text-align: center;">
   <img src="hld.png" alt="Image of HLD">
 </div>
 
 
-## Sample problems
+## নমুনা সমস্যা
 
-When solving problems, it is sometimes more convenient to consider the heavy-light decomposition as a set of **vertex disjoint** paths (rather than edge disjoint paths). To do this, it suffices to exclude the last edge from each heavy path if it is a light edge, then no properties are violated, but now each vertex belongs to exactly one heavy path.
+সমস্যা সমাধানের সময়, হেভি-লাইট ডিকম্পোজিশনকে কখনো কখনো **ভার্টেক্স ডিসজয়েন্ট** পাথের সেট হিসেবে (এজ ডিসজয়েন্ট পাথের পরিবর্তে) বিবেচনা করা বেশি সুবিধাজনক। এটি করতে, প্রতিটি হেভি পাথের শেষ এজটি যদি লাইট এজ হয় তাহলে সেটি বাদ দেওয়াই যথেষ্ট, তাহলে কোনো বৈশিষ্ট্য লঙ্ঘিত হয় না, কিন্তু এখন প্রতিটি ভার্টেক্স ঠিক একটি হেভি পাথে থাকে।
 
-Below we will look at some typical tasks that can be solved with the help of heavy-light decomposition.
+নিচে আমরা কিছু সাধারণ কাজ দেখব যেগুলো হেভি-লাইট ডিকম্পোজিশনের সাহায্যে সমাধান করা যায়।
 
-Separately, it is worth paying attention to the problem of the **sum of numbers on the path**, since this is an example of a problem that can be solved by simpler techniques.
-
-
-### Maximum value on the path between two vertices
-
-Given a tree, each vertex is assigned a value. There are queries of the form $(a, b)$, where $a$ and $b$ are two vertices in the tree, and it is required to find the maximum value on the path between the vertices $a$ and $b$.
-
-We construct in advance a heavy-light decomposition of the tree. Over each heavy path we will construct a [segment tree](../data_structures/segment_tree.md), which will allow us to search for a vertex with the maximum assigned value in the specified segment of the specified heavy path in $\mathcal{O}(\log n)$.  Although the number of heavy paths in heavy-light decomposition can reach $n - 1$, the total size of all paths is bounded by $\mathcal{O}(n)$, therefore the total size of the segment trees will also be linear.
-
-In order to answer a query $(a, b)$, we find the [lowest common ancestor](https://en.wikipedia.org/wiki/Lowest_common_ancestor) of $a$ and $b$ as $l$, by any preferred method. Now the task has been reduced to two queries $(a, l)$ and $(b, l)$, for each of which we can do the following: find the heavy path that the lower vertex lies in, make a query on this path, move to the top of this path, again determine which heavy path we are on and make a query on it, and so on, until we get to the path containing $l$.
-
-One should be careful with the case when, for example, $a$ and $l$ are on the same heavy path - then the maximum query on this path should be done not on any prefix, but on the internal section between $a$ and $l$.
-
-Responding to the subqueries $(a, l)$ and $(b, l)$ each requires going through $\mathcal{O}(\log n)$ heavy paths and for each path a maximum query is made on some section of the path, which again requires $\mathcal{O}(\log n)$ operations in the segment tree.
-Hence, one query $(a, b)$ takes $\mathcal{O}(\log^2 n)$ time.
-
-If you additionally calculate and store maximums of all prefixes for each heavy path, then you get a $\mathcal{O}(\log n)$ solution because all maximum queries are on prefixes except at most once when we reach the ancestor $l$.
+আলাদাভাবে, **পাথে সংখ্যার যোগফল** সমস্যাটিতে মনোযোগ দেওয়া উচিত, কারণ এটি এমন একটি সমস্যার উদাহরণ যেটি সরলতর টেকনিক দিয়ে সমাধান করা যায়।
 
 
-###  Sum of the numbers on the path between two vertices
+### দুটি ভার্টেক্সের মধ্যে পাথে সর্বাধিক মান
 
-Given a tree, each vertex is assigned a value. There are queries of the form $(a, b)$, where $a$ and $b$ are two vertices in the tree, and it is required to find the sum of the values on the path between the vertices $a$ and $b$. A variant of this task is possible where additionally there are update operations that change the number assigned to one or more vertices.
+একটি ট্রি দেওয়া আছে, প্রতিটি ভার্টেক্সে একটি মান নির্ধারিত। $(a, b)$ আকারের কুয়েরি আছে, যেখানে $a$ এবং $b$ ট্রি-র দুটি ভার্টেক্স, এবং ভার্টেক্স $a$ এবং $b$ এর মধ্যে পাথে সর্বাধিক মান বের করতে হবে।
 
-This task can be solved similar to the previous problem of maximums with the help of heavy-light decomposition by building segment trees on heavy paths. Prefix sums can be used instead if there are no updates. However, this problem can be solved by simpler techniques too.
+আমরা আগে থেকে ট্রি-র হেভি-লাইট ডিকম্পোজিশন তৈরি করি। প্রতিটি হেভি পাথের উপর আমরা একটি [সেগমেন্ট ট্রি](../data_structures/segment_tree.md) তৈরি করব, যেটি নির্দিষ্ট হেভি পাথের নির্দিষ্ট সেগমেন্টে সর্বাধিক নির্ধারিত মান বিশিষ্ট ভার্টেক্স $\mathcal{O}(\log n)$ এ খুঁজতে দেবে। যদিও হেভি-লাইট ডিকম্পোজিশনে হেভি পাথের সংখ্যা $n - 1$ পর্যন্ত হতে পারে, সমস্ত পাথের মোট আকার $\mathcal{O}(n)$ দ্বারা সীমাবদ্ধ, তাই সেগমেন্ট ট্রি-গুলোর মোট আকারও লিনিয়ার হবে।
 
-If there are no updates, then it is possible to find out the sum on the path between two vertices in parallel with the LCA search of two vertices by [binary lifting](lca_binary_lifting.md) — for this, along with the $2^k$-th ancestors of each vertex it is also necessary to store the sum on the paths up to those ancestors during the preprocessing.
+$(a, b)$ কুয়েরির উত্তর দিতে, আমরা $a$ এবং $b$ এর [লোয়েস্ট কমন অ্যানসেস্টর](https://en.wikipedia.org/wiki/Lowest_common_ancestor) $l$ বের করি, যেকোনো পছন্দের পদ্ধতিতে। এখন কাজটি দুটি কুয়েরি $(a, l)$ এবং $(b, l)$ এ পরিণত হয়, যাদের প্রতিটির জন্য আমরা নিম্নলিখিত করতে পারি: নিচের ভার্টেক্সটি কোন হেভি পাথে আছে তা খুঁজে বের করি, এই পাথে একটি কুয়েরি করি, এই পাথের শীর্ষে যাই, আবার নির্ধারণ করি আমরা কোন হেভি পাথে আছি এবং সেখানে একটি কুয়েরি করি, এভাবে চলতে থাকি, যতক্ষণ না $l$ ধারণকারী পাথে পৌঁছাই।
 
-There is a fundamentally different approach to this problem - to consider the [Euler tour](https://en.wikipedia.org/wiki/Euler_tour_technique) of the tree, and build a segment tree on it. This algorithm is considered in an [article about a similar problem](tree_painting.md). Again, if there are no updates, storing prefix sums is enough and a segment tree is not required.
+একটি ক্ষেত্রে সতর্ক থাকা উচিত যখন, উদাহরণস্বরূপ, $a$ এবং $l$ একই হেভি পাথে থাকে - তখন এই পাথে ম্যাক্সিমাম কুয়েরি যেকোনো প্রিফিক্সে নয়, বরং $a$ এবং $l$ এর মধ্যবর্তী অভ্যন্তরীণ অংশে করতে হবে।
 
-Both of these methods provide relatively simple solutions taking $\mathcal{O}(\log n)$ for one query.
+$(a, l)$ এবং $(b, l)$ সাব-কুয়েরির প্রতিটিতে উত্তর দিতে $\mathcal{O}(\log n)$ টি হেভি পাথের মধ্য দিয়ে যেতে হয় এবং প্রতিটি পাথে একটি ম্যাক্সিমাম কুয়েরি করা হয় পাথের কিছু অংশে, যার জন্য আবার সেগমেন্ট ট্রি-তে $\mathcal{O}(\log n)$ অপারেশন প্রয়োজন।
+অতএব, একটি $(a, b)$ কুয়েরি $\mathcal{O}(\log^2 n)$ সময় নেয়।
 
-### Repainting the edges of the path between two vertices
+আপনি যদি অতিরিক্তভাবে প্রতিটি হেভি পাথের সমস্ত প্রিফিক্সের ম্যাক্সিমাম গণনা ও সংরক্ষণ করেন, তাহলে আপনি একটি $\mathcal{O}(\log n)$ সমাধান পান কারণ সমস্ত ম্যাক্সিমাম কুয়েরি প্রিফিক্সে হয় পূর্বসূরি $l$ এ পৌঁছানোর সময় সর্বাধিক একবার ব্যতীত।
 
-Given a tree, each edge is initially painted white. There are updates of the form $(a, b, c)$, where $a$ and $b$ are two vertices and $c$ is a color, which instructs that all the edges on the path from $a$ to $b$ must be repainted with color $c$. After all repaintings, it is required to report how many edges of each color were obtained.
 
-Similar to the above problems, the solution is to simply apply heavy-light decomposition and make a [segment tree](../data_structures/segment_tree.md) over each heavy path.
+### দুটি ভার্টেক্সের মধ্যে পাথে সংখ্যার যোগফল
 
-Each repainting on the path $(a, b)$ will turn into two updates $(a, l)$ and $(b, l)$, where $l$ is the lowest common ancestor of the vertices $a$ and $b$.   
-$\mathcal{O}(\log n)$ per path for $\mathcal{O}(\log n)$ paths leads to a complexity of $\mathcal{O}(\log^2 n)$ per update.
+একটি ট্রি দেওয়া আছে, প্রতিটি ভার্টেক্সে একটি মান নির্ধারিত। $(a, b)$ আকারের কুয়েরি আছে, যেখানে $a$ এবং $b$ ট্রি-র দুটি ভার্টেক্স, এবং ভার্টেক্স $a$ এবং $b$ এর মধ্যে পাথের মানগুলোর যোগফল বের করতে হবে। এই কাজের একটি ভ্যারিয়েন্ট সম্ভব যেখানে অতিরিক্তভাবে আপডেট অপারেশন আছে যেগুলো এক বা একাধিক ভার্টেক্সে নির্ধারিত সংখ্যা পরিবর্তন করে।
 
-## Implementation
+এই কাজটি পূর্ববর্তী ম্যাক্সিমাম সমস্যার মতোই হেভি-লাইট ডিকম্পোজিশন দিয়ে সমাধান করা যায় হেভি পাথের উপর সেগমেন্ট ট্রি তৈরি করে। আপডেট না থাকলে প্রিফিক্স সাম ব্যবহার করা যায়। তবে, এই সমস্যাটি সরলতর টেকনিক দিয়েও সমাধান করা যায়।
 
-Certain parts of the above discussed approach can be modified to make implementation easier without losing efficiency.
+আপডেট না থাকলে, দুটি ভার্টেক্সের মধ্যে পাথে যোগফল [বাইনারি লিফটিং](lca_binary_lifting.md) দ্বারা দুটি ভার্টেক্সের LCA খোঁজার সাথে সাথেই বের করা সম্ভব — এর জন্য, প্রতিটি ভার্টেক্সের $2^k$-তম পূর্বসূরির সাথে সাথে প্রিপ্রসেসিং-এর সময় সেই পূর্বসূরিদের পর্যন্ত পাথের যোগফলও সংরক্ষণ করা প্রয়োজন।
 
-* The definition of **heavy edge** can be changed to **the edge leading to the child with largest subtree**, with ties broken arbitrarily. This may result is some light edges being converted to heavy, which means some heavy paths will combine to form a single path, but all heavy paths will remain disjoint. It is also still guaranteed that going down a light edge reduces subtree size to half or less.
-* Instead of a building segment tree over every heavy path, a single segment tree can be used with disjoint segments allocated to each heavy path.
-* It has been mentioned that answering queries requires calculation of the LCA. While LCA can be calculated separately, it is also possible to integrate LCA calculation in the process of answering queries.
+এই সমস্যার জন্য একটি মৌলিকভাবে ভিন্ন পদ্ধতি আছে - ট্রি-র [অয়লার ট্যুর](https://en.wikipedia.org/wiki/Euler_tour_technique) বিবেচনা করা, এবং এর উপর একটি সেগমেন্ট ট্রি তৈরি করা। এই অ্যালগরিদমটি একটি [সমজাতীয় সমস্যার নিবন্ধে](tree_painting.md) আলোচিত। আবারও, আপডেট না থাকলে প্রিফিক্স সাম সংরক্ষণই যথেষ্ট এবং সেগমেন্ট ট্রি-র প্রয়োজন নেই।
 
-To perform heavy-light decomposition:
+এই উভয় পদ্ধতিই তুলনামূলক সরল সমাধান দেয় যেটি একটি কুয়েরির জন্য $\mathcal{O}(\log n)$ সময় নেয়।
+
+### দুটি ভার্টেক্সের মধ্যে পাথের এজ পুনরায় রং করা
+
+একটি ট্রি দেওয়া আছে, প্রতিটি এজ প্রাথমিকভাবে সাদা রং করা। $(a, b, c)$ আকারের আপডেট আছে, যেখানে $a$ এবং $b$ দুটি ভার্টেক্স এবং $c$ একটি রং, যা নির্দেশ করে যে $a$ থেকে $b$ পাথের সমস্ত এজ $c$ রংয়ে পুনরায় রং করতে হবে। সমস্ত পুনঃরং করার পর, প্রতিটি রংয়ের কতটি এজ পাওয়া গেছে তা জানাতে হবে।
+
+উপরের সমস্যাগুলোর মতোই, সমাধান হলো কেবল হেভি-লাইট ডিকম্পোজিশন প্রয়োগ করা এবং প্রতিটি হেভি পাথের উপর একটি [সেগমেন্ট ট্রি](../data_structures/segment_tree.md) তৈরি করা।
+
+$(a, b)$ পাথে প্রতিটি পুনঃরং দুটি আপডেট $(a, l)$ এবং $(b, l)$ এ পরিণত হবে, যেখানে $l$ হলো ভার্টেক্স $a$ এবং $b$ এর লোয়েস্ট কমন অ্যানসেস্টর।
+$\mathcal{O}(\log n)$ পাথের জন্য প্রতি পাথ $\mathcal{O}(\log n)$ করে, ফলে প্রতি আপডেটে $\mathcal{O}(\log^2 n)$ কমপ্লেক্সিটি।
+
+## ইমপ্লিমেন্টেশন
+
+উপরে আলোচিত পদ্ধতির কিছু অংশ দক্ষতা না হারিয়ে ইমপ্লিমেন্টেশন সহজ করতে পরিবর্তন করা যেতে পারে।
+
+* **হেভি এজ** এর সংজ্ঞা পরিবর্তন করে **সবচেয়ে বড় সাবট্রি বিশিষ্ট চাইল্ডে যাওয়া এজ** করা যায়, সমান হলে ইচ্ছামতো ভাঙা যায়। এতে কিছু লাইট এজ হেভিতে রূপান্তরিত হতে পারে, যার মানে কিছু হেভি পাথ মিলিত হয়ে একটি একক পাথ গঠন করবে, কিন্তু সব হেভি পাথ ডিসজয়েন্ট থাকবে। এটিও নিশ্চিত যে একটি লাইট এজ বরাবর নামলে সাবট্রি আকার অর্ধেক বা তার কমে নামে।
+* প্রতিটি হেভি পাথের উপর আলাদা সেগমেন্ট ট্রি তৈরির পরিবর্তে, একটি একক সেগমেন্ট ট্রি ব্যবহার করা যায় যেখানে প্রতিটি হেভি পাথে ডিসজয়েন্ট সেগমেন্ট বরাদ্দ করা হয়।
+* কুয়েরির উত্তর দিতে LCA গণনার প্রয়োজনের কথা উল্লেখ করা হয়েছে। LCA আলাদাভাবে গণনা করা যায়, তবে কুয়েরির উত্তর দেওয়ার প্রক্রিয়ায় LCA গণনা সংহত করাও সম্ভব।
+
+হেভি-লাইট ডিকম্পোজিশন সম্পাদন করতে:
 
 ```cpp
 vector<int> parent, depth, heavy, head, pos;
@@ -157,13 +157,13 @@ void init(vector<vector<int>> const& adj) {
 }
 ```
 
-The adjacency list of the tree must be passed to the `init` function, and decomposition is performed assuming vertex `0` as root.
+ট্রি-র অ্যাডজেসেন্সি লিস্ট `init` ফাংশনে পাস করতে হবে, এবং ডিকম্পোজিশন ভার্টেক্স `0` কে রুট ধরে সম্পাদিত হয়।
 
-The `dfs` function is used to calculate `heavy[v]`, the child at the other end of the heavy edge from `v`, for every vertex `v`. Additionally `dfs` also stores the parent and depth of each vertex, which will be useful later during queries.
+`dfs` ফাংশনটি প্রতিটি ভার্টেক্স `v` এর জন্য `heavy[v]` গণনা করতে ব্যবহৃত হয়, যেটি হলো $v$ থেকে হেভি এজের অপর প্রান্তের চাইল্ড। এছাড়া `dfs` প্রতিটি ভার্টেক্সের প্যারেন্ট এবং ডেপথও সংরক্ষণ করে, যা পরে কুয়েরির সময় কাজে লাগবে।
 
-The `decompose` function assigns for each vertex `v` the values `head[v]` and `pos[v]`, which are respectively the head of the heavy path `v` belongs to and the position of `v` on the single segment tree that covers all vertices.
+`decompose` ফাংশনটি প্রতিটি ভার্টেক্স `v` এর জন্য `head[v]` এবং `pos[v]` মান নির্ধারণ করে, যেগুলো যথাক্রমে `v` যে হেভি পাথে আছে তার হেড এবং সমস্ত ভার্টেক্স কভার করা একক সেগমেন্ট ট্রি-তে `v` এর অবস্থান।
 
-To answer queries on paths, for example the maximum query discussed, we can do something like this:
+পাথে কুয়েরির উত্তর দিতে, উদাহরণস্বরূপ আলোচিত ম্যাক্সিমাম কুয়েরি, আমরা এরকম কিছু করতে পারি:
 
 ```cpp
 int query(int a, int b) {
@@ -182,7 +182,7 @@ int query(int a, int b) {
 }
 ```
 
-## Practice problems
+## অনুশীলন সমস্যা
 
 - [SPOJ - QTREE - Query on a tree](https://www.spoj.com/problems/QTREE/)
 - [CSES - Path Queries II](https://cses.fi/problemset/task/2134)

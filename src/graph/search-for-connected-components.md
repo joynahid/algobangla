@@ -4,19 +4,19 @@ tags:
 e_maxx_link: connected_components
 ---
 
-# Search for connected components in a graph
+# গ্রাফে কানেক্টেড কম্পোনেন্ট খোঁজা
 
-Given an undirected graph $G$ with $n$ nodes and $m$ edges. We are required to find in it all the connected components, i.e, several groups of vertices such that within a group each vertex can be reached from another and no path exists between different groups.
+$n$ টি নোড এবং $m$ টি এজ বিশিষ্ট একটি আনডিরেক্টেড গ্রাফ $G$ দেওয়া আছে। আমাদের এতে সব কানেক্টেড কম্পোনেন্ট খুঁজে বের করতে হবে, অর্থাৎ ভার্টেক্সের এমন কয়েকটি গ্রুপ যেখানে একটি গ্রুপের ভেতরে প্রতিটি ভার্টেক্স থেকে অন্য যেকোনো ভার্টেক্সে পৌঁছানো যায় এবং ভিন্ন গ্রুপের মধ্যে কোনো পাথ নেই।
 
-## An algorithm for solving the problem
+## সমস্যা সমাধানের অ্যালগরিদম
 
-* To solve the problem, we can use Depth First Search or Breadth First Search.
+* সমস্যা সমাধানের জন্য, আমরা ডেপথ ফার্স্ট সার্চ বা ব্রেডথ ফার্স্ট সার্চ ব্যবহার করতে পারি।
 
-* In fact, we will be doing a series of rounds of DFS: The first round will start from first node and all the nodes in the first connected component will be traversed (found). Then we find the first unvisited node of the remaining nodes, and run Depth First Search on it, thus finding a second connected component. And so on, until all the nodes are visited.
+* আসলে, আমরা DFS-এর কয়েকটি রাউন্ড চালাব: প্রথম রাউন্ড প্রথম নোড থেকে শুরু হবে এবং প্রথম কানেক্টেড কম্পোনেন্টের সব নোড ট্রাভার্স (খুঁজে পাওয়া) হবে। তারপর বাকি নোডগুলোর মধ্যে প্রথম অভিজিত নোড খুঁজে সেটি থেকে ডেপথ ফার্স্ট সার্চ চালাব, এভাবে দ্বিতীয় কানেক্টেড কম্পোনেন্ট পাওয়া যাবে। এভাবে চলতে থাকবে যতক্ষণ না সব নোড ভিজিট করা হয়।
 
-* The total asymptotic running time of this algorithm is $O(n + m)$ : In fact, this algorithm will not run on the same vertex twice, which means that each edge will be seen exactly two times (at one end and at the other end).
+* এই অ্যালগরিদমের মোট অ্যাসিম্পটটিক রানিং টাইম $O(n + m)$: আসলে, এই অ্যালগরিদম একই ভার্টেক্সে দুইবার চলবে না, যার মানে প্রতিটি এজ ঠিক দুইবার দেখা হবে (একপ্রান্তে এবং অন্যপ্রান্তে)।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ``` cpp
 int n;
@@ -48,20 +48,20 @@ void find_comps() {
 }
 ```
 
-* The most important function that is used is `find_comps()` which finds and displays connected components of the graph.
+* সবচেয়ে গুরুত্বপূর্ণ ফাংশন হলো `find_comps()` যেটি গ্রাফের কানেক্টেড কম্পোনেন্টগুলো খুঁজে বের করে এবং প্রদর্শন করে।
 
-* The graph is stored in adjacency list representation, i.e `adj[v]` contains a list of vertices that have edges from the vertex `v`.
+* গ্রাফটি অ্যাডজেসেন্সি লিস্ট রিপ্রেজেন্টেশনে সংরক্ষিত, অর্থাৎ `adj[v]` ভার্টেক্স `v` থেকে এজযুক্ত ভার্টেক্সগুলোর তালিকা ধারণ করে।
 
-* Vector `comp` contains a list of nodes in the current connected component.
+* `comp` ভেক্টরটি বর্তমান কানেক্টেড কম্পোনেন্টের নোডগুলোর তালিকা ধারণ করে।
 
-## Iterative implementation of the code 
+## কোডের ইটারেটিভ ইমপ্লিমেন্টেশন
 
-Deeply recursive functions are in general bad.
-Every single recursive call will require a little bit of memory in the stack, and per default programs only have a limited amount of stack space.
-So when you do a recursive DFS over a connected graph with millions of nodes, you might run into stack overflows.
+গভীর রিকার্সিভ ফাংশন সাধারণত সমস্যাজনক।
+প্রতিটি রিকার্সিভ কলে স্ট্যাকে সামান্য মেমোরি প্রয়োজন হয়, এবং ডিফল্টভাবে প্রোগ্রামগুলোর সীমিত স্ট্যাক স্পেস থাকে।
+তাই যখন আপনি লক্ষ লক্ষ নোড বিশিষ্ট কানেক্টেড গ্রাফে রিকার্সিভ DFS চালান, আপনি স্ট্যাক ওভারফ্লোতে পড়তে পারেন।
 
-It is always possible to translate a recursive program into an iterative program, by manually maintaining a stack data structure.
-Since this data structure is allocated on the heap, no stack overflow will occur.
+রিকার্সিভ প্রোগ্রামকে সর্বদা ইটারেটিভ প্রোগ্রামে রূপান্তর করা সম্ভব, ম্যানুয়ালি একটি স্ট্যাক ডেটা স্ট্রাকচার বজায় রেখে।
+যেহেতু এই ডেটা স্ট্রাকচার হিপে অ্যালোকেট হয়, কোনো স্ট্যাক ওভারফ্লো হবে না।
 
 ```cpp
 int n;
@@ -72,7 +72,7 @@ vector<int> comp;
 void dfs(int v) {
     stack<int> st;
     st.push(v);
-    
+
     while (!st.empty()) {
         int curr = st.top();
         st.pop();
@@ -101,7 +101,7 @@ void find_comps() {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
  - [SPOJ: CT23E](http://www.spoj.com/problems/CT23E/)
  - [CODECHEF: GERALD07](https://www.codechef.com/MARCH14/problems/GERALD07)
  - [CSES : Building Roads](https://cses.fi/problemset/task/1666)

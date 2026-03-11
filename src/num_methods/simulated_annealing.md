@@ -3,73 +3,73 @@ tags:
     - Original
 ---
 
-# Simulated Annealing
+# সিমুলেটেড অ্যানিলিং
 
-**Simulated Annealing (SA)** is a randomized algorithm, which approximates the global optimum of a function. It's called a randomized algorithm, because it employs a certain amount of randomness in its search and thus its output can vary for the same input.
+**সিমুলেটেড অ্যানিলিং (SA)** একটি র‍্যান্ডমাইজড অ্যালগরিদম, যা একটি ফাংশনের গ্লোবাল অপটিমাম আনুমানিকভাবে নির্ণয় করে। এটিকে র‍্যান্ডমাইজড অ্যালগরিদম বলা হয়, কারণ এটি অনুসন্ধানে একটি নির্দিষ্ট পরিমাণ র‍্যান্ডমনেস ব্যবহার করে এবং তাই একই ইনপুটের জন্য এর আউটপুট ভিন্ন হতে পারে।
 
-## The problem
+## সমস্যা
 
-We are given a function $E(s)$, which calculates the energy of the state $s$. We are tasked with finding the state $s_{best}$ at which $E(s)$ is minimized. **SA** is suited for problems where the states are discrete and $E(s)$ has multiple local minima. We'll take the example of the [Travelling Salesman Problem (TSP)](https://en.wikipedia.org/wiki/Travelling_salesman_problem). 
+আমাদের একটি ফাংশন $E(s)$ দেওয়া আছে, যা স্টেট $s$ এর এনার্জি গণনা করে। আমাদের সেই স্টেট $s_{best}$ খুঁজে বের করতে হবে যেখানে $E(s)$ ন্যূনতম। **SA** সেসব সমস্যার জন্য উপযুক্ত যেখানে স্টেটগুলো ডিসক্রিট এবং $E(s)$ এর একাধিক লোকাল মিনিমা আছে। আমরা [ট্রাভেলিং সেলসম্যান প্রবলেম (TSP)](https://en.wikipedia.org/wiki/Travelling_salesman_problem) এর উদাহরণ নেব।
 
-### Travelling Salesman Problem (TSP)
+### ট্রাভেলিং সেলসম্যান প্রবলেম (TSP)
 
-You are given a set of nodes in 2 dimensional space. Each node is characterised by its $x$ and $y$ coordinates. Your task is to find an ordering of the nodes, which will minimise the distance to be travelled when visiting these nodes in that order.
+আপনাকে ২-মাত্রিক স্থানে কিছু নোড দেওয়া আছে। প্রতিটি নোড এর $x$ এবং $y$ স্থানাঙ্ক দ্বারা চিহ্নিত। আপনার কাজ হলো নোডগুলোর এমন একটি ক্রম খুঁজে বের করা, যা সেই ক্রমে নোডগুলো পরিদর্শন করার সময় ভ্রমণ দূরত্ব ন্যূনতম করবে।
 
-## Motivation
-Annealing is a metallurgical process, wherein a material is heated up and allowed to cool, in order to allow the atoms inside to rearrange themselves in an arrangement with minimal internal energy, which in turn causes the material to have different properties. The state is the arrangement of atoms and the internal energy is the function being minimised. We can think of the original state of the atoms, as a local minima for its internal energy. To make the material rearrange its atoms, we need to motivate it to go across a region where its internal energy is not minimised in order to reach the global minima. This motivation is given by heating the material to a higher temperature. 
+## মোটিভেশন
+অ্যানিলিং একটি ধাতুবিদ্যা প্রক্রিয়া, যেখানে একটি পদার্থকে উত্তপ্ত করা হয় এবং ঠান্ডা হতে দেওয়া হয়, যাতে ভিতরের পরমাণুগুলো ন্যূনতম অভ্যন্তরীণ শক্তি বিশিষ্ট বিন্যাসে পুনর্বিন্যস্ত হতে পারে, যা পদার্থটিকে ভিন্ন বৈশিষ্ট্য প্রদান করে। স্টেট হলো পরমাণুগুলোর বিন্যাস এবং অভ্যন্তরীণ শক্তি হলো যে ফাংশন ন্যূনতম করা হচ্ছে। আমরা পরমাণুগুলোর মূল অবস্থাকে তাদের অভ্যন্তরীণ শক্তির একটি লোকাল মিনিমা হিসেবে ভাবতে পারি। পদার্থটিকে তার পরমাণু পুনর্বিন্যাস করাতে, আমাদের এটিকে এমন একটি অঞ্চল অতিক্রম করতে উদ্বুদ্ধ করতে হবে যেখানে এর অভ্যন্তরীণ শক্তি ন্যূনতম নয়, যাতে গ্লোবাল মিনিমায় পৌঁছানো যায়। এই উদ্দীপনা দেওয়া হয় পদার্থটিকে উচ্চ তাপমাত্রায় উত্তপ্ত করে।
 
-Simulated annealing, literally, simulates this process. We start off with some random state (material) and set a high temperature (heat it up). Now, the algorithm is ready to accept states which have a higher energy than the current state, as it is motivated by the high temperature. This prevents the algorithm from getting stuck inside local minimas and move towards the global minima. As time progresses, the algorithm cools down and refuses the states with higher energy and moves into the closest minima it has found.
+সিমুলেটেড অ্যানিলিং, আক্ষরিক অর্থে, এই প্রক্রিয়াটি সিমুলেট করে। আমরা কোনো র‍্যান্ডম স্টেট (পদার্থ) দিয়ে শুরু করি এবং উচ্চ তাপমাত্রা সেট করি (উত্তপ্ত করি)। এখন, অ্যালগরিদম বর্তমান স্টেটের চেয়ে উচ্চ এনার্জি বিশিষ্ট স্টেট গ্রহণ করতে প্রস্তুত, কারণ এটি উচ্চ তাপমাত্রা দ্বারা উদ্বুদ্ধ। এটি অ্যালগরিদমকে লোকাল মিনিমায় আটকে যাওয়া থেকে রক্ষা করে এবং গ্লোবাল মিনিমার দিকে অগ্রসর হতে সাহায্য করে। সময় অগ্রসর হলে, অ্যালগরিদম ঠান্ডা হয় এবং উচ্চ এনার্জির স্টেট প্রত্যাখ্যান করে এবং নিকটতম মিনিমায় চলে যায়।
 
-### The energy function E(s)
+### এনার্জি ফাংশন E(s)
 
-$E(s)$ is the function which needs to be minimised (or maximised). It maps every state to a real number. In the case of TSP, $E(s)$ returns the distance of travelling one full circle in the order of nodes in the state. 
+$E(s)$ হলো সেই ফাংশন যা ন্যূনতম (বা সর্বোচ্চ) করতে হবে। এটি প্রতিটি স্টেটকে একটি বাস্তব সংখ্যায় ম্যাপ করে। TSP এর ক্ষেত্রে, $E(s)$ স্টেটে থাকা নোডগুলোর ক্রমে একটি পূর্ণ বৃত্ত ভ্রমণের দূরত্ব রিটার্ন করে।
 
-### State
+### স্টেট
 
-The state space is the domain of the energy function, $E(s)$, and a state is any element which belongs to the state space. In the case of TSP, all possible paths that we can take to visit all the nodes is the state space, and any single one of these paths can be considered as a state.
+স্টেট স্পেস হলো এনার্জি ফাংশন $E(s)$ এর ডোমেইন, এবং একটি স্টেট হলো স্টেট স্পেসের যেকোনো উপাদান। TSP এর ক্ষেত্রে, সকল নোড পরিদর্শনের জন্য আমরা যে সকল সম্ভাব্য পথ নিতে পারি তা হলো স্টেট স্পেস, এবং এই পথগুলোর যেকোনো একটিকে একটি স্টেট হিসেবে বিবেচনা করা যায়।
 
-### Neighbouring state
+### প্রতিবেশী স্টেট
 
-It is a state in the state space which is close to the previous state. This usually means that we can obtain the neighbouring state from the original state using a simple transform. In the case of the Travelling Salesman Problem, a neighbouring state is obtained by randomly choosing 2 nodes, and swapping their positions in the current state. 
+এটি স্টেট স্পেসের এমন একটি স্টেট যা পূর্ববর্তী স্টেটের কাছাকাছি। এর সাধারণ অর্থ হলো আমরা মূল স্টেট থেকে একটি সরল রূপান্তর ব্যবহার করে প্রতিবেশী স্টেট পেতে পারি। ট্রাভেলিং সেলসম্যান প্রবলেমের ক্ষেত্রে, একটি প্রতিবেশী স্টেট পাওয়া যায় র‍্যান্ডমভাবে ২টি নোড বেছে নিয়ে বর্তমান স্টেটে তাদের অবস্থান অদলবদল করে।
 
-## Algorithm
+## অ্যালগরিদম
 
-We start with a random state $s$. In every step, we choose a neighbouring state $s_{next}$ of the current state $s$. If $E(s_{next}) < E(s)$, then we update $s = s_{next}$. Otherwise, we use a probability acceptance function $P(E(s),E(s_{next}),T)$ which decides whether we should move to $s_{next}$ or stay at $s$. T here is the temperature, which is initially set to a high value and decays slowly with every step. The higher the temperature, the more likely it is to move to $s_{next}$. 
-At the same time we also keep a track of the best state $s_{best}$ across all iterations. Proceeding till convergence or time runs out.
+আমরা একটি র‍্যান্ডম স্টেট $s$ দিয়ে শুরু করি। প্রতিটি ধাপে, আমরা বর্তমান স্টেট $s$ এর একটি প্রতিবেশী স্টেট $s_{next}$ বেছে নিই। যদি $E(s_{next}) < E(s)$ হয়, তাহলে আমরা $s = s_{next}$ আপডেট করি। অন্যথায়, আমরা একটি প্রবাবিলিটি অ্যাক্সেপ্টেন্স ফাংশন $P(E(s),E(s_{next}),T)$ ব্যবহার করি যা সিদ্ধান্ত নেয় আমরা $s_{next}$ এ যাব নাকি $s$ এ থাকব। এখানে T হলো তাপমাত্রা, যা প্রাথমিকভাবে উচ্চ মানে সেট করা থাকে এবং প্রতিটি ধাপে ধীরে ধীরে কমে। তাপমাত্রা যত বেশি, $s_{next}$ এ যাওয়ার সম্ভাবনা তত বেশি।
+একই সময়ে আমরা সকল ইটারেশনে সেরা স্টেট $s_{best}$ ট্র্যাক করি। অভিসরণ বা সময় শেষ না হওয়া পর্যন্ত চালিয়ে যাই।
 
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Hill_Climbing_with_Simulated_Annealing.gif" width="800px">
 <br>
-<i>A visual representation of simulated annealing, searching for the maxima of this function with multiple local maxima.</i>
+<i>সিমুলেটেড অ্যানিলিংয়ের একটি ভিজ্যুয়াল উপস্থাপনা, একাধিক লোকাল ম্যাক্সিমা বিশিষ্ট এই ফাংশনের ম্যাক্সিমা অনুসন্ধান করছে।</i>
 <br>
 </center>
 
-### Temperature(T) and decay(u)
+### তাপমাত্রা(T) এবং ক্ষয়(u)
 
-The temperature of the system quantifies the willingness of the algorithm to accept a state with a higher energy. The decay is a constant which quantifies the "cooling rate" of the algorithm. A slow cooling rate (larger $u$) is known to give better results.
+সিস্টেমের তাপমাত্রা উচ্চ এনার্জি বিশিষ্ট স্টেট গ্রহণে অ্যালগরিদমের ইচ্ছুকতা পরিমাপ করে। ক্ষয় হলো একটি ধ্রুবক যা অ্যালগরিদমের "কুলিং রেট" পরিমাপ করে। ধীর কুলিং রেট (বৃহত্তর $u$) ভালো ফলাফল দেয় বলে জানা গেছে।
 
-## Probability Acceptance Function(PAF)
+## প্রবাবিলিটি অ্যাক্সেপ্টেন্স ফাংশন (PAF)
 
-$P(E,E_{next},T) = 
+$P(E,E_{next},T) =
     \begin{cases}
        \text{True} &\quad\text{if }  \mathcal{U}_{[0,1]} \le \exp(-\frac{E_{next}-E}{T}) \\
        \text{False} &\quad\text{otherwise}\\
      \end{cases}$
 
-Here, $\mathcal{U}_{[0,1]}$ is a continuous uniform random value on $[0,1]$. This function takes in the current state, the next state and the temperature, returning a boolean value, which tells our search whether it should move to $s_{next}$ or stay at $s$. Note that for $E_{next} < E$ , this function will always return True, otherwise it can still make the move with probability $\exp(-\frac{E_{next}-E}{T})$, which corresponds to the [Gibbs measure](https://en.wikipedia.org/wiki/Gibbs_measure).
+এখানে, $\mathcal{U}_{[0,1]}$ হলো $[0,1]$ এ একটি অবিচ্ছিন্ন ইউনিফর্ম র‍্যান্ডম মান। এই ফাংশনটি বর্তমান স্টেট, পরবর্তী স্টেট এবং তাপমাত্রা নেয়, একটি বুলিয়ান মান রিটার্ন করে, যা আমাদের অনুসন্ধানকে বলে $s_{next}$ এ যাবে নাকি $s$ এ থাকবে। লক্ষ্য করুন $E_{next} < E$ এর জন্য, এই ফাংশন সবসময় True রিটার্ন করবে, অন্যথায় এটি $\exp(-\frac{E_{next}-E}{T})$ সম্ভাবনায় মুভ করতে পারে, যা [গিবস মেজার](https://en.wikipedia.org/wiki/Gibbs_measure) এর সাথে সঙ্গতিপূর্ণ।
 
 ```cpp
 bool P(double E,double E_next,double T,mt19937 rng){
     double prob =  exp(-(E_next-E)/T);
     if(prob > 1) return true;
     else{
-        bernoulli_distribution d(prob); 
+        bernoulli_distribution d(prob);
         return d(rng);
     }
 }
 ```
-## Code Template
+## কোড টেমপ্লেট
 
 ```cpp
 class state {
@@ -114,22 +114,22 @@ pair<double, state> simAnneal() {
 }
 
 ```
-## How to use:
-Fill in the state class functions as appropriate. If you are trying to find a global maxima and not a minima, ensure that the $E()$ function returns negative of the function you are maximizing and print $-E_{best}$ in the end. Set the below parameters as per your need.
+## কীভাবে ব্যবহার করবেন:
+state ক্লাসের ফাংশনগুলো যথাযথভাবে পূরণ করুন। আপনি যদি গ্লোবাল ম্যাক্সিমা খুঁজতে চান মিনিমা নয়, তাহলে নিশ্চিত করুন যে $E()$ ফাংশনটি আপনি যে ফাংশন ম্যাক্সিমাইজ করছেন তার ঋণাত্মক মান রিটার্ন করে এবং শেষে $-E_{best}$ প্রিন্ট করুন। আপনার প্রয়োজন অনুযায়ী নিচের প্যারামিটারগুলো সেট করুন।
 
-### Parameters
-- $T$ : Initial temperature. Set it to a higher value if you want the search to run for a longer time.
-- $u$ : Decay. Decides the rate of cooling. A slower cooling rate (larger value of u) usually gives better results, at the cost of running for a longer time. Ensure $u < 1$. 
+### প্যারামিটার
+- $T$ : প্রাথমিক তাপমাত্রা। আপনি যদি অনুসন্ধান দীর্ঘ সময় চালাতে চান তবে এটি উচ্চ মানে সেট করুন।
+- $u$ : ক্ষয়। কুলিংয়ের হার নির্ধারণ করে। ধীর কুলিং রেট (u এর বৃহত্তর মান) সাধারণত ভালো ফলাফল দেয়, দীর্ঘ সময় চলার বিনিময়ে। নিশ্চিত করুন $u < 1$।
 
-The number of iterations the loop will run for is given by the expression
+লুপটি যতবার চলবে তা নিম্নলিখিত রাশি দ্বারা পাওয়া যায়
 
-$N =   \lceil -\log_{u}{T} \rceil$ 
+$N =   \lceil -\log_{u}{T} \rceil$
 
-Tips for choosing $T$ and $u$ : If there are many local minimas and a wide state space, set $u = 0.999$, for a slow cooling rate, which will allow the algorithm to explore more possibilities. On the other hand, if the state space is narrower, $u = 0.99$ should suffice. If you are not sure, play it safe by setting $u = 0.998$ or higher. Calculate the time complexity of a single iteration of the algorithm, and use this to approximate a value of $N$ which will prevent TLE, then use the below formula to obtain $T$.
+$T$ এবং $u$ নির্বাচনের টিপস: যদি অনেক লোকাল মিনিমা এবং বিস্তৃত স্টেট স্পেস থাকে, $u = 0.999$ সেট করুন, ধীর কুলিং রেটের জন্য, যা অ্যালগরিদমকে আরও সম্ভাবনা অন্বেষণ করতে দেবে। অন্যদিকে, স্টেট স্পেস সংকীর্ণ হলে, $u = 0.99$ যথেষ্ট হওয়া উচিত। আপনি নিশ্চিত না হলে, $u = 0.998$ বা তার বেশি সেট করে নিরাপদ থাকুন। অ্যালগরিদমের একটি একক ইটারেশনের টাইম কমপ্লেক্সিটি গণনা করুন, এবং এটি ব্যবহার করে $N$ এর একটি আনুমানিক মান নির্ধারণ করুন যা TLE প্রতিরোধ করবে, তারপর নিচের সূত্র ব্যবহার করে $T$ পান।
 
 $T = u^{-N}$
 
-### Example implementation for TSP
+### TSP এর জন্য উদাহরণ ইমপ্লিমেন্টেশন
 ```cpp
 
 class state {
@@ -154,7 +154,7 @@ class state {
     double euclidean(pair<int, int> a, pair<int, int> b) {
         return hypot(a.first - b.first, a.second - b.second);
     }
-    
+
     double E() {
         double dist = 0;
         int n = points.size();
@@ -177,12 +177,12 @@ int main() {
 }
 ```
 
-## Further modifications to the algorithm:
+## অ্যালগরিদমের আরও পরিবর্তন:
 
-- Add a time based exit condition to the while loop to prevent TLE
-- The decay implemented above is an exponential decay. You can always replace this with a decay function as per your needs.
-- The Probability acceptance function given above, prefers accepting states which are lower in energy because of the $E_{next} - E$ factor in the numerator of the exponent. You can simply remove this factor, to make the PAF independent of the difference in energies.
-- The effect of the difference in energies, $E_{next} - E$, on the PAF can be increased/decreased by increasing/decreasing the base of the exponent as shown below: 
+- TLE প্রতিরোধে while লুপে একটি সময়-ভিত্তিক প্রস্থান শর্ত যোগ করুন
+- উপরে ইমপ্লিমেন্ট করা ক্ষয়টি একটি এক্সপোনেনশিয়াল ক্ষয়। আপনি এটিকে আপনার প্রয়োজন অনুযায়ী একটি ক্ষয় ফাংশন দ্বারা প্রতিস্থাপন করতে পারেন।
+- উপরে দেওয়া প্রবাবিলিটি অ্যাক্সেপ্টেন্স ফাংশন, এক্সপোনেন্টের গণনায় $E_{next} - E$ ফ্যাক্টরের কারণে কম এনার্জির স্টেট গ্রহণ করতে পছন্দ করে। আপনি এই ফ্যাক্টরটি সরিয়ে PAF কে এনার্জির পার্থক্য থেকে স্বাধীন করতে পারেন।
+- এনার্জির পার্থক্য $E_{next} - E$ এর PAF এর উপর প্রভাব নিচে দেখানো অনুযায়ী এক্সপোনেন্টের বেস বাড়িয়ে/কমিয়ে বাড়ানো/কমানো যায়:
 ```cpp
 bool P(double E, double E_next, double T, mt19937 rng) {
     double e = 2; // set e to any real number greater than 1
@@ -190,13 +190,13 @@ bool P(double E, double E_next, double T, mt19937 rng) {
     if (prob > 1)
         return true;
     else {
-        bernoulli_distribution d(prob); 
+        bernoulli_distribution d(prob);
         return d(rng);
     }
 }
 ```
 
-## Problems
+## সমস্যা
 
 - [USACO Jan 2017 - Subsequence Reversal](https://usaco.org/index.php?page=viewproblem2&cpid=698)
 - [Deltix Summer 2021 - DIY Tree](https://codeforces.com/contest/1556/problem/H)

@@ -4,17 +4,17 @@ tags:
 e_maxx_link: gray_code
 ---
 
-# Gray code
+# গ্রে কোড
 
-Gray code is a binary numeral system where two successive values differ in only one bit. 
+গ্রে কোড হলো একটি বাইনারি সংখ্যা পদ্ধতি যেখানে দুটি পরপর মান কেবল একটি বিটে পৃথক হয়।
 
-For example, the sequence of Gray codes for 3-bit numbers is: 000, 001, 011, 010, 110, 111, 101, 100, so $G(4) = 6$.
+উদাহরণস্বরূপ, ৩-বিট সংখ্যার জন্য গ্রে কোডের ক্রম হলো: 000, 001, 011, 010, 110, 111, 101, 100, তাই $G(4) = 6$।
 
-This code was invented by Frank Gray in 1953.
+এই কোডটি ১৯৫৩ সালে ফ্র্যাংক গ্রে আবিষ্কার করেন।
 
-## Finding Gray code
+## গ্রে কোড নির্ণয়
 
-Let's look at the bits of number $n$ and the bits of number $G(n)$. Notice that $i$-th bit of $G(n)$ equals 1 only when $i$-th bit of $n$ equals 1 and $i + 1$-th bit equals 0 or the other way around ($i$-th bit equals 0 and $i + 1$-th bit equals 1). Thus, $G(n) = n \oplus (n >> 1)$:  
+$n$ সংখ্যার বিট এবং $G(n)$ সংখ্যার বিটগুলো দেখা যাক। লক্ষ্য করুন যে $G(n)$-এর $i$-তম বিট কেবল তখনই ১ হয় যখন $n$-এর $i$-তম বিট ১ এবং $i + 1$-তম বিট ০ অথবা উল্টোটি ($i$-তম বিট ০ এবং $i + 1$-তম বিট ১)। সুতরাং, $G(n) = n \oplus (n >> 1)$:
 
 ```cpp
 int g (int n) {
@@ -22,11 +22,11 @@ int g (int n) {
 }
 ```
 
-## Finding inverse Gray code
+## ইনভার্স গ্রে কোড নির্ণয়
 
-Given Gray code $g$, restore the original number $n$.
+গ্রে কোড $g$ দেওয়া আছে, মূল সংখ্যা $n$ পুনরুদ্ধার করতে হবে।
 
-We will move from the most significant bits to the least significant ones (the least significant bit has index 1 and the most significant bit has index $k$). The relation between the bits $n_i$ of number $n$ and the bits $g_i$ of number $g$:
+আমরা সবচেয়ে উচ্চ তাৎপর্যপূর্ণ বিট থেকে সবচেয়ে কম তাৎপর্যপূর্ণ বিটের দিকে যাব (সবচেয়ে কম তাৎপর্যপূর্ণ বিটের ইনডেক্স ১ এবং সবচেয়ে উচ্চ তাৎপর্যপূর্ণ বিটের ইনডেক্স $k$)। $n$ সংখ্যার বিট $n_i$ এবং $g$ সংখ্যার বিট $g_i$-এর মধ্যে সম্পর্ক:
 
 $$\begin{align}
   n_k &= g_k, \\
@@ -36,7 +36,7 @@ $$\begin{align}
   \vdots
 \end{align}$$
 
-The easiest way to write it in code is:
+কোডে এটি লেখার সবচেয়ে সহজ উপায়:
 
 ```cpp
 int rev_g (int g) {
@@ -47,28 +47,28 @@ int rev_g (int g) {
 }
 ```
 
-## Practical applications
-Gray codes have some useful applications, sometimes quite unexpected:
+## ব্যবহারিক প্রয়োগ
+গ্রে কোডের কিছু দরকারি প্রয়োগ আছে, কখনো কখনো বেশ অপ্রত্যাশিত:
 
-*   Gray code of $n$ bits forms a Hamiltonian cycle on a hypercube, where each bit corresponds to one dimension. 
+*   $n$ বিটের গ্রে কোড একটি হাইপারকিউবে হ্যামিল্টোনিয়ান সাইকেল গঠন করে, যেখানে প্রতিটি বিট একটি মাত্রার সাথে সম্পর্কিত।
 
-*   Gray codes are used to minimize the errors in digital-to-analog signals conversion (for example, in sensors). 
+*   ডিজিটাল-টু-অ্যানালগ সিগন্যাল রূপান্তরে (উদাহরণস্বরূপ, সেন্সরে) ত্রুটি কমাতে গ্রে কোড ব্যবহৃত হয়।
 
-*   Gray code can be used to solve the Towers of Hanoi problem.
-    Let $n$ denote number of disks. Start with Gray code of length $n$ which
-    consists of all zeroes ($G(0)$) and move between consecutive Gray codes (from $G(i)$ to $G(i+1)$).
-    Let $i$-th bit of current Gray code represent $n$-th disk 
-    (the least significant bit corresponds to the smallest disk and the most significant bit to the biggest disk). 
-    Since exactly one bit changes on each step, we can treat changing $i$-th bit as moving $i$-th disk.
-    Notice that there is exactly one move option for each disk (except the smallest one) on each step (except start and finish positions).
-    There are always two move options for the smallest disk but there is a strategy which will always lead to answer:
-    if $n$ is odd then sequence of the smallest disk moves looks like $f \to t \to r \to f \to t \to r \to ...$
-    where $f$ is the initial rod, $t$ is the terminal rod and $r$ is the remaining rod), and 
-    if $n$ is even: $f \to r \to t \to f \to r \to t \to ...$.
+*   টাওয়ার্স অব হ্যানয় সমস্যা সমাধানে গ্রে কোড ব্যবহার করা যায়।
+    মনে করি $n$ হলো চাকতির সংখ্যা। $n$ দৈর্ঘ্যের গ্রে কোড দিয়ে শুরু করুন যেটি
+    সব শূন্য নিয়ে গঠিত ($G(0)$) এবং পরপর গ্রে কোডের মধ্যে সরান ($G(i)$ থেকে $G(i+1)$-তে)।
+    বর্তমান গ্রে কোডের $i$-তম বিট $n$-তম চাকতি নির্দেশ করুক
+    (সবচেয়ে কম তাৎপর্যপূর্ণ বিট সবচেয়ে ছোট চাকতি এবং সবচেয়ে উচ্চ তাৎপর্যপূর্ণ বিট সবচেয়ে বড় চাকতি নির্দেশ করে)।
+    যেহেতু প্রতিটি ধাপে ঠিক একটি বিট পরিবর্তন হয়, আমরা $i$-তম বিটের পরিবর্তনকে $i$-তম চাকতি সরানো হিসেবে বিবেচনা করতে পারি।
+    লক্ষ্য করুন যে প্রতিটি ধাপে প্রতিটি চাকতির (সবচেয়ে ছোটটি বাদে) জন্য ঠিক একটি সরানোর বিকল্প আছে (শুরু এবং শেষ অবস্থান বাদে)।
+    সবচেয়ে ছোট চাকতির জন্য সবসময় দুটি সরানোর বিকল্প থাকে তবে একটি কৌশল আছে যা সবসময় উত্তরের দিকে নিয়ে যাবে:
+    যদি $n$ বিজোড় হয় তাহলে সবচেয়ে ছোট চাকতির সরানোর ক্রম দেখতে $f \to t \to r \to f \to t \to r \to ...$-এর মতো
+    যেখানে $f$ হলো প্রাথমিক দণ্ড, $t$ হলো গন্তব্য দণ্ড এবং $r$ হলো অবশিষ্ট দণ্ড), এবং
+    যদি $n$ জোড় হয়: $f \to r \to t \to f \to r \to t \to ...$।
 
-*   Gray codes are also used in genetic algorithms theory.
+*   জেনেটিক অ্যালগরিদম তত্ত্বেও গ্রে কোড ব্যবহৃত হয়।
 
 
-## Practice Problems
+## অনুশীলন সমস্যা
 *   <a href="https://cses.fi/problemset/task/2205">Gray Code &nbsp;&nbsp;&nbsp;&nbsp; [Difficulty: easy]</a>
 *   <a href="http://codeforces.com/problemsets/acmsguru/problem/99999/249">SGU #249 <b>"Matrix"</b> &nbsp;&nbsp;&nbsp;&nbsp; [Difficulty: medium]</a>

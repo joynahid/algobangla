@@ -4,34 +4,34 @@ tags:
 e_maxx_link: prufer_code_cayley_formula
 ---
 
-# Prüfer code
+# প্রুফার কোড
 
-In this article we will look at the so-called **Prüfer code** (or Prüfer sequence), which is a way of encoding a labeled tree into a sequence of numbers in a unique way.
+এই নিবন্ধে আমরা তথাকথিত **প্রুফার কোড** (বা প্রুফার সিকোয়েন্স) দেখব, যা একটি লেবেলযুক্ত ট্রিকে অনন্যভাবে সংখ্যার একটি সিকোয়েন্সে এনকোড করার একটি পদ্ধতি।
 
-With the help of the Prüfer code we will prove **Cayley's formula** (which specified the number of spanning trees in a complete graph).
-Also we show the solution to the problem of counting the number of ways of adding edges to a graph to make it connected.
+প্রুফার কোডের সাহায্যে আমরা **কেইলির সূত্র** প্রমাণ করব (যা একটি কমপ্লিট গ্রাফে স্প্যানিং ট্রির সংখ্যা নির্দিষ্ট করে)।
+এছাড়াও আমরা একটি গ্রাফকে সংযুক্ত করতে এজ যোগ করার উপায়ের সংখ্যা গণনার সমস্যার সমাধান দেখাব।
 
-**Note**, we will not consider trees consisting of a single vertex - this is a special case in which multiple statements clash.
+**দ্রষ্টব্য**, আমরা একক ভার্টেক্স নিয়ে গঠিত ট্রি বিবেচনা করব না - এটি একটি বিশেষ ক্ষেত্র যেখানে একাধিক বিবৃতি সাংঘর্ষিক হয়।
 
-## Prüfer code
+## প্রুফার কোড
 
-The Prüfer code is a way of encoding a labeled tree with $n$ vertices using a sequence of $n - 2$ integers in the interval $[0; n-1]$.
-This encoding also acts as a **bijection** between all spanning trees of a complete graph and the numerical sequences.
+প্রুফার কোড হলো $n$টি ভার্টেক্স বিশিষ্ট একটি লেবেলযুক্ত ট্রিকে $[0; n-1]$ ব্যবধানের $n - 2$টি পূর্ণসংখ্যার সিকোয়েন্স ব্যবহার করে এনকোড করার একটি পদ্ধতি।
+এই এনকোডিংটি একটি কমপ্লিট গ্রাফের সকল স্প্যানিং ট্রি ও সংখ্যা সিকোয়েন্সগুলোর মধ্যে একটি **বাইজেকশন** (এক-এক ও সার্বিক সম্পর্ক) হিসেবেও কাজ করে।
 
-Although using the Prüfer code for storing and operating on tree is impractical due the specification of the representation, the Prüfer codes are used frequently: mostly in solving combinatorial problems.
+যদিও প্রুফার কোড ব্যবহার করে ট্রি সংরক্ষণ ও অপারেশন করা উপস্থাপনার বৈশিষ্ট্যের কারণে অব্যবহারিক, প্রুফার কোড ঘন ঘন ব্যবহৃত হয়: প্রধানত কম্বিনেটরিয়াল সমস্যা সমাধানে।
 
-The inventor - Heinz Prüfer - proposed this code in 1918 as a proof for Cayley's formula.
+আবিষ্কারক - হাইন্‌ৎস প্রুফার - ১৯১৮ সালে কেইলির সূত্রের প্রমাণ হিসেবে এই কোড প্রস্তাব করেন।
 
-### Building the Prüfer code for a given tree
+### একটি প্রদত্ত ট্রির জন্য প্রুফার কোড নির্মাণ
 
-The Prüfer code is constructed as follows.
-We will repeat the following procedure $n - 2$ times:
-we select the leaf of the tree with the smallest number, remove it from the tree, and write down the number of the vertex that was connected to it.
-After $n - 2$ iterations there will only remain $2$ vertices, and the algorithm ends.
+প্রুফার কোড নিম্নরূপে নির্মাণ করা হয়।
+আমরা নিম্নলিখিত প্রক্রিয়াটি $n - 2$ বার পুনরাবৃত্তি করব:
+ট্রির সবচেয়ে ছোট নম্বরের লিফ নির্বাচন করি, এটিকে ট্রি থেকে সরিয়ে দিই, এবং এটির সাথে সংযুক্ত ভার্টেক্সের নম্বর লিখে রাখি।
+$n - 2$ ইটারেশনের পর মাত্র $2$টি ভার্টেক্স অবশিষ্ট থাকবে, এবং অ্যালগরিদম শেষ হয়।
 
-Thus the Prüfer code for a given tree is a sequence of $n - 2$ numbers, where each number is the number of the connected vertex, i.e. this number is in the interval $[0, n-1]$.
+সুতরাং একটি প্রদত্ত ট্রির জন্য প্রুফার কোড হলো $n - 2$টি সংখ্যার একটি সিকোয়েন্স, যেখানে প্রতিটি সংখ্যা সংযুক্ত ভার্টেক্সের নম্বর, অর্থাৎ এই সংখ্যা $[0, n-1]$ ব্যবধানে।
 
-The algorithm for computing the Prüfer code can be implemented easily with $O(n \log n)$ time complexity, simply by using a data structure to extract the minimum (for instance `set` or `priority_queue` in C++), which contains a list of all the current leafs.
+প্রুফার কোড গণনার অ্যালগরিদম সহজেই $O(n \log n)$ টাইম কমপ্লেক্সিটিতে ইমপ্লিমেন্ট করা যায়, কেবল ন্যূনতম নির্ণয়ের জন্য একটি ডেটা স্ট্রাকচার ব্যবহার করে (উদাহরণস্বরূপ C++-এ `set` বা `priority_queue`), যেটিতে সকল বর্তমান লিফের একটি তালিকা থাকে।
 
 ```{.cpp file=pruefer_code_slow}
 vector<vector<int>> adj;
@@ -68,32 +68,32 @@ vector<int> pruefer_code() {
 }
 ```
 
-However the construction can also be implemented in linear time.
-Such an approach is described in the next section.
+তবে নির্মাণ লিনিয়ার সময়েও ইমপ্লিমেন্ট করা যায়।
+এই ধরনের পদ্ধতি পরবর্তী অংশে বর্ণনা করা হয়েছে।
 
-### Building the Prüfer code for a given tree in linear time
+### লিনিয়ার সময়ে একটি প্রদত্ত ট্রির জন্য প্রুফার কোড নির্মাণ
 
-The essence of the algorithm is to use a **moving pointer**, which will always point to the current leaf vertex that we want to remove.
+অ্যালগরিদমের মূল বিষয় হলো একটি **মুভিং পয়েন্টার** ব্যবহার করা, যেটি সর্বদা বর্তমান লিফ ভার্টেক্সের দিকে নির্দেশ করবে যেটি আমরা সরাতে চাই।
 
-At first glance this seems impossible, because during the process of constructing the Prüfer code the leaf number can increase and decrease.
-However after a closer look, this is actually not true.
-The number of leafs will not increase. Either the number decreases by one (we remove one leaf vertex and don't gain a new one), or it stay the same (we remove one leaf vertex and gain another one).
-In the first case there is no other way than searching for the next smallest leaf vertex.
-In the second case, however, we can decide in $O(1)$ time, if we can continue using the vertex that became a new leaf vertex, or if we have to search for the next smallest leaf vertex.
-And in quite a lot of times we can continue with the new leaf vertex.
+প্রথম দৃষ্টিতে এটি অসম্ভব মনে হয়, কারণ প্রুফার কোড নির্মাণের প্রক্রিয়ায় লিফ নম্বর বাড়তে ও কমতে পারে।
+তবে ঘনিষ্ঠভাবে দেখলে, এটি আসলে সত্য নয়।
+লিফের সংখ্যা বাড়বে না। হয় সংখ্যা এক কমে (আমরা একটি লিফ ভার্টেক্স সরাই এবং নতুন একটি পাই না), অথবা এটি একই থাকে (আমরা একটি লিফ ভার্টেক্স সরাই এবং আরেকটি পাই)।
+প্রথম ক্ষেত্রে পরবর্তী ক্ষুদ্রতম লিফ ভার্টেক্স খোঁজা ছাড়া অন্য কোনো উপায় নেই।
+তবে দ্বিতীয় ক্ষেত্রে, আমরা $O(1)$ সময়ে সিদ্ধান্ত নিতে পারি, নতুন লিফ ভার্টেক্স ব্যবহার চালিয়ে যাওয়া যাবে কিনা, নাকি পরবর্তী ক্ষুদ্রতম লিফ ভার্টেক্স খুঁজতে হবে।
+এবং বেশ অনেক সময়ই আমরা নতুন লিফ ভার্টেক্স নিয়ে এগিয়ে যেতে পারি।
 
-To do this we will use a variable $\text{ptr}$, which will indicate that in the set of vertices between $0$ and $\text{ptr}$ is at most one leaf vertex, namely the current one.
-All other vertices in that range are either already removed from the tree, or have still more than one adjacent vertices.
-At the same time we say, that we haven't removed any leaf vertices bigger than $\text{ptr}$ yet.
+এটি করতে আমরা একটি ভেরিয়েবল $\text{ptr}$ ব্যবহার করব, যা নির্দেশ করবে যে $0$ থেকে $\text{ptr}$ পর্যন্ত ভার্টেক্সের সেটে সর্বাধিক একটি লিফ ভার্টেক্স আছে, যথা বর্তমানটি।
+ঐ রেঞ্জের অন্য সকল ভার্টেক্স হয় ইতিমধ্যে ট্রি থেকে সরানো হয়েছে, অথবা এখনও একাধিক সংলগ্ন ভার্টেক্স আছে।
+একই সাথে আমরা বলি যে, $\text{ptr}$-এর চেয়ে বড় কোনো লিফ ভার্টেক্স আমরা এখনও সরাইনি।
 
-This variable is already very helpful in the first case.
-After removing the current leaf node, we know that there cannot be a leaf node between $0$ and $\text{ptr}$, therefore we can start the search for the next one directly at $\text{ptr} + 1$, and we don't have to start the search back at vertex $0$.
-And in the second case, we can further distinguish two cases:
-Either the newly gained leaf vertex is smaller than $\text{ptr}$, then this must be the next leaf vertex, since we know that there are no other vertices smaller than $\text{ptr}$.
-Or the newly gained leaf vertex is bigger.
-But then we also know that it has to be bigger than $\text{ptr}$, and can start the search again at $\text{ptr} + 1$.
+এই ভেরিয়েবলটি প্রথম ক্ষেত্রেই খুবই সহায়ক।
+বর্তমান লিফ নোড সরানোর পর, আমরা জানি যে $0$ ও $\text{ptr}$-এর মধ্যে কোনো লিফ নোড থাকতে পারে না, তাই আমরা সরাসরি $\text{ptr} + 1$ থেকে পরবর্তী খোঁজা শুরু করতে পারি, এবং ভার্টেক্স $0$ থেকে খোঁজা শুরু করতে হয় না।
+এবং দ্বিতীয় ক্ষেত্রে, আমরা আরও দুটি উপক্ষেত্র আলাদা করতে পারি:
+হয় নতুন পাওয়া লিফ ভার্টেক্স $\text{ptr}$-এর চেয়ে ছোট, তাহলে এটিই পরবর্তী লিফ ভার্টেক্স হতে হবে, কারণ আমরা জানি $\text{ptr}$-এর চেয়ে ছোট অন্য কোনো ভার্টেক্স নেই।
+অথবা নতুন পাওয়া লিফ ভার্টেক্স বড়।
+কিন্তু তাহলেও আমরা জানি যে এটি $\text{ptr}$-এর চেয়ে বড় হতে হবে, এবং আবার $\text{ptr} + 1$ থেকে খোঁজা শুরু করতে পারি।
 
-Even though we might have to perform multiple linear searches for the next leaf vertex, the pointer $\text{ptr}$ only increases and therefore the time complexity in total is $O(n)$.
+যদিও আমাদের পরবর্তী লিফ ভার্টেক্সের জন্য একাধিক লিনিয়ার সার্চ করতে হতে পারে, পয়েন্টার $\text{ptr}$ শুধু বাড়ে এবং তাই মোট টাইম কমপ্লেক্সিটি $O(n)$।
 
 ```{.cpp file=pruefer_code_fast}
 vector<vector<int>> adj;
@@ -141,44 +141,44 @@ vector<int> pruefer_code() {
 }
 ```
 
-In the code we first find for each its ancestor `parent[i]`, i.e. the ancestor that this vertex will have once we remove it from the tree.
-We can find this ancestor by rooting the tree at the vertex $n-1$.
-This is possible because the vertex $n-1$ will never be removed from the tree.
-We also compute the degree for each vertex.
-`ptr` is the pointer that indicates the minimum size of the remaining leaf vertices (except the current one `leaf`).
-We will either assign the current leaf vertex with `next`, if this one is also a leaf vertex and it is smaller than `ptr`, or we start a linear search for the smallest leaf vertex by increasing the pointer.
+কোডে আমরা প্রথমে প্রতিটি ভার্টেক্সের পূর্বসূরি `parent[i]` খুঁজি, অর্থাৎ যে পূর্বসূরি থাকবে যখন আমরা ভার্টেক্সটি ট্রি থেকে সরিয়ে দেব।
+আমরা ট্রিকে $n-1$ ভার্টেক্সে রুট করে এই পূর্বসূরি খুঁজতে পারি।
+এটি সম্ভব কারণ $n-1$ ভার্টেক্স কখনও ট্রি থেকে সরানো হবে না।
+আমরা প্রতিটি ভার্টেক্সের ডিগ্রিও গণনা করি।
+`ptr` হলো পয়েন্টার যা অবশিষ্ট লিফ ভার্টেক্সগুলোর (বর্তমানটি `leaf` ছাড়া) ন্যূনতম আকার নির্দেশ করে।
+আমরা হয় বর্তমান লিফ ভার্টেক্সকে `next` দিয়ে অ্যাসাইন করব, যদি এটিও একটি লিফ ভার্টেক্স হয় এবং `ptr`-এর চেয়ে ছোট হয়, অথবা পয়েন্টার বাড়িয়ে ক্ষুদ্রতম লিফ ভার্টেক্সের জন্য লিনিয়ার সার্চ শুরু করব।
 
-It can be easily seen, that this code has the complexity $O(n)$.
+সহজেই দেখা যায় যে, এই কোডের কমপ্লেক্সিটি $O(n)$।
 
-### Some properties of the Prüfer code
+### প্রুফার কোডের কিছু বৈশিষ্ট্য
 
-- After constructing the Prüfer code two vertices will remain.
-  One of them is the highest vertex $n-1$, but nothing else can be said about the other one.
-- Each vertex appears in the Prüfer code exactly a fixed number of times - its degree minus one.
-  This can be easily checked, since the degree will get smaller every time we record its label in the code, and we remove it once the degree is $1$.
-  For the two remaining vertices this fact is also true.
+- প্রুফার কোড নির্মাণের পর দুটি ভার্টেক্স অবশিষ্ট থাকবে।
+  তাদের একটি হলো সর্বোচ্চ ভার্টেক্স $n-1$, কিন্তু অন্যটি সম্পর্কে আর কিছু বলা যায় না।
+- প্রতিটি ভার্টেক্স প্রুফার কোডে ঠিক একটি নির্দিষ্ট সংখ্যক বার উপস্থিত হয় - তার ডিগ্রি বিয়োগ এক।
+  এটি সহজেই যাচাই করা যায়, যেহেতু প্রতিবার আমরা কোডে এর লেবেল রেকর্ড করার সময় ডিগ্রি ছোট হয়, এবং ডিগ্রি $1$ হলে আমরা এটি সরিয়ে দিই।
+  অবশিষ্ট দুটি ভার্টেক্সের জন্যও এই তথ্য সত্য।
 
-### Restoring the tree using the Prüfer code
+### প্রুফার কোড ব্যবহার করে ট্রি পুনরুদ্ধার
 
-To restore the tree it suffice to only focus on the property discussed in the last section.
-We already know the degree of all the vertices in the desired tree.
-Therefore we can find all leaf vertices, and also the first leaf that was removed in the first step (it has to be the smallest leaf).
-This leaf vertex was connected to the vertex corresponding to the number in the first cell of the Prüfer code.
+ট্রি পুনরুদ্ধার করতে শুধু শেষ অংশে আলোচিত বৈশিষ্ট্যের উপর ফোকাস করাই যথেষ্ট।
+আমরা ইতিমধ্যে কাঙ্ক্ষিত ট্রিতে সকল ভার্টেক্সের ডিগ্রি জানি।
+অতএব আমরা সকল লিফ ভার্টেক্স খুঁজতে পারি, এবং প্রথম ধাপে সরানো প্রথম লিফটিও (এটি ক্ষুদ্রতম লিফ হতে হবে)।
+এই লিফ ভার্টেক্সটি প্রুফার কোডের প্রথম সেলের সংখ্যার সাথে সংশ্লিষ্ট ভার্টেক্সের সাথে সংযুক্ত ছিল।
 
-Thus we found the first edge removed by when then the Prüfer code was generated.
-We can add this edge to the answer and reduce the degrees at both ends of the edge.
+এভাবে আমরা প্রুফার কোড তৈরি করার সময় প্রথম সরানো এজটি পেলাম।
+আমরা এই এজটি উত্তরে যোগ করতে পারি এবং এজের উভয় প্রান্তের ডিগ্রি কমাতে পারি।
 
-We will repeat this operation until we have used all numbers of the Prüfer code:
-we look for the minimum vertex with degree equal to $1$, connect it with the next vertex from the Prüfer code, and reduce the degree.
+আমরা প্রুফার কোডের সকল সংখ্যা ব্যবহার না করা পর্যন্ত এই অপারেশন পুনরাবৃত্তি করব:
+ডিগ্রি $1$ সমান ন্যূনতম ভার্টেক্স খুঁজি, এটিকে প্রুফার কোডের পরবর্তী ভার্টেক্সের সাথে সংযুক্ত করি, এবং ডিগ্রি কমাই।
 
-In the end we only have two vertices left with degree equal to $1$.
-These are the vertices that didn't got removed by the Prüfer code process.
-We connect them to get the last edge of the tree.
-One of them will always be the vertex $n-1$.
+শেষে মাত্র দুটি ভার্টেক্স বাকি থাকবে যাদের ডিগ্রি $1$ সমান।
+এগুলো হলো সেই ভার্টেক্স যেগুলো প্রুফার কোড প্রক্রিয়ায় সরানো হয়নি।
+আমরা ট্রির শেষ এজ পেতে এগুলো সংযুক্ত করি।
+তাদের একটি সর্বদা $n-1$ ভার্টেক্স হবে।
 
-This algorithm can be **implemented** easily in $O(n \log n)$: we use a data structure that supports extracting the minimum (for example `set<>` or `priority_queue<>` in C++) to store all the leaf vertices.
+এই অ্যালগরিদম সহজেই $O(n \log n)$-এ **ইমপ্লিমেন্ট** করা যায়: আমরা সকল লিফ ভার্টেক্স সংরক্ষণ করতে ন্যূনতম নির্ণয়ে সমর্থন করে এমন একটি ডেটা স্ট্রাকচার ব্যবহার করি (উদাহরণস্বরূপ C++-এ `set<>` বা `priority_queue<>`)।
 
-The following implementation returns the list of edges corresponding to the tree.
+নিম্নলিখিত ইমপ্লিমেন্টেশনটি ট্রির সাথে সংশ্লিষ্ট এজের তালিকা রিটার্ন করে।
 
 ```{.cpp file=pruefer_decode_slow}
 vector<pair<int, int>> pruefer_decode(vector<int> const& code) {
@@ -207,13 +207,13 @@ vector<pair<int, int>> pruefer_decode(vector<int> const& code) {
 }
 ```
 
-### Restoring the tree using the Prüfer code in linear time
+### লিনিয়ার সময়ে প্রুফার কোড ব্যবহার করে ট্রি পুনরুদ্ধার
 
-To obtain the tree in linear time we can apply the same technique used to obtain the Prüfer code in linear time.
+লিনিয়ার সময়ে ট্রি পেতে আমরা প্রুফার কোড লিনিয়ার সময়ে পেতে ব্যবহৃত একই কৌশল প্রয়োগ করতে পারি।
 
-We don't need a data structure to extract the minimum.
-Instead we can notice that, after processing the current edge, only one vertex becomes a leaf.
-Therefore we can either continue with this vertex, or we find a smaller one with a linear search by moving a pointer.
+আমাদের ন্যূনতম নির্ণয়ের জন্য কোনো ডেটা স্ট্রাকচারের প্রয়োজন নেই।
+পরিবর্তে আমরা লক্ষ্য করতে পারি যে, বর্তমান এজ প্রক্রিয়া করার পর, শুধু একটি ভার্টেক্স লিফ হয়।
+তাই আমরা হয় এই ভার্টেক্স নিয়ে এগিয়ে যেতে পারি, অথবা পয়েন্টার সরিয়ে লিনিয়ার সার্চ করে একটি ছোটটি খুঁজতে পারি।
 
 ```{.cpp file=pruefer_decode_fast}
 vector<pair<int, int>> pruefer_decode(vector<int> const& code) {
@@ -244,82 +244,82 @@ vector<pair<int, int>> pruefer_decode(vector<int> const& code) {
 }
 ```
 
-### Bijection between trees and Prüfer codes
+### ট্রি ও প্রুফার কোডের মধ্যে বাইজেকশন
 
-For each tree there exists a Prüfer code corresponding to it.
-And for each Prüfer code we can restore the original tree.
+প্রতিটি ট্রির জন্য একটি প্রুফার কোড আছে যা এর সাথে সম্পর্কিত।
+এবং প্রতিটি প্রুফার কোডের জন্য আমরা মূল ট্রি পুনরুদ্ধার করতে পারি।
 
-It follows that also every Prüfer code (i.e. a sequence of $n-2$ numbers in the range $[0; n - 1]$) corresponds to a tree.
+এটি থেকে অনুসরণ করে যে প্রতিটি প্রুফার কোড (অর্থাৎ $[0; n - 1]$ রেঞ্জে $n-2$টি সংখ্যার একটি সিকোয়েন্স) একটি ট্রির সাথে সম্পর্কিত।
 
-Therefore all trees and all Prüfer codes form a bijection (a **one-to-one correspondence**).
+অতএব সকল ট্রি ও সকল প্রুফার কোড একটি বাইজেকশন (**এক-এক সম্পর্ক**) গঠন করে।
 
-## Cayley's formula
+## কেইলির সূত্র
 
-Cayley's formula states that the **number of spanning trees in a complete labeled graph** with $n$ vertices is equal to:
+কেইলির সূত্র বলে যে $n$টি ভার্টেক্স বিশিষ্ট একটি কমপ্লিট লেবেলযুক্ত গ্রাফে **স্প্যানিং ট্রির সংখ্যা** সমান:
 
 $$n^{n-2}$$
 
-There are multiple proofs for this formula.
-Using the Prüfer code concept this statement comes without any surprise.
+এই সূত্রের একাধিক প্রমাণ আছে।
+প্রুফার কোডের ধারণা ব্যবহার করলে এই বিবৃতি কোনো আশ্চর্যের বিষয় নয়।
 
-In fact any Prüfer code with $n-2$ numbers from the interval $[0; n-1]$ corresponds to some tree with $n$ vertices.
-So we have $n^{n-2}$ different such Prüfer codes.
-Since each such tree is a spanning tree of a complete graph with $n$ vertices, the number of such spanning trees is also $n^{n-2}$.
+প্রকৃতপক্ষে, $[0; n-1]$ ব্যবধান থেকে $n-2$টি সংখ্যা বিশিষ্ট যেকোনো প্রুফার কোড $n$টি ভার্টেক্সের কোনো ট্রির সাথে সম্পর্কিত।
+তাই আমাদের কাছে $n^{n-2}$টি ভিন্ন প্রুফার কোড আছে।
+যেহেতু প্রতিটি এই ধরনের ট্রি $n$টি ভার্টেক্স বিশিষ্ট একটি কমপ্লিট গ্রাফের একটি স্প্যানিং ট্রি, তাই এই ধরনের স্প্যানিং ট্রির সংখ্যাও $n^{n-2}$।
 
-## Number of ways to make a graph connected
+## একটি গ্রাফকে সংযুক্ত করার উপায়ের সংখ্যা
 
-The concept of Prüfer codes are even more powerful.
-It allows to create a lot more general formulas than Cayley's formula.
+প্রুফার কোডের ধারণা আরও শক্তিশালী।
+এটি কেইলির সূত্রের চেয়ে আরও সাধারণ সূত্র তৈরি করতে দেয়।
 
-In this problem we are given a graph with $n$ vertices and $m$ edges.
-The graph currently has $k$ components.
-We want to compute the number of ways of adding $k-1$ edges so that the graph becomes connected (obviously $k-1$ is the minimum number necessary to make the graph connected).
+এই সমস্যায় আমাদের $n$টি ভার্টেক্স ও $m$টি এজ বিশিষ্ট একটি গ্রাফ দেওয়া আছে।
+গ্রাফে বর্তমানে $k$টি কম্পোনেন্ট আছে।
+আমরা $k-1$টি এজ যোগ করার উপায়ের সংখ্যা গণনা করতে চাই যেন গ্রাফটি সংযুক্ত হয় (স্পষ্টতই $k-1$ হলো গ্রাফকে সংযুক্ত করতে প্রয়োজনীয় ন্যূনতম সংখ্যা)।
 
-Let us derive a formula for solving this problem.
+আসুন এই সমস্যা সমাধানের জন্য একটি সূত্র বের করি।
 
-We use $s_1, \dots, s_k$ for the sizes of the connected components in the graph.
-We cannot add edges within a connected component.
-Therefore it turns out that this problem is very similar to the search for the number of spanning trees of a complete graph with $k$ vertices.
-The only difference is that each vertex has actually the size $s_i$: each edge connecting the vertex $i$, actually multiplies the answer by $s_i$.
+আমরা গ্রাফের সংযুক্ত কম্পোনেন্টগুলোর আকারের জন্য $s_1, \dots, s_k$ ব্যবহার করি।
+আমরা একটি সংযুক্ত কম্পোনেন্টের মধ্যে এজ যোগ করতে পারি না।
+তাই দেখা যাচ্ছে এই সমস্যাটি $k$টি ভার্টেক্স বিশিষ্ট একটি কমপ্লিট গ্রাফের স্প্যানিং ট্রির সংখ্যা খোঁজার সাথে খুবই সাদৃশ্যপূর্ণ।
+একমাত্র পার্থক্য হলো প্রতিটি ভার্টেক্সের আসলে আকার $s_i$: ভার্টেক্স $i$-কে সংযুক্ত করে এমন প্রতিটি এজ আসলে উত্তরকে $s_i$ দিয়ে গুণ করে।
 
-Thus in order to calculate the number of possible ways it is important to count how often each of the $k$ vertices is used in the connecting tree.
-To obtain a formula for the problem it is necessary to sum the answer over all possible degrees.
+সুতরাং সম্ভাব্য উপায়ের সংখ্যা গণনা করতে, সংযোগকারী ট্রিতে $k$টি ভার্টেক্সের প্রতিটি কতবার ব্যবহৃত হয় তা গণনা করা গুরুত্বপূর্ণ।
+সমস্যার জন্য একটি সূত্র পেতে সকল সম্ভাব্য ডিগ্রির উপর উত্তর যোগ করা প্রয়োজন।
 
-Let $d_1, \dots, d_k$ be the degrees of the vertices in the tree after connecting the vertices.
-The sum of the degrees is twice the number of edges:
+ধরুন ভার্টেক্সগুলো সংযুক্ত করার পর ট্রিতে $d_1, \dots, d_k$ হলো ভার্টেক্সগুলোর ডিগ্রি।
+ডিগ্রির যোগফল এজ সংখ্যার দ্বিগুণ:
 
 $$\sum_{i=1}^k d_i = 2k - 2$$
 
-If the vertex $i$ has degree $d_i$, then it appears $d_i - 1$ times in the Prüfer code.
-The Prüfer code for a tree with $k$ vertices has length $k-2$.
-So the number of ways to choose a code with $k-2$ numbers where the number $i$ appears exactly $d_i - 1$ times is equal to the **multinomial coefficient**
+যদি ভার্টেক্স $i$-এর ডিগ্রি $d_i$ হয়, তাহলে এটি প্রুফার কোডে $d_i - 1$ বার উপস্থিত হয়।
+$k$টি ভার্টেক্স বিশিষ্ট একটি ট্রির জন্য প্রুফার কোডের দৈর্ঘ্য $k-2$।
+তাই $k-2$টি সংখ্যার একটি কোড বেছে নেওয়ার উপায়ের সংখ্যা যেখানে $i$ সংখ্যাটি ঠিক $d_i - 1$ বার উপস্থিত হয়, তা **মাল্টিনোমিয়াল সহগের** সমান
 
 $$\binom{k-2}{d_1-1, d_2-1, \dots, d_k-1} = \frac{(k-2)!}{(d_1-1)! (d_2-1)! \cdots (d_k-1)!}.$$
 
-The fact that each edge adjacent to the vertex $i$ multiplies the answer by $s_i$ we receive the answer, assuming that the degrees of the vertices are $d_1, \dots, d_k$:
+ভার্টেক্স $i$-এর সংলগ্ন প্রতিটি এজ উত্তরকে $s_i$ দিয়ে গুণ করে, তাই আমরা উত্তর পাই, ধরে নিই ভার্টেক্সগুলোর ডিগ্রি $d_1, \dots, d_k$:
 
 $$s_1^{d_1} \cdot s_2^{d_2} \cdots s_k^{d_k} \cdot \binom{k-2}{d_1-1, d_2-1, \dots, d_k-1}$$
 
-To get the final answer we need to sum this for all possible ways to choose the degrees:
+চূড়ান্ত উত্তর পেতে আমাদের ডিগ্রি বেছে নেওয়ার সকল সম্ভাব্য উপায়ের জন্য এটি যোগ করতে হবে:
 
 $$\sum_{\substack{d_i \ge 1 \\\\ \sum_{i=1}^k d_i = 2k -2}} s_1^{d_1} \cdot s_2^{d_2} \cdots s_k^{d_k} \cdot \binom{k-2}{d_1-1, d_2-1, \dots, d_k-1}$$
 
-Currently this looks like a really horrible answer, however we can use the **multinomial theorem**, which says:
+বর্তমানে এটি সত্যিই ভয়ংকর উত্তর মনে হচ্ছে, তবে আমরা **মাল্টিনোমিয়াল উপপাদ্য** ব্যবহার করতে পারি, যা বলে:
 
 $$(x_1 + \dots + x_m)^p = \sum_{\substack{c_i \ge 0 \\\\ \sum_{i=1}^m c_i = p}} x_1^{c_1} \cdot x_2^{c_2} \cdots x_m^{c_m} \cdot \binom{p}{c_1, c_2, \dots c_m}$$
 
-This look already pretty similar.
-To use it we only need to substitute with $e_i = d_i - 1$:
+এটি ইতিমধ্যে বেশ সাদৃশ্যপূর্ণ দেখাচ্ছে।
+এটি ব্যবহার করতে আমাদের শুধু $e_i = d_i - 1$ দিয়ে প্রতিস্থাপন করতে হবে:
 
 $$\sum_{\substack{e_i \ge 0 \\\\ \sum_{i=1}^k e_i = k - 2}} s_1^{e_1+1} \cdot s_2^{e_2+1} \cdots s_k^{e_k+1} \cdot \binom{k-2}{e_1, e_2, \dots, e_k}$$
 
-After applying the multinomial theorem we get the **answer to the problem**:
+মাল্টিনোমিয়াল উপপাদ্য প্রয়োগ করার পর আমরা **সমস্যার উত্তর** পাই:
 
 $$s_1 \cdot s_2 \cdots s_k \cdot (s_1 + s_2 + \dots + s_k)^{k-2} = s_1 \cdot s_2 \cdots s_k \cdot n^{k-2}$$
 
-By accident this formula also holds for $k = 1$.
+কাকতালীয়ভাবে এই সূত্র $k = 1$-এর জন্যও কাজ করে।
 
-## Practice problems
+## অনুশীলন সমস্যা
 
 - [UVA #10843 - Anne's game](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=20&page=show_problem&problem=1784)
 - [Timus #1069 - Prufer Code](http://acm.timus.ru/problem.aspx?space=1&num=1069)

@@ -4,33 +4,33 @@ tags:
 e_maxx_link: ford_bellman
 ---
 
-# Bellman-Ford Algorithm
+# বেলম্যান-ফোর্ড অ্যালগরিদম
 
-**Single source shortest path with negative weight edges**
+**নেগেটিভ ওয়েট এজ সহ সিঙ্গেল সোর্স শর্টেস্ট পাথ**
 
-Suppose that we are given a weighted directed graph $G$ with $n$ vertices and $m$ edges, and some specified vertex $v$. You want to find the length of shortest paths from vertex $v$ to every other vertex.
+ধরা যাক, আমাদের কাছে $n$ টি ভার্টেক্স ও $m$ টি এজ বিশিষ্ট একটি ওয়েটেড ডিরেক্টেড গ্রাফ $G$ এবং একটি নির্দিষ্ট ভার্টেক্স $v$ দেওয়া আছে। আপনি ভার্টেক্স $v$ থেকে অন্য প্রতিটি ভার্টেক্সে শর্টেস্ট পাথের দৈর্ঘ্য বের করতে চান।
 
-Unlike the Dijkstra algorithm, this algorithm can also be applied to graphs containing negative weight edges . However, if the graph contains a negative cycle, then, clearly, the shortest path to some vertices may not exist (due to the fact that the weight of the shortest path must be equal to minus infinity); however, this algorithm can be modified to signal the presence of a cycle of negative weight, or even deduce this cycle.
+ডায়াক্সট্রা অ্যালগরিদমের বিপরীতে, এই অ্যালগরিদম নেগেটিভ ওয়েট এজ বিশিষ্ট গ্রাফেও প্রয়োগ করা যায়। তবে, গ্রাফে যদি নেগেটিভ সাইকেল থাকে, তাহলে স্পষ্টতই কিছু ভার্টেক্সে শর্টেস্ট পাথ নাও থাকতে পারে (কারণ শর্টেস্ট পাথের ওয়েট মাইনাস ইনফিনিটির সমান হওয়া উচিত); তবে এই অ্যালগরিদম পরিবর্তন করে নেগেটিভ ওয়েট সাইকেলের উপস্থিতি সংকেত দেওয়া, এমনকি সেই সাইকেলটি বের করাও সম্ভব।
 
-The algorithm bears the name of two American scientists: Richard Bellman and Lester Ford. Ford actually invented this algorithm in 1956 during the study of another mathematical problem, which eventually reduced to a subproblem of finding the shortest paths in the graph, and Ford gave an outline of the algorithm to solve this problem. Bellman in 1958 published an article devoted specifically to the problem of finding the shortest path, and in this article he clearly formulated the algorithm in the form in which it is known to us now.
+এই অ্যালগরিদমটি দুইজন আমেরিকান বিজ্ঞানীর নামে পরিচিত: রিচার্ড বেলম্যান এবং লেস্টার ফোর্ড। ফোর্ড মূলত ১৯৫৬ সালে অন্য একটি গাণিতিক সমস্যা অধ্যয়নের সময় এই অ্যালগরিদম আবিষ্কার করেন, যেটি শেষ পর্যন্ত গ্রাফে শর্টেস্ট পাথ খুঁজে বের করার একটি সাব-প্রবলেমে পরিণত হয়েছিল, এবং ফোর্ড এই সমস্যা সমাধানের জন্য অ্যালগরিদমের একটি রূপরেখা দেন। বেলম্যান ১৯৫৮ সালে শর্টেস্ট পাথ খোঁজার সমস্যা নিয়ে বিশেষভাবে একটি নিবন্ধ প্রকাশ করেন, এবং এই নিবন্ধে তিনি অ্যালগরিদমটি স্পষ্টভাবে সেই রূপে উপস্থাপন করেন যে রূপে আমরা এখন এটি জানি।
 
-## Description of the algorithm
+## অ্যালগরিদমের বর্ণনা
 
-Let us assume that the graph contains no negative weight cycle. The case of presence of a negative weight cycle will be discussed below in a separate section.
+আমরা ধরে নিই যে গ্রাফে কোনো নেগেটিভ ওয়েট সাইকেল নেই। নেগেটিভ ওয়েট সাইকেলের উপস্থিতির ক্ষেত্রে নিচে একটি আলাদা অংশে আলোচনা করা হবে।
 
-We will create an array of distances $d[0 \ldots n-1]$, which after execution of the algorithm will contain the answer to the problem. In the beginning we fill it as follows: $d[v] = 0$, and all other elements $d[ ]$ equal to infinity $\infty$.
+আমরা একটি দূরত্বের অ্যারে $d[0 \ldots n-1]$ তৈরি করব, যেটি অ্যালগরিদম সম্পাদনের পর সমস্যার উত্তর ধারণ করবে। শুরুতে আমরা এটি এভাবে পূরণ করি: $d[v] = 0$, এবং বাকি সব উপাদান $d[ ]$ অসীম $\infty$ এর সমান।
 
-The algorithm consists of several phases. Each phase scans through all edges of the graph, and the algorithm tries to produce **relaxation** along each edge $(a,b)$ having weight $c$. Relaxation along the edges is an attempt to improve the value $d[b]$ using value $d[a] + c$. In fact, it means that we are trying to improve the answer for this vertex using edge $(a,b)$ and current answer for vertex $a$.
+অ্যালগরিদমটি কয়েকটি ফেজে গঠিত। প্রতিটি ফেজে গ্রাফের সমস্ত এজ স্ক্যান করা হয়, এবং অ্যালগরিদম $c$ ওয়েট বিশিষ্ট প্রতিটি এজ $(a,b)$ বরাবর **রিলাক্সেশন** করার চেষ্টা করে। এজ বরাবর রিলাক্সেশন হলো $d[a] + c$ মান ব্যবহার করে $d[b]$ এর মান উন্নত করার একটি প্রচেষ্টা। আসলে, এর মানে হলো আমরা এজ $(a,b)$ এবং ভার্টেক্স $a$ এর বর্তমান উত্তর ব্যবহার করে এই ভার্টেক্সের উত্তর উন্নত করার চেষ্টা করছি।
 
-It is claimed that $n-1$ phases of the algorithm are sufficient to correctly calculate the lengths of all shortest paths in the graph (again, we believe that the cycles of negative weight do not exist). For unreachable vertices the distance $d[ ]$ will remain equal to infinity $\infty$.
+এটি দাবি করা হয় যে অ্যালগরিদমের $n-1$ টি ফেজ গ্রাফের সমস্ত শর্টেস্ট পাথের দৈর্ঘ্য সঠিকভাবে গণনা করতে যথেষ্ট (আবারও, আমরা বিশ্বাস করি যে নেগেটিভ ওয়েট সাইকেল নেই)। অগম্য ভার্টেক্সগুলোর জন্য দূরত্ব $d[ ]$ অসীম $\infty$ এর সমান থাকবে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Unlike many other graph algorithms, for Bellman-Ford algorithm, it is more convenient to represent the graph using a single list of all edges (instead of $n$ lists of edges - edges from each vertex). We start the implementation with a structure $\rm edge$ for representing the edges. The input to the algorithm are numbers $n$, $m$, list $e$ of edges and the starting vertex $v$. All the vertices are numbered $0$ to $n - 1$.
+অন্যান্য অনেক গ্রাফ অ্যালগরিদমের বিপরীতে, বেলম্যান-ফোর্ড অ্যালগরিদমের জন্য গ্রাফটি সমস্ত এজের একটি একক তালিকা হিসেবে উপস্থাপন করা বেশি সুবিধাজনক ($n$ টি ভার্টেক্সের প্রতিটি থেকে এজের $n$ টি তালিকার পরিবর্তে)। আমরা এজ উপস্থাপনের জন্য $\rm edge$ স্ট্রাকচার দিয়ে ইমপ্লিমেন্টেশন শুরু করি। অ্যালগরিদমের ইনপুট হলো সংখ্যা $n$, $m$, এজের তালিকা $e$ এবং শুরুর ভার্টেক্স $v$। সমস্ত ভার্টেক্স $0$ থেকে $n - 1$ পর্যন্ত নম্বরযুক্ত।
 
-### The simplest implementation
+### সরলতম ইমপ্লিমেন্টেশন
 
-The constant $\rm INF$ denotes the number "infinity" — it should be selected in such a way that it is greater than all possible path lengths.
+ধ্রুবক $\rm INF$ "অসীম" সংখ্যাটি নির্দেশ করে — এটি এমনভাবে নির্বাচন করতে হবে যাতে এটি সমস্ত সম্ভাব্য পাথ দৈর্ঘ্যের চেয়ে বেশি হয়।
 
 ```cpp
 struct Edge {
@@ -53,13 +53,13 @@ void solve()
 }
 ```
 
-The check `if (d[e.a] < INF)` is needed only if the graph contains negative weight edges: no such verification would result in relaxation from the vertices to which paths have not yet found, and incorrect distance, of the type $\infty - 1$, $\infty - 2$ etc. would appear.
+`if (d[e.a] < INF)` চেকটি শুধুমাত্র তখনই প্রয়োজন যখন গ্রাফে নেগেটিভ ওয়েট এজ থাকে: এরকম যাচাই না থাকলে এমন ভার্টেক্স থেকে রিলাক্সেশন হবে যেখানে এখনো পাথ খুঁজে পাওয়া যায়নি, এবং $\infty - 1$, $\infty - 2$ ইত্যাদি ধরনের ভুল দূরত্ব তৈরি হবে।
 
-### A better implementation
+### একটি উন্নত ইমপ্লিমেন্টেশন
 
-This algorithm can be somewhat speeded up: often we already get the answer in a few phases and no useful work is done in remaining phases, just a waste visiting all edges. So, let's keep the flag, to tell whether something changed in the current phase or not, and if any phase, nothing changed, the algorithm can be stopped. (This optimization does not improve the asymptotic behavior, i.e., some graphs will still need all $n-1$ phases, but significantly accelerates the behavior of the algorithm "on an average", i.e., on random graphs.)
+এই অ্যালগরিদমটি কিছুটা দ্রুত করা সম্ভব: প্রায়শই আমরা কয়েকটি ফেজেই উত্তর পেয়ে যাই এবং বাকি ফেজগুলোতে কোনো কার্যকর কাজ হয় না, শুধু সমস্ত এজ পরিদর্শনে সময় নষ্ট হয়। তাই, বর্তমান ফেজে কিছু পরিবর্তন হয়েছে কিনা তা জানাতে একটি ফ্ল্যাগ রাখা যাক, এবং যদি কোনো ফেজে কিছুই পরিবর্তন না হয়, অ্যালগরিদম বন্ধ করা যেতে পারে। (এই অপটিমাইজেশন অ্যাসিম্পটোটিক আচরণ উন্নত করে না, অর্থাৎ কিছু গ্রাফে এখনো সব $n-1$ টি ফেজ প্রয়োজন হবে, কিন্তু "গড়ে" অর্থাৎ র‍্যান্ডম গ্রাফে অ্যালগরিদমের আচরণ উল্লেখযোগ্যভাবে দ্রুত করে।)
 
-With this optimization, it is generally unnecessary to restrict manually the number of phases of the algorithm to $n-1$ — the algorithm will stop after the desired number of phases.
+এই অপটিমাইজেশনের সাথে, সাধারণত অ্যালগরিদমের ফেজ সংখ্যা ম্যানুয়ালি $n-1$ এ সীমাবদ্ধ করার প্রয়োজন হয় না — অ্যালগরিদম প্রয়োজনীয় সংখ্যক ফেজের পর নিজেই থেমে যাবে।
 
 ```cpp
 void solve()
@@ -83,15 +83,15 @@ void solve()
 }
 ```
 
-### Retrieving Path
+### পাথ পুনরুদ্ধার
 
-Let us now consider how to modify the algorithm so that it not only finds the length of shortest paths, but also allows to reconstruct the shortest paths.
+এখন দেখা যাক কীভাবে অ্যালগরিদমটি পরিবর্তন করা যায় যাতে এটি শুধু শর্টেস্ট পাথের দৈর্ঘ্যই খুঁজে না, বরং শর্টেস্ট পাথগুলো পুনর্গঠনও করতে পারে।
 
-For that, let's create another array $p[0 \ldots n-1]$, where for each vertex we store its "predecessor", i.e. the penultimate vertex in the shortest path leading to it. In fact, the shortest path to any vertex $a$ is a shortest path to some vertex $p[a]$, to which we added $a$ at the end of the path.
+এর জন্য, আরেকটি অ্যারে $p[0 \ldots n-1]$ তৈরি করি, যেখানে প্রতিটি ভার্টেক্সের জন্য তার "পূর্বসূরি" সংরক্ষণ করি, অর্থাৎ সেই ভার্টেক্সে যাওয়ার শর্টেস্ট পাথের শেষ থেকে দ্বিতীয় ভার্টেক্স। আসলে, যেকোনো ভার্টেক্স $a$ এর শর্টেস্ট পাথ হলো কোনো ভার্টেক্স $p[a]$ পর্যন্ত একটি শর্টেস্ট পাথ, যার সাথে আমরা পাথের শেষে $a$ যোগ করেছি।
 
-Note that the algorithm works on the same logic: it assumes that the shortest distance to one vertex is already calculated, and, tries to improve the shortest distance to other vertices from that vertex. Therefore, at the time of improvement we just need to remember $p[ ]$, i.e,  the vertex from which this improvement has occurred.
+লক্ষ্য করুন যে অ্যালগরিদম একই যুক্তিতে কাজ করে: এটি ধরে নেয় যে একটি ভার্টেক্সের শর্টেস্ট দূরত্ব ইতিমধ্যে গণনা করা হয়েছে, এবং সেই ভার্টেক্স থেকে অন্যান্য ভার্টেক্সের শর্টেস্ট দূরত্ব উন্নত করার চেষ্টা করে। অতএব, উন্নতির সময় আমাদের কেবল $p[ ]$ মনে রাখতে হবে, অর্থাৎ কোন ভার্টেক্স থেকে এই উন্নতি ঘটেছে।
 
-Following is an implementation of the Bellman-Ford with the retrieval of shortest path to a given node $t$:
+নিচে একটি নির্দিষ্ট নোড $t$ পর্যন্ত শর্টেস্ট পাথ পুনরুদ্ধারসহ বেলম্যান-ফোর্ডের একটি ইমপ্লিমেন্টেশন দেওয়া হলো:
 
 ```cpp
 void solve()
@@ -128,32 +128,32 @@ void solve()
 }
 ```
 
-Here starting from the vertex $t$, we go through the predecessors till we reach starting vertex with no predecessor, and store all the vertices in the path in the list $\rm path$. This list is a shortest path from $v$ to $t$, but in reverse order, so we call $\rm reverse()$ function over $\rm path$ and then output the path.
+এখানে ভার্টেক্স $t$ থেকে শুরু করে, আমরা পূর্বসূরিদের মধ্য দিয়ে যাই যতক্ষণ না পূর্বসূরিবিহীন শুরুর ভার্টেক্সে পৌঁছাই, এবং পাথের সমস্ত ভার্টেক্স $\rm path$ তালিকায় সংরক্ষণ করি। এই তালিকাটি $v$ থেকে $t$ পর্যন্ত একটি শর্টেস্ট পাথ, কিন্তু বিপরীত ক্রমে, তাই আমরা $\rm path$ এর উপর $\rm reverse()$ ফাংশন কল করি এবং তারপর পাথটি আউটপুট করি।
 
-## The proof of the algorithm
+## অ্যালগরিদমের প্রমাণ
 
-First, note that for all unreachable vertices $u$ the algorithm will work correctly, the label $d[u]$ will remain equal to infinity (because the algorithm Bellman-Ford will find some way to all reachable vertices from the start vertex $v$, and relaxation for all other  remaining vertices will never happen).
+প্রথমত, লক্ষ্য করুন যে সমস্ত অগম্য ভার্টেক্স $u$ এর জন্য অ্যালগরিদম সঠিকভাবে কাজ করবে, লেবেল $d[u]$ অসীমের সমান থাকবে (কারণ বেলম্যান-ফোর্ড অ্যালগরিদম শুরুর ভার্টেক্স $v$ থেকে সমস্ত গম্য ভার্টেক্সে কোনো না কোনো পাথ খুঁজে পাবে, এবং অবশিষ্ট সমস্ত ভার্টেক্সের জন্য রিলাক্সেশন কখনো ঘটবে না)।
 
-Let us now prove the following assertion: After the execution of $i_{th}$ phase, the Bellman-Ford algorithm correctly finds all shortest paths whose number of edges does not exceed $i$.
+এখন নিম্নলিখিত দাবিটি প্রমাণ করি: $i$-তম ফেজ সম্পাদনের পর, বেলম্যান-ফোর্ড অ্যালগরিদম সঠিকভাবে সেই সমস্ত শর্টেস্ট পাথ খুঁজে পায় যাদের এজ সংখ্যা $i$ এর বেশি নয়।
 
-In other words, for any vertex $a$ let us denote the $k$ number of edges in the shortest path to it (if there are several such paths, you can take any). According to this statement, the algorithm guarantees that after $k_{th}$ phase the shortest path for vertex $a$ will be found.
+অন্যভাবে বললে, যেকোনো ভার্টেক্স $a$ এর জন্য ধরা যাক $k$ হলো তার শর্টেস্ট পাথের এজ সংখ্যা (যদি একাধিক এমন পাথ থাকে, যেকোনো একটি নেওয়া যায়)। এই দাবি অনুসারে, অ্যালগরিদম নিশ্চিত করে যে $k$-তম ফেজের পর ভার্টেক্স $a$ এর শর্টেস্ট পাথ পাওয়া যাবে।
 
-**Proof**:
-Consider an arbitrary vertex $a$ to which there is a path from the starting vertex $v$, and consider a shortest path to it $(p_0=v, p_1, \ldots, p_k=a)$. Before the first phase, the shortest path to the vertex $p_0 = v$ was found correctly. During the first phase, the edge $(p_0,p_1)$ has been checked by the algorithm, and therefore, the distance to the vertex $p_1$ was correctly calculated after the first phase. Repeating this statement $k$ times, we see that after $k_{th}$ phase the distance to the vertex $p_k = a$ gets calculated correctly, which we wanted to prove.
+**প্রমাণ**:
+একটি ইচ্ছামতো ভার্টেক্স $a$ বিবেচনা করুন যেখানে শুরুর ভার্টেক্স $v$ থেকে একটি পাথ আছে, এবং এটির একটি শর্টেস্ট পাথ $(p_0=v, p_1, \ldots, p_k=a)$ বিবেচনা করুন। প্রথম ফেজের আগে, ভার্টেক্স $p_0 = v$ এর শর্টেস্ট পাথ সঠিকভাবে পাওয়া গিয়েছিল। প্রথম ফেজে, এজ $(p_0,p_1)$ অ্যালগরিদম দ্বারা পরীক্ষিত হয়েছে, এবং তাই প্রথম ফেজের পর ভার্টেক্স $p_1$ এর দূরত্ব সঠিকভাবে গণনা করা হয়েছে। এই বিবৃতি $k$ বার পুনরাবৃত্তি করলে, আমরা দেখতে পাই যে $k$-তম ফেজের পর ভার্টেক্স $p_k = a$ এর দূরত্ব সঠিকভাবে গণনা করা হয়, যা আমরা প্রমাণ করতে চেয়েছিলাম।
 
-The last thing to notice is that any shortest path cannot have more than $n - 1$ edges. Therefore, the algorithm sufficiently goes up to the $(n-1)_{th}$ phase. After that, it is guaranteed that no relaxation will improve the distance to some vertex.
+সর্বশেষ যে বিষয়টি লক্ষ্য করতে হবে তা হলো যেকোনো শর্টেস্ট পাথে $n - 1$ এর বেশি এজ থাকতে পারে না। অতএব, অ্যালগরিদম $(n-1)$-তম ফেজ পর্যন্ত চলাই যথেষ্ট। এর পরে, নিশ্চিত করা যায় যে কোনো রিলাক্সেশন কোনো ভার্টেক্সের দূরত্ব উন্নত করবে না।
 
-## The case of a negative cycle
+## নেগেটিভ সাইকেলের ক্ষেত্রে
 
-Everywhere above we considered that there is no negative cycle in the graph (precisely, we are interested in a negative cycle that is reachable from the starting vertex $v$, and, for an unreachable cycles nothing in the above algorithm changes). In the presence of a negative cycle(s), there are further complications associated with the fact that distances to all vertices in this cycle, as well as the distances to the vertices reachable from this cycle is not defined — they should be equal to minus infinity $(- \infty)$.
+উপরে সর্বত্র আমরা ধরে নিয়েছিলাম যে গ্রাফে কোনো নেগেটিভ সাইকেল নেই (সুনির্দিষ্টভাবে, আমরা শুরুর ভার্টেক্স $v$ থেকে গম্য নেগেটিভ সাইকেলে আগ্রহী, এবং অগম্য সাইকেলের জন্য উপরের অ্যালগরিদমে কিছু পরিবর্তন হয় না)। নেগেটিভ সাইকেলের উপস্থিতিতে, এই সাইকেলের সমস্ত ভার্টেক্সের দূরত্ব, সেইসাথে এই সাইকেল থেকে গম্য ভার্টেক্সগুলোর দূরত্ব সংজ্ঞায়িত নয় — এগুলো মাইনাস ইনফিনিটি $(- \infty)$ এর সমান হওয়া উচিত, যা সম্পর্কিত আরও জটিলতা তৈরি করে।
 
-It is easy to see that the Bellman-Ford algorithm can endlessly do the relaxation among all vertices of this cycle and the vertices reachable from it. Therefore, if you do not limit the number of phases to $n - 1$, the algorithm will run indefinitely, constantly improving the distance from these vertices.
+এটি দেখা সহজ যে বেলম্যান-ফোর্ড অ্যালগরিদম এই সাইকেলের সমস্ত ভার্টেক্স এবং এটি থেকে গম্য ভার্টেক্সগুলোর মধ্যে অবিরামভাবে রিলাক্সেশন করতে পারে। অতএব, আপনি যদি ফেজ সংখ্যা $n - 1$ এ সীমাবদ্ধ না করেন, অ্যালগরিদম অনির্দিষ্টকালের জন্য চলবে, ক্রমাগত এই ভার্টেক্সগুলো থেকে দূরত্ব উন্নত করতে থাকবে।
 
-Hence we obtain the **criterion for presence of a cycle of negative weights reachable for source vertex $v$**: after $(n-1)_{th}$ phase, if we run algorithm for one more phase, and it performs at least one more relaxation, then the graph contains a negative weight cycle that is reachable from $v$; otherwise, such a cycle does not exist.
+তাই আমরা **সোর্স ভার্টেক্স $v$ থেকে গম্য নেগেটিভ ওয়েট সাইকেলের উপস্থিতির মানদণ্ড** পাই: $(n-1)$-তম ফেজের পর, যদি আমরা আরও এক ফেজ অ্যালগরিদম চালাই, এবং এটি কমপক্ষে আরও একটি রিলাক্সেশন করে, তাহলে গ্রাফে $v$ থেকে গম্য একটি নেগেটিভ ওয়েট সাইকেল আছে; অন্যথায়, এমন কোনো সাইকেল নেই।
 
-Moreover, if such a cycle is found, the Bellman-Ford algorithm can be modified so that it retrieves this cycle as a sequence of vertices contained in it. For this, it is sufficient to remember the last vertex $x$ for which there was a relaxation in $n_{th}$ phase. This vertex will either lie on a negative weight cycle, or is reachable from it. To get the vertices that are guaranteed to lie on a negative cycle, starting from the vertex $x$, pass through to the predecessors $n$ times. In this way, we will get to the vertex $y$, which is guaranteed to lie on a negative cycle. We have to go from this vertex, through the predecessors, until we get back to the same vertex $y$ (and it will happen, because relaxation in a negative weight cycle occur in a circular manner).
+তদুপরি, যদি এমন সাইকেল পাওয়া যায়, বেলম্যান-ফোর্ড অ্যালগরিদম পরিবর্তন করা যেতে পারে যাতে এটি সেই সাইকেলটি ভার্টেক্সের একটি ক্রম হিসেবে পুনরুদ্ধার করে। এর জন্য, $n$-তম ফেজে যে শেষ ভার্টেক্স $x$ এ রিলাক্সেশন হয়েছে তা মনে রাখাই যথেষ্ট। এই ভার্টেক্সটি হয় নেগেটিভ ওয়েট সাইকেলে থাকবে, অথবা এটি থেকে গম্য হবে। নেগেটিভ সাইকেলে নিশ্চিতভাবে থাকা ভার্টেক্সগুলো পেতে, ভার্টেক্স $x$ থেকে শুরু করে পূর্বসূরিদের মধ্য দিয়ে $n$ বার যান। এভাবে, আমরা ভার্টেক্স $y$ তে পৌঁছাব, যেটি নিশ্চিতভাবে নেগেটিভ সাইকেলে আছে। আমাদের এই ভার্টেক্স থেকে পূর্বসূরিদের মধ্য দিয়ে যেতে হবে যতক্ষণ না আমরা একই ভার্টেক্স $y$ তে ফিরে আসি (এবং এটি ঘটবে, কারণ নেগেটিভ ওয়েট সাইকেলে রিলাক্সেশন বৃত্তাকারভাবে ঘটে)।
 
-### Implementation:
+### ইমপ্লিমেন্টেশন:
 
 ```cpp
 void solve()
@@ -195,27 +195,27 @@ void solve()
 }
 ```
 
-Due to the presence of a negative cycle, for $n$ iterations of the algorithm, the distances may go far in the negative range (to negative numbers of the order of $-n m W$, where $W$ is the maximum absolute value of any weight in the graph). Hence in the code, we adopted additional measures against the integer overflow as follows:
+নেগেটিভ সাইকেলের উপস্থিতির কারণে, অ্যালগরিদমের $n$ ইটারেশনে দূরত্ব নেগেটিভ রেঞ্জে অনেক দূর চলে যেতে পারে ($-n m W$ এর অর্ডারে নেগেটিভ সংখ্যায়, যেখানে $W$ হলো গ্রাফের যেকোনো ওয়েটের সর্বাধিক পরম মান)। তাই কোডে, আমরা ইন্টিজার ওভারফ্লোর বিরুদ্ধে অতিরিক্ত ব্যবস্থা নিম্নরূপ গ্রহণ করেছি:
 
 ```cpp
 d[e.b] = max(-INF, d[e.a] + e.cost);
 ```
 
-The above implementation looks for a negative cycle reachable from some starting vertex $v$; however, the algorithm can be modified to just look for any negative cycle in the graph. For this we need to put all the distance $d[i]$ to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
+উপরের ইমপ্লিমেন্টেশন কোনো শুরুর ভার্টেক্স $v$ থেকে গম্য নেগেটিভ সাইকেল খোঁজে; তবে, অ্যালগরিদমটি গ্রাফে যেকোনো নেগেটিভ সাইকেল খুঁজতে পরিবর্তন করা যায়। এর জন্য আমাদের সমস্ত দূরত্ব $d[i]$ শূন্যে রাখতে হবে, অসীমে নয় — যেন আমরা একই সাথে সমস্ত ভার্টেক্স থেকে শর্টেস্ট পাথ খুঁজছি; নেগেটিভ সাইকেল সনাক্তকরণের বৈধতা এতে প্রভাবিত হয় না।
 
-For more on this topic — see separate article, [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
+এই বিষয়ে আরও জানতে আলাদা নিবন্ধ দেখুন, [গ্রাফে নেগেটিভ সাইকেল খোঁজা](finding-negative-cycle-in-graph.md)।
 
-## Shortest Path Faster Algorithm (SPFA)
+## শর্টেস্ট পাথ ফাস্টার অ্যালগরিদম (SPFA)
 
-SPFA is a improvement of the Bellman-Ford algorithm which takes advantage of the fact that not all attempts at relaxation will work.
-The main idea is to create a queue containing only the vertices that were relaxed but that still could further relax their neighbors.
-And whenever you can relax some neighbor, you should put him in the queue. This algorithm can also be used to detect negative cycles as the Bellman-Ford.
+SPFA হলো বেলম্যান-ফোর্ড অ্যালগরিদমের একটি উন্নতি যা এই সুবিধা নেয় যে সব রিলাক্সেশন প্রচেষ্টা সফল হয় না।
+মূল ধারণাটি হলো একটি কিউ তৈরি করা যেটিতে শুধু সেই ভার্টেক্সগুলো থাকবে যেগুলো রিলাক্স হয়েছে কিন্তু এখনো তাদের প্রতিবেশীদের আরও রিলাক্স করতে পারে।
+এবং যখনই আপনি কোনো প্রতিবেশীকে রিলাক্স করতে পারেন, আপনার তাকে কিউতে রাখা উচিত। এই অ্যালগরিদম বেলম্যান-ফোর্ডের মতো নেগেটিভ সাইকেল সনাক্ত করতেও ব্যবহার করা যেতে পারে।
 
-The worst case of this algorithm is equal to the $O(n m)$ of the Bellman-Ford, but in practice it works much faster and some [people claim that it works even in $O(m)$ on average](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance). However be careful, because this algorithm is deterministic and it is easy to create counterexamples that make the algorithm run in $O(n m)$.
+এই অ্যালগরিদমের ওয়ার্স্ট কেস বেলম্যান-ফোর্ডের $O(n m)$ এর সমান, কিন্তু বাস্তবে এটি অনেক দ্রুত কাজ করে এবং কিছু [লোক দাবি করেন যে এটি গড়ে $O(m)$ তে কাজ করে](https://en.wikipedia.org/wiki/Shortest_Path_Faster_Algorithm#Average-case_performance)। তবে সতর্ক থাকুন, কারণ এই অ্যালগরিদম ডিটারমিনিস্টিক এবং এমন কাউন্টার-এক্সাম্পল তৈরি করা সহজ যা অ্যালগরিদমকে $O(n m)$ তে চালায়।
 
-There are some care to be taken in the implementation, such as the fact that the algorithm continues forever if there is a negative cycle.
-To avoid this, it is possible to create a counter that stores how many times a vertex has been relaxed and stop the algorithm as soon as some vertex got relaxed for the $n$-th time.
-Note, also there is no reason to put a vertex in the queue if it is already in.
+ইমপ্লিমেন্টেশনে কিছু সতর্কতা অবলম্বন করতে হয়, যেমন নেগেটিভ সাইকেল থাকলে অ্যালগরিদম চিরকালের জন্য চলতে থাকে।
+এটি এড়াতে, একটি কাউন্টার তৈরি করা সম্ভব যেটি সংরক্ষণ করে একটি ভার্টেক্স কতবার রিলাক্স হয়েছে এবং কোনো ভার্টেক্স $n$-তম বারের জন্য রিলাক্স হওয়ার সাথে সাথে অ্যালগরিদম বন্ধ করা যায়।
+এছাড়াও লক্ষ্য করুন, কোনো ভার্টেক্স ইতিমধ্যে কিউতে থাকলে তাকে আবার কিউতে রাখার কোনো কারণ নেই।
 
 ```{.cpp file=spfa}
 const int INF = 1000000000;
@@ -257,9 +257,9 @@ bool spfa(int s, vector<int>& d) {
 ```
 
 
-## Related problems in online judges
+## অনলাইন জাজে সম্পর্কিত সমস্যা
 
-A list of tasks that can be solved using the Bellman-Ford algorithm:
+বেলম্যান-ফোর্ড অ্যালগরিদম ব্যবহার করে সমাধান করা যায় এমন সমস্যাগুলোর একটি তালিকা:
 
 * [E-OLYMP #1453 "Ford-Bellman" [difficulty: low]](https://www.e-olymp.com/en/problems/1453)
 * [UVA #423 "MPI Maelstrom" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=364)
@@ -268,6 +268,6 @@ A list of tasks that can be solved using the Bellman-Ford algorithm:
 * [UVA #515 "King" [difficulty: medium]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=456)
 * [UVA 12519 - The Farnsworth Parabox](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3964)
 
-See also the problem list in the article [Finding the negative cycle in a graph](finding-negative-cycle-in-graph.md).
+[গ্রাফে নেগেটিভ সাইকেল খোঁজা](finding-negative-cycle-in-graph.md) নিবন্ধের সমস্যা তালিকাও দেখুন।
 * [CSES - High Score](https://cses.fi/problemset/task/1673)
 * [CSES - Cycle Finding](https://cses.fi/problemset/task/1197)

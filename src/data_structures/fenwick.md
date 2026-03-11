@@ -4,34 +4,34 @@ tags:
 e_maxx_link: fenwick_tree
 ---
 
-# Fenwick Tree
+# ফেনউইক ট্রি
 
-Let $f$ be some group operation (a binary associative function over a set with an identity element and inverse elements) and $A$ be an array of integers of length $N$.
+ধরি $f$ একটি গ্রুপ অপারেশন (একটি সেটের উপর একটি বাইনারি অ্যাসোসিয়েটিভ ফাংশন যার একটি পরিচয় উপাদান এবং বিপরীত উপাদান রয়েছে) এবং $A$ দৈর্ঘ্য $N$ এর একটি ইন্টিজার অ্যারে।
 Denote $f$'s infix notation as $*$; that is, $f(x,y) = x*y$ for arbitrary integers $x,y$.
 (Since this is associative, we will omit parentheses for order of application of $f$ when using infix notation.)
 
-The Fenwick tree is a data structure which:
+ফেনউইক ট্রি একটি ডেটা স্ট্রাকচার যা:
 
-* calculates the value of function $f$ in the given range $[l, r]$ (i.e. $A_l * A_{l+1} * \dots * A_r$) in $O(\log N)$ time
-* updates the value of an element of $A$ in $O(\log N)$ time
-* requires $O(N)$ memory (the same amount required for $A$)
-* is easy to use and code, especially in the case of multidimensional arrays
+* প্রদত্ত রেঞ্জ $[l, r]$ তে ফাংশন $f$ এর মান (অর্থাৎ $A_l * A_{l+1} * \dots * A_r$) $O(\log N)$ সময়ে গণনা করে
+* $A$ এর একটি উপাদানের মান $O(\log N)$ সময়ে আপডেট করে
+* $O(N)$ মেমরি প্রয়োজন (যা $A$ এর জন্য প্রয়োজনীয় একই পরিমাণ)
+* ব্যবহার এবং কোড করা সহজ, বিশেষ করে বহুমাত্রিক অ্যারের ক্ষেত্রে
 
-The most common application of a Fenwick tree is _calculating the sum of a range_.
+ফেনউইক ট্রির সবচেয়ে সাধারণ প্রয়োগ হল _একটি রেঞ্জের যোগফল গণনা করা_।
 For example, using addition over the set of integers as the group operation, i.e. $f(x,y) = x + y$: the binary operation, $*$, is $+$ in this case, so $A_l * A_{l+1} * \dots * A_r = A_l + A_{l+1} + \dots + A_{r}$.
 
 The Fenwick tree is also called a **Binary Indexed Tree** (BIT).
 It was first described in a paper titled "A new data structure for cumulative frequency tables" (Peter M. Fenwick, 1994).
 
-## Description
+## বর্ণনা
 
-### Overview
+### সারসংক্ষেপ
 
-For the sake of simplicity, we will assume that function $f$ is defined as $f(x,y) = x + y$ over the integers.
+সরলতার জন্য, আমরা অনুমান করব যে ফাংশন $f$ সংজ্ঞায়িত হয় $f(x,y) = x + y$ হিসাবে পূর্ণসংখ্যার উপর।
 
-Suppose we are given an array of integers, $A[0 \dots N-1]$.
-(Note that we are using zero-based indexing.)
-A Fenwick tree is just an array, $T[0 \dots N-1]$, where each element is equal to the sum of elements of $A$ in some range, $[g(i), i]$:
+ধরুন আমাদের একটি ইন্টিজার অ্যারে দেওয়া আছে, $A[0 \dots N-1]$।
+(মনে রাখবেন যে আমরা শূন্য-ভিত্তিক সূচক ব্যবহার করছি।)
+একটি ফেনউইক ট্রি শুধুমাত্র একটি অ্যারে, $T[0 \dots N-1]$, যেখানে প্রতিটি উপাদান কিছু রেঞ্জ $[g(i), i]$ তে $A$ এর উপাদানগুলির যোগফলের সমান:
 
 $$T_i = \sum_{j = g(i)}^{i}{A_j}$$
 
@@ -80,13 +80,13 @@ We could also take the function $g(i) = 0$.
 This would correspond to prefix sum arrays (in which case, finding the sum of the range $[0, i]$ will only take constant time; however, updates are slow).
 The clever part of the algorithm for Fenwick trees is how it uses a special definition of the function $g$ which can handle both operations in $O(\log N)$ time.
 
-### Definition of $g(i)$ { data-toc-label='Definition of <script type="math/tex">g(i)</script>' }
+### $g(i)$ এর সংজ্ঞা { data-toc-label='Definition of <script type="math/tex">g(i)</script>' }
 
-The computation of $g(i)$ is defined using the following simple operation:
-we replace all trailing $1$ bits in the binary representation of $i$ with $0$ bits.
+$g(i)$ এর গণনা নিম্নলিখিত সহজ অপারেশন ব্যবহার করে সংজ্ঞায়িত করা হয়:
+আমরা $i$ এর বাইনারি প্রতিনিধিত্বে সমস্ত ট্রেইলিং $1$ বিট সাথে $0$ বিট প্রতিস্থাপন করি।
 
-In other words, if the least significant digit of $i$ in binary is $0$, then $g(i) = i$.
-And otherwise the least significant digit is a $1$, and we take this $1$ and all other trailing $1$s and flip them.
+অন্য কথায়, যদি বাইনারিতে $i$ এর সর্বনিম্ন উল্লেখযোগ্য অঙ্ক $0$ হয়, তাহলে $g(i) = i$।
+এবং অন্যথায় সর্বনিম্ন উল্লেখযোগ্য অঙ্ক একটি $1$, এবং আমরা এই $1$ এবং অন্যান্য সমস্ত ট্রেইলিং $1$ নিই এবং তাদের ফ্লিপ করি।
 
 For instance we get
 
@@ -132,14 +132,14 @@ The nodes of the tree show the ranges they cover.
   <img src="binary_indexed_tree.png" alt="Binary Indexed Tree">
 </div>
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-### Finding sum in one-dimensional array
+### একটি একমাত্রিক অ্যারেতে যোগফল খুঁজে পাওয়া
 
-Here we present an implementation of the Fenwick tree for sum queries and single updates.
+এখানে আমরা সাম কোয়েরি এবং একক আপডেটের জন্য ফেনউইক ট্রির একটি ইমপ্লিমেন্টেশন উপস্থাপন করি।
 
-The normal Fenwick tree can only answer sum queries of the type $[0, r]$ using `sum(int r)`, however we can also answer other queries of the type $[l, r]$ by computing two sums $[0, r]$ and $[0, l-1]$ and subtract them.
-This is handled in the `sum(int l, int r)` method.
+সাধারণ ফেনউইক ট্রি শুধুমাত্র `sum(int r)` ব্যবহার করে $[0, r]$ ধরনের সাম কোয়েরিতে উত্তর দিতে পারে, তবে আমরা দুটি সাম $[0, r]$ এবং $[0, l-1]$ গণনা করে এবং তাদের বিয়োগ করে $[l, r]$ ধরনের অন্যান্য কোয়েরিতেও উত্তর দিতে পারি।
+এটি `sum(int l, int r)` পদ্ধতিতে পরিচালিত হয়।
 
 Also this implementation supports two constructors.
 You can create a Fenwick tree initialized with zeros, or you can convert an existing array into the Fenwick form.
@@ -457,7 +457,7 @@ def range_sum(l, r):
     return prefix_sum(r) - prefix_sum(l-1)
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [UVA 12086 - Potentiometers](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3238)
 * [LOJ 1112 - Curious Robin Hood](http://www.lightoj.com/volume_showproblem.php?problem=1112)

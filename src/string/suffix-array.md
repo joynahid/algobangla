@@ -4,13 +4,13 @@ tags:
 e_maxx_link: suffix_array
 ---
 
-# Suffix Array
+# সাফিক্স অ্যারে
 
-## Definition
+## সংজ্ঞা
 
-Let $s$ be a string of length $n$. The $i$-th suffix of $s$ is the substring $s[i \ldots n - 1]$.
+ধরি $s$ দৈর্ঘ্য $n$ এর একটি স্ট্রিং। $s$ এর $i$-তম প্রত্যয় হল সাবস্ট্রিং $s[i \ldots n - 1]$।
 
-A **suffix array** will contain integers that represent the **starting indexes** of the all the suffixes of a given string, after the aforementioned suffixes are sorted.
+একটি **সাফিক্স অ্যারে** পূর্ণসংখ্যা রয়েছে যা প্রদত্ত স্ট্রিং-এর সমস্ত প্রত্যয়ের **শুরুর সূচক** প্রতিনিধিত্ব করে, উপরোক্ত প্রত্যয়গুলি সাজানোর পরে।
 
 As an example look at the string $s = abaab$.
 All suffixes are as follows
@@ -37,13 +37,13 @@ Therefore the suffix array for $s$ will be $(2,~ 3,~ 0,~ 4,~ 1)$.
 
 As a data structure it is widely used in areas such as data compression, bioinformatics and, in general, in any area that deals with strings and string matching problems.
 
-## Construction
+## নির্মাণ
 
-### $O(n^2 \log n)$ approach {data-toc-label="O(n^2 log n) approach"}
+### $O(n^2 \log n)$ পদ্ধতি {data-toc-label="O(n^2 log n) approach"}
 
-This is the most naive approach.
-Get all the suffixes and sort them using quicksort or mergesort and simultaneously retain their original indices.
-Sorting uses $O(n \log n)$ comparisons, and since comparing two strings will additionally take $O(n)$ time, we get the final complexity of $O(n^2 \log n)$.
+এটি সবচেয়ে নিষ্কলুষ পদ্ধতি।
+সমস্ত প্রত্যয় পান এবং কুইকসর্ট বা মার্জসর্ট ব্যবহার করে সেগুলি সাজান এবং একই সাথে তাদের মূল সূচক ধরে রাখুন।
+সাজানোটি $O(n \log n)$ তুলনা ব্যবহার করে, এবং যেহেতু দুটি স্ট্রিং তুলনা করতে অতিরিক্ত $O(n)$ সময় লাগবে, আমরা চূড়ান্ত কমপ্লেক্সিটি $O(n^2 \log n)$ পাই।
 
 ### $O(n \log n)$ approach {data-toc-label="O(n log n) approach"}
 
@@ -217,22 +217,22 @@ vector<int> suffix_array_construction(string s) {
 }
 ```
 
-## Applications
+## অ্যাপ্লিকেশন
 
-### Finding the smallest cyclic shift
+### সবচেয়ে ছোট চক্রীয় স্থানান্তর খুঁজে পাওয়া
 
-The algorithm above sorts all cyclic shifts (without appending a character to the string), and therefore $p[0]$ gives the position of the smallest cyclic shift. 
+উপরের অ্যালগরিদম সমস্ত চক্রীয় স্থানান্তর সাজায় (স্ট্রিং-এ একটি অক্ষর যোগ না করে), এবং অতএব $p[0]$ সবচেয়ে ছোট চক্রীয় স্থানান্তরের অবস্থান দেয়।
 
-### Finding a substring in a string
+### একটি স্ট্রিং-এ একটি সাবস্ট্রিং খুঁজে পাওয়া
 
-The task is to find a string $s$ inside some text $t$ online - we know the text $t$ beforehand, but not the string $s$.
-We can create the suffix array for the text $t$ in $O(|t| \log |t|)$ time.
-Now we can look for the substring $s$ in the following way.
-The occurrence of $s$ must be a prefix of some suffix from $t$.
-Since we sorted all the suffixes we can perform a binary search for $s$ in $p$.
-Comparing the current suffix and the substring $s$ within the binary search can be done in $O(|s|)$ time, therefore the complexity for finding the substring is $O(|s| \log |t|)$.
-Also notice that if the substring occurs multiple times in $t$, then all occurrences will be next to each other in $p$.
-Therefore the number of occurrences can be found with a second binary search, and all occurrences can be printed easily.
+কাজটি হল কোনো পাঠ্য $t$ এর মধ্যে একটি স্ট্রিং $s$ খুঁজে বের করা অনলাইনে - আমরা পাঠ্য $t$ আগে থেকে জানি, কিন্তু স্ট্রিং $s$ নয়।
+আমরা পাঠ্য $t$ এর জন্য সাফিক্স অ্যারে তৈরি করতে পারি $O(|t| \log |t|)$ সময়ে।
+এখন আমরা নিম্নলিখিত উপায়ে সাবস্ট্রিং $s$ খুঁজে পেতে পারি।
+$s$ এর উপস্থিতি $t$ থেকে কোনো সাফিক্সের উপসর্গ হতে হবে।
+যেহেতু আমরা সমস্ত প্রত্যয় সাজিয়েছি আমরা $p$ তে $s$ এর জন্য একটি বাইনারি অনুসন্ধান সম্পাদন করতে পারি।
+বাইনারি অনুসন্ধানের মধ্যে বর্তমান সাফিক্স এবং সাবস্ট্রিং $s$ তুলনা করা $O(|s|)$ সময়ে করা যায়, তাই সাবস্ট্রিং খুঁজে পাওয়ার কমপ্লেক্সিটি $O(|s| \log |t|)$।
+এছাড়াও লক্ষ্য করুন যে যদি সাবস্ট্রিং $t$ তে একাধিকবার ঘটে, তাহলে সমস্ত উপস্থিতি $p$ তে একসাথে থাকবে।
+অতএব উপস্থিতির সংখ্যা একটি দ্বিতীয় বাইনারি অনুসন্ধান দিয়ে খুঁজে পাওয়া যায়, এবং সমস্ত উপস্থিতি সহজেই মুদ্রণ করা যায়।
 
 ### Comparing two substrings of a string
 
@@ -303,14 +303,14 @@ int lcp(int i, int j) {
 
 Here `log_n` denotes a constant that is equal to the logarithm of $n$ in base $2$ rounded down.
 
-### Longest common prefix of two substrings without additional memory
+### অতিরিক্ত মেমরি ছাড়াই দুটি সাবস্ট্রিং-এর দীর্ঘতম সাধারণ প্রত্যয়
 
-We have the same task as in the previous section.
-We have compute the longest common prefix (**LCP**) for two suffixes of a string $s$.
+আমাদের কাছে পূর্ববর্তী বিভাগের মতো একই কাজ রয়েছে।
+আমরা একটি স্ট্রিং $s$ এর দুটি সাফিক্সের জন্য দীর্ঘতম সাধারণ প্রত্যয় (**LCP**) গণনা করেছি।
 
-Unlike the previous method this one will only use $O(|s|)$ memory.
-The result of the preprocessing will be an array (which itself is an important source of information about the string, and therefore also used to solve other tasks).
-LCP queries can be answered by performing RMQ queries (range minimum queries) in this array, so for different implementations it is possible to achieve logarithmic and even constant query time. 
+পূর্ববর্তী পদ্ধতির বিপরীতে এটি শুধুমাত্র $O(|s|)$ মেমরি ব্যবহার করবে।
+প্রিপ্রসেসিং-এর ফলাফল একটি অ্যারে হবে (যা নিজেই স্ট্রিং সম্পর্কে তথ্যের একটি গুরুত্বপূর্ণ উৎস, এবং তাই অন্যান্য কাজ সমাধানের জন্যও ব্যবহৃত হয়)।
+LCP কোয়েরিগুলি এই অ্যারেতে RMQ কোয়েরি (রেঞ্জ ন্যূনতম কোয়েরি) সম্পাদন করে উত্তর দেওয়া যায়, তাই বিভিন্ন ইমপ্লিমেন্টেশনের জন্য লগারিদমিক এবং এমনকি ধ্রুবক কোয়েরি সময় অর্জন করা সম্ভব। 
 
 The basis for this algorithm is the following idea:
 we will compute the longest common prefix for each **pair of adjacent suffixes in the sorted order**.
@@ -365,23 +365,23 @@ vector<int> lcp_construction(string const& s, vector<int> const& p) {
 It is easy to see, that we decrease $k$ at most $O(n)$ times (each iteration at most once, except for $\text{rank}[i] == n-1$, where we directly reset it to $0$), and the LCP between two strings is at most $n-1$, we will also increase $k$ only $O(n)$ times.
 Therefore the algorithm runs in $O(n)$ time.
 
-### Number of different substrings
+### বিভিন্ন সাবস্ট্রিং-এর সংখ্যা
 
-We preprocess the string $s$ by computing the suffix array and the LCP array.
-Using this information we can compute the number of different substrings in the string.
+আমরা সাফিক্স অ্যারে এবং LCP অ্যারে গণনা করে স্ট্রিং $s$ প্রিপ্রসেস করি।
+এই তথ্য ব্যবহার করে আমরা স্ট্রিং-এ বিভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা করতে পারি।
 
-To do this, we will think about which **new** substrings begin at position $p[0]$, then at $p[1]$, etc.
-In fact we take the suffixes in sorted order and see what prefixes give new substrings.
-Thus we will not overlook any by accident.
+এটি করতে, আমরা ভাবব কোন **নতুন** সাবস্ট্রিং অবস্থান $p[0]$ এ শুরু হয়, তারপর $p[1]$ এ, ইত্যাদি।
+প্রকৃতপক্ষে আমরা সাফিক্সগুলি সাজানো ক্রমে নিই এবং দেখি কোন উপসর্গগুলি নতুন সাবস্ট্রিং দেয়।
+এইভাবে আমরা দুর্ঘটনাক্রমে কোনটি উপেক্ষা করব না।
 
-Because the suffixes are sorted, it is clear that the current suffix $p[i]$ will give new substrings for all its prefixes, except for the prefixes that coincide with the suffix $p[i-1]$.
-Thus, all its prefixes except the first $\text{lcp}[i-1]$ one.
-Since the length of the current suffix is $n - p[i]$, $n - p[i] - \text{lcp}[i-1]$ new prefixes start at $p[i]$.
-Summing over all the suffixes, we get the final answer:
+যেহেতু সাফিক্সগুলি সাজানো আছে, এটি স্পষ্ট যে বর্তমান সাফিক্স $p[i]$ এর সমস্ত উপসর্গের জন্য নতুন সাবস্ট্রিং দেবে, প্রথম $\text{lcp}[i-1]$ উপসর্গের কাছাকাছি যে সাফিক্স $p[i-1]$ সঙ্গে মিলে।
+অতএব, এর সমস্ত উপসর্গ প্রথম $\text{lcp}[i-1]$ একটি ব্যতিক্রমী।
+বর্তমান সাফিক্সের দৈর্ঘ্য $n - p[i]$ হওয়ায়, $n - p[i] - \text{lcp}[i-1]$ নতুন উপসর্গ $p[i]$ তে শুরু হয়।
+সমস্ত সাফিক্সের উপর যোগফল, আমরা চূড়ান্ত উত্তর পাই:
 
 $$\sum_{i=0}^{n-1} (n - p[i]) - \sum_{i=0}^{n-2} \text{lcp}[i] = \frac{n^2 + n}{2} - \sum_{i=0}^{n-2} \text{lcp}[i]$$
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Uva 760 - DNA Sequencing](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=701)
 * [Uva 1223 - Editor](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3664)

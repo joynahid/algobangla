@@ -4,58 +4,58 @@ tags:
 e_maxx_link: games_on_graphs
 ---
 
-# Games on arbitrary graphs
+# যেকোনো গ্রাফে গেম
 
-Let a game be played by two players on an arbitrary graph $G$.
-I.e. the current state of the game is a certain vertex.
-The players perform moves by turns, and move from the current vertex to an adjacent vertex using a connecting edge.
-Depending on the game, the person that is unable to move will either lose or win the game.
+ধরি দুইজন খেলোয়াড় একটি যেকোনো গ্রাফ $G$-তে একটি গেম খেলছে।
+অর্থাৎ গেমের বর্তমান অবস্থা একটি নির্দিষ্ট ভার্টেক্স।
+খেলোয়াড়রা পালাক্রমে চাল দেয়, এবং বর্তমান ভার্টেক্স থেকে একটি সংযোগকারী এজ ব্যবহার করে পার্শ্ববর্তী ভার্টেক্সে যায়।
+গেমের উপর নির্ভর করে, যে ব্যক্তি চাল দিতে পারবে না সে হয় হারবে অথবা জিতবে।
 
-We consider the most general case, the case of an arbitrary directed graph with cycles.
-It is our task to determine, given an initial state, who will win the game if both players play with optimal strategies or determine that the result of the game will be a draw.
+আমরা সবচেয়ে সাধারণ ক্ষেত্র বিবেচনা করি, সাইকেলসহ একটি যেকোনো ডিরেক্টেড গ্রাফের ক্ষেত্র।
+আমাদের কাজ হলো, প্রদত্ত একটি প্রারম্ভিক অবস্থায়, নির্ধারণ করা যে উভয় খেলোয়াড় অপটিমাল কৌশলে খেললে কে জিতবে, অথবা গেমের ফলাফল ড্র হবে কিনা।
 
-We will solve this problem very efficiently.
-We will find the solution for all possible starting vertices of the graph in linear time with respect to the number of edges: $O(m)$.
+আমরা এই সমস্যাটি অত্যন্ত দক্ষতার সাথে সমাধান করব।
+আমরা গ্রাফের সব সম্ভাব্য প্রারম্ভিক ভার্টেক্সের জন্য সমাধান খুঁজব এজের সংখ্যার সাপেক্ষে লিনিয়ার সময়ে: $O(m)$।
 
-## Description of the algorithm
+## অ্যালগরিদমের বিবরণ
 
-We will call a vertex a winning vertex, if the player starting at this state will win the game, if they play optimally (regardless of what turns the other player makes).
-Similarly, we will call a vertex a losing vertex, if the player starting at this vertex will lose the game, if the opponent plays optimally.
+আমরা একটি ভার্টেক্সকে জয়ী ভার্টেক্স বলব, যদি এই অবস্থা থেকে শুরু করা খেলোয়াড় অপটিমালভাবে খেললে গেমটি জিতবে (প্রতিপক্ষ যাই চাল দিক না কেন)।
+একইভাবে, আমরা একটি ভার্টেক্সকে পরাজিত ভার্টেক্স বলব, যদি এই ভার্টেক্স থেকে শুরু করা খেলোয়াড় প্রতিপক্ষ অপটিমালভাবে খেললে হেরে যায়।
 
-For some of the vertices of the graph, we already know in advance that they are winning or losing vertices: namely all vertices that have no outgoing edges.
+গ্রাফের কিছু ভার্টেক্সের জন্য, আমরা আগে থেকেই জানি যে সেগুলো জয়ী বা পরাজিত ভার্টেক্স: যথা সমস্ত ভার্টেক্স যাদের কোনো আউটগোয়িং এজ নেই।
 
-Also we have the following **rules**:
+এছাড়াও আমাদের নিম্নলিখিত **নিয়মগুলো** আছে:
 
-- if a vertex has an outgoing edge that leads to a losing vertex, then the vertex itself is a winning vertex.
-- if all outgoing edges of a certain vertex lead to winning vertices, then the vertex itself is a losing vertex.
-- if at some point there are still undefined vertices, and neither will fit the first or the second rule, then each of these vertices, when used as a starting vertex, will lead to a draw if both player play optimally.
+- যদি কোনো ভার্টেক্সের একটি আউটগোয়িং এজ একটি পরাজিত ভার্টেক্সে নিয়ে যায়, তাহলে সেই ভার্টেক্সটি নিজেই একটি জয়ী ভার্টেক্স।
+- যদি কোনো ভার্টেক্সের সব আউটগোয়িং এজ জয়ী ভার্টেক্সে নিয়ে যায়, তাহলে সেই ভার্টেক্সটি নিজেই একটি পরাজিত ভার্টেক্স।
+- যদি কোনো পর্যায়ে এখনও অনির্ধারিত ভার্টেক্স থাকে, এবং প্রথম বা দ্বিতীয় কোনো নিয়মই প্রযোজ্য না হয়, তাহলে এই প্রতিটি ভার্টেক্স প্রারম্ভিক ভার্টেক্স হিসেবে ব্যবহৃত হলে উভয় খেলোয়াড় অপটিমালভাবে খেললে ড্র হবে।
 
-Thus, we can define an algorithm which runs in $O(n m)$ time immediately.
-We go through all vertices and try to apply the first or second rule, and repeat.
+সুতরাং, আমরা তৎক্ষণাৎ $O(n m)$ সময়ে চলে এমন একটি অ্যালগরিদম সংজ্ঞায়িত করতে পারি।
+আমরা সব ভার্টেক্সের মধ্য দিয়ে যাই এবং প্রথম বা দ্বিতীয় নিয়ম প্রয়োগের চেষ্টা করি, এবং পুনরাবৃত্তি করি।
 
-However, we can accelerate this procedure, and get the complexity down to $O(m)$.
+তবে, আমরা এই প্রক্রিয়াটিকে ত্বরান্বিত করতে পারি, এবং কমপ্লেক্সিটি $O(m)$-এ নামিয়ে আনতে পারি।
 
-We will go over all the vertices, for which we initially know if they are winning or losing states.
-For each of them, we start a [depth first search](../graph/depth-first-search.md).
-This DFS will move back over the reversed edges.
-First of all, it will not enter vertices which already are defined as winning or losing vertices.
-And further, if the search goes from a losing vertex to an undefined vertex, then we mark this one as a winning vertex, and continue the DFS using this new vertex.
-If we go from a winning vertex to an undefined vertex, then we must check whether all edges from this one leads to winning vertices.
-We can perform this test in $O(1)$ by storing the number of edges that lead to a winning vertex for each vertex.
-So if we go from a winning vertex to an undefined one, then we increase the counter, and check if this number is equal to the number of outgoing edges.
-If this is the case, we can mark this vertex as a losing vertex, and continue the DFS from this vertex.
-Otherwise we don't know yet, if this vertex is a winning or losing vertex, and therefore it doesn't make sense to keep continuing the DFS using it.
+আমরা সেই সব ভার্টেক্সের উপর দিয়ে যাব, যেগুলো প্রাথমিকভাবে জয়ী বা পরাজিত অবস্থা বলে জানি।
+এদের প্রতিটি থেকে, আমরা একটি [ডেপথ ফার্স্ট সার্চ](../graph/depth-first-search.md) শুরু করব।
+এই DFS বিপরীত এজ ধরে পিছনে যাবে।
+প্রথমত, এটি ইতিমধ্যে জয়ী বা পরাজিত হিসেবে নির্ধারিত ভার্টেক্সে প্রবেশ করবে না।
+এবং আরো, যদি সার্চ একটি পরাজিত ভার্টেক্স থেকে একটি অনির্ধারিত ভার্টেক্সে যায়, তাহলে আমরা এটিকে জয়ী ভার্টেক্স হিসেবে চিহ্নিত করি, এবং এই নতুন ভার্টেক্স ব্যবহার করে DFS চালিয়ে যাই।
+যদি আমরা একটি জয়ী ভার্টেক্স থেকে একটি অনির্ধারিত ভার্টেক্সে যাই, তাহলে আমাদের পরীক্ষা করতে হবে যে এর থেকে সব এজ জয়ী ভার্টেক্সে যায় কিনা।
+আমরা প্রতিটি ভার্টেক্সের জন্য জয়ী ভার্টেক্সে যাওয়া এজের সংখ্যা সংরক্ষণ করে $O(1)$-এ এই পরীক্ষাটি করতে পারি।
+সুতরাং যদি আমরা একটি জয়ী ভার্টেক্স থেকে একটি অনির্ধারিত ভার্টেক্সে যাই, তাহলে আমরা কাউন্টার বাড়াই, এবং পরীক্ষা করি এই সংখ্যা আউটগোয়িং এজের সংখ্যার সমান কিনা।
+যদি তাই হয়, আমরা এই ভার্টেক্সকে পরাজিত ভার্টেক্স হিসেবে চিহ্নিত করতে পারি, এবং এই ভার্টেক্স থেকে DFS চালিয়ে যেতে পারি।
+অন্যথায় আমরা এখনও জানি না এই ভার্টেক্সটি জয়ী না পরাজিত, এবং তাই এটি ব্যবহার করে DFS চালিয়ে যাওয়ার কোনো অর্থ নেই।
 
-In total we visit every winning and every losing vertex exactly once (undefined vertices are not visited), and we go over each edge also at most one time.
-Hence the complexity is $O(m)$.
+মোটের উপর আমরা প্রতিটি জয়ী এবং প্রতিটি পরাজিত ভার্টেক্স ঠিক একবার ভিজিট করি (অনির্ধারিত ভার্টেক্স ভিজিট করা হয় না), এবং আমরা প্রতিটি এজও সর্বাধিক একবার অতিক্রম করি।
+তাই কমপ্লেক্সিটি $O(m)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is the implementation of such a DFS.
-We assume that the variable `adj_rev` stores the adjacency list for the graph in **reversed** form, i.e. instead of storing the edge $(i, j)$ of the graph, we store $(j, i)$.
-Also for each vertex we assume that the outgoing degree is already computed.
+এখানে এমন একটি DFS-এর ইমপ্লিমেন্টেশন দেওয়া হলো।
+আমরা ধরে নিচ্ছি যে `adj_rev` ভেরিয়েবলে গ্রাফের **বিপরীত** আকারে অ্যাডজেসেন্সি লিস্ট সংরক্ষিত, অর্থাৎ গ্রাফের এজ $(i, j)$ সংরক্ষণের বদলে, আমরা $(j, i)$ সংরক্ষণ করি।
+এছাড়াও প্রতিটি ভার্টেক্সের জন্য আমরা ধরে নিচ্ছি যে আউটগোয়িং ডিগ্রি ইতিমধ্যে হিসাব করা আছে।
 
-```cpp 
+```cpp
 vector<vector<int>> adj_rev;
 
 vector<bool> winning;
@@ -79,38 +79,38 @@ void dfs(int v) {
 }
 ```
 
-## Example: "Policeman and thief"
+## উদাহরণ: "পুলিশ ও চোর"
 
-Here is a concrete example of such a game.
+এখানে এই ধরনের গেমের একটি নির্দিষ্ট উদাহরণ দেওয়া হলো।
 
-There is $m \times n$ board.
-Some of the cells cannot be entered.
-The initial coordinates of the police officer and of the thief are known.
-One of the cells is the exit.
-If the policeman and the thief are located at the same cell at any moment, the policeman wins.
-If the thief is at the exit cell (without the policeman also being on the cell), then the thief wins.
-The policeman can walk in all 8 directions, the thief only in 4 (along the coordinate axis).
-Both the policeman and the thief will take turns moving.
-However they also can skip a turn if they want to.
-The first move is made by the policeman.
+$m \times n$ আকারের একটি বোর্ড আছে।
+কিছু ঘরে প্রবেশ করা যায় না।
+পুলিশ অফিসার এবং চোরের প্রাথমিক স্থানাঙ্ক জানা আছে।
+একটি ঘর হলো বের হওয়ার পথ।
+যদি পুলিশ এবং চোর যেকোনো মুহূর্তে একই ঘরে থাকে, পুলিশ জিতবে।
+যদি চোর বের হওয়ার ঘরে থাকে (পুলিশও সেই ঘরে না থাকা অবস্থায়), তাহলে চোর জিতবে।
+পুলিশ সব ৮ দিকে হাঁটতে পারে, চোর শুধু ৪ দিকে (স্থানাঙ্ক অক্ষ বরাবর)।
+পুলিশ এবং চোর উভয়ই পালাক্রমে চাল দেবে।
+তবে তারা চাইলে একটি পালা বাদও দিতে পারে।
+প্রথম চাল পুলিশের।
 
-We will now **construct the graph**.
-For this we must formalize the rules of the game.
-The current state of the game is determined by the coordinates of the police offices $P$, the coordinates of the thief $T$, and also by whose turn it is, let's call this variable $P_{\text{turn}}$ (which is true when it is the policeman's turn).
-Therefore a vertex of the graph is determined by the triple $(P, T, P_{\text{turn}})$
-The graph then can be easily constructed, simply by following the rules of the game.
+এখন আমরা **গ্রাফটি তৈরি করব**।
+এর জন্য আমাদের গেমের নিয়মগুলো আনুষ্ঠানিকভাবে প্রকাশ করতে হবে।
+গেমের বর্তমান অবস্থা নির্ধারিত হয় পুলিশ অফিসারের স্থানাঙ্ক $P$, চোরের স্থানাঙ্ক $T$, এবং কার পালা সেটি দিয়ে, ধরি একে $P_{\text{turn}}$ বলি (যা পুলিশের পালায় true)।
+সুতরাং গ্রাফের একটি ভার্টেক্স ত্রয়ী $(P, T, P_{\text{turn}})$ দ্বারা নির্ধারিত।
+এরপর গেমের নিয়ম অনুসরণ করে গ্রাফটি সহজেই তৈরি করা যায়।
 
-Next we need to determine which vertices are winning and which are losing ones initially.
-There is a **subtle point** here.
-The winning / losing vertices depend, in addition to the coordinates, also on $P_{\text{turn}}$ - whose turn it.
-If it is the policeman's turn, then the vertex is a winning vertex, if the coordinates of the policeman and the thief coincide, and the vertex is a losing one if it is not a winning one and the thief is on the exit vertex.
-If it is the thief's turn, then a vertex is a losing vertex, if the coordinates of the two players coincide, and it is a winning vertex if it is not a losing one, and the thief is at the exit vertex.
+এরপর আমাদের নির্ধারণ করতে হবে কোন ভার্টেক্সগুলো প্রাথমিকভাবে জয়ী এবং কোনগুলো পরাজিত।
+এখানে একটি **সূক্ষ্ম বিষয়** আছে।
+জয়ী/পরাজিত ভার্টেক্স স্থানাঙ্কের পাশাপাশি $P_{\text{turn}}$ — কার পালা — এর উপরও নির্ভর করে।
+যদি পুলিশের পালা হয়, তাহলে ভার্টেক্সটি জয়ী যদি পুলিশ ও চোরের স্থানাঙ্ক মিলে যায়, এবং এটি পরাজিত যদি এটি জয়ী না হয় এবং চোর বের হওয়ার ভার্টেক্সে থাকে।
+যদি চোরের পালা হয়, তাহলে একটি ভার্টেক্স পরাজিত যদি দুই খেলোয়াড়ের স্থানাঙ্ক মিলে যায়, এবং এটি জয়ী যদি এটি পরাজিত না হয় এবং চোর বের হওয়ার ভার্টেক্সে থাকে।
 
-The only point before implementing is not, that you need to decide if you want to build the graph **explicitly** or just construct it **on the fly**.
-On one hand, building the graph explicitly will be a lot easier and there is less chance of making mistakes.
-On the other hand, it will increase the amount of code and the running time will be slower than if you build the graph on the fly.
+ইমপ্লিমেন্টের আগে একটি মাত্র বিষয় সিদ্ধান্ত নিতে হবে যে আপনি গ্রাফটি **স্পষ্টভাবে** তৈরি করতে চান নাকি **ফ্লাইতে** তৈরি করতে চান।
+একদিকে, স্পষ্টভাবে গ্রাফ তৈরি করা অনেক সহজ এবং ভুলের সম্ভাবনা কম।
+অন্যদিকে, এটি কোডের পরিমাণ বাড়াবে এবং রানিং টাইম ফ্লাইতে তৈরির তুলনায় ধীর হবে।
 
-The following implementation will construct the graph explicitly:
+নিম্নলিখিত ইমপ্লিমেন্টেশন স্পষ্টভাবে গ্রাফ তৈরি করবে:
 
 ```cpp
 struct State {
@@ -152,7 +152,7 @@ int main() {
                 int Px = P/m, Py = P%m, Tx = T/m, Ty = T%m;
                 if (a[Px][Py]=='*' || a[Tx][Ty]=='*')
                     continue;
-                
+
                 bool& win = winning[P][T][Pstep];
                 bool& lose = losing[P][T][Pstep];
                 if (Pstep) {
@@ -169,7 +169,7 @@ int main() {
                 adj_rev[P][T][Pstep].push_back(st);
                 st.Pstep = Pstep;
                 degree[P][T][Pstep]++;
-                
+
                 const int dx[] = {-1, 0, 1, 0, -1, -1, 1, 1};
                 const int dy[] = {0, 1, 0, -1, -1, 1, -1, 1};
                 for (int d = 0; d < (Pstep ? 8 : 4); d++) {

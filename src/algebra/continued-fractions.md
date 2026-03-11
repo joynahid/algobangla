@@ -1,26 +1,26 @@
 ---
 tags:
-  - Original
+  - Translated
 ---
 
-<!--?title Continued fractions -->
-# Continued fractions
+<!--?title কন্টিনিউড ফ্র্যাকশন -->
+# কন্টিনিউড ফ্র্যাকশন
 
-**Continued fraction** is a representation of a real number as a specific convergent sequence of rational numbers. They are useful in competitive programming because they are easy to compute and can be efficiently used to find the best possible rational approximation of the underlying real number (among all numbers whose denominator doesn't exceed a given value).
+**কন্টিনিউড ফ্র্যাকশন** একটি বাস্তব সংখ্যাকে মূলদ সংখ্যাগুলির একটি নির্দিষ্ট কনভার্জেন্ট অনুক্রম হিসাবে উপস্থাপন করা। প্রতিযোগিতামূলক প্রোগ্রামিং-এ এগুলি দরকারি কারণ এগুলি গণনা করা সহজ এবং বাস্তব সংখ্যার সেরা সম্ভাব্য মূলদ আনুমানিক খুঁজে পেতে দক্ষতার সাথে ব্যবহার করা যায় (সেই সব সংখ্যার মধ্যে যাদের হর একটি প্রদত্ত মানকে অতিক্রম করে না)।
 
-Besides that, continued fractions are closely related to Euclidean algorithm which makes them useful in a bunch of number-theoretical problems.
+এর পাশাপাশি, কন্টিনিউড ফ্র্যাকশন ইউক্লিডীয় অ্যালগরিদমের সাথে ঘনিষ্ঠভাবে সম্পর্কিত যা তাদের অনেক সংখ্যা-তাত্ত্বিক সমস্যায় দরকারি করে তোলে।
 
-## Continued fraction representation
+## কন্টিনিউড ফ্র্যাকশন প্রতিনিধিত্ব
 
-!!! info "Definition"
-    Let $a_0, a_1, \dots, a_k \in \mathbb Z$ and $a_1, a_2, \dots, a_k \geq 1$. Then the expression
+!!! info "সংজ্ঞা"
+    ধরি $a_0, a_1, \dots, a_k \in \mathbb Z$ এবং $a_1, a_2, \dots, a_k \geq 1$। তাহলে অভিব্যক্তি
 
     $$r=a_0 + \frac{1}{a_1 + \frac{1}{\dots + \frac{1}{a_k}}},$$
 
-    is called the **continued fraction representation** of the rational number $r$ and is denoted shortly as $r=[a_0;a_1,a_2,\dots,a_k]$.
+    কে মূলদ সংখ্যা $r$ এর **কন্টিনিউড ফ্র্যাকশন প্রতিনিধিত্ব** বলা হয় এবং এটি সংক্ষিপ্তভাবে $r=[a_0;a_1,a_2,\dots,a_k]$ হিসাবে চিহ্নিত করা হয়।
 
-??? example
-    Let $r = \frac{5}{3}$. There are two ways to represent it as a continued fraction:
+??? উদাহরণ
+    ধরি $r = \frac{5}{3}$। এটিকে কন্টিনিউড ফ্র্যাকশন হিসাবে প্রতিনিধিত্ব করার দুটি উপায় আছে:
 
     $$
     \begin{align}
@@ -29,13 +29,13 @@ Besides that, continued fractions are closely related to Euclidean algorithm whi
     \end{align}
     $$
 
-It can be proven that any rational number can be represented as a continued fraction in exactly $2$ ways:
+এটি প্রমাণ করা যায় যে যেকোনো মূলদ সংখ্যাকে ঠিক $2$ উপায়ে কন্টিনিউড ফ্র্যাকশন হিসাবে প্রতিনিধিত্ব করা যায়:
 
 $$r = [a_0;a_1,\dots,a_k,1] = [a_0;a_1,\dots,a_k+1].$$
 
-Moreover, the length $k$ of such continued fraction is estimated as $k = O(\log \min(p, q))$ for $r=\frac{p}{q}$.
+অধিকন্তু, এমন কন্টিনিউড ফ্র্যাকশনের দৈর্ঘ্য $k$ অনুমান করা হয় $k = O(\log \min(p, q))$ হিসাবে $r=\frac{p}{q}$ এর জন্য।
 
-The reasoning behind this will be clear once we delve into the details of the continued fraction construction.
+এই পিছনের যুক্তিটি স্পষ্ট হবে একবার আমরা কন্টিনিউড ফ্র্যাকশন নির্মাণের বিবরণে প্রবেশ করি।
 
 !!! info "Definition"
     Let $a_0,a_1,a_2, \dots$ be an integer sequence such that $a_1, a_2, \dots \geq 1$. Let $r_k = [a_0; a_1, \dots, a_k]$. Then the expression

@@ -3,44 +3,44 @@ tags:
   - Original
 ---
 
-# Sqrt Tree
+# স্কোয়ার্ট ট্রি
 
-Given an array $a$ that contains $n$ elements and the operation $\circ$ that satisfies associative property: $(x \circ y) \circ z = x \circ (y \circ z)$ is true for any $x$, $y$, $z$.
+একটি অ্যারে $a$ দেওয়া আছে যাতে $n$ উপাদান আছে এবং একটি অপারেশন $\circ$ যা সাহচর্য ধর্ম পূরণ করে: $(x \circ y) \circ z = x \circ (y \circ z)$ যেকোনো $x$, $y$, $z$-এর জন্য সত্য।
 
-So, such operations as $\gcd$, $\min$, $\max$, $+$, $\text{and}$, $\text{or}$, $\text{xor}$, etc. satisfy these conditions.
+তাই, $\gcd$, $\min$, $\max$, $+$, $\text{and}$, $\text{or}$, $\text{xor}$, ইত্যাদি অপারেশন এই শর্ত পূরণ করে।
 
-Also we have some queries $q(l, r)$. For each query, we need to compute $a_l \circ a_{l+1} \circ \dots \circ a_r$.
+এছাড়াও আমাদের কিছু কোয়েরি $q(l, r)$ আছে। প্রতিটি কোয়েরির জন্য, আমাদের $a_l \circ a_{l+1} \circ \dots \circ a_r$ গণনা করতে হবে।
 
-Sqrt Tree can process such queries in $O(1)$ time with $O(n \cdot \log \log n)$ preprocessing time and $O(n \cdot \log \log n)$ memory.
+স্কোয়ার্ট ট্রি $O(n \cdot \log \log n)$ প্রিপ্রসেসিং সময় এবং $O(n \cdot \log \log n)$ মেমরি ব্যবহার করে $O(1)$ সময়ে এই কোয়েরি প্রক্রিয়া করতে পারে।
 
-## Description
+## বর্ণনা
 
-### Building sqrt decomposition
+### স্কোয়ার্ট ডিকম্পোজিশন তৈরি
 
-Let's make a [sqrt decomposition](sqrt_decomposition.md). We divide our array in $\sqrt{n}$ blocks, each block has size $\sqrt{n}$. For each block, we compute:
+একটি [স্কোয়ার্ট ডিকম্পোজিশন](sqrt_decomposition.md) তৈরি করি। আমরা অ্যারেকে $\sqrt{n}$ ব্লকে ভাগ করি, প্রতিটি ব্লকের আকার $\sqrt{n}$। প্রতিটি ব্লকের জন্য, আমরা গণনা করি:
 
-1. Answers to the queries that lie in the block and begin at the beginning of the block ($\text{prefixOp}$)
-2. Answers to the queries that lie in the block and end at the end of the block ($\text{suffixOp}$)
+1. যেসব কোয়েরি ব্লকের মধ্যে থাকে এবং ব্লকের শুরুতে শুরু হয় তাদের উত্তর ($\text{prefixOp}$)
+2. যেসব কোয়েরি ব্লকের মধ্যে থাকে এবং ব্লকের শেষে শেষ হয় তাদের উত্তর ($\text{suffixOp}$)
 
-And we'll compute an additional array:
+এবং আমরা একটি অতিরিক্ত অ্যারে গণনা করব:
 
-3. $\text{between}_{i, j}$ (for $i \le j$) - answer to the query that begins at the start of block $i$ and ends at the end of block $j$. Note that we have $\sqrt{n}$ blocks, so the size of this array will be $O(\sqrt{n}^2) = O(n)$.
+3. $\text{between}_{i, j}$ ($i \le j$-এর জন্য) - যে কোয়েরি $i$ ব্লকের শুরুতে শুরু হয় এবং $j$ ব্লকের শেষে শেষ হয় তার উত্তর। লক্ষ্য করুন আমাদের $\sqrt{n}$ ব্লক আছে, তাই এই অ্যারের আকার হবে $O(\sqrt{n}^2) = O(n)$।
 
-Let's see the example.
+উদাহরণ দেখি।
 
-Let $\circ$ be $+$ (we calculate sum on a segment) and we have the following array $a$:
+ধরি $\circ$ হলো $+$ (আমরা একটি সেগমেন্টে যোগফল গণনা করি) এবং আমাদের নিম্নলিখিত অ্যারে $a$ আছে:
 
 `{1, 2, 3, 4, 5, 6, 7, 8, 9}`
 
-It will be divided onto three blocks: `{1, 2, 3}`, `{4, 5, 6}` and `{7, 8, 9}`.
+এটি তিনটি ব্লকে ভাগ হবে: `{1, 2, 3}`, `{4, 5, 6}` এবং `{7, 8, 9}`।
 
-For first block $\text{prefixOp}$ is `{1, 3, 6}` and $\text{suffixOp}$ is `{6, 5, 3}`.
+প্রথম ব্লকের জন্য $\text{prefixOp}$ হলো `{1, 3, 6}` এবং $\text{suffixOp}$ হলো `{6, 5, 3}`।
 
-For second block $\text{prefixOp}$ is `{4, 9, 15}` and $\text{suffixOp}$ is `{15, 11, 6}`.
+দ্বিতীয় ব্লকের জন্য $\text{prefixOp}$ হলো `{4, 9, 15}` এবং $\text{suffixOp}$ হলো `{15, 11, 6}`।
 
-For third block $\text{prefixOp}$ is `{7, 15, 24}` and $\text{suffixOp}$ is `{24, 17, 9}`.
+তৃতীয় ব্লকের জন্য $\text{prefixOp}$ হলো `{7, 15, 24}` এবং $\text{suffixOp}$ হলো `{24, 17, 9}`।
 
-$\text{between}$ array is:
+$\text{between}$ অ্যারে হলো:
 
 ~~~~~
 {
@@ -50,144 +50,144 @@ $\text{between}$ array is:
 }
 ~~~~~
 
-(we assume that invalid elements where $i > j$ are filled with zeroes)
+(আমরা ধরে নিই $i > j$ যেখানে অবৈধ উপাদানগুলো শূন্য দিয়ে পূরণ করা)
 
-It's obvious to see that these arrays can be easily calculated in $O(n)$ time and memory.
+স্পষ্টতই এই অ্যারেগুলো $O(n)$ সময় ও মেমরিতে সহজেই গণনা করা যায়।
 
-We already can answer some queries using these arrays. If the query doesn't fit into one block, we can divide it onto three parts: suffix of a block, then some segment of contiguous blocks and then prefix of some block. We can answer a query by dividing it into three parts and taking our operation of some value from $\text{suffixOp}$, then some value from $\text{between}$, then some value from $\text{prefixOp}$.
+আমরা ইতিমধ্যে এই অ্যারে ব্যবহার করে কিছু কোয়েরি উত্তর দিতে পারি। যদি কোয়েরি একটি ব্লকে না থাকে, আমরা এটিকে তিনটি অংশে ভাগ করতে পারি: একটি ব্লকের সাফিক্স, তারপর পরপর কিছু ব্লকের সেগমেন্ট এবং তারপর একটি ব্লকের প্রিফিক্স। আমরা $\text{suffixOp}$ থেকে একটি মান, তারপর $\text{between}$ থেকে একটি মান, তারপর $\text{prefixOp}$ থেকে একটি মানে আমাদের অপারেশন নিয়ে কোয়েরি উত্তর দিতে পারি।
 
-But if we have queries that entirely fit into one block, we cannot process them using these three arrays. So, we need to do something.
+কিন্তু যদি আমাদের কোয়েরি সম্পূর্ণভাবে একটি ব্লকে থাকে, তাহলে এই তিনটি অ্যারে দিয়ে প্রক্রিয়া করা যায় না। তাই, আমাদের কিছু করতে হবে।
 
-### Making a tree
+### একটি ট্রি তৈরি
 
-We cannot answer only the queries that entirely fit in one block. But what **if we build the same structure as described above for each block?** Yes, we can do it. And we do it recursively, until we reach the block size of $1$ or $2$. Answers for such blocks can be calculated easily in $O(1)$.
+আমরা শুধু সম্পূর্ণভাবে একটি ব্লকে থাকা কোয়েরি উত্তর দিতে পারি না। কিন্তু **যদি আমরা প্রতিটি ব্লকের জন্য উপরে বর্ণিত একই স্ট্রাকচার তৈরি করি?** হ্যাঁ, আমরা করতে পারি। এবং আমরা রিকার্সিভভাবে এটি করি, যতক্ষণ না ব্লকের আকার $1$ বা $2$ হয়। এই ব্লকগুলোর উত্তর $O(1)$-এ সহজেই গণনা করা যায়।
 
-So, we get a tree. Each node of the tree represents some segment of the array. Node that represents array segment with size $k$ has $\sqrt{k}$ children -- for each block. Also each node contains the three arrays described above for the segment it contains. The root of the tree represents the entire array. Nodes with segment lengths $1$ or $2$ are leaves.
+তাই, আমরা একটি ট্রি পাই। ট্রি-র প্রতিটি নোড অ্যারের কোনো সেগমেন্ট উপস্থাপন করে। $k$ দৈর্ঘ্যের অ্যারে সেগমেন্ট উপস্থাপনকারী নোডের $\sqrt{k}$ চাইল্ড আছে — প্রতিটি ব্লকের জন্য একটি। প্রতিটি নোডে উপরে বর্ণিত তিনটি অ্যারেও আছে যা এর সেগমেন্টের জন্য। ট্রি-র রুট পুরো অ্যারে উপস্থাপন করে। $1$ বা $2$ দৈর্ঘ্যের সেগমেন্ট বিশিষ্ট নোডগুলো লিফ।
 
-Also it's obvious that the height of this tree is $O(\log \log n)$, because if some vertex of the tree represents an array with length $k$, then its children have length $\sqrt{k}$. $\log(\sqrt{k}) = \frac{\log{k}}{2}$, so $\log k$ decreases two times every layer of the tree and so its height is $O(\log \log n)$. The time for building and memory usage will be $O(n \cdot \log \log n)$, because every element of the array appears exactly once on each layer of the tree.
+এটাও স্পষ্ট যে এই ট্রি-র উচ্চতা $O(\log \log n)$, কারণ ট্রি-র কোনো ভার্টেক্স $k$ দৈর্ঘ্যের অ্যারে উপস্থাপন করলে, এর চাইল্ডদের দৈর্ঘ্য $\sqrt{k}$। $\log(\sqrt{k}) = \frac{\log{k}}{2}$, তাই $\log k$ ট্রি-র প্রতিটি স্তরে দুইগুণ কমে এবং তাই এর উচ্চতা $O(\log \log n)$। তৈরির সময় এবং মেমরি ব্যবহার হবে $O(n \cdot \log \log n)$, কারণ অ্যারের প্রতিটি উপাদান ট্রি-র প্রতিটি স্তরে ঠিক একবার দেখা দেয়।
 
-Now we can answer the queries in $O(\log \log n)$. We can go down on the tree until we meet a segment with length $1$ or $2$ (answer for it can be calculated in $O(1)$ time) or meet the first segment in which our query doesn't fit entirely into one block. See the first section on how to answer the query in this case.
+এখন আমরা $O(\log \log n)$-এ কোয়েরি উত্তর দিতে পারি। আমরা ট্রি-তে নামতে পারি যতক্ষণ না $1$ বা $2$ দৈর্ঘ্যের সেগমেন্ট পাই ($O(1)$ সময়ে উত্তর গণনা করা যায়) অথবা প্রথম সেগমেন্ট পাই যেখানে আমাদের কোয়েরি সম্পূর্ণভাবে একটি ব্লকে থাকে না। প্রথম সেকশনে দেখুন কীভাবে এই ক্ষেত্রে কোয়েরি উত্তর দিতে হয়।
 
-OK, now we can do $O(\log \log n)$ per query. Can it be done faster?
+ঠিক আছে, এখন আমরা প্রতি কোয়েরিতে $O(\log \log n)$ করতে পারি। এটি কি আরও দ্রুত করা যায়?
 
-### Optimizing the query complexity
+### কোয়েরি কমপ্লেক্সিটি অপটিমাইজ করা
 
-One of the most obvious optimization is to binary search the tree node we need. Using binary search, we can reach the $O(\log \log \log n)$ complexity per query. Can we do it even faster?
+সবচেয়ে স্পষ্ট অপটিমাইজেশন হলো প্রয়োজনীয় ট্রি নোড বাইনারি সার্চ করা। বাইনারি সার্চ ব্যবহার করে, আমরা প্রতি কোয়েরিতে $O(\log \log \log n)$ কমপ্লেক্সিটিতে পৌঁছাতে পারি। আরও দ্রুত করা কি সম্ভব?
 
-The answer is yes. Let's assume the following two things:
+উত্তর হ্যাঁ। নিম্নলিখিত দুটি বিষয় ধরে নিই:
 
-1. Each block size is a power of two.
-2. All the blocks are equal on each layer.
+1. প্রতিটি ব্লকের আকার দুই-এর ঘাত।
+2. প্রতিটি স্তরে সব ব্লক সমান।
 
-To reach this, we can add some zero elements to our array so that its size becomes a power of two.
+এটি অর্জন করতে, আমরা অ্যারেতে কিছু শূন্য উপাদান যোগ করতে পারি যেন এর আকার দুই-এর ঘাত হয়।
 
-When we use this, some block sizes may become twice larger to be a power of two, but it still be $O(\sqrt{k})$ in size and we keep linear complexity for building the arrays in a segment.
+যখন আমরা এটি ব্যবহার করি, কিছু ব্লকের আকার দুই-এর ঘাত হতে দ্বিগুণ বড় হতে পারে, কিন্তু এটি এখনও $O(\sqrt{k})$ আকারের এবং আমরা একটি সেগমেন্টে অ্যারে তৈরির লিনিয়ার কমপ্লেক্সিটি বজায় রাখি।
 
-Now, we can easily check if the query fits entirely into a block with size $2^k$. Let's write the ranges of the query, $l$ and $r$ (we use 0-indexation) in binary form. For instance, let's assume $k=4, l=39, r=46$. The binary representation of $l$ and $r$ is:
+এখন, আমরা সহজেই পরীক্ষা করতে পারি কোয়েরি সম্পূর্ণভাবে $2^k$ আকারের একটি ব্লকে থাকে কিনা। কোয়েরির রেঞ্জ $l$ এবং $r$ (০-ইনডেক্সিং) বাইনারিতে লিখি। যেমন, ধরি $k=4, l=39, r=46$। $l$ এবং $r$-এর বাইনারি উপস্থাপন:
 
 $l = 39_{10} = 100111_2$
 
 $r = 46_{10} = 101110_2$
 
-Remember that one layer contains segments of the equal size, and the block on one layer have also equal size (in our case, their size is $2^k = 2^4 = 16$. The blocks cover the array entirely, so the first block covers elements $(0 - 15)$ ($(000000_2 - 001111_2)$ in binary), the second one covers elements $(16 - 31)$ ($(010000_2 - 011111_2)$ in binary) and so on. We see that the indices of the positions covered by one block may differ only in $k$ (in our case, $4$) last bits. In our case $l$ and $r$ have equal bits except four lowest, so they lie in one block.
+মনে রাখুন একটি স্তরে সমান আকারের সেগমেন্ট থাকে, এবং একটি স্তরের ব্লকও সমান আকারের (আমাদের ক্ষেত্রে, তাদের আকার $2^k = 2^4 = 16$)। ব্লকগুলো অ্যারে সম্পূর্ণ ঢেকে দেয়, তাই প্রথম ব্লক $(0 - 15)$ (বাইনারিতে $(000000_2 - 001111_2)$), দ্বিতীয়টি $(16 - 31)$ (বাইনারিতে $(010000_2 - 011111_2)$) ইত্যাদি উপাদান ঢাকে। আমরা দেখি একটি ব্লক দ্বারা ঢাকা অবস্থানের ইনডেক্স শুধু $k$টি (আমাদের ক্ষেত্রে, $4$) শেষ বিটে ভিন্ন হতে পারে। আমাদের ক্ষেত্রে $l$ এবং $r$-এর চারটি সর্বনিম্ন বিট ছাড়া সব সমান, তাই তারা একটি ব্লকে আছে।
 
-So, we need to check if nothing more that $k$ smallest bits differ (or $l\ \text{xor}\ r$ doesn't exceed $2^k-1$).
+তাই, আমাদের পরীক্ষা করতে হবে $k$টির বেশি ক্ষুদ্রতম বিট ভিন্ন কিনা (অথবা $l\ \text{xor}\ r$ $2^k-1$ অতিক্রম করে কিনা)।
 
-Using this observation, we can find a layer that is suitable to answer the query quickly. How to do this:
+এই পর্যবেক্ষণ ব্যবহার করে, আমরা কোয়েরি দ্রুত উত্তর দিতে উপযুক্ত একটি স্তর খুঁজে পেতে পারি। কীভাবে:
 
-1. For each $i$ that doesn't exceed the array size, we find the highest bit that is equal to $1$. To do this quickly, we use DP and a precalculated array.
+1. প্রতিটি $i$-এর জন্য যা অ্যারের আকার অতিক্রম করে না, $1$-এর সমান সর্বোচ্চ বিট খুঁজি। দ্রুত করতে, আমরা ডিপি এবং একটি আগে থেকে গণনা করা অ্যারে ব্যবহার করি।
 
-2. Now, for each $q(l, r)$ we find the highest bit of $l\ \text{xor}\ r$ and, using this information, it's easy to choose the layer on which we can process the query easily. We can also use a precalculated array here.
+2. এখন, প্রতিটি $q(l, r)$-এর জন্য $l\ \text{xor}\ r$-এর সর্বোচ্চ বিট খুঁজি এবং, এই তথ্য ব্যবহার করে, যে স্তরে কোয়েরি সহজে প্রক্রিয়া করা যায় সেটি বেছে নেওয়া সহজ। এখানেও আমরা একটি আগে থেকে গণনা করা অ্যারে ব্যবহার করতে পারি।
 
-For more details, see the code below.
+আরও বিস্তারিতের জন্য, নিচের কোড দেখুন।
 
-So, using this, we can answer the queries in $O(1)$ each. Hooray! :)
+তাই, এটি ব্যবহার করে, আমরা প্রতিটি $O(1)$-এ কোয়েরি উত্তর দিতে পারি। :)
 
-## Updating elements
+## উপাদান আপডেট করা
 
-We can also update elements in Sqrt Tree. Both single element updates and updates on a segment are supported.
+আমরা স্কোয়ার্ট ট্রি-তে উপাদান আপডেটও করতে পারি। একক উপাদান আপডেট এবং সেগমেন্টে আপডেট উভয়ই সমর্থিত।
 
-### Updating a single element
+### একটি একক উপাদান আপডেট করা
 
-Consider a query $\text{update}(x, val)$ that does the assignment $a_x = val$. We need to perform this query fast enough.
+একটি কোয়েরি $\text{update}(x, val)$ বিবেচনা করি যা $a_x = val$ অ্যাসাইনমেন্ট করে। আমাদের এই কোয়েরি যথেষ্ট দ্রুত সম্পাদন করতে হবে।
 
-#### Naive approach
+#### সরল পদ্ধতি
 
-First, let's take a look of what is changed in the tree when a single element changes. Consider a tree node with length $l$ and its arrays: $\text{prefixOp}$, $\text{suffixOp}$ and $\text{between}$. It is easy to see that only $O(\sqrt{l})$ elements from $\text{prefixOp}$ and $\text{suffixOp}$ change (only inside the block with the changed element). $O(l)$ elements are changed in $\text{between}$. Therefore, $O(l)$ elements in the tree node are updated.
+প্রথমে, দেখি একটি একক উপাদান পরিবর্তন হলে ট্রি-তে কী বদলায়। $l$ দৈর্ঘ্যের একটি ট্রি নোড এবং এর অ্যারে: $\text{prefixOp}$, $\text{suffixOp}$ ও $\text{between}$ বিবেচনা করি। দেখা সহজ যে $\text{prefixOp}$ এবং $\text{suffixOp}$-এর শুধু $O(\sqrt{l})$ উপাদান পরিবর্তন হয় (শুধু পরিবর্তিত উপাদানের ব্লকের ভেতরে)। $\text{between}$-এ $O(l)$ উপাদান পরিবর্তন হয়। তাই, ট্রি নোডে $O(l)$ উপাদান আপডেট হয়।
 
-We remember that any element $x$ is present in exactly one tree node at each layer. Root node (layer $0$) has length $O(n)$, nodes on layer $1$ have length $O(\sqrt{n})$, nodes on layer $2$ have length $O(\sqrt{\sqrt{n}})$, etc. So the time complexity per update is $O(n + \sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(n)$.
+আমরা মনে রাখি যে যেকোনো উপাদান $x$ প্রতিটি স্তরে ঠিক একটি ট্রি নোডে থাকে। রুট নোডের (স্তর $0$) দৈর্ঘ্য $O(n)$, স্তর $1$-এর নোডের দৈর্ঘ্য $O(\sqrt{n})$, স্তর $2$-এর নোডের দৈর্ঘ্য $O(\sqrt{\sqrt{n}})$, ইত্যাদি। তাই প্রতি আপডেটে টাইম কমপ্লেক্সিটি $O(n + \sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(n)$।
 
-But it's too slow. Can it be done faster?
+কিন্তু এটি খুব ধীর। আরও দ্রুত করা কি সম্ভব?
 
-#### An sqrt-tree inside the sqrt-tree
+#### স্কোয়ার্ট-ট্রি-র ভেতরে একটি স্কোয়ার্ট-ট্রি
 
-Note that the bottleneck of updating is rebuilding $\text{between}$ of the root node. To optimize the tree, let's get rid of this array! Instead of $\text{between}$ array, we store another sqrt-tree for the root node. Let's call it $\text{index}$. It plays the same role as $\text{between}$&mdash; answers the queries on segments of blocks. Note that the rest of the tree nodes don't have $\text{index}$, they keep their $\text{between}$ arrays.
+লক্ষ্য করুন আপডেটের বটলনেক হলো রুট নোডের $\text{between}$ পুনর্নির্মাণ। ট্রি অপটিমাইজ করতে, এই অ্যারে বাদ দিই! $\text{between}$ অ্যারের পরিবর্তে, আমরা রুট নোডের জন্য আরেকটি স্কোয়ার্ট-ট্রি সংরক্ষণ করি। একে $\text{index}$ বলি। এটি $\text{between}$-এর মতোই ভূমিকা পালন করে — ব্লকের সেগমেন্টে কোয়েরি উত্তর দেয়। লক্ষ্য করুন বাকি ট্রি নোডে $\text{index}$ নেই, তারা তাদের $\text{between}$ অ্যারে রাখে।
 
-A sqrt-tree is _indexed_, if its root node has $\text{index}$. A sqrt-tree with $\text{between}$ array in its root node is _unindexed_. Note that $\text{index}$ **is _unindexed_ itself**.
+একটি স্কোয়ার্ট-ট্রি _ইনডেক্সড_, যদি এর রুট নোডে $\text{index}$ থাকে। রুট নোডে $\text{between}$ অ্যারে সহ একটি স্কোয়ার্ট-ট্রি _আনইনডেক্সড_। লক্ষ্য করুন $\text{index}$ **নিজে _আনইনডেক্সড_**।
 
-So, we have the following algorithm for updating an _indexed_ tree:
+তাই, একটি _ইনডেক্সড_ ট্রি আপডেট করার অ্যালগরিদম নিম্নরূপ:
 
-* Update $\text{prefixOp}$ and $\text{suffixOp}$ in $O(\sqrt{n})$.
+* $\text{prefixOp}$ এবং $\text{suffixOp}$ $O(\sqrt{n})$-এ আপডেট করুন।
 
-* Update $\text{index}$. It has length $O(\sqrt{n})$ and we need to update only one item in it (that represents the changed block). So, the time complexity for this step is $O(\sqrt{n})$. We can use the algorithm described in the beginning of this section (the "slow" one) to do it.
+* $\text{index}$ আপডেট করুন। এর দৈর্ঘ্য $O(\sqrt{n})$ এবং আমাদের এতে শুধু একটি আইটেম আপডেট করতে হবে (যা পরিবর্তিত ব্লক উপস্থাপন করে)। তাই, এই ধাপের টাইম কমপ্লেক্সিটি $O(\sqrt{n})$। আমরা এই সেকশনের শুরুতে বর্ণিত ("ধীর") অ্যালগরিদম ব্যবহার করতে পারি।
 
-* Go into the child node that represents the changed block and update it in $O(\sqrt{n})$ with the "slow" algorithm.
+* পরিবর্তিত ব্লক উপস্থাপনকারী চাইল্ড নোডে যান এবং "ধীর" অ্যালগরিদম দিয়ে $O(\sqrt{n})$-এ আপডেট করুন।
 
-Note that the query complexity is still $O(1)$: we need to use $\text{index}$ in query no more than once, and this will take $O(1)$ time.
+লক্ষ্য করুন কোয়েরি কমপ্লেক্সিটি এখনও $O(1)$: কোয়েরিতে $\text{index}$ সর্বোচ্চ একবার ব্যবহার করতে হবে, এবং এটি $O(1)$ সময় নেবে।
 
-So, total time complexity for updating a single element is $O(\sqrt{n})$. Hooray! :)
+তাই, একটি একক উপাদান আপডেটের মোট টাইম কমপ্লেক্সিটি $O(\sqrt{n})$। :)
 
-### Updating a segment
+### সেগমেন্ট আপডেট করা
 
-Sqrt-tree also can do things like assigning an element on a segment. $\text{massUpdate}(x, l, r)$ means $a_i = x$ for all $l \le i \le r$.
+স্কোয়ার্ট-ট্রি সেগমেন্টে উপাদান অ্যাসাইন করার মতো কাজও করতে পারে। $\text{massUpdate}(x, l, r)$ মানে সব $l \le i \le r$-এর জন্য $a_i = x$।
 
-There are two approaches to do this: one of them does $\text{massUpdate}$ in $O(\sqrt{n}\cdot \log \log n)$, keeping $O(1)$ per query. The second one does $\text{massUpdate}$ in $O(\sqrt{n})$, but the query complexity becomes $O(\log \log n)$.
+এটি করার দুটি পদ্ধতি আছে: একটি $O(\sqrt{n}\cdot \log \log n)$-এ $\text{massUpdate}$ করে, প্রতি কোয়েরি $O(1)$ রেখে। দ্বিতীয়টি $O(\sqrt{n})$-এ $\text{massUpdate}$ করে, কিন্তু কোয়েরি কমপ্লেক্সিটি $O(\log \log n)$ হয়।
 
-We will do lazy propagation in the same way as it is done in segment trees: we mark some nodes as _lazy_, meaning that we'll push them when it's necessary. But one thing is different from segment trees: pushing a node is expensive, so it cannot be done in queries. On the layer $0$, pushing a node takes $O(\sqrt{n})$ time. So, we don't push nodes inside queries, we only look if the current node or its parent are _lazy_, and just take it into account while performing queries.
+আমরা সেগমেন্ট ট্রি-র মতোই লেজি প্রোপাগেশন করব: কিছু নোডকে _লেজি_ হিসেবে চিহ্নিত করি, মানে প্রয়োজনে পুশ করব। কিন্তু সেগমেন্ট ট্রি থেকে একটি পার্থক্য: নোড পুশ করা ব্যয়বহুল, তাই কোয়েরিতে এটি করা যায় না। স্তর $0$-তে নোড পুশ করতে $O(\sqrt{n})$ সময় লাগে। তাই, কোয়েরির ভেতরে নোড পুশ করি না, শুধু দেখি বর্তমান নোড বা এর প্যারেন্ট _লেজি_ কিনা, এবং কোয়েরি করার সময় সেটি বিবেচনা করি।
 
-#### First approach
+#### প্রথম পদ্ধতি
 
-In the first approach, we say that only nodes on layer $1$ (with length $O(\sqrt{n}$) can be _lazy_. When pushing such node, it updates all its subtree including itself in $O(\sqrt{n}\cdot \log \log n)$. The $\text{massUpdate}$ process is done as follows:
+প্রথম পদ্ধতিতে, আমরা বলি শুধু স্তর $1$-এর ($O(\sqrt{n}$) দৈর্ঘ্যের) নোডগুলো _লেজি_ হতে পারে। এমন নোড পুশ করলে, এটি নিজে সহ সম্পূর্ণ সাবট্রি $O(\sqrt{n}\cdot \log \log n)$-এ আপডেট করে। $\text{massUpdate}$ প্রক্রিয়া নিম্নরূপ:
 
-* Consider the nodes on layer $1$ and blocks corresponding to them.
+* স্তর $1$-এর নোড এবং তাদের সংশ্লিষ্ট ব্লক বিবেচনা করুন।
 
-* Some blocks are entirely covered by $\text{massUpdate}$. Mark them as _lazy_ in $O(\sqrt{n})$.
+* কিছু ব্লক সম্পূর্ণভাবে $\text{massUpdate}$ দ্বারা ঢাকা। তাদের $O(\sqrt{n})$-এ _লেজি_ চিহ্নিত করুন।
 
-* Some blocks are partially covered. Note there are no more than two blocks of this kind. Rebuild them in $O(\sqrt{n}\cdot \log \log n)$. If they were _lazy_, take it into account.
+* কিছু ব্লক আংশিকভাবে ঢাকা। লক্ষ্য করুন এই ধরনের সর্বোচ্চ দুটি ব্লক আছে। তাদের $O(\sqrt{n}\cdot \log \log n)$-এ পুনর্নির্মাণ করুন। যদি তারা _লেজি_ থাকে, সেটি বিবেচনা করুন।
 
-* Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
+* আংশিকভাবে ঢাকা ব্লকের জন্য $\text{prefixOp}$ এবং $\text{suffixOp}$ $O(\sqrt{n})$-এ আপডেট করুন (কারণ এই ধরনের শুধু দুটি ব্লক আছে)।
 
-* Rebuild the $\text{index}$ in $O(\sqrt{n}\cdot \log \log n)$.
+* $\text{index}$ $O(\sqrt{n}\cdot \log \log n)$-এ পুনর্নির্মাণ করুন।
 
-So we can do $\text{massUpdate}$ fast. But how lazy propagation affects queries? They will have the following modifications:
+তাই আমরা দ্রুত $\text{massUpdate}$ করতে পারি। কিন্তু লেজি প্রোপাগেশন কোয়েরিতে কী প্রভাব ফেলে? নিম্নলিখিত পরিবর্তন হবে:
 
-* If our query entirely lies in a _lazy_ block, calculate it and take _lazy_ into account. $O(1)$.
+* যদি আমাদের কোয়েরি সম্পূর্ণভাবে একটি _লেজি_ ব্লকে থাকে, _লেজি_ বিবেচনায় নিয়ে গণনা করুন। $O(1)$।
 
-* If our query consists of many blocks, some of which are _lazy_, we need to take care of _lazy_ only on the leftmost and the rightmost block. The rest of the blocks are calculated using $\text{index}$, which already knows the answer on _lazy_ block (because it's rebuilt after each modification). $O(1)$.
+* যদি আমাদের কোয়েরি একাধিক ব্লক নিয়ে গঠিত হয়, যার কিছু _লেজি_, আমাদের শুধু বামতম এবং ডানতম ব্লকে _লেজি_ যত্ন নিতে হবে। বাকি ব্লকগুলো $\text{index}$ ব্যবহার করে গণনা করা হয়, যা ইতিমধ্যে _লেজি_ ব্লকের উত্তর জানে (কারণ প্রতিটি পরিবর্তনের পর এটি পুনর্নির্মিত)। $O(1)$।
 
-The query complexity still remains $O(1)$.
+কোয়েরি কমপ্লেক্সিটি $O(1)$ থেকে যায়।
 
-#### Second approach
+#### দ্বিতীয় পদ্ধতি
 
-In this approach, each node can be _lazy_ (except root). Even nodes in $\text{index}$ can be _lazy_. So, while processing a query, we have to look for _lazy_ tags in all the parent nodes, i. e. query complexity will be $O(\log \log n)$.
+এই পদ্ধতিতে, প্রতিটি নোড _লেজি_ হতে পারে (রুট ছাড়া)। এমনকি $\text{index}$-এর নোডও _লেজি_ হতে পারে। তাই, কোয়েরি প্রক্রিয়া করার সময়, সব প্যারেন্ট নোডে _লেজি_ ট্যাগ দেখতে হবে, অর্থাৎ কোয়েরি কমপ্লেক্সিটি হবে $O(\log \log n)$।
 
-But $\text{massUpdate}$ becomes faster. It looks in the following way:
+কিন্তু $\text{massUpdate}$ দ্রুত হয়। এটি নিম্নলিখিতভাবে দেখায়:
 
-* Some blocks are fully covered with $\text{massUpdate}$. So, _lazy_ tags are added to them. It is $O(\sqrt{n})$.
+* কিছু ব্লক সম্পূর্ণভাবে $\text{massUpdate}$ দ্বারা ঢাকা। তাই, তাদের _লেজি_ ট্যাগ যোগ হয়। এটি $O(\sqrt{n})$।
 
-* Update $\text{prefixOp}$ and $\text{suffixOp}$ for partially covered blocks in $O(\sqrt{n})$ (because there are only two such blocks).
+* আংশিকভাবে ঢাকা ব্লকের জন্য $\text{prefixOp}$ এবং $\text{suffixOp}$ $O(\sqrt{n})$-এ আপডেট করুন (কারণ এই ধরনের শুধু দুটি ব্লক আছে)।
 
-* Do not forget to update the index. It is $O(\sqrt{n})$ (we use the same $\text{massUpdate}$ algorithm).
+* ইনডেক্স আপডেট করতে ভুলবেন না। এটি $O(\sqrt{n})$ (আমরা একই $\text{massUpdate}$ অ্যালগরিদম ব্যবহার করি)।
 
-* Update $\text{between}$ array for _unindexed_ subtrees. 
+* _আনইনডেক্সড_ সাবট্রি-র জন্য $\text{between}$ অ্যারে আপডেট করুন।
 
-* Go into the nodes representing partially covered blocks and call $\text{massUpdate}$ recursively.
+* আংশিকভাবে ঢাকা ব্লক উপস্থাপনকারী নোডে যান এবং রিকার্সিভভাবে $\text{massUpdate}$ কল করুন।
 
-Note that when we do the recursive call, we do prefix or suffix $\text{massUpdate}$. But for prefix and suffix updates we can have no more than one partially covered child. So, we visit one node on layer $1$, two nodes on layer $2$ and two nodes on any deeper level. So, the time complexity is $O(\sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(\sqrt{n})$. The approach here is similar to the segment tree mass update.
+লক্ষ্য করুন রিকার্সিভ কলে আমরা প্রিফিক্স বা সাফিক্স $\text{massUpdate}$ করি। কিন্তু প্রিফিক্স এবং সাফিক্স আপডেটের জন্য সর্বোচ্চ একটি আংশিকভাবে ঢাকা চাইল্ড থাকতে পারে। তাই, আমরা স্তর $1$-এ একটি নোড, স্তর $2$-এ দুটি নোড এবং যেকোনো গভীর স্তরে দুটি নোড ভিজিট করি। তাই, টাইম কমপ্লেক্সিটি $O(\sqrt{n} + \sqrt{\sqrt{n}} + \dots) = O(\sqrt{n})$। এখানে পদ্ধতিটি সেগমেন্ট ট্রি ম্যাস আপডেটের অনুরূপ।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The following implementation of Sqrt Tree can perform the following operations: build in $O(n \cdot \log \log n)$, answer queries in $O(1)$ and update an element in $O(\sqrt{n})$.
+নিম্নলিখিত স্কোয়ার্ট ট্রি-র ইমপ্লিমেন্টেশন এই অপারেশনগুলো সম্পাদন করতে পারে: $O(n \cdot \log \log n)$-এ তৈরি, $O(1)$-এ কোয়েরি উত্তর এবং $O(\sqrt{n})$-এ উপাদান আপডেট।
 
 ~~~~~cpp
 SqrtTreeItem op(const SqrtTreeItem &a, const SqrtTreeItem &b);
@@ -206,7 +206,7 @@ private:
 	vector<SqrtTreeItem> v;
 	vector<int> clz, layers, onLayer;
 	vector< vector<SqrtTreeItem> > pref, suf, between;
-	
+
 	inline void buildBlock(int layer, int l, int r) {
 		pref[layer][l] = v[l];
 		for (int i = l+1; i < r; i++) {
@@ -217,7 +217,7 @@ private:
 			suf[layer][i] = op(v[i], suf[layer][i+1]);
 		}
 	}
-	
+
 	inline void buildBetween(int layer, int lBound, int rBound, int betweenOffs) {
 		int bSzLog = (layers[layer]+1) >> 1;
 		int bCntLog = layers[layer] >> 1;
@@ -232,7 +232,7 @@ private:
 			}
 		}
 	}
-	
+
 	inline void buildBetweenZero() {
 		int bSzLog = (lg+1) >> 1;
 		for (int i = 0; i < indexSz; i++) {
@@ -240,13 +240,13 @@ private:
 		}
 		build(1, n, n + indexSz, (1 << lg) - n);
 	}
-	
+
 	inline void updateBetweenZero(int bid) {
 		int bSzLog = (lg+1) >> 1;
 		v[n+bid] = suf[0][bid << bSzLog];
 		update(1, n, n + indexSz, (1 << lg) - n, n+bid);
 	}
-	
+
 	void build(int layer, int lBound, int rBound, int betweenOffs) {
 		if (layer >= (int)layers.size()) {
 			return;
@@ -263,7 +263,7 @@ private:
 			buildBetween(layer, lBound, rBound, betweenOffs);
 		}
 	}
-	
+
 	void update(int layer, int lBound, int rBound, int betweenOffs, int x) {
 		if (layer >= (int)layers.size()) {
 			return;
@@ -281,7 +281,7 @@ private:
 		}
 		update(layer+1, l, r, betweenOffs, x);
 	}
-	
+
 	inline SqrtTreeItem query(int l, int r, int betweenOffs, int base) {
 		if (l == r) {
 			return v[l];
@@ -311,12 +311,12 @@ public:
 	inline SqrtTreeItem query(int l, int r) {
 		return query(l, r, 0, 0);
 	}
-	
+
 	inline void update(int x, const SqrtTreeItem &item) {
 		v[x] = item;
 		update(0, 0, n, 0, x);
 	}
-	
+
 	SqrtTree(const vector<SqrtTreeItem>& a)
 		: n((int)a.size()), lg(log2Up(n)), v(a), clz(1 << lg), onLayer(lg+1) {
 		clz[0] = 0;
@@ -346,6 +346,6 @@ public:
 
 ~~~~~
 
-## Problems
+## সমস্যা
 
 [CodeChef - SEGPROD](https://www.codechef.com/NOV17/problems/SEGPROD)

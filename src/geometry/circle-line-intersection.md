@@ -4,38 +4,38 @@ tags:
 e_maxx_link: circle_line_intersection
 ---
 
-# Circle-Line Intersection
+# বৃত্ত-রেখা ছেদবিন্দু
 
-Given the coordinates of the center of a circle and its radius, and the equation of a line, you're required to find the points of intersection.
+একটি বৃত্তের কেন্দ্রের স্থানাঙ্ক ও ব্যাসার্ধ, এবং একটি রেখার সমীকরণ দেওয়া আছে, আপনাকে ছেদবিন্দুগুলো খুঁজতে হবে।
 
-## Solution
+## সমাধান
 
-Instead of solving the system of two equations, we will approach the problem geometrically. This way we get a more accurate solution from the point of view of numerical stability.
+দুটি সমীকরণের ব্যবস্থা সমাধান করার বদলে, আমরা সমস্যাটি জ্যামিতিকভাবে সমাধান করব। এতে সাংখ্যিক স্থিতিশীলতার দিক থেকে আরো সঠিক সমাধান পাওয়া যায়।
 
-We assume without loss of generality that the circle is centered at the origin. If it's not, we translate it there and correct the $C$ constant in the line equation. So we have a circle centered at $(0,0)$ of radius $r$ and a line with equation $Ax+By+C=0$.
+সাধারণতা না হারিয়ে আমরা ধরে নিচ্ছি বৃত্তের কেন্দ্র মূলবিন্দুতে। যদি না হয়, আমরা সেখানে সরাই এবং রেখার সমীকরণে $C$ ধ্রুবক সংশোধন করি। তাই আমাদের $(0,0)$ কেন্দ্র ও $r$ ব্যাসার্ধের একটি বৃত্ত এবং $Ax+By+C=0$ সমীকরণের একটি রেখা আছে।
 
-Let's start by find the point on the line which is closest to the origin $(x_0, y_0)$. First, it has to be at a distance
+আসুন রেখার উপর মূলবিন্দুর নিকটতম বিন্দু $(x_0, y_0)$ খুঁজি। প্রথমত, এটি মূলবিন্দু থেকে নিম্নলিখিত দূরত্বে থাকতে হবে
 
 $$ d_0 = \frac{|C|}{\sqrt{A^2+B^2}} $$
 
-Second, since the vector $(A, B)$ is perpendicular to the line, the coordinates of the point must be proportional to the coordinates of this vector. Since we know the distance of the point to the origin, we just need to scale the vector $(A, B)$ to this length, and we'll get:
+দ্বিতীয়ত, যেহেতু ভেক্টর $(A, B)$ রেখার সাথে লম্ব, বিন্দুর স্থানাঙ্ক এই ভেক্টরের স্থানাঙ্কের সমানুপাতিক হবে। যেহেতু আমরা মূলবিন্দু থেকে বিন্দুর দূরত্ব জানি, আমাদের কেবল $(A, B)$ ভেক্টরকে এই দৈর্ঘ্যে স্কেল করতে হবে, এবং আমরা পাব:
 
 $$\begin{align}
 x_0 &= - \frac{AC}{A^2 + B^2} \\
-y_0 &= - \frac{BC}{A^2 + B^2} 
+y_0 &= - \frac{BC}{A^2 + B^2}
 \end{align}$$
 
-The minus signs are not obvious, but they can be easily verified by substituting $x_0$ and $y_0$ in the equation of the line.
+ঋণাত্মক চিহ্নগুলো স্পষ্ট নয়, কিন্তু রেখার সমীকরণে $x_0$ ও $y_0$ প্রতিস্থাপন করে সহজেই যাচাই করা যায়।
 
-At this stage we can determine the number of intersection points, and even find the solution when there is one or zero points. Indeed, if the distance from $(x_0, y_0)$ to the origin $d_0$ is greater than the radius $r$, the answer is **zero points**. If $d_0=r$, the answer is **one point** $(x_0, y_0)$. If $d_0<r$, there are two points of intersection, and now we have to find their coordinates.
+এই পর্যায়ে আমরা ছেদবিন্দুর সংখ্যা নির্ণয় করতে পারি, এবং এমনকি এক বা শূন্য বিন্দু হলে সমাধানও খুঁজতে পারি। আসলে, $(x_0, y_0)$ থেকে মূলবিন্দুর দূরত্ব $d_0$ যদি ব্যাসার্ধ $r$-র চেয়ে বড় হয়, উত্তর **শূন্য বিন্দু**। যদি $d_0=r$, উত্তর **একটি বিন্দু** $(x_0, y_0)$। যদি $d_0<r$, দুটি ছেদবিন্দু আছে, এবং এখন আমাদের তাদের স্থানাঙ্ক খুঁজতে হবে।
 
-So, we know that the point $(x_0, y_0)$ is inside the circle. The two points of intersection, $(a_x, a_y)$ and $(b_x, b_y)$, must belong to the line $Ax+By+C=0$ and must be at the same distance $d$ from $(x_0, y_0)$, and this distance is easy to find:
+তাহলে, আমরা জানি $(x_0, y_0)$ বিন্দুটি বৃত্তের ভিতরে। দুটি ছেদবিন্দু, $(a_x, a_y)$ ও $(b_x, b_y)$, অবশ্যই রেখা $Ax+By+C=0$-র উপর থাকবে এবং $(x_0, y_0)$ থেকে সমান দূরত্ব $d$-এ থাকবে, এবং এই দূরত্ব সহজেই বের করা যায়:
 
 $$ d = \sqrt{r^2 - \frac{C^2}{A^2 + B^2}} $$
 
-Note that the vector $(-B, A)$ is collinear to the line, and thus we can find the points in question by adding and subtracting  vector $(-B,A)$, scaled to the length $d$, to the point $(x_0, y_0)$. 
+লক্ষ্য করুন ভেক্টর $(-B, A)$ রেখার সাথে সমরেখ, এবং তাই $(x_0, y_0)$ বিন্দুতে $d$ দৈর্ঘ্যে স্কেল করা ভেক্টর $(-B,A)$ যোগ ও বিয়োগ করে প্রশ্নোক্ত বিন্দুগুলো খুঁজতে পারি।
 
-Finally, the equations of the two points of intersection are:
+সবশেষে, দুটি ছেদবিন্দুর সমীকরণ:
 
 $$\begin{align}
 m &= \sqrt{\frac{d^2}{A^2 + B^2}} \\
@@ -43,11 +43,11 @@ a_x &= x_0 + B \cdot m, a_y = y_0 - A \cdot m \\
 b_x &= x_0 - B \cdot m, b_y = y_0 + A \cdot m
 \end{align}$$
 
-Had we solved the original system of equations using algebraic methods, we would likely get an answer in a different form with a larger error. The geometric method described here is more graphic and more accurate.
+আমরা যদি মূল সমীকরণ ব্যবস্থা বীজগণিতিক পদ্ধতিতে সমাধান করতাম, সম্ভবত ভিন্ন আকারে বড় ত্রুটিসহ উত্তর পেতাম। এখানে বর্ণিত জ্যামিতিক পদ্ধতিটি আরো দৃষ্টিগ্রাহ্য এবং আরো সঠিক।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-As indicated at the outset, we assume that the circle is centered at the origin, and therefore the input to the program is the radius $r$ of the circle and the parameters $A$, $B$ and $C$ of the equation of the line.
+শুরুতে যেমন বলা হয়েছে, আমরা ধরে নিচ্ছি বৃত্তের কেন্দ্র মূলবিন্দুতে, এবং তাই প্রোগ্রামের ইনপুট হলো বৃত্তের ব্যাসার্ধ $r$ এবং রেখার সমীকরণের প্যারামিটার $A$, $B$ ও $C$।
 
 ```cpp
 double r, a, b, c; // given as input
@@ -71,6 +71,6 @@ else {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [CODECHEF: ANDOOR](https://www.codechef.com/problems/ANDOOR)

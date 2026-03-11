@@ -4,38 +4,38 @@ tags:
 e_maxx_link: kirchhoff_theorem
 ---
 
-# Kirchhoff's theorem. Finding the number of spanning trees
+# কির্শহফের উপপাদ্য। স্প্যানিং ট্রির সংখ্যা খুঁজে পাওয়া
 
-Problem: You are given a connected undirected graph (with possible multiple edges) represented using an adjacency matrix. Find the number of different spanning trees of this graph.
+সমস্যা: আপনাকে একটি সংযুক্ত অনিয়ন্ত্রিত গ্রাফ (সম্ভাব্য একাধিক এজ সহ) দেওয়া হয় যা একটি সংলগ্নতা ম্যাট্রিক্স ব্যবহার করে প্রতিনিধিত্ব করা হয়। এই গ্রাফের বিভিন্ন স্প্যানিং ট্রির সংখ্যা খুঁজে বের করুন।
 
-The following formula was proven by Kirchhoff in 1847.
+১৮৪৭ সালে কির্শহফ দ্বারা নিম্নলিখিত সূত্রটি প্রমাণ করা হয়েছিল।
 
-## Kirchhoff's matrix tree theorem
+## কির্শহফের ম্যাট্রিক্স ট্রি উপপাদ্য
 
-Let $A$ be the adjacency matrix of the graph: $A_{u,v}$ is the number of edges between $u$ and $v$.
-Let $D$ be the degree matrix of the graph: a diagonal matrix with $D_{u,u}$ being the degree of vertex $u$ (including multiple edges and loops - edges which connect vertex $u$ with itself).
+$A$ গ্রাফের সংলগ্নতা ম্যাট্রিক্স হতে দিন: $A_{u,v}$ হল $u$ এবং $v$ এর মধ্যে এজের সংখ্যা।
+$D$ গ্রাফের ডিগ্রি ম্যাট্রিক্স হতে দিন: একটি কর্ণ ম্যাট্রিক্স যেখানে $D_{u,u}$ হল ভার্টেক্স $u$ এর ডিগ্রি (একাধিক এজ এবং লুপ সহ - এজ যা ভার্টেক্স $u$ কে নিজের সাথে সংযুক্ত করে)।
 
-The Laplacian matrix of the graph is defined as $L = D - A$.
-According to Kirchhoff's theorem, all cofactors of this matrix are equal to each other, and they are equal to the number of spanning trees of the graph.
-The $(i,j)$ cofactor of a matrix is the product of $(-1)^{i + j}$ with the determinant of the matrix that you get after removing the $i$-th row and $j$-th column.
-So you can, for example, delete the last row and last column of the matrix $L$, and the absolute value of the determinant of the resulting matrix will give you the number of spanning trees.
+গ্রাফের ল্যাপ্লাসিয়ান ম্যাট্রিক্স $L = D - A$ হিসাবে সংজ্ঞায়িত।
+কির্শহফের উপপাদ্য অনুযায়ী, এই ম্যাট্রিক্সের সমস্ত সহগুণক একে অপরের সমান, এবং তারা গ্রাফের স্প্যানিং ট্রির সংখ্যার সমান।
+একটি ম্যাট্রিক্সের $(i,j)$ সহগুণক হল $(-1)^{i + j}$ এর পণ্য $i$-তম সারি এবং $j$-তম স্তম্ভ সরিয়ে পাওয়া ম্যাট্রিক্সের নির্ণায়কের সাথে।
+তাই আপনি, উদাহরণস্বরূপ, ম্যাট্রিক্স $L$ এর শেষ সারি এবং শেষ স্তম্ভ মুছতে পারেন, এবং ফলস্বরূপ ম্যাট্রিক্সের নির্ণায়কের পরম মান আপনাকে স্প্যানিং ট্রির সংখ্যা দেবে।
 
-The determinant of the matrix can be found in $O(N^3)$ by using the [Gaussian method](../linear_algebra/determinant-gauss.md).
+ম্যাট্রিক্সের নির্ণায়ক [গাউসিয়ান পদ্ধতি](../linear_algebra/determinant-gauss.md) ব্যবহার করে $O(N^3)$ তে খুঁজে পাওয়া যায়।
 
-The proof of this theorem is quite difficult and is not presented here; for an outline of the proof and variations of the theorem for graphs without multiple edges and for directed graphs refer to [Wikipedia](https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem).
+এই উপপাদ্যের প্রমাণ অত্যন্ত কঠিন এবং এখানে উপস্থাপন করা হয়নি; প্রমাণের একটি রূপরেখা এবং একাধিক এজ ছাড়া গ্রাফ এবং নির্দেশিত গ্রাফের জন্য উপপাদ্যের ভেরিয়েশনের জন্য [উইকিপিডিয়া](https://en.wikipedia.org/wiki/Kirchhoff%27s_theorem) দেখুন।
 
-## Relation to Kirchhoff's circuit laws
+## কির্শহফের সার্কিট আইনের সাথে সম্পর্ক
 
-Kirchhoff's matrix tree theorem and Kirchhoff's laws for electrical circuit are related in a beautiful way. It is possible to show (using Ohm's law and Kirchhoff's first law) that resistance $R_{ij}$ between two points of the circuit $i$ and $j$ is
+কির্শহফের ম্যাট্রিক্স ট্রি উপপাদ্য এবং বৈদ্যুতিক সার্কিটের জন্য কির্শহফের আইন সুন্দর উপায়ে সম্পর্কিত। এটি দেখানো সম্ভব (ওম এর আইন এবং কির্শহফের প্রথম আইন ব্যবহার করে) যে সার্কিটের দুটি পয়েন্ট $i$ এবং $j$ এর মধ্যে প্রতিরোধ $R_{ij}$ হল
 
 $$R_{ij} = \frac{ \left| L^{(i,j)} \right| }{ | L^j | }.$$
 
-Here the matrix $L$ is obtained from the matrix of inverse resistances $A$ ($A_{i,j}$ is inverse of the resistance of the conductor between points $i$ and $j$) using the procedure described in Kirchhoff's matrix tree theorem.
-$T^j$ is the matrix with row and column $j$ removed, $T^{(i,j)}$ is the matrix with two rows and two columns $i$ and $j$ removed.
+এখানে ম্যাট্রিক্স $L$ পাওয়া যায় বিপরীত প্রতিরোধের ম্যাট্রিক্স $A$ থেকে ($A_{i,j}$ হল পয়েন্ট $i$ এবং $j$ এর মধ্যে পরিচালক প্রতিরোধের বিপরীত) কির্শহফের ম্যাট্রিক্স ট্রি উপপাদ্যে বর্ণিত পদ্ধতি ব্যবহার করে।
+$T^j$ হল পদ্ধতি এবং স্তম্ভ $j$ সরানো ম্যাট্রিক্স, $T^{(i,j)}$ হল দুটি সারি এবং দুটি স্তম্ভ $i$ এবং $j$ সরানো ম্যাট্রিক্স।
 
-Kirchhoff's theorem gives this formula geometric meaning.
+কির্শহফের উপপাদ্য এই সূত্রকে জ্যামিতিক অর্থ দেয়।
 
-## Practice Problems
+## অনুশীলন সমস্যা
  - [CODECHEF: Roads in Stars](https://www.codechef.com/problems/STARROAD)
  - [SPOJ: Maze](http://www.spoj.com/problems/KPMAZE/)
  - [CODECHEF: Complement Spanning Trees](https://www.codechef.com/problems/CSTREE)

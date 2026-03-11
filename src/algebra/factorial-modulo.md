@@ -5,23 +5,23 @@ tags:
 e_maxx_link: modular_factorial
 ---
 
-# Factorial modulo $p$
+# ফ্যাক্টোরিয়াল মডুলো $p$
 
-In some cases it is necessary to consider complex formulas modulo some prime $p$, containing factorials in both numerator and denominator, like such that you encounter in the formula for Binomial coefficients.
-We consider the case when $p$ is relatively small.
-This problem makes only sense when the factorials appear in both numerator and denominator of fractions.
-Otherwise $p!$ and subsequent terms will reduce to zero.
-But in fractions the factors of $p$ can cancel, and the resulting expression will be non-zero modulo $p$.
+কিছু ক্ষেত্রে কোনো মৌলিক সংখ্যা $p$ মডুলোতে জটিল সূত্র বিবেচনা করা প্রয়োজন, যেখানে লব এবং হর উভয়তেই ফ্যাক্টোরিয়াল থাকে, যেমন বাইনোমিয়াল কোএফিশিয়েন্টের সূত্রে দেখা যায়।
+আমরা সেই ক্ষেত্র বিবেচনা করি যখন $p$ তুলনামূলকভাবে ছোট।
+এই সমস্যাটি তখনই অর্থবহ যখন ফ্যাক্টোরিয়ালগুলো ভগ্নাংশের লব এবং হর উভয়তেই থাকে।
+অন্যথায় $p!$ এবং পরবর্তী পদগুলো শূন্যে নেমে যাবে।
+তবে ভগ্নাংশে $p$-এর গুণনীয়কগুলো বাতিল হতে পারে, এবং ফলস্বরূপ রাশিটি $p$ মডুলোতে অ-শূন্য হবে।
 
-Thus, formally the task is: You want to calculate $n! \bmod p$, without taking all the multiple factors of $p$ into account that appear in the factorial.
-Imagine you write down the prime factorization of $n!$, remove all factors $p$, and compute the product modulo $p$.
-We will denote this *modified* factorial with $n!_{\%p}$.
-For instance $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}_{3} \cdot 4 \cdot 5 \underbrace{2}_{6} \cdot 7 \equiv 2 \bmod 3$.
+সুতরাং, আনুষ্ঠানিকভাবে কাজটি হলো: আপনি $n! \bmod p$ গণনা করতে চান, ফ্যাক্টোরিয়ালে প্রদর্শিত $p$-এর সকল গুণিতক গুণনীয়ক বিবেচনায় না নিয়ে।
+কল্পনা করুন আপনি $n!$-এর মৌলিক উৎপাদক বিভাজন লিখেছেন, সকল $p$ গুণনীয়ক সরিয়েছেন, এবং গুণফলটি $p$ মডুলোতে গণনা করেছেন।
+আমরা এই *পরিবর্তিত* ফ্যাক্টোরিয়ালকে $n!_{\%p}$ দ্বারা চিহ্নিত করব।
+উদাহরণস্বরূপ $7!_{\%p} \equiv 1 \cdot 2 \cdot \underbrace{1}_{3} \cdot 4 \cdot 5 \underbrace{2}_{6} \cdot 7 \equiv 2 \bmod 3$।
 
-Learning how to effectively calculate this modified factorial allows us to quickly calculate the value of the various combinatorial formulas (for example, [Binomial coefficients](../combinatorics/binomial-coefficients.md)).
+এই পরিবর্তিত ফ্যাক্টোরিয়াল কার্যকরভাবে গণনা করতে শেখা আমাদের বিভিন্ন কম্বিনেটোরিয়াল সূত্রের (উদাহরণস্বরূপ, [বাইনোমিয়াল কোএফিশিয়েন্ট](../combinatorics/binomial-coefficients.md)) মান দ্রুত গণনা করতে দেয়।
 
-## Algorithm
-Let's write this modified factorial explicitly.
+## অ্যালগরিদম
+আসুন এই পরিবর্তিত ফ্যাক্টোরিয়ালটি সুস্পষ্টভাবে লিখি।
 
 $$\begin{eqnarray}
 n!_{\%p} &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \underbrace{1}_{p} \cdot (p+1) \cdot (p+2) \cdot \ldots \cdot (2p-1) \cdot \underbrace{2}_{2p} \\\
@@ -30,43 +30,43 @@ n!_{\%p} &=& 1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot \under
 & &\quad \cdot \ldots \cdot (p-1) \cdot \underbrace{1}_{p^2} \cdot 1 \cdot 2 \cdot \ldots \cdot (n \bmod p) \pmod{p}
 \end{eqnarray}$$
 
-It can be clearly seen that factorial is divided into several blocks of same length except for the last one.
+স্পষ্টভাবে দেখা যায় যে ফ্যাক্টোরিয়ালটি শেষটি ছাড়া একই দৈর্ঘ্যের কয়েকটি ব্লকে বিভক্ত।
 
 $$\begin{eqnarray}
 n!_{\%p}&=& \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{1\text{st}} \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 2}_{2\text{nd}} \cdot \ldots \\\\
 & & \cdot \underbrace{1 \cdot 2 \cdot 3 \cdot \ldots \cdot (p-2) \cdot (p-1) \cdot 1}_{p\text{th}} \cdot \ldots \cdot \quad \underbrace{1 \cdot 2 \cdot \cdot \ldots \cdot (n \bmod p)}_{\text{tail}} \pmod{p}.
 \end{eqnarray}$$
 
-The main part of the blocks it is easy to count — it's just $(p-1)!\ \mathrm{mod}\ p$.
-We can compute that programmatically or just apply Wilson theorem which states that $(p-1)! \bmod p = -1$ for any prime $p$.
+ব্লকগুলোর মূল অংশ গণনা করা সহজ — এটি কেবল $(p-1)!\ \mathrm{mod}\ p$।
+আমরা এটি প্রোগ্রামগতভাবে গণনা করতে পারি অথবা উইলসনের উপপাদ্য প্রয়োগ করতে পারি যা বলে যে যেকোনো মৌলিক $p$-এর জন্য $(p-1)! \bmod p = -1$।
 
-We have exactly $\lfloor \frac{n}{p} \rfloor$ such blocks, therefore we need to raise $-1$ to the power of $\lfloor \frac{n}{p} \rfloor$.
-This can be done in logarithmic time using [Binary Exponentiation](binary-exp.md); however you can also notice that the result will switch between $-1$ and $1$, so we only need to look at the parity of the exponent and multiply by $-1$ if the parity is odd.
-And instead of a multiplication, we can also just subtract the current result from $p$.
+আমাদের ঠিক $\lfloor \frac{n}{p} \rfloor$ টি এই ধরনের ব্লক আছে, তাই আমাদের $-1$-কে $\lfloor \frac{n}{p} \rfloor$ ঘাতে উন্নীত করতে হবে।
+এটি [বাইনারি এক্সপোনেনশিয়েশন](binary-exp.md) ব্যবহার করে লগারিদমিক সময়ে করা যায়; তবে আপনি লক্ষ্য করতে পারেন যে ফলাফলটি $-1$ এবং $1$-এর মধ্যে পর্যায়ক্রমে পরিবর্তিত হয়, তাই আমাদের শুধু সূচকের সমতা দেখতে হবে এবং সমতা বিজোড় হলে $-1$ দিয়ে গুণ করতে হবে।
+এবং গুণের পরিবর্তে, আমরা বর্তমান ফলাফলকে $p$ থেকে বিয়োগও করতে পারি।
 
-The value of the last partial block can be calculated separately in $O(p)$.
+শেষ আংশিক ব্লকের মান আলাদাভাবে $O(p)$-এ গণনা করা যায়।
 
 
-This leaves only the last element of each block.
-If we hide the already handled elements, we can see the following pattern:
+এটি শুধু প্রতিটি ব্লকের শেষ উপাদান রেখে যায়।
+যদি আমরা ইতিমধ্যে হ্যান্ডেল করা উপাদানগুলো আড়াল করি, আমরা নিম্নলিখিত প্যাটার্ন দেখতে পাই:
 
 $$n!_{\%p} = \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 2} \cdot \ldots \cdot \underbrace{ \ldots \cdot (p-1)} \cdot \underbrace{ \ldots \cdot 1 } \cdot \underbrace{ \ldots \cdot 1} \cdot \underbrace{ \ldots \cdot 2} \cdots$$
 
-This again is a *modified* factorial, only with a much smaller dimension.
-It's $\lfloor n / p \rfloor !_{\%p}$.
+এটি আবার একটি *পরিবর্তিত* ফ্যাক্টোরিয়াল, শুধু অনেক ছোট মাত্রার।
+এটি $\lfloor n / p \rfloor !_{\%p}$।
 
-Thus, during the calculation of the *modified* factorial $n\!_{\%p}$ we did $O(p)$ operations and are left with the calculation of $\lfloor n / p \rfloor !_{\%p}$.
-We have a recursive formula.
-The recursion depth is $O(\log_p n)$, and therefore the complete asymptotic behavior of the algorithm is $O(p \log_p n)$.
+সুতরাং, *পরিবর্তিত* ফ্যাক্টোরিয়াল $n\!_{\%p}$ গণনার সময় আমরা $O(p)$ অপারেশন সম্পাদন করেছি এবং $\lfloor n / p \rfloor !_{\%p}$ গণনা বাকি রয়েছে।
+আমাদের একটি রিকার্সিভ সূত্র আছে।
+রিকার্সনের গভীরতা $O(\log_p n)$, এবং তাই অ্যালগরিদমের সম্পূর্ণ অ্যাসিম্পটোটিক আচরণ $O(p \log_p n)$।
 
-Notice, if you precompute the factorials $0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$ modulo $p$, then the complexity will just be $O(\log_p n)$.
+লক্ষ্য করুন, আপনি যদি ফ্যাক্টোরিয়ালগুলো $0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$ $p$ মডুলোতে প্রিকম্পিউট করেন, তাহলে কমপ্লেক্সিটি কেবল $O(\log_p n)$ হবে।
 
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-We don't need recursion because this is a case of tail recursion and thus can be easily implemented using iteration.
-In the following implementation we precompute the factorials $0!,~ 1!,~ \dots,~ (p-1)!$, and thus have the runtime $O(p + \log_p n)$.
-If you need to call the function multiple times, then you can do the precomputation outside of the function and do the computation of $n!_{\%p}$ in $O(\log_p n)$ time.
+আমাদের রিকার্সনের প্রয়োজন নেই কারণ এটি টেইল রিকার্সনের একটি ক্ষেত্র এবং তাই সহজেই ইটারেশন ব্যবহার করে ইমপ্লিমেন্ট করা যায়।
+নিম্নলিখিত ইমপ্লিমেন্টেশনে আমরা ফ্যাক্টোরিয়ালগুলো $0!,~ 1!,~ \dots,~ (p-1)!$ প্রিকম্পিউট করি, এবং তাই রানটাইম $O(p + \log_p n)$।
+যদি আপনাকে ফাংশনটি একাধিকবার কল করতে হয়, তাহলে আপনি প্রিকম্পিউটেশনটি ফাংশনের বাইরে করতে পারেন এবং $n!_{\%p}$-এর গণনা $O(\log_p n)$ সময়ে করতে পারেন।
 
 ```cpp
 int factmod(int n, int p) {
@@ -86,18 +86,18 @@ int factmod(int n, int p) {
 }
 ```
 
-Alternative, if you only have limit memory and can't afford storing all factorials, you can also just remember the factorials that you need, sort them, and then compute them in one sweep by computing the factorials $0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$ in a loop without storing them explicitly.
+বিকল্পভাবে, আপনার কাছে সীমিত মেমোরি থাকলে এবং সকল ফ্যাক্টোরিয়াল সংরক্ষণ করা সম্ভব না হলে, আপনি শুধু প্রয়োজনীয় ফ্যাক্টোরিয়ালগুলো মনে রাখতে পারেন, সেগুলো সর্ট করতে পারেন, এবং তারপর সুস্পষ্টভাবে সংরক্ষণ না করে $0!,~ 1!,~ 2!,~ \dots,~ (p-1)!$ একটি লুপে গণনা করে একটি সুইপে সেগুলো গণনা করতে পারেন।
 
-## Multiplicity of $p$
+## $p$-এর গুণিতকতা
 
-If we want to compute a Binomial coefficient modulo $p$, then we additionally need the multiplicity of the $p$ in $n$, i.e. the number of times $p$ occurs in the prime factorization of $n$, or number of times we erased $p$ during the computation of the *modified* factorial.
+যদি আমরা একটি বাইনোমিয়াল কোএফিশিয়েন্ট $p$ মডুলোতে গণনা করতে চাই, তাহলে আমাদের অতিরিক্তভাবে $n$-এ $p$-এর গুণিতকতা প্রয়োজন, অর্থাৎ $n$-এর মৌলিক উৎপাদক বিভাজনে $p$ কতবার আসে, অথবা *পরিবর্তিত* ফ্যাক্টোরিয়ালের গণনার সময় আমরা কতবার $p$ মুছে ফেলেছি।
 
-[Legendre's formula](https://en.wikipedia.org/wiki/Legendre%27s_formula) gives us a way to compute this in $O(\log_p n)$ time.
-The formula gives the multiplicity $\nu_p$ as:
+[লেজান্দ্রের সূত্র](https://en.wikipedia.org/wiki/Legendre%27s_formula) আমাদের $O(\log_p n)$ সময়ে এটি গণনা করার একটি উপায় দেয়।
+সূত্রটি গুণিতকতা $\nu_p$ দেয়:
 
 $$\nu_p(n!) = \sum_{i=1}^{\infty} \left\lfloor \frac{n}{p^i} \right\rfloor$$
 
-Thus we get the implementation:
+সুতরাং আমরা পাই ইমপ্লিমেন্টেশন:
 
 ```cpp
 int multiplicity_factorial(int n, int p) {
@@ -110,7 +110,7 @@ int multiplicity_factorial(int n, int p) {
 }
 ```
 
-This formula can be proven very easily using the same ideas that we did in the previous sections.
-Remove all elements that don't contain the factor $p$.
-This leaves $\lfloor n/p \rfloor$ element remaining.
-If we remove the factor $p$ from each of them, we get the product $1 \cdot 2 \cdots \lfloor n/p \rfloor = \lfloor n/p \rfloor !$, and again we have a recursion.
+এই সূত্রটি আগের অনুচ্ছেদগুলোতে আমরা যে ধারণাগুলো ব্যবহার করেছি সেই একই ধারণা ব্যবহার করে খুব সহজেই প্রমাণ করা যায়।
+$p$ গুণনীয়ক ধারণ করে না এমন সকল উপাদান সরিয়ে দিন।
+এতে $\lfloor n/p \rfloor$ টি উপাদান অবশিষ্ট থাকে।
+যদি আমরা তাদের প্রতিটি থেকে $p$ গুণনীয়কটি সরিয়ে দিই, আমরা গুণফল $1 \cdot 2 \cdots \lfloor n/p \rfloor = \lfloor n/p \rfloor !$ পাই, এবং আবার আমাদের একটি রিকার্সন আছে।

@@ -4,35 +4,33 @@ tags:
 e_maxx_link: binary_pow
 ---
 
-# Binary Exponentiation
+# বাইনারি এক্সপোনেনশিয়েশন
 
-Binary exponentiation (also known as exponentiation by squaring) is a trick which allows to calculate $a^n$ using only $O(\log n)$ multiplications (instead of $O(n)$ multiplications required by the naive approach).
+বাইনারি এক্সপোনেনশিয়েশন (যা স্কোয়ারিং-এর মাধ্যমে এক্সপোনেনশিয়েশন নামেও পরিচিত) একটি কৌশল যা $a^n$ গণনা করতে মাত্র $O(\log n)$ টি গুণ ব্যবহার করে (সাধারণ পদ্ধতিতে প্রয়োজনীয় $O(n)$ টি গুণের পরিবর্তে)।
 
-It also has important applications in many tasks unrelated to arithmetic, since it
-can be used with any operations that have the property of **associativity**:
+পাটিগণিতের বাইরেও এর গুরুত্বপূর্ণ অ্যাপ্লিকেশন রয়েছে, কারণ এটি **সংযোজনীয়তা (associativity)** বৈশিষ্ট্যযুক্ত যেকোনো অপারেশনে ব্যবহার করা যায়:
 
 $$(X \cdot Y) \cdot Z = X \cdot (Y \cdot Z)$$
 
-Most obviously this applies to modular multiplication, to multiplication of matrices and
-to other problems which we will discuss below.
+সবচেয়ে স্পষ্ট উদাহরণ হলো মডুলার গুণ, ম্যাট্রিক্স গুণ এবং অন্যান্য সমস্যা যা আমরা নিচে আলোচনা করব।
 
-## Algorithm
+## অ্যালগরিদম
 
-Raising $a$ to the power of $n$ is expressed naively as multiplication by $a$ done $n - 1$ times:
-$a^{n} = a \cdot a \cdot \ldots \cdot a$. However, this approach is not practical for large $a$ or $n$.
+$a$-কে $n$ ঘাতে উন্নীত করা সাধারণভাবে $a$ দিয়ে $n - 1$ বার গুণ হিসেবে প্রকাশ করা হয়:
+$a^{n} = a \cdot a \cdot \ldots \cdot a$। তবে, বড় $a$ বা $n$-এর জন্য এই পদ্ধতি ব্যবহারিক নয়।
 
-$a^{b+c} = a^b \cdot a^c$ and $a^{2b} = a^b \cdot a^b = (a^b)^2$.
+$a^{b+c} = a^b \cdot a^c$ এবং $a^{2b} = a^b \cdot a^b = (a^b)^2$।
 
-The idea of binary exponentiation is, that we split the work using the binary representation of the exponent.
+বাইনারি এক্সপোনেনশিয়েশনের মূল ধারণা হলো, আমরা সূচকের (exponent) বাইনারি উপস্থাপনা ব্যবহার করে কাজকে ভাগ করি।
 
-Let's write $n$ in base 2, for example:
+$n$-কে বেস ২-তে লেখা যাক, উদাহরণস্বরূপ:
 
 $$3^{13} = 3^{1101_2} = 3^8 \cdot 3^4 \cdot 3^1$$
 
-Since the number $n$ has exactly $\lfloor \log_2 n \rfloor + 1$ digits in base 2, we only need to perform $O(\log n)$ multiplications, if we know the powers $a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log_2 n \rfloor}}$.
+যেহেতু $n$ সংখ্যাটির বেস ২-তে ঠিক $\lfloor \log_2 n \rfloor + 1$ টি ডিজিট আছে, তাই আমাদের মাত্র $O(\log n)$ টি গুণ করতে হবে, যদি আমরা $a^1, a^2, a^4, a^8, \dots, a^{2^{\lfloor \log_2 n \rfloor}}$ ঘাতগুলো জানি।
 
-So we only need to know a fast way to compute those.
-Luckily this is very easy, since an element in the sequence is just the square of the previous element.
+সুতরাং আমাদের শুধু এগুলো দ্রুত গণনা করার একটি উপায় জানতে হবে।
+সৌভাগ্যক্রমে এটি খুবই সহজ, কারণ ধারার প্রতিটি পদ আগের পদের বর্গ।
 
 $$\begin{align}
 3^1 &= 3 \\
@@ -41,22 +39,22 @@ $$\begin{align}
 3^8 &= \left(3^4\right)^2 = 81^2 = 6561
 \end{align}$$
 
-So to get the final answer for $3^{13}$, we only need to multiply three of them (skipping $3^2$ because the corresponding bit in $n$ is not set):
+সুতরাং $3^{13}$-এর চূড়ান্ত উত্তর পেতে, আমাদের এদের মধ্যে শুধু তিনটি গুণ করতে হবে ($3^2$ বাদ দিয়ে, কারণ $n$-এ সংশ্লিষ্ট বিটটি সেট নেই):
 $3^{13} = 6561 \cdot 81 \cdot 3 = 1594323$
 
-The final complexity of this algorithm is $O(\log n)$: we have to compute $\log n$ powers of $a$, and then have to do at most $\log n$ multiplications to get the final answer from them.
+এই অ্যালগরিদমের চূড়ান্ত কমপ্লেক্সিটি $O(\log n)$: আমাদের $a$-এর $\log n$ টি ঘাত গণনা করতে হবে এবং চূড়ান্ত উত্তর পেতে সর্বাধিক $\log n$ টি গুণ করতে হবে।
 
-The following recursive approach expresses the same idea:
+নিম্নলিখিত রিকার্সিভ পদ্ধতি একই ধারণা প্রকাশ করে:
 
 $$a^n = \begin{cases}
-1 &\text{if } n == 0 \\
-\left(a^{\frac{n}{2}}\right)^2 &\text{if } n > 0 \text{ and } n \text{ even}\\
-\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{if } n > 0 \text{ and } n \text{ odd}\\
+1 &\text{যদি } n == 0 \\
+\left(a^{\frac{n}{2}}\right)^2 &\text{যদি } n > 0 \text{ এবং } n \text{ জোড়}\\
+\left(a^{\frac{n - 1}{2}}\right)^2 \cdot a &\text{যদি } n > 0 \text{ এবং } n \text{ বিজোড়}\\
 \end{cases}$$
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-First the recursive approach, which is a direct translation of the recursive formula:
+প্রথমে রিকার্সিভ পদ্ধতি, যা রিকার্সিভ সূত্রের সরাসরি রূপান্তর:
 
 ```cpp
 long long binpow(long long a, long long b) {
@@ -70,9 +68,9 @@ long long binpow(long long a, long long b) {
 }
 ```
 
-The second approach accomplishes the same task without recursion.
-It computes all the powers in a loop, and multiplies the ones with the corresponding set bit in $n$.
-Although the complexity of both approaches is identical, this approach will be faster in practice since we don't have the overhead of the recursive calls.
+দ্বিতীয় পদ্ধতি রিকার্সন ছাড়াই একই কাজ সম্পন্ন করে।
+এটি একটি লুপে সকল ঘাত গণনা করে এবং $n$-এ সংশ্লিষ্ট সেট বিটযুক্ত ঘাতগুলো গুণ করে।
+যদিও উভয় পদ্ধতির কমপ্লেক্সিটি অভিন্ন, এই পদ্ধতি বাস্তবে দ্রুততর হবে কারণ রিকার্সিভ কলের ওভারহেড নেই।
 
 ```cpp
 long long binpow(long long a, long long b) {
@@ -87,16 +85,16 @@ long long binpow(long long a, long long b) {
 }
 ```
 
-## Applications
+## অ্যাপ্লিকেশনসমূহ
 
-### Effective computation of large exponents modulo a number
+### একটি সংখ্যা দ্বারা মডুলোতে বড় ঘাতের কার্যকর গণনা
 
-**Problem:**
-Compute $x^n \bmod m$.
-This is a very common operation. For instance it is used in computing the [modular multiplicative inverse](module-inverse.md).
+**সমস্যা:**
+$x^n \bmod m$ গণনা করুন।
+এটি একটি অত্যন্ত সাধারণ অপারেশন। উদাহরণস্বরূপ, [মডুলার গুণগত বিপরীত](module-inverse.md) গণনায় এটি ব্যবহৃত হয়।
 
-**Solution:**
-Since we know that the modulo operator doesn't interfere with multiplications ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), we can directly use the same code, and just replace every multiplication with a modular multiplication:
+**সমাধান:**
+যেহেতু আমরা জানি মডুলো অপারেটর গুণে হস্তক্ষেপ করে না ($a \cdot b \equiv (a \bmod m) \cdot (b \bmod m) \pmod m$), তাই আমরা সরাসরি একই কোড ব্যবহার করতে পারি, শুধু প্রতিটি গুণকে মডুলার গুণ দিয়ে প্রতিস্থাপন করলেই হবে:
 
 ```cpp
 long long binpow(long long a, long long b, long long m) {
@@ -112,28 +110,28 @@ long long binpow(long long a, long long b, long long m) {
 }
 ```
 
-**Note:**
-It's possible to speed this algorithm for large $b >> m$.
-If $m$ is a positive number and $\gcd(x, m) = 1$, then  $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ for prime $m$, and $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$ for composite $m$.
-This follows directly from Fermat's little theorem and Euler's theorem, see the article about [Modular Inverses](module-inverse.md#fermat-euler) for more details.
+**লক্ষ্য করুন:**
+বড় $b >> m$-এর জন্য এই অ্যালগরিদম দ্রুততর করা সম্ভব।
+যদি $m$ একটি ধনাত্মক সংখ্যা হয় এবং $\gcd(x, m) = 1$ হয়, তাহলে মৌলিক $m$-এর জন্য $x^n \equiv x^{n \bmod (m-1)} \pmod{m}$ এবং যৌগিক $m$-এর জন্য $x^n \equiv x^{n \bmod{\phi(m)}} \pmod{m}$।
+এটি সরাসরি ফার্মার ক্ষুদ্র উপপাদ্য এবং অয়লারের উপপাদ্য থেকে প্রাপ্ত, বিস্তারিত জানতে [মডুলার ইনভার্স](module-inverse.md#fermat-euler) নিবন্ধটি দেখুন।
 
-### Effective computation of Fibonacci numbers
+### ফিবোনাচ্চি সংখ্যার কার্যকর গণনা
 
-**Problem:** Compute $n$-th Fibonacci number $F_n$.
+**সমস্যা:** $n$-তম ফিবোনাচ্চি সংখ্যা $F_n$ গণনা করুন।
 
-**Solution:** For more details, see the [Fibonacci Number article](fibonacci-numbers.md).
-We will only go through an overview of the algorithm.
-To compute the next Fibonacci number, only the two previous ones are needed, as $F_n = F_{n-1} + F_{n-2}$.
-We can build a $2 \times 2$ matrix that describes this transformation:
-the transition from $F_i$ and $F_{i+1}$ to $F_{i+1}$ and $F_{i+2}$.
-For example, applying this transformation to the pair $F_0$ and $F_1$ would change it into $F_1$ and $F_2$.
-Therefore, we can raise this transformation matrix to the $n$-th power to find $F_n$ in time complexity $O(\log n)$.
+**সমাধান:** বিস্তারিত জানতে [ফিবোনাচ্চি সংখ্যা নিবন্ধ](fibonacci-numbers.md) দেখুন।
+আমরা এখানে শুধু অ্যালগরিদমের একটি সংক্ষিপ্ত বিবরণ দেব।
+পরবর্তী ফিবোনাচ্চি সংখ্যা গণনা করতে শুধু আগের দুটি সংখ্যা প্রয়োজন, কারণ $F_n = F_{n-1} + F_{n-2}$।
+আমরা একটি $2 \times 2$ ম্যাট্রিক্স তৈরি করতে পারি যা এই রূপান্তর বর্ণনা করে:
+$F_i$ এবং $F_{i+1}$ থেকে $F_{i+1}$ এবং $F_{i+2}$-তে রূপান্তর।
+উদাহরণস্বরূপ, $F_0$ এবং $F_1$ জোড়ায় এই রূপান্তর প্রয়োগ করলে এটি $F_1$ এবং $F_2$-তে পরিবর্তিত হবে।
+অতএব, $O(\log n)$ টাইম কমপ্লেক্সিটিতে $F_n$ বের করতে আমরা এই রূপান্তর ম্যাট্রিক্সকে $n$-তম ঘাতে উন্নীত করতে পারি।
 
-### Applying a permutation $k$ times { data-toc-label='Applying a permutation <script type="math/tex">k</script> times' }
+### একটি পারমুটেশন $k$ বার প্রয়োগ { data-toc-label='Applying a permutation <script type="math/tex">k</script> times' }
 
-**Problem:** You are given a sequence of length $n$. Apply to it a given permutation $k$ times.
+**সমস্যা:** আপনাকে $n$ দৈর্ঘ্যের একটি ক্রম দেওয়া হয়েছে। এতে একটি প্রদত্ত পারমুটেশন $k$ বার প্রয়োগ করুন।
 
-**Solution:** Simply raise the permutation to $k$-th power using binary exponentiation, and then apply it to the sequence. This will give you a time complexity of $O(n \log k)$.
+**সমাধান:** বাইনারি এক্সপোনেনশিয়েশন ব্যবহার করে পারমুটেশনকে $k$-তম ঘাতে উন্নীত করুন, তারপর ক্রমে প্রয়োগ করুন। এতে টাইম কমপ্লেক্সিটি হবে $O(n \log k)$।
 
 ```cpp
 vector<int> applyPermutation(vector<int> sequence, vector<int> permutation) {
@@ -156,19 +154,19 @@ vector<int> permute(vector<int> sequence, vector<int> permutation, long long k) 
 }
 ```
 
-**Note:** This task can be solved more efficiently in linear time by building the permutation graph and considering each cycle independently. You could then compute $k$ modulo the size of the cycle and find the final position for each number which is part of this cycle.
+**লক্ষ্য করুন:** এই সমস্যাটি পারমুটেশন গ্রাফ তৈরি করে এবং প্রতিটি চক্র স্বাধীনভাবে বিবেচনা করে লিনিয়ার সময়ে আরও দক্ষতার সাথে সমাধান করা যায়। তখন আপনি চক্রের আকার দ্বারা $k$-এর মডুলো গণনা করতে পারেন এবং এই চক্রের অন্তর্ভুক্ত প্রতিটি সংখ্যার চূড়ান্ত অবস্থান নির্ণয় করতে পারেন।
 
-### Fast application of a set of geometric operations to a set of points
+### বিন্দুসমূহে জ্যামিতিক অপারেশনের দ্রুত প্রয়োগ
 
-**Problem:** Given $n$ points $p_i$, apply $m$ transformations to each of these points. Each transformation can be a shift, a scaling or a rotation around a given axis by a given angle. There is also a "loop" operation which applies a given list of transformations $k$ times ("loop" operations can be nested). You should apply all transformations faster than $O(n \cdot length)$, where $length$ is the total number of transformations to be applied (after unrolling "loop" operations).
+**সমস্যা:** $n$ টি বিন্দু $p_i$ দেওয়া আছে, প্রতিটি বিন্দুতে $m$ টি রূপান্তর প্রয়োগ করুন। প্রতিটি রূপান্তর হতে পারে একটি সরণ (shift), একটি স্কেলিং অথবা একটি নির্দিষ্ট অক্ষের চারপাশে নির্দিষ্ট কোণে ঘূর্ণন। একটি "লুপ" অপারেশনও আছে যা একটি প্রদত্ত রূপান্তর তালিকা $k$ বার প্রয়োগ করে ("লুপ" অপারেশন নেস্টেড হতে পারে)। সমস্ত রূপান্তর $O(n \cdot length)$-এর চেয়ে দ্রুত প্রয়োগ করতে হবে, যেখানে $length$ হলো প্রয়োগযোগ্য মোট রূপান্তরের সংখ্যা ("লুপ" অপারেশন উন্মোচনের পরে)।
 
-**Solution:** Let's look at how the different types of transformations change the coordinates:
+**সমাধান:** দেখা যাক বিভিন্ন ধরনের রূপান্তর কীভাবে স্থানাঙ্ক পরিবর্তন করে:
 
-* Shift operation: adds a different constant to each of the coordinates.
-* Scaling operation: multiplies each of the coordinates by a different constant.
-* Rotation operation: the transformation is more complicated (we won't go in details here), but each of the new coordinates still can be represented as a linear combination of the old ones.
+* সরণ (Shift) অপারেশন: প্রতিটি স্থানাঙ্কে ভিন্ন ধ্রুবক যোগ করে।
+* স্কেলিং অপারেশন: প্রতিটি স্থানাঙ্ককে ভিন্ন ধ্রুবক দিয়ে গুণ করে।
+* ঘূর্ণন অপারেশন: রূপান্তরটি আরও জটিল (আমরা এখানে বিস্তারিত যাব না), তবে প্রতিটি নতুন স্থানাঙ্ক পুরানোগুলোর একটি রৈখিক সংযোজন হিসেবে উপস্থাপন করা যায়।
 
-As you can see, each of the transformations can be represented as a linear operation on the coordinates. Thus, a transformation can be written as a $4 \times 4$ matrix of the form:
+যেমন দেখা যাচ্ছে, প্রতিটি রূপান্তর স্থানাঙ্কের উপর একটি রৈখিক অপারেশন হিসেবে উপস্থাপন করা যায়। সুতরাং, একটি রূপান্তরকে নিম্নরূপ $4 \times 4$ ম্যাট্রিক্স আকারে লেখা যায়:
 
 $$\begin{pmatrix}
 a_{11} & a_ {12} & a_ {13} & a_ {14} \\
@@ -177,7 +175,7 @@ a_{31} & a_ {32} & a_ {33} & a_ {34} \\
 a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}$$
 
-that, when multiplied by a vector with the old coordinates and a unit gives a new vector with the new coordinates and a unit:
+যেটি পুরানো স্থানাঙ্ক এবং একটি একক সম্বলিত ভেক্টরের সাথে গুণ করলে নতুন স্থানাঙ্ক এবং একটি একক সম্বলিত নতুন ভেক্টর দেয়:
 
 $$\begin{pmatrix} x & y & z & 1 \end{pmatrix} \cdot
 \begin{pmatrix}
@@ -188,11 +186,11 @@ a_{41} & a_ {42} & a_ {43} & a_ {44}
 \end{pmatrix}
  = \begin{pmatrix} x' & y' & z' & 1 \end{pmatrix}$$
 
-(Why introduce a fictitious fourth coordinate, you ask? That is the beauty of [homogeneous coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates), which find great application in computer graphics. Without this, it would not be possible to implement affine operations like the shift operation as a single matrix multiplication, as it requires us to _add_ a constant to the coordinates. The affine transformation becomes a linear transformation in the higher dimension!)
+(কাল্পনিক চতুর্থ স্থানাঙ্ক কেন প্রবর্তন করা হলো, জিজ্ঞেস করছেন? এটাই হলো [সমাঙ্গ স্থানাঙ্কের (homogeneous coordinates)](https://en.wikipedia.org/wiki/Homogeneous_coordinates) সৌন্দর্য, যা কম্পিউটার গ্রাফিক্সে দারুণ ব্যবহার পায়। এটি ছাড়া সরণের মতো অ্যাফাইন অপারেশনকে একটি মাত্র ম্যাট্রিক্স গুণ হিসেবে রূপায়ণ করা সম্ভব হতো না, কারণ এতে স্থানাঙ্কে ধ্রুবক _যোগ_ করতে হয়। উচ্চতর মাত্রায় অ্যাফাইন রূপান্তর একটি রৈখিক রূপান্তরে পরিণত হয়!)
 
-Here are some examples of how transformations are represented in matrix form:
+নিচে কিছু উদাহরণ দেওয়া হলো কীভাবে রূপান্তরগুলো ম্যাট্রিক্স আকারে উপস্থাপিত হয়:
 
-* Shift operation: shift $x$ coordinate by $5$, $y$ coordinate by $7$ and $z$ coordinate by $9$.
+* সরণ অপারেশন: $x$ স্থানাঙ্ক $5$, $y$ স্থানাঙ্ক $7$ এবং $z$ স্থানাঙ্ক $9$ দ্বারা সরানো।
 
 $$\begin{pmatrix}
 1 & 0 & 0 & 0 \\
@@ -201,7 +199,7 @@ $$\begin{pmatrix}
 5 & 7 & 9 & 1
 \end{pmatrix}$$
 
-* Scaling operation: scale the $x$ coordinate by $10$ and the other two by $5$.
+* স্কেলিং অপারেশন: $x$ স্থানাঙ্ককে $10$ দিয়ে এবং বাকি দুটিকে $5$ দিয়ে স্কেল করা।
 
 $$\begin{pmatrix}
 10 & 0 & 0 & 0 \\
@@ -210,7 +208,7 @@ $$\begin{pmatrix}
 0 & 0 & 0 & 1
 \end{pmatrix}$$
 
-* Rotation operation: rotate $\theta$ degrees around the $x$ axis following the right-hand rule (counter-clockwise direction).
+* ঘূর্ণন অপারেশন: ডান-হাত নিয়ম অনুসরণ করে (ঘড়ির কাঁটার বিপরীত দিকে) $x$ অক্ষের চারপাশে $\theta$ ডিগ্রি ঘোরানো।
 
 $$\begin{pmatrix}
 1 & 0 & 0 & 0 \\
@@ -219,35 +217,35 @@ $$\begin{pmatrix}
 0 & 0 & 0 & 1
 \end{pmatrix}$$
 
-Now, once every transformation is described as a matrix, the sequence of transformations can be described as a product of these matrices, and a "loop" of $k$ repetitions can be described as the matrix raised to the power of $k$ (which can be calculated using binary exponentiation in $O(\log{k})$). This way, the matrix which represents all transformations can be calculated first in $O(m \log{k})$, and then it can be applied to each of the $n$ points in $O(n)$ for a total complexity of $O(n + m \log{k})$.
+এখন, প্রতিটি রূপান্তর ম্যাট্রিক্স হিসেবে বর্ণিত হলে, রূপান্তরের ক্রমকে এই ম্যাট্রিক্সগুলোর গুণফল হিসেবে এবং $k$ পুনরাবৃত্তির "লুপ"কে ম্যাট্রিক্সের $k$-তম ঘাত হিসেবে বর্ণনা করা যায় (যা বাইনারি এক্সপোনেনশিয়েশন ব্যবহার করে $O(\log{k})$-তে গণনা করা যায়)। এভাবে, সমস্ত রূপান্তর উপস্থাপনকারী ম্যাট্রিক্সটি প্রথমে $O(m \log{k})$-তে গণনা করা যায়, তারপর এটি $n$ টি বিন্দুর প্রতিটিতে $O(n)$-এ প্রয়োগ করা যায়, সর্বমোট কমপ্লেক্সিটি $O(n + m \log{k})$।
 
 
-### Number of paths of length $k$ in a graph { data-toc-label='Number of paths of length <script type="math/tex">k</script> in a graph' }
+### একটি গ্রাফে $k$ দৈর্ঘ্যের পথের সংখ্যা { data-toc-label='Number of paths of length <script type="math/tex">k</script> in a graph' }
 
-**Problem:** Given a directed unweighted graph of $n$ vertices, find the number of paths of length $k$ from any vertex $u$ to any other vertex $v$.
+**সমস্যা:** $n$ টি ভার্টেক্সবিশিষ্ট একটি নির্দেশিত ওজনহীন গ্রাফ দেওয়া আছে, যেকোনো ভার্টেক্স $u$ থেকে অন্য যেকোনো ভার্টেক্স $v$-তে $k$ দৈর্ঘ্যের পথের সংখ্যা বের করুন।
 
-**Solution:** This problem is considered in more detail in [a separate article](../graph/fixed_length_paths.md). The algorithm consists of raising the adjacency matrix $M$ of the graph (a matrix where $m_{ij} = 1$ if there is an edge from $i$ to $j$, or $0$ otherwise) to the $k$-th power. Now $m_{ij}$ will be the number of paths of length $k$ from $i$ to $j$. The time complexity of this solution is $O(n^3 \log k)$.
+**সমাধান:** এই সমস্যাটি [একটি পৃথক নিবন্ধে](../graph/fixed_length_paths.md) বিস্তারিত আলোচনা করা হয়েছে। অ্যালগরিদমটি হলো গ্রাফের অ্যাডজেসেন্সি ম্যাট্রিক্স $M$ ($i$ থেকে $j$-তে এজ থাকলে $m_{ij} = 1$, অন্যথায় $0$) কে $k$-তম ঘাতে উন্নীত করা। এখন $m_{ij}$ হবে $i$ থেকে $j$-তে $k$ দৈর্ঘ্যের পথের সংখ্যা। এই সমাধানের টাইম কমপ্লেক্সিটি $O(n^3 \log k)$।
 
-**Note:** In that same article, another variation of this problem is considered: when the edges are weighted and it is required to find the minimum weight path containing exactly $k$ edges. As shown in that article, this problem is also solved by exponentiation of the adjacency matrix. The matrix would have the weight of the edge from $i$ to $j$, or $\infty$ if there is no such edge.
-Instead of the usual operation of multiplying two matrices, a modified one should be used:
-instead of multiplication, both values are added, and instead of a summation, a minimum is taken.
-That is: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$.
+**লক্ষ্য করুন:** ঐ একই নিবন্ধে এই সমস্যার আরেকটি রূপ বিবেচনা করা হয়েছে: যখন এজগুলোতে ওজন আছে এবং ঠিক $k$ টি এজ সম্বলিত ন্যূনতম ওজনের পথ বের করতে হবে। যেমনটি ঐ নিবন্ধে দেখানো হয়েছে, এই সমস্যাটিও অ্যাডজেসেন্সি ম্যাট্রিক্সের এক্সপোনেনশিয়েশন দ্বারা সমাধান করা হয়। ম্যাট্রিক্সে $i$ থেকে $j$-তে এজের ওজন থাকবে, অথবা এমন কোনো এজ না থাকলে $\infty$।
+সাধারণ ম্যাট্রিক্স গুণের পরিবর্তে একটি পরিবর্তিত অপারেশন ব্যবহার করতে হবে:
+গুণের পরিবর্তে দুটি মান যোগ করা হয় এবং যোগফলের পরিবর্তে সর্বনিম্ন মান নেওয়া হয়।
+অর্থাৎ: $result_{ij} = \min\limits_{1\ \leq\ k\ \leq\ n}(a_{ik} + b_{kj})$।
 
-### Variation of binary exponentiation: multiplying two numbers modulo $m$ { data-toc-label='Variation of binary exponentiation: multiplying two numbers modulo <script type="math/tex">m</script>' }
+### বাইনারি এক্সপোনেনশিয়েশনের বৈচিত্র: $m$ মডুলোতে দুটি সংখ্যার গুণ { data-toc-label='Variation of binary exponentiation: multiplying two numbers modulo <script type="math/tex">m</script>' }
 
-**Problem:** Multiply two numbers $a$ and $b$ modulo $m$. $a$ and $b$ fit in the built-in data types, but their product is too big to fit in a 64-bit integer. The idea is to compute $a \cdot b \pmod m$ without using bignum arithmetics.
+**সমস্যা:** দুটি সংখ্যা $a$ এবং $b$-কে $m$ মডুলোতে গুণ করুন। $a$ এবং $b$ বিল্ট-ইন ডেটা টাইপে মাপসই হয়, কিন্তু তাদের গুণফল ৬৪-বিট ইন্টিজারে ধারণ করা যায় না। ধারণাটি হলো বিগনাম অ্যারিথমেটিক্স ব্যবহার না করে $a \cdot b \pmod m$ গণনা করা।
 
-**Solution:** We simply apply the binary construction algorithm described above, only performing additions instead of multiplications. In other words, we have "expanded" the multiplication of two numbers to $O (\log m)$ operations of addition and multiplication by two (which, in essence, is an addition).
+**সমাধান:** আমরা কেবল উপরে বর্ণিত বাইনারি গঠন অ্যালগরিদম প্রয়োগ করি, শুধু গুণের পরিবর্তে যোগ করি। অন্য কথায়, আমরা দুটি সংখ্যার গুণকে $O (\log m)$ টি যোগ ও ২ দিয়ে গুণের (যা মূলত একটি যোগ) অপারেশনে "সম্প্রসারিত" করেছি।
 
 $$a \cdot b = \begin{cases}
-0 &\text{if }a = 0 \\
-2 \cdot \frac{a}{2} \cdot b &\text{if }a > 0 \text{ and }a \text{ even} \\
-2 \cdot \frac{a-1}{2} \cdot b + b &\text{if }a > 0 \text{ and }a \text{ odd}
+0 &\text{যদি }a = 0 \\
+2 \cdot \frac{a}{2} \cdot b &\text{যদি }a > 0 \text{ এবং }a \text{ জোড়} \\
+2 \cdot \frac{a-1}{2} \cdot b + b &\text{যদি }a > 0 \text{ এবং }a \text{ বিজোড়}
 \end{cases}$$
 
-**Note:** You can solve this task in a different way by using floating-point operations. First compute the expression $\frac{a \cdot b}{m}$ using floating-point numbers and cast it to an unsigned integer $q$. Subtract $q \cdot m$ from $a \cdot b$ using unsigned integer arithmetics and take it modulo $m$ to find the answer. This solution looks rather unreliable, but it is very fast, and very easy to implement. See [here](https://cs.stackexchange.com/questions/77016/modular-multiplication) for more information.
+**লক্ষ্য করুন:** আপনি ফ্লোটিং-পয়েন্ট অপারেশন ব্যবহার করে ভিন্নভাবেও এই সমস্যাটি সমাধান করতে পারেন। প্রথমে ফ্লোটিং-পয়েন্ট সংখ্যা ব্যবহার করে $\frac{a \cdot b}{m}$ রাশিটি গণনা করুন এবং এটিকে একটি আনসাইনড ইন্টিজার $q$-তে রূপান্তর করুন। আনসাইনড ইন্টিজার অ্যারিথমেটিক্স ব্যবহার করে $a \cdot b$ থেকে $q \cdot m$ বিয়োগ করুন এবং উত্তর পেতে $m$ দিয়ে মডুলো নিন। এই সমাধানটি দেখতে অবিশ্বাস্য মনে হতে পারে, কিন্তু এটি অত্যন্ত দ্রুত এবং ইমপ্লিমেন্ট করা খুব সহজ। আরও তথ্যের জন্য [এখানে](https://cs.stackexchange.com/questions/77016/modular-multiplication) দেখুন।
 
-## Practice Problems
+## প্র্যাকটিস প্রবলেম
 
 * [UVa 1230 - MODEX](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3671)
 * [UVa 374 - Big Mod](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=310)
@@ -263,5 +261,4 @@ $$a \cdot b = \begin{cases}
 * [LA - 3722 Jewel-eating Monsters](https://vjudge.net/problem/UVALive-3722)
 * [SPOJ - Just add it](http://www.spoj.com/problems/ZSUM/)
 * [Codeforces - Stairs and Lines](https://codeforces.com/contest/498/problem/E)
-
 

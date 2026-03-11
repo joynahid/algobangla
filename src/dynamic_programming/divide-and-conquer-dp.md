@@ -3,63 +3,43 @@ tags:
   - Original
 ---
 
-# Divide and Conquer DP
+# ডিভাইড অ্যান্ড কনকার ডিপি
 
-Divide and Conquer is a dynamic programming optimization.
+ডিভাইড অ্যান্ড কনকার হলো একটি ডায়নামিক প্রোগ্রামিং অপটিমাইজেশন।
 
-### Preconditions
-Some dynamic programming problems have a recurrence of this form: 
+### পূর্বশর্ত
+কিছু ডায়নামিক প্রোগ্রামিং সমস্যায় এই ধরনের রিকারেন্স থাকে:
 
 $$
 dp(i, j) = \min_{0 \leq k \leq j} \\{ dp(i - 1, k - 1) + C(k, j) \\}
 $$
 
-where $C(k, j)$ is a cost function and $dp(i, j) = 0$ when $j \lt 0$. 
+যেখানে $C(k, j)$ একটি কস্ট ফাংশন এবং $dp(i, j) = 0$ যখন $j \lt 0$।
 
-Say $0 \leq i \lt m$ and $0 \leq j \lt n$, and evaluating $C$ takes $O(1)$
-time. Then the straightforward evaluation of the above recurrence is $O(m n^2)$. There
-are $m \times n$ states, and $n$ transitions for each state.
+ধরি $0 \leq i \lt m$ এবং $0 \leq j \lt n$, এবং $C$ মূল্যায়ন করতে $O(1)$ সময় লাগে। তাহলে উপরের রিকারেন্সের সরাসরি মূল্যায়ন $O(m n^2)$। $m \times n$ অবস্থা আছে, এবং প্রতিটি অবস্থার জন্য $n$টি ট্রানজিশন।
 
-Let $opt(i, j)$ be the value of $k$ that minimizes the above expression. Assuming that the 
-cost function satisfies the quadrangle inequality, we can show that 
-$opt(i, j) \leq opt(i, j + 1)$ for all $i, j$. This is known as the _monotonicity condition_. 
-Then, we can apply divide and conquer DP. The optimal
-"splitting point" for a fixed $i$ increases as $j$ increases.
+ধরি $opt(i, j)$ হলো সেই $k$-এর মান যা উপরের রাশি সর্বনিম্ন করে। ধরে নিই কস্ট ফাংশন চতুর্ভুজ অসমতা পূরণ করে, তাহলে আমরা দেখাতে পারি যে সব $i, j$-এর জন্য $opt(i, j) \leq opt(i, j + 1)$। এটি _মনোটনিসিটি শর্ত_ নামে পরিচিত।
+তখন, আমরা ডিভাইড অ্যান্ড কনকার ডিপি প্রয়োগ করতে পারি। একটি নির্দিষ্ট $i$-এর জন্য অপটিমাল "স্প্লিটিং পয়েন্ট" $j$ বাড়ার সাথে বাড়ে।
 
-This lets us solve for all states more efficiently. Say we compute $opt(i, j)$
-for some fixed $i$ and $j$. Then for any $j' < j$ we know that $opt(i, j') \leq opt(i, j)$.
-This means when computing $opt(i, j')$, we don't have to consider as many
-splitting points!
+এটি আমাদের সব অবস্থা আরও দক্ষতার সাথে সমাধান করতে দেয়। ধরি আমরা কোনো নির্দিষ্ট $i$ এবং $j$-এর জন্য $opt(i, j)$ গণনা করি। তাহলে যেকোনো $j' < j$-এর জন্য আমরা জানি যে $opt(i, j') \leq opt(i, j)$।
+অর্থাৎ $opt(i, j')$ গণনা করার সময়, আমাদের ততগুলো স্প্লিটিং পয়েন্ট বিবেচনা করতে হবে না!
 
-To minimize the runtime, we apply the idea behind divide and conquer. First,
-compute $opt(i, n / 2)$. Then, compute $opt(i, n / 4)$, knowing that it is less
-than or equal to $opt(i, n / 2)$ and $opt(i, 3 n / 4)$ knowing that it is
-greater than or equal to $opt(i, n / 2)$. By recursively keeping track of the
-lower and upper bounds on $opt$, we reach a $O(m n \log n)$ runtime. 
-Refer to the code below for implementation details.
+রানটাইম সর্বনিম্ন করতে, আমরা ডিভাইড অ্যান্ড কনকারের পেছনের ধারণা প্রয়োগ করি। প্রথমে, $opt(i, n / 2)$ গণনা করি। তারপর, $opt(i, n / 4)$ গণনা করি, জেনে যে এটি $opt(i, n / 2)$-এর চেয়ে কম বা সমান এবং $opt(i, 3 n / 4)$ জেনে যে এটি $opt(i, n / 2)$-এর চেয়ে বেশি বা সমান। রিকার্সিভভাবে $opt$-এর নিম্ন ও ঊর্ধ্ব সীমা ট্র্যাক করে, আমরা $O(m n \log n)$ রানটাইমে পৌঁছাই।
+ইমপ্লিমেন্টেশনের বিস্তারিতের জন্য নিচের কোড দেখুন।
 
-To prove the complexity of the divide and conquer, first note that there 
-are $O(\log{n})$ levels in the recursion. We claim that $O(n)$ steps are being 
-done at each level. Let the total length of the $\text{opt}$ intervals (denoted by 
-$optl$ and $optr$ in the code) in the $k$th level be $S_k$, and observe that any 
-time an interval from level $k$ of length $x$ is split, the resulting interval(s) 
-have total length at most $x + 1$. Furthermore, at level $k$, at most $2^k$ splits
-are performed, so we have that $S_{k + 1} \leq S_k + 2^k$. Applying the bound 
-inductively with $S_0 = n$ gives that for each level $k$,
+ডিভাইড অ্যান্ড কনকারের কমপ্লেক্সিটি প্রমাণ করতে, প্রথমে লক্ষ্য করুন রিকার্সনে $O(\log{n})$ লেভেল আছে। আমরা দাবি করি প্রতিটি লেভেলে $O(n)$ ধাপ হচ্ছে। $k$-তম লেভেলে $\text{opt}$ ইন্টারভালগুলোর (কোডে $optl$ এবং $optr$ দ্বারা চিহ্নিত) মোট দৈর্ঘ্য $S_k$ হোক, এবং লক্ষ্য করুন লেভেল $k$-তে দৈর্ঘ্য $x$-এর একটি ইন্টারভাল স্প্লিট হলে, ফলস্বরূপ ইন্টারভাল(গুলো)র মোট দৈর্ঘ্য সর্বোচ্চ $x + 1$। তদুপরি, লেভেল $k$-তে সর্বোচ্চ $2^k$ স্প্লিট হয়, তাই $S_{k + 1} \leq S_k + 2^k$। $S_0 = n$ দিয়ে আরোহ প্রয়োগ করলে প্রতিটি লেভেল $k$-এর জন্য পাই,
 
 $$
 S_k < n + 2^k \in O(n).
 $$
 
-Thus, the complexity of each divide and conquer is $O(n\log{n})$, and the complexity
-of the entire DP computation is $O(mn\log{n})$.
+তাই, প্রতিটি ডিভাইড অ্যান্ড কনকারের কমপ্লেক্সিটি $O(n\log{n})$, এবং সম্পূর্ণ ডিপি গণনার কমপ্লেক্সিটি $O(mn\log{n})$।
 
-## Generic implementation
+## জেনেরিক ইমপ্লিমেন্টেশন
 
-Even though implementation varies based on problem, here's a fairly generic
-template.
-The function `compute` computes one row $i$ of states `dp_cur`, given the previous row $i-1$ of states `dp_before`.
-It has to be called with `compute(0, n-1, 0, n-1)`. The function `solve` computes `m` rows and returns the result.
+যদিও ইমপ্লিমেন্টেশন সমস্যা অনুযায়ী ভিন্ন হয়, এখানে একটি মোটামুটি জেনেরিক টেমপ্লেট দেওয়া হলো।
+`compute` ফাংশনটি `dp_cur`-এর একটি সারি $i$ গণনা করে, আগের সারি $i-1$ `dp_before` দেওয়া থাকলে।
+এটিকে `compute(0, n-1, 0, n-1)` দিয়ে কল করতে হবে। `solve` ফাংশনটি `m` সারি গণনা করে এবং ফলাফল রিটার্ন করে।
 
 ```{.cpp file=divide_and_conquer_dp}
 int m, n;
@@ -102,22 +82,20 @@ long long solve() {
 }
 ```
 
-### Things to look out for
+### লক্ষণীয় বিষয়
 
-The greatest difficulty with Divide and Conquer DP problems is proving the
-monotonicity of $opt$. One special case where this is true is when the cost function satisfies the quadrangle inequality, i.e., $C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$ for all $a \leq b \leq c \leq d$. 
-Many Divide and Conquer DP problems can also be solved with the Convex Hull trick or vice-versa. It is useful to know and understand
-both! 
+ডিভাইড অ্যান্ড কনকার ডিপি সমস্যার সবচেয়ে বড় কঠিনতা হলো $opt$-এর মনোটনিসিটি প্রমাণ করা। একটি বিশেষ ক্ষেত্র যেখানে এটি সত্য, তা হলো যখন কস্ট ফাংশন চতুর্ভুজ অসমতা পূরণ করে, অর্থাৎ সব $a \leq b \leq c \leq d$-এর জন্য $C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$।
+অনেক ডিভাইড অ্যান্ড কনকার ডিপি সমস্যা কনভেক্স হাল ট্রিক দিয়েও সমাধান করা যায় বা উল্টোটাও। দুটোই জানা এবং বোঝা দরকারি!
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [AtCoder - Yakiniku Restaurants](https://atcoder.jp/contests/arc067/tasks/arc067_d)
-- [CodeForces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (Be careful with I/O!)
+- [CodeForces - Ciel and Gondolas](https://codeforces.com/contest/321/problem/E) (I/O-তে সতর্ক থাকুন!)
 - [CodeForces - Levels And Regions](https://codeforces.com/problemset/problem/673/E)
 - [CodeForces - Partition Game](https://codeforces.com/contest/1527/problem/E)
 - [CodeForces - The Bakery](https://codeforces.com/problemset/problem/834/D)
 - [CodeForces - Yet Another Minimization Problem](https://codeforces.com/contest/868/problem/F)
 - [Codechef - CHEFAOR](https://www.codechef.com/problems/CHEFAOR)
-- [CodeForces - GUARDS](https://codeforces.com/gym/103536/problem/A) (This is the exact problem in this article.)
+- [CodeForces - GUARDS](https://codeforces.com/gym/103536/problem/A) (এই নিবন্ধের ঠিক এই সমস্যা।)
 - [Hackerrank - Guardians of the Lunatics](https://www.hackerrank.com/contests/ioi-2014-practice-contest-2/challenges/guardians-lunatics-ioi14)
 - [Hackerrank - Mining](https://www.hackerrank.com/contests/world-codesprint-5/challenges/mining)
 - [Kattis - Money (ACM ICPC World Finals 2017)](https://open.kattis.com/problems/money)
@@ -131,6 +109,6 @@ both!
 
 
 
-## References
+## রেফারেন্স
 - [Quora Answer by Michael Levin](https://www.quora.com/What-is-divide-and-conquer-optimization-in-dynamic-programming)
 - [Video Tutorial by "Sothe" the Algorithm Wolf](https://www.youtube.com/watch?v=wLXEWuDWnzI)

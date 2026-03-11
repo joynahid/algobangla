@@ -4,105 +4,105 @@ tags:
 e_maxx_link: mst_prim
 ---
 
-# Minimum spanning tree - Prim's algorithm
+# মিনিমাম স্প্যানিং ট্রি - প্রিমের অ্যালগরিদম
 
-Given a weighted, undirected graph $G$ with $n$ vertices and $m$ edges.
-You want to find a spanning tree of this graph which connects all vertices and has the least weight (i.e. the sum of weights of edges is minimal).
-A spanning tree is a set of edges such that any vertex can reach any other by exactly one simple path.
-The spanning tree with the least weight is called a minimum spanning tree.
+একটি ওয়েটেড, আনডিরেক্টেড গ্রাফ $G$ দেওয়া আছে যেটিতে $n$টি ভার্টেক্স ও $m$টি এজ রয়েছে।
+আপনি এই গ্রাফের এমন একটি স্প্যানিং ট্রি খুঁজতে চান যেটি সকল ভার্টেক্সকে সংযুক্ত করে এবং সর্বনিম্ন ওয়েট ধারণ করে (অর্থাৎ এজের ওয়েটের যোগফল ন্যূনতম)।
+একটি স্প্যানিং ট্রি হলো এজের এমন একটি সেট যেখানে যেকোনো ভার্টেক্স থেকে অন্য যেকোনো ভার্টেক্সে ঠিক একটি সিম্পল পাথ দিয়ে পৌঁছানো যায়।
+সর্বনিম্ন ওয়েটের স্প্যানিং ট্রিকে মিনিমাম স্প্যানিং ট্রি বলা হয়।
 
-In the left image you can see a weighted undirected graph, and in the right image you can see the corresponding minimum spanning tree.
+বাম ছবিতে আপনি একটি ওয়েটেড আনডিরেক্টেড গ্রাফ দেখতে পাচ্ছেন, এবং ডান ছবিতে সংশ্লিষ্ট মিনিমাম স্প্যানিং ট্রি দেখতে পাচ্ছেন।
 
 <div style="text-align: center;">
   <img src="MST_before.png" alt="Random graph">
   <img src="MST_after.png" alt="MST of this graph">
 </div>
 
-It is easy to see that any spanning tree will necessarily contain $n-1$ edges.
+এটি সহজেই দেখা যায় যে যেকোনো স্প্যানিং ট্রিতে অবশ্যই $n-1$টি এজ থাকবে।
 
-This problem appears quite naturally in a lot of problems.
-For instance in the following problem:
-there are $n$ cities and for each pair of cities we are given the cost to build a road between them (or we know that is physically impossible to build a road between them).
-We have to build roads, such that we can get from each city to every other city, and the cost for building all roads is minimal.
+এই সমস্যাটি অনেক সমস্যায় বেশ স্বাভাবিকভাবে উপস্থিত হয়।
+উদাহরণস্বরূপ নিম্নলিখিত সমস্যায়:
+$n$টি শহর আছে এবং প্রতিটি শহরের জোড়ার জন্য আমরা জানি তাদের মধ্যে রাস্তা তৈরি করতে কত খরচ হবে (বা আমরা জানি যে তাদের মধ্যে রাস্তা তৈরি করা শারীরিকভাবে অসম্ভব)।
+আমাদের রাস্তা তৈরি করতে হবে যেন প্রতিটি শহর থেকে অন্য প্রতিটি শহরে যাওয়া যায়, এবং সকল রাস্তা তৈরির খরচ ন্যূনতম হয়।
 
-## Prim's Algorithm
+## প্রিমের অ্যালগরিদম
 
-This algorithm was originally discovered by the Czech mathematician Vojtěch Jarník in 1930.
-However this algorithm is mostly known as Prim's algorithm after the American mathematician Robert Clay Prim, who rediscovered and republished it in 1957.
-Additionally Edsger Dijkstra published this algorithm in 1959.
+এই অ্যালগরিদমটি মূলত ১৯৩০ সালে চেক গণিতবিদ ভোয়তেখ ইয়ার্নিক আবিষ্কার করেন।
+তবে এই অ্যালগরিদমটি মূলত প্রিমের অ্যালগরিদম নামে পরিচিত, আমেরিকান গণিতবিদ রবার্ট ক্লে প্রিমের নামে, যিনি ১৯৫৭ সালে এটি পুনরায় আবিষ্কার ও প্রকাশ করেন।
+এছাড়াও এডসগার ডেইকস্ট্রা ১৯৫৯ সালে এই অ্যালগরিদম প্রকাশ করেন।
 
-### Algorithm description
+### অ্যালগরিদমের বর্ণনা
 
-Here we describe the algorithm in its simplest form.
-The minimum spanning tree is built gradually by adding edges one at a time.
-At first the spanning tree consists only of a single vertex (chosen arbitrarily).
-Then the minimum weight edge outgoing from this vertex is selected and added to the spanning tree.
-After that the spanning tree already consists of two vertices.
-Now select and add the edge with the minimum weight that has one end in an already selected vertex (i.e. a vertex that is already part of the spanning tree), and the other end in an unselected vertex.
-And so on, i.e. every time we select and add the edge with minimal weight that connects one selected vertex with one unselected vertex.
-The process is repeated until the spanning tree contains all vertices (or equivalently until we have $n - 1$ edges).
+এখানে আমরা অ্যালগরিদমটি তার সবচেয়ে সরল রূপে বর্ণনা করব।
+মিনিমাম স্প্যানিং ট্রি ধীরে ধীরে একটি করে এজ যোগ করে তৈরি করা হয়।
+প্রথমে স্প্যানিং ট্রিতে শুধু একটি ভার্টেক্স থাকে (যেকোনোভাবে বাছাই করা)।
+তারপর এই ভার্টেক্স থেকে বের হওয়া সর্বনিম্ন ওয়েটের এজ নির্বাচন করা হয় এবং স্প্যানিং ট্রিতে যোগ করা হয়।
+এর পরে স্প্যানিং ট্রিতে ইতিমধ্যে দুটি ভার্টেক্স রয়েছে।
+এখন সর্বনিম্ন ওয়েটের সেই এজটি নির্বাচন ও যোগ করুন যার একটি প্রান্ত ইতিমধ্যে নির্বাচিত ভার্টেক্সে (অর্থাৎ স্প্যানিং ট্রির অংশ এমন ভার্টেক্সে) এবং অন্য প্রান্ত অনির্বাচিত ভার্টেক্সে।
+এভাবে চলতে থাকে, অর্থাৎ প্রতিবার আমরা ন্যূনতম ওয়েটের সেই এজ নির্বাচন ও যোগ করি যেটি একটি নির্বাচিত ভার্টেক্সকে একটি অনির্বাচিত ভার্টেক্সের সাথে সংযুক্ত করে।
+স্প্যানিং ট্রি সকল ভার্টেক্স ধারণ না করা পর্যন্ত (বা সমতুল্যভাবে আমরা $n - 1$টি এজ না পাওয়া পর্যন্ত) এই প্রক্রিয়া পুনরাবৃত্তি করা হয়।
 
-In the end the constructed spanning tree will be minimal.
-If the graph was originally not connected, then there doesn't exist a spanning tree, so the number of selected edges will be less than $n - 1$.
+শেষে নির্মিত স্প্যানিং ট্রি ন্যূনতম হবে।
+যদি গ্রাফটি মূলত সংযুক্ত না থাকে, তাহলে কোনো স্প্যানিং ট্রি নেই, তাই নির্বাচিত এজের সংখ্যা $n - 1$-এর কম হবে।
 
-### Proof
+### প্রমাণ
 
-Let the graph $G$ be connected, i.e. the answer exists.
-We denote by $T$ the resulting graph found by Prim's algorithm, and by $S$ the minimum spanning tree.
-Obviously $T$ is indeed a spanning tree and a subgraph of $G$.
-We only need to show that the weights of $S$ and $T$ coincide.
+ধরা যাক গ্রাফ $G$ সংযুক্ত, অর্থাৎ উত্তর বিদ্যমান।
+আমরা $T$ দ্বারা প্রিমের অ্যালগরিদম দ্বারা পাওয়া ফলাফল গ্রাফ এবং $S$ দ্বারা মিনিমাম স্প্যানিং ট্রি চিহ্নিত করি।
+স্পষ্টতই $T$ প্রকৃতপক্ষে একটি স্প্যানিং ট্রি এবং $G$-এর একটি সাবগ্রাফ।
+আমাদের শুধু দেখাতে হবে যে $S$ ও $T$-এর ওয়েট সমান।
 
-Consider the first time in the algorithm when we add an edge to $T$ that is not part of $S$.
-Let us denote this edge with $e$, its ends by $a$ and $b$, and the set of already selected vertices as $V$ ($a \in V$ and $b \notin V$, or vice versa).
+অ্যালগরিদমে প্রথমবার যখন আমরা $T$-তে এমন একটি এজ যোগ করি যেটি $S$-এর অংশ নয়, সেই সময়টি বিবেচনা করুন।
+আমরা এই এজটিকে $e$ দিয়ে, এর প্রান্তগুলো $a$ ও $b$ দিয়ে এবং ইতিমধ্যে নির্বাচিত ভার্টেক্সের সেটটিকে $V$ দিয়ে ($a \in V$ ও $b \notin V$, বা বিপরীত) চিহ্নিত করি।
 
-In the minimal spanning tree $S$ the vertices $a$ and $b$ are connected by some path $P$.
-On this path we can find an edge $f$ such that one end of $f$ lies in $V$ and the other end doesn't.
-Since the algorithm chose $e$ instead of $f$, it means that the weight of $f$ is greater or equal to the weight of $e$.
+মিনিমাম স্প্যানিং ট্রি $S$-এ ভার্টেক্স $a$ ও $b$ কোনো পাথ $P$ দ্বারা সংযুক্ত।
+এই পাথে আমরা এমন একটি এজ $f$ খুঁজে পেতে পারি যার একটি প্রান্ত $V$-তে এবং অন্য প্রান্ত $V$-তে নেই।
+যেহেতু অ্যালগরিদম $f$-এর পরিবর্তে $e$ বেছে নিয়েছে, এর মানে $f$-এর ওয়েট $e$-এর ওয়েটের চেয়ে বেশি বা সমান।
 
-We add the edge $e$ to the minimum spanning tree $S$ and remove the edge $f$.
-By adding $e$ we created a cycle, and since $f$ was also part of the only cycle, by removing it the resulting graph is again free of cycles.
-And because we only removed an edge from a cycle, the resulting graph is still connected.
+আমরা মিনিমাম স্প্যানিং ট্রি $S$-এ এজ $e$ যোগ করি এবং এজ $f$ সরিয়ে দিই।
+$e$ যোগ করে আমরা একটি সাইকেল তৈরি করেছি, এবং যেহেতু $f$-ও একমাত্র সাইকেলের অংশ ছিল, এটি সরিয়ে ফলাফল গ্রাফ আবার সাইকেলমুক্ত হয়।
+এবং যেহেতু আমরা শুধু একটি সাইকেল থেকে একটি এজ সরিয়েছি, ফলাফল গ্রাফ এখনও সংযুক্ত।
 
-The resulting spanning tree cannot have a larger total weight, since the weight of $e$ was not larger than the weight of $f$, and it also cannot have a smaller weight since $S$ was a minimum spanning tree.
-This means that by replacing the edge $f$ with $e$ we generated a different minimum spanning tree.
-And $e$ has to have the same weight as $f$.
+ফলাফল স্প্যানিং ট্রির মোট ওয়েট বড় হতে পারে না, যেহেতু $e$-এর ওয়েট $f$-এর ওয়েটের চেয়ে বড় ছিল না, এবং ছোটও হতে পারে না যেহেতু $S$ একটি মিনিমাম স্প্যানিং ট্রি ছিল।
+এর মানে এজ $f$-কে $e$ দিয়ে প্রতিস্থাপন করে আমরা একটি ভিন্ন মিনিমাম স্প্যানিং ট্রি তৈরি করেছি।
+এবং $e$-এর ওয়েট $f$-এর ওয়েটের সমান হতে হবে।
 
-Thus all the edges we pick in Prim's algorithm have the same weights as the edges of any minimum spanning tree, which means that Prim's algorithm really generates a minimum spanning tree.
+সুতরাং প্রিমের অ্যালগরিদমে আমরা যে সকল এজ বেছে নিই তাদের ওয়েট যেকোনো মিনিমাম স্প্যানিং ট্রির এজের ওয়েটের সমান, যার মানে প্রিমের অ্যালগরিদম প্রকৃতপক্ষে একটি মিনিমাম স্প্যানিং ট্রি তৈরি করে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The complexity of the algorithm depends on how we search for the next minimal edge among the appropriate edges.
-There are multiple approaches leading to different complexities and different implementations.
+অ্যালগরিদমের কমপ্লেক্সিটি নির্ভর করে আমরা কীভাবে উপযুক্ত এজগুলোর মধ্যে পরবর্তী ন্যূনতম এজ খুঁজি।
+বিভিন্ন পদ্ধতি আছে যা বিভিন্ন কমপ্লেক্সিটি ও বিভিন্ন ইমপ্লিমেন্টেশনে নিয়ে যায়।
 
-### Trivial implementations: $O(n m)$ and $O(n^2 + m \log n)$
+### সাধারণ ইমপ্লিমেন্টেশন: $O(n m)$ ও $O(n^2 + m \log n)$
 
-If we search the edge by iterating over all possible edges, then it takes $O(m)$ time to find the edge with the minimal weight.
-The total complexity will be $O(n m)$.
-In the worst case this is $O(n^3)$, really slow.
+যদি আমরা সকল সম্ভাব্য এজ ইটারেট করে এজ খুঁজি, তাহলে ন্যূনতম ওয়েটের এজ খুঁজতে $O(m)$ সময় লাগে।
+মোট কমপ্লেক্সিটি হবে $O(n m)$।
+সবচেয়ে খারাপ ক্ষেত্রে এটি $O(n^3)$, যা সত্যিই ধীর।
 
-This algorithm can be improved if we only look at one edge from each already selected vertex.
-For example we can sort the edges from each vertex in ascending order of their weights, and store a pointer to the first valid edge (i.e. an edge that goes to an non-selected vertex).
-Then after finding and selecting the minimal edge, we update the pointers.
-This give a complexity of $O(n^2 + m)$, and for sorting the edges an additional $O(m \log n)$, which gives the complexity $O(n^2 \log n)$ in the worst case.
+এই অ্যালগরিদম উন্নত করা যায় যদি আমরা প্রতিটি ইতিমধ্যে নির্বাচিত ভার্টেক্স থেকে শুধু একটি এজ দেখি।
+উদাহরণস্বরূপ আমরা প্রতিটি ভার্টেক্স থেকে এজগুলো ওয়েটের ঊর্ধ্বক্রমে সর্ট করতে পারি, এবং প্রথম বৈধ এজে (অর্থাৎ অনির্বাচিত ভার্টেক্সে যায় এমন এজ) একটি পয়েন্টার রাখতে পারি।
+তারপর ন্যূনতম এজ খুঁজে নির্বাচন করার পর, আমরা পয়েন্টারগুলো আপডেট করি।
+এতে কমপ্লেক্সিটি $O(n^2 + m)$ হয়, এবং এজ সর্ট করতে অতিরিক্ত $O(m \log n)$, যা সবচেয়ে খারাপ ক্ষেত্রে $O(n^2 \log n)$ কমপ্লেক্সিটি দেয়।
 
-Below we consider two slightly different algorithms, one for dense and one for sparse graphs, both with a better complexity.
+নিচে আমরা দুটি সামান্য ভিন্ন অ্যালগরিদম বিবেচনা করব, একটি ঘন গ্রাফের জন্য এবং একটি স্পার্স গ্রাফের জন্য, উভয়ই উন্নত কমপ্লেক্সিটিসহ।
 
-### Dense graphs: $O(n^2)$
+### ঘন গ্রাফ: $O(n^2)$
 
-We approach this problem from a different angle:
-for every not yet selected vertex we will store the minimum edge to an already selected vertex.
+আমরা এই সমস্যাটিকে ভিন্ন দৃষ্টিকোণ থেকে দেখি:
+প্রতিটি এখনও অনির্বাচিত ভার্টেক্সের জন্য আমরা ইতিমধ্যে নির্বাচিত ভার্টেক্সে যাওয়ার ন্যূনতম এজ সংরক্ষণ করব।
 
-Then during a step we only have to look at these minimum weight edges, which will have a complexity of $O(n)$.
+তারপর একটি ধাপে আমাদের শুধু এই ন্যূনতম ওয়েটের এজগুলো দেখতে হবে, যার কমপ্লেক্সিটি $O(n)$ হবে।
 
-After adding an edge some minimum edge pointers have to be recalculated.
-Note that the weights only can decrease, i.e. the minimal weight edge of every not yet selected vertex might stay the same, or it will be updated by an edge to the newly selected vertex.
-Therefore this phase can also be done in $O(n)$.
+একটি এজ যোগ করার পর কিছু ন্যূনতম এজ পয়েন্টার পুনরায় গণনা করতে হবে।
+লক্ষ্য করুন যে ওয়েট কেবল কমতে পারে, অর্থাৎ প্রতিটি এখনও অনির্বাচিত ভার্টেক্সের ন্যূনতম ওয়েট এজ একই থাকতে পারে, অথবা নতুন নির্বাচিত ভার্টেক্সে যাওয়া এজ দ্বারা আপডেট হবে।
+তাই এই ফেজটিও $O(n)$-এ করা যায়।
 
-Thus we received a version of Prim's algorithm with the complexity $O(n^2)$.
+এভাবে আমরা প্রিমের অ্যালগরিদমের $O(n^2)$ কমপ্লেক্সিটির একটি ভার্সন পেলাম।
 
-In particular this implementation is very convenient for the Euclidean Minimum Spanning Tree problem:
-we have $n$ points on a plane and the distance between each pair of points is the Euclidean distance between them, and we want to find a minimum spanning tree for this complete graph.
-This task can be solved by the described algorithm in $O(n^2)$ time and $O(n)$ memory, which is not possible with [Kruskal's algorithm](mst_kruskal.md).
+বিশেষ করে এই ইমপ্লিমেন্টেশনটি ইউক্লিডীয় মিনিমাম স্প্যানিং ট্রি সমস্যার জন্য খুবই সুবিধাজনক:
+আমাদের সমতলে $n$টি বিন্দু আছে এবং প্রতিটি জোড়া বিন্দুর মধ্যে দূরত্ব তাদের ইউক্লিডীয় দূরত্ব, এবং আমরা এই সম্পূর্ণ গ্রাফের জন্য একটি মিনিমাম স্প্যানিং ট্রি খুঁজতে চাই।
+এই কাজটি বর্ণিত অ্যালগরিদম দ্বারা $O(n^2)$ সময়ে ও $O(n)$ মেমোরিতে সমাধান করা যায়, যা [ক্রুস্কালের অ্যালগরিদম](mst_kruskal.md) দিয়ে সম্ভব নয়।
 
 ```cpp
 int n;
@@ -146,20 +146,20 @@ void prim() {
 }
 ```
 
-The adjacency matrix `adj[][]` of size $n \times n$ stores the weights of the edges, and it uses the weight `INF` if there doesn't exist an edge between two vertices.
-The algorithm uses two arrays: the flag `selected[]`, which indicates which vertices we already have selected, and the array `min_e[]` which stores the edge with minimal weight to a selected vertex for each not-yet-selected vertex (it stores the weight and the end vertex).
-The algorithm does $n$ steps, in each iteration the vertex with the smallest edge weight is selected, and the `min_e[]` of all other vertices gets updated.
+$n \times n$ আকারের অ্যাডজেসেন্সি ম্যাট্রিক্স `adj[][]` এজের ওয়েট সংরক্ষণ করে, এবং দুটি ভার্টেক্সের মধ্যে কোনো এজ না থাকলে ওয়েট `INF` ব্যবহার করে।
+অ্যালগরিদমটি দুটি অ্যারে ব্যবহার করে: ফ্ল্যাগ `selected[]`, যা নির্দেশ করে কোন ভার্টেক্সগুলো আমরা ইতিমধ্যে নির্বাচন করেছি, এবং অ্যারে `min_e[]` যা প্রতিটি এখনও-অনির্বাচিত ভার্টেক্সের জন্য নির্বাচিত ভার্টেক্সে যাওয়ার ন্যূনতম ওয়েটের এজ সংরক্ষণ করে (এটি ওয়েট ও প্রান্তের ভার্টেক্স সংরক্ষণ করে)।
+অ্যালগরিদমটি $n$ ধাপ সম্পন্ন করে, প্রতিটি ইটারেশনে সবচেয়ে ছোট এজ ওয়েটের ভার্টেক্স নির্বাচিত হয়, এবং অন্য সকল ভার্টেক্সের `min_e[]` আপডেট হয়।
 
-### Sparse graphs: $O(m \log n)$
+### স্পার্স গ্রাফ: $O(m \log n)$
 
-In the above described algorithm it is possible to interpret the operations of finding the minimum and modifying some values as set operations.
-These two classical operations are supported by many data structure, for example by `set` in C++ (which are implemented via red-black trees).
+উপরে বর্ণিত অ্যালগরিদমে ন্যূনতম খুঁজে বের করা ও কিছু মান পরিবর্তন করার অপারেশনগুলোকে সেট অপারেশন হিসেবে ব্যাখ্যা করা সম্ভব।
+এই দুটি ক্লাসিক অপারেশন অনেক ডেটা স্ট্রাকচার দ্বারা সমর্থিত, উদাহরণস্বরূপ C++-এ `set` (যেটি রেড-ব্ল্যাক ট্রি দ্বারা ইমপ্লিমেন্ট করা হয়)।
 
-The main algorithm remains the same, but now we can find the minimum edge in $O(\log n)$ time.
-On the other hand recomputing the pointers will now take $O(n \log n)$ time, which is worse than in the previous algorithm.
+মূল অ্যালগরিদম একই থাকে, কিন্তু এখন আমরা $O(\log n)$ সময়ে ন্যূনতম এজ খুঁজতে পারি।
+অন্যদিকে পয়েন্টার পুনরায় গণনা করতে এখন $O(n \log n)$ সময় লাগবে, যা আগের অ্যালগরিদমের চেয়ে খারাপ।
 
-But when we consider that we only need to update $O(m)$ times in total, and perform $O(n)$ searches for the minimal edge, then the total complexity will be $O(m \log n)$.
-For sparse graphs this is better than the above algorithm, but for dense graphs this will be slower.
+কিন্তু যদি বিবেচনা করি যে আমাদের মোট মাত্র $O(m)$ বার আপডেট করতে হবে, এবং ন্যূনতম এজের জন্য $O(n)$ বার সার্চ করতে হবে, তাহলে মোট কমপ্লেক্সিটি হবে $O(m \log n)$।
+স্পার্স গ্রাফের জন্য এটি উপরের অ্যালগরিদমের চেয়ে ভালো, কিন্তু ঘন গ্রাফের জন্য এটি ধীর হবে।
 
 ```cpp
 const int INF = 1000000000;
@@ -208,7 +208,7 @@ void prim() {
 }
 ```
 
-Here the graph is represented via a adjacency list `adj[]`, where `adj[v]` contains all edges (in form of weight and target pairs) for the vertex `v`.
-`min_e[v]` will store the weight of the smallest edge from vertex `v` to an already selected vertex (again in the form of a weight and target pair).
-In addition the queue `q` is filled with all not yet selected vertices in the order of increasing weights `min_e`.
-The algorithm does `n` steps, on each of which it selects the vertex `v` with the smallest weight `min_e` (by extracting it from the beginning of the queue), and then looks through all the edges from this vertex and updates the values in `min_e` (during an update we also need to also remove the old edge from the queue `q` and put in the new edge).
+এখানে গ্রাফটি অ্যাডজেসেন্সি লিস্ট `adj[]` দ্বারা উপস্থাপিত, যেখানে `adj[v]` ভার্টেক্স `v`-এর সকল এজ (ওয়েট ও টার্গেট জোড়ার আকারে) ধারণ করে।
+`min_e[v]` ভার্টেক্স `v` থেকে ইতিমধ্যে নির্বাচিত ভার্টেক্সে যাওয়ার সবচেয়ে ছোট এজের ওয়েট সংরক্ষণ করবে (আবার ওয়েট ও টার্গেট জোড়ার আকারে)।
+এছাড়া কিউ `q`-তে সকল এখনও অনির্বাচিত ভার্টেক্স `min_e`-এর ঊর্ধ্বক্রমে ভরা থাকে।
+অ্যালগরিদমটি `n` ধাপ সম্পন্ন করে, প্রতিটিতে সবচেয়ে ছোট ওয়েটের `min_e` সহ ভার্টেক্স `v` নির্বাচন করে (কিউ-এর শুরু থেকে বের করে), এবং তারপর এই ভার্টেক্স থেকে সকল এজ দেখে `min_e`-এর মান আপডেট করে (আপডেটের সময় আমাদের কিউ `q` থেকে পুরানো এজ সরিয়ে নতুন এজ রাখতে হয়)।

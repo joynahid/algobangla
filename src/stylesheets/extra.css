@@ -90,3 +90,13 @@ body[dir=rtl] .metadata.page-metadata .contributors-text{
   border-color: #665c1e;
   color: #fff7b3;
 }
+
+/* Bengali font - override mkdocs-material CSS variables */
+:root {
+  --md-text-font: "Kalpurush", "Noto Sans Bengali", sans-serif;
+  --md-code-font: "Roboto Mono", monospace;
+}
+
+body, .md-typeset, .md-content, .md-nav__title, .md-nav__item {
+  font-family: "Kalpurush", "Noto Sans Bengali", "Noto Sans", sans-serif !important;
+}

@@ -4,50 +4,50 @@ tags:
 e_maxx_link: catalan_numbers
 ---
 
-# Catalan Numbers
-Catalan numbers is a number sequence, which is found useful in a number of combinatorial problems, often involving recursively-defined objects.
+# ক্যাটালান সংখ্যা
+ক্যাটালান সংখ্যা হলো একটি সংখ্যা ক্রম, যা বিভিন্ন কম্বিনেটরিক্স সমস্যায় কাজে আসে, বিশেষ করে যেসব সমস্যায় রিকার্সিভভাবে সংজ্ঞায়িত অবজেক্ট জড়িত থাকে।
 
-This sequence was named after the Belgian mathematician [Catalan](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan), who lived in the 19th century. (In fact it was known before to Euler, who lived a century before Catalan).
+এই ক্রমটি বেলজিয়ান গণিতবিদ [Catalan](https://en.wikipedia.org/wiki/Eug%C3%A8ne_Charles_Catalan)-এর নামে নামকরণ করা হয়েছে, যিনি ১৯শ শতকে জীবিত ছিলেন। (প্রকৃতপক্ষে ক্যাটালানের এক শতক আগে অয়লারের কাছে এটি পরিচিত ছিল)।
 
-The first few Catalan numbers $C_n$ (starting from zero):
+প্রথম কয়েকটি ক্যাটালান সংখ্যা $C_n$ (শূন্য থেকে শুরু করে):
 
  $1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots$
 
-### Application in some combinatorial problems
+### কিছু কম্বিনেটরিক্স সমস্যায় প্রয়োগ
 
-The Catalan number $C_n$ is the solution for
+ক্যাটালান সংখ্যা $C_n$ হলো নিম্নলিখিত সমস্যাগুলোর সমাধান:
 
-- Number of correct bracket sequence consisting of $n$ opening and $n$ closing brackets.
-- The number of rooted full binary trees with $n + 1$ leaves (vertices are not numbered). A rooted binary tree is full if every vertex has either two children or no children.
-- The number of ways to completely parenthesize $n + 1$ factors.
-- The number of triangulations of a convex polygon with $n + 2$ sides (i.e. the number of partitions of polygon into disjoint triangles by using the diagonals).
-- The number of ways to connect the $2n$ points on a circle to form $n$ disjoint chords.
-- The number of [non-isomorphic](https://en.wikipedia.org/wiki/Graph_isomorphism) full binary trees with $n$ internal nodes (i.e. nodes having at least one son).
-- The number of monotonic lattice paths from point $(0, 0)$ to point $(n, n)$ in a square lattice of size $n \times n$, which do not pass above the main diagonal (i.e. connecting $(0, 0)$ to $(n, n)$).
-- Number of permutations of length $n$ that can be [stack sorted](https://en.wikipedia.org/wiki/Stack-sortable_permutation) (i.e. it can be shown that the rearrangement is stack sorted if and only if there is no such index $i < j < k$, such that $a_k < a_i < a_j$ ).
-- The number of [non-crossing partitions](https://en.wikipedia.org/wiki/Noncrossing_partition) of a set of $n$ elements.
-- The number of ways to cover the ladder $1 \ldots n$ using $n$ rectangles (The ladder consists of $n$ columns, where $i^{th}$ column has a height $i$).
+- $n$টি ওপেনিং এবং $n$টি ক্লোজিং ব্র্যাকেট নিয়ে গঠিত সঠিক ব্র্যাকেট সিকোয়েন্সের সংখ্যা।
+- $n + 1$টি লিফ সহ রুটেড ফুল বাইনারি ট্রি-এর সংখ্যা (ভার্টেক্সগুলো নম্বরবিহীন)। একটি রুটেড বাইনারি ট্রি ফুল হয় যদি প্রতিটি ভার্টেক্সের হয় দুটি চাইল্ড থাকে অথবা কোনো চাইল্ড না থাকে।
+- $n + 1$টি ফ্যাক্টরকে সম্পূর্ণরূপে বন্ধনীবদ্ধ করার উপায়ের সংখ্যা।
+- $n + 2$ বাহুবিশিষ্ট একটি উত্তল বহুভুজের ত্রিভুজায়নের সংখ্যা (অর্থাৎ কর্ণ ব্যবহার করে বহুভুজটিকে অবিচ্ছিন্ন ত্রিভুজে বিভক্ত করার উপায়ের সংখ্যা)।
+- একটি বৃত্তের $2n$টি বিন্দুকে সংযুক্ত করে $n$টি অবিচ্ছিন্ন জ্যা তৈরি করার উপায়ের সংখ্যা।
+- $n$টি ইন্টারনাল নোড সহ [নন-আইসোমর্ফিক](https://en.wikipedia.org/wiki/Graph_isomorphism) ফুল বাইনারি ট্রি-এর সংখ্যা (অর্থাৎ এমন নোড যাদের অন্তত একটি চাইল্ড আছে)।
+- $n \times n$ আকারের একটি বর্গাকার ল্যাটিসে $(0, 0)$ বিন্দু থেকে $(n, n)$ বিন্দু পর্যন্ত মনোটনিক ল্যাটিস পাথের সংখ্যা, যা মূল কর্ণের (অর্থাৎ $(0, 0)$ এবং $(n, n)$ সংযোগকারী) উপরে যায় না।
+- দৈর্ঘ্য $n$-এর পারমুটেশনের সংখ্যা যেগুলো [স্ট্যাক সর্ট](https://en.wikipedia.org/wiki/Stack-sortable_permutation) করা যায় (অর্থাৎ দেখানো যায় যে পুনর্বিন্যাসটি স্ট্যাক সর্টেড হয় যদি এবং কেবলমাত্র যদি এমন কোনো ইনডেক্স $i < j < k$ না থাকে যেখানে $a_k < a_i < a_j$)।
+- $n$ উপাদানের একটি সেটের [নন-ক্রসিং পার্টিশন](https://en.wikipedia.org/wiki/Noncrossing_partition)-এর সংখ্যা।
+- $n$টি আয়তক্ষেত্র ব্যবহার করে $1 \ldots n$ মই ঢাকার উপায়ের সংখ্যা (মইটিতে $n$টি কলাম আছে, যেখানে $i$-তম কলামের উচ্চতা $i$)।
 
 
-## Calculations
+## গণনা
 
-There are two formulas for the Catalan numbers: **Recursive and Analytical**. Since, we believe that all the mentioned above problems are equivalent (have the same solution), for the proof of the formulas below we will choose the task which it is easiest to do.
+ক্যাটালান সংখ্যার দুটি সূত্র আছে: **রিকার্সিভ এবং বিশ্লেষণাত্মক**। যেহেতু আমরা বিশ্বাস করি যে উপরে উল্লেখিত সব সমস্যা সমতুল্য (একই সমাধান আছে), তাই নিচের সূত্রগুলোর প্রমাণের জন্য আমরা এমন সমস্যা বেছে নেব যেটি সবচেয়ে সহজ।
 
-### Recursive formula
- 
+### রিকার্সিভ সূত্র
+
 $$C_0 = C_1 = 1$$
 
 $$C_n = \sum_{k = 0}^{n-1} C_k C_{n-1-k} , {n} \geq 2$$
 
-The recurrence formula can be easily deduced from the problem of the correct bracket sequence.
+রিকারেন্স সূত্রটি সঠিক ব্র্যাকেট সিকোয়েন্সের সমস্যা থেকে সহজেই বের করা যায়।
 
-The leftmost opening parenthesis $l$ corresponds to certain closing bracket $r$, which divides the sequence into 2 parts which in turn should be a correct sequence of brackets. Thus formula is also divided into 2 parts. If we denote $k = {r - l - 1}$, then for fixed $r$, there will be exactly $C_k C_{n-1-k}$ such bracket sequences. Summing this over all admissible $k's$, we get the recurrence relation on $C_n$.
+সবচেয়ে বাঁদিকের ওপেনিং বন্ধনী $l$ একটি নির্দিষ্ট ক্লোজিং ব্র্যাকেট $r$-এর সাথে মিলে, যা সিকোয়েন্সটিকে ২টি অংশে ভাগ করে এবং প্রতিটি অংশও একটি সঠিক ব্র্যাকেট সিকোয়েন্স হওয়া উচিত। তাই সূত্রটিও ২টি অংশে বিভক্ত হয়। যদি আমরা $k = {r - l - 1}$ বলি, তাহলে একটি নির্দিষ্ট $r$-এর জন্য ঠিক $C_k C_{n-1-k}$টি এমন ব্র্যাকেট সিকোয়েন্স থাকবে। সব গ্রহণযোগ্য $k$-এর উপর যোগফল করলে আমরা $C_n$-এর রিকারেন্স সম্পর্ক পাই।
 
-You can also think it in this manner. By definition, $C_n$ denotes number of correct bracket sequences. Now, the sequence may be divided into 2 parts of length $k$ and ${n - k}$, each of which should be a correct bracket sequence. Example :
+আপনি এটি এভাবেও চিন্তা করতে পারেন। সংজ্ঞা অনুসারে, $C_n$ সঠিক ব্র্যাকেট সিকোয়েন্সের সংখ্যা নির্দেশ করে। এখন, সিকোয়েন্সটিকে $k$ এবং ${n - k}$ দৈর্ঘ্যের ২টি অংশে ভাগ করা যায়, যার প্রতিটি একটি সঠিক ব্র্যাকেট সিকোয়েন্স হওয়া উচিত। উদাহরণ:
 
-$( ) ( ( ) )$ can be divided into $( )$ and $( ( ) )$, but cannot be divided into $( ) ($ and $( ) )$. Again summing over all admissible $k's$, we get the recurrence relation on $C_n$.
+$( ) ( ( ) )$-কে $( )$ এবং $( ( ) )$-এ ভাগ করা যায়, কিন্তু $( ) ($ এবং $( ) )$-এ ভাগ করা যায় না। আবার সব গ্রহণযোগ্য $k$-এর উপর যোগফল করলে আমরা $C_n$-এর রিকারেন্স সম্পর্ক পাই।
 
-#### C++ implementation 
+#### C++ ইমপ্লিমেন্টেশন
 
 ```cpp
 const int MOD = ....
@@ -67,25 +67,25 @@ void init() {
 }
 ```
 
-### Analytical formula
+### বিশ্লেষণাত্মক সূত্র
 
 $$C_n = \frac{1}{n + 1} {\binom{2n}{n}}$$
 
-(here $\binom{n}{k}$ denotes the usual binomial coefficient, i.e. number of ways to select $k$ objects from set of $n$ objects).
+(এখানে $\binom{n}{k}$ হলো সাধারণ দ্বিপদী সহগ, অর্থাৎ $n$টি অবজেক্ট থেকে $k$টি অবজেক্ট বাছাই করার উপায়ের সংখ্যা)।
 
-The above formula can be easily concluded from the problem of the monotonic paths in square grid. The total number of  monotonic paths in the lattice size of $n \times n$ is given by $\binom{2n}{n}$.
+উপরের সূত্রটি বর্গাকার গ্রিডে মনোটনিক পাথের সমস্যা থেকে সহজেই বের করা যায়। $n \times n$ আকারের ল্যাটিসে মনোটনিক পাথের মোট সংখ্যা হলো $\binom{2n}{n}$।
 
-Now we count the number of monotonic paths which cross the main diagonal. Consider such paths crossing the main diagonal and find the first edge in it which is above the diagonal. Reflect the path about the diagonal all the way, going after this edge. The result is always a monotonic path in the grid $(n - 1) \times (n + 1)$. On the other hand, any monotonic path in the lattice $(n - 1) \times (n + 1)$ must intersect the diagonal. Hence, we enumerated all monotonic paths crossing the main diagonal in the lattice $n \times n$.
+এখন আমরা সেই মনোটনিক পাথের সংখ্যা গুনব যেগুলো মূল কর্ণ অতিক্রম করে। এমন পাথগুলো বিবেচনা করি যেগুলো মূল কর্ণ অতিক্রম করে এবং এর মধ্যে প্রথম এজটি খুঁজে বের করি যেটি কর্ণের উপরে। এই এজের পর থেকে বাকি পাথটি কর্ণের সাপেক্ষে প্রতিফলিত করি। ফলাফল সবসময় $(n - 1) \times (n + 1)$ গ্রিডে একটি মনোটনিক পাথ হয়। অন্যদিকে, $(n - 1) \times (n + 1)$ ল্যাটিসে যেকোনো মনোটনিক পাথ অবশ্যই কর্ণকে ছেদ করবে। অতএব, আমরা $n \times n$ ল্যাটিসে মূল কর্ণ অতিক্রমকারী সব মনোটনিক পাথ গুনে ফেলেছি।
 
-The number of monotonic paths in the lattice $(n - 1) \times (n + 1)$ are $\binom{2n}{n-1}$ . Let us call such paths as "bad" paths. As a result, to obtain the number of monotonic paths which do not cross the main diagonal, we subtract the above "bad" paths, obtaining the formula:
+$(n - 1) \times (n + 1)$ ল্যাটিসে মনোটনিক পাথের সংখ্যা হলো $\binom{2n}{n-1}$। আমরা এই পাথগুলোকে "খারাপ" পাথ বলি। ফলে, মূল কর্ণ অতিক্রম করে না এমন মনোটনিক পাথের সংখ্যা পেতে, আমরা উপরের "খারাপ" পাথগুলো বাদ দিই এবং সূত্রটি পাই:
 
 $$C_n = \binom{2n}{n} - \binom{2n}{n-1} = \frac{1}{n + 1} \binom{2n}{n} , {n} \geq 0$$
 
-## Reference
+## রেফারেন্স
 
 - [Catalan Number by Tom Davis](http://www.geometer.org/mathcircles/catalan.pdf)
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [Codechef - PANSTACK](https://www.codechef.com/APRIL12/problems/PANSTACK/)
 - [Spoj - Skyline](http://www.spoj.com/problems/SKYLINE/)
 - [UVA - Safe Salutations](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=932)

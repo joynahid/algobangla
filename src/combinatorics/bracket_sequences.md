@@ -4,85 +4,85 @@ tags:
 e_maxx_link: bracket_sequences
 ---
 
-# Balanced bracket sequences
+# সুষম বন্ধনী ক্রম
 
-A **balanced bracket sequence** is a string consisting of only brackets, such that this sequence, when inserted certain numbers and mathematical operations, gives a valid mathematical expression.
-Formally you can define balanced bracket sequence with:
+একটি **সুষম বন্ধনী ক্রম** হলো শুধুমাত্র বন্ধনী দিয়ে গঠিত একটি স্ট্রিং, যেখানে এই ক্রমে নির্দিষ্ট সংখ্যা ও গাণিতিক অপারেশন বসালে একটি বৈধ গাণিতিক রাশি পাওয়া যায়।
+আনুষ্ঠানিকভাবে সুষম বন্ধনী ক্রমকে এভাবে সংজ্ঞায়িত করা যায়:
 
-- $e$ (the empty string) is a balanced bracket sequence.
-- if $s$ is a balanced bracket sequence, then so is $(s)$.
-- if $s$ and $t$ are balanced bracket sequences, then so is $s t$.
+- $e$ (খালি স্ট্রিং) একটি সুষম বন্ধনী ক্রম।
+- যদি $s$ একটি সুষম বন্ধনী ক্রম হয়, তাহলে $(s)$-ও একটি সুষম বন্ধনী ক্রম।
+- যদি $s$ এবং $t$ সুষম বন্ধনী ক্রম হয়, তাহলে $s t$-ও একটি সুষম বন্ধনী ক্রম।
 
-For instance $(())()$ is a balanced bracket sequence, but $())($ is not.
+উদাহরণস্বরূপ $(())()$ একটি সুষম বন্ধনী ক্রম, কিন্তু $())($ নয়।
 
-Of course you can define other bracket sequences also with multiple bracket types in a similar fashion.
+অবশ্যই একইভাবে একাধিক ধরনের বন্ধনী দিয়েও অন্যান্য বন্ধনী ক্রম সংজ্ঞায়িত করা যায়।
 
-In this article we discuss some classic problems involving balanced bracket sequences (for simplicity we will only call them sequences): validation, number of sequences, finding the lexicographical next sequence, generating all sequences of a certain size, finding the index of sequence, and generating the $k$-th sequences.
-We will also discuss two variations for the problems, the simpler version when only one type of brackets is allowed, and the harder case when there are multiple types.
+এই নিবন্ধে আমরা সুষম বন্ধনী ক্রম সম্পর্কিত কিছু ক্লাসিক সমস্যা আলোচনা করবো (সরলতার জন্য আমরা এদের শুধু ক্রম বলবো): বৈধতা যাচাই, ক্রমের সংখ্যা, অভিধানক্রমে পরবর্তী ক্রম খোঁজা, একটি নির্দিষ্ট দৈর্ঘ্যের সব ক্রম তৈরি, ক্রমের ইনডেক্স বের করা, এবং $k$-তম ক্রম তৈরি করা।
+আমরা সমস্যাগুলোর দুটি রূপও আলোচনা করবো, সরলতর সংস্করণ যেখানে শুধু একটি ধরনের বন্ধনী অনুমোদিত, এবং কঠিনতর ক্ষেত্র যেখানে একাধিক ধরনের বন্ধনী আছে।
 
-## Balance validation
+## সুষমতা যাচাই
 
-We want to check if a given string is balanced or not.
+আমরা পরীক্ষা করতে চাই একটি প্রদত্ত স্ট্রিং সুষম কিনা।
 
-At first suppose there is only one type of bracket.
-For this case there exists a very simple algorithm.
-Let $\text{depth}$ be the current number of open brackets.
-Initially $\text{depth} = 0$.
-We iterate over all character of the string, if the current bracket character is an opening bracket, then we increment $\text{depth}$, otherwise we decrement it.
-If at any time the variable $\text{depth}$ gets negative, or at the end it is different from $0$, then the string is not a balanced sequence.
-Otherwise it is.
+প্রথমে ধরি শুধু একটি ধরনের বন্ধনী আছে।
+এই ক্ষেত্রে একটি অত্যন্ত সরল অ্যালগরিদম আছে।
+ধরি $\text{depth}$ হলো বর্তমান খোলা বন্ধনীর সংখ্যা।
+শুরুতে $\text{depth} = 0$।
+আমরা স্ট্রিংয়ের সব ক্যারেক্টারের মধ্য দিয়ে যাবো, যদি বর্তমান বন্ধনী ক্যারেক্টারটি একটি খোলা বন্ধনী হয়, তাহলে আমরা $\text{depth}$ বাড়াবো, অন্যথায় কমাবো।
+যদি কোনো সময়ে $\text{depth}$ ভেরিয়েবল ঋণাত্মক হয়ে যায়, অথবা শেষে এটি $0$ থেকে ভিন্ন হয়, তাহলে স্ট্রিংটি সুষম ক্রম নয়।
+অন্যথায় এটি সুষম।
 
-If there are several bracket types involved, then the algorithm needs to be changed.
-Instead of a counter $\text{depth}$ we create a stack, in which we will store all opening brackets that we meet.
-If the current bracket character is an opening one, we put it onto the stack.
-If it is a closing one, then we check if the stack is non-empty, and if the top element of the stack is of the same type as the current closing bracket.
-If both conditions are fulfilled, then we remove the opening bracket from the stack.
-If at any time one of the conditions is not fulfilled, or at the end the stack is not empty, then the string is not balanced.
-Otherwise it is.
+যদি একাধিক ধরনের বন্ধনী থাকে, তাহলে অ্যালগরিদম পরিবর্তন করতে হবে।
+$\text{depth}$ কাউন্টারের পরিবর্তে আমরা একটি স্ট্যাক তৈরি করি, যেখানে আমরা সব পাওয়া খোলা বন্ধনী সংরক্ষণ করবো।
+যদি বর্তমান বন্ধনী ক্যারেক্টারটি খোলা হয়, আমরা একে স্ট্যাকে রাখি।
+যদি এটি বন্ধ হয়, তাহলে আমরা পরীক্ষা করি স্ট্যাক খালি কিনা, এবং স্ট্যাকের শীর্ষ উপাদান বর্তমান বন্ধ বন্ধনীর একই ধরনের কিনা।
+যদি উভয় শর্ত পূরণ হয়, তাহলে আমরা স্ট্যাক থেকে খোলা বন্ধনীটি সরিয়ে ফেলি।
+যদি কোনো সময়ে কোনো একটি শর্ত পূরণ না হয়, অথবা শেষে স্ট্যাক খালি না থাকে, তাহলে স্ট্রিংটি সুষম নয়।
+অন্যথায় এটি সুষম।
 
-## Number of balanced sequences
+## সুষম ক্রমের সংখ্যা
 
-### Formula
+### সূত্র
 
-The number of balanced bracket sequences with only one bracket type can be calculated using the [Catalan numbers](catalan-numbers.md).
-The number of balanced bracket sequences of length $2n$ ($n$ pairs of brackets) is:
+শুধু একটি ধরনের বন্ধনী দিয়ে সুষম বন্ধনী ক্রমের সংখ্যা [ক্যাটালান সংখ্যা](catalan-numbers.md) ব্যবহার করে গণনা করা যায়।
+দৈর্ঘ্য $2n$ ($n$ জোড়া বন্ধনী) এর সুষম বন্ধনী ক্রমের সংখ্যা হলো:
 
 $$\frac{1}{n+1} \binom{2n}{n}$$
 
-If we allow $k$ types of brackets, then each pair can be of any of the $k$ types (independently of the others), thus the number of balanced bracket sequences is:
+যদি আমরা $k$ ধরনের বন্ধনী অনুমোদন করি, তাহলে প্রতিটি জোড়া $k$ ধরনের যেকোনো একটি হতে পারে (অন্যগুলো থেকে স্বাধীনভাবে), সুতরাং সুষম বন্ধনী ক্রমের সংখ্যা হলো:
 
 $$\frac{1}{n+1} \binom{2n}{n} k^n$$
 
-### Dynamic programming
+### ডায়নামিক প্রোগ্রামিং
 
-On the other hand these numbers can be computed using **dynamic programming**.
-Let $d[n]$ be the number of regular bracket sequences with $n$ pairs of bracket.
-Note that in the first position there is always an opening bracket.
-And somewhere later is the corresponding closing bracket of the pair.
-It is clear that inside this pair there is a balanced bracket sequence, and similarly after this pair there is a balanced bracket sequence.
-So to compute $d[n]$, we will look at how many balanced sequences of $i$ pairs of brackets are inside this first bracket pair, and how many balanced sequences with $n-1-i$ pairs are after this pair.
-Consequently the formula has the form:
+অন্যদিকে এই সংখ্যাগুলো **ডায়নামিক প্রোগ্রামিং** ব্যবহার করেও গণনা করা যায়।
+ধরি $d[n]$ হলো $n$ জোড়া বন্ধনী দিয়ে সুষম বন্ধনী ক্রমের সংখ্যা।
+লক্ষ্য করুন প্রথম অবস্থানে সবসময় একটি খোলা বন্ধনী থাকে।
+এবং পরে কোথাও এই জোড়ার সংশ্লিষ্ট বন্ধ বন্ধনী আছে।
+এটা স্পষ্ট যে এই জোড়ার ভেতরে একটি সুষম বন্ধনী ক্রম আছে, এবং একইভাবে এই জোড়ার পরেও একটি সুষম বন্ধনী ক্রম আছে।
+সুতরাং $d[n]$ গণনা করতে, আমরা দেখবো প্রথম বন্ধনী জোড়ার ভেতরে $i$ জোড়া বন্ধনীর কতগুলো সুষম ক্রম আছে, এবং এই জোড়ার পরে $n-1-i$ জোড়ার কতগুলো সুষম ক্রম আছে।
+ফলে সূত্রটি হলো:
 
 $$d[n] = \sum_{i=0}^{n-1} d[i] \cdot d[n-1-i]$$
 
-The initial value for this recurrence is $d[0] = 1$.
+এই পুনরাবৃত্তির প্রাথমিক মান $d[0] = 1$।
 
-## Finding the lexicographical next balanced sequence
+## অভিধানক্রমে পরবর্তী সুষম ক্রম খোঁজা
 
-Here we only consider the case with one valid bracket type.
+এখানে আমরা শুধু একটি বৈধ বন্ধনী ধরনের ক্ষেত্র বিবেচনা করবো।
 
-Given a balanced sequence, we have to find the next (in lexicographical order) balanced sequence.
+একটি সুষম ক্রম দেওয়া আছে, আমাদের পরবর্তী (অভিধানক্রমে) সুষম ক্রমটি খুঁজে বের করতে হবে।
 
-It should be obvious, that we have to find the rightmost opening bracket, which we can replace by a closing bracket without violation the condition, that there are more closing brackets than opening brackets up to this position.
-After replacing this position, we can fill the remaining part of the string with the lexicographically minimal one: i.e. first with as much opening brackets as possible, and then fill up the remaining positions with closing brackets.
-In other words we try to leave a long as possible prefix unchanged, and the suffix gets replaced by the lexicographically minimal one.
+এটা স্পষ্ট হওয়া উচিত যে আমাদের সবচেয়ে ডানের খোলা বন্ধনীটি খুঁজতে হবে, যাকে আমরা একটি বন্ধ বন্ধনী দিয়ে প্রতিস্থাপন করতে পারি এই শর্ত ভঙ্গ না করে যে এই অবস্থান পর্যন্ত খোলা বন্ধনীর চেয়ে বেশি বন্ধ বন্ধনী নেই।
+এই অবস্থান প্রতিস্থাপনের পর, বাকি অংশটি অভিধানক্রমে ক্ষুদ্রতম দিয়ে পূরণ করা যায়: অর্থাৎ প্রথমে যতগুলো সম্ভব খোলা বন্ধনী দিয়ে, এবং তারপর বাকি অবস্থানগুলো বন্ধ বন্ধনী দিয়ে পূরণ করা।
+অন্যভাবে বলতে গেলে আমরা যতদূর সম্ভব দীর্ঘ উপসর্গ অপরিবর্তিত রাখার চেষ্টা করি, এবং প্রত্যয়টি অভিধানক্রমে ক্ষুদ্রতম দিয়ে প্রতিস্থাপিত হয়।
 
-To find this position, we can iterate over the character from right to left, and maintain the balance $\text{depth}$ of open and closing brackets.
-When we meet an opening brackets, we will decrement $\text{depth}$, and when we meet a closing bracket, we increase it.
-If we are at some point meet an opening bracket, and the balance after processing this symbol is positive, then we have found the rightmost position that we can change.
-We change the symbol, compute the number of opening and closing brackets that we have to add to the right side, and arrange them in the lexicographically minimal way.
+এই অবস্থান খুঁজতে, আমরা ডান থেকে বামে ক্যারেক্টারগুলো দেখবো, এবং খোলা ও বন্ধ বন্ধনীর ভারসাম্য $\text{depth}$ বজায় রাখবো।
+যখন আমরা বন্ধ বন্ধনী পাই, $\text{depth}$ বাড়াবো, এবং যখন খোলা বন্ধনী পাই, কমাবো।
+যদি কোনো একটি স্থানে আমরা একটি খোলা বন্ধনী পাই, এবং এই চিহ্ন প্রক্রিয়া করার পর ভারসাম্য ধনাত্মক হয়, তাহলে আমরা সবচেয়ে ডানের সেই অবস্থানটি পেয়ে গেছি যা পরিবর্তন করা যায়।
+আমরা চিহ্নটি পরিবর্তন করি, ডান দিকে কতগুলো খোলা ও বন্ধ বন্ধনী যোগ করতে হবে তা গণনা করি, এবং অভিধানক্রমে ক্ষুদ্রতম উপায়ে সাজাই।
 
-If we don't find a suitable position, then this sequence is already the maximal possible one, and there is no answer.
+যদি উপযুক্ত কোনো অবস্থান না পাওয়া যায়, তাহলে এই ক্রমটি ইতিমধ্যেই সর্বোচ্চ সম্ভব, এবং কোনো উত্তর নেই।
 
 ```{.cpp file=next_balanced_brackets_sequence}
 bool next_balanced_sequence(string & s) {
@@ -107,71 +107,71 @@ bool next_balanced_sequence(string & s) {
 }
 ```
 
-This function computes in $O(n)$ time the next balanced bracket sequence, and returns false if there is no next one.
+এই ফাংশনটি $O(n)$ সময়ে পরবর্তী সুষম বন্ধনী ক্রম গণনা করে, এবং পরবর্তী না থাকলে false রিটার্ন করে।
 
-## Finding all balanced sequences
+## সব সুষম ক্রম খোঁজা
 
-Sometimes it is required to find and output all balanced bracket sequences of a specific length $n$.
+কখনো কখনো নির্দিষ্ট দৈর্ঘ্য $n$ এর সব সুষম বন্ধনী ক্রম খুঁজে বের করে আউটপুট করতে হয়।
 
-To generate then, we can start with the lexicographically smallest sequence $((\dots(())\dots))$, and then continue to find the next lexicographically sequences with the algorithm described in the previous section.
+এগুলো তৈরি করতে, আমরা অভিধানক্রমে ক্ষুদ্রতম ক্রম $((\dots(())\dots))$ দিয়ে শুরু করতে পারি, এবং তারপর পূর্ববর্তী বিভাগে বর্ণিত অ্যালগরিদম দিয়ে পরবর্তী অভিধানক্রমের ক্রমগুলো খুঁজতে থাকি।
 
-However, if the length of the sequence is not very long (e.g. $n$ smaller than $12$), then we can also generate all permutations conveniently with the C++ STL function `next_permutation`, and check each one for balanceness.
+তবে, যদি ক্রমের দৈর্ঘ্য খুব বেশি না হয় (যেমন $n$ ১২ এর চেয়ে ছোট), তাহলে আমরা C++ STL ফাংশন `next_permutation` দিয়ে সুবিধাজনকভাবে সব পারমুটেশন তৈরি করতে পারি, এবং প্রতিটির সুষমতা পরীক্ষা করতে পারি।
 
-Also they can be generated using the ideas we used for counting all sequences with dynamic programming.
-We will discuss the ideas in the next two sections.
+এছাড়াও ডায়নামিক প্রোগ্রামিং দিয়ে সব ক্রম গণনার জন্য যে ধারণা ব্যবহার করেছি সেগুলো দিয়েও তৈরি করা যায়।
+আমরা পরবর্তী দুটি বিভাগে এই ধারণাগুলো আলোচনা করবো।
 
-## Sequence index
+## ক্রমের ইনডেক্স
 
-Given a balanced bracket sequence with $n$ pairs of brackets.
-We have to find its index in the lexicographically ordered list of all balanced sequences with $n$ bracket pairs.
+$n$ জোড়া বন্ধনীর একটি সুষম বন্ধনী ক্রম দেওয়া আছে।
+$n$ জোড়া বন্ধনীর সব সুষম ক্রমের অভিধানক্রমে সাজানো তালিকায় এর ইনডেক্স বের করতে হবে।
 
-Let's define an auxiliary array $d[i][j]$, where $i$ is the length of the bracket sequence (semi-balanced, each closing bracket has a corresponding opening bracket, but not every opening bracket has necessarily a corresponding closing one), and $j$ is the current balance (difference between opening and closing brackets).
-$d[i][j]$ is the number of such sequences that fit the parameters.
-We will calculate these numbers with only one bracket type.
+একটি সহায়ক অ্যারে $d[i][j]$ সংজ্ঞায়িত করি, যেখানে $i$ হলো বন্ধনী ক্রমের দৈর্ঘ্য (আধা-সুষম, প্রতিটি বন্ধ বন্ধনীর একটি সংশ্লিষ্ট খোলা বন্ধনী আছে, কিন্তু প্রতিটি খোলা বন্ধনীর অবশ্যই একটি সংশ্লিষ্ট বন্ধ বন্ধনী নেই), এবং $j$ হলো বর্তমান ভারসাম্য (খোলা ও বন্ধ বন্ধনীর পার্থক্য)।
+$d[i][j]$ হলো এই প্যারামিটারের সাথে মেলে এমন ক্রমের সংখ্যা।
+আমরা শুধু একটি বন্ধনী ধরন দিয়ে এই সংখ্যাগুলো গণনা করবো।
 
-For the start value $i = 0$ the answer is obvious: $d[0][0] = 1$, and $d[0][j] = 0$ for $j > 0$.
-Now let $i > 0$, and we look at the last character in the sequence.
-If the last character was an opening bracket $($, then the state before was $(i-1, j-1)$, if it was a closing bracket $)$, then the previous state was $(i-1, j+1)$.
-Thus we obtain the recursion formula:
+$i = 0$ এর প্রারম্ভিক মানের জন্য উত্তর স্পষ্ট: $d[0][0] = 1$, এবং $j > 0$ এর জন্য $d[0][j] = 0$।
+এখন ধরি $i > 0$, এবং আমরা ক্রমের শেষ ক্যারেক্টারটি দেখি।
+শেষ ক্যারেক্টার যদি খোলা বন্ধনী $($ হয়, তাহলে আগের অবস্থা ছিল $(i-1, j-1)$, যদি বন্ধ বন্ধনী $)$ হয়, তাহলে আগের অবস্থা ছিল $(i-1, j+1)$।
+সুতরাং আমরা পুনরাবৃত্তি সূত্র পাই:
 
 $$d[i][j] = d[i-1][j-1] + d[i-1][j+1]$$
 
-$d[i][j] = 0$ holds obviously for negative $j$.
-Thus we can compute this array in $O(n^2)$.
+ঋণাত্মক $j$ এর জন্য $d[i][j] = 0$ স্পষ্টতই সত্য।
+সুতরাং আমরা এই অ্যারে $O(n^2)$-এ গণনা করতে পারি।
 
-Now let us generate the index for a given sequence.
+এখন একটি প্রদত্ত ক্রমের ইনডেক্স তৈরি করা যাক।
 
-First let there be only one type of brackets.
-We will use the counter $\text{depth}$ which tells us how nested we currently are, and iterate over the characters of the sequence.
-If the current character $s[i]$ is equal to $($, then we increment $\text{depth}$.
-If the current character $s[i]$ is equal to $)$, then we must add $d[2n-i-1][\text{depth}+1]$ to the answer, taking all possible endings starting with a $($ into account (which are lexicographically smaller sequences), and then decrement $\text{depth}$.
+প্রথমে ধরি শুধু একটি ধরনের বন্ধনী আছে।
+আমরা $\text{depth}$ কাউন্টার ব্যবহার করবো যা বলে আমরা বর্তমানে কত গভীরে আছি, এবং ক্রমের ক্যারেক্টারগুলো দেখবো।
+যদি বর্তমান ক্যারেক্টার $s[i]$ $($ এর সমান হয়, তাহলে আমরা $\text{depth}$ বাড়াই।
+যদি বর্তমান ক্যারেক্টার $s[i]$ $)$ এর সমান হয়, তাহলে আমাদের $d[2n-i-1][\text{depth}+1]$ উত্তরে যোগ করতে হবে, $($  দিয়ে শুরু হওয়া সব সম্ভব সমাপ্তি বিবেচনায় নিয়ে (যেগুলো অভিধানক্রমে ছোট ক্রম), এবং তারপর $\text{depth}$ কমাই।
 
-New let there be $k$ different bracket types.
+এখন ধরি $k$ ভিন্ন ধরনের বন্ধনী আছে।
 
-Thus, when we look at the current character $s[i]$ before recomputing $\text{depth}$, we have to go through all bracket types that are smaller than the current character, and try to place this bracket into the current position (obtaining a new balance $\text{ndepth} = \text{depth} \pm 1$), and add the number of ways to finish the sequence (length $2n-i-1$, balance $ndepth$) to the answer:
+সুতরাং, যখন আমরা বর্তমান ক্যারেক্টার $s[i]$ দেখি $\text{depth}$ পুনঃগণনার আগে, আমাদের বর্তমান ক্যারেক্টারের চেয়ে ছোট সব বন্ধনী ধরন দেখতে হবে, এবং বর্তমান অবস্থানে এই বন্ধনী বসানোর চেষ্টা করতে হবে (নতুন ভারসাম্য $\text{ndepth} = \text{depth} \pm 1$ পেয়ে), এবং ক্রম সম্পূর্ণ করার উপায়ের সংখ্যা (দৈর্ঘ্য $2n-i-1$, ভারসাম্য $ndepth$) উত্তরে যোগ করতে হবে:
 
 $$d[2n - i - 1][\text{ndepth}] \cdot k^{\frac{2n - i - 1 - ndepth}{2}}$$
 
-This formula can be derived as follows:
-First we "forget" that there are multiple bracket types, and just take the answer $d[2n - i - 1][\text{ndepth}]$.
-Now we consider how the answer will change if we have $k$ types of brackets.
-We have $2n - i - 1$ undefined positions, of which $\text{ndepth}$ are already predetermined because of the opening brackets.
-But all the other brackets ($(2n - i - 1 - \text{ndepth})/2$ pairs) can be of any type, therefore we multiply the number by such a power of $k$.
+এই সূত্রটি নিম্নরূপে বের করা যায়:
+প্রথমে আমরা "ভুলে যাই" যে একাধিক বন্ধনী ধরন আছে, এবং শুধু উত্তর $d[2n - i - 1][\text{ndepth}]$ নিই।
+এখন বিবেচনা করি $k$ ধরনের বন্ধনী থাকলে উত্তর কীভাবে পরিবর্তন হবে।
+আমাদের $2n - i - 1$ টি অনির্ধারিত অবস্থান আছে, যার মধ্যে $\text{ndepth}$ টি ইতিমধ্যে খোলা বন্ধনী দ্বারা পূর্বনির্ধারিত।
+কিন্তু বাকি সব বন্ধনী ($(2n - i - 1 - \text{ndepth})/2$ জোড়া) যেকোনো ধরনের হতে পারে, তাই আমরা সংখ্যাটিকে $k$ এর এরকম একটি ঘাত দিয়ে গুণ করি।
 
-## Finding the $k$-th sequence {data-toc-label="Finding the k-th sequence"}
+## $k$-তম ক্রম খোঁজা {data-toc-label="k-তম ক্রম খোঁজা"}
 
-Let $n$ be the number of bracket pairs in the sequence.
-We have to find the $k$-th balanced sequence in lexicographically sorted list of all balanced sequences for a given $k$.
+ধরি $n$ হলো ক্রমে বন্ধনী জোড়ার সংখ্যা।
+একটি প্রদত্ত $k$ এর জন্য সব সুষম ক্রমের অভিধানক্রমে সাজানো তালিকায় $k$-তম সুষম ক্রম খুঁজতে হবে।
 
-As in the previous section we compute the auxiliary array $d[i][j]$, the number of semi-balanced bracket sequences of length $i$ with balance $j$.
+পূর্ববর্তী বিভাগের মতো আমরা সহায়ক অ্যারে $d[i][j]$ গণনা করি, দৈর্ঘ্য $i$ ও ভারসাম্য $j$ এর আধা-সুষম বন্ধনী ক্রমের সংখ্যা।
 
-First, we start with only one bracket type.
+প্রথমে, শুধু একটি বন্ধনী ধরন দিয়ে শুরু করি।
 
-We will iterate over the characters in the string we want to generate.
-As in the previous problem we store a counter $\text{depth}$, the current nesting depth.
-At each position, we have to decide whether to place an opening or a closing bracket. To place an opening bracket, $d[2n - i - 1][\text{depth}+1] \ge k$ must be true.
-If so, we increment the counter $\text{depth}$, and move on to the next character.
-Otherwise, we decrement $k$ by $d[2n - i - 1][\text{depth}+1]$, place a closing bracket, and move on.
+আমরা যে স্ট্রিং তৈরি করতে চাই তার ক্যারেক্টারগুলোর মধ্য দিয়ে যাবো।
+পূর্ববর্তী সমস্যার মতো আমরা $\text{depth}$ কাউন্টার সংরক্ষণ করি, বর্তমান নেস্টিং গভীরতা।
+প্রতিটি অবস্থানে, আমাদের সিদ্ধান্ত নিতে হবে খোলা বন্ধনী বসাবো নাকি বন্ধ বন্ধনী। খোলা বন্ধনী বসাতে, $d[2n - i - 1][\text{depth}+1] \ge k$ সত্য হতে হবে।
+যদি তাই হয়, আমরা $\text{depth}$ কাউন্টার বাড়াই, এবং পরবর্তী ক্যারেক্টারে যাই।
+অন্যথায়, আমরা $d[2n - i - 1][\text{depth}+1]$ থেকে $k$ কমাই, একটি বন্ধ বন্ধনী বসাই, এবং এগিয়ে যাই।
 
 ```{.cpp file=kth_balances_bracket}
 string kth_balanced(int n, int k) {
@@ -201,10 +201,10 @@ string kth_balanced(int n, int k) {
 }
 ```
 
-Now let there be $k$ types of brackets.
-The solution will only differ slightly in that we have to multiply the value $d[2n-i-1][\text{ndepth}]$ by $k^{(2n-i-1-\text{ndepth})/2}$ and take into account that there can be different bracket types for the next character.
+এখন ধরি $k$ ধরনের বন্ধনী আছে।
+সমাধান শুধু সামান্য পার্থক্য রাখবে এই দিক থেকে যে আমাদের $d[2n-i-1][\text{ndepth}]$ মানকে $k^{(2n-i-1-\text{ndepth})/2}$ দিয়ে গুণ করতে হবে এবং বিবেচনায় রাখতে হবে যে পরবর্তী ক্যারেক্টারের জন্য বিভিন্ন বন্ধনী ধরন হতে পারে।
 
-Here is an implementation using two types of brackets: round and square:
+এখানে দুটি ধরনের বন্ধনী ব্যবহার করে একটি ইমপ্লিমেন্টেশন: গোল এবং চৌকো:
 
 ```{.cpp file=kth_balances_bracket_multiple}
 string kth_balanced2(int n, int k) {
@@ -248,7 +248,7 @@ string kth_balanced2(int n, int k) {
             }
             k -= cnt;
         }
-            
+
         // '['
         shift = ((2*n-i-1-depth-1) / 2);
         if (shift >= 0 && depth + 1 <= n) {

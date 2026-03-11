@@ -6,90 +6,90 @@ e_maxx_link:
   - vertex_connectivity
 ---
 
-# Edge connectivity / Vertex connectivity
+# এজ কানেক্টিভিটি / ভার্টেক্স কানেক্টিভিটি
 
-## Definition
+## সংজ্ঞা
 
-Given an undirected graph $G$ with $n$ vertices and $m$ edges.
-Both the edge connectivity and the vertex connectivity are characteristics describing the graph.
+$n$ টি ভার্টেক্স এবং $m$ টি এজ বিশিষ্ট একটি অনির্দেশিত গ্রাফ $G$ দেওয়া আছে।
+এজ কানেক্টিভিটি এবং ভার্টেক্স কানেক্টিভিটি উভয়ই গ্রাফের বৈশিষ্ট্য বর্ণনাকারী পরিমাণ।
 
-### Edge connectivity
+### এজ কানেক্টিভিটি
 
-The **edge connectivity** $\lambda$ of the graph $G$ is the minimum number of edges that need to be deleted, such that the graph $G$ gets disconnected.
+গ্রাফ $G$ এর **এজ কানেক্টিভিটি** $\lambda$ হলো সর্বনিম্ন সংখ্যক এজ যেগুলো মুছে ফেলতে হবে যাতে গ্রাফ $G$ বিচ্ছিন্ন হয়ে যায়।
 
-For example an already disconnected graph has an edge connectivity of $0$, a connected graph with at least one bridge has an edge connectivity of $1$, and a connected graph with no bridges has an edge connectivity of at least $2$.
+উদাহরণস্বরূপ, একটি ইতিমধ্যে বিচ্ছিন্ন গ্রাফের এজ কানেক্টিভিটি $0$, কমপক্ষে একটি ব্রিজ বিশিষ্ট একটি কানেক্টেড গ্রাফের এজ কানেক্টিভিটি $1$, এবং কোনো ব্রিজবিহীন একটি কানেক্টেড গ্রাফের এজ কানেক্টিভিটি কমপক্ষে $2$।
 
-We say that a set $S$ of edges **separates** the vertices $s$ and $t$, if, after removing all edges in $S$ from the graph $G$, the vertices $s$ and $t$ end up in different connected components.
+আমরা বলি যে এজের একটি সেট $S$ ভার্টেক্স $s$ এবং $t$ কে **বিচ্ছিন্ন** করে, যদি গ্রাফ $G$ থেকে $S$ এর সমস্ত এজ সরিয়ে দেওয়ার পর, ভার্টেক্স $s$ এবং $t$ ভিন্ন কানেক্টেড কম্পোনেন্টে পড়ে।
 
-It is clear, that the edge connectivity of a graph is equal to the minimum size of such a set separating two vertices $s$ and $t$, taken among all possible pairs $(s, t)$.
+এটি স্পষ্ট যে, একটি গ্রাফের এজ কানেক্টিভিটি হলো দুটি ভার্টেক্স $s$ এবং $t$ বিচ্ছিন্নকারী এমন সেটের সর্বনিম্ন আকার, সমস্ত সম্ভাব্য জোড়া $(s, t)$ এর মধ্যে নেওয়া।
 
-### Vertex connectivity
+### ভার্টেক্স কানেক্টিভিটি
 
-The **vertex connectivity** $\kappa$ of the graph $G$ is the minimum number of vertices that need to be deleted, such that the graph $G$ gets disconnected.
+গ্রাফ $G$ এর **ভার্টেক্স কানেক্টিভিটি** $\kappa$ হলো সর্বনিম্ন সংখ্যক ভার্টেক্স যেগুলো মুছে ফেলতে হবে যাতে গ্রাফ $G$ বিচ্ছিন্ন হয়ে যায়।
 
-For example an already disconnected graph has the vertex connectivity $0$, and a connected graph with an articulation point has the vertex connectivity $1$.
-We define that a complete graph has the vertex connectivity $n-1$.
-For all other graphs the vertex connectivity doesn't exceed $n-2$, because you can find a pair of vertices which are not connected by an edge, and remove all other $n-2$ vertices.
+উদাহরণস্বরূপ, একটি ইতিমধ্যে বিচ্ছিন্ন গ্রাফের ভার্টেক্স কানেক্টিভিটি $0$, এবং একটি আর্টিকুলেশন পয়েন্ট বিশিষ্ট কানেক্টেড গ্রাফের ভার্টেক্স কানেক্টিভিটি $1$।
+আমরা সংজ্ঞায়িত করি যে একটি কমপ্লিট গ্রাফের ভার্টেক্স কানেক্টিভিটি $n-1$।
+অন্যান্য সব গ্রাফের জন্য ভার্টেক্স কানেক্টিভিটি $n-2$ এর বেশি হয় না, কারণ আপনি এমন একটি ভার্টেক্স জোড়া খুঁজে পেতে পারেন যেগুলো এজ দ্বারা সংযুক্ত নয়, এবং অন্য সব $n-2$ টি ভার্টেক্স সরিয়ে দিতে পারেন।
 
-We say that a set $T$ of vertices **separates** the vertices $s$ and $t$, if, after removing all vertices in $T$ from the graph $G$, the vertices end up in different connected components.
+আমরা বলি যে ভার্টেক্সের একটি সেট $T$ ভার্টেক্স $s$ এবং $t$ কে **বিচ্ছিন্ন** করে, যদি গ্রাফ $G$ থেকে $T$ এর সমস্ত ভার্টেক্স সরিয়ে দেওয়ার পর, ভার্টেক্সগুলো ভিন্ন কানেক্টেড কম্পোনেন্টে পড়ে।
 
-It is clear, that the vertex connectivity of a graph is equal to the minimal size of such a set separating two vertices $s$ and $t$, taken among all possible pairs $(s, t)$.
+এটি স্পষ্ট যে, একটি গ্রাফের ভার্টেক্স কানেক্টিভিটি হলো দুটি ভার্টেক্স $s$ এবং $t$ বিচ্ছিন্নকারী এমন সেটের সর্বনিম্ন আকার, সমস্ত সম্ভাব্য জোড়া $(s, t)$ এর মধ্যে নেওয়া।
 
-## Properties
+## বৈশিষ্ট্যসমূহ
 
-### The Whitney inequalities
+### হুইটনি অসমতা
 
-The **Whitney inequalities** (1932) gives a relation between the edge connectivity $\lambda$, the vertex connectivity $\kappa$, and the minimum degree of any vertex in the graph $\delta$:
+**হুইটনি অসমতা** (১৯৩২) এজ কানেক্টিভিটি $\lambda$, ভার্টেক্স কানেক্টিভিটি $\kappa$, এবং গ্রাফের যেকোনো ভার্টেক্সের সর্বনিম্ন ডিগ্রি $\delta$ এর মধ্যে একটি সম্পর্ক দেয়:
 
 $$\kappa \le \lambda \le \delta$$
 
-Intuitively if we have a set of edges of size $\lambda$, which make the graph disconnected, we can choose one of each end point, and create a set of vertices, that also disconnect the graph.
-And this set has size $\le \lambda$.
+স্বজ্ঞাতভাবে, যদি আমাদের কাছে $\lambda$ আকারের এজের একটি সেট থাকে যেটি গ্রাফকে বিচ্ছিন্ন করে, আমরা প্রতিটি প্রান্তের একটি করে শেষবিন্দু বেছে নিতে পারি, এবং ভার্টেক্সের একটি সেট তৈরি করতে পারি যেটিও গ্রাফকে বিচ্ছিন্ন করে।
+এবং এই সেটের আকার $\le \lambda$।
 
-And if we pick the vertex and the minimal degree $\delta$, and remove all edges connected to it, then we also end up with a disconnected graph.
-Therefore the second inequality $\lambda \le \delta$.
+এবং যদি আমরা সর্বনিম্ন ডিগ্রি $\delta$ বিশিষ্ট ভার্টেক্সটি নিই এবং এর সাথে সংযুক্ত সমস্ত এজ সরিয়ে দিই, তাহলে আমরাও একটি বিচ্ছিন্ন গ্রাফ পাই।
+তাই দ্বিতীয় অসমতা $\lambda \le \delta$।
 
-It is interesting to note, that the Whitney inequalities cannot be improved:
-i.e. for any triple of numbers satisfying this inequality there exists at least one corresponding graph.
-One such graph can be constructed in the following way:
-The graph will consists of $2(\delta + 1)$ vertices, the first $\delta + 1$ vertices form a clique (all pairs of vertices are connected via an edge), and the second $\delta + 1$ vertices form a second clique.
-In addition we connect the two cliques with $\lambda$ edges, such that it uses $\lambda$ different vertices in the first clique, and only $\kappa$ vertices in the second clique.
-The resulting graph will have the three characteristics.
+মজার বিষয় হলো, হুইটনি অসমতা আরও উন্নত করা যায় না:
+অর্থাৎ এই অসমতা পূরণকারী যেকোনো ত্রয়ীর জন্য কমপক্ষে একটি সংশ্লিষ্ট গ্রাফ বিদ্যমান।
+এমন একটি গ্রাফ নিম্নলিখিত উপায়ে তৈরি করা যায়:
+গ্রাফটি $2(\delta + 1)$ টি ভার্টেক্স নিয়ে গঠিত হবে, প্রথম $\delta + 1$ টি ভার্টেক্স একটি ক্লিক গঠন করে (সমস্ত জোড়া ভার্টেক্স একটি এজ দ্বারা সংযুক্ত), এবং দ্বিতীয় $\delta + 1$ টি ভার্টেক্স একটি দ্বিতীয় ক্লিক গঠন করে।
+এছাড়া আমরা দুটি ক্লিককে $\lambda$ টি এজ দ্বারা সংযুক্ত করি, এমনভাবে যাতে এটি প্রথম ক্লিকে $\lambda$ টি ভিন্ন ভার্টেক্স এবং দ্বিতীয় ক্লিকে শুধু $\kappa$ টি ভার্টেক্স ব্যবহার করে।
+ফলস্বরূপ গ্রাফটিতে এই তিনটি বৈশিষ্ট্য থাকবে।
 
-### The Ford-Fulkerson theorem
+### ফোর্ড-ফুলকারসন উপপাদ্য
 
-The **Ford-Fulkerson theorem** implies, that the biggest number of edge-disjoint paths connecting two vertices, is equal to the smallest number of edges separating these vertices.
+**ফোর্ড-ফুলকারসন উপপাদ্য** থেকে বোঝা যায় যে দুটি ভার্টেক্সকে সংযুক্তকারী এজ-ডিসজয়েন্ট পাথের সর্বাধিক সংখ্যা, এই ভার্টেক্সদ্বয়কে বিচ্ছিন্নকারী এজের সর্বনিম্ন সংখ্যার সমান।
 
-## Computing the values
+## মান গণনা
 
-### Edge connectivity using maximum flow
+### ম্যাক্সিমাম ফ্লো ব্যবহার করে এজ কানেক্টিভিটি
 
-This method is based on the Ford-Fulkerson theorem.
+এই পদ্ধতিটি ফোর্ড-ফুলকারসন উপপাদ্যের উপর ভিত্তি করে।
 
-We iterate over all pairs of vertices $(s, t)$ and between each pair we find the largest number of disjoint paths between them.
-This value can be found using a maximum flow algorithm:
-we use $s$ as the source, $t$ as the sink, and assign each edge a capacity of $1$.
-Then the maximum flow is the number of disjoint paths.
+আমরা সমস্ত ভার্টেক্স জোড়া $(s, t)$ দিয়ে ইটারেট করি এবং প্রতিটি জোড়ার মধ্যে ডিসজয়েন্ট পাথের সর্বাধিক সংখ্যা খুঁজি।
+এই মান ম্যাক্সিমাম ফ্লো অ্যালগরিদম ব্যবহার করে পাওয়া যায়:
+আমরা $s$ কে সোর্স, $t$ কে সিঙ্ক হিসেবে ব্যবহার করি, এবং প্রতিটি এজে ১ ক্যাপাসিটি দিই।
+তখন ম্যাক্সিমাম ফ্লো হলো ডিসজয়েন্ট পাথের সংখ্যা।
 
-The complexity for the algorithm using [Edmonds-Karp](../graph/edmonds_karp.md) is $O(V^2 V E^2) = O(V^3 E^2)$. 
-But we should note, that this includes a hidden factor, since it is practically impossible to create a graph such that the maximum flow algorithm will be slow for all sources and sinks.
-Especially the algorithm will run pretty fast for random graphs.
+[এডমন্ডস-কার্প](../graph/edmonds_karp.md) ব্যবহার করে অ্যালগরিদমের কমপ্লেক্সিটি $O(V^2 V E^2) = O(V^3 E^2)$।
+তবে আমাদের লক্ষ্য করা উচিত, এতে একটি হিডেন ফ্যাক্টর আছে, যেহেতু এমন গ্রাফ তৈরি করা কার্যত অসম্ভব যেখানে ম্যাক্সিমাম ফ্লো অ্যালগরিদম সমস্ত সোর্স ও সিঙ্কের জন্য ধীর হবে।
+বিশেষত র‍্যান্ডম গ্রাফে অ্যালগরিদম বেশ দ্রুত চলবে।
 
-### Special algorithm for edge connectivity 
+### এজ কানেক্টিভিটির জন্য বিশেষ অ্যালগরিদম
 
-The task of finding the edge connectivity is equal to the task of finding the **global minimum cut**.
+এজ কানেক্টিভিটি খোঁজার কাজটি **গ্লোবাল মিনিমাম কাট** খোঁজার কাজের সমতুল্য।
 
-Special algorithms have been developed for this task.
-One of them is the Stoer-Wagner algorithm, which works in $O(V^3)$ or $O(V E)$ time.
+এই কাজের জন্য বিশেষ অ্যালগরিদম তৈরি করা হয়েছে।
+এর একটি হলো স্টোয়ার-ওয়াগনার অ্যালগরিদম, যেটি $O(V^3)$ বা $O(V E)$ সময়ে কাজ করে।
 
-### Vertex connectivity
+### ভার্টেক্স কানেক্টিভিটি
 
-Again we iterate over all pairs of vertices $s$ and $t$, and for each pair we find the minimum number of vertices that separates $s$ and $t$.
+আবার আমরা সমস্ত ভার্টেক্স জোড়া $s$ এবং $t$ দিয়ে ইটারেট করি, এবং প্রতিটি জোড়ার জন্য $s$ এবং $t$ কে বিচ্ছিন্নকারী ভার্টেক্সের সর্বনিম্ন সংখ্যা খুঁজি।
 
-By doing this, we can apply the same maximum flow approach as described in the previous sections.
+এটি করতে, আমরা পূর্ববর্তী অংশে বর্ণিত একই ম্যাক্সিমাম ফ্লো পদ্ধতি প্রয়োগ করতে পারি।
 
-We split each vertex $x$ with $x \neq s$ and $x \neq t$ into two vertices $x_1$ and $x_2$.
-We connect these to vertices with a directed edge $(x_1, x_2)$ with the capacity $1$, and replace all edges $(u, v)$ by the two directed edges $(u_2, v_1)$ and $(v_2, u_1)$, both with the capacity of 1.
-The by the construction the value of the maximum flow will be equal to the minimum number of vertices that are needed to separate $s$ and $t$.
+আমরা প্রতিটি ভার্টেক্স $x$ যেখানে $x \neq s$ এবং $x \neq t$ কে দুটি ভার্টেক্স $x_1$ এবং $x_2$ তে বিভক্ত করি।
+আমরা এই ভার্টেক্সগুলোকে ১ ক্যাপাসিটি বিশিষ্ট একটি ডিরেক্টেড এজ $(x_1, x_2)$ দ্বারা সংযুক্ত করি, এবং সমস্ত এজ $(u, v)$ কে দুটি ডিরেক্টেড এজ $(u_2, v_1)$ এবং $(v_2, u_1)$ দ্বারা প্রতিস্থাপন করি, উভয়ের ক্যাপাসিটি ১।
+নির্মাণের ফলে ম্যাক্সিমাম ফ্লো-র মান $s$ এবং $t$ কে বিচ্ছিন্ন করতে প্রয়োজনীয় ভার্টেক্সের সর্বনিম্ন সংখ্যার সমান হবে।
 
-This approach has the same complexity as the flow approach for finding the edge connectivity.
+এই পদ্ধতির কমপ্লেক্সিটি এজ কানেক্টিভিটি খোঁজার ফ্লো পদ্ধতির মতোই।

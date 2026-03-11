@@ -4,94 +4,94 @@ tags:
 e_maxx_link: preflow_push
 ---
 
-# Maximum flow - Push-relabel algorithm
+# ম্যাক্সিমাম ফ্লো - পুশ-রিলেবেল অ্যালগরিদম
 
-The push-relabel algorithm (or also known as preflow-push algorithm) is an algorithm for computing the maximum flow of a flow network.
-The exact definition of the problem that we want to solve can be found in the article [Maximum flow - Ford-Fulkerson and Edmonds-Karp](edmonds_karp.md).
+পুশ-রিলেবেল অ্যালগরিদম (যা প্রিফ্লো-পুশ অ্যালগরিদম নামেও পরিচিত) হলো একটি ফ্লো নেটওয়ার্কের ম্যাক্সিমাম ফ্লো গণনার একটি অ্যালগরিদম।
+আমরা যে সমস্যা সমাধান করতে চাই তার সুনির্দিষ্ট সংজ্ঞা [ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন ও এডমন্ডস-কার্প](edmonds_karp.md) নিবন্ধে পাওয়া যাবে।
 
-In this article we will consider solving the problem by pushing a preflow through the network, which will run in $O(V^4)$, or more precisely in $O(V^2 E)$, time.
-The algorithm was designed by Andrew Goldberg and Robert Tarjan in 1985.
+এই নিবন্ধে আমরা নেটওয়ার্কের মধ্য দিয়ে একটি প্রিফ্লো পুশ করে সমস্যা সমাধান করব, যেটি $O(V^4)$, বা আরো সুনির্দিষ্টভাবে $O(V^2 E)$ সময়ে চলবে।
+অ্যালগরিদমটি ১৯৮৫ সালে অ্যান্ড্রু গোল্ডবার্গ এবং রবার্ট টারজান ডিজাইন করেছিলেন।
 
-## Definitions
+## সংজ্ঞাসমূহ
 
-During the algorithm we will have to handle a **preflow** - i.e. a function $f$ that is similar to the flow function, but does not necessarily satisfies the flow conservation constraint.
-For it only the constraints
+অ্যালগরিদমের সময় আমাদের একটি **প্রিফ্লো** হ্যান্ডেল করতে হবে - অর্থাৎ একটি ফাংশন $f$ যা ফ্লো ফাংশনের মতো, কিন্তু অগত্যা ফ্লো সংরক্ষণ শর্ত পূরণ করে না।
+এর জন্য শুধু
 
 $$0 \le f(e) \le c(e)$$
 
-and
+এবং
 
 $$\sum_{(v, u) \in E} f((v, u)) \ge \sum_{(u, v) \in E} f((u, v))$$
 
-have to hold.
+শর্তগুলো পূরণ হতে হবে।
 
-So it is possible for some vertex to receive more flow than it distributes.
-We say that this vertex has some excess flow, and define the amount of it with the **excess** function $x(u) =\sum_{(v, u) \in E} f((v, u)) - \sum_{(u, v) \in E} f((u, v))$.
+তাই কোনো ভার্টেক্সের পক্ষে যতটুকু ফ্লো বিতরণ করে তার চেয়ে বেশি ফ্লো গ্রহণ করা সম্ভব।
+আমরা বলি এই ভার্টেক্সে কিছু এক্সেস ফ্লো আছে, এবং **এক্সেস** ফাংশন $x(u) =\sum_{(v, u) \in E} f((v, u)) - \sum_{(u, v) \in E} f((u, v))$ দিয়ে এর পরিমাণ সংজ্ঞায়িত করি।
 
-In the same way as with the flow function, we can define the residual capacities and the residual graph with the preflow function.
+ফ্লো ফাংশনের মতোই, আমরা প্রিফ্লো ফাংশন দিয়ে রেসিডুয়াল ক্যাপাসিটি এবং রেসিডুয়াল গ্রাফ সংজ্ঞায়িত করতে পারি।
 
-The algorithm will start off with an initial preflow (some vertices having excess), and during the execution the preflow will be handled and modified.
-Giving away some details already, the algorithm will pick a vertex with excess, and push the excess to neighboring vertices.
-It will repeat this until all vertices, except the source and the sink, are free from excess.
-It is easy to see, that a preflow without excess is a valid flow.
-This makes the algorithm terminate with an actual flow.
+অ্যালগরিদম একটি প্রাথমিক প্রিফ্লো দিয়ে শুরু হবে (কিছু ভার্টেক্সে এক্সেস থাকবে), এবং এক্সিকিউশনের সময় প্রিফ্লো হ্যান্ডেল ও পরিবর্তন করা হবে।
+কিছু বিস্তারিত আগে থেকে বলে দিলে, অ্যালগরিদম একটি এক্সেসযুক্ত ভার্টেক্স বেছে নেবে এবং এক্সেসকে প্রতিবেশী ভার্টেক্সে পুশ করবে।
+সোর্স এবং সিঙ্ক ছাড়া সব ভার্টেক্স এক্সেসমুক্ত না হওয়া পর্যন্ত এটি পুনরাবৃত্তি করবে।
+সহজেই দেখা যায় যে, এক্সেসবিহীন প্রিফ্লো একটি ভ্যালিড ফ্লো।
+এটি অ্যালগরিদমকে একটি প্রকৃত ফ্লো দিয়ে শেষ করায়।
 
-There are still two problem, we have to deal with.
-First, how do we guarantee that this actually terminates?
-And secondly, how do we guarantee that this will actually give us a maximum flow, and not just any random flow?
+এখনো দুটি সমস্যা আছে যেগুলো সামলাতে হবে।
+প্রথমত, এটি আসলেই শেষ হবে তা আমরা কীভাবে নিশ্চিত করি?
+এবং দ্বিতীয়ত, এটি আসলেই ম্যাক্সিমাম ফ্লো দেবে, এবং যেকোনো র‍্যান্ডম ফ্লো নয়, তা কীভাবে নিশ্চিত করি?
 
-To solve these problems we need the help of another function, namely the **labeling** functions $h$, often also called **height** function, which assigns each vertex an integer.
-We call a labeling is valid, if $h(s) = |V|$, $h(t) = 0$, and $h(u) \le h(v) + 1$ if there is an edge $(u, v)$ in the residual graph - i.e. the edge $(u, v)$ has a positive capacity in the residual graph.
-In other words, if it is possible to increase the flow from $u$ to $v$, then the height of $v$ can be at most one smaller than the height of $u$, but it can be equal or even higher.
+এই সমস্যাগুলো সমাধানের জন্য আমাদের আরেকটি ফাংশনের সাহায্য দরকার, সেটি হলো **লেবেলিং** ফাংশন $h$, যাকে প্রায়ই **হাইট** ফাংশনও বলা হয়, যেটি প্রতিটি ভার্টেক্সে একটি পূর্ণ সংখ্যা অ্যাসাইন করে।
+আমরা একটি লেবেলিংকে ভ্যালিড বলি, যদি $h(s) = |V|$, $h(t) = 0$, এবং $h(u) \le h(v) + 1$ হয় যদি রেসিডুয়াল গ্রাফে $(u, v)$ এজ থাকে - অর্থাৎ $(u, v)$ এজের রেসিডুয়াল গ্রাফে পজিটিভ ক্যাপাসিটি থাকে।
+অন্যভাবে বলতে গেলে, যদি $u$ থেকে $v$-তে ফ্লো বাড়ানো সম্ভব হয়, তাহলে $v$-এর উচ্চতা $u$-এর উচ্চতার চেয়ে সর্বোচ্চ এক কম হতে পারে, কিন্তু সমান বা আরো বেশিও হতে পারে।
 
-It is important to note, that if there exists a valid labeling function, then there doesn't exist an augmenting path from $s$ to $t$ in the residual graph.
-Because such a path will have a length of at most $|V| - 1$ edges, and each edge can decrease the height only by at most by one, which is impossible if the first height is $h(s) = |V|$ and the last height is $h(t) = 0$.
+একটি গুরুত্বপূর্ণ বিষয় লক্ষ্য করুন, যদি একটি ভ্যালিড লেবেলিং ফাংশন বিদ্যমান থাকে, তাহলে রেসিডুয়াল গ্রাফে $s$ থেকে $t$-তে কোনো অগমেন্টিং পাথ থাকে না।
+কারণ এরকম একটি পাথের দৈর্ঘ্য সর্বোচ্চ $|V| - 1$ এজ হবে, এবং প্রতিটি এজ উচ্চতা সর্বোচ্চ এক কমাতে পারে, যেটি অসম্ভব যদি প্রথম উচ্চতা $h(s) = |V|$ এবং শেষ উচ্চতা $h(t) = 0$ হয়।
 
-Using this labeling function we can state the strategy of the push-relabel algorithm:
-We start with a valid preflow and a valid labeling function.
-In each step we push some excess between vertices, and update the labels of vertices.
-We have to make sure, that after each step the preflow and the labeling are still valid.
-If then the algorithm determines, the preflow is a valid flow.
-And because we also have a valid labeling, there doesn't exists a path between $s$ and $t$ in the residual graph, which means that the flow is actually a maximum flow.
+এই লেবেলিং ফাংশন ব্যবহার করে আমরা পুশ-রিলেবেল অ্যালগরিদমের কৌশল বলতে পারি:
+আমরা একটি ভ্যালিড প্রিফ্লো এবং একটি ভ্যালিড লেবেলিং ফাংশন দিয়ে শুরু করি।
+প্রতিটি ধাপে আমরা ভার্টেক্সগুলোর মধ্যে কিছু এক্সেস পুশ করি এবং ভার্টেক্সগুলোর লেবেল আপডেট করি।
+আমাদের নিশ্চিত করতে হবে যে, প্রতিটি ধাপের পর প্রিফ্লো এবং লেবেলিং এখনো ভ্যালিড আছে।
+তারপর যদি অ্যালগরিদম নির্ধারণ করে, প্রিফ্লোটি একটি ভ্যালিড ফ্লো।
+এবং যেহেতু আমাদের কাছে একটি ভ্যালিড লেবেলিংও আছে, রেসিডুয়াল গ্রাফে $s$ এবং $t$-এর মধ্যে কোনো পাথ নেই, যার মানে ফ্লোটি আসলেই একটি ম্যাক্সিমাম ফ্লো।
 
-If we compare the Ford-Fulkerson algorithm with the push-relabel algorithm it seems like the algorithms are the duals of each other.
-The Ford-Fulkerson algorithm keeps a valid flow at all time and improves it until there doesn't exists an augmenting path any more, while in the push-relabel algorithm there doesn't exists an augmenting path at any time, and we will improve the preflow until it is a valid flow.
+ফোর্ড-ফুলকারসন অ্যালগরিদমের সাথে পুশ-রিলেবেল অ্যালগরিদমের তুলনা করলে মনে হয় অ্যালগরিদমগুলো একে অপরের ডুয়াল।
+ফোর্ড-ফুলকারসন অ্যালগরিদম সব সময় একটি ভ্যালিড ফ্লো বজায় রাখে এবং অগমেন্টিং পাথ না থাকা পর্যন্ত এটি উন্নত করে, অপরদিকে পুশ-রিলেবেল অ্যালগরিদমে কোনো সময়ই অগমেন্টিং পাথ থাকে না, এবং আমরা প্রিফ্লোকে ভ্যালিড ফ্লো না হওয়া পর্যন্ত উন্নত করি।
 
-## Algorithm
+## অ্যালগরিদম
 
-First we have to initialize the graph with a valid preflow and labeling function.
+প্রথমে আমাদের গ্রাফকে একটি ভ্যালিড প্রিফ্লো এবং লেবেলিং ফাংশন দিয়ে ইনিশিয়ালাইজ করতে হবে।
 
-Using the empty preflow - like it is done in the Ford-Fulkerson algorithm - is not possible, because then there will be an augmenting path and this implies that there doesn't exists a valid labeling.
-Therefore we will initialize each edges outgoing from $s$ with its maximal capacity: $f((s, u)) = c((s, u))$.
-And all other edges with zero.
-In this case there exists a valid labeling, namely $h(s) = |V|$ for the source vertex and $h(u) = 0$ for all other.
+ফোর্ড-ফুলকারসন অ্যালগরিদমের মতো খালি প্রিফ্লো ব্যবহার করা সম্ভব নয়, কারণ তখন একটি অগমেন্টিং পাথ থাকবে এবং এর মানে কোনো ভ্যালিড লেবেলিং বিদ্যমান নেই।
+তাই আমরা $s$ থেকে বের হওয়া প্রতিটি এজকে তার সর্বোচ্চ ক্যাপাসিটি দিয়ে ইনিশিয়ালাইজ করব: $f((s, u)) = c((s, u))$।
+এবং অন্য সব এজ শূন্য দিয়ে।
+এক্ষেত্রে একটি ভ্যালিড লেবেলিং বিদ্যমান, সেটি হলো সোর্স ভার্টেক্সের জন্য $h(s) = |V|$ এবং অন্য সবার জন্য $h(u) = 0$।
 
-Now let's describe the two operations in more detail.
+এখন আসুন দুটি অপারেশন আরো বিস্তারিতভাবে বর্ণনা করি।
 
-With the `push` operation we try to push as much excess flow from one vertex $u$ to a neighboring vertex $v$.
-We have one rule: we are only allowed to push flow from $u$ to $v$ if $h(u) = h(v) + 1$.
-In layman's terms, the excess flow has to flow downwards, but not too steeply.
-Of course we only can push $\min(x(u), c((u, v)) - f((u, v)))$ flow.
+`push` অপারেশন দিয়ে আমরা একটি ভার্টেক্স $u$ থেকে প্রতিবেশী ভার্টেক্স $v$-তে যতটা সম্ভব এক্সেস ফ্লো পুশ করার চেষ্টা করি।
+আমাদের একটি নিয়ম আছে: আমরা $u$ থেকে $v$-তে তখনই ফ্লো পুশ করতে পারি যখন $h(u) = h(v) + 1$।
+সহজ ভাষায়, এক্সেস ফ্লো নিচে প্রবাহিত হতে হবে, কিন্তু খুব খাড়াভাবে নয়।
+অবশ্যই আমরা শুধু $\min(x(u), c((u, v)) - f((u, v)))$ পরিমাণ ফ্লো পুশ করতে পারি।
 
-If a vertex has excess, but it is not possible to push the excess to any adjacent vertex, then we need to increase the height of this vertex.
-We call this operation `relabel`.
-We will increase it by as much as it is possible, while still maintaining validity of the labeling.
+যদি কোনো ভার্টেক্সে এক্সেস থাকে, কিন্তু কোনো সংলগ্ন ভার্টেক্সে এক্সেস পুশ করা সম্ভব না হয়, তাহলে আমাদের এই ভার্টেক্সের উচ্চতা বাড়াতে হবে।
+আমরা এই অপারেশনকে `relabel` বলি।
+লেবেলিং-এর ভ্যালিডিটি বজায় রেখে যতটুকু সম্ভব বাড়াব।
 
-To recap, the algorithm in a nutshell is:
-We initialize a valid preflow and a valid labeling.
-While we can perform push or relabel operations, we perform them.
-Afterwards the preflow is actually a flow and we return it.
+সংক্ষেপে, অ্যালগরিদমটি হলো:
+আমরা একটি ভ্যালিড প্রিফ্লো এবং একটি ভ্যালিড লেবেলিং ইনিশিয়ালাইজ করি।
+যতক্ষণ পুশ বা রিলেবেল অপারেশন করা যায়, আমরা সেগুলো করি।
+এরপর প্রিফ্লো আসলেই একটি ফ্লো হয়ে যায় এবং আমরা এটি রিটার্ন করি।
 
-## Complexity
+## কমপ্লেক্সিটি
 
-It is easy to show, that the maximal label of a vertex is $2|V| - 1$.
-At this point all remaining excess can and will be pushed back to the source.
-This gives at most $O(V^2)$ relabel operations.
+সহজেই দেখানো যায় যে, একটি ভার্টেক্সের সর্বোচ্চ লেবেল $2|V| - 1$।
+এই পর্যায়ে সব অবশিষ্ট এক্সেস সোর্সে পুশ ব্যাক করা যায় এবং করা হবে।
+এতে সর্বোচ্চ $O(V^2)$ রিলেবেল অপারেশন হয়।
 
-It can also be showed, that there will be at most $O(V E)$ saturating pushes (a push where the total capacity of the edge is used) and at most $O(V^2 E)$ non-saturating pushes (a push where the capacity of an edge is not fully used) performed.
-If we pick a data structure that allows us to find the next vertex with excess in $O(1)$ time, then the total complexity of the algorithm is $O(V^2 E)$.
+এটিও দেখানো যায় যে, সর্বোচ্চ $O(V E)$ স্যাচুরেটিং পুশ (যেখানে এজের সম্পূর্ণ ক্যাপাসিটি ব্যবহৃত হয়) এবং সর্বোচ্চ $O(V^2 E)$ নন-স্যাচুরেটিং পুশ (যেখানে এজের ক্যাপাসিটি পুরোপুরি ব্যবহৃত হয় না) সম্পাদিত হবে।
+যদি আমরা এমন একটি ডেটা স্ট্রাকচার বেছে নিই যেটি $O(1)$ সময়ে পরবর্তী এক্সেসযুক্ত ভার্টেক্স খুঁজতে পারে, তাহলে অ্যালগরিদমের মোট কমপ্লেক্সিটি $O(V^2 E)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```{.cpp file=push_relabel}
 const int inf = 1000000000;
@@ -127,7 +127,7 @@ void discharge(int u) {
             int v = seen[u];
             if (capacity[u][v] - flow[u][v] > 0 && height[u] > height[v])
                 push(u, v);
-            else 
+            else
                 seen[u]++;
         } else {
             relabel(u);
@@ -162,10 +162,10 @@ int max_flow(int s, int t) {
 }
 ```
 
-Here we use the queue `excess_vertices` to store all vertices that currently have excess.
-In that way we can pick the next vertex for a push or a relabel operation in constant time.
+এখানে আমরা `excess_vertices` কিউ ব্যবহার করি বর্তমানে এক্সেসযুক্ত সব ভার্টেক্স সংরক্ষণ করতে।
+এভাবে আমরা ধ্রুব সময়ে পুশ বা রিলেবেল অপারেশনের জন্য পরবর্তী ভার্টেক্স বেছে নিতে পারি।
 
-And to make sure that we don't spend too much time finding the adjacent vertex to whom we can push, we use a data structure called **current-arc**.
-Basically we will iterate over the edges in a circular order and always store the last edge that we used.
-This way, for a certain labeling value, we will switch the current edge only $O(n)$ time.
-And since the relabeling already takes $O(n)$ time, we don't make the complexity worse.
+এবং আমরা সংলগ্ন ভার্টেক্স খুঁজতে খুব বেশি সময় ব্যয় না করি তা নিশ্চিত করতে, আমরা **কারেন্ট-আর্ক** নামে একটি ডেটা স্ট্রাকচার ব্যবহার করি।
+মূলত আমরা এজগুলোতে বৃত্তাকার ক্রমে ইটারেট করব এবং সর্বদা শেষ ব্যবহৃত এজ সংরক্ষণ করব।
+এভাবে, একটি নির্দিষ্ট লেবেলিং মানের জন্য, আমরা কারেন্ট এজ শুধু $O(n)$ বার পরিবর্তন করব।
+এবং যেহেতু রিলেবেলিং ইতোমধ্যে $O(n)$ সময় নেয়, আমরা কমপ্লেক্সিটি খারাপ করি না।

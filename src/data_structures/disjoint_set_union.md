@@ -4,63 +4,63 @@ tags:
 e_maxx_link: dsu
 ---
 
-# Disjoint Set Union
+# ডিসজয়েন্ট সেট ইউনিয়ন
 
-This article discusses the data structure **Disjoint Set Union** or **DSU**.
-Often it is also called **Union Find** because of its two main operations.
+এই আর্টিকেলে **ডিসজয়েন্ট সেট ইউনিয়ন** বা **ডিএসইউ** ডেটা স্ট্রাকচার নিয়ে আলোচনা করা হয়েছে।
+এটিকে প্রায়ই **ইউনিয়ন-ফাইন্ড**-ও বলা হয়, কারণ এর দুটি প্রধান অপারেশন রয়েছে।
 
-This data structure provides the following capabilities.
-We are given several elements, each of which is a separate set.
-A DSU will have an operation to combine any two sets, and it will be able to tell in which set a specific element is.
-The classical version also introduces a third operation, it can create a set from a new element.
+এই ডেটা স্ট্রাকচার নিম্নলিখিত সুবিধাগুলো প্রদান করে।
+আমাদের কয়েকটি এলিমেন্ট দেওয়া আছে, যেগুলোর প্রতিটি আলাদা একটি সেট।
+একটি ডিএসইউ-তে যেকোনো দুটি সেট একত্রিত করার অপারেশন থাকবে, এবং এটি বলতে পারবে যে একটি নির্দিষ্ট এলিমেন্ট কোন সেটে আছে।
+ক্লাসিক্যাল ভার্সনে একটি তৃতীয় অপারেশনও আছে, যা একটি নতুন এলিমেন্ট থেকে একটি সেট তৈরি করতে পারে।
 
-Thus the basic interface of this data structure consists of only three operations:
+সুতরাং এই ডেটা স্ট্রাকচারের বেসিক ইন্টারফেস মাত্র তিনটি অপারেশন নিয়ে গঠিত:
 
-- `make_set(v)` - creates a new set consisting of the new element `v`
-- `union_sets(a, b)` - merges the two specified sets (the set in which the element `a` is located, and the set in which the element `b` is located)
-- `find_set(v)` - returns the representative (also called leader) of the set that contains the element `v`.
-This representative is an element of its corresponding set.
-It is selected in each set by the data structure itself (and can change over time, namely after `union_sets` calls).
-This representative can be used to check if two elements are part of the same set or not.
-`a` and `b` are exactly in the same set, if `find_set(a) == find_set(b)`.
-Otherwise they are in different sets.
+- `make_set(v)` - নতুন এলিমেন্ট `v` নিয়ে একটি নতুন সেট তৈরি করে
+- `union_sets(a, b)` - নির্দিষ্ট দুটি সেটকে মার্জ করে (যে সেটে এলিমেন্ট `a` আছে, এবং যে সেটে এলিমেন্ট `b` আছে)
+- `find_set(v)` - যে সেটে এলিমেন্ট `v` আছে সেই সেটের রিপ্রেজেন্টেটিভ (যাকে লিডারও বলা হয়) রিটার্ন করে।
+এই রিপ্রেজেন্টেটিভ হলো সংশ্লিষ্ট সেটের একটি এলিমেন্ট।
+এটি প্রতিটি সেটে ডেটা স্ট্রাকচার নিজেই সিলেক্ট করে (এবং সময়ের সাথে পরিবর্তন হতে পারে, বিশেষত `union_sets` কলের পরে)।
+এই রিপ্রেজেন্টেটিভ ব্যবহার করে দুটি এলিমেন্ট একই সেটে আছে কি না তা পরীক্ষা করা যায়।
+`a` এবং `b` ঠিক তখনই একই সেটে থাকে, যখন `find_set(a) == find_set(b)` হয়।
+অন্যথায় তারা ভিন্ন সেটে আছে।
 
-As described in more detail later, the data structure allows you to do each of these operations in almost $O(1)$ time on average.
+পরবর্তীতে আরও বিস্তারিত বর্ণনা করা হয়েছে যে, এই ডেটা স্ট্রাকচার গড়ে প্রায় $O(1)$ সময়ে এই প্রতিটি অপারেশন সম্পাদন করতে দেয়।
 
-Also in one of the subsections an alternative structure of a DSU is explained, which achieves a slower average complexity of $O(\log n)$, but can be more powerful than the regular DSU structure.
+এছাড়াও একটি সাবসেকশনে ডিএসইউ-এর একটি বিকল্প স্ট্রাকচার ব্যাখ্যা করা হয়েছে, যা $O(\log n)$ গড় কমপ্লেক্সিটি অর্জন করে, কিন্তু সাধারণ ডিএসইউ স্ট্রাকচারের চেয়ে আরও শক্তিশালী হতে পারে।
 
-## Build an efficient data structure
+## একটি এফিশিয়েন্ট ডেটা স্ট্রাকচার তৈরি করা
 
-We will store the sets in the form of **trees**: each tree will correspond to one set.
-And the root of the tree will be the representative/leader of the set.
+আমরা সেটগুলো **ট্রি** আকারে সংরক্ষণ করব: প্রতিটি ট্রি একটি সেটের সাথে সঙ্গতিপূর্ণ হবে।
+এবং ট্রির রুট হবে সেটের রিপ্রেজেন্টেটিভ/লিডার।
 
-In the following image you can see the representation of such trees.
+নিচের ছবিতে আপনি এই ধরনের ট্রির রিপ্রেজেন্টেশন দেখতে পারবেন।
 
 ![Example-image of the set representation with trees](DSU_example.png)
 
-In the beginning, every element starts as a single set, therefore each vertex is its own tree.
-Then we combine the set containing the element 1 and the set containing the element 2.
-Then we combine the set containing the element 3 and the set containing the element 4.
-And in the last step, we combine the set containing the element 1 and the set containing the element 3.
+শুরুতে, প্রতিটি এলিমেন্ট একটি একক সেট হিসেবে থাকে, তাই প্রতিটি ভার্টেক্স নিজেই একটি ট্রি।
+তারপর আমরা এলিমেন্ট ১ ধারণকারী সেট এবং এলিমেন্ট ২ ধারণকারী সেট একত্রিত করি।
+তারপর আমরা এলিমেন্ট ৩ ধারণকারী সেট এবং এলিমেন্ট ৪ ধারণকারী সেট একত্রিত করি।
+এবং শেষ ধাপে, আমরা এলিমেন্ট ১ ধারণকারী সেট এবং এলিমেন্ট ৩ ধারণকারী সেট একত্রিত করি।
 
-For the implementation this means that we will have to maintain an array `parent` that stores a reference to its immediate ancestor in the tree.
+ইমপ্লিমেন্টেশনের জন্য এর মানে হলো আমাদের একটি `parent` অ্যারে রাখতে হবে যা ট্রিতে তার নিকটতম পূর্বসূরির রেফারেন্স সংরক্ষণ করে।
 
-### Naive implementation
+### নেইভ ইমপ্লিমেন্টেশন
 
-We can already write the first implementation of the Disjoint Set Union data structure.
-It will be pretty inefficient at first, but later we can improve it using two optimizations, so that it will take nearly constant time for each function call.
+আমরা এখন ডিসজয়েন্ট সেট ইউনিয়ন ডেটা স্ট্রাকচারের প্রথম ইমপ্লিমেন্টেশন লিখতে পারি।
+প্রথমদিকে এটি বেশ ইনএফিশিয়েন্ট হবে, কিন্তু পরে আমরা দুটি অপটিমাইজেশন ব্যবহার করে এটি উন্নত করব, যাতে প্রতিটি ফাংশন কলে প্রায় কনস্ট্যান্ট সময় লাগে।
 
-As we said, all the information about the sets of elements will be kept in an array `parent`.
+আমরা যেমন বলেছি, এলিমেন্টগুলোর সেট সম্পর্কে সকল তথ্য একটি `parent` অ্যারেতে রাখা হবে।
 
-To create a new set (operation `make_set(v)`), we simply create a tree with root in the vertex `v`, meaning that it is its own ancestor.
+একটি নতুন সেট তৈরি করতে (অপারেশন `make_set(v)`), আমরা কেবল ভার্টেক্স `v`-তে রুটসহ একটি ট্রি তৈরি করি, অর্থাৎ এটি নিজেই নিজের পূর্বসূরি।
 
-To combine two sets (operation `union_sets(a, b)`), we first find the representative of the set in which `a` is located, and the representative of the set in which `b` is located.
-If the representatives are identical, that we have nothing to do, the sets are already merged.
-Otherwise, we can simply specify that one of the representatives is the parent of the other representative - thereby combining the two trees.
+দুটি সেট একত্রিত করতে (অপারেশন `union_sets(a, b)`), আমরা প্রথমে `a` যে সেটে আছে সেটির রিপ্রেজেন্টেটিভ খুঁজি, এবং `b` যে সেটে আছে সেটির রিপ্রেজেন্টেটিভ খুঁজি।
+যদি রিপ্রেজেন্টেটিভ দুটি অভিন্ন হয়, তাহলে আমাদের কিছু করার নেই, সেটগুলো ইতিমধ্যেই মার্জ করা।
+অন্যথায়, আমরা কেবল একটি রিপ্রেজেন্টেটিভকে অন্য রিপ্রেজেন্টেটিভের প্যারেন্ট হিসেবে নির্ধারণ করি - এভাবে দুটি ট্রি একত্রিত হয়।
 
-Finally the implementation of the find representative function (operation `find_set(v)`):
-we simply climb the ancestors of the vertex `v` until we reach the root, i.e. a vertex such that the reference to the ancestor leads to itself.
-This operation is easily implemented recursively.
+সবশেষে রিপ্রেজেন্টেটিভ খোঁজার ফাংশনের (অপারেশন `find_set(v)`) ইমপ্লিমেন্টেশন:
+আমরা কেবল ভার্টেক্স `v`-এর পূর্বসূরিদের ধরে উপরে উঠি যতক্ষণ না রুটে পৌঁছাই, অর্থাৎ এমন একটি ভার্টেক্স যেখানে পূর্বসূরির রেফারেন্স নিজেকেই নির্দেশ করে।
+এই অপারেশনটি রিকার্সিভভাবে সহজেই ইমপ্লিমেন্ট করা যায়।
 
 ```cpp
 void make_set(int v) {
@@ -81,26 +81,26 @@ void union_sets(int a, int b) {
 }
 ```
 
-However this implementation is inefficient.
-It is easy to construct an example, so that the trees degenerate into long chains.
-In that case each call `find_set(v)` can take $O(n)$ time.
+তবে এই ইমপ্লিমেন্টেশনটি ইনএফিশিয়েন্ট।
+এমন একটি উদাহরণ তৈরি করা সহজ যেখানে ট্রিগুলো দীর্ঘ চেইনে পরিণত হয়।
+সেক্ষেত্রে প্রতিটি `find_set(v)` কলে $O(n)$ সময় লাগতে পারে।
 
-This is far away from the complexity that we want to have (nearly constant time).
-Therefore we will consider two optimizations that will allow to significantly accelerate the work.
+এটি আমাদের কাঙ্ক্ষিত কমপ্লেক্সিটি (প্রায় কনস্ট্যান্ট সময়) থেকে অনেক দূরে।
+তাই আমরা দুটি অপটিমাইজেশন বিবেচনা করব যা কাজকে উল্লেখযোগ্যভাবে ত্বরান্বিত করবে।
 
-### Path compression optimization
+### পাথ কম্প্রেশন অপটিমাইজেশন
 
-This optimization is designed for speeding up `find_set`.
+এই অপটিমাইজেশনটি `find_set`-কে দ্রুত করার জন্য ডিজাইন করা হয়েছে।
 
-If we call `find_set(v)` for some vertex `v`, we actually find the representative `p` for all vertices that we visit on the path between `v` and the actual representative `p`.
-The trick is to make the paths for all those nodes shorter, by setting the parent of each visited vertex directly to `p`.
+আমরা যদি কোনো ভার্টেক্স `v`-এর জন্য `find_set(v)` কল করি, তাহলে আমরা `v` এবং প্রকৃত রিপ্রেজেন্টেটিভ `p`-এর মধ্যের পথে যে সকল ভার্টেক্স ভিজিট করি সেগুলোর সকলের জন্য রিপ্রেজেন্টেটিভ `p` খুঁজে পাই।
+কৌশলটি হলো সেই সকল নোডের পাথ ছোট করা, প্রতিটি ভিজিটেড ভার্টেক্সের প্যারেন্ট সরাসরি `p`-তে সেট করে।
 
-You can see the operation in the following image.
-On the left there is a tree, and on the right side there is the compressed tree after calling `find_set(7)`, which shortens the paths for the visited nodes 7, 5, 3 and 2.
+আপনি নিচের ছবিতে এই অপারেশনটি দেখতে পারবেন।
+বাঁদিকে একটি ট্রি আছে, এবং ডানদিকে `find_set(7)` কল করার পরে কম্প্রেসড ট্রি আছে, যা ভিজিটেড নোড ৭, ৫, ৩ এবং ২-এর পাথ ছোট করে।
 
 ![Path compression of call find_set(7)](DSU_path_compression.png)
 
-The new implementation of `find_set` is as follows:
+`find_set`-এর নতুন ইমপ্লিমেন্টেশন নিম্নরূপ:
 
 ```cpp
 int find_set(int v) {
@@ -110,26 +110,26 @@ int find_set(int v) {
 }
 ```
 
-The simple implementation does what was intended:
-first find the representative of the set (root vertex), and then in the process of stack unwinding the visited nodes are attached directly to the representative.
+এই সরল ইমপ্লিমেন্টেশনটি যা উদ্দেশ্য ছিল তাই করে:
+প্রথমে সেটের রিপ্রেজেন্টেটিভ (রুট ভার্টেক্স) খুঁজে বের করে, এবং তারপর স্ট্যাক আনওয়াইন্ডিং প্রক্রিয়ায় ভিজিটেড নোডগুলো সরাসরি রিপ্রেজেন্টেটিভের সাথে সংযুক্ত হয়।
 
-This simple modification of the operation already achieves the time complexity $O(\log n)$ per call on average (here without proof).
-There is a second modification, that will make it even faster.
+এই সরল পরিবর্তনটিই গড়ে প্রতি কলে $O(\log n)$ টাইম কমপ্লেক্সিটি অর্জন করে (এখানে প্রমাণ ছাড়া)।
+একটি দ্বিতীয় পরিবর্তন আছে, যা এটিকে আরও দ্রুত করবে।
 
-### Union by size / rank
-In this optimization we will change the `union_set` operation.
-To be precise, we will change which tree gets attached to the other one.
-In the naive implementation the second tree always got attached to the first one.
-In practice that can lead to trees containing chains of length $O(n)$.
-With this optimization we will avoid this by choosing very carefully which tree gets attached.
+### ইউনিয়ন বাই সাইজ / র‍্যাঙ্ক
+এই অপটিমাইজেশনে আমরা `union_set` অপারেশন পরিবর্তন করব।
+সুনির্দিষ্টভাবে বলতে গেলে, আমরা পরিবর্তন করব কোন ট্রি অন্যটির সাথে সংযুক্ত হবে।
+নেইভ ইমপ্লিমেন্টেশনে দ্বিতীয় ট্রি সবসময় প্রথমটির সাথে সংযুক্ত হতো।
+বাস্তবে এটি $O(n)$ দৈর্ঘ্যের চেইনসহ ট্রি তৈরি করতে পারে।
+এই অপটিমাইজেশনে আমরা কোন ট্রি সংযুক্ত হবে তা খুব সাবধানে বেছে নিয়ে এটি এড়াব।
 
-There are many possible heuristics that can be used.
-Most popular are the following two approaches:
-In the first approach we use the size of the trees as rank, and in the second one we use the depth of the tree (more precisely, the upper bound on the tree depth, because the depth will get smaller when applying path compression).
+অনেক সম্ভাব্য হিউরিস্টিক ব্যবহার করা যেতে পারে।
+সবচেয়ে জনপ্রিয় দুটি পদ্ধতি হলো:
+প্রথম পদ্ধতিতে আমরা ট্রির সাইজকে র‍্যাঙ্ক হিসেবে ব্যবহার করি, এবং দ্বিতীয়টিতে ট্রির ডেপথ ব্যবহার করি (আরও সঠিকভাবে বলতে গেলে, ট্রি ডেপথের উর্ধ্বসীমা, কারণ পাথ কম্প্রেশন প্রয়োগ করলে ডেপথ ছোট হবে)।
 
-In both approaches the essence of the optimization is the same: we attach the tree with the lower rank to the one with the bigger rank.
+উভয় পদ্ধতিতে অপটিমাইজেশনের সারমর্ম একই: আমরা কম র‍্যাঙ্কের ট্রিকে বেশি র‍্যাঙ্কের ট্রির সাথে সংযুক্ত করি।
 
-Here is the implementation of union by size:
+এখানে ইউনিয়ন বাই সাইজের ইমপ্লিমেন্টেশন দেওয়া হলো:
 
 ```cpp
 void make_set(int v) {
@@ -149,7 +149,7 @@ void union_sets(int a, int b) {
 }
 ```
 
-And here is the implementation of union by rank based on the depth of the trees:
+এবং এখানে ট্রির ডেপথ ভিত্তিক ইউনিয়ন বাই র‍্যাঙ্কের ইমপ্লিমেন্টেশন:
 
 ```cpp
 void make_set(int v) {
@@ -169,33 +169,33 @@ void union_sets(int a, int b) {
     }
 }
 ```
-Both optimizations are equivalent in terms of time and space complexity. So in practice you can use any of them.
+উভয় অপটিমাইজেশন টাইম এবং স্পেস কমপ্লেক্সিটির দিক থেকে সমতুল্য। তাই বাস্তবে আপনি যেকোনোটি ব্যবহার করতে পারেন।
 
-### Time complexity
+### টাইম কমপ্লেক্সিটি
 
-As mentioned before, if we combine both optimizations - path compression with union by size / rank - we will reach nearly constant time queries.
-It turns out, that the final amortized time complexity is $O(\alpha(n))$, where $\alpha(n)$ is the inverse Ackermann function, which grows very slowly.
-In fact it grows so slowly, that it doesn't exceed $4$ for all reasonable $n$ (approximately $n < 10^{600}$).
+আগেই উল্লেখ করা হয়েছে, যদি আমরা উভয় অপটিমাইজেশন একত্রিত করি - পাথ কম্প্রেশনের সাথে ইউনিয়ন বাই সাইজ / র‍্যাঙ্ক - তাহলে আমরা প্রায় কনস্ট্যান্ট সময়ের কুয়েরি পাব।
+দেখা যায় যে, চূড়ান্ত অ্যামোরটাইজড টাইম কমপ্লেক্সিটি হলো $O(\alpha(n))$, যেখানে $\alpha(n)$ হলো ইনভার্স অ্যাকারম্যান ফাংশন, যা অত্যন্ত ধীরে বৃদ্ধি পায়।
+প্রকৃতপক্ষে এটি এতটাই ধীরে বাড়ে যে সকল যুক্তিসঙ্গত $n$-এর জন্য (আনুমানিক $n < 10^{600}$) এটি $4$-এর বেশি হয় না।
 
-Amortized complexity is the total time per operation, evaluated over a sequence of multiple operations.
-The idea is to guarantee the total time of the entire sequence, while allowing single operations to be much slower then the amortized time.
-E.g. in our case a single call might take $O(\log n)$ in the worst case, but if we do $m$ such calls back to back we will end up with an average time of $O(\alpha(n))$.
+অ্যামোরটাইজড কমপ্লেক্সিটি হলো প্রতি অপারেশনে মোট সময়, একাধিক অপারেশনের সিকোয়েন্সের উপর মূল্যায়িত।
+ধারণাটি হলো পুরো সিকোয়েন্সের মোট সময়ের গ্যারান্টি দেওয়া, যদিও একক অপারেশন অ্যামোরটাইজড সময়ের চেয়ে অনেক ধীর হতে পারে।
+যেমন, আমাদের ক্ষেত্রে একটি একক কলে ওয়ার্স্ট কেসে $O(\log n)$ সময় লাগতে পারে, কিন্তু আমরা যদি পরপর $m$টি এমন কল করি তাহলে গড় সময় $O(\alpha(n))$ হবে।
 
-We will also not present a proof for this time complexity, since it is quite long and complicated.
+আমরা এই টাইম কমপ্লেক্সিটির প্রমাণও উপস্থাপন করব না, কারণ এটি বেশ দীর্ঘ এবং জটিল।
 
-Also, it's worth mentioning that DSU with union by size / rank, but without path compression works in $O(\log n)$ time per query.
+এটিও উল্লেখযোগ্য যে ইউনিয়ন বাই সাইজ / র‍্যাঙ্কসহ কিন্তু পাথ কম্প্রেশন ছাড়া ডিএসইউ প্রতি কুয়েরিতে $O(\log n)$ সময়ে কাজ করে।
 
-### Linking by index / coin-flip linking
+### ইনডেক্স দ্বারা লিংকিং / কয়েন-ফ্লিপ লিংকিং
 
-Both union by rank and union by size require that you store additional data for each set, and maintain these values during each union operation.
-There exist also a randomized algorithm, that simplifies the union operation a little bit: linking by index.
+ইউনিয়ন বাই র‍্যাঙ্ক এবং ইউনিয়ন বাই সাইজ উভয়ের জন্য প্রতিটি সেটে অতিরিক্ত ডেটা সংরক্ষণ এবং প্রতিটি ইউনিয়ন অপারেশনে এই মানগুলো রক্ষণাবেক্ষণ করতে হয়।
+একটি র‍্যান্ডমাইজড অ্যালগরিদমও আছে, যা ইউনিয়ন অপারেশনকে কিছুটা সরলীকৃত করে: ইনডেক্স দ্বারা লিংকিং।
 
-We assign each set a random value called the index, and we attach the set with the smaller index to the one with the larger one.
-It is likely that a bigger set will have a bigger index than the smaller set, therefore this operation is closely related to union by size.
-In fact it can be proven, that this operation has the same time complexity as union by size.
-However in practice it is slightly slower than union by size.
+আমরা প্রতিটি সেটকে একটি র‍্যান্ডম মান দিই যাকে ইনডেক্স বলা হয়, এবং ছোট ইনডেক্সের সেটটিকে বড় ইনডেক্সের সেটের সাথে সংযুক্ত করি।
+সম্ভবত একটি বড় সেটের ইনডেক্স ছোট সেটের চেয়ে বড় হবে, তাই এই অপারেশনটি ইউনিয়ন বাই সাইজের সাথে ঘনিষ্ঠভাবে সম্পর্কিত।
+প্রকৃতপক্ষে প্রমাণ করা যায় যে এই অপারেশনের টাইম কমপ্লেক্সিটি ইউনিয়ন বাই সাইজের সমান।
+তবে বাস্তবে এটি ইউনিয়ন বাই সাইজের চেয়ে সামান্য ধীর।
 
-You can find a proof of the complexity and even more union techniques [here](http://www.cis.upenn.edu/~sanjeev/papers/soda14_disjoint_set_union.pdf).
+আপনি কমপ্লেক্সিটির প্রমাণ এবং আরও ইউনিয়ন কৌশল [এখানে](http://www.cis.upenn.edu/~sanjeev/papers/soda14_disjoint_set_union.pdf) পাবেন।
 
 ```cpp
 void make_set(int v) {
@@ -214,10 +214,10 @@ void union_sets(int a, int b) {
 }
 ```
 
-It's a common misconception that just flipping a coin, to decide which set we attach to the other, has the same complexity.
-However that's not true.
-The paper linked above conjectures that coin-flip linking combined with path compression has complexity $\Omega\left(n \frac{\log n}{\log \log n}\right)$.
-And in benchmarks it performs a lot worse than union by size/rank or linking by index.
+একটি সাধারণ ভুল ধারণা হলো যে শুধু কয়েন ফ্লিপ করে (অর্থাৎ এলোমেলোভাবে) কোন সেট অন্যটির সাথে সংযুক্ত হবে তা ঠিক করলে একই কমপ্লেক্সিটি পাওয়া যায়।
+তবে এটি সত্য নয়।
+উপরে লিংক করা পেপারে অনুমান করা হয়েছে যে কয়েন-ফ্লিপ লিংকিং পাথ কম্প্রেশনের সাথে মিলিয়ে $\Omega\left(n \frac{\log n}{\log \log n}\right)$ কমপ্লেক্সিটি দেয়।
+এবং বেঞ্চমার্কে এটি ইউনিয়ন বাই সাইজ/র‍্যাঙ্ক বা ইনডেক্স দ্বারা লিংকিংয়ের তুলনায় অনেক খারাপ পারফর্ম করে।
 
 ```cpp
 void union_sets(int a, int b) {
@@ -231,72 +231,72 @@ void union_sets(int a, int b) {
 }
 ```
 
-## Applications and various improvements
+## অ্যাপ্লিকেশন এবং বিভিন্ন উন্নতি
 
-In this section we consider several applications of the data structure, both the trivial uses and some improvements to the data structure.
+এই সেকশনে আমরা ডেটা স্ট্রাকচারের বেশ কিছু অ্যাপ্লিকেশন বিবেচনা করব, সাধারণ ব্যবহার এবং ডেটা স্ট্রাকচারের কিছু উন্নতি উভয়ই।
 
-### Connected components in a graph
+### গ্রাফে কানেক্টেড কম্পোনেন্ট
 
-This is one of the obvious applications of DSU.
+এটি ডিএসইউ-এর সুস্পষ্ট অ্যাপ্লিকেশনগুলোর একটি।
 
-Formally the problem is defined in the following way:
-Initially we have an empty graph.
-We have to add vertices and undirected edges, and answer queries of the form $(a, b)$ - "are the vertices $a$ and $b$ in the same connected component of the graph?"
+আনুষ্ঠানিকভাবে সমস্যাটি নিম্নরূপে সংজ্ঞায়িত:
+প্রাথমিকভাবে আমাদের একটি খালি গ্রাফ আছে।
+আমাদের ভার্টেক্স এবং আনডিরেক্টেড এজ যোগ করতে হবে, এবং $(a, b)$ আকারের কুয়েরির উত্তর দিতে হবে - "ভার্টেক্স $a$ এবং $b$ কি গ্রাফের একই কানেক্টেড কম্পোনেন্টে আছে?"
 
-Here we can directly apply the data structure, and get a solution that handles an addition of a vertex or an edge and a query in nearly constant time on average.
+এখানে আমরা সরাসরি ডেটা স্ট্রাকচার প্রয়োগ করতে পারি, এবং এমন একটি সমাধান পাই যা গড়ে প্রায় কনস্ট্যান্ট সময়ে একটি ভার্টেক্স বা এজ যোগ এবং একটি কুয়েরি হ্যান্ডেল করে।
 
-This application is quite important, because nearly the same problem appears in [Kruskal's algorithm for finding a minimum spanning tree](../graph/mst_kruskal.md).
-Using DSU we can [improve](../graph/mst_kruskal_with_dsu.md) the $O(m \log n + n^2)$ complexity to $O(m \log n)$.
+এই অ্যাপ্লিকেশনটি বেশ গুরুত্বপূর্ণ, কারণ প্রায় একই সমস্যা [ক্রুস্কালের মিনিমাম স্প্যানিং ট্রি অ্যালগরিদমে](../graph/mst_kruskal.md) দেখা যায়।
+ডিএসইউ ব্যবহার করে আমরা $O(m \log n + n^2)$ কমপ্লেক্সিটিকে $O(m \log n)$-এ [উন্নত](../graph/mst_kruskal_with_dsu.md) করতে পারি।
 
-### Search for connected components in an image
+### একটি ইমেজে কানেক্টেড কম্পোনেন্ট খোঁজা
 
-One of the applications of DSU is the following task:
-there is an image of $n \times m$ pixels.
-Originally all are white, but then a few black pixels are drawn.
-You want to determine the size of each white connected component in the final image.
+ডিএসইউ-এর একটি অ্যাপ্লিকেশন হলো নিম্নলিখিত কাজটি:
+$n \times m$ পিক্সেলের একটি ইমেজ আছে।
+প্রথমে সব সাদা, কিন্তু তারপর কিছু কালো পিক্সেল আঁকা হয়।
+আপনি চূড়ান্ত ইমেজে প্রতিটি সাদা কানেক্টেড কম্পোনেন্টের সাইজ নির্ণয় করতে চান।
 
-For the solution we simply iterate over all white pixels in the image, for each cell iterate over its four neighbors, and if the neighbor is white call `union_sets`.
-Thus we will have a DSU with $n m$ nodes corresponding to image pixels.
-The resulting trees in the DSU are the desired connected components.
+সমাধানের জন্য আমরা কেবল ইমেজের সকল সাদা পিক্সেলের উপর ইটারেট করি, প্রতিটি সেলের চারটি প্রতিবেশী পরীক্ষা করি, এবং প্রতিবেশী সাদা হলে `union_sets` কল করি।
+এভাবে ইমেজ পিক্সেলের সাথে সঙ্গতিপূর্ণ $n m$টি নোডসহ আমাদের একটি ডিএসইউ থাকবে।
+ডিএসইউ-এর ফলস্বরূপ ট্রিগুলোই কাঙ্ক্ষিত কানেক্টেড কম্পোনেন্ট।
 
-The problem can also be solved by [DFS](../graph/depth-first-search.md) or [BFS](../graph/breadth-first-search.md), but the method described here has an advantage:
-it can process the matrix row by row (i.e. to process a row we only need the previous and the current row, and only need a DSU built for the elements of one row) in $O(\min(n, m))$ memory.
+সমস্যাটি [ডিএফএস](../graph/depth-first-search.md) বা [বিএফএস](../graph/breadth-first-search.md) দিয়েও সমাধান করা যায়, কিন্তু এখানে বর্ণিত পদ্ধতির একটি সুবিধা আছে:
+এটি ম্যাট্রিক্স সারি সারি প্রসেস করতে পারে (অর্থাৎ একটি সারি প্রসেস করতে শুধু আগের এবং বর্তমান সারি দরকার, এবং শুধু একটি সারির এলিমেন্টের জন্য তৈরি ডিএসইউ দরকার) $O(\min(n, m))$ মেমোরিতে।
 
-### Store additional information for each set
+### প্রতিটি সেটে অতিরিক্ত তথ্য সংরক্ষণ
 
-DSU allows you to easily store additional information in the sets.
+ডিএসইউ আপনাকে সহজেই সেটগুলোতে অতিরিক্ত তথ্য সংরক্ষণ করতে দেয়।
 
-A simple example is the size of the sets:
-storing the sizes was already described in the Union by size section (the information was stored by the current representative of the set).
+একটি সরল উদাহরণ হলো সেটের সাইজ:
+ইউনিয়ন বাই সাইজ সেকশনে সাইজ সংরক্ষণের কথা ইতিমধ্যে বর্ণনা করা হয়েছে (তথ্যটি সেটের বর্তমান রিপ্রেজেন্টেটিভ দ্বারা সংরক্ষিত ছিল)।
 
-In the same way - by storing it at the representative nodes - you can also store any other information about the sets.
+একইভাবে - রিপ্রেজেন্টেটিভ নোডে সংরক্ষণ করে - আপনি সেটগুলো সম্পর্কে অন্যান্য যেকোনো তথ্যও সংরক্ষণ করতে পারেন।
 
-### Compress jumps along a segment / Painting subarrays offline
+### সেগমেন্ট বরাবর জাম্প কম্প্রেস করা / অফলাইনে সাবঅ্যারে পেইন্টিং
 
-One common application of the DSU is the following:
-There is a set of vertices, and each vertex has an outgoing edge to another vertex.
-With DSU you can find the end point, to which we get after following all edges from a given starting point, in almost constant time.
+ডিএসইউ-এর একটি সাধারণ অ্যাপ্লিকেশন হলো নিম্নরূপ:
+ভার্টেক্সের একটি সেট দেওয়া আছে, এবং প্রতিটি ভার্টেক্সের অন্য একটি ভার্টেক্সে একটি আউটগোয়িং এজ আছে।
+ডিএসইউ দিয়ে আপনি প্রায় কনস্ট্যান্ট সময়ে একটি প্রদত্ত শুরুর পয়েন্ট থেকে সকল এজ অনুসরণ করে যে এন্ড পয়েন্টে পৌঁছাবেন তা খুঁজে পেতে পারেন।
 
-A good example of this application is the **problem of painting subarrays**.
-We have a segment of length $L$, each element initially has the color 0.
-We have to repaint the subarray $[l, r]$ with the color $c$ for each query $(l, r, c)$.
-At the end we want to find the final color of each cell.
-We assume that we know all the queries in advance, i.e. the task is offline.
+এই অ্যাপ্লিকেশনের একটি ভালো উদাহরণ হলো **সাবঅ্যারে পেইন্টিংয়ের সমস্যা**।
+আমাদের $L$ দৈর্ঘ্যের একটি সেগমেন্ট আছে, প্রতিটি এলিমেন্টের প্রাথমিক রং ০।
+প্রতিটি কুয়েরি $(l, r, c)$-এর জন্য আমাদের সাবঅ্যারে $[l, r]$-কে রং $c$ দিয়ে রিপেইন্ট করতে হবে।
+শেষে আমরা প্রতিটি সেলের চূড়ান্ত রং জানতে চাই।
+আমরা ধরে নিচ্ছি যে আমরা সকল কুয়েরি আগে থেকেই জানি, অর্থাৎ কাজটি অফলাইন।
 
-For the solution we can make a DSU, which for each cell stores a link to the next unpainted cell.
-Thus initially each cell points to itself.
-After painting one requested repaint of a segment, all cells from that segment will point to the cell after the segment.
+সমাধানের জন্য আমরা একটি ডিএসইউ তৈরি করতে পারি, যা প্রতিটি সেলের জন্য পরবর্তী আনপেইন্টেড সেলের লিংক সংরক্ষণ করে।
+এভাবে শুরুতে প্রতিটি সেল নিজেকেই নির্দেশ করে।
+একটি অনুরোধকৃত সেগমেন্ট রিপেইন্ট করার পরে, সেই সেগমেন্টের সকল সেল সেগমেন্টের পরের সেলকে নির্দেশ করবে।
 
-Now to solve this problem, we consider the queries **in the reverse order**: from last to first.
-This way when we execute a query, we only have to paint exactly the unpainted cells in the subarray $[l, r]$.
-All other cells already contain their final color.
-To quickly iterate over all unpainted cells, we use the DSU.
-We find the left-most unpainted cell inside of a segment, repaint it, and with the pointer we move to the next empty cell to the right.
+এখন এই সমস্যা সমাধানের জন্য, আমরা কুয়েরিগুলো **উল্টো ক্রমে** বিবেচনা করি: শেষ থেকে প্রথমে।
+এভাবে যখন আমরা একটি কুয়েরি এক্সিকিউট করি, আমাদের শুধু সাবঅ্যারে $[l, r]$-এ আনপেইন্টেড সেলগুলোই পেইন্ট করতে হয়।
+অন্য সকল সেলে ইতিমধ্যেই তাদের চূড়ান্ত রং আছে।
+সকল আনপেইন্টেড সেলে দ্রুত ইটারেট করতে, আমরা ডিএসইউ ব্যবহার করি।
+আমরা একটি সেগমেন্টের মধ্যে সবচেয়ে বামের আনপেইন্টেড সেল খুঁজি, এটি পেইন্ট করি, এবং পয়েন্টার দিয়ে ডানে পরবর্তী খালি সেলে চলে যাই।
 
-Here we can use the DSU with path compression, but we cannot use union by rank / size (because it is important who becomes the leader after the merge).
-Therefore the complexity will be $O(\log n)$ per union (which is also quite fast).
+এখানে আমরা পাথ কম্প্রেশনসহ ডিএসইউ ব্যবহার করতে পারি, কিন্তু ইউনিয়ন বাই র‍্যাঙ্ক / সাইজ ব্যবহার করতে পারি না (কারণ মার্জের পর কে লিডার হবে তা গুরুত্বপূর্ণ)।
+তাই কমপ্লেক্সিটি হবে প্রতি ইউনিয়নে $O(\log n)$ (যা বেশ দ্রুতও)।
 
-Implementation:
+ইমপ্লিমেন্টেশন:
 
 ```cpp
 for (int i = 0; i <= L; i++) {
@@ -314,20 +314,20 @@ for (int i = m-1; i >= 0; i--) {
 }
 ```
 
-There is an optimization:
-We can use union by rank / size, if we store the next unpainted cell in an additional array `end[]`.
-Then we can merge two sets into one according to their heuristics, and we obtain the solution in $O(\alpha(n))$.
+একটি অপটিমাইজেশন আছে:
+আমরা ইউনিয়ন বাই র‍্যাঙ্ক / সাইজ ব্যবহার করতে পারি, যদি আমরা পরবর্তী আনপেইন্টেড সেল একটি অতিরিক্ত অ্যারে `end[]`-এ সংরক্ষণ করি।
+তাহলে আমরা হিউরিস্টিক অনুযায়ী দুটি সেটকে একটিতে মার্জ করতে পারি, এবং $O(\alpha(n))$-এ সমাধান পাই।
 
-### Support distances up to representative
+### রিপ্রেজেন্টেটিভ পর্যন্ত দূরত্ব সাপোর্ট
 
-Sometimes in specific applications of the DSU you need to maintain the distance between a vertex and the representative of its set (i.e. the path length in the tree from the current node to the root of the tree).
+কখনো কখনো ডিএসইউ-এর নির্দিষ্ট অ্যাপ্লিকেশনে একটি ভার্টেক্স এবং তার সেটের রিপ্রেজেন্টেটিভের মধ্যে দূরত্ব (অর্থাৎ ট্রিতে বর্তমান নোড থেকে রুট পর্যন্ত পাথের দৈর্ঘ্য) রক্ষণাবেক্ষণ করতে হয়।
 
-If we don't use path compression, the distance is just the number of recursive calls.
-But this will be inefficient.
+আমরা যদি পাথ কম্প্রেশন ব্যবহার না করি, তাহলে দূরত্ব হলো রিকার্সিভ কলের সংখ্যা।
+কিন্তু এটি ইনএফিশিয়েন্ট হবে।
 
-However it is possible to do path compression, if we store the **distance to the parent** as additional information for each node.
+তবে পাথ কম্প্রেশন করা সম্ভব, যদি আমরা প্রতিটি নোডের জন্য অতিরিক্ত তথ্য হিসেবে **প্যারেন্ট পর্যন্ত দূরত্ব** সংরক্ষণ করি।
 
-In the implementation it is convenient to use an array of pairs for `parent[]` and the function `find_set` now returns two numbers: the representative of the set, and the distance to it.
+ইমপ্লিমেন্টেশনে `parent[]`-এর জন্য পেয়ারের অ্যারে ব্যবহার করা সুবিধাজনক এবং `find_set` ফাংশন এখন দুটি সংখ্যা রিটার্ন করে: সেটের রিপ্রেজেন্টেটিভ, এবং তার দূরত্ব।
 
 ```cpp
 void make_set(int v) {
@@ -357,33 +357,33 @@ void union_sets(int a, int b) {
 }
 ```
 
-### Support the parity of the path length / Checking bipartiteness online
+### পাথ দৈর্ঘ্যের প্যারিটি সাপোর্ট / অনলাইনে বাইপার্টাইটনেস চেক করা
 
-In the same way as computing the path length to the leader, it is possible to maintain the parity of the length of the path before him.
-Why is this application in a separate paragraph?
+লিডার পর্যন্ত পাথের দৈর্ঘ্য গণনার মতোই, তার আগে পাথের দৈর্ঘ্যের প্যারিটিও রক্ষণাবেক্ষণ করা সম্ভব।
+কেন এই অ্যাপ্লিকেশনটি আলাদা প্যারাগ্রাফে?
 
-The unusual requirement of storing the parity of the path comes up in the following task:
-initially we are given an empty graph, it can be added edges, and we have to answer queries of the form "is the connected component containing this vertex **bipartite**?".
+পাথের প্যারিটি সংরক্ষণের অস্বাভাবিক প্রয়োজনীয়তা নিম্নলিখিত কাজে আসে:
+প্রাথমিকভাবে আমাদের একটি খালি গ্রাফ দেওয়া আছে, এতে এজ যোগ করা যায়, এবং আমাদের এই আকারের কুয়েরির উত্তর দিতে হয় "এই ভার্টেক্স ধারণকারী কানেক্টেড কম্পোনেন্টটি কি **বাইপার্টাইট**?"।
 
-To solve this problem, we make a DSU for storing of the components and store the parity of the path up to the representative for each vertex.
-Thus we can quickly check if adding an edge leads to a violation of the bipartiteness or not:
-namely if the ends of the edge lie in the same connected component and have the same parity length to the leader, then adding this edge will produce a cycle of odd length, and the component will lose the bipartiteness property.
+এই সমস্যা সমাধানের জন্য, আমরা কম্পোনেন্ট সংরক্ষণের জন্য একটি ডিএসইউ তৈরি করি এবং প্রতিটি ভার্টেক্সের জন্য রিপ্রেজেন্টেটিভ পর্যন্ত পাথের প্যারিটি সংরক্ষণ করি।
+এভাবে আমরা দ্রুত পরীক্ষা করতে পারি যে একটি এজ যোগ করলে বাইপার্টাইটনেস লঙ্ঘন হয় কি না:
+অর্থাৎ যদি এজের দুটি প্রান্ত একই কানেক্টেড কম্পোনেন্টে থাকে এবং লিডার পর্যন্ত একই প্যারিটি দৈর্ঘ্য থাকে, তাহলে এই এজ যোগ করলে একটি বিজোড় দৈর্ঘ্যের সাইকেল তৈরি হবে, এবং কম্পোনেন্টটি বাইপার্টাইটনেস বৈশিষ্ট্য হারাবে।
 
-The only difficulty that we face is to compute the parity in the `union_find` method.
+একমাত্র অসুবিধা যার মুখোমুখি আমরা হই তা হলো `union_find` মেথডে প্যারিটি গণনা করা।
 
-If we add an edge $(a, b)$ that connects two connected components into one, then when you attach one tree to another we need to adjust the parity.
+আমরা যদি একটি এজ $(a, b)$ যোগ করি যা দুটি কানেক্টেড কম্পোনেন্টকে একটিতে সংযুক্ত করে, তাহলে একটি ট্রিকে অন্যটির সাথে সংযুক্ত করার সময় আমাদের প্যারিটি সমন্বয় করতে হবে।
 
-Let's derive a formula, which computes the parity issued to the leader of the set that will get attached to another set.
-Let $x$ be the parity of the path length from vertex $a$ up to its leader $A$, and $y$ as the parity of the path length from vertex $b$ up to its leader $B$, and $t$ the desired parity that we have to assign to $B$ after the merge.
-The path consists of the three parts:
-from $B$ to $b$, from $b$ to $a$, which is connected by one edge and therefore has parity $1$, and from $a$ to $A$.
-Therefore we receive the formula ($\oplus$ denotes the XOR operation):
+চলুন একটি সূত্র বের করি, যা অন্য সেটের সাথে সংযুক্ত হতে যাওয়া সেটের লিডারকে দেওয়া প্যারিটি গণনা করে।
+ধরি $x$ হলো ভার্টেক্স $a$ থেকে তার লিডার $A$ পর্যন্ত পাথ দৈর্ঘ্যের প্যারিটি, এবং $y$ হলো ভার্টেক্স $b$ থেকে তার লিডার $B$ পর্যন্ত পাথ দৈর্ঘ্যের প্যারিটি, এবং $t$ হলো মার্জের পর $B$-কে দেওয়া কাঙ্ক্ষিত প্যারিটি।
+পাথটি তিনটি অংশ নিয়ে গঠিত:
+$B$ থেকে $b$, $b$ থেকে $a$ যা একটি এজ দ্বারা সংযুক্ত এবং তাই প্যারিটি $1$, এবং $a$ থেকে $A$।
+অতএব আমরা সূত্রটি পাই ($\oplus$ XOR অপারেশন নির্দেশ করে):
 
 $$t = x \oplus y \oplus 1$$
 
-Thus regardless of how many joins we perform, the parity of the edges is carried from one leader to another.
+সুতরাং আমরা যতগুলো জয়েনই করি না কেন, এজের প্যারিটি এক লিডার থেকে অন্য লিডারে বহন করা হয়।
 
-We give the implementation of the DSU that supports parity. As in the previous section we use a pair to store the ancestor and the parity. In addition for each set we store in the array `bipartite[]` whether it is still bipartite or not.
+আমরা প্যারিটি সাপোর্টকারী ডিএসইউ-এর ইমপ্লিমেন্টেশন দিচ্ছি। আগের সেকশনের মতো আমরা পূর্বসূরি এবং প্যারিটি সংরক্ষণের জন্য পেয়ার ব্যবহার করি। এছাড়াও প্রতিটি সেটের জন্য `bipartite[]` অ্যারেতে সংরক্ষণ করি যে এটি এখনো বাইপার্টাইট কি না।
 
 ```cpp
 void make_set(int v) {
@@ -428,19 +428,19 @@ bool is_bipartite(int v) {
 }
 ```
 
-### Offline RMQ (range minimum query) in $O(\alpha(n))$ on average / Arpa's trick { #arpa data-toc-label="Offline RMQ / Arpa's trick"}
+### গড়ে $O(\alpha(n))$-এ অফলাইন RMQ (রেঞ্জ মিনিমাম কুয়েরি) / আরপার ট্রিক { #arpa data-toc-label="অফলাইন RMQ / আরপার ট্রিক"}
 
-We are given an array `a[]` and we have to compute some minima in given segments of the array.
+আমাদের একটি অ্যারে `a[]` দেওয়া আছে এবং অ্যারের প্রদত্ত সেগমেন্টগুলোতে কিছু মিনিমাম গণনা করতে হবে।
 
-The idea to solve this problem with DSU is the following:
-We will iterate over the array and when we are at the `i`th element we will answer all queries `(L, R)` with `R == i`.
-To do this efficiently we will keep a DSU using the first `i` elements with the following structure: the parent of an element is the next smaller element to the right of it.
-Then using this structure the answer to a query will be the `a[find_set(L)]`, the smallest number to the right of `L`.
+ডিএসইউ দিয়ে এই সমস্যা সমাধানের ধারণাটি নিম্নরূপ:
+আমরা অ্যারের উপর ইটারেট করব এবং `i`-তম এলিমেন্টে থাকাকালীন `R == i` সহ সকল কুয়েরি `(L, R)` এর উত্তর দেব।
+এটি এফিশিয়েন্টলি করার জন্য আমরা প্রথম `i`টি এলিমেন্ট ব্যবহার করে নিম্নলিখিত স্ট্রাকচারে একটি ডিএসইউ রাখব: একটি এলিমেন্টের প্যারেন্ট হলো তার ডানে পরবর্তী ছোট এলিমেন্ট।
+তাহলে এই স্ট্রাকচার ব্যবহার করে একটি কুয়েরির উত্তর হবে `a[find_set(L)]`, `L`-এর ডানে সবচেয়ে ছোট সংখ্যা।
 
-This approach obviously only works offline, i.e. if we know all queries beforehand.
+এই পদ্ধতি স্পষ্টতই শুধু অফলাইনে কাজ করে, অর্থাৎ যদি আমরা সকল কুয়েরি আগে থেকে জানি।
 
-It is easy to see that we can apply path compression.
-And we can also use Union by rank, if we store the actual leader in an separate array.
+দেখা সহজ যে আমরা পাথ কম্প্রেশন প্রয়োগ করতে পারি।
+এবং আমরা ইউনিয়ন বাই র‍্যাঙ্কও ব্যবহার করতে পারি, যদি আমরা প্রকৃত লিডার আলাদা একটি অ্যারেতে সংরক্ষণ করি।
 
 ```cpp
 struct Query {
@@ -451,7 +451,7 @@ vector<int> answer;
 vector<vector<Query>> container;
 ```
 
-`container[i]` contains all queries with `R == i`.
+`container[i]`-তে `R == i` সহ সকল কুয়েরি থাকে।
 
 ```cpp
 stack<int> s;
@@ -467,39 +467,39 @@ for (int i = 0; i < n; i++) {
 }
 ```
 
-Nowadays this algorithm is known as Arpa's trick.
-It is named after AmirReza Poorakhavan, who independently discovered and popularized this technique.
-Although this algorithm existed already before his discovery.
+বর্তমানে এই অ্যালগরিদম আরপার ট্রিক নামে পরিচিত।
+এটি AmirReza Poorakhavan-এর নামে নামকরণ করা হয়েছে, যিনি স্বতন্ত্রভাবে এই কৌশলটি আবিষ্কার এবং জনপ্রিয় করেছিলেন।
+যদিও তাঁর আবিষ্কারের আগেই এই অ্যালগরিদম বিদ্যমান ছিল।
 
-### Offline LCA (lowest common ancestor in a tree) in $O(\alpha(n))$ on average {data-toc-label="Offline LCA"}
+### গড়ে $O(\alpha(n))$-এ অফলাইন LCA (ট্রিতে লোয়েস্ট কমন অ্যানসেস্টর) {data-toc-label="অফলাইন LCA"}
 
-The algorithm for finding the LCA is discussed in the article [Lowest Common Ancestor - Tarjan's off-line algorithm](../graph/lca_tarjan.md).
-This algorithm compares favorable with other algorithms for finding the LCA due to its simplicity (especially compared to an optimal algorithm like the one from [Farach-Colton and Bender](../graph/lca_farachcoltonbender.md)).
+LCA খোঁজার অ্যালগরিদম [লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফলাইন অ্যালগরিদম](../graph/lca_tarjan.md) আর্টিকেলে আলোচনা করা হয়েছে।
+এই অ্যালগরিদম LCA খোঁজার অন্যান্য অ্যালগরিদমের তুলনায় এর সরলতার কারণে অনুকূল (বিশেষত [ফারাক-কোলটন এবং বেন্ডার](../graph/lca_farachcoltonbender.md)-এর মতো একটি অপটিমাল অ্যালগরিদমের তুলনায়)।
 
-### Storing the DSU explicitly in a set list / Applications of this idea when merging various data structures
+### ডিএসইউকে সেট লিস্টে এক্সপ্লিসিটলি সংরক্ষণ / বিভিন্ন ডেটা স্ট্রাকচার মার্জ করার সময় এই ধারণার অ্যাপ্লিকেশন
 
-One of the alternative ways of storing the DSU is the preservation of each set in the form of an **explicitly stored list of its elements**.
-At the same time each element also stores the reference to the representative of his set.
+ডিএসইউ সংরক্ষণের একটি বিকল্প উপায় হলো প্রতিটি সেটকে **এর এলিমেন্টের এক্সপ্লিসিটলি সংরক্ষিত লিস্ট** আকারে সংরক্ষণ করা।
+একই সাথে প্রতিটি এলিমেন্ট তার সেটের রিপ্রেজেন্টেটিভের রেফারেন্সও সংরক্ষণ করে।
 
-At first glance this looks like an inefficient data structure:
-by combining two sets we will have to add one list to the end of another and have to update the leadership in all elements of one of the lists.
+প্রথম দৃষ্টিতে এটি একটি ইনএফিশিয়েন্ট ডেটা স্ট্রাকচার মনে হয়:
+দুটি সেট একত্রিত করতে আমাদের একটি লিস্ট অন্যটির শেষে যোগ করতে হবে এবং একটি লিস্টের সকল এলিমেন্টে লিডারশিপ আপডেট করতে হবে।
 
-However it turns out, the use of a **weighting heuristic** (similar to Union by size) can significantly reduce the asymptotic complexity:
-$O(m + n \log n)$ to perform $m$ queries on the $n$ elements.
+তবে দেখা যায়, একটি **ওয়েটিং হিউরিস্টিক** (ইউনিয়ন বাই সাইজের মতো) ব্যবহার করলে অ্যাসিম্পটোটিক কমপ্লেক্সিটি উল্লেখযোগ্যভাবে কমানো যায়:
+$n$টি এলিমেন্টে $m$টি কুয়েরি সম্পাদন করতে $O(m + n \log n)$।
 
-Under weighting heuristic we mean, that we will always **add the smaller of the two sets to the bigger set**.
-Adding one set to another is easy to implement in `union_sets` and will take time proportional to the size of the added set.
-And the search for the leader in `find_set` will take $O(1)$ with this method of storing.
+ওয়েটিং হিউরিস্টিক বলতে আমরা বুঝি, আমরা সবসময় **দুটি সেটের ছোটটিকে বড়টিতে যোগ করব**।
+একটি সেটকে অন্যটিতে যোগ করা `union_sets`-এ সহজেই ইমপ্লিমেন্ট করা যায় এবং যোগ করা সেটের সাইজের সমানুপাতিক সময় লাগবে।
+এবং `find_set`-এ লিডার খোঁজা এই সংরক্ষণ পদ্ধতিতে $O(1)$ সময় নেবে।
 
-Let us prove the **time complexity** $O(m + n \log n)$ for the execution of $m$ queries.
-We will fix an arbitrary element $x$ and count how often it was touched in the merge operation `union_sets`.
-When the element $x$ gets touched the first time, the size of the new set will be at least $2$.
-When it gets touched the second time, the resulting set will have size of at least $4$, because the smaller set gets added to the bigger one.
-And so on.
-This means, that $x$ can only be moved in at most $\log n$ merge operations.
-Thus the sum over all vertices gives $O(n \log n)$ plus $O(1)$ for each request.
+চলুন $m$টি কুয়েরি সম্পাদনের জন্য **টাইম কমপ্লেক্সিটি** $O(m + n \log n)$ প্রমাণ করি।
+আমরা একটি নির্দিষ্ট এলিমেন্ট $x$ ধরি এবং গণনা করি মার্জ অপারেশন `union_sets`-এ কতবার এটি স্পর্শ করা হয়েছে।
+যখন এলিমেন্ট $x$ প্রথমবার স্পর্শ করা হয়, নতুন সেটের সাইজ কমপক্ষে $2$ হবে।
+যখন দ্বিতীয়বার স্পর্শ করা হয়, ফলাফল সেটের সাইজ কমপক্ষে $4$ হবে, কারণ ছোট সেটটি বড়টিতে যোগ হয়।
+এভাবে চলতে থাকে।
+এর মানে হলো, $x$ সর্বাধিক $\log n$ মার্জ অপারেশনে সরানো যেতে পারে।
+সুতরাং সকল ভার্টেক্সের সমষ্টি $O(n \log n)$ এবং প্রতিটি অনুরোধের জন্য $O(1)$।
 
-Here is an implementation:
+এখানে একটি ইমপ্লিমেন্টেশন:
 
 ```cpp
 vector<int> lst[MAXN];
@@ -530,55 +530,55 @@ void union_sets(int a, int b) {
 }
 ```
 
-This idea of adding the smaller part to a bigger part can also be used in a lot of solutions that have nothing to do with DSU.
+ছোট অংশকে বড় অংশে যোগ করার এই ধারণাটি ডিএসইউ-এর সাথে সম্পর্কহীন অনেক সমাধানেও ব্যবহার করা যেতে পারে।
 
-For example consider the following **problem**:
-we are given a tree, each leaf has a number assigned (same number can appear multiple times on different leaves).
-We want to compute the number of different numbers in the subtree for every node of the tree.
+উদাহরণস্বরূপ নিম্নলিখিত **সমস্যাটি** বিবেচনা করুন:
+আমাদের একটি ট্রি দেওয়া আছে, প্রতিটি লিফে একটি সংখ্যা নির্ধারিত (একই সংখ্যা বিভিন্ন লিফে একাধিকবার থাকতে পারে)।
+আমরা ট্রির প্রতিটি নোডের জন্য তার সাবট্রিতে ভিন্ন সংখ্যার সংখ্যা গণনা করতে চাই।
 
-Applying to this task the same idea it is possible to obtain this solution:
-we can implement a [DFS](../graph/depth-first-search.md), which will return a pointer to a set of integers - the list of numbers in that subtree.
-Then to get the answer for the current node (unless of course it is a leaf), we call DFS for all children of that node, and merge all the received sets together.
-The size of the resulting set will be the answer for the current node.
-To efficiently combine multiple sets we just apply the above-described recipe:
-we merge the sets by simply adding smaller ones to larger.
-In the end we get a $O(n \log^2 n)$ solution, because one number will only added to a set at most $O(\log n)$ times.
+এই কাজে একই ধারণা প্রয়োগ করলে এই সমাধানটি পাওয়া সম্ভব:
+আমরা একটি [ডিএফএস](../graph/depth-first-search.md) ইমপ্লিমেন্ট করতে পারি, যা পূর্ণসংখ্যার সেটের একটি পয়েন্টার রিটার্ন করবে - সেই সাবট্রিতে সংখ্যার তালিকা।
+তারপর বর্তমান নোডের উত্তর পেতে (যদি না এটি অবশ্যই একটি লিফ হয়), আমরা সেই নোডের সকল চাইল্ডের জন্য ডিএফএস কল করি, এবং প্রাপ্ত সকল সেট একত্রিত করি।
+ফলস্বরূপ সেটের সাইজ হবে বর্তমান নোডের উত্তর।
+একাধিক সেট এফিশিয়েন্টলি একত্রিত করতে আমরা উপরে বর্ণিত পদ্ধতি প্রয়োগ করি:
+ছোটগুলোকে বড়টিতে যোগ করে সেটগুলো মার্জ করি।
+শেষে আমরা একটি $O(n \log^2 n)$ সমাধান পাই, কারণ একটি সংখ্যা সর্বাধিক $O(\log n)$ বার একটি সেটে যোগ করা হবে।
 
-### Storing the DSU by maintaining a clear tree structure / Online bridge finding in $O(\alpha(n))$ on average  {data-toc-label="Storing the DSU by maintaining a clear tree structure / Online bridge finding"}
+### স্পষ্ট ট্রি স্ট্রাকচার বজায় রেখে ডিএসইউ সংরক্ষণ / গড়ে $O(\alpha(n))$-এ অনলাইন ব্রিজ খোঁজা  {data-toc-label="স্পষ্ট ট্রি স্ট্রাকচার বজায় রেখে ডিএসইউ সংরক্ষণ / অনলাইন ব্রিজ খোঁজা"}
 
-One of the most powerful applications of DSU is that it allows you to store both as **compressed and uncompressed trees**.
-The compressed form can be used for merging of trees and for the verification if two vertices are in the same tree, and the uncompressed form can be used - for example - to search for paths between two given vertices, or other traversals of the tree structure.
+ডিএসইউ-এর সবচেয়ে শক্তিশালী অ্যাপ্লিকেশনগুলোর একটি হলো এটি আপনাকে **কম্প্রেসড এবং আনকম্প্রেসড** উভয় ট্রি সংরক্ষণ করতে দেয়।
+কম্প্রেসড ফর্ম ট্রি মার্জ করতে এবং দুটি ভার্টেক্স একই ট্রিতে আছে কি না তা যাচাই করতে ব্যবহার করা যায়, এবং আনকম্প্রেসড ফর্ম ব্যবহার করা যায় - উদাহরণস্বরূপ - দুটি প্রদত্ত ভার্টেক্সের মধ্যে পাথ খোঁজায়, বা ট্রি স্ট্রাকচারের অন্যান্য ট্রাভার্সালে।
 
-In the implementation this means that in addition to the compressed ancestor array `parent[]` we will need to keep the array of uncompressed ancestors `real_parent[]`.
-It is trivial that maintaining this additional array will not worsen the complexity:
-changes in it only occur when we merge two trees, and only in one element.
+ইমপ্লিমেন্টেশনে এর মানে হলো কম্প্রেসড অ্যানসেস্টর অ্যারে `parent[]` ছাড়াও আমাদের আনকম্প্রেসড অ্যানসেস্টরের অ্যারে `real_parent[]` রাখতে হবে।
+এটি সুস্পষ্ট যে এই অতিরিক্ত অ্যারে রক্ষণাবেক্ষণ করলে কমপ্লেক্সিটি খারাপ হবে না:
+এতে পরিবর্তন শুধু তখনই হয় যখন আমরা দুটি ট্রি মার্জ করি, এবং শুধু একটি এলিমেন্টে।
 
-On the other hand when applied in practice, we often need to connect trees using a specified edge other that using the two root nodes.
-This means that we have no other choice but to re-root one of the trees (make the ends of the edge the new root of the tree).
+অন্যদিকে বাস্তবে প্রয়োগ করার সময়, আমাদের প্রায়ই দুটি রুট নোড ব্যবহার না করে একটি নির্দিষ্ট এজ দিয়ে ট্রি সংযুক্ত করতে হয়।
+এর মানে হলো আমাদের একটি ট্রিকে রি-রুট করা ছাড়া উপায় নেই (এজের প্রান্তকে ট্রির নতুন রুট বানানো)।
 
-At first glance it seems that this re-rooting is very costly and will greatly worsen the time complexity.
-Indeed, for rooting a tree at vertex $v$ we must go from the vertex to the old root and change directions in `parent[]` and `real_parent[]` for all nodes on that path.
+প্রথম দৃষ্টিতে মনে হয় এই রি-রুটিং অত্যন্ত ব্যয়বহুল এবং টাইম কমপ্লেক্সিটি অনেক খারাপ করবে।
+প্রকৃতপক্ষে, ভার্টেক্স $v$-তে ট্রি রুট করতে আমাদের ভার্টেক্স থেকে পুরানো রুটে যেতে হবে এবং সেই পাথের সকল নোডের `parent[]` ও `real_parent[]`-এ দিক পরিবর্তন করতে হবে।
 
-However in reality it isn't so bad, we can just re-root the smaller of the two trees similar to the ideas in the previous sections, and get $O(\log n)$ on average.
+তবে বাস্তবে এটি এত খারাপ নয়, আমরা আগের সেকশনের ধারণাগুলোর মতো দুটি ট্রির ছোটটিকে রি-রুট করতে পারি, এবং গড়ে $O(\log n)$ পাই।
 
-More details (including proof of the time complexity) can be found in the article [Finding Bridges Online](../graph/bridge-searching-online.md).
+আরও বিস্তারিত (টাইম কমপ্লেক্সিটির প্রমাণসহ) [অনলাইনে ব্রিজ খোঁজা](../graph/bridge-searching-online.md) আর্টিকেলে পাওয়া যাবে।
 
-## Historical retrospective
+## ঐতিহাসিক পটভূমি
 
-The data structure DSU has been known for a long time.
+ডিএসইউ ডেটা স্ট্রাকচারটি দীর্ঘদিন ধরে পরিচিত।
 
-This way of storing this structure in the form **of a forest of trees** was apparently first described by Galler and Fisher in 1964 (Galler, Fisher, "An Improved Equivalence Algorithm), however the complete analysis of the time complexity was conducted much later.
+এই স্ট্রাকচারটিকে **ট্রির ফরেস্ট** আকারে সংরক্ষণের এই পদ্ধতি সম্ভবত প্রথম বর্ণনা করেছিলেন Galler এবং Fisher ১৯৬৪ সালে (Galler, Fisher, "An Improved Equivalence Algorithm), তবে টাইম কমপ্লেক্সিটির সম্পূর্ণ বিশ্লেষণ অনেক পরে করা হয়েছিল।
 
-The optimizations path compression and Union by rank has been developed by McIlroy and Morris, and independently of them also by Tritter.
+পাথ কম্প্রেশন এবং ইউনিয়ন বাই র‍্যাঙ্ক অপটিমাইজেশন McIlroy এবং Morris তৈরি করেছিলেন, এবং তাদের থেকে স্বতন্ত্রভাবে Tritter-ও করেছিলেন।
 
-Hopcroft and Ullman showed in 1973 the time complexity $O(\log^\star n)$ (Hopcroft, Ullman "Set-merging algorithms") - here $\log^\star$ is the **iterated logarithm** (this is a slow-growing function, but still not as slow as the inverse Ackermann function).
+Hopcroft এবং Ullman ১৯৭৩ সালে $O(\log^\star n)$ টাইম কমপ্লেক্সিটি দেখিয়েছিলেন (Hopcroft, Ullman "Set-merging algorithms") - এখানে $\log^\star$ হলো **ইটারেটেড লগারিদম** (এটি ধীরে বৃদ্ধি পাওয়া ফাংশন, কিন্তু ইনভার্স অ্যাকারম্যান ফাংশনের মতো ধীর নয়)।
 
-For the first time the evaluation of $O(\alpha(n))$ was shown in 1975 (Tarjan "Efficiency of a Good But Not Linear Set Union Algorithm").
-Later in 1985 he, along with Leeuwen, published multiple complexity analyses for several different rank heuristics and ways of compressing the path (Tarjan, Leeuwen "Worst-case Analysis of Set Union Algorithms").
+$O(\alpha(n))$-এর মূল্যায়ন প্রথমবার ১৯৭৫ সালে দেখানো হয়েছিল (Tarjan "Efficiency of a Good But Not Linear Set Union Algorithm")।
+পরে ১৯৮৫ সালে তিনি, Leeuwen-এর সাথে মিলে, বিভিন্ন র‍্যাঙ্ক হিউরিস্টিক এবং পাথ কম্প্রেশনের উপায়ের জন্য একাধিক কমপ্লেক্সিটি বিশ্লেষণ প্রকাশ করেছিলেন (Tarjan, Leeuwen "Worst-case Analysis of Set Union Algorithms")।
 
-Finally in 1989 Fredman and Sachs proved that in the adopted model of computation **any** algorithm for the disjoint set union problem has to work in at least $O(\alpha(n))$ time on average (Fredman, Saks, "The cell probe complexity of dynamic data structures").
+সবশেষে ১৯৮৯ সালে Fredman এবং Sachs প্রমাণ করেছিলেন যে গৃহীত কম্পিউটেশন মডেলে ডিসজয়েন্ট সেট ইউনিয়ন সমস্যার **যেকোনো** অ্যালগরিদমকে গড়ে কমপক্ষে $O(\alpha(n))$ সময়ে কাজ করতে হবে (Fredman, Saks, "The cell probe complexity of dynamic data structures")।
 
-## Problems
+## অনুশীলন সমস্যা
 
 * [TIMUS - Anansi's Cobweb](http://acm.timus.ru/problem.aspx?space=1&num=1671)
 * [Codeforces - Roads not only in Berland](http://codeforces.com/contest/25/problem/D)
@@ -589,4 +589,3 @@ Finally in 1989 Fredman and Sachs proved that in the adopted model of computatio
 * [Toph - Unbelievable Array](https://toph.co/p/unbelievable-array)
 * [HackerEarth - Lexicographically minimal string](https://www.hackerearth.com/practice/data-structures/disjoint-data-strutures/basics-of-disjoint-data-structures/practice-problems/algorithm/lexicographically-minimal-string-6edc1406/description/)
 * [HackerEarth - Fight in Ninja World](https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/containers-of-choclates-1/)
-

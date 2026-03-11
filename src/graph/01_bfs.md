@@ -3,19 +3,19 @@ tags:
   - Original
 ---
 
-# 0-1 BFS
+# ০-১ বিএফএস
 
-It is well-known, that you can find the shortest paths between a single source and all other vertices in $O(|E|)$ using [Breadth First Search](breadth-first-search.md) in an **unweighted graph**, i.e. the distance is the minimal number of edges that you need to traverse from the source to another vertex.
-We can interpret such a graph also as a weighted graph, where every edge has the weight $1$.
-If not all edges in graph have the same weight, then we need a more general algorithm, like [Dijkstra](dijkstra.md) which runs in $O(|V|^2 + |E|)$ or $O(|E| \log |V|)$ time.
+এটি সুপরিচিত যে, একটি **ওয়েটবিহীন গ্রাফে** [ব্রেডথ ফার্স্ট সার্চ](breadth-first-search.md) ব্যবহার করে $O(|E|)$ সময়ে একটি একক সোর্স থেকে অন্য সকল ভার্টেক্সে শর্টেস্ট পাথ বের করা যায়, অর্থাৎ সোর্স থেকে অন্য একটি ভার্টেক্সে যেতে ন্যূনতম কতগুলো এজ অতিক্রম করতে হবে তা বের করা যায়।
+আমরা এই ধরনের গ্রাফকে একটি ওয়েটেড গ্রাফ হিসেবেও ব্যাখ্যা করতে পারি, যেখানে প্রতিটি এজের ওয়েট $1$।
+যদি গ্রাফের সকল এজের ওয়েট একই না হয়, তাহলে আমাদের আরও সাধারণ অ্যালগরিদম দরকার, যেমন [ডায়াক্সট্রা](dijkstra.md) যা $O(|V|^2 + |E|)$ বা $O(|E| \log |V|)$ সময়ে চলে।
 
-However if the weights are more constrained, we can often do better.
-In this article we demonstrate how we can use BFS to solve the SSSP (single-source shortest path) problem in $O(|E|)$, if the weight of each edge is either $0$ or $1$.
+তবে ওয়েটগুলো যদি আরও সীমাবদ্ধ হয়, আমরা প্রায়ই আরও ভালো করতে পারি।
+এই নিবন্ধে আমরা দেখাব কীভাবে বিএফএস ব্যবহার করে SSSP (সিঙ্গেল-সোর্স শর্টেস্ট পাথ) সমস্যা $O(|E|)$-এ সমাধান করা যায়, যদি প্রতিটি এজের ওয়েট $0$ বা $1$ হয়।
 
-## Algorithm
+## অ্যালগরিদম
 
-We can develop the algorithm by closely studying Dijkstra's algorithm and thinking about the consequences that our special graph implies.
-The general form of Dijkstra's algorithm is (here a `set` is used for the priority queue):
+আমরা ডায়াক্সট্রার অ্যালগরিদম ঘনিষ্ঠভাবে পর্যালোচনা করে এবং আমাদের বিশেষ গ্রাফের প্রভাব সম্পর্কে চিন্তা করে এই অ্যালগরিদম তৈরি করতে পারি।
+ডায়াক্সট্রার অ্যালগরিদমের সাধারণ রূপ হলো (এখানে প্রায়োরিটি কিউ হিসেবে একটি `set` ব্যবহৃত হয়েছে):
 
 ```cpp
 d.assign(n, INF);
@@ -39,19 +39,19 @@ while (!q.empty()) {
 }
 ```
 
-We can notice that the difference between the distances between the source `s` and two other vertices in the queue differs by at most one.
-Especially, we know that $d[v] \le d[u] \le d[v] + 1$ for each $u \in Q$.
-The reason for this is, that we only add vertices with equal distance or with distance plus one to the queue during each iteration.
-Assuming there exists a $u$ in the queue with $d[u] - d[v] > 1$, then $u$ must have been inserted into the queue via a different vertex $t$ with $d[t] \ge d[u] - 1 > d[v]$.
-However this is impossible, since Dijkstra's algorithm iterates over the vertices in increasing order.
+আমরা লক্ষ্য করতে পারি যে কিউতে থাকা সোর্স `s` থেকে দুটি ভিন্ন ভার্টেক্সের দূরত্বের পার্থক্য সর্বাধিক এক।
+বিশেষত, আমরা জানি প্রতিটি $u \in Q$-এর জন্য $d[v] \le d[u] \le d[v] + 1$।
+এর কারণ হলো, প্রতিটি ইটারেশনে আমরা কিউতে শুধু সমান দূরত্ব বা দূরত্ব যোগ এক সহ ভার্টেক্স যোগ করি।
+ধরুন কিউতে এমন একটি $u$ আছে যেখানে $d[u] - d[v] > 1$, তাহলে $u$-কে অবশ্যই ভিন্ন কোনো ভার্টেক্স $t$ দিয়ে কিউতে ঢোকানো হয়েছে যেখানে $d[t] \ge d[u] - 1 > d[v]$।
+কিন্তু এটি অসম্ভব, কারণ ডায়াক্সট্রার অ্যালগরিদম ভার্টেক্সগুলো ক্রমবর্ধমান ক্রমে ইটারেট করে।
 
-This means, that the order of the queue looks like this:
+এর মানে, কিউর ক্রমটি এরকম দেখায়:
 
 $$Q = \underbrace{v}_{d[v]}, \dots, \underbrace{u}_{d[v]}, \underbrace{m}_{d[v]+1} \dots \underbrace{n}_{d[v]+1}$$
 
-This structure is so simple, that we don't need an actual priority queue, i.e. using a balanced binary tree would be an overkill.
-We can simply use a normal queue, and append new vertices at the beginning if the corresponding edge has weight $0$, i.e. if $d[u] = d[v]$, or at the end if the edge has weight $1$, i.e. if $d[u] = d[v] + 1$.
-This way the queue still remains sorted at all time.
+এই কাঠামো এতটাই সরল যে আমাদের প্রকৃত প্রায়োরিটি কিউ দরকার নেই, অর্থাৎ একটি ব্যালেন্সড বাইনারি ট্রি ব্যবহার করা অতিরিক্ত হবে।
+আমরা সহজভাবে একটি সাধারণ কিউ ব্যবহার করতে পারি, এবং সংশ্লিষ্ট এজের ওয়েট $0$ হলে নতুন ভার্টেক্স শুরুতে যোগ করব, অর্থাৎ $d[u] = d[v]$ হলে, অথবা এজের ওয়েট $1$ হলে শেষে যোগ করব, অর্থাৎ $d[u] = d[v] + 1$ হলে।
+এভাবে কিউ সর্বদা সাজানো থাকবে।
 
 ```cpp
 vector<int> d(n, INF);
@@ -75,14 +75,14 @@ while (!q.empty()) {
 }
 ```
 
-## Dial's algorithm
+## ডায়ালের অ্যালগরিদম
 
-We can extend this even further if we allow the weights of the edges to be even bigger.
-If every edge in the graph has a weight $\le k$, then the distances of vertices in the queue will differ by at most $k$ from the distance of $v$ to the source.
-So we can keep $k + 1$ buckets for the vertices in the queue, and whenever the bucket corresponding to the smallest distance gets empty, we make a cyclic shift to get the bucket with the next higher distance.
-This extension is called **Dial's algorithm**.
+এজের ওয়েট আরও বড় হলেও আমরা এটিকে আরও সম্প্রসারিত করতে পারি।
+যদি গ্রাফের প্রতিটি এজের ওয়েট $\le k$ হয়, তাহলে কিউতে থাকা ভার্টেক্সগুলোর দূরত্ব সোর্স থেকে $v$-এর দূরত্ব থেকে সর্বাধিক $k$ পার্থক্য করবে।
+তাই আমরা কিউতে থাকা ভার্টেক্সগুলোর জন্য $k + 1$ টি বাকেট রাখতে পারি, এবং যখনই সবচেয়ে ছোট দূরত্বের বাকেট খালি হয়ে যায়, পরবর্তী বড় দূরত্বের বাকেট পেতে একটি চক্রাকার শিফট করি।
+এই সম্প্রসারণকে **ডায়ালের অ্যালগরিদম** বলা হয়।
 
-## Practice problems
+## অনুশীলন সমস্যা
 
 - [CodeChef - Chef and Reversing](https://www.codechef.com/problems/REVERSE)
 - [Labyrinth](https://codeforces.com/contest/1063/problem/B)

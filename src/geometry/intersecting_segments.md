@@ -4,67 +4,67 @@ tags:
 e_maxx_link: intersecting_segments
 ---
 
-# Search for a pair of intersecting segments
+# ছেদকারী রেখাংশের জোড়া খোঁজা
 
-Given $n$ line segments on the plane. It is required to check whether at least two of them intersect with each other.
-If the answer is yes, then print this pair of intersecting segments; it is enough to choose any of them among several answers.
+সমতলে $n$টি রেখাংশ দেওয়া আছে। এদের মধ্যে অন্তত দুটি পরস্পরকে ছেদ করে কি না তা পরীক্ষা করতে হবে।
+যদি উত্তর হ্যাঁ হয়, তাহলে ছেদকারী রেখাংশের এই জোড়াটি প্রিন্ট করতে হবে; একাধিক উত্তরের মধ্যে যেকোনো একটি বেছে নিলেই যথেষ্ট।
 
-The naive solution algorithm is to iterate over all pairs of segments in $O(n^2)$ and check for each pair whether they intersect or not. This article describes an algorithm with the runtime time $O(n \log n)$, which is based on the **sweep line algorithm**.
+সরল সমাধান অ্যালগরিদম হলো সব জোড়া রেখাংশের উপর $O(n^2)$-তে ইটারেট করা এবং প্রতিটি জোড়ার জন্য তারা ছেদ করে কি না তা পরীক্ষা করা। এই আর্টিকেলে $O(n \log n)$ রানটাইমের একটি অ্যালগরিদম বর্ণনা করা হয়েছে, যা **সুইপ লাইন অ্যালগরিদমের** উপর ভিত্তি করে।
 
-## Algorithm
+## অ্যালগরিদম
 
-Let's draw a vertical line $x = -\infty$ mentally and start moving this line to the right.
-In the course of its movement, this line will meet with segments, and at each time a segment intersects with our line it intersects in exactly one point (we will assume that there are no vertical segments).
+চলুন মনে মনে একটি উল্লম্ব সরলরেখা $x = -\infty$ আঁকি এবং এই সরলরেখাটিকে ডানদিকে সরাতে শুরু করি।
+এটি সরানোর সময়, এই সরলরেখাটি রেখাংশগুলোর সাথে দেখা করবে, এবং প্রতিটি মুহূর্তে একটি রেখাংশ আমাদের সরলরেখার সাথে ছেদ করলে তা ঠিক একটি বিন্দুতে ছেদ করে (আমরা ধরে নেব যে কোনো উল্লম্ব রেখাংশ নেই)।
 
 <div style="text-align: center;">
   <img src="sweep_line_1.png" alt="sweep line and line segment intersection">
 </div>
 
-Thus, for each segment, at some point in time, its point will appear on the sweep line, then with the movement of the line, this point will move, and finally, at some point, the segment will disappear from the line.
+এইভাবে, প্রতিটি রেখাংশের জন্য, কোনো একটি সময়ে তার বিন্দু সুইপ লাইনে দেখা যাবে, তারপর সরলরেখাটি সরানোর সাথে সাথে এই বিন্দুটি সরে যাবে, এবং অবশেষে, কোনো একটি সময়ে, রেখাংশটি সরলরেখা থেকে অদৃশ্য হয়ে যাবে।
 
-We are interested in the **relative order of the segments** along the vertical.
-Namely, we will store a list of segments crossing the sweep line at a given time, where the segments will be sorted by their $y$-coordinate on the sweep line.
+আমরা উল্লম্ব বরাবর **রেখাংশগুলোর আপেক্ষিক ক্রমে** আগ্রহী।
+অর্থাৎ, আমরা একটি প্রদত্ত সময়ে সুইপ লাইনকে ছেদ করা রেখাংশগুলোর একটি তালিকা সংরক্ষণ করব, যেখানে রেখাংশগুলো সুইপ লাইনে তাদের $y$-স্থানাঙ্ক অনুসারে সর্ট করা থাকবে।
 
 <div style="text-align: center;">
   <img src="sweep_line_2.png" alt="relative order of the segments across sweep line">
 </div>
 
-This order is interesting because intersecting segments will have the same $y$-coordinate at least at one time:
+এই ক্রমটি আকর্ষণীয় কারণ ছেদকারী রেখাংশগুলোর অন্তত একটি সময়ে একই $y$-স্থানাঙ্ক থাকবে:
 
 <div style="text-align: center;">
   <img src="sweep_line_3.png" alt="intersection point having same y-coordinate">
 </div>
 
-We formulate key statements:
+আমরা মূল বক্তব্যগুলো প্রণয়ন করি:
 
-  - To find an intersecting pair, it is sufficient to consider **only adjacent segments** at each fixed position of the sweep line.
-  - It is enough to consider the sweep line not in all possible real positions $(-\infty \ldots +\infty)$, but **only in those positions when new segments appear or old ones disappear**. In other words, it is enough to limit yourself only to the positions equal to the abscissas of the end points of the segments.
-  - When a new line segment appears, it is enough to **insert** it to the desired location in the list obtained for the previous sweep line. We should only check for the intersection of the **added segment with its immediate neighbors in the list above and below**.
-  - If the segment disappears, it is enough to **remove** it from the current list. After that, it is necessary **check for the intersection of the upper and lower neighbors in the list**.
-  - Other changes in the sequence of segments in the list, except for those described, do not exist. No other intersection checks are required.
+  - একটি ছেদকারী জোড়া খুঁজতে, সুইপ লাইনের প্রতিটি নির্দিষ্ট অবস্থানে শুধুমাত্র **পাশাপাশি রেখাংশগুলো** বিবেচনা করাই যথেষ্ট।
+  - সুইপ লাইনটিকে সব সম্ভাব্য বাস্তব অবস্থানে ($-\infty \ldots +\infty$) বিবেচনা করার প্রয়োজন নেই, শুধুমাত্র **সেই অবস্থানগুলোতে যেখানে নতুন রেখাংশ আবির্ভূত হয় বা পুরানোগুলো অদৃশ্য হয়** সেখানেই যথেষ্ট। অন্য কথায়, রেখাংশের প্রান্তবিন্দুগুলোর ভুজের সমান অবস্থানগুলোতেই সীমাবদ্ধ থাকাই যথেষ্ট।
+  - যখন একটি নতুন রেখাংশ আবির্ভূত হয়, তখন পূর্ববর্তী সুইপ লাইনের জন্য প্রাপ্ত তালিকায় উপযুক্ত স্থানে এটি **ইনসার্ট** করাই যথেষ্ট। আমাদের শুধু **যোগ করা রেখাংশটির সাথে তালিকায় তার ঠিক উপরে এবং নিচের প্রতিবেশীদের** ছেদ পরীক্ষা করতে হবে।
+  - যদি রেখাংশটি অদৃশ্য হয়, তাহলে বর্তমান তালিকা থেকে এটি **রিমুভ** করাই যথেষ্ট। এরপর, **তালিকায় উপরের এবং নিচের প্রতিবেশীদের ছেদ পরীক্ষা করা** প্রয়োজন।
+  - তালিকায় রেখাংশের ক্রমের অন্য কোনো পরিবর্তন, উপরে বর্ণিতগুলো ছাড়া, নেই। অন্য কোনো ছেদ পরীক্ষার প্রয়োজন নেই।
 
-To understand the truth of these statements, the following remarks are sufficient:
+এই বক্তব্যগুলোর সত্যতা বুঝতে, নিম্নলিখিত মন্তব্যগুলো যথেষ্ট:
 
-  - Two disjoint segments never change their **relative order**.<br>
-    In fact, if one segment was first higher than the other, and then became lower, then between these two moments there was an intersection of these two segments.
-  - Two non-intersecting segments also cannot have the same $y$-coordinates.
-  - From this it follows that at the moment of the segment appearance we can find the position for this segment in the queue, and we will not have to rearrange this segment in the queue any more: **its order relative to other segments in the queue will not change**.
-  - Two intersecting segments at the moment of their intersection point will be neighbors of each other in the queue.
-  - Therefore, for finding pairs of intersecting line segments is sufficient to check the intersection of all and only those pairs of segments that sometime during the movement of the sweep line at least once were neighbors to each other. <br>
-    It is easy to notice that it is enough only to check the added segment with its upper and lower neighbors, as well as when removing the segment — its upper and lower neighbors (which after removal will become neighbors of each other).<br>
-  - It should be noted that at a fixed position of the sweep line, we must **first add all the segments** that start at this x-coordinate, and only **then remove all the segments** that end here.<br>
-    Thus, we do not miss the intersection of segments on the vertex: i.e. such cases when two segments have a common vertex.
-  - Note that **vertical segments** do not actually affect the correctness of the algorithm.<br>
-    These segments are distinguished by the fact that they appear and disappear at the same time. However, due to the previous comment, we know that all segments will be added to the queue first, and only then they will be deleted. Therefore, if the vertical segment intersects with some other segment opened at that moment (including the vertical one), it will be detected.<br>
-    **In what place of the queue to place vertical segments?** After all, a vertical segment does not have one specific $y$-coordinate, it extends for an entire segment along the $y$-coordinate. However, it is easy to understand that any coordinate from this segment can be taken as a $y$-coordinate.
+  - দুটি বিচ্ছিন্ন রেখাংশ কখনো তাদের **আপেক্ষিক ক্রম** পরিবর্তন করে না।<br>
+    প্রকৃতপক্ষে, যদি একটি রেখাংশ প্রথমে অন্যটির চেয়ে উপরে থাকে, এবং পরে নিচে হয়ে যায়, তাহলে এই দুটি মুহূর্তের মধ্যে এই দুটি রেখাংশের একটি ছেদ ছিল।
+  - দুটি অ-ছেদকারী রেখাংশেরও একই $y$-স্থানাঙ্ক থাকতে পারে না।
+  - এ থেকে এটি অনুসরণ করে যে রেখাংশ আবির্ভাবের মুহূর্তে আমরা কিউতে এই রেখাংশের জন্য অবস্থান খুঁজে পেতে পারি, এবং কিউতে এই রেখাংশটি আর পুনর্বিন্যাস করতে হবে না: **কিউতে অন্যান্য রেখাংশের সাপেক্ষে এর ক্রম পরিবর্তন হবে না।**
+  - দুটি ছেদকারী রেখাংশ তাদের ছেদবিন্দুর মুহূর্তে কিউতে পরস্পরের প্রতিবেশী হবে।
+  - অতএব, ছেদকারী রেখাংশের জোড়া খুঁজে পেতে শুধুমাত্র সেই সব জোড়া রেখাংশের ছেদ পরীক্ষা করাই যথেষ্ট যারা সুইপ লাইন চলাকালে কোনো না কোনো সময় পরস্পরের প্রতিবেশী ছিল।<br>
+    লক্ষ্য করা সহজ যে শুধুমাত্র যোগ করা রেখাংশটিকে তার উপরের এবং নিচের প্রতিবেশীদের সাথে পরীক্ষা করা, এবং রেখাংশ সরানোর সময় — তার উপরের এবং নিচের প্রতিবেশীদের (যারা সরানোর পরে পরস্পরের প্রতিবেশী হয়ে যাবে) পরীক্ষা করাই যথেষ্ট।<br>
+  - লক্ষণীয় যে সুইপ লাইনের একটি নির্দিষ্ট অবস্থানে, আমাদের **প্রথমে সব রেখাংশ যোগ** করতে হবে যারা এই x-স্থানাঙ্কে শুরু হয়, এবং তারপরই **সব রেখাংশ সরাতে** হবে যারা এখানে শেষ হয়।<br>
+    এইভাবে, আমরা শীর্ষবিন্দুতে রেখাংশের ছেদ মিস করি না: অর্থাৎ এমন ক্ষেত্র যেখানে দুটি রেখাংশের একটি সাধারণ শীর্ষবিন্দু আছে।
+  - লক্ষ্য করুন যে **উল্লম্ব রেখাংশগুলো** আসলে অ্যালগরিদমের সঠিকতাকে প্রভাবিত করে না।<br>
+    এই রেখাংশগুলো এই বিষয়ে বিশিষ্ট যে তারা একই সময়ে আবির্ভূত এবং অদৃশ্য হয়। তবে, পূর্ববর্তী মন্তব্যের কারণে, আমরা জানি যে সব রেখাংশ প্রথমে কিউতে যোগ হবে, এবং তারপরই সরানো হবে। অতএব, যদি উল্লম্ব রেখাংশটি সেই মুহূর্তে খোলা অন্য কোনো রেখাংশের (উল্লম্ব সহ) সাথে ছেদ করে, এটি সনাক্ত করা হবে।<br>
+    **কিউতে উল্লম্ব রেখাংশগুলো কোথায় রাখতে হবে?** একটি উল্লম্ব রেখাংশের একটি নির্দিষ্ট $y$-স্থানাঙ্ক নেই, এটি $y$-স্থানাঙ্ক বরাবর একটি সম্পূর্ণ রেখাংশ জুড়ে বিস্তৃত। তবে, এটি বুঝতে সহজ যে এই রেখাংশ থেকে যেকোনো স্থানাঙ্ক $y$-স্থানাঙ্ক হিসেবে নেওয়া যায়।
 
-Thus, the entire algorithm will perform no more than $2n$ tests on the intersection of a pair of segments, and will perform $O(n)$ operations with a queue of segments ($O(1)$ operations at the time of appearance and disappearance of each segment).
+এইভাবে, সম্পূর্ণ অ্যালগরিদম রেখাংশের একটি জোড়ার ছেদের উপর $2n$-এর বেশি পরীক্ষা করবে না, এবং রেখাংশের কিউতে $O(n)$টি অপারেশন করবে (প্রতিটি রেখাংশ আবির্ভাব এবং অদৃশ্য হওয়ার সময় $O(1)$টি অপারেশন)।
 
-The final **asymptotic behavior of the algorithm** is thus $O(n \log n)$.
+অ্যালগরিদমের চূড়ান্ত **অ্যাসিম্পটোটিক আচরণ** তাই $O(n \log n)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-We present the full implementation of the described algorithm:
+আমরা বর্ণিত অ্যালগরিদমের পূর্ণ ইমপ্লিমেন্টেশন উপস্থাপন করছি:
 
 ```cpp
 const double EPS = 1E-9;
@@ -168,15 +168,15 @@ pair<int, int> solve(const vector<seg>& a) {
 }
 ```
 
-The main function here is `solve()`, which returns the intersecting segments if exists, or $(-1, -1)$, if there are no intersections.
+এখানে প্রধান ফাংশন হলো `solve()`, যা ছেদকারী রেখাংশ থাকলে তা রিটার্ন করে, অথবা $(-1, -1)$, যদি কোনো ছেদ না থাকে।
 
-Checking for the intersection of two segments is carried out by the `intersect ()` function, using an **algorithm based on the oriented area of the triangle**.
+দুটি রেখাংশের ছেদ পরীক্ষা `intersect ()` ফাংশন দ্বারা করা হয়, যা **ত্রিভুজের দিকনির্দেশিত ক্ষেত্রফলের উপর ভিত্তি করে একটি অ্যালগরিদম** ব্যবহার করে।
 
-The queue of segments is the global variable `s`, a `set<event>`. Iterators that specify the position of each segment in the queue (for convenient removal of segments from the queue) are stored in the global array `where`.
+রেখাংশের কিউ হলো গ্লোবাল ভেরিয়েবল `s`, একটি `set<event>`। ইটারেটর যা কিউতে প্রতিটি রেখাংশের অবস্থান নির্দেশ করে (কিউ থেকে রেখাংশ সুবিধাজনকভাবে সরানোর জন্য) গ্লোবাল অ্যারে `where`-তে সংরক্ষিত থাকে।
 
-Two auxiliary functions `prev()` and `next()` are also introduced, which return iterators to the previous and next elements (or `end()`, if one does not exist).
+দুটি সহায়ক ফাংশন `prev()` এবং `next()`-ও চালু করা হয়েছে, যা পূর্ববর্তী এবং পরবর্তী এলিমেন্টের ইটারেটর রিটার্ন করে (অথবা `end()`, যদি একটি না থাকে)।
 
-The constant `EPS` denotes the error of comparing two real numbers (it is mainly used when checking two segments for intersection).
+ধ্রুবক `EPS` দুটি বাস্তব সংখ্যা তুলনা করার ত্রুটি নির্দেশ করে (এটি প্রধানত দুটি রেখাংশের ছেদ পরীক্ষা করার সময় ব্যবহৃত হয়)।
 
-## Problems
+## সমস্যা
  * [TIMUS 1469 No Smoking!](https://acm.timus.ru/problem.aspx?space=1&num=1469)

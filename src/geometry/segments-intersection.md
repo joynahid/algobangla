@@ -4,39 +4,39 @@ tags:
 e_maxx_link: segments_intersection
 ---
 
-# Finding intersection of two segments
+# দুটি রেখাখণ্ডের ছেদবিন্দু নির্ণয়
 
-You are given two segments AB and CD, described as pairs of their endpoints. Each segment can be a single point if its endpoints are the same. 
-You have to find the intersection of these segments, which can be empty (if the segments don't intersect), a single point or a segment (if the given segments overlap).
+আপনাকে দুটি রেখাখণ্ড AB ও CD দেওয়া আছে, তাদের প্রান্তবিন্দুর জোড়া হিসেবে বর্ণিত। প্রতিটি রেখাখণ্ড একটি একক বিন্দু হতে পারে যদি এর প্রান্তবিন্দু একই হয়।
+আপনাকে এই রেখাখণ্ডগুলোর ছেদ খুঁজে বের করতে হবে, যেটি ফাঁকা হতে পারে (যদি রেখাখণ্ডগুলো ছেদ না করে), একটি একক বিন্দু বা একটি রেখাখণ্ড (যদি প্রদত্ত রেখাখণ্ডগুলো ওভারল্যাপ করে)।
 
-## Solution
+## সমাধান
 
-We can find the intersection point of segments in the same way as [the intersection of lines](lines-intersection.md): 
-reconstruct line equations from the segments' endpoints and check whether they are parallel. 
+আমরা [রেখার ছেদবিন্দু](lines-intersection.md)-র মতোই রেখাখণ্ডের ছেদবিন্দু খুঁজতে পারি:
+রেখাখণ্ডের প্রান্তবিন্দু থেকে রেখার সমীকরণ পুনর্গঠন করি এবং পরীক্ষা করি তারা সমান্তরাল কি না।
 
-If the lines are not parallel, we need to find their point of intersection and check whether it belongs to both segments
-(to do this it's sufficient to verify that the intersection point belongs to each segment projected on X and Y axes). 
-In this case the answer will be either "no intersection" or the single point of lines' intersection.
+রেখাগুলো সমান্তরাল না হলে, আমাদের তাদের ছেদবিন্দু খুঁজে বের করতে হবে এবং পরীক্ষা করতে হবে সেটি উভয় রেখাখণ্ডের অন্তর্গত কি না
+(এটি করার জন্য ছেদবিন্দু X ও Y অক্ষে প্রক্ষিপ্ত প্রতিটি রেখাখণ্ডের অন্তর্গত কি না যাচাই করাই যথেষ্ট)।
+এই ক্ষেত্রে উত্তর হবে হয় "কোনো ছেদ নেই" অথবা রেখার একক ছেদবিন্দু।
 
-The case of parallel lines is slightly more complicated (the case of one or more segments being a single point also belongs here).
-In this case we need to check that both segments belong to the same line.
-If they don't, the answer is "no intersection".
-If they do, the answer is the intersection of the segments belonging to the same line, which is obtained by 
-ordering the endpoints of both segments in the increasing order of certain coordinate and taking the rightmost of left endpoints and the leftmost of right endpoints.
+সমান্তরাল রেখার ক্ষেত্র একটু জটিল (এক বা একাধিক রেখাখণ্ড একক বিন্দু হওয়ার ক্ষেত্রটিও এখানে পড়ে)।
+এই ক্ষেত্রে আমাদের পরীক্ষা করতে হবে উভয় রেখাখণ্ড একই রেখার অন্তর্গত কি না।
+না হলে, উত্তর হলো "কোনো ছেদ নেই"।
+হলে, উত্তর হলো একই রেখার অন্তর্গত রেখাখণ্ডগুলোর ছেদ, যেটি পাওয়া যায়
+উভয় রেখাখণ্ডের প্রান্তবিন্দুগুলো কোনো নির্দিষ্ট স্থানাঙ্কের ক্রমবর্ধমান ক্রমে সাজিয়ে বাম প্রান্তবিন্দুগুলোর মধ্যে ডানদিকেরটি ও ডান প্রান্তবিন্দুগুলোর মধ্যে বামদিকেরটি নিয়ে।
 
-If both segments are single points, these points have to be identical, and it makes sense to perform this check separately.
+উভয় রেখাখণ্ড একক বিন্দু হলে, সেই বিন্দুগুলো অভিন্ন হতে হবে, এবং এই পরীক্ষা আলাদাভাবে করা সঙ্গত।
 
-In the beginning of the algorithm let's add a bounding box check - it is necessary for the case when the segments belong to the same line, 
-and (being a lightweight check) it allows the algorithm to work faster on average on random tests.
+অ্যালগরিদমের শুরুতে একটি বাউন্ডিং বক্স পরীক্ষা যোগ করি — রেখাখণ্ডগুলো একই রেখার অন্তর্গত হওয়ার ক্ষেত্রে এটি প্রয়োজনীয়,
+এবং (একটি হালকা পরীক্ষা হওয়ায়) র‍্যান্ডম টেস্টে গড়ে অ্যালগরিদমকে দ্রুত কাজ করতে দেয়।
 
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is the implementation, including all helper functions for lines and segments processing.
+এখানে রেখা ও রেখাখণ্ড প্রক্রিয়াকরণের সব সহায়ক ফাংশনসহ ইমপ্লিমেন্টেশন দেওয়া হলো।
 
-The main function `intersect` returns true if the segments have a non-empty intersection, 
-and stores endpoints of the intersection segment in arguments `left` and `right`. 
-If the answer is a single point, the values written to `left` and `right` will be the same.
+প্রধান ফাংশন `intersect` সত্য ফেরত দেয় যদি রেখাখণ্ডগুলোর অশূন্য ছেদ থাকে,
+এবং ছেদ রেখাখণ্ডের প্রান্তবিন্দু `left` ও `right` আর্গুমেন্টে সংরক্ষণ করে।
+উত্তর একটি একক বিন্দু হলে, `left` ও `right`-এ লেখা মান একই হবে।
 
 ```{.cpp file=segment_intersection}
 const double EPS = 1E-9;

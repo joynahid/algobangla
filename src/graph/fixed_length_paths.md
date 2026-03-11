@@ -4,90 +4,64 @@ tags:
 e_maxx_link: fixed_length_paths
 ---
 
-# Number of paths of fixed length / Shortest paths of fixed length
+# নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা / নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ
 
-The following article describes solutions to these two problems built on the same idea:
-reduce the problem to the construction of matrix and compute the solution with the usual matrix multiplication or with a modified multiplication.
+নিম্নলিখিত আর্টিকেলটি এই দুটি সমস্যার সমাধান বর্ণনা করে যা একই ধারণার উপর ভিত্তি করে: সমস্যাটিকে ম্যাট্রিক্স গঠনে রিডিউস করা এবং সাধারণ ম্যাট্রিক্স গুণন বা পরিবর্তিত গুণন দিয়ে সমাধান গণনা করা।
 
-## Number of paths of a fixed length
+## নির্দিষ্ট দৈর্ঘ্যের পাথের সংখ্যা
 
-We are given a directed, unweighted graph $G$ with $n$ vertices and we are given an integer $k$.
-The task is the following:
-for each pair of vertices $(i, j)$ we have to find the number of paths of length $k$ between these vertices.
-Paths don't have to be simple, i.e. vertices and edges can be visited any number of times in a single path.
+আমাদের $n$টি ভার্টেক্সবিশিষ্ট একটি ডিরেক্টেড, আনওয়েটেড গ্রাফ $G$ এবং একটি পূর্ণ সংখ্যা $k$ দেওয়া আছে। কাজটি নিম্নরূপ: প্রতিটি ভার্টেক্স জোড়া $(i, j)$-এর জন্য আমাদের এই ভার্টেক্সগুলোর মধ্যে $k$ দৈর্ঘ্যের পাথের সংখ্যা বের করতে হবে। পাথগুলো সিম্পল হতে হবে না, অর্থাৎ একটি একক পাথে ভার্টেক্স এবং এজ যেকোনো সংখ্যকবার ভিজিট করা যায়।
 
-We assume that the graph is specified with an adjacency matrix, i.e. the matrix $G[][]$ of size $n \times n$, where each element $G[i][j]$ equal to $1$ if the vertex $i$ is connected with $j$ by an edge, and $0$ is they are not connected by an edge.
-The following algorithm works also in the case of multiple edges:
-if some pair of vertices $(i, j)$ is connected with $m$ edges, then we can record this in the adjacency matrix by setting $G[i][j] = m$.
-Also the algorithm works if the graph contains loops (a loop is an edge that connect a vertex with itself).
+আমরা ধরে নিই গ্রাফটি অ্যাডজেসেন্সি ম্যাট্রিক্স দিয়ে নির্দিষ্ট করা, অর্থাৎ $n \times n$ আকারের ম্যাট্রিক্স $G[][]$, যেখানে প্রতিটি উপাদান $G[i][j]$ ভার্টেক্স $i$ থেকে $j$-তে এজ থাকলে $1$, এবং না থাকলে $0$। নিম্নলিখিত অ্যালগরিদম মাল্টিপল এজের ক্ষেত্রেও কাজ করে: কোনো ভার্টেক্স জোড়া $(i, j)$ $m$টি এজ দ্বারা সংযুক্ত হলে, আমরা অ্যাডজেসেন্সি ম্যাট্রিক্সে $G[i][j] = m$ সেট করে এটি রেকর্ড করতে পারি। এছাড়াও গ্রাফে লুপ থাকলেও (একটি ভার্টেক্সকে নিজের সাথে সংযুক্ত করা এজ) অ্যালগরিদম কাজ করে।
 
-It is obvious that the constructed adjacency matrix is the answer to the problem for the case $k = 1$.
-It contains the number of paths of length $1$ between each pair of vertices.
+এটা স্পষ্ট যে গঠিত অ্যাডজেসেন্সি ম্যাট্রিক্স হল $k = 1$ ক্ষেত্রের উত্তর। এটিতে প্রতিটি ভার্টেক্স জোড়ার মধ্যে $1$ দৈর্ঘ্যের পাথের সংখ্যা আছে।
 
-We will build the solution iteratively:
-Let's assume we know the answer for some $k$.
-Here we describe a method how we can construct the answer for $k + 1$.
-Denote by $C_k$ the matrix for the case $k$, and by $C_{k+1}$ the matrix we want to construct.
-With the following formula we can compute every entry of $C_{k+1}$:
+আমরা ধাপে ধাপে সমাধান তৈরি করব: ধরি কোনো $k$-এর জন্য আমরা উত্তর জানি। এখানে আমরা বর্ণনা করি কিভাবে $k + 1$-এর জন্য উত্তর তৈরি করতে পারি। $k$ ক্ষেত্রের ম্যাট্রিক্সকে $C_k$ এবং আমরা যে ম্যাট্রিক্স তৈরি করতে চাই তাকে $C_{k+1}$ দিয়ে চিহ্নিত করি। নিম্নলিখিত সূত্র দিয়ে আমরা $C_{k+1}$-এর প্রতিটি এন্ট্রি গণনা করতে পারি:
 
 $$C_{k+1}[i][j] = \sum_{p = 1}^{n} C_k[i][p] \cdot G[p][j]$$
 
-It is easy to see that the formula computes nothing other than the product of the matrices $C_k$ and $G$:
+এটা দেখা সহজ যে সূত্রটি $C_k$ এবং $G$ ম্যাট্রিক্সের গুণফল ছাড়া আর কিছুই গণনা করে না:
 
 $$C_{k+1} = C_k \cdot G$$
 
-Thus the solution of the problem can be represented as follows:
+সুতরাং সমস্যার সমাধান নিম্নলিখিতভাবে উপস্থাপন করা যায়:
 
 $$C_k = \underbrace{G \cdot G \cdots G}_{k \text{ times}} = G^k$$
 
-It remains to note that the matrix products can be raised to a high power efficiently using [Binary exponentiation](../algebra/binary-exp.md).
-This gives a solution with $O(n^3 \log k)$ complexity.
+লক্ষ্য করুন যে ম্যাট্রিক্স গুণফল [বাইনারি এক্সপোনেনশিয়েশন](../algebra/binary-exp.md) ব্যবহার করে দক্ষতার সাথে উচ্চ পাওয়ারে তোলা যায়। এটি $O(n^3 \log k)$ কমপ্লেক্সিটির সমাধান দেয়।
 
-## Shortest paths of a fixed length
+## নির্দিষ্ট দৈর্ঘ্যের শর্টেস্ট পাথ
 
-We are given a directed weighted graph $G$ with $n$ vertices and an integer $k$.
-For each pair of vertices $(i, j)$ we have to find the length of the shortest path between $i$ and $j$ that consists of exactly $k$ edges.
+আমাদের $n$টি ভার্টেক্সবিশিষ্ট একটি ডিরেক্টেড ওয়েটেড গ্রাফ $G$ এবং একটি পূর্ণ সংখ্যা $k$ দেওয়া আছে। প্রতিটি ভার্টেক্স জোড়া $(i, j)$-এর জন্য আমাদের $i$ এবং $j$-এর মধ্যে ঠিক $k$টি এজ নিয়ে গঠিত শর্টেস্ট পাথের দৈর্ঘ্য বের করতে হবে।
 
-We assume that the graph is specified by an adjacency matrix, i.e. via the matrix $G[][]$ of size $n \times n$ where each element $G[i][j]$ contains the length of the edges from the vertex $i$ to the vertex $j$.
-If there is no edge between two vertices, then the corresponding element of the matrix will be assigned to infinity $\infty$.
+আমরা ধরে নিই গ্রাফটি অ্যাডজেসেন্সি ম্যাট্রিক্স দিয়ে নির্দিষ্ট করা, অর্থাৎ $n \times n$ আকারের ম্যাট্রিক্স $G[][]$ যেখানে প্রতিটি উপাদান $G[i][j]$-এ ভার্টেক্স $i$ থেকে $j$-তে এজের দৈর্ঘ্য আছে। দুটি ভার্টেক্সের মধ্যে কোনো এজ না থাকলে, ম্যাট্রিক্সের সংশ্লিষ্ট উপাদান অসীম $\infty$-তে সেট করা হবে।
 
-It is obvious that in this form the adjacency matrix is the answer to the problem for $k = 1$.
-It contains the lengths of shortest paths between each pair of vertices, or $\infty$ if a path consisting of one edge doesn't exist.
+স্পষ্টতই এই রূপে অ্যাডজেসেন্সি ম্যাট্রিক্স $k = 1$ সমস্যার উত্তর। এতে প্রতিটি ভার্টেক্স জোড়ার মধ্যে শর্টেস্ট পাথের দৈর্ঘ্য আছে, অথবা $\infty$ যদি একটি এজ নিয়ে গঠিত পাথ বিদ্যমান না থাকে।
 
-Again we can build the solution to the problem iteratively:
-Let's assume we know the answer for some $k$.
-We show how we can compute the answer for $k+1$.
-Let us denote $L_k$ the matrix for $k$ and $L_{k+1}$ the matrix we want to build.
-Then the following formula computes each entry of $L_{k+1}$:
+আবারও আমরা ধাপে ধাপে সমস্যার সমাধান তৈরি করতে পারি: ধরি কোনো $k$-এর জন্য আমরা উত্তর জানি। আমরা দেখাই কিভাবে $k+1$-এর জন্য উত্তর গণনা করতে পারি। $k$-এর জন্য ম্যাট্রিক্সকে $L_k$ এবং আমরা যে ম্যাট্রিক্স তৈরি করতে চাই তাকে $L_{k+1}$ দিয়ে চিহ্নিত করি। তাহলে নিম্নলিখিত সূত্র $L_{k+1}$-এর প্রতিটি এন্ট্রি গণনা করে:
 
 $$L_{k+1}[i][j] = \min_{p = 1 \ldots n} \left(L_k[i][p] + G[p][j]\right)$$
 
-When looking closer at this formula, we can draw an analogy with the matrix multiplication:
-in fact the matrix $L_k$ is multiplied by the matrix $G$, the only difference is that instead in the multiplication operation we take the minimum instead of the sum, and the sum instead of the multiplication as the inner operation.
+এই সূত্রটি আরও কাছ থেকে দেখলে, আমরা ম্যাট্রিক্স গুণনের সাথে সাদৃশ্য আঁকতে পারি: আসলে $L_k$ ম্যাট্রিক্সকে $G$ ম্যাট্রিক্স দিয়ে গুণ করা হয়, পার্থক্য শুধু এটাই যে গুণনের অপারেশনে যোগের বদলে মিনিমাম নেওয়া হয়, এবং অভ্যন্তরীণ অপারেশন হিসেবে গুণের বদলে যোগ নেওয়া হয়।
 
 $$L_{k+1} = L_k \odot G,$$
 
-where the operation $\odot$ is defined as follows:
+যেখানে $\odot$ অপারেশনটি নিম্নলিখিতভাবে সংজ্ঞায়িত:
 
 $$A \odot B = C~~\Longleftrightarrow~~C_{i j} = \min_{p = 1 \ldots n}\left(A_{i p} + B_{p j}\right)$$
 
-Thus the solution of the task can be represented using the modified multiplication:
+সুতরাং কাজটির সমাধান পরিবর্তিত গুণন ব্যবহার করে উপস্থাপন করা যায়:
 
 $$L_k = \underbrace{G \odot \ldots \odot G}_{k~\text{times}} = G^{\odot k}$$
 
-It remains to note that we also can compute this exponentiation efficiently with [Binary exponentiation](../algebra/binary-exp.md), because the modified multiplication is obviously associative.
-So also this solution has $O(n^3 \log k)$ complexity.
+লক্ষ্য করুন যে আমরা এই এক্সপোনেনশিয়েশনও [বাইনারি এক্সপোনেনশিয়েশন](../algebra/binary-exp.md) দিয়ে দক্ষতার সাথে গণনা করতে পারি, কারণ পরিবর্তিত গুণন স্পষ্টতই অ্যাসোসিয়েটিভ। তাই এই সমাধানেরও $O(n^3 \log k)$ কমপ্লেক্সিটি আছে।
 
-## Generalization of the problems for paths with length up to $k$ {data-toc-label="Generalization of the problems for paths with length up to k"}
+## সর্বোচ্চ $k$ দৈর্ঘ্যের পাথের জন্য সমস্যাগুলোর সাধারণীকরণ {data-toc-label="Generalization of the problems for paths with length up to k"}
 
-The above solutions solve the problems for a fixed $k$.
-However the solutions can be adapted for solving problems for which the paths are allowed to contain no more than $k$ edges.
+উপরের সমাধানগুলো একটি নির্দিষ্ট $k$-এর জন্য সমস্যা সমাধান করে। তবে সমাধানগুলো এমন সমস্যার জন্য অভিযোজিত করা যায় যেখানে পাথে সর্বোচ্চ $k$টি এজ থাকতে পারে।
 
-This can be done by slightly modifying the input graph.
+এটি ইনপুট গ্রাফে সামান্য পরিবর্তন করে করা যায়।
 
-We duplicate each vertex:
-for each vertex $v$ we create one more vertex $v'$ and add the edge $(v, v')$ and the loop $(v', v')$.
-The number of paths between $i$ and $j$ with at most $k$ edges is the same number as the number of paths between $i$ and $j'$ with exactly $k + 1$ edges, since there is a bijection that maps every path $[p_0 = i,~p_1,~\ldots,~p_{m-1},~p_m = j]$ of length $m \le k$ to the path $[p_0 = i,~p_1,~\ldots,~p_{m-1},~p_m = j, j', \ldots, j']$ of length $k + 1$.
+আমরা প্রতিটি ভার্টেক্স ডুপ্লিকেট করি: প্রতিটি ভার্টেক্স $v$-এর জন্য আরেকটি ভার্টেক্স $v'$ তৈরি করি এবং এজ $(v, v')$ এবং লুপ $(v', v')$ যোগ করি। $i$ এবং $j$-এর মধ্যে সর্বোচ্চ $k$টি এজবিশিষ্ট পাথের সংখ্যা, $i$ এবং $j'$-এর মধ্যে ঠিক $k + 1$টি এজবিশিষ্ট পাথের সংখ্যার সমান, কারণ একটি বাইজেকশন আছে যা প্রতিটি $m \le k$ দৈর্ঘ্যের পাথ $[p_0 = i,~p_1,~\ldots,~p_{m-1},~p_m = j]$-কে $k + 1$ দৈর্ঘ্যের পাথ $[p_0 = i,~p_1,~\ldots,~p_{m-1},~p_m = j, j', \ldots, j']$-এ ম্যাপ করে।
 
-The same trick can be applied to compute the shortest paths with at most $k$ edges.
-We again duplicate each vertex and add the two mentioned edges with weight $0$.
+একই কৌশল সর্বোচ্চ $k$টি এজবিশিষ্ট শর্টেস্ট পাথ গণনায়ও প্রয়োগ করা যায়। আমরা আবার প্রতিটি ভার্টেক্স ডুপ্লিকেট করি এবং ০ ওয়েটসহ উল্লেখিত দুটি এজ যোগ করি।

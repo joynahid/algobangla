@@ -3,77 +3,77 @@ tags:
   - Original
 ---
 
-# Stars and bars
+# স্টার্স অ্যান্ড বার্স
 
-Stars and bars is a mathematical technique for solving certain combinatorial problems.
-It occurs whenever you want to count the number of ways to group identical objects.
+স্টার্স অ্যান্ড বার্স হলো নির্দিষ্ট কম্বিনেটরিক্স সমস্যা সমাধানের একটি গাণিতিক কৌশল।
+যখনই আপনি অভিন্ন অবজেক্ট গ্রুপ করার উপায়ের সংখ্যা গুনতে চান তখন এটি কাজে আসে।
 
-## Theorem
+## উপপাদ্য
 
-The number of ways to put $n$ identical objects into $k$ labeled boxes is
+$n$টি অভিন্ন অবজেক্টকে $k$টি লেবেলড বাক্সে রাখার উপায়ের সংখ্যা হলো
 
 $$\binom{n + k - 1}{n}.$$
 
-The proof involves turning the objects into stars and separating the boxes using bars (therefore the name).
-E.g. we can represent with $\bigstar | \bigstar \bigstar |~| \bigstar \bigstar$ the following situation:
-in the first box is one object, in the second box are two objects, the third one is empty and in the last box are two objects.
-This is one way of dividing 5 objects into 4 boxes.
+প্রমাণটিতে অবজেক্টগুলোকে তারায় (স্টার) রূপান্তর করা হয় এবং বাক্সগুলোকে বার দ্বারা আলাদা করা হয় (তাই এই নাম)।
+যেমন, $\bigstar | \bigstar \bigstar |~| \bigstar \bigstar$ দ্বারা নিম্নলিখিত পরিস্থিতি উপস্থাপন করা যায়:
+প্রথম বাক্সে একটি অবজেক্ট, দ্বিতীয় বাক্সে দুটি অবজেক্ট, তৃতীয়টি খালি এবং শেষ বাক্সে দুটি অবজেক্ট।
+এটি ৫টি অবজেক্টকে ৪টি বাক্সে ভাগ করার একটি উপায়।
 
-It should be pretty obvious, that every partition can be represented using $n$ stars and $k - 1$ bars and every stars and bars permutation using $n$ stars and $k - 1$ bars represents one partition.
-Therefore the number of ways to divide $n$ identical objects into $k$ labeled boxes is the same number as there are permutations of $n$ stars and $k - 1$ bars.
-The [Binomial Coefficient](binomial-coefficients.md) gives us the desired formula.
+এটি বেশ স্পষ্ট যে প্রতিটি বিভাজন $n$টি স্টার এবং $k - 1$টি বার ব্যবহার করে উপস্থাপন করা যায় এবং $n$টি স্টার ও $k - 1$টি বার ব্যবহারকারী প্রতিটি স্টার্স অ্যান্ড বার্স পারমুটেশন একটি বিভাজন উপস্থাপন করে।
+তাই $n$টি অভিন্ন অবজেক্টকে $k$টি লেবেলড বাক্সে ভাগ করার উপায়ের সংখ্যা, $n$টি স্টার এবং $k - 1$টি বারের পারমুটেশনের সংখ্যার সমান।
+[দ্বিপদী সহগ](binomial-coefficients.md) আমাদের কাঙ্ক্ষিত সূত্র দেয়।
 
-## Number of non-negative integer sums
+## অ-ঋণাত্মক পূর্ণসংখ্যা যোগফলের সংখ্যা
 
-This problem is a direct application of the theorem.
+এই সমস্যাটি উপপাদ্যের সরাসরি প্রয়োগ।
 
-You want to count the number of solution of the equation 
-
-$$x_1 + x_2 + \dots + x_k = n$$
-
-with $x_i \ge 0$.
-
-Again we can represent a solution using stars and bars.
-E.g. the solution $1 + 3 + 0 = 4$ for $n = 4$, $k = 3$ can be represented using $\bigstar | \bigstar \bigstar \bigstar |$.
-
-It is easy to see, that this is exactly the stars and bars theorem.
-Therefore the solution is $\binom{n + k - 1}{n}$.
-
-## Number of positive integer sums
-
-A second theorem provides a nice interpretation for positive integers. Consider solutions to 
+আপনি সমীকরণের সমাধানের সংখ্যা গুনতে চান
 
 $$x_1 + x_2 + \dots + x_k = n$$
 
-with $x_i \ge 1$.
+যেখানে $x_i \ge 0$।
 
-We can consider $n$ stars, but this time we can put at most _one bar_ between stars, since two bars between stars would represent $x_i=0$, i.e. an empty box. 
-There are $n-1$ gaps between stars to place $k-1$ bars, so the solution is $\binom{n-1}{k-1}$. 
+আবারও আমরা স্টার্স অ্যান্ড বার্স ব্যবহার করে একটি সমাধান উপস্থাপন করতে পারি।
+যেমন, $n = 4$, $k = 3$-এর জন্য $1 + 3 + 0 = 4$ সমাধানটি $\bigstar | \bigstar \bigstar \bigstar |$ ব্যবহার করে উপস্থাপন করা যায়।
 
-## Number of lower-bound integer sums
+সহজেই দেখা যায়, এটি ঠিক স্টার্স অ্যান্ড বার্স উপপাদ্য।
+তাই সমাধান হলো $\binom{n + k - 1}{n}$।
 
-This can easily be extended to integer sums with different lower bounds.
-I.e. we want to count the number of solutions for  the equation
+## ধনাত্মক পূর্ণসংখ্যা যোগফলের সংখ্যা
+
+একটি দ্বিতীয় উপপাদ্য ধনাত্মক পূর্ণসংখ্যার জন্য একটি সুন্দর ব্যাখ্যা দেয়। বিবেচনা করুন
 
 $$x_1 + x_2 + \dots + x_k = n$$
 
-with $x_i \ge a_i$.
+যেখানে $x_i \ge 1$।
 
-After substituting $x_i' := x_i - a_i$ we receive the modified equation
+আমরা $n$টি স্টার বিবেচনা করতে পারি, কিন্তু এবার স্টারের মধ্যে সর্বোচ্চ _একটি বার_ রাখা যায়, কারণ দুটি স্টারের মধ্যে দুটি বার $x_i=0$ উপস্থাপন করবে, অর্থাৎ একটি খালি বাক্স।
+$k-1$টি বার রাখার জন্য স্টারের মধ্যে $n-1$টি ফাঁক আছে, তাই সমাধান হলো $\binom{n-1}{k-1}$।
+
+## নিম্ন-সীমা যুক্ত পূর্ণসংখ্যা যোগফলের সংখ্যা
+
+এটি সহজেই বিভিন্ন নিম্ন সীমা সহ পূর্ণসংখ্যা যোগফলে সম্প্রসারিত করা যায়।
+অর্থাৎ, আমরা সমীকরণের সমাধানের সংখ্যা গুনতে চাই
+
+$$x_1 + x_2 + \dots + x_k = n$$
+
+যেখানে $x_i \ge a_i$।
+
+$x_i' := x_i - a_i$ প্রতিস্থাপন করলে আমরা পরিবর্তিত সমীকরণ পাই
 
 $$(x_1' + a_i) + (x_2' + a_i) + \dots + (x_k' + a_k) = n$$
 
 $$\Leftrightarrow ~ ~ x_1' + x_2' + \dots + x_k' = n - a_1 - a_2 - \dots - a_k$$
 
-with $x_i' \ge 0$.
-So we have reduced the problem to the simpler case with $x_i' \ge 0$ and again can apply the stars and bars theorem.
+যেখানে $x_i' \ge 0$।
+তাই আমরা সমস্যাটিকে $x_i' \ge 0$ সহ সরলতর ক্ষেত্রে নামিয়ে এনেছি এবং আবার স্টার্স অ্যান্ড বার্স উপপাদ্য প্রয়োগ করতে পারি।
 
-## Number of upper-bound integer sums
+## ঊর্ধ্ব-সীমা যুক্ত পূর্ণসংখ্যা যোগফলের সংখ্যা
 
-With some help of the [Inclusion-Exclusion Principle](./inclusion-exclusion.md), you can also restrict the integers with upper bounds.
-See the [Number of upper-bound integer sums](./inclusion-exclusion.md#number-of-upper-bound-integer-sums) section in the corresponding article.
+[ইনক্লুশন-এক্সক্লুশন নীতি](./inclusion-exclusion.md)-র কিছু সাহায্যে, আপনি ঊর্ধ্ব সীমা দিয়েও পূর্ণসংখ্যা সীমাবদ্ধ করতে পারেন।
+সংশ্লিষ্ট নিবন্ধের [ঊর্ধ্ব-সীমা যুক্ত পূর্ণসংখ্যা যোগফলের সংখ্যা](./inclusion-exclusion.md#number-of-upper-bound-integer-sums) সেকশন দেখুন।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Codeforces - Array](https://codeforces.com/contest/57/problem/C)
 * [Codeforces - Kyoya and Coloured Balls](https://codeforces.com/problemset/problem/553/A)

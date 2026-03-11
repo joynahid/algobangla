@@ -4,148 +4,148 @@ tags:
 e_maxx_link: bridge_searching_online
 ---
 
-# Finding Bridges Online
+# অনলাইনে ব্রিজ খোঁজা
 
-We are given an undirected graph.
-A bridge is an edge whose removal makes the graph disconnected (or, more precisely, increases the number of connected components).
-Our task is to find all the bridges in the given graph.
+আমাদের একটি অনির্দেশিত গ্রাফ দেওয়া আছে।
+একটি ব্রিজ হলো এমন একটি এজ যেটি সরিয়ে দিলে গ্রাফ বিচ্ছিন্ন হয়ে যায় (বা আরও সুনির্দিষ্টভাবে, কানেক্টেড কম্পোনেন্টের সংখ্যা বাড়ে)।
+আমাদের কাজ হলো দেওয়া গ্রাফে সমস্ত ব্রিজ খুঁজে বের করা।
 
-Informally this task can be put as follows:
-we have to find all the "important" roads on the given road map, i.e. such roads that the removal of any of them will lead to some cities being unreachable from others.
+অনানুষ্ঠানিকভাবে এই কাজটি এভাবে বলা যায়:
+আমাদের একটি দেওয়া রোড ম্যাপে সমস্ত "গুরুত্বপূর্ণ" রাস্তা খুঁজে বের করতে হবে, অর্থাৎ এমন রাস্তা যেগুলোর যেকোনোটি সরিয়ে দিলে কিছু শহর অন্যগুলো থেকে অগম্য হয়ে যাবে।
 
-There is already the article [Finding Bridges in $O(N+M)$](bridge-searching.md) which solves this task with a [Depth First Search](depth-first-search.md) traversal.
-This algorithm will be much more complicated, but it has one big advantage:
-the algorithm described in this article works online, which means that the input graph doesn't have to be known in advance.
-The edges are added once at a time, and after each addition the algorithm recounts all the bridges in the current graph.
-In other words the algorithm is designed to work efficiently on a dynamic, changing graph.
+ইতিমধ্যে [$O(N+M)$ এ ব্রিজ খোঁজা](bridge-searching.md) নিবন্ধটি আছে যেটি এই কাজটি [ডেপথ-ফার্স্ট সার্চ](depth-first-search.md) ট্রাভার্সাল দিয়ে সমাধান করে।
+এই অ্যালগরিদমটি অনেক বেশি জটিল হবে, কিন্তু এর একটি বড় সুবিধা আছে:
+এই নিবন্ধে বর্ণিত অ্যালগরিদম অনলাইনে কাজ করে, যার মানে হলো ইনপুট গ্রাফটি আগে থেকে জানা থাকার প্রয়োজন নেই।
+এজগুলো একবারে একটি করে যোগ হয়, এবং প্রতিটি সংযোজনের পর অ্যালগরিদম বর্তমান গ্রাফে সমস্ত ব্রিজ পুনরায় গণনা করে।
+অন্যভাবে বলতে গেলে, অ্যালগরিদমটি একটি ডায়নামিক, পরিবর্তনশীল গ্রাফে দক্ষতার সাথে কাজ করার জন্য ডিজাইন করা হয়েছে।
 
-More rigorously the statement of the problem is as follows:
-Initially the graph is empty and consists of $n$ vertices.
-Then we receive pairs of vertices $(a, b)$, which denote an edge added to the graph.
-After each received edge, i.e. after adding each edge, output the current number of bridges in the graph.
+আরও কঠোরভাবে সমস্যার বিবৃতি নিম্নরূপ:
+প্রাথমিকভাবে গ্রাফটি খালি এবং $n$ টি ভার্টেক্স নিয়ে গঠিত।
+তারপর আমরা ভার্টেক্সের জোড়া $(a, b)$ পাই, যেটি গ্রাফে যোগ হওয়া একটি এজ নির্দেশ করে।
+প্রতিটি প্রাপ্ত এজের পর, অর্থাৎ প্রতিটি এজ যোগ করার পর, গ্রাফে ব্রিজের বর্তমান সংখ্যা আউটপুট করুন।
 
-It is also possible to maintain a list of all bridges as well as explicitly support the 2-edge-connected components.
+সমস্ত ব্রিজের একটি তালিকা বজায় রাখা এবং স্পষ্টভাবে ২-এজ-কানেক্টেড কম্পোনেন্ট সমর্থন করাও সম্ভব।
 
-The algorithm described below works in $O(n \log n + m)$ time, where $m$ is the number of edges.
-The algorithm is based on the data structure [Disjoint Set Union](../data_structures/disjoint_set_union.md).
-However the implementation in this article takes $O(n \log n + m \log n)$ time, because it uses the simplified version of the DSU without Union by Rank.
+নিচে বর্ণিত অ্যালগরিদমটি $O(n \log n + m)$ সময়ে কাজ করে, যেখানে $m$ হলো এজের সংখ্যা।
+অ্যালগরিদমটি [ডিসজয়েন্ট সেট ইউনিয়ন](../data_structures/disjoint_set_union.md) ডেটা স্ট্রাকচারের উপর ভিত্তি করে।
+তবে এই নিবন্ধের ইমপ্লিমেন্টেশন $O(n \log n + m \log n)$ সময় নেয়, কারণ এটি ইউনিয়ন বাই র‍্যাঙ্ক ছাড়া DSU এর সরলীকৃত সংস্করণ ব্যবহার করে।
 
-## Algorithm
+## অ্যালগরিদম
 
-First let's define a $k$-edge-connected component:
-it is a connected component that remains connected whenever you remove fewer than $k$ edges.
+প্রথমে একটি $k$-এজ-কানেক্টেড কম্পোনেন্ট সংজ্ঞায়িত করি:
+এটি একটি কানেক্টেড কম্পোনেন্ট যেটি $k$ এর চেয়ে কম সংখ্যক এজ সরিয়ে দিলেও কানেক্টেড থাকে।
 
-It is very easy to see, that the bridges partition the graph into 2-edge-connected components.
-If we compress each of those 2-edge-connected components into vertices and only leave the bridges as edges in the compressed graph, then we obtain an acyclic graph, i.e. a forest.
+এটি দেখা খুব সহজ যে, ব্রিজগুলো গ্রাফকে ২-এজ-কানেক্টেড কম্পোনেন্টে বিভক্ত করে।
+যদি আমরা সেই ২-এজ-কানেক্টেড কম্পোনেন্টগুলোর প্রতিটিকে ভার্টেক্সে সংকুচিত করি এবং সংকুচিত গ্রাফে শুধু ব্রিজগুলোকে এজ হিসেবে রাখি, তাহলে আমরা একটি অ্যাসাইক্লিক গ্রাফ পাই, অর্থাৎ একটি ফরেস্ট।
 
-The algorithm described below maintains this forest explicitly as well as the 2-edge-connected components.
+নিচে বর্ণিত অ্যালগরিদম এই ফরেস্ট এবং ২-এজ-কানেক্টেড কম্পোনেন্টগুলো স্পষ্টভাবে বজায় রাখে।
 
-It is clear that initially, when the graph is empty, it contains $n$ 2-edge-connected components, which by themselves are not connect.
+এটি স্পষ্ট যে প্রাথমিকভাবে, গ্রাফ যখন খালি থাকে, এতে $n$ টি ২-এজ-কানেক্টেড কম্পোনেন্ট থাকে, যেগুলো নিজেদের মধ্যে সংযুক্ত নয়।
 
-When adding the next edge $(a, b)$ there can occur three situations:
+পরবর্তী এজ $(a, b)$ যোগ করার সময় তিনটি পরিস্থিতি হতে পারে:
 
-*   Both vertices $a$ and $b$ are in the same 2-edge-connected component - then this edge is not a bridge, and does not change anything in the forest structure, so we can just skip this edge.
+*   উভয় ভার্টেক্স $a$ এবং $b$ একই ২-এজ-কানেক্টেড কম্পোনেন্টে আছে - তাহলে এই এজটি ব্রিজ নয়, এবং ফরেস্ট স্ট্রাকচারে কিছু পরিবর্তন করে না, তাই আমরা এই এজটি স্কিপ করতে পারি।
 
-    Thus, in this case the number of bridges does not change.
+    এই ক্ষেত্রে ব্রিজের সংখ্যা পরিবর্তন হয় না।
 
-*   The vertices $a$ and $b$ are in completely different connected components, i.e. each one is part of a different tree.
-    In this case, the edge $(a, b)$ becomes a new bridge, and these two trees are combined into one (and all the old bridges remain).
+*   ভার্টেক্স $a$ এবং $b$ সম্পূর্ণ ভিন্ন কানেক্টেড কম্পোনেন্টে আছে, অর্থাৎ প্রতিটি একটি ভিন্ন ট্রি-র অংশ।
+    এই ক্ষেত্রে, এজ $(a, b)$ একটি নতুন ব্রিজ হয়ে যায়, এবং এই দুটি ট্রি একটিতে মিলিত হয় (এবং সমস্ত পুরনো ব্রিজ অক্ষত থাকে)।
 
-    Thus, in this case the number of bridges increases by one.
+    এই ক্ষেত্রে ব্রিজের সংখ্যা এক বৃদ্ধি পায়।
 
-*   The vertices $a$ and $b$ are in one connected component, but in different 2-edge-connected components.
-    In this case, this edge forms a cycle along with some of the old bridges.
-    All these bridges end being bridges, and the resulting cycle must be compressed into a new 2-edge-connected component.
+*   ভার্টেক্স $a$ এবং $b$ একই কানেক্টেড কম্পোনেন্টে আছে, কিন্তু ভিন্ন ২-এজ-কানেক্টেড কম্পোনেন্টে।
+    এই ক্ষেত্রে, এই এজটি কিছু পুরনো ব্রিজের সাথে একটি সাইকেল গঠন করে।
+    এই সমস্ত ব্রিজ আর ব্রিজ থাকে না, এবং ফলস্বরূপ সাইকেলটি একটি নতুন ২-এজ-কানেক্টেড কম্পোনেন্টে সংকুচিত হতে হবে।
 
-    Thus, in this case the number of bridges decreases by one or more.
+    এই ক্ষেত্রে ব্রিজের সংখ্যা এক বা তার বেশি কমে যায়।
 
-Consequently the whole task is reduced to the effective implementation of all these operations over the forest of 2-edge-connected components.
+ফলস্বরূপ সম্পূর্ণ কাজটি ২-এজ-কানেক্টেড কম্পোনেন্টের ফরেস্টের উপর এই সমস্ত অপারেশনের কার্যকর ইমপ্লিমেন্টেশনে পরিণত হয়।
 
-## Data Structures for storing the forest
+## ফরেস্ট সংরক্ষণের জন্য ডেটা স্ট্রাকচার
 
-The only data structure that we need is [Disjoint Set Union](../data_structures/disjoint_set_union.md).
-In fact we will make two copies of this structure:
-one will be to maintain the connected components, the other to maintain the 2-edge-connected components.
-And in addition we store the structure of the trees in the forest of 2-edge-connected components via pointers:
-Each 2-edge-connected component will store the index `par[]` of its ancestor in the tree.
+আমাদের একমাত্র প্রয়োজনীয় ডেটা স্ট্রাকচার হলো [ডিসজয়েন্ট সেট ইউনিয়ন](../data_structures/disjoint_set_union.md)।
+আসলে আমরা এই স্ট্রাকচারের দুটি কপি তৈরি করব:
+একটি কানেক্টেড কম্পোনেন্ট বজায় রাখতে, অন্যটি ২-এজ-কানেক্টেড কম্পোনেন্ট বজায় রাখতে।
+এবং অতিরিক্তভাবে আমরা ২-এজ-কানেক্টেড কম্পোনেন্টের ফরেস্টে ট্রি-র গঠন পয়েন্টারের মাধ্যমে সংরক্ষণ করি:
+প্রতিটি ২-এজ-কানেক্টেড কম্পোনেন্ট ট্রি-তে তার পূর্বসূরির ইনডেক্স `par[]` সংরক্ষণ করবে।
 
-We will now consistently disassemble every operation that we need to learn to implement:
+এখন আমরা ধারাবাহিকভাবে প্রতিটি অপারেশন বিশ্লেষণ করব যা আমাদের ইমপ্লিমেন্ট করা শিখতে হবে:
 
-  * Check whether the two vertices lie in the same connected / 2-edge-connected component.
-    It is done with the usual DSU algorithm, we just find and compare the representatives of the DSUs.
-  
-  * Joining two trees for some edge $(a, b)$.
-    Since it could turn out that neither the vertex $a$ nor the vertex $b$ are the roots of their trees, the only way to connect these two trees is to re-root one of them.
-    For example you can re-root the tree of vertex $a$, and then attach it to another tree by setting the ancestor of $a$ to $b$.
-  
-    However the question about the effectiveness of the re-rooting operation arises:
-    in order to re-root the tree with the root $r$ to the vertex $v$, it is necessary to visit all vertices on the path between $v$ and $r$ and redirect the pointers `par[]` in the opposite direction, and also change the references to the ancestors in the DSU that is responsible for the connected components.
-  
-    Thus, the cost of re-rooting is $O(h)$, where $h$ is the height of the tree.
-    You can make an even worse estimate by saying that the cost is $O(\text{size})$ where $\text{size}$ is the number of vertices in the tree.
-    The final complexity will not differ.
-  
-    We now apply a standard technique: we re-root the tree that contains fewer vertices.
-    Then it is intuitively clear that the worst case is when two trees of approximately equal sizes are combined, but then the result is a tree of twice the size.
-    This does not allow this situation to happen many times.
-  
-    In general the total cost can be written in the form of a recurrence:
-    
+  * দুটি ভার্টেক্স একই কানেক্টেড / ২-এজ-কানেক্টেড কম্পোনেন্টে আছে কিনা পরীক্ষা করা।
+    এটি সাধারণ DSU অ্যালগরিদমের মাধ্যমে করা হয়, আমরা কেবল DSU-র প্রতিনিধি খুঁজে তুলনা করি।
+
+  * কোনো এজ $(a, b)$ এর জন্য দুটি ট্রি-কে যুক্ত করা।
+    যেহেতু এটি হতে পারে যে ভার্টেক্স $a$ বা $b$ কেউই তাদের ট্রি-র রুট নয়, এই দুটি ট্রি সংযুক্ত করার একমাত্র উপায় হলো তাদের একটিকে রি-রুট করা।
+    উদাহরণস্বরূপ আপনি ভার্টেক্স $a$ এর ট্রি-টি রি-রুট করতে পারেন, এবং তারপর $a$ এর পূর্বসূরি $b$ সেট করে এটিকে অন্য ট্রি-তে সংযুক্ত করতে পারেন।
+
+    তবে রি-রুটিং অপারেশনের কার্যকারিতার প্রশ্ন ওঠে:
+    রুট $r$ বিশিষ্ট ট্রি-কে ভার্টেক্স $v$ এ রি-রুট করতে, $v$ এবং $r$ এর মধ্যে পাথের সমস্ত ভার্টেক্স পরিদর্শন করে পয়েন্টার `par[]` বিপরীত দিকে পুনঃনির্দেশ করা এবং কানেক্টেড কম্পোনেন্টের জন্য দায়ী DSU-তে পূর্বসূরির রেফারেন্সও পরিবর্তন করা প্রয়োজন।
+
+    অতএব, রি-রুটিং-এর খরচ $O(h)$, যেখানে $h$ হলো ট্রি-র উচ্চতা।
+    আরও বেশি অনুমান করে বলা যায় খরচ $O(\text{size})$ যেখানে $\text{size}$ হলো ট্রি-তে ভার্টেক্সের সংখ্যা।
+    চূড়ান্ত কমপ্লেক্সিটি এতে আলাদা হবে না।
+
+    আমরা এখন একটি স্ট্যান্ডার্ড টেকনিক প্রয়োগ করি: কম ভার্টেক্স বিশিষ্ট ট্রি-টি রি-রুট করি।
+    তাহলে স্বজ্ঞাতভাবে এটি স্পষ্ট যে সবচেয়ে খারাপ ক্ষেত্র হলো যখন প্রায় সমান আকারের দুটি ট্রি একত্রিত হয়, কিন্তু তখন ফলাফল দ্বিগুণ আকারের একটি ট্রি হয়।
+    এটি এই পরিস্থিতি বারবার ঘটতে দেয় না।
+
+    সাধারণভাবে মোট খরচ একটি রিকারেন্সের আকারে লেখা যায়:
+
     \[ T(n) = \max_{k = 1 \ldots n-1} \left\{ T(k) + T(n - k) + O(\min(k, n - k))\right\} \]
-    
-    $T(n)$ is the number of operations necessary to obtain a tree with $n$ vertices by means of re-rooting and unifying trees.
-    A tree of size $n$ can be created by combining two smaller trees of size $k$ and $n - k$.
-    This recurrence is has the solution $T(n) = O (n \log n)$.
-  
-    Thus, the total time spent on all re-rooting operations will be $O(n \log n)$ if we always re-root the smaller of the two trees.
-  
-    We will have to maintain the size of each connected component, but the data structure DSU makes this possible without difficulty.
-  
-  * Searching for the cycle formed by adding a new edge $(a, b)$.
-    Since $a$ and $b$ are already connected in the tree we need to find the [Lowest Common Ancestor](lca.md) of the vertices $a$ and $b$.
-    The cycle will consist of the paths from $b$ to the LCA, from the LCA to $a$ and the edge $a$ to $b$.
-  
-    After finding the cycle we compress all vertices of the detected cycle into one vertex.
-    This means that we already have a complexity proportional to the cycle length, which means that we also can use any LCA algorithm proportional to the length, and don't have to use any fast one.
-  
-    Since all information about the structure of the tree is available in the ancestor array `par[]`, the only reasonable LCA algorithm is the following:
-    mark the vertices $a$ and $b$ as visited, then we go to their ancestors `par[a]` and `par[b]` and mark them, then advance to their ancestors and so on, until we reach an already marked vertex.
-    This vertex is the LCA that we are looking for, and we can find the vertices on the cycle by traversing the path from $a$ and $b$ to the LCA again.
-  
-    It is obvious that the complexity of this algorithm is proportional to the length of the desired cycle.
-  
-  * Compression of the cycle by adding a new edge $(a, b)$ in a tree.
-  
-    We need to create a new 2-edge-connected component, which will consist of all vertices of the detected cycle (also the detected cycle itself could consist of some 2-edge-connected components, but this does not change anything).
-    In addition it is necessary to compress them in such a way that the structure of the tree is not disturbed, and all pointers `par[]` and two DSUs are still correct.
-  
-    The easiest way to achieve this is to compress all the vertices of the cycle to their LCA.
-    In fact the LCA is the highest of the vertices, i.e. its ancestor pointer `par[]` remains unchanged.
-    For all the other vertices of the loop the ancestors do not need to be updated, since these vertices simply cease to exists.
-    But in the DSU of the 2-edge-connected components all these vertices will simply point to the LCA.
-  
-    We will implement the DSU of the 2-edge-connected components without the Union by rank optimization, therefore we will get the complexity $O(\log n)$ on average per query.
-    To achieve the complexity $O(1)$ on average per query, we need to combine the vertices of the cycle according to Union by rank, and then assign `par[]` accordingly.
 
-## Implementation
+    $T(n)$ হলো রি-রুটিং এবং ট্রি-র একীকরণের মাধ্যমে $n$ টি ভার্টেক্স বিশিষ্ট একটি ট্রি পেতে প্রয়োজনীয় অপারেশনের সংখ্যা।
+    $n$ আকারের একটি ট্রি $k$ এবং $n - k$ আকারের দুটি ছোট ট্রি একত্রিত করে তৈরি করা যায়।
+    এই রিকারেন্সের সমাধান হলো $T(n) = O (n \log n)$।
 
-Here is the final implementation of the whole algorithm.
+    অতএব, যদি আমরা সবসময় দুটি ট্রি-র মধ্যে ছোটটি রি-রুট করি তাহলে সমস্ত রি-রুটিং অপারেশনে মোট ব্যয়িত সময় হবে $O(n \log n)$।
 
-As mentioned before, for the sake of simplicity the DSU of the 2-edge-connected components is written without Union by rank, therefore the resulting complexity will be $O(\log n)$ on average.
+    আমাদের প্রতিটি কানেক্টেড কম্পোনেন্টের আকার বজায় রাখতে হবে, কিন্তু DSU ডেটা স্ট্রাকচার কোনো অসুবিধা ছাড়াই এটি সম্ভব করে।
 
-Also in this implementation the bridges themselves are not stored, only their count `bridges`.
-However it will not be difficult to create a `set` of all bridges.
+  * একটি নতুন এজ $(a, b)$ যোগ করে গঠিত সাইকেল খোঁজা।
+    যেহেতু $a$ এবং $b$ ইতিমধ্যে ট্রি-তে সংযুক্ত আমাদের ভার্টেক্স $a$ এবং $b$ এর [লোয়েস্ট কমন অ্যানসেস্টর](lca.md) খুঁজতে হবে।
+    সাইকেলটি $b$ থেকে LCA পর্যন্ত, LCA থেকে $a$ পর্যন্ত পাথ এবং $a$ থেকে $b$ এর এজ নিয়ে গঠিত হবে।
 
-Initially you call the function `init()`, which initializes the two DSUs (creating a separate set for each vertex, and setting the size equal to one), and sets the ancestors `par`.
+    সাইকেল খুঁজে পাওয়ার পর আমরা সনাক্তকৃত সাইকেলের সমস্ত ভার্টেক্সকে এক ভার্টেক্সে সংকুচিত করি।
+    এর মানে হলো আমাদের ইতিমধ্যে সাইকেলের দৈর্ঘ্যের সমানুপাতিক কমপ্লেক্সিটি আছে, যার মানে আমরা দৈর্ঘ্যের সমানুপাতিক যেকোনো LCA অ্যালগরিদমও ব্যবহার করতে পারি, এবং কোনো দ্রুত অ্যালগরিদম ব্যবহার করার প্রয়োজন নেই।
 
-The main function is `add_edge(a, b)`, which processes and adds a new edge.
+    যেহেতু ট্রি-র গঠন সম্পর্কে সমস্ত তথ্য পূর্বসূরি অ্যারে `par[]` এ পাওয়া যায়, একমাত্র যুক্তিসঙ্গত LCA অ্যালগরিদম নিম্নরূপ:
+    ভার্টেক্স $a$ এবং $b$ কে পরিদর্শিত হিসেবে চিহ্নিত করুন, তারপর তাদের পূর্বসূরি `par[a]` এবং `par[b]` তে গিয়ে তাদের চিহ্নিত করুন, তারপর তাদের পূর্বসূরিতে অগ্রসর হোন এভাবে, যতক্ষণ না আমরা ইতিমধ্যে চিহ্নিত একটি ভার্টেক্সে পৌঁছাই।
+    এই ভার্টেক্সটি হলো আমাদের কাঙ্ক্ষিত LCA, এবং আমরা $a$ এবং $b$ থেকে LCA পর্যন্ত পাথ আবার ট্রাভার্স করে সাইকেলের ভার্টেক্সগুলো পেতে পারি।
+
+    এটি স্পষ্ট যে এই অ্যালগরিদমের কমপ্লেক্সিটি কাঙ্ক্ষিত সাইকেলের দৈর্ঘ্যের সমানুপাতিক।
+
+  * একটি ট্রি-তে নতুন এজ $(a, b)$ যোগ করে সাইকেলের সংকোচন।
+
+    আমাদের একটি নতুন ২-এজ-কানেক্টেড কম্পোনেন্ট তৈরি করতে হবে, যেটি সনাক্তকৃত সাইকেলের সমস্ত ভার্টেক্স নিয়ে গঠিত হবে (এছাড়া সনাক্তকৃত সাইকেলটি নিজে কিছু ২-এজ-কানেক্টেড কম্পোনেন্ট নিয়ে গঠিত হতে পারে, কিন্তু এতে কিছু পরিবর্তন হয় না)।
+    অতিরিক্তভাবে এগুলোকে এমনভাবে সংকুচিত করা প্রয়োজন যাতে ট্রি-র গঠন নষ্ট না হয়, এবং সমস্ত পয়েন্টার `par[]` ও দুটি DSU সঠিক থাকে।
+
+    এটি অর্জনের সবচেয়ে সহজ উপায় হলো সাইকেলের সমস্ত ভার্টেক্সকে তাদের LCA-তে সংকুচিত করা।
+    আসলে LCA হলো সর্বোচ্চ ভার্টেক্স, অর্থাৎ তার পূর্বসূরি পয়েন্টার `par[]` অপরিবর্তিত থাকে।
+    লুপের অন্যান্য সমস্ত ভার্টেক্সের জন্য পূর্বসূরি আপডেট করার প্রয়োজন নেই, যেহেতু এই ভার্টেক্সগুলো কেবল অস্তিত্বহীন হয়ে যায়।
+    কিন্তু ২-এজ-কানেক্টেড কম্পোনেন্টের DSU-তে এই সমস্ত ভার্টেক্স কেবল LCA-কে নির্দেশ করবে।
+
+    আমরা ইউনিয়ন বাই র‍্যাঙ্ক অপটিমাইজেশন ছাড়া ২-এজ-কানেক্টেড কম্পোনেন্টের DSU ইমপ্লিমেন্ট করব, তাই প্রতি কুয়েরিতে গড়ে $O(\log n)$ কমপ্লেক্সিটি পাব।
+    প্রতি কুয়েরিতে গড়ে $O(1)$ কমপ্লেক্সিটি অর্জন করতে, আমাদের ইউনিয়ন বাই র‍্যাঙ্ক অনুসারে সাইকেলের ভার্টেক্সগুলো একত্রিত করতে হবে, এবং তারপর সেই অনুযায়ী `par[]` নির্ধারণ করতে হবে।
+
+## ইমপ্লিমেন্টেশন
+
+এখানে সম্পূর্ণ অ্যালগরিদমের চূড়ান্ত ইমপ্লিমেন্টেশন।
+
+আগেই উল্লেখ করা হয়েছে, সরলতার জন্য ২-এজ-কানেক্টেড কম্পোনেন্টের DSU ইউনিয়ন বাই র‍্যাঙ্ক ছাড়া লেখা হয়েছে, তাই ফলস্বরূপ কমপ্লেক্সিটি গড়ে $O(\log n)$ হবে।
+
+এছাড়া এই ইমপ্লিমেন্টেশনে ব্রিজগুলো নিজেরা সংরক্ষিত হয় না, শুধু তাদের সংখ্যা `bridges` সংরক্ষিত হয়।
+তবে সমস্ত ব্রিজের একটি `set` তৈরি করা কঠিন হবে না।
+
+প্রাথমিকভাবে আপনি `init()` ফাংশন কল করেন, যেটি দুটি DSU ইনিশিয়ালাইজ করে (প্রতিটি ভার্টেক্সের জন্য একটি আলাদা সেট তৈরি করে, এবং সাইজ এক সেট করে), এবং পূর্বসূরি `par` সেট করে।
+
+মূল ফাংশন হলো `add_edge(a, b)`, যেটি একটি নতুন এজ প্রক্রিয়া করে এবং যোগ করে।
 
 ```cpp
 vector<int> par, dsu_2ecc, dsu_cc, dsu_cc_size;
 int bridges;
 int lca_iteration;
 vector<int> last_visit;
- 
+
 void init(int n) {
     par.resize(n);
     dsu_2ecc.resize(n);
@@ -161,18 +161,18 @@ void init(int n) {
     }
     bridges = 0;
 }
- 
+
 int find_2ecc(int v) {
     if (v == -1)
         return -1;
     return dsu_2ecc[v] == v ? v : dsu_2ecc[v] = find_2ecc(dsu_2ecc[v]);
 }
- 
+
 int find_cc(int v) {
     v = find_2ecc(v);
     return dsu_cc[v] == v ? v : dsu_cc[v] = find_cc(dsu_cc[v]);
 }
- 
+
 void make_root(int v) {
     int root = v;
     int child = -1;
@@ -211,7 +211,7 @@ void merge_path (int a, int b) {
             last_visit[b] = lca_iteration;
             b = par[b];
         }
-        
+
     }
 
     for (int v : path_a) {
@@ -227,13 +227,13 @@ void merge_path (int a, int b) {
         --bridges;
     }
 }
- 
+
 void add_edge(int a, int b) {
     a = find_2ecc(a);
     b = find_2ecc(b);
     if (a == b)
         return;
- 
+
     int ca = find_cc(a);
     int cb = find_cc(b);
 
@@ -252,26 +252,26 @@ void add_edge(int a, int b) {
 }
 ```
 
-The DSU for the 2-edge-connected components is stored in the vector `dsu_2ecc`, and the function returning the representative is `find_2ecc(v)`.
-This function is used many times in the rest of the code, since after the compression of several vertices into one all these vertices cease to exist, and instead only the leader has the correct ancestor `par` in the forest of 2-edge-connected components.
+২-এজ-কানেক্টেড কম্পোনেন্টের DSU ভেক্টর `dsu_2ecc` তে সংরক্ষিত, এবং প্রতিনিধি রিটার্ন করা ফাংশন হলো `find_2ecc(v)`।
+এই ফাংশনটি বাকি কোডে অনেক জায়গায় ব্যবহৃত হয়, কারণ একাধিক ভার্টেক্সকে একটিতে সংকুচিত করার পর এই সমস্ত ভার্টেক্স আর বিদ্যমান থাকে না, এবং পরিবর্তে শুধু লিডারের ২-এজ-কানেক্টেড কম্পোনেন্টের ফরেস্টে সঠিক পূর্বসূরি `par` থাকে।
 
-The DSU for the connected components is stored in the vector `dsu_cc`, and there is also an additional vector `dsu_cc_size` to store the component sizes.
-The function `find_cc(v)` returns the leader of the connectivity component (which is actually the root of the tree).
+কানেক্টেড কম্পোনেন্টের DSU ভেক্টর `dsu_cc` তে সংরক্ষিত, এবং কম্পোনেন্ট সাইজ সংরক্ষণের জন্য একটি অতিরিক্ত ভেক্টর `dsu_cc_size` ও আছে।
+`find_cc(v)` ফাংশন কানেক্টিভিটি কম্পোনেন্টের লিডার রিটার্ন করে (যেটি আসলে ট্রি-র রুট)।
 
-The re-rooting of a tree `make_root(v)` works as described above:
-if traverses from the vertex $v$ via the ancestors to the root vertex, each time redirecting the ancestor `par` in the opposite direction.
-The link to the representative of the connected component `dsu_cc` is also updated, so that it points to the new root vertex.
-After re-rooting we have to assign the new root the correct size of the connected component.
-Also we have to be careful that we call `find_2ecc()` to get the representatives of the 2-edge-connected component, rather than some other vertex that have already been compressed.
+ট্রি-র রি-রুটিং `make_root(v)` উপরে বর্ণিত মতো কাজ করে:
+এটি ভার্টেক্স $v$ থেকে পূর্বসূরিদের মধ্য দিয়ে রুট ভার্টেক্স পর্যন্ত ট্রাভার্স করে, প্রতিবার পূর্বসূরি `par` বিপরীত দিকে পুনঃনির্দেশ করে।
+কানেক্টেড কম্পোনেন্টের প্রতিনিধির লিঙ্ক `dsu_cc` ও আপডেট করা হয়, যাতে এটি নতুন রুট ভার্টেক্সকে নির্দেশ করে।
+রি-রুটিং-এর পরে আমাদের নতুন রুটে কানেক্টেড কম্পোনেন্টের সঠিক সাইজ নির্ধারণ করতে হবে।
+এছাড়া আমাদের সতর্ক থাকতে হবে যে আমরা `find_2ecc()` কল করি ২-এজ-কানেক্টেড কম্পোনেন্টের প্রতিনিধি পেতে, অন্য কোনো ভার্টেক্স নয় যেটি ইতিমধ্যে সংকুচিত হয়ে গেছে।
 
-The cycle finding and compression function `merge_path(a, b)` is also implemented as described above.
-It searches for the LCA of $a$ and $b$ be rising these nodes in parallel, until we meet a vertex for the second time.
-For efficiency purposes we choose a unique identifier for each LCA finding call, and mark the traversed vertices with it.
-This works in $O(1)$, while other approaches like using $set$ perform worse.
-The passed paths are stored in the vectors `path_a` and `path_b`, and we use them to walk through them a second time up to the LCA, thereby obtaining all vertices of the cycle.
-All the vertices of the cycle get compressed by attaching them to the LCA, hence the average complexity is $O(\log n)$ (since we don't use Union by rank).
-All the edges we pass have been bridges, so we subtract 1 for each edge in the cycle.
+সাইকেল খোঁজা ও সংকোচন ফাংশন `merge_path(a, b)` ও উপরে বর্ণিত মতো ইমপ্লিমেন্ট করা হয়েছে।
+এটি $a$ এবং $b$ এর LCA খোঁজে এই নোডগুলোকে সমান্তরালে উপরে তুলে, যতক্ষণ না আমরা দ্বিতীয়বার একটি ভার্টেক্সের সাথে দেখা করি।
+দক্ষতার জন্য আমরা প্রতিটি LCA খোঁজার কলের জন্য একটি অনন্য আইডেন্টিফায়ার বেছে নিই, এবং ট্রাভার্স করা ভার্টেক্সগুলোকে এটি দিয়ে চিহ্নিত করি।
+এটি $O(1)$ এ কাজ করে, যেখানে $set$ ব্যবহারের মতো অন্যান্য পদ্ধতি আরও খারাপ পারফর্ম করে।
+ট্রাভার্স করা পাথগুলো ভেক্টর `path_a` এবং `path_b` তে সংরক্ষিত হয়, এবং আমরা সেগুলো ব্যবহার করে LCA পর্যন্ত দ্বিতীয়বার হাঁটি, এভাবে সাইকেলের সমস্ত ভার্টেক্স পাই।
+সাইকেলের সমস্ত ভার্টেক্স LCA-তে সংযুক্ত করে সংকুচিত হয়, তাই গড় কমপ্লেক্সিটি হলো $O(\log n)$ (যেহেতু আমরা ইউনিয়ন বাই র‍্যাঙ্ক ব্যবহার করি না)।
+আমরা যে সমস্ত এজের মধ্য দিয়ে যাই সেগুলো ব্রিজ ছিল, তাই সাইকেলের প্রতিটি এজের জন্য ১ বিয়োগ করি।
 
-Finally the query function `add_edge(a, b)` determines the connected components in which the vertices $a$ and $b$ lie.
-If they lie in different connectivity components, then a smaller tree is re-rooted and then attached to the larger tree.
-Otherwise if the vertices $a$ and $b$ lie in one tree, but in different 2-edge-connected components, then the function `merge_path(a, b)` is called, which will detect the cycle and compress it into one 2-edge-connected component. 
+পরিশেষে কুয়েরি ফাংশন `add_edge(a, b)` নির্ধারণ করে ভার্টেক্স $a$ এবং $b$ কোন কানেক্টেড কম্পোনেন্টে আছে।
+যদি তারা ভিন্ন কানেক্টিভিটি কম্পোনেন্টে থাকে, তাহলে ছোট ট্রি-টি রি-রুট করা হয় এবং তারপর বড় ট্রি-তে সংযুক্ত করা হয়।
+অন্যথায় যদি ভার্টেক্স $a$ এবং $b$ একই ট্রি-তে থাকে, কিন্তু ভিন্ন ২-এজ-কানেক্টেড কম্পোনেন্টে, তাহলে `merge_path(a, b)` ফাংশন কল করা হয়, যেটি সাইকেল সনাক্ত করবে এবং একটি ২-এজ-কানেক্টেড কম্পোনেন্টে সংকুচিত করবে।

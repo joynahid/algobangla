@@ -4,31 +4,31 @@ tags:
 e_maxx_link: eratosthenes_sieve
 ---
 
-# Sieve of Eratosthenes
+# এরাটোস্থেনিসের সিভ
 
-Sieve of Eratosthenes is an algorithm for finding all the prime numbers in a segment $[1;n]$ using $O(n \log \log n)$ operations.
+এরাটোস্থেনিসের সিভ হলো একটি অ্যালগরিদম যা $O(n \log \log n)$ অপারেশন ব্যবহার করে $[1;n]$ সেগমেন্টের সকল মৌলিক সংখ্যা খুঁজে বের করে।
 
-The algorithm is very simple:
-at the beginning we write down all numbers between 2 and $n$.
-We mark all proper multiples of 2 (since 2 is the smallest prime number) as composite.
-A proper multiple of a number $x$, is a number greater than $x$ and divisible by $x$.
-Then we find the next number that hasn't been marked as composite, in this case it is 3.
-Which means 3 is prime, and we mark all proper multiples of 3 as composite.
-The next unmarked number is 5, which is the next prime number, and we mark all proper multiples of it.
-And we continue this procedure until we have processed all numbers in the row.
+অ্যালগরিদমটি অত্যন্ত সরল:
+শুরুতে আমরা ২ থেকে $n$ পর্যন্ত সকল সংখ্যা লিখে রাখি।
+আমরা ২-এর সকল প্রকৃত গুণিতককে (যেহেতু ২ হলো ক্ষুদ্রতম মৌলিক সংখ্যা) যৌগিক সংখ্যা হিসেবে চিহ্নিত করি।
+একটি সংখ্যা $x$-এর প্রকৃত গুণিতক হলো এমন একটি সংখ্যা যা $x$-এর চেয়ে বড় এবং $x$ দ্বারা বিভাজ্য।
+এরপর আমরা পরবর্তী যে সংখ্যাটি যৌগিক হিসেবে চিহ্নিত হয়নি সেটি খুঁজে বের করি, এক্ষেত্রে সেটি হলো ৩।
+অর্থাৎ ৩ একটি মৌলিক সংখ্যা, এবং আমরা ৩-এর সকল প্রকৃত গুণিতককে যৌগিক হিসেবে চিহ্নিত করি।
+পরবর্তী অচিহ্নিত সংখ্যা হলো ৫, যা পরবর্তী মৌলিক সংখ্যা, এবং আমরা এর সকল প্রকৃত গুণিতক চিহ্নিত করি।
+সারির সকল সংখ্যা প্রক্রিয়া না করা পর্যন্ত আমরা এই পদ্ধতি চালিয়ে যাই।
 
-In the following image you can see a visualization of the algorithm for computing all prime numbers in the range $[1; 16]$. It can be seen, that quite often we mark numbers as composite multiple times.
+নিচের চিত্রে $[1; 16]$ পরিসরে সকল মৌলিক সংখ্যা নির্ণয়ের জন্য অ্যালগরিদমটির একটি ভিজ্যুয়ালাইজেশন দেখতে পাবেন। দেখা যাচ্ছে যে, প্রায়ই আমরা সংখ্যাগুলোকে একাধিকবার যৌগিক হিসেবে চিহ্নিত করি।
 
 <div style="text-align: center;">
   <img src="sieve_eratosthenes.png" alt="Sieve of Eratosthenes">
 </div>
 
-The idea behind is this:
-A number is prime, if none of the smaller prime numbers divides it.
-Since we iterate over the prime numbers in order, we already marked all numbers, which are divisible by at least one of the prime numbers, as divisible.
-Hence if we reach a cell and it is not marked, then it isn't divisible by any smaller prime number and therefore has to be prime.
+এর পেছনের মূল ধারণা হলো:
+একটি সংখ্যা মৌলিক, যদি এর চেয়ে ছোট কোনো মৌলিক সংখ্যা এটিকে ভাগ করতে না পারে।
+যেহেতু আমরা মৌলিক সংখ্যাগুলো ক্রমানুসারে ইটারেট করছি, তাই যেসব সংখ্যা কমপক্ষে একটি মৌলিক সংখ্যা দ্বারা বিভাজ্য, সেগুলোকে আমরা ইতিমধ্যেই বিভাজ্য হিসেবে চিহ্নিত করে ফেলেছি।
+সুতরাং, আমরা যখন একটি ঘরে পৌঁছাই এবং সেটি চিহ্নিত না থাকে, তাহলে এটি কোনো ছোট মৌলিক সংখ্যা দ্বারা বিভাজ্য নয় এবং তাই এটি অবশ্যই মৌলিক।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int n;
@@ -42,62 +42,62 @@ for (int i = 2; i <= n; i++) {
 }
 ```
 
-This code first marks all numbers except zero and one as potential prime numbers, then it begins the process of sifting composite numbers.
-For this it iterates over all numbers from $2$ to $n$.
-If the current number $i$ is a prime number, it marks all numbers that are multiples of $i$ as composite numbers, starting from $i^2$.
-This is already an optimization over naive way of implementing it, and is allowed as all smaller numbers that are multiples of $i$ necessary also have a prime factor which is less than $i$, so all of them were already sifted earlier.
-Since $i^2$ can easily overflow the type `int`, the additional verification is done using type `long long` before the second nested loop.
+এই কোডটি প্রথমে শূন্য এবং এক ব্যতীত সকল সংখ্যাকে সম্ভাব্য মৌলিক সংখ্যা হিসেবে চিহ্নিত করে, তারপর যৌগিক সংখ্যা ছাঁকনির প্রক্রিয়া শুরু করে।
+এর জন্য এটি $2$ থেকে $n$ পর্যন্ত সকল সংখ্যার উপর ইটারেট করে।
+বর্তমান সংখ্যা $i$ যদি মৌলিক সংখ্যা হয়, তাহলে এটি $i^2$ থেকে শুরু করে $i$-এর সকল গুণিতককে যৌগিক সংখ্যা হিসেবে চিহ্নিত করে।
+এটি ইতিমধ্যেই সাধারণ ইমপ্লিমেন্টেশনের তুলনায় একটি অপটিমাইজেশন, এবং এটি সম্ভব কারণ $i$-এর গুণিতক যেসব ছোট সংখ্যা আছে সেগুলোর অবশ্যই $i$-এর চেয়ে ছোট একটি মৌলিক গুণনীয়ক রয়েছে, তাই সেগুলো আগেই ছাঁকা হয়ে গেছে।
+যেহেতু $i^2$ সহজেই `int` টাইপ ওভারফ্লো করতে পারে, তাই দ্বিতীয় নেস্টেড লুপের আগে `long long` টাইপ ব্যবহার করে অতিরিক্ত যাচাই করা হয়।
 
-Using such implementation the algorithm consumes $O(n)$ of the memory (obviously) and performs $O(n \log \log n)$ (see next section).
+এই ইমপ্লিমেন্টেশন ব্যবহার করলে অ্যালগরিদমটি $O(n)$ মেমোরি ব্যবহার করে (যা স্পষ্টতই) এবং $O(n \log \log n)$ অপারেশন সম্পাদন করে (পরবর্তী বিভাগ দেখুন)।
 
-## Asymptotic analysis
+## অ্যাসিম্পটোটিক অ্যানালাইসিস
 
-It's simple to prove a running time of $O(n \log n)$ without knowing anything about the distribution of primes - ignoring the `is_prime` check, the inner loop runs (at most) $n/i$ times for $i = 2, 3, 4, \dots$, leading the total number of operations in the inner loop to be a harmonic sum like $n(1/2 + 1/3 + 1/4 + \cdots)$, which is bounded by $O(n \log n)$.
+মৌলিক সংখ্যার বিতরণ সম্পর্কে কিছু না জেনেও $O(n \log n)$ রানিং টাইম প্রমাণ করা সহজ — `is_prime` চেক উপেক্ষা করলে, ভেতরের লুপটি $i = 2, 3, 4, \dots$-এর জন্য (সর্বোচ্চ) $n/i$ বার চলে, যার ফলে ভেতরের লুপে মোট অপারেশনের সংখ্যা একটি হারমোনিক সিরিজের মতো হয় যেমন $n(1/2 + 1/3 + 1/4 + \cdots)$, যা $O(n \log n)$ দ্বারা সীমাবদ্ধ।
 
-Let's prove that algorithm's running time is $O(n \log \log n)$.
-The algorithm will perform $\frac{n}{p}$ operations for every prime $p \le n$ in the inner loop.
-Hence, we need to evaluate the next expression:
+এবার প্রমাণ করা যাক যে অ্যালগরিদমের রানিং টাইম হলো $O(n \log \log n)$।
+ভেতরের লুপে অ্যালগরিদমটি প্রতিটি মৌলিক সংখ্যা $p \le n$-এর জন্য $\frac{n}{p}$ অপারেশন সম্পাদন করবে।
+সুতরাং, আমাদের নিচের রাশিটি মূল্যায়ন করতে হবে:
 
 $$\sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac n p = n \cdot \sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac 1 p.$$
 
-Let's recall two known facts.
+দুটি পরিচিত তথ্য স্মরণ করা যাক।
 
-  - The number of prime numbers less than or equal to $n$ is approximately $\frac n {\ln n}$.
-  - The $k$-th prime number approximately equals $k \ln k$ (this follows from the previous fact).
+  - $n$-এর চেয়ে ছোট বা সমান মৌলিক সংখ্যার সংখ্যা আনুমানিক $\frac n {\ln n}$।
+  - $k$-তম মৌলিক সংখ্যা আনুমানিক $k \ln k$-এর সমান (এটি পূর্ববর্তী তথ্য থেকে অনুমিত)।
 
-Thus we can write down the sum in the following way:
+সুতরাং আমরা যোগফলটি নিচের মতো লিখতে পারি:
 
 $$\sum_{\substack{p \le n, \\\ p \text{ prime}}} \frac 1 p \approx \frac 1 2 + \sum_{k = 2}^{\frac n {\ln n}} \frac 1 {k \ln k}.$$
 
-Here we extracted the first prime number 2 from the sum, because $k = 1$ in approximation $k \ln k$  is $0$ and causes a division by zero.
+এখানে আমরা প্রথম মৌলিক সংখ্যা ২-কে যোগফল থেকে আলাদা করেছি, কারণ $k = 1$ এর ক্ষেত্রে $k \ln k$-এর আসন্ন মান $0$ হয় এবং শূন্য দিয়ে ভাগের সমস্যা তৈরি করে।
 
-Now, let's evaluate this sum using the integral of a same function over $k$ from $2$ to $\frac n {\ln n}$ (we can make such approximation because, in fact, the sum is related to the integral as its approximation using the rectangle method):
+এখন, $k$-এর উপর $2$ থেকে $\frac n {\ln n}$ পর্যন্ত একই ফাংশনের ইন্টিগ্রাল ব্যবহার করে এই যোগফল মূল্যায়ন করা যাক (আমরা এই আসন্নীকরণ করতে পারি কারণ, প্রকৃতপক্ষে, যোগফলটি আয়তক্ষেত্র পদ্ধতি ব্যবহার করে ইন্টিগ্রালের আসন্ন মানের সাথে সম্পর্কিত):
 
 $$\sum_{k = 2}^{\frac n {\ln n}} \frac 1 {k \ln k} \approx \int_2^{\frac n {\ln n}} \frac 1 {k \ln k} dk.$$
 
-The antiderivative for the integrand is  $\ln \ln k$. Using a substitution and removing terms of lower order, we'll get the result:
+ইন্টিগ্র্যান্ডের অ্যান্টিডেরিভেটিভ হলো $\ln \ln k$। প্রতিস্থাপন ব্যবহার করে এবং নিম্নতর ক্রমের পদগুলো সরিয়ে, আমরা ফলাফল পাব:
 
 $$\int_2^{\frac n {\ln n}} \frac 1 {k \ln k} dk = \ln \ln \frac n {\ln n} - \ln \ln 2 = \ln(\ln n - \ln \ln n) - \ln \ln 2 \approx \ln \ln n.$$
 
-Now, returning to the original sum, we'll get its approximate evaluation:
+এখন, মূল যোগফলে ফিরে গেলে, আমরা এর আনুমানিক মূল্যায়ন পাব:
 
 $$\sum_{\substack{p \le n, \\\ p\ is\ prime}} \frac n p \approx n \ln \ln n + o(n).$$
 
-You can find a more strict proof (that gives more precise evaluation which is accurate within constant multipliers) in the book authored by Hardy & Wright "An Introduction to the Theory of Numbers" (p. 349).
+আরও কঠোর প্রমাণ (যা ধ্রুবক গুণকের মধ্যে আরও সুনির্দিষ্ট মূল্যায়ন দেয়) Hardy ও Wright রচিত "An Introduction to the Theory of Numbers" গ্রন্থে (পৃ. ৩৪৯) পাওয়া যাবে।
 
-## Different optimizations of the Sieve of Eratosthenes
+## এরাটোস্থেনিসের সিভের বিভিন্ন অপটিমাইজেশন
 
-The biggest weakness of the algorithm is, that it "walks" along the memory multiple times, only manipulating single elements.
-This is not very cache friendly.
-And because of that, the constant which is concealed in $O(n \log \log n)$ is comparably big.
+অ্যালগরিদমটির সবচেয়ে বড় দুর্বলতা হলো, এটি মেমোরিতে একাধিকবার "হেঁটে" যায় এবং প্রতিবার শুধুমাত্র একক উপাদান পরিবর্তন করে।
+এটি খুব বেশি ক্যাশ-ফ্রেন্ডলি নয়।
+এবং এই কারণে, $O(n \log \log n)$-এর মধ্যে লুকানো ধ্রুবকটি তুলনামূলকভাবে বড়।
 
-Besides, the consumed memory is a bottleneck for big $n$.
+তাছাড়া, বড় $n$-এর জন্য ব্যবহৃত মেমোরি একটি বটলনেক হয়ে দাঁড়ায়।
 
-The methods presented below allow us to reduce the quantity of the performed operations, as well as to shorten the consumed memory noticeably.
+নিচে উপস্থাপিত পদ্ধতিগুলো আমাদেরকে সম্পাদিত অপারেশনের পরিমাণ কমাতে এবং ব্যবহৃত মেমোরি উল্লেখযোগ্যভাবে হ্রাস করতে সাহায্য করে।
 
-### Sieving till root
+### বর্গমূল পর্যন্ত সিভিং
 
-Obviously, to find all the prime numbers until $n$, it will be enough just to perform the sifting only by the prime numbers, which do not exceed the root of $n$.
+স্পষ্টতই, $n$ পর্যন্ত সকল মৌলিক সংখ্যা খুঁজে বের করতে, শুধুমাত্র $n$-এর বর্গমূলের বেশি নয় এমন মৌলিক সংখ্যা দিয়ে ছাঁকনি চালানোই যথেষ্ট।
 
 ```cpp
 int n;
@@ -111,51 +111,51 @@ for (int i = 2; i * i <= n; i++) {
 }
 ```
 
-Such optimization doesn't affect the complexity (indeed, by repeating the proof presented above we'll get the evaluation $n \ln \ln \sqrt n + o(n)$, which is asymptotically the same according to the properties of logarithms), though the number of operations will reduce noticeably.
+এই অপটিমাইজেশন কমপ্লেক্সিটিকে প্রভাবিত করে না (প্রকৃতপক্ষে, উপরে উপস্থাপিত প্রমাণটি পুনরাবৃত্তি করলে আমরা $n \ln \ln \sqrt n + o(n)$ মূল্যায়ন পাব, যা লগারিদমের বৈশিষ্ট্য অনুসারে অ্যাসিম্পটোটিকভাবে একই), তবে অপারেশনের সংখ্যা উল্লেখযোগ্যভাবে হ্রাস পাবে।
 
-### Sieving by the odd numbers only
+### শুধুমাত্র বিজোড় সংখ্যা দিয়ে সিভিং
 
-Since all even numbers (except $2$) are composite, we can stop checking even numbers at all. Instead, we need to operate with odd numbers only.
+যেহেতু সকল জোড় সংখ্যা (২ ব্যতীত) যৌগিক, তাই আমরা জোড় সংখ্যা পরীক্ষা করা সম্পূর্ণ বন্ধ করতে পারি। পরিবর্তে, আমাদের শুধুমাত্র বিজোড় সংখ্যা নিয়ে কাজ করতে হবে।
 
-First, it will allow us to halve the needed memory. Second, it will reduce the number of operations performed by algorithm approximately in half.
+প্রথমত, এটি প্রয়োজনীয় মেমোরি অর্ধেক করতে দেবে। দ্বিতীয়ত, এটি অ্যালগরিদম দ্বারা সম্পাদিত অপারেশনের সংখ্যা প্রায় অর্ধেকে নামিয়ে আনবে।
 
-### Memory consumption and speed of operations
+### মেমোরি ব্যবহার এবং অপারেশনের গতি
 
-We should notice, that these two implementations of the Sieve of Eratosthenes use $n$ bits of memory by using the data structure `vector<bool>`.
-`vector<bool>` is not a regular container that stores a series of `bool` (as in most computer architectures a `bool` takes one byte of memory).
-It's a memory-optimization specialization of `vector<T>`, that only consumes $\frac{N}{8}$ bytes of memory.
+লক্ষ্য করুন: এরাটোস্থেনিসের সিভের এই দুটি ইমপ্লিমেন্টেশন `vector<bool>` ডেটা স্ট্রাকচার ব্যবহার করে $n$ বিট মেমোরি ব্যবহার করে।
+`vector<bool>` একটি সাধারণ কন্টেইনার নয় যা `bool`-এর একটি সিরিজ সংরক্ষণ করে (কারণ বেশিরভাগ কম্পিউটার আর্কিটেকচারে একটি `bool` এক বাইট মেমোরি নেয়)।
+এটি `vector<T>`-এর একটি মেমোরি-অপটিমাইজেশন স্পেশালাইজেশন, যা মাত্র $\frac{N}{8}$ বাইট মেমোরি ব্যবহার করে।
 
-Modern processors architectures work much more efficiently with bytes than with bits as they usually cannot access bits directly.
-So underneath the `vector<bool>` stores the bits in a large continuous memory, accesses the memory in blocks of a few bytes, and extracts/sets the bits with bit operations like bit masking and bit shifting.
+আধুনিক প্রসেসর আর্কিটেকচার বিটের তুলনায় বাইটের সাথে অনেক বেশি দক্ষতার সাথে কাজ করে কারণ সেগুলো সাধারণত সরাসরি বিট অ্যাক্সেস করতে পারে না।
+তাই `vector<bool>` অভ্যন্তরীণভাবে বিটগুলো একটি বড় ধারাবাহিক মেমোরিতে সংরক্ষণ করে, কয়েক বাইটের ব্লকে মেমোরি অ্যাক্সেস করে, এবং বিট মাস্কিং ও বিট শিফটিংয়ের মতো বিট অপারেশন দিয়ে বিট এক্সট্র্যাক্ট/সেট করে।
 
-Because of that there is a certain overhead when you read or write bits with a `vector<bool>`, and quite often using a `vector<char>` (which uses 1 byte for each entry, so 8x the amount of memory) is faster.
+এই কারণে `vector<bool>`-এ বিট পড়া বা লেখার সময় কিছুটা ওভারহেড থাকে, এবং প্রায়ই `vector<char>` (যা প্রতিটি এন্ট্রির জন্য ১ বাইট ব্যবহার করে, অর্থাৎ ৮ গুণ বেশি মেমোরি) ব্যবহার করা দ্রুততর হয়।
 
-However, for the simple implementations of the Sieve of Eratosthenes using a `vector<bool>` is faster.
-You are limited by how fast you can load the data into the cache, and therefore using less memory gives a big advantage.
-A benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<bool>` is between 1.4x and 1.7x faster than using a `vector<char>`.
+তবে, এরাটোস্থেনিসের সিভের সরল ইমপ্লিমেন্টেশনের জন্য `vector<bool>` ব্যবহার করাই দ্রুততর।
+আপনি ক্যাশে কত দ্রুত ডেটা লোড করতে পারবেন তার দ্বারা আপনি সীমাবদ্ধ, এবং তাই কম মেমোরি ব্যবহার একটি বড় সুবিধা দেয়।
+একটি বেঞ্চমার্ক ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) দেখায় যে, `vector<bool>` ব্যবহার `vector<char>`-এর তুলনায় ১.৪ থেকে ১.৭ গুণ দ্রুততর।
 
-The same considerations also apply to `bitset`.
-It's also an efficient way of storing bits, similar to `vector<bool>`, so it takes only $\frac{N}{8}$ bytes of memory, but is a bit slower in accessing the elements.
-In the benchmark above `bitset` performs a bit worse than `vector<bool>`.
-Another drawback from `bitset` is that you need to know the size at compile time.
+একই বিবেচনা `bitset`-এর ক্ষেত্রেও প্রযোজ্য।
+এটিও বিট সংরক্ষণের একটি দক্ষ উপায়, `vector<bool>`-এর মতো, তাই এটিও মাত্র $\frac{N}{8}$ বাইট মেমোরি নেয়, তবে উপাদান অ্যাক্সেসে কিছুটা ধীর।
+উপরের বেঞ্চমার্কে `bitset` `vector<bool>`-এর তুলনায় কিছুটা খারাপ পারফর্ম করে।
+`bitset`-এর আরেকটি অসুবিধা হলো কম্পাইল টাইমে সাইজ জানতে হয়।
 
-### Segmented Sieve
+### সেগমেন্টেড সিভ
 
-It follows from the optimization "sieving till root" that there is no need to keep the whole array `is_prime[1...n]` at all times.
-For sieving it is enough to just keep the prime numbers until the root of $n$, i.e. `prime[1... sqrt(n)]`, split the complete range into blocks, and sieve each block separately.
+"বর্গমূল পর্যন্ত সিভিং" অপটিমাইজেশন থেকে এটা স্পষ্ট যে পুরো অ্যারে `is_prime[1...n]` সবসময় রাখার প্রয়োজন নেই।
+সিভিংয়ের জন্য শুধুমাত্র $n$-এর বর্গমূল পর্যন্ত মৌলিক সংখ্যাগুলো রাখাই যথেষ্ট, অর্থাৎ `prime[1... sqrt(n)]`, সম্পূর্ণ পরিসরকে ব্লকে বিভক্ত করা, এবং প্রতিটি ব্লক আলাদাভাবে ছাঁকনি করা।
 
-Let $s$ be a constant which determines the size of the block, then we have $\lceil {\frac n s} \rceil$ blocks altogether, and the block $k$ ($k = 0 ... \lfloor {\frac n s} \rfloor$) contains the numbers in a segment $[ks; ks + s - 1]$.
-We can work on blocks by turns, i.e. for every block $k$ we will go through all the prime numbers (from $1$ to $\sqrt n$) and perform sieving using them.
-It is worth noting, that we have to modify the strategy a little bit when handling the first numbers: first, all the prime numbers from $[1; \sqrt n]$  shouldn't remove themselves; and second, the numbers $0$ and $1$ should be marked as non-prime numbers.
-While working on the last block it should not be forgotten that the last needed number $n$ is not necessarily located at the end of the block.
+ধরা যাক $s$ একটি ধ্রুবক যা ব্লকের আকার নির্ধারণ করে, তাহলে মোট $\lceil {\frac n s} \rceil$ টি ব্লক থাকবে, এবং $k$-তম ব্লক ($k = 0 ... \lfloor {\frac n s} \rfloor$) $[ks; ks + s - 1]$ সেগমেন্টের সংখ্যাগুলো ধারণ করে।
+আমরা পালাক্রমে ব্লকগুলোতে কাজ করতে পারি, অর্থাৎ প্রতিটি ব্লক $k$-এর জন্য আমরা সকল মৌলিক সংখ্যার ($1$ থেকে $\sqrt n$ পর্যন্ত) মধ্য দিয়ে যাব এবং সেগুলো ব্যবহার করে সিভিং করব।
+লক্ষ্য করুন: প্রথম সংখ্যাগুলো হ্যান্ডেল করার সময় আমাদের কৌশলটি কিছুটা পরিবর্তন করতে হবে: প্রথমত, $[1; \sqrt n]$ থেকে সকল মৌলিক সংখ্যা নিজেদের মুছে ফেলবে না; এবং দ্বিতীয়ত, ০ এবং ১-কে অ-মৌলিক সংখ্যা হিসেবে চিহ্নিত করতে হবে।
+শেষ ব্লকে কাজ করার সময় ভুলে গেলে চলবে না যে শেষ প্রয়োজনীয় সংখ্যা $n$ অগত্যা ব্লকের শেষে অবস্থিত নাও হতে পারে।
 
-As discussed previously, the typical implementation of the Sieve of Eratosthenes is limited by the speed how fast you can load data into the CPU caches.
-By splitting the range of potential prime numbers $[1; n]$ into smaller blocks, we never have to keep multiple blocks in memory at the same time, and all operations are much more cache-friendlier.
-As we are now no longer limited by the cache speeds, we can replace the `vector<bool>` with a `vector<char>`, and gain some additional performance as the processors can handle read and writes with bytes directly and don't need to rely on bit operations for extracting individual bits.
-The benchmark ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) shows, that using a `vector<char>` is about 3x faster in this situation than using a `vector<bool>`.
-A word of caution: those numbers might differ depending on architecture, compiler, and optimization levels.
+পূর্বে যেমন আলোচনা করা হয়েছে, এরাটোস্থেনিসের সিভের সাধারণ ইমপ্লিমেন্টেশন CPU ক্যাশে কত দ্রুত ডেটা লোড করা যায় তার দ্বারা সীমাবদ্ধ।
+সম্ভাব্য মৌলিক সংখ্যার পরিসর $[1; n]$-কে ছোট ব্লকে বিভক্ত করলে, আমাদের কখনোই একসাথে একাধিক ব্লক মেমোরিতে রাখতে হয় না, এবং সকল অপারেশন অনেক বেশি ক্যাশ-ফ্রেন্ডলি হয়।
+যেহেতু আমরা এখন আর ক্যাশের গতি দ্বারা সীমাবদ্ধ নই, তাই আমরা `vector<bool>`-কে `vector<char>` দিয়ে প্রতিস্থাপন করতে পারি এবং কিছু অতিরিক্ত পারফরম্যান্স পেতে পারি কারণ প্রসেসরগুলো বাইটের সাথে সরাসরি রিড ও রাইট করতে পারে এবং পৃথক বিট এক্সট্র্যাক্ট করতে বিট অপারেশনের উপর নির্ভর করতে হয় না।
+বেঞ্চমার্ক ([link](https://gist.github.com/jakobkogler/e6359ea9ced24fe304f1a8af3c9bee0e)) দেখায় যে, এই পরিস্থিতিতে `vector<char>` ব্যবহার `vector<bool>`-এর তুলনায় প্রায় ৩ গুণ দ্রুততর।
+সতর্কতার একটি কথা: এই সংখ্যাগুলো আর্কিটেকচার, কম্পাইলার এবং অপটিমাইজেশন লেভেলের উপর নির্ভর করে ভিন্ন হতে পারে।
 
-Here we have an implementation that counts the number of primes smaller than or equal to $n$ using block sieving.
+এখানে আমাদের একটি ইমপ্লিমেন্টেশন আছে যা ব্লক সিভিং ব্যবহার করে $n$-এর চেয়ে ছোট বা সমান মৌলিক সংখ্যার সংখ্যা গণনা করে।
 
 ```cpp
 int count_primes(int n) {
@@ -194,17 +194,17 @@ int count_primes(int n) {
 }
 ```
 
-The running time of block sieving is the same as for regular sieve of Eratosthenes (unless the size of the blocks is very small), but the needed memory will shorten to $O(\sqrt{n} + S)$ and we have better caching results.
-On the other hand, there will be a division for each pair of a block and prime number from $[1; \sqrt{n}]$, and that will be far worse for smaller block sizes.
-Hence, it is necessary to keep balance when selecting the constant $S$.
-We achieved the best results for block sizes between $10^4$ and $10^5$.
+ব্লক সিভিংয়ের রানিং টাইম সাধারণ এরাটোস্থেনিসের সিভের মতোই (যদি না ব্লকের আকার খুব ছোট হয়), তবে প্রয়োজনীয় মেমোরি $O(\sqrt{n} + S)$-এ নেমে আসবে এবং আমরা আরও ভালো ক্যাশিং ফলাফল পাব।
+অন্যদিকে, $[1; \sqrt{n}]$ থেকে প্রতিটি ব্লক ও মৌলিক সংখ্যার জোড়ার জন্য একটি ভাগ অপারেশন থাকবে, এবং ছোট ব্লক সাইজের জন্য সেটি অনেক বেশি খারাপ হবে।
+সুতরাং, ধ্রুবক $S$ নির্বাচনে ভারসাম্য বজায় রাখা প্রয়োজন।
+আমরা $10^4$ থেকে $10^5$-এর মধ্যে ব্লক সাইজে সবচেয়ে ভালো ফলাফল পেয়েছি।
 
-## Find primes in range
+## পরিসরে মৌলিক সংখ্যা খুঁজে বের করা
 
-Sometimes we need to find all prime numbers in a range $[L,R]$ of small size (e.g. $R - L + 1 \approx 1e7$), where $R$ can be very large (e.g. $1e12$).
+কখনো কখনো আমাদের একটি ছোট আকারের পরিসর $[L,R]$-এ (যেমন $R - L + 1 \approx 1e7$) সকল মৌলিক সংখ্যা খুঁজে বের করতে হয়, যেখানে $R$ অনেক বড় হতে পারে (যেমন $1e12$)।
 
-To solve such a problem, we can use the idea of the Segmented sieve.
-We pre-generate all prime numbers up to $\sqrt R$, and use those primes to mark all composite numbers in the segment $[L, R]$.
+এই সমস্যা সমাধানে আমরা সেগমেন্টেড সিভের ধারণা ব্যবহার করতে পারি।
+আমরা $\sqrt R$ পর্যন্ত সকল মৌলিক সংখ্যা আগে থেকে জেনারেট করি এবং সেই মৌলিক সংখ্যাগুলো ব্যবহার করে $[L, R]$ সেগমেন্টে সকল যৌগিক সংখ্যা চিহ্নিত করি।
 
 ```cpp
 vector<char> segmentedSieve(long long L, long long R) {
@@ -229,9 +229,9 @@ vector<char> segmentedSieve(long long L, long long R) {
     return isPrime;
 }
 ```
-Time complexity of this approach is $O((R - L + 1) \log \log (R) + \sqrt R \log \log \sqrt R)$.
+এই পদ্ধতির টাইম কমপ্লেক্সিটি হলো $O((R - L + 1) \log \log (R) + \sqrt R \log \log \sqrt R)$।
 
-It's also possible that we don't pre-generate all prime numbers:
+সকল মৌলিক সংখ্যা আগে থেকে জেনারেট না করেও এটি করা সম্ভব:
 
 ```cpp
 vector<char> segmentedSieveNoPreGen(long long L, long long R) {
@@ -246,15 +246,15 @@ vector<char> segmentedSieveNoPreGen(long long L, long long R) {
 }
 ```
 
-Obviously, the complexity is worse, which is $O((R - L + 1) \log (R) + \sqrt R)$. However, it still runs very fast in practice.
+স্পষ্টতই, কমপ্লেক্সিটি আরও খারাপ, যা $O((R - L + 1) \log (R) + \sqrt R)$। তবে, এটি বাস্তবে এখনও খুব দ্রুত চলে।
 
-## Linear time modification
+## লিনিয়ার টাইম মডিফিকেশন
 
-We can modify the algorithm in a such a way, that it only has linear time complexity.
-This approach is described in the article [Linear Sieve](prime-sieve-linear.md).
-However, this algorithm also has its own weaknesses.
+আমরা অ্যালগরিদমটিকে এমনভাবে পরিবর্তন করতে পারি যাতে এর টাইম কমপ্লেক্সিটি শুধুমাত্র লিনিয়ার হয়।
+এই পদ্ধতিটি [লিনিয়ার সিভ](prime-sieve-linear.md) নিবন্ধে বর্ণিত হয়েছে।
+তবে, এই অ্যালগরিদমেরও নিজস্ব দুর্বলতা রয়েছে।
 
-## Practice Problems
+## প্র্যাকটিস প্রবলেম
 
 * [Leetcode - Four Divisors](https://leetcode.com/problems/four-divisors/)
 * [Leetcode - Count Primes](https://leetcode.com/problems/count-primes/)

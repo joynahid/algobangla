@@ -4,30 +4,30 @@ tags:
 e_maxx_link: johnson_problem_1
 ---
 
-# Scheduling jobs on one machine
+# একটি মেশিনে কাজ শিডিউলিং
 
-This task is about finding an optimal schedule for $n$ jobs on a single machine, if the job $i$ can be processed in $t_i$ time, but for the $t$ seconds waiting before processing the job a penalty of $f_i(t)$ has to be paid.
+এই সমস্যাটি হলো একটি একক মেশিনে $n$ টি কাজের জন্য সর্বোত্তম শিডিউল খুঁজে বের করা, যদি $i$-তম কাজ $t_i$ সময়ে প্রসেস করা যায়, কিন্তু কাজ প্রসেস করার আগে $t$ সেকেন্ড অপেক্ষার জন্য $f_i(t)$ জরিমানা দিতে হয়।
 
-Thus the task asks to find such an permutation of the jobs, so that the total penalty is minimal.
-If we denote by $\pi$ the permutation of the jobs ($\pi_1$ is the first processed item, $\pi_2$ the second, etc.), then the total penalty is equal to:
+এভাবে এই সমস্যা কাজগুলোর এমন একটি পারমুটেশন খুঁজতে বলে, যাতে মোট জরিমানা ন্যূনতম হয়।
+যদি আমরা কাজগুলোর পারমুটেশনকে $\pi$ দ্বারা চিহ্নিত করি ($\pi_1$ হলো প্রথম প্রসেসকৃত আইটেম, $\pi_2$ দ্বিতীয়, ইত্যাদি), তাহলে মোট জরিমানা সমান:
 
 $$F(\pi) = f_{\pi_1}(0) + f_{\pi_2}(t_{\pi_1}) + f_{\pi_3}(t_{\pi_1} + t_{\pi_2}) + \dots + f_{\pi_n}\left(\sum_{i=1}^{n-1} t_{\pi_i}\right)$$
 
-## Solutions for special cases
+## বিশেষ ক্ষেত্রগুলোর সমাধান
 
-### Linear penalty functions
+### রৈখিক জরিমানা ফাংশন
 
-First we will solve the problem in the case that all penalty functions $f_i(t)$ are linear, i.e. they have the form $f_i(t) = c_i \cdot t$, where $c_i$ is a non-negative number.
-Note that these functions don't have a constant term.
-Otherwise we can sum up all constant term, and resolve the problem without them.
+প্রথমে আমরা সেই ক্ষেত্রে সমস্যাটি সমাধান করব যেখানে সমস্ত জরিমানা ফাংশন $f_i(t)$ রৈখিক, অর্থাৎ এরা $f_i(t) = c_i \cdot t$ আকারের, যেখানে $c_i$ একটি অঋণাত্মক সংখ্যা।
+লক্ষ্য করুন যে এই ফাংশনগুলোতে ধ্রুবক পদ নেই।
+অন্যথায় আমরা সমস্ত ধ্রুবক পদ যোগ করতে পারি, এবং সেগুলো ছাড়াই সমস্যা সমাধান করতে পারি।
 
-Let us fixate some permutation $\pi$, and take an index $i = 1 \dots n-1$.
-Let the permutation $\pi'$ be equal to the permutation $\pi$ with the elements $i$ and $i+1$ switched.
-Let's see how much the penalty changed.
+আসুন কোনো একটি পারমুটেশন $\pi$ স্থির করি, এবং একটি ইনডেক্স $i = 1 \dots n-1$ নিই।
+ধরি পারমুটেশন $\pi'$ হলো পারমুটেশন $\pi$-এর সাথে $i$ এবং $i+1$ উপাদান অদলবদল করা।
+দেখি জরিমানা কতটুকু পরিবর্তন হয়েছে।
 
 $$F(\pi') - F(\pi) =$$
 
-It is easy to see that the changes only occur in the $i$-th and $(i+1)$-th summands:
+সহজেই দেখা যায় যে পরিবর্তনগুলো কেবল $i$-তম এবং $(i+1)$-তম যোগপদে ঘটে:
 
 $$\begin{align}
 &= c_{\pi_i'} \cdot \sum_{k = 1}^{i-1} t_{\pi_k'} + c_{\pi_{i+1}'} \cdot \sum_{k = 1}^i t_{\pi_k'} - c_{\pi_i} \cdot \sum_{k = 1}^{i-1} t_{\pi_k} - c_{\pi_{i+1}} \cdot \sum_{k = 1}^i t_{\pi_k} \\
@@ -35,47 +35,47 @@ $$\begin{align}
 &= c_{\pi_i} \cdot t_{\pi_{i+1}} - c_{\pi_{i+1}} \cdot t_{\pi_i}
 \end{align}$$
 
-It is easy to see, that if the schedule $\pi$ is optimal, than any change in it leads to an increased penalty (or to the identical penalty), therefore for the optimal schedule we can write down the following condition:
+সহজেই দেখা যায়, যদি শিডিউল $\pi$ সর্বোত্তম হয়, তাহলে এতে যেকোনো পরিবর্তন জরিমানা বাড়াবে (বা অভিন্ন রাখবে), তাই সর্বোত্তম শিডিউলের জন্য আমরা নিচের শর্ত লিখতে পারি:
 
 $$c_{\pi_{i}} \cdot t_{\pi_{i+1}} - c_{\pi_{i+1}} \cdot t_{\pi_i} \ge 0 \quad \forall i = 1 \dots n-1$$
 
-And after rearranging we get:
+এবং পুনর্বিন্যাস করলে পাই:
 
 $$\frac{c_{\pi_i}}{t_{\pi_i}} \ge \frac{c_{\pi_{i+1}}}{t_{\pi_{i+1}}} \quad \forall i = 1 \dots n-1$$
 
-Thus we obtain the **optimal schedule** by simply **sorting** the jobs by the fraction $\frac{c_i}{t_i}$ in non-ascending order.
+এভাবে আমরা কেবল $\frac{c_i}{t_i}$ ভগ্নাংশ অনুসারে কাজগুলোকে অবরোহক্রমে **সাজিয়ে** **সর্বোত্তম শিডিউল** পাই।
 
-It should be noted, that we constructed this algorithm by the so-called **permutation method**:
-we tried to swap two adjacent elements, calculated how much the penalty changed, and then derived the algorithm for finding the optimal method.
+লক্ষণীয় যে, আমরা এই অ্যালগরিদমটি তথাকথিত **পারমুটেশন পদ্ধতি** দ্বারা তৈরি করেছি:
+আমরা দুটি সন্নিহিত উপাদান অদলবদল করার চেষ্টা করেছি, জরিমানা কতটুকু পরিবর্তন হয়েছে গণনা করেছি, এবং তারপর সর্বোত্তম পদ্ধতি খুঁজে বের করার জন্য অ্যালগরিদম বের করেছি।
 
-### Exponential penalty function
+### সূচকীয় জরিমানা ফাংশন
 
-Let the penalty function look like this:
+ধরি জরিমানা ফাংশন এরকম দেখায়:
 
 $$f_i(t) = c_i \cdot e^{\alpha \cdot t},$$
 
-where all numbers $c_i$ are non-negative and the constant $\alpha$ is positive.
+যেখানে সমস্ত $c_i$ সংখ্যা অঋণাত্মক এবং ধ্রুবক $\alpha$ ধনাত্মক।
 
-By applying the permutation method, it is easy to determine that the jobs must be sorted in non-ascending order of the value:
+পারমুটেশন পদ্ধতি প্রয়োগ করে, সহজেই নির্ধারণ করা যায় যে কাজগুলোকে নিচের মানের অবরোহক্রমে সাজাতে হবে:
 
 $$v_i = \frac{1 - e^{\alpha \cdot t_i}}{c_i}$$
 
-### Identical monotone penalty function
+### অভিন্ন একঘেয়ে জরিমানা ফাংশন
 
-In this case we consider the case that all $f_i(t)$ are equal, and this function is monotone increasing.
+এই ক্ষেত্রে আমরা বিবেচনা করি যে সমস্ত $f_i(t)$ সমান, এবং এই ফাংশন একঘেয়ে বর্ধমান।
 
-It is obvious that in this case the optimal permutation is to arrange the jobs by non-descending processing time $t_i$.
+এটি স্পষ্ট যে এই ক্ষেত্রে সর্বোত্তম পারমুটেশন হলো কাজগুলোকে প্রসেসিং সময় $t_i$-এর আরোহক্রমে সাজানো।
 
-## The Livshits-Kladov theorem
+## লিভশিৎস-ক্লাদভ উপপাদ্য
 
-The Livshits-Kladov theorem establishes that the permutation method is only applicable for the above mentioned three cases, i.e.:
+লিভশিৎস-ক্লাদভ উপপাদ্য প্রতিষ্ঠিত করে যে পারমুটেশন পদ্ধতি কেবল উপরে উল্লিখিত তিনটি ক্ষেত্রেই প্রযোজ্য, অর্থাৎ:
 
-- Linear case: $f_i(t) = c_i(t) + d_i$, where $c_i$ are non-negative constants,
-- Exponential case: $f_i(t) = c_i \cdot e_{\alpha \cdot t} + d_i$, where $c_i$ and $\alpha$ are positive constants,
-- Identical case: $f_i(t) = \phi(t)$, where $\phi$ is a monotone increasing function.
+- রৈখিক ক্ষেত্র: $f_i(t) = c_i(t) + d_i$, যেখানে $c_i$ অঋণাত্মক ধ্রুবক,
+- সূচকীয় ক্ষেত্র: $f_i(t) = c_i \cdot e_{\alpha \cdot t} + d_i$, যেখানে $c_i$ এবং $\alpha$ ধনাত্মক ধ্রুবক,
+- অভিন্ন ক্ষেত্র: $f_i(t) = \phi(t)$, যেখানে $\phi$ একটি একঘেয়ে বর্ধমান ফাংশন।
 
-In all other cases the method cannot be applied.
+অন্য সমস্ত ক্ষেত্রে পদ্ধতিটি প্রযোজ্য নয়।
 
-The theorem is proven under the assumption that the penalty functions are sufficiently smooth (the third derivatives exists).
+উপপাদ্যটি এই ধারণার অধীনে প্রমাণিত যে জরিমানা ফাংশনগুলো পর্যাপ্তভাবে মসৃণ (তৃতীয় অন্তরজ বিদ্যমান)।
 
-In all three case we apply the permutation method, through which the desired optimal schedule can be found by sorting, hence in $O(n \log n)$ time.
+তিনটি ক্ষেত্রেই আমরা পারমুটেশন পদ্ধতি প্রয়োগ করি, যার মাধ্যমে কাঙ্ক্ষিত সর্বোত্তম শিডিউল সাজানোর মাধ্যমে খুঁজে পাওয়া যায়, ফলে সময় কমপ্লেক্সিটি হয় $O(n \log n)$।

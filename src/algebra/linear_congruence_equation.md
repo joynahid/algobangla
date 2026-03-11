@@ -4,53 +4,53 @@ tags:
 e_maxx_link: diofant_1_equation
 ---
 
-# Linear Congruence Equation
+# রৈখিক সর্বসমতা সমীকরণ
 
-This equation is of the form:
+এই সমীকরণটি নিম্নলিখিত আকারের:
 
 $$a \cdot x \equiv b \pmod n,$$
 
-where $a$, $b$ and $n$ are given integers and $x$ is an unknown integer.
+যেখানে $a$, $b$ ও $n$ প্রদত্ত পূর্ণসংখ্যা এবং $x$ একটি অজানা পূর্ণসংখ্যা।
 
-It is required to find the value $x$ from the interval $[0, n-1]$ (clearly, on the entire number line there can be infinitely many solutions that will differ from each other in $n \cdot k$ , where $k$ is any integer). If the solution is not unique, then we will consider how to get all the solutions.
+$[0, n-1]$ ব্যবধান থেকে $x$-এর মান নির্ণয় করতে হবে (স্পষ্টতই, সম্পূর্ণ সংখ্যারেখায় অসীম সংখ্যক সমাধান থাকতে পারে যারা পরস্পর থেকে $n \cdot k$ পার্থক্যে থাকবে, যেখানে $k$ যেকোনো পূর্ণসংখ্যা)। যদি সমাধান অনন্য না হয়, তাহলে আমরা দেখব কিভাবে সকল সমাধান পাওয়া যায়।
 
-## Solution by finding the inverse element
+## বিপরীত উপাদান নির্ণয়ের মাধ্যমে সমাধান
 
-Let us first consider a simpler case where $a$ and $n$ are **coprime** ($\gcd(a, n) = 1$).
-Then one can find the [inverse](module-inverse.md) of $a$, and multiplying both sides of the equation with the inverse, and we can get a **unique** solution.
+প্রথমে একটি সরল ক্ষেত্র বিবেচনা করি যেখানে $a$ ও $n$ **সহমৌলিক** ($\gcd(a, n) = 1$)।
+তখন $a$-এর [ইনভার্স](module-inverse.md) বের করা যায়, এবং সমীকরণের উভয় পক্ষকে ইনভার্স দিয়ে গুণ করলে একটি **অনন্য** সমাধান পাওয়া যায়।
 
 $$x \equiv b \cdot a ^ {- 1} \pmod n$$
 
-Now consider the case where $a$ and $n$ are **not coprime** ($\gcd(a, n) \ne 1$).
-Then the solution will not always exist (for example $2 \cdot x \equiv 1 \pmod 4$ has no solution).
+এখন সেই ক্ষেত্রটি বিবেচনা করি যেখানে $a$ ও $n$ **সহমৌলিক নয়** ($\gcd(a, n) \ne 1$)।
+তখন সমাধান সবসময় বিদ্যমান থাকবে না (উদাহরণস্বরূপ $2 \cdot x \equiv 1 \pmod 4$ এর কোনো সমাধান নেই)।
 
-Let $g = \gcd(a, n)$, i.e. the [greatest common divisor](euclid-algorithm.md) of $a$ and $n$ (which in this case is greater than one).
+মনে করি $g = \gcd(a, n)$, অর্থাৎ $a$ ও $n$-এর [গসাগু](euclid-algorithm.md) (যা এই ক্ষেত্রে একের চেয়ে বড়)।
 
-Then, if $b$ is not divisible by $g$, there is no solution. In fact, for any $x$ the left side of the equation $a \cdot x \pmod n$ , is always divisible by $g$, while the right-hand side is not divisible by it, hence it follows that there are no solutions.
+তখন, যদি $b$, $g$ দ্বারা বিভাজ্য না হয়, তাহলে কোনো সমাধান নেই। প্রকৃতপক্ষে, যেকোনো $x$-এর জন্য সমীকরণের বাম পক্ষ $a \cdot x \pmod n$ সবসময় $g$ দ্বারা বিভাজ্য, অথচ ডান পক্ষ তা দ্বারা বিভাজ্য নয়, অতএব কোনো সমাধান নেই।
 
-If $g$ divides $b$, then by dividing both sides of the equation by $g$ (i.e. dividing $a$, $b$ and $n$ by $g$), we receive a new equation:
+যদি $g$, $b$-কে ভাগ করে, তাহলে সমীকরণের উভয় পক্ষকে $g$ দিয়ে ভাগ করে (অর্থাৎ $a$, $b$ ও $n$-কে $g$ দিয়ে ভাগ করে), আমরা একটি নতুন সমীকরণ পাই:
 
 $$a^\prime \cdot x \equiv b^\prime \pmod{n^\prime}$$
 
-in which $a^\prime$ and $n^\prime$ are already relatively prime, and we have already learned how to handle such an equation.
-We get $x^\prime$ as solution for $x$.
+যেখানে $a^\prime$ ও $n^\prime$ ইতোমধ্যেই পরস্পর সহমৌলিক, এবং এরকম সমীকরণ সমাধান করা আমরা ইতোমধ্যে শিখেছি।
+আমরা $x$-এর সমাধান হিসেবে $x^\prime$ পাই।
 
-It is clear that this $x^\prime$ will also be a solution of the original equation.
-However it will **not be the only solution**.
-It can be shown that the original equation has exactly $g$ solutions, and they will look like this:
+এটি স্পষ্ট যে এই $x^\prime$ মূল সমীকরণেরও একটি সমাধান হবে।
+তবে এটি **একমাত্র সমাধান হবে না**।
+দেখানো যায় যে মূল সমীকরণে ঠিক $g$টি সমাধান আছে, এবং সেগুলো এরকম দেখতে:
 
 $$x_i \equiv (x^\prime + i\cdot n^\prime) \pmod n \quad \text{for } i = 0 \ldots g-1$$
 
-Summarizing, we can say that the **number of solutions** of the linear congruence equation is equal to either $g = \gcd(a, n)$ or to zero.
+সংক্ষেপে বলা যায়, রৈখিক সর্বসমতা সমীকরণের **সমাধানের সংখ্যা** হয় $g = \gcd(a, n)$ অথবা শূন্য।
 
-## Solution with the Extended Euclidean Algorithm
+## এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম দিয়ে সমাধান
 
-We can rewrite the linear congruence to the following Diophantine equation:
+আমরা রৈখিক সর্বসমতাটিকে নিম্নলিখিত ডায়োফ্যান্টাইন সমীকরণে পুনর্লিখন করতে পারি:
 
 $$a \cdot x + n \cdot k = b,$$
 
-where $x$ and $k$ are unknown integers.
+যেখানে $x$ ও $k$ অজানা পূর্ণসংখ্যা।
 
-The method of solving this equation is described in the corresponding article [Linear Diophantine equations](linear-diophantine-equation.md) and it consists of applying the [Extended Euclidean Algorithm](extended-euclid-algorithm.md).
+এই সমীকরণ সমাধানের পদ্ধতি সংশ্লিষ্ট নিবন্ধ [রৈখিক ডায়োফ্যান্টাইন সমীকরণ](linear-diophantine-equation.md)-তে বর্ণনা করা হয়েছে এবং এটি [এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম](extended-euclid-algorithm.md) প্রয়োগের উপর ভিত্তি করে।
 
-It also describes the method of obtaining all solutions of this equation from one found solution, and incidentally this method, when carefully considered, is absolutely equivalent to the method described in the previous section.
+এটি একটি পাওয়া সমাধান থেকে এই সমীকরণের সকল সমাধান পাওয়ার পদ্ধতিও বর্ণনা করে, এবং এই পদ্ধতিটি, সতর্কভাবে বিবেচনা করলে, পূর্ববর্তী বিভাগে বর্ণিত পদ্ধতির সম্পূর্ণ সমতুল্য।

@@ -4,142 +4,142 @@ tags:
 e_maxx_link: floyd_warshall_algorithm
 ---
 
-# Floyd-Warshall Algorithm
+# ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম
 
-Given a directed or an undirected weighted graph $G$ with $n$ vertices.
-The task is to find the length of the shortest path $d_{ij}$ between each pair of vertices $i$ and $j$.
+$n$ টি ভার্টেক্স বিশিষ্ট একটি ডিরেক্টেড বা আনডিরেক্টেড ওয়েটেড গ্রাফ $G$ দেওয়া আছে।
+কাজ হলো প্রতিটি জোড়া ভার্টেক্স $i$ এবং $j$-এর মধ্যে শর্টেস্ট পাথের দৈর্ঘ্য $d_{ij}$ বের করা।
 
-The graph may have negative weight edges, but no negative weight cycles.
+গ্রাফে নেগেটিভ ওয়েট এজ থাকতে পারে, তবে নেগেটিভ ওয়েট সাইকেল থাকতে পারবে না।
 
-If there is such a negative cycle, you can just traverse this cycle over and over, in each iteration making the cost of the path smaller.
-So you can make certain paths arbitrarily small, or in other words that shortest path is undefined.
-That automatically means that an undirected graph cannot have any negative weight edges, as such an edge forms already a negative cycle as you can move back and forth along that edge as long as you like.
+যদি এরকম নেগেটিভ সাইকেল থাকে, তাহলে আপনি এই সাইকেলটি বারবার অতিক্রম করতে পারেন, প্রতিটি ইটারেশনে পাথের কস্ট আরও কমিয়ে।
+তাই আপনি নির্দিষ্ট পাথগুলো ইচ্ছামতো ছোট করতে পারেন, অন্যভাবে বলতে গেলে সেই শর্টেস্ট পাথ অনির্ধারিত।
+এর মানে স্বয়ংক্রিয়ভাবে একটি আনডিরেক্টেড গ্রাফে কোনো নেগেটিভ ওয়েট এজ থাকতে পারে না, কারণ এরকম একটি এজ নিজেই একটি নেগেটিভ সাইকেল তৈরি করে কারণ আপনি সেই এজ ধরে যতবার খুশি আসা-যাওয়া করতে পারেন।
 
-This algorithm can also be used to detect the presence of negative cycles.
-The graph has a negative cycle if at the end of the algorithm, the distance from a vertex $v$ to itself is negative.
+এই অ্যালগরিদমটি নেগেটিভ সাইকেলের উপস্থিতি শনাক্ত করতেও ব্যবহার করা যায়।
+অ্যালগরিদম শেষে কোনো ভার্টেক্স $v$ থেকে নিজের কাছে দূরত্ব নেগেটিভ হলে গ্রাফে নেগেটিভ সাইকেল আছে।
 
-This algorithm has been simultaneously published in articles by Robert Floyd and Stephen Warshall in 1962.
-However, in 1959, Bernard Roy published essentially the same algorithm, but its publication went unnoticed.
+এই অ্যালগরিদমটি ১৯৬২ সালে রবার্ট ফ্লয়েড ও স্টিফেন ওয়ার্শালের প্রবন্ধে একই সাথে প্রকাশিত হয়েছিল।
+তবে ১৯৫৯ সালে বার্নার্ড রয় মূলত একই অ্যালগরিদম প্রকাশ করেছিলেন, কিন্তু তার প্রকাশনাটি অলক্ষিত থেকে যায়।
 
-## Description of the algorithm
+## অ্যালগরিদমের বর্ণনা
 
-The key idea of the algorithm is to partition the process of finding the shortest path between any two vertices to several incremental phases.
+অ্যালগরিদমের মূল ধারণা হলো যেকোনো দুটি ভার্টেক্সের মধ্যে শর্টেস্ট পাথ খোঁজার প্রক্রিয়াকে কয়েকটি ক্রমবর্ধমান ধাপে ভাগ করা।
 
-Let us number the vertices starting from 1 to $n$.
-The matrix of distances is $d[ ][ ]$.
+ভার্টেক্সগুলোকে ১ থেকে $n$ পর্যন্ত সংখ্যায়িত করি।
+দূরত্বের ম্যাট্রিক্স হলো $d[ ][ ]$।
 
-Before $k$-th phase ($k = 1 \dots n$), $d[i][j]$ for any vertices $i$ and $j$ stores the length of the shortest path between the vertex $i$ and vertex $j$, which contains only the vertices $\{1, 2, ..., k-1\}$ as internal vertices in the path.
+$k$-তম ধাপের ($k = 1 \dots n$) আগে, যেকোনো ভার্টেক্স $i$ এবং $j$-এর জন্য $d[i][j]$ ভার্টেক্স $i$ এবং ভার্টেক্স $j$-এর মধ্যে শর্টেস্ট পাথের দৈর্ঘ্য সংরক্ষণ করে, যেখানে পাথে শুধুমাত্র $\{1, 2, ..., k-1\}$ ভার্টেক্সগুলো অভ্যন্তরীণ ভার্টেক্স হিসেবে থাকে।
 
-In other words, before $k$-th phase the value of $d[i][j]$ is equal to the length of the shortest path from vertex $i$ to the vertex $j$, if this path is allowed to enter only the vertex with numbers smaller than $k$ (the beginning and end of the path are not restricted by this property).
+অন্যভাবে বলতে গেলে, $k$-তম ধাপের আগে $d[i][j]$-এর মান ভার্টেক্স $i$ থেকে ভার্টেক্স $j$-তে শর্টেস্ট পাথের দৈর্ঘ্যের সমান, যদি এই পাথ শুধুমাত্র $k$-এর ছোট নম্বরের ভার্টেক্সে প্রবেশ করতে পারে (পাথের শুরু ও শেষ এই বৈশিষ্ট্য দ্বারা সীমাবদ্ধ নয়)।
 
-It is easy to make sure that this property holds for the first phase. For $k = 0$, we can fill matrix with $d[i][j] = w_{i j}$ if there exists an edge between $i$ and $j$ with weight $w_{i j}$ and $d[i][j] = \infty$ if there doesn't exist an edge.
-In practice $\infty$ will be some high value.
-As we shall see later, this is a requirement for the algorithm.
+এই বৈশিষ্ট্যটি প্রথম ধাপের জন্য ধারণ করে তা নিশ্চিত করা সহজ। $k = 0$-এর জন্য, আমরা ম্যাট্রিক্সটি পূরণ করতে পারি $d[i][j] = w_{i j}$ দিয়ে যদি $i$ এবং $j$-এর মধ্যে $w_{i j}$ ওয়েটের একটি এজ থাকে এবং $d[i][j] = \infty$ দিয়ে যদি কোনো এজ না থাকে।
+বাস্তবে $\infty$ হবে কোনো বড় মান।
+আমরা পরে দেখব, এটি অ্যালগরিদমের একটি শর্ত।
 
-Suppose now that we are in the $k$-th phase, and we want to compute the matrix $d[ ][ ]$ so that it meets the requirements for the $(k + 1)$-th phase.
-We have to fix the distances for some vertices pairs $(i, j)$.
-There are two fundamentally different cases:
+ধরুন এখন আমরা $k$-তম ধাপে আছি, এবং আমরা ম্যাট্রিক্স $d[ ][ ]$ এমনভাবে গণনা করতে চাই যা $(k + 1)$-তম ধাপের শর্তপূরণ করে।
+আমাদের কিছু ভার্টেক্স জোড়া $(i, j)$-এর জন্য দূরত্ব ঠিক করতে হবে।
+মৌলিকভাবে দুটি ভিন্ন ক্ষেত্র আছে:
 
-*   The shortest way from the vertex $i$ to the vertex $j$ with internal vertices from the set $\{1, 2, \dots, k\}$ coincides with the shortest path with internal vertices from the set $\{1, 2, \dots, k-1\}$.
+*   $\{1, 2, \dots, k\}$ সেটের অভ্যন্তরীণ ভার্টেক্স সহ ভার্টেক্স $i$ থেকে ভার্টেক্স $j$-তে শর্টেস্ট পথ $\{1, 2, \dots, k-1\}$ সেটের অভ্যন্তরীণ ভার্টেক্স সহ শর্টেস্ট পাথের সাথে মিলে যায়।
 
-    In this case, $d[i][j]$ will not change during the transition.
+    এক্ষেত্রে, রূপান্তরের সময় $d[i][j]$ পরিবর্তন হবে না।
 
-*   The shortest path with internal vertices from $\{1, 2, \dots, k\}$ is shorter.
+*   $\{1, 2, \dots, k\}$ অভ্যন্তরীণ ভার্টেক্স সহ শর্টেস্ট পাথ আরও ছোট।
 
-    This means that the new, shorter path passes through the vertex $k$.
-    This means that we can split the shortest path between $i$ and $j$ into two paths:
-    the path between $i$ and $k$, and the path between $k$ and $j$.
-    It is clear that both this paths only use internal vertices of $\{1, 2, \dots, k-1\}$ and are the shortest such paths in that respect.
-    Therefore we already have computed the lengths of those paths before, and we can compute the length of the shortest path between $i$ and $j$ as $d[i][k] + d[k][j]$.
+    এর মানে নতুন, ছোট পাথটি ভার্টেক্স $k$ দিয়ে যায়।
+    এর মানে আমরা $i$ ও $j$-এর মধ্যে শর্টেস্ট পাথকে দুটি পাথে ভাগ করতে পারি:
+    $i$ ও $k$-এর মধ্যে পাথ, এবং $k$ ও $j$-এর মধ্যে পাথ।
+    এটি স্পষ্ট যে এই দুটি পাথই শুধুমাত্র $\{1, 2, \dots, k-1\}$-এর অভ্যন্তরীণ ভার্টেক্স ব্যবহার করে এবং সে অর্থে শর্টেস্ট পাথ।
+    তাই আমরা ইতিমধ্যে সেই পাথগুলোর দৈর্ঘ্য আগেই গণনা করেছি, এবং $i$ ও $j$-এর মধ্যে শর্টেস্ট পাথের দৈর্ঘ্য $d[i][k] + d[k][j]$ হিসেবে গণনা করতে পারি।
 
-Combining these two cases we find that we can recalculate the length of all pairs $(i, j)$ in the $k$-th phase in the following way:
+এই দুটি ক্ষেত্র একত্রিত করে আমরা দেখি যে $k$-তম ধাপে সকল জোড়া $(i, j)$-এর দৈর্ঘ্য নিম্নলিখিতভাবে পুনর্গণনা করা যায়:
 
 $$d_{\text{new}}[i][j] = min(d[i][j], d[i][k] + d[k][j])$$
 
-Thus, all the work that is required in the $k$-th phase is to iterate over all pairs of vertices and recalculate the length of the shortest path between them.
-As a result, after the $n$-th phase, the value $d[i][j]$ in the distance matrix is the length of the shortest path between $i$ and $j$, or is $\infty$ if the path between the vertices $i$ and $j$ does not exist.
+অতএব, $k$-তম ধাপে যা করতে হবে তা হলো সকল ভার্টেক্স জোড়ার উপর ইটারেট করা এবং তাদের মধ্যে শর্টেস্ট পাথের দৈর্ঘ্য পুনর্গণনা করা।
+ফলস্বরূপ, $n$-তম ধাপের পর, দূরত্ব ম্যাট্রিক্সে $d[i][j]$-এর মান $i$ ও $j$-এর মধ্যে শর্টেস্ট পাথের দৈর্ঘ্য, অথবা $\infty$ যদি ভার্টেক্স $i$ ও $j$-এর মধ্যে কোনো পাথ না থাকে।
 
-A last remark - we don't need to create a separate distance matrix $d_{\text{new}}[ ][ ]$ for temporarily storing the shortest paths of the $k$-th phase, i.e. all changes can be made directly in the matrix $d[ ][ ]$ at any phase.
-In fact at any $k$-th phase we are at most improving the distance of any path in the distance matrix, hence we cannot worsen the length of the shortest path for any pair of the vertices that are to be processed in the $(k+1)$-th phase or later.
+একটি শেষ মন্তব্য — $k$-তম ধাপের শর্টেস্ট পাথগুলো সাময়িকভাবে সংরক্ষণের জন্য আমাদের আলাদা দূরত্ব ম্যাট্রিক্স $d_{\text{new}}[ ][ ]$ তৈরি করার দরকার নেই, অর্থাৎ যেকোনো ধাপে সরাসরি ম্যাট্রিক্স $d[ ][ ]$-এ সকল পরিবর্তন করা যায়।
+আসলে $k$-তম ধাপে আমরা সর্বাধিক দূরত্ব ম্যাট্রিক্সের যেকোনো পাথের দূরত্ব উন্নত করছি, তাই $(k+1)$-তম ধাপে বা পরে প্রক্রিয়াকরণ করা কোনো ভার্টেক্স জোড়ার শর্টেস্ট পাথের দৈর্ঘ্য খারাপ করতে পারি না।
 
-The time complexity of this algorithm is obviously $O(n^3)$.
+এই অ্যালগরিদমের টাইম কমপ্লেক্সিটি স্পষ্টতই $O(n^3)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Let $d[][]$ is a 2D array of size $n \times n$, which is filled according to the $0$-th phase as explained earlier.
-Also we will set $d[i][i] = 0$ for any $i$ at the $0$-th phase.
+ধরুন $d[][]$ একটি $n \times n$ আকারের ২D অ্যারে, যা পূর্বে ব্যাখ্যা করা ০-তম ধাপ অনুসারে পূরণ করা হয়েছে।
+এছাড়াও আমরা ০-তম ধাপে যেকোনো $i$-এর জন্য $d[i][i] = 0$ সেট করব।
 
-Then the algorithm is implemented as follows:
+তাহলে অ্যালগরিদমটি নিম্নরূপে ইমপ্লিমেন্ট করা হয়:
 
 ```cpp
 for (int k = 0; k < n; ++k) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            d[i][j] = min(d[i][j], d[i][k] + d[k][j]); 
+            d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
         }
     }
 }
 ```
 
-It is assumed that if there is no edge between any two vertices $i$ and $j$, then the matrix at $d[i][j]$ contains a large number (large enough so that it is greater than the length of any path in this graph).
-Then this edge will always be unprofitable to take, and the algorithm will work correctly.
+ধরে নেওয়া হচ্ছে যে যেকোনো দুটি ভার্টেক্স $i$ ও $j$-এর মধ্যে কোনো এজ না থাকলে, ম্যাট্রিক্সে $d[i][j]$-তে একটি বড় সংখ্যা আছে (এত বড় যে এই গ্রাফে যেকোনো পাথের দৈর্ঘ্যের চেয়ে বড়)।
+তাহলে এই এজ নেওয়া সর্বদা অলাভজনক হবে, এবং অ্যালগরিদম সঠিকভাবে কাজ করবে।
 
-However if there are negative weight edges in the graph, special measures have to be taken.
-Otherwise the resulting values in matrix may be of the form $\infty - 1$,  $\infty - 2$, etc., which, of course, still indicates that between the respective vertices doesn't exist a path.
-Therefore, if the graph has negative weight edges, it is better to write the Floyd-Warshall algorithm in the following way, so that it does not perform transitions using paths that don't exist.
+তবে গ্রাফে নেগেটিভ ওয়েট এজ থাকলে, বিশেষ ব্যবস্থা নিতে হবে।
+অন্যথায় ম্যাট্রিক্সের ফলাফল মানগুলো $\infty - 1$, $\infty - 2$ ইত্যাদি আকারের হতে পারে, যা অবশ্যই নির্দেশ করে যে সংশ্লিষ্ট ভার্টেক্সগুলোর মধ্যে কোনো পাথ নেই।
+তাই গ্রাফে নেগেটিভ ওয়েট এজ থাকলে, ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম নিম্নলিখিতভাবে লেখা ভালো, যাতে অস্তিত্বহীন পাথ ব্যবহার করে ট্রানজিশন না করে।
 
 ```cpp
 for (int k = 0; k < n; ++k) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (d[i][k] < INF && d[k][j] < INF)
-                d[i][j] = min(d[i][j], d[i][k] + d[k][j]); 
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
         }
     }
 }
 ```
 
-## Retrieving the sequence of vertices in the shortest path
+## শর্টেস্ট পাথে ভার্টেক্সের ক্রম পুনরুদ্ধার
 
-It is easy to maintain additional information with which it will be possible to retrieve the shortest path between any two given vertices in the form of a sequence of vertices.
+অতিরিক্ত তথ্য সংরক্ষণ করা সহজ যার মাধ্যমে যেকোনো দুটি প্রদত্ত ভার্টেক্সের মধ্যে শর্টেস্ট পাথ ভার্টেক্সের ক্রম আকারে পুনরুদ্ধার করা যাবে।
 
-For this, in addition to the distance matrix $d[ ][ ]$, a matrix of ancestors $p[ ][ ]$ must be maintained, which will contain the number of the phase where the shortest distance between two vertices was last modified.
-It is clear that the number of the phase is nothing more than a vertex in the middle of the desired shortest path.
-Now we just need to find the shortest path between vertices $i$ and $p[i][j]$, and between $p[i][j]$ and $j$.
-This leads to a simple recursive reconstruction algorithm of the shortest path.
+এর জন্য, দূরত্ব ম্যাট্রিক্স $d[ ][ ]$-এর পাশাপাশি, পূর্বসূরীদের একটি ম্যাট্রিক্স $p[ ][ ]$ সংরক্ষণ করতে হবে, যেটিতে দুটি ভার্টেক্সের মধ্যে শর্টেস্ট দূরত্ব সর্বশেষ কোন ধাপে পরিবর্তিত হয়েছে তার নম্বর থাকবে।
+এটি স্পষ্ট যে ধাপের নম্বরটি কাঙ্ক্ষিত শর্টেস্ট পাথের মাঝখানের একটি ভার্টেক্স ছাড়া আর কিছু নয়।
+এখন শুধু ভার্টেক্স $i$ ও $p[i][j]$, এবং $p[i][j]$ ও $j$-এর মধ্যে শর্টেস্ট পাথ খুঁজতে হবে।
+এটি শর্টেস্ট পাথের একটি সরল রিকার্সিভ পুনর্গঠন অ্যালগরিদমের দিকে নিয়ে যায়।
 
-## The case of real weights
+## বাস্তব ওয়েটের ক্ষেত্র
 
-If the weights of the edges are not integer but real, it is necessary to take the errors, which occur when working with float types, into account.
+যদি এজের ওয়েটগুলো পূর্ণ সংখ্যা না হয়ে বাস্তব হয়, তাহলে ফ্লোট টাইপ নিয়ে কাজ করার সময় যে ত্রুটি ঘটে তা হিসাবে নিতে হবে।
 
-The Floyd-Warshall algorithm has the unpleasant effect, that the errors accumulate very quickly.
-In fact if there is an error in the first phase of $\delta$, this error may propagate to the second iteration as $2 \delta$, to the third iteration as $4 \delta$, and so on.
+ফ্লয়েড-ওয়ার্শাল অ্যালগরিদমে ত্রুটি খুব দ্রুত জমা হওয়ার অপ্রীতিকর প্রভাব আছে।
+আসলে প্রথম ধাপে $\delta$ ত্রুটি থাকলে, এই ত্রুটি দ্বিতীয় ইটারেশনে $2 \delta$, তৃতীয় ইটারেশনে $4 \delta$ হিসেবে ছড়িয়ে পড়তে পারে, ইত্যাদি।
 
-To avoid this the algorithm can be modified to take the error (EPS = $\delta$) into account by using following comparison:
+এটি এড়াতে নিম্নলিখিত তুলনা ব্যবহার করে ত্রুটি (EPS = $\delta$) হিসাবে নিতে অ্যালগরিদম পরিবর্তন করা যায়:
 
 ```cpp
 if (d[i][k] + d[k][j] < d[i][j] - EPS)
-    d[i][j] = d[i][k] + d[k][j]; 
+    d[i][j] = d[i][k] + d[k][j];
 ```
 
-## The case of negative cycles
+## নেগেটিভ সাইকেলের ক্ষেত্র
 
-Formally the Floyd-Warshall algorithm does not apply to graphs containing negative weight cycle(s).
-But for all pairs of vertices $i$ and $j$ for which there doesn't exist a path starting at $i$, visiting a negative cycle, and end at $j$,  the algorithm will still work correctly.
+আনুষ্ঠানিকভাবে ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম নেগেটিভ ওয়েট সাইকেল ধারণকারী গ্রাফে প্রযোজ্য নয়।
+তবে সকল ভার্টেক্স জোড়া $i$ ও $j$-এর জন্য যেখানে $i$ থেকে শুরু হয়ে একটি নেগেটিভ সাইকেল পরিদর্শন করে $j$-তে শেষ হওয়ার মতো কোনো পাথ নেই, অ্যালগরিদম এখনও সঠিকভাবে কাজ করবে।
 
-For the pair of vertices for which the answer does not exist (due to the presence of a negative cycle in the path between them), the Floyd algorithm will store any number (perhaps highly negative, but not necessarily) in the distance matrix.
-However it is possible to improve the Floyd-Warshall algorithm, so that it carefully treats such pairs of vertices, and outputs them, for example as $-\text{INF}$.
+যে ভার্টেক্স জোড়ার জন্য উত্তর নেই (তাদের মধ্যে পাথে নেগেটিভ সাইকেলের উপস্থিতির কারণে), ফ্লয়েড অ্যালগরিদম দূরত্ব ম্যাট্রিক্সে যেকোনো সংখ্যা (সম্ভবত অত্যন্ত নেগেটিভ, কিন্তু অগত্যা নয়) সংরক্ষণ করবে।
+তবে ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম উন্নত করা সম্ভব, যাতে এটি এরকম ভার্টেক্স জোড়াগুলো সাবধানে সামলায় এবং আউটপুট দেয়, যেমন $-\text{INF}$।
 
-This can be done in the following way:
-let us run the usual Floyd-Warshall algorithm for a given graph.
-Then a shortest path between vertices $i$ and $j$ does not exist, if and only if, there is a vertex $t$ such that, $t$ is reachable from $i$ and $j$ is reachable from $t$, for which $d[t][t] < 0$.
+এটি নিম্নলিখিতভাবে করা যায়:
+প্রদত্ত গ্রাফের জন্য স্বাভাবিক ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম চালাই।
+তাহলে ভার্টেক্স $i$ ও $j$-এর মধ্যে শর্টেস্ট পাথ নেই যদি এবং কেবল যদি, এমন একটি ভার্টেক্স $t$ থাকে যেন $t$, $i$ থেকে পৌঁছানোযোগ্য এবং $j$, $t$ থেকে পৌঁছানোযোগ্য, যেখানে $d[t][t] < 0$।
 
-In addition, when using the Floyd-Warshall algorithm for graphs with negative cycles, we should keep in mind that situations may arise in which distances can get exponentially fast into the negative.
-Therefore integer overflow must be handled by limiting the minimal distance by some value (e.g. $-\text{INF}$).
+এছাড়াও, নেগেটিভ সাইকেল সহ গ্রাফে ফ্লয়েড-ওয়ার্শাল অ্যালগরিদম ব্যবহার করার সময় মনে রাখতে হবে যে দূরত্ব দ্রুত তাৎপর্যপূর্ণভাবে (exponentially) নেগেটিভে যেতে পারে।
+তাই কোনো মান (যেমন $-\text{INF}$) দ্বারা ন্যূনতম দূরত্ব সীমিত করে ইন্টিজার ওভারফ্লো সামলাতে হবে।
 
-To learn more about finding negative cycles in a graph, see the separate article [Finding a negative cycle in the graph](finding-negative-cycle-in-graph.md).
+গ্রাফে নেগেটিভ সাইকেল খোঁজার বিষয়ে আরও জানতে, পৃথক নিবন্ধ [গ্রাফে নেগেটিভ সাইকেল খোঁজা](finding-negative-cycle-in-graph.md) দেখুন।
 
-## Practice Problems
+## অনুশীলন সমস্যা
  - [UVA: Page Hopping](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=762)
  - [SPOJ: Possible Friends](http://www.spoj.com/problems/SOCIALNE/)
  - [CODEFORCES: Greg and Graph](http://codeforces.com/problemset/problem/295/B)

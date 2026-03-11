@@ -4,215 +4,215 @@ tags:
 e_maxx_link: sprague_grundy
 ---
 
-# Sprague-Grundy theorem. Nim
+# স্প্র্যাগ-গ্রান্ডি উপপাদ্য। নিম
 
-## Introduction
+## ভূমিকা
 
-This theorem describes the so-called **impartial** two-player game,
-i.e. those in which the available moves and winning/losing depends only on the state of the game.
-In other words, the only difference between the two players is that one of them moves first.
+এই উপপাদ্যটি তথাকথিত **ইমপার্শিয়াল** (পক্ষপাতহীন) দুই-খেলোয়াড়ের গেম বর্ণনা করে,
+অর্থাৎ যেগুলোতে উপলব্ধ চাল এবং জয়/পরাজয় শুধুমাত্র গেমের অবস্থার উপর নির্ভর করে।
+অন্য কথায়, দুই খেলোয়াড়ের মধ্যে একমাত্র পার্থক্য হলো তাদের একজন প্রথমে চাল দেয়।
 
-Additionally, we assume that the game has **perfect information**, i.e. no information is hidden from the players (they know the rules and the possible moves).
+অতিরিক্তভাবে, আমরা ধরে নিচ্ছি গেমে **পরিপূর্ণ তথ্য** আছে, অর্থাৎ কোনো তথ্য খেলোয়াড়দের কাছ থেকে লুকানো নেই (তারা নিয়ম এবং সম্ভাব্য চাল জানে)।
 
-It is assumed that the game is **finite**, i.e. after a certain number of moves, one of the players will end up in a losing position — from which they can't move to another position.
-On the other side, the player who set up this position for the opponent wins.
-Understandably, there are no draws in this game.
+ধরে নেওয়া হয় গেমটি **সসীম**, অর্থাৎ একটি নির্দিষ্ট সংখ্যক চালের পরে, একজন খেলোয়াড় একটি পরাজিত অবস্থানে পড়বে — যেখান থেকে সে অন্য অবস্থানে যেতে পারবে না।
+অন্যদিকে, যে খেলোয়াড় প্রতিপক্ষকে এই অবস্থানে ফেলেছে সে জিতবে।
+বোঝাই যায়, এই গেমে কোনো ড্র নেই।
 
-Such games can be completely described by a *directed acyclic graph*: the vertices are game states and the edges are transitions (moves).
-A vertex without outgoing edges is a losing vertex (a player who must make a move from this vertex loses).
+এই ধরনের গেমকে সম্পূর্ণরূপে একটি *ডিরেক্টেড অ্যাসাইক্লিক গ্রাফ* দিয়ে বর্ণনা করা যায়: ভার্টেক্সগুলো হলো গেমের অবস্থা এবং এজগুলো হলো ট্রানজিশন (চাল)।
+কোনো আউটগোয়িং এজ নেই এমন ভার্টেক্স হলো পরাজিত ভার্টেক্স (এই ভার্টেক্স থেকে চাল দিতে বাধ্য খেলোয়াড় হারবে)।
 
-Since there are no draws, we can classify all game states as either **winning** or **losing**.
-Winning states are those from which there is a move that causes inevitable defeat of the other player, even with their best response.
-Losing states are those from which all moves lead to winning states for the other player.
-Summarizing, a state is winning if there is at least one transition to a losing state and is losing if there isn't at least one transition to a losing state.
+যেহেতু কোনো ড্র নেই, আমরা সব গেম অবস্থাকে **জয়ী** বা **পরাজিত** হিসেবে শ্রেণীবদ্ধ করতে পারি।
+জয়ী অবস্থা হলো সেগুলো যেখান থেকে এমন একটি চাল আছে যা প্রতিপক্ষের অনিবার্য পরাজয় ঘটায়, তার সেরা প্রতিক্রিয়া সত্ত্বেও।
+পরাজিত অবস্থা হলো সেগুলো যেখান থেকে সব চাল প্রতিপক্ষের জন্য জয়ী অবস্থায় নিয়ে যায়।
+সংক্ষেপে, একটি অবস্থা জয়ী যদি অন্তত একটি ট্রানজিশন একটি পরাজিত অবস্থায় যায় এবং পরাজিত যদি কোনো ট্রানজিশন পরাজিত অবস্থায় না যায়।
 
-Our task is to classify the states of a given game.
+আমাদের কাজ হলো প্রদত্ত গেমের অবস্থাগুলো শ্রেণীবদ্ধ করা।
 
-The theory of such games was independently developed by Roland Sprague in 1935 and Patrick Michael Grundy in 1939.
+এই ধরনের গেমের তত্ত্ব স্বাধীনভাবে রোল্যান্ড স্প্র্যাগ ১৯৩৫ সালে এবং প্যাট্রিক মাইকেল গ্রান্ডি ১৯৩৯ সালে তৈরি করেছিলেন।
 
-## Nim
+## নিম
 
-This game obeys the restrictions described above.
-Moreover, *any* perfect-information impartial two-player game can be reduced to the game of Nim.
-Studying this game will allow us to solve all other similar games, but more on that later.
+এই গেমটি উপরে বর্ণিত সীমাবদ্ধতাগুলো মেনে চলে।
+তদুপরি, *যেকোনো* পরিপূর্ণ-তথ্য ইমপার্শিয়াল দুই-খেলোয়াড়ের গেমকে নিম গেমে রূপান্তর করা যায়।
+এই গেমটি অধ্যয়ন করলে আমরা অন্য সব অনুরূপ গেম সমাধান করতে পারব, তবে সে বিষয়ে পরে আলোচনা।
 
-Historically this game was popular in ancient times.
-Its origin is probably in China — or at least the game *Jianshizi* is very similar to it.
-In Europe the earliest references to it are from the 16th century.
-The name was given by Charles Bouton, who in 1901 published a full analysis of this game.
+ঐতিহাসিকভাবে এই গেমটি প্রাচীনকালে জনপ্রিয় ছিল।
+এর উৎপত্তি সম্ভবত চীনে — বা অন্তত *জিয়ানশিজি* গেমটি এর সাথে খুবই সাদৃশ্যপূর্ণ।
+ইউরোপে এর প্রাচীনতম উল্লেখ ষোড়শ শতাব্দী থেকে।
+চার্লস বাউটন ১৯০১ সালে এই গেমের পূর্ণ বিশ্লেষণ প্রকাশ করে এটির নামকরণ করেন।
 
-### Game description
+### গেমের বিবরণ
 
-There are several piles, each with several stones.
-In a move a player can take any positive number of stones from any one pile and throw them away.
-A player loses if they can't make a move, which happens when all the piles are empty.
+বেশ কয়েকটি স্তূপ আছে, প্রতিটিতে কিছু পাথর।
+একটি চালে একজন খেলোয়াড় যেকোনো একটি স্তূপ থেকে যেকোনো ধনাত্মক সংখ্যক পাথর নিয়ে ফেলে দিতে পারে।
+একজন খেলোয়াড় হারে যদি সে চাল দিতে না পারে, যা ঘটে যখন সব স্তূপ খালি।
 
-The game state is unambiguously described by a multiset of positive integers.
-A move consists of strictly decreasing a chosen integer (if it becomes zero, it is removed from the set).
+গেমের অবস্থা একটি ধনাত্মক পূর্ণ সংখ্যার মাল্টিসেট দ্বারা দ্ব্যর্থহীনভাবে বর্ণনা করা যায়।
+একটি চাল হলো একটি নির্বাচিত পূর্ণ সংখ্যাকে কঠোরভাবে হ্রাস করা (এটি শূন্য হলে সেটি সেট থেকে সরিয়ে ফেলা হয়)।
 
-### The solution
+### সমাধান
 
-The solution by Charles L. Bouton looks like this:
+চার্লস এল. বাউটনের সমাধানটি এরকম:
 
-**Theorem.**
-The current player has a winning strategy if and only if the xor-sum of the pile sizes is non-zero.
-The xor-sum of a sequence $a$ is $a_1 \oplus a_2 \oplus \ldots \oplus  a_n$, where $\oplus$ is the *bitwise exclusive or*.
+**উপপাদ্য।**
+বর্তমান খেলোয়াড়ের জয়ী কৌশল আছে যদি এবং কেবল যদি স্তূপের আকারগুলোর xor-যোগফল অশূন্য হয়।
+একটি ক্রম $a$-র xor-যোগফল হলো $a_1 \oplus a_2 \oplus \ldots \oplus  a_n$, যেখানে $\oplus$ হলো *বিটওয়াইজ এক্সক্লুসিভ অর*।
 
-**Proof.**
-The key to the proof is the presence of a **symmetric strategy for the opponent**.
-We show that a once in a position with the xor-sum equal to zero, the player won't be able to make it non-zero in the long term —
-if they transition to a position with a non-zero xor-sum, the opponent will always have a move returning the xor-sum back to zero.
+**প্রমাণ।**
+প্রমাণের মূল হলো **প্রতিপক্ষের জন্য সিমেট্রিক কৌশলের** উপস্থিতি।
+আমরা দেখাব যে xor-যোগফল শূন্য এমন একটি অবস্থানে একবার থাকলে, খেলোয়াড় দীর্ঘমেয়াদে এটিকে অশূন্য করতে পারবে না —
+যদি সে অশূন্য xor-যোগফলবিশিষ্ট অবস্থানে যায়, প্রতিপক্ষের সবসময় একটি চাল থাকবে xor-যোগফলকে শূন্যতে ফিরিয়ে আনার।
 
-We will prove the theorem by mathematical induction.
+আমরা গাণিতিক আরোহ দ্বারা উপপাদ্যটি প্রমাণ করব।
 
-For an empty Nim (where all the piles are empty i.e. the multiset is empty) the xor-sum is zero and the theorem is true.
+একটি খালি নিমের জন্য (যেখানে সব স্তূপ খালি অর্থাৎ মাল্টিসেট খালি) xor-যোগফল শূন্য এবং উপপাদ্যটি সত্য।
 
-Now suppose we are in a non-empty state.
-Using the assumption of induction (and the acyclicity of the game) we assume that the theorem is proven for all states reachable from the current one.
+এখন ধরি আমরা একটি অ-খালি অবস্থায় আছি।
+আরোহ অনুমান ব্যবহার করে (এবং গেমের অচক্রাকার ধর্ম) আমরা ধরে নিচ্ছি যে বর্তমান অবস্থা থেকে পৌঁছানো সব অবস্থার জন্য উপপাদ্যটি প্রমাণিত।
 
-Then the proof splits into two parts:
-if for the current position the xor-sum $s = 0$, we have to prove that this state is losing, i.e. all reachable states have xor-sum $t \neq 0$.
-If $s \neq 0$, we have to prove that there is a move leading to a state with $t = 0$.
+তখন প্রমাণটি দুই ভাগে বিভক্ত:
+যদি বর্তমান অবস্থানের xor-যোগফল $s = 0$ হয়, আমাদের প্রমাণ করতে হবে যে এই অবস্থা পরাজিত, অর্থাৎ সব পৌঁছানোযোগ্য অবস্থার xor-যোগফল $t \neq 0$।
+যদি $s \neq 0$, আমাদের প্রমাণ করতে হবে যে $t = 0$ এমন একটি অবস্থায় যাওয়ার চাল আছে।
 
-*   Let $s = 0$ and let's consider any move.
-    This move reduces the size of a pile $x$ to a size $y$.
-    Using elementary properties of $\oplus$, we have
-    
+*   ধরি $s = 0$ এবং যেকোনো চাল বিবেচনা করি।
+    এই চালটি একটি স্তূপের আকার $x$ থেকে $y$-তে কমায়।
+    $\oplus$-র প্রাথমিক ধর্ম ব্যবহার করে, আমরা পাই
+
     \[ t = s \oplus x \oplus y = 0 \oplus x \oplus y = x \oplus y \]
-    
-    Since $y < x$, $y \oplus x$ can't be zero, so $t \neq 0$.
-    That means any reachable state is a winning one (by the assumption of induction), so we are in a losing position.
 
-*   Let $s \neq 0$.
-    Consider the binary representation of the number $s$.
-    Let $d$ be the index of its leading (biggest value) non-zero bit.
-    Our move will be on a pile whose size's bit number $d$ is set (it must exist, otherwise the bit wouldn't be set in $s$).
-    We will reduce its size $x$ to $y = x \oplus s$.
-    All bits at positions greater than $d$ in $x$ and $y$ match and bit $d$ is set in $x$ but not set in $y$.
-    Therefore, $y < x$, which is all we need for a move to be legal.
-    Now we have:
-    
+    যেহেতু $y < x$, $y \oplus x$ শূন্য হতে পারে না, তাই $t \neq 0$।
+    এর অর্থ যেকোনো পৌঁছানোযোগ্য অবস্থা জয়ী (আরোহ অনুমান অনুসারে), তাই আমরা পরাজিত অবস্থানে আছি।
+
+*   ধরি $s \neq 0$।
+    $s$ সংখ্যাটির বাইনারি প্রকাশ বিবেচনা করি।
+    ধরি $d$ হলো এর সর্বোচ্চ (সবচেয়ে বড় মানের) অশূন্য বিটের ইনডেক্স।
+    আমাদের চাল হবে সেই স্তূপে যার আকারের $d$ নম্বর বিট সেট আছে (এটি থাকতেই হবে, অন্যথায় বিটটি $s$-এ সেট থাকত না)।
+    আমরা এর আকার $x$ থেকে $y = x \oplus s$-এ কমাব।
+    $d$-র চেয়ে বড় অবস্থানের সব বিট $x$ ও $y$-তে মিলে যায় এবং বিট $d$ $x$-এ সেট কিন্তু $y$-তে সেট নয়।
+    সুতরাং, $y < x$, যা চালটি বৈধ হওয়ার জন্য প্রয়োজন।
+    এখন আমরা পাই:
+
     \[ t = s \oplus x \oplus y = s \oplus x \oplus (s \oplus x) = 0 \]
-    
-    This means we found a reachable losing state (by the assumption of induction) and the current state is winning.
 
-**Corollary.**
-Any state of Nim can be replaced by an equivalent state as long as the xor-sum doesn't change.
-Moreover, when analyzing a Nim with several piles, we can replace it with a single pile of size $s$.
+    এর অর্থ আমরা একটি পৌঁছানোযোগ্য পরাজিত অবস্থা খুঁজে পেয়েছি (আরোহ অনুমান অনুসারে) এবং বর্তমান অবস্থা জয়ী।
 
-### Misère Game
+**অনুসিদ্ধান্ত।**
+নিমের যেকোনো অবস্থা সমতুল্য অবস্থা দিয়ে প্রতিস্থাপন করা যায় যতক্ষণ xor-যোগফল পরিবর্তন না হয়।
+তদুপরি, একাধিক স্তূপবিশিষ্ট নিম বিশ্লেষণ করার সময়, আমরা এটিকে $s$ আকারের একটি মাত্র স্তূপ দিয়ে প্রতিস্থাপন করতে পারি।
 
-In a **misère game**, the goal of the game is opposite, so the player who removes the last stick loses the game.
-It turns out that the misère nim game can be optimally played almost like a standard nim game.
- The idea is to first play the misère game like the standard game, but change the strategy at the end of the game.
- The new strategy will be introduced in a situation where each heap would contain at most one stick after the next move.
-In the standard game, we should choose a move after which there is an even number of heaps with one stick. However, in 
-the misère game,we choose a move so that there is an odd number of heaps with one stick.
-  This strategy works because a state where the strategy changes always appears in the game, and this state is a 
-  winning state, because it contains exactly one heap that has more than one stick so the nim sum is not 0.
+### মিজের গেম
 
-## The equivalence of impartial games and Nim (Sprague-Grundy theorem)
+একটি **মিজের গেমে**, গেমের লক্ষ্য বিপরীত, তাই যে খেলোয়াড় শেষ কাঠি সরায় সে হারে।
+দেখা যায় যে মিজের নিম গেমটি প্রায় স্ট্যান্ডার্ড নিম গেমের মতোই অপটিমালভাবে খেলা যায়।
+ধারণাটি হলো প্রথমে মিজের গেমটি স্ট্যান্ডার্ড গেমের মতো খেলা, কিন্তু গেমের শেষে কৌশল পরিবর্তন করা।
+নতুন কৌশলটি এমন পরিস্থিতিতে চালু করা হবে যেখানে পরবর্তী চালের পরে প্রতিটি স্তূপে সর্বাধিক একটি কাঠি থাকবে।
+স্ট্যান্ডার্ড গেমে, আমাদের এমন চাল নির্বাচন করা উচিত যেখানে একটি কাঠিবিশিষ্ট স্তূপের সংখ্যা জোড়। তবে,
+মিজের গেমে, আমরা এমন চাল নির্বাচন করি যেখানে একটি কাঠিবিশিষ্ট স্তূপের সংখ্যা বিজোড়।
+এই কৌশলটি কাজ করে কারণ কৌশল পরিবর্তনের অবস্থা সবসময় গেমে আসে, এবং এই অবস্থা একটি
+জয়ী অবস্থা, কারণ এতে ঠিক একটি স্তূপ আছে যেখানে একের বেশি কাঠি আছে তাই নিম যোগফল ০ নয়।
 
-Now we will learn how to find, for any game state of any impartial game, a corresponding state of Nim.
+## ইমপার্শিয়াল গেম এবং নিমের সমতুল্যতা (স্প্র্যাগ-গ্রান্ডি উপপাদ্য)
 
-### Lemma about Nim with increases
+এখন আমরা শিখব যেকোনো ইমপার্শিয়াল গেমের যেকোনো গেম অবস্থার জন্য নিমের একটি সংশ্লিষ্ট অবস্থা কীভাবে খুঁজে বের করতে হয়।
 
-We consider the following modification to Nim: we also allow **adding stones to a chosen pile**.
-The exact rules about how and when increasing is allowed **do not interest us**, however the rules should keep our game **acyclic**. In later sections, example games are considered.
+### বৃদ্ধিসহ নিম সম্পর্কে লেমা
 
-**Lemma.**
-The addition of increasing to Nim doesn't change how winning and losing states are determined.
-In other words, increases are useless, and we don't have to use them in a winning strategy.
+আমরা নিমের নিম্নলিখিত পরিবর্তন বিবেচনা করি: আমরা **একটি নির্বাচিত স্তূপে পাথর যোগ করারও** অনুমতি দিই।
+কীভাবে এবং কখন বৃদ্ধি অনুমোদিত তার সঠিক নিয়ম **আমাদের আগ্রহের নয়**, তবে নিয়মগুলো আমাদের গেমকে **অচক্রাকার** রাখতে হবে। পরবর্তী অনুচ্ছেদে উদাহরণ গেম বিবেচনা করা হয়েছে।
 
-**Proof.**
-Suppose a player added stones to a pile. Then his opponent can simply undo his move — decrease the number back to the previous value.
-Since the game is acyclic, sooner or later the current player won't be able to use an increase move and will have to do the usual Nim move.
+**লেমা।**
+নিমে বৃদ্ধি যোগ করা জয়ী ও পরাজিত অবস্থা নির্ধারণে কোনো পরিবর্তন আনে না।
+অন্য কথায়, বৃদ্ধি অর্থহীন, এবং জয়ী কৌশলে আমাদের এগুলো ব্যবহার করার দরকার নেই।
 
-### Sprague-Grundy theorem
+**প্রমাণ।**
+ধরি একজন খেলোয়াড় একটি স্তূপে পাথর যোগ করলো। তাহলে তার প্রতিপক্ষ সহজেই তার চাল বাতিল করতে পারে — সংখ্যাটিকে আগের মানে কমিয়ে আনতে পারে।
+যেহেতু গেমটি অচক্রাকার, কিছুক্ষণ পর বর্তমান খেলোয়াড় আর বৃদ্ধি চাল ব্যবহার করতে পারবে না এবং সাধারণ নিম চাল দিতে বাধ্য হবে।
 
-Let's consider a state $v$ of a two-player impartial game and let $v_i$ be the states reachable from it (where $i \in \{ 1, 2, \dots, k \} , k \ge 0$).
-To this state, we can assign a fully equivalent game of Nim with one pile of size $x$.
-The number $x$ is called the Grundy value or nim-value of state $v$.
+### স্প্র্যাগ-গ্রান্ডি উপপাদ্য
 
-Moreover, this number can be found in the following recursive way:
+ধরি $v$ একটি দুই-খেলোয়াড়ের ইমপার্শিয়াল গেমের একটি অবস্থা এবং $v_i$ হলো এটি থেকে পৌঁছানোযোগ্য অবস্থা (যেখানে $i \in \{ 1, 2, \dots, k \} , k \ge 0$)।
+এই অবস্থার জন্য, আমরা $x$ আকারের একটি স্তূপবিশিষ্ট নিমের একটি সম্পূর্ণ সমতুল্য গেম নির্ধারণ করতে পারি।
+$x$ সংখ্যাটিকে $v$ অবস্থার গ্রান্ডি মান বা নিম-মান বলা হয়।
+
+তদুপরি, এই সংখ্যাটি নিম্নলিখিত রিকার্সিভভাবে খুঁজে বের করা যায়:
 
 $$ x = \text{mex}\ \{ x_1, \ldots, x_k \}, $$
 
-where $x_i$ is the Grundy value for state $v_i$ and the function $\text{mex}$ (*minimum excludant*) is the smallest non-negative integer not found in the given set.
+যেখানে $x_i$ হলো $v_i$ অবস্থার গ্রান্ডি মান এবং $\text{mex}$ (*মিনিমাম এক্সক্লুড্যান্ট*) ফাংশনটি হলো প্রদত্ত সেটে পাওয়া যায় না এমন ক্ষুদ্রতম অ-ঋণাত্মক পূর্ণ সংখ্যা।
 
-Viewing the game as a graph, we can gradually calculate the Grundy values starting from vertices without outgoing edges.
-Grundy value being equal to zero means a state is losing.
+গেমটিকে গ্রাফ হিসেবে দেখলে, আমরা ধাপে ধাপে আউটগোয়িং এজ নেই এমন ভার্টেক্স থেকে শুরু করে গ্রান্ডি মান হিসাব করতে পারি।
+গ্রান্ডি মান শূন্য হওয়ার অর্থ একটি পরাজিত অবস্থা।
 
-**Proof.**
-We will use a proof by induction.
+**প্রমাণ।**
+আমরা আরোহ দ্বারা প্রমাণ ব্যবহার করব।
 
-For vertices without a move, the value $x$ is the $\text{mex}$ of an empty set, which is zero.
-That is correct, since an empty Nim is losing.
+চাল নেই এমন ভার্টেক্সের জন্য, $x$-র মান একটি খালি সেটের $\text{mex}$, যা শূন্য।
+এটি সঠিক, কারণ খালি নিম পরাজিত।
 
-Now consider any other vertex $v$.
-By induction, we assume the values $x_i$ corresponding to its reachable vertices are already calculated.
+এখন যেকোনো অন্য ভার্টেক্স $v$ বিবেচনা করি।
+আরোহ অনুসারে, আমরা ধরে নিচ্ছি এর পৌঁছানোযোগ্য ভার্টেক্সের সাথে সংশ্লিষ্ট $x_i$ মানগুলো ইতিমধ্যে হিসাব করা আছে।
 
-Let $p = \text{mex}\ \{ x_1, \ldots, x_k \}$.
-Then we know that for any integer $i \in [0, p)$ there exists a reachable vertex with Grundy value $i$.
-This means $v$ is **equivalent to a state of the game of Nim with increases with one pile of size $p$**.
-In such a game we have transitions to piles of every size smaller than $p$ and possibly transitions to piles with sizes greater than $p$.
-Therefore, $p$ is indeed the desired Grundy value for the currently considered state.
+ধরি $p = \text{mex}\ \{ x_1, \ldots, x_k \}$।
+তাহলে আমরা জানি যে যেকোনো পূর্ণ সংখ্যা $i \in [0, p)$ এর জন্য গ্রান্ডি মান $i$ বিশিষ্ট একটি পৌঁছানোযোগ্য ভার্টেক্স আছে।
+এর অর্থ $v$ **বৃদ্ধিসহ নিম গেমের $p$ আকারের একটি স্তূপবিশিষ্ট অবস্থার সমতুল্য**।
+এই ধরনের গেমে আমরা $p$-র চেয়ে ছোট প্রতিটি আকারের স্তূপে ট্রানজিশন করতে পারি এবং সম্ভবত $p$-র চেয়ে বড় আকারের স্তূপেও ট্রানজিশন করতে পারি।
+সুতরাং, $p$ সত্যিই বর্তমান বিবেচিত অবস্থার কাঙ্ক্ষিত গ্রান্ডি মান।
 
-## Application of the theorem
+## উপপাদ্যের প্রয়োগ
 
-Finally, we describe an algorithm to determine the win/loss outcome of a game, which is applicable to any impartial two-player game.
+সবশেষে, আমরা গেমের জয়/পরাজয় ফলাফল নির্ধারণ করার একটি অ্যালগরিদম বর্ণনা করি, যা যেকোনো ইমপার্শিয়াল দুই-খেলোয়াড়ের গেমে প্রযোজ্য।
 
-To calculate the Grundy value of a given state you need to:
+প্রদত্ত অবস্থার গ্রান্ডি মান হিসাব করতে আপনাকে:
 
-* Get all possible transitions from this state
+* এই অবস্থা থেকে সব সম্ভাব্য ট্রানজিশন পেতে হবে
 
-* Each transition can lead to a **sum of independent games** (one game in the degenerate case).
-Calculate the Grundy value for each independent game and xor-sum them.
-Of course xor does nothing if there is just one game.
+* প্রতিটি ট্রানজিশন **স্বাধীন গেমগুলোর যোগফলে** নিয়ে যেতে পারে (অবক্ষয়িত ক্ষেত্রে একটি গেম)।
+প্রতিটি স্বাধীন গেমের গ্রান্ডি মান হিসাব করুন এবং এগুলোর xor-যোগফল নিন।
+শুধু একটি গেম থাকলে অবশ্যই xor কিছু করে না।
 
-* After we calculated Grundy values for each transition we find the state's value as the $\text{mex}$ of these numbers.
+* প্রতিটি ট্রানজিশনের গ্রান্ডি মান হিসাব করার পরে আমরা এই সংখ্যাগুলোর $\text{mex}$ হিসেবে অবস্থার মান খুঁজে পাই।
 
-* If the value is zero, then the current state is losing, otherwise it is winning.
+* যদি মান শূন্য হয়, তাহলে বর্তমান অবস্থা পরাজিত, অন্যথায় এটি জয়ী।
 
-In comparison to the previous section, we take into account the fact that there can be transitions to combined games.
-We consider them a Nim with pile sizes equal to the independent games' Grundy values.
-We can xor-sum them just like usual Nim according to Bouton's theorem.
+পূর্ববর্তী অনুচ্ছেদের তুলনায়, আমরা বিবেচনায় নিচ্ছি যে সম্মিলিত গেমে ট্রানজিশন হতে পারে।
+আমরা এগুলোকে স্বাধীন গেমের গ্রান্ডি মানের সমান স্তূপ আকারবিশিষ্ট নিম হিসেবে বিবেচনা করি।
+বাউটনের উপপাদ্য অনুসারে আমরা সাধারণ নিমের মতোই এদের xor-যোগফল নিতে পারি।
 
-## Patterns in Grundy values
+## গ্রান্ডি মানে প্যাটার্ন
 
-Very often when solving specific tasks using Grundy values, it may be beneficial to **study the table of the values** in search of patterns.
+অনেক সময় গ্রান্ডি মান ব্যবহার করে নির্দিষ্ট সমস্যা সমাধান করার সময়, **মানগুলোর টেবিল অধ্যয়ন** করে প্যাটার্ন খোঁজা উপকারী হতে পারে।
 
-In many games, which may seem rather difficult for theoretical analysis,
-the Grundy values turn out to be periodic or of an easily understandable form.
-In the overwhelming majority of cases the observed pattern turns out to be true and can be proved by induction if desired.
+অনেক গেমে, যেগুলো তাত্ত্বিক বিশ্লেষণের জন্য বেশ কঠিন মনে হতে পারে,
+গ্রান্ডি মানগুলো পর্যায়বৃত্তিক বা সহজে বোধগম্য আকারের হয়ে থাকে।
+অধিকাংশ ক্ষেত্রে পর্যবেক্ষিত প্যাটার্ন সত্য হয় এবং চাইলে আরোহ দ্বারা প্রমাণ করা যায়।
 
-However, Grundy values are far from *always* containing such regularities and even for some very simple games, the problem asking if those regularities exist is still open (e.g. "Grundy's game").
+তবে, গ্রান্ডি মানে *সবসময়* এই ধরনের নিয়মিততা থাকে না এবং এমনকি কিছু খুব সরল গেমের জন্যও, সেই নিয়মিততা আছে কিনা এই প্রশ্নটি এখনও উন্মুক্ত (যেমন "গ্রান্ডির গেম")।
 
-## Example games
+## উদাহরণ গেম
 
-### Crosses-crosses
+### ক্রসেস-ক্রসেস
 
-**The rules.**
-Consider a checkered strip of size $1 \times n$. In one move, the player must put one cross, but it is forbidden to put two crosses next to each other (in adjacent cells). As usual, the player without a valid move loses.
+**নিয়ম।**
+$1 \times n$ আকারের একটি চেকারড স্ট্রিপ বিবেচনা করুন। একটি চালে, খেলোয়াড়কে একটি ক্রস বসাতে হবে, কিন্তু দুটি ক্রস পাশাপাশি (সংলগ্ন ঘরে) বসানো নিষিদ্ধ। যথারীতি, বৈধ চাল নেই এমন খেলোয়াড় হারে।
 
-**The solution.**
-When a player puts a cross in any cell, we can think of the strip being split into two independent parts:
-to the left of the cross and to the right of it.
-In this case, the cell with a cross, as well as its left and right neighbours are destroyed — nothing more can be put in them.
-Therefore, if we number the cells from $1$ to $n$ then putting the cross in position $1 < i < n$ breaks the strip
-into two strips of length $i-2$ and $n-i-1$ i.e. we go to the sum of games $i-2$ and $n-i-1$.
-For the edge case of the cross being marked on position $1$ or $n$, we go to the game $n-2$.
+**সমাধান।**
+যখন কোনো খেলোয়াড় কোনো ঘরে ক্রস বসায়, আমরা ভাবতে পারি স্ট্রিপটি দুটি স্বাধীন অংশে বিভক্ত হচ্ছে:
+ক্রসের বামে এবং ডানে।
+এই ক্ষেত্রে, ক্রসবিশিষ্ট ঘর এবং তার বাম ও ডান প্রতিবেশী ধ্বংস হয়ে যায় — সেখানে আর কিছু বসানো যায় না।
+সুতরাং, যদি আমরা ঘরগুলোকে $1$ থেকে $n$ পর্যন্ত নম্বর দিই তাহলে $1 < i < n$ অবস্থানে ক্রস বসালে স্ট্রিপটি
+$i-2$ এবং $n-i-1$ দৈর্ঘ্যের দুটি স্ট্রিপে ভাঙে অর্থাৎ আমরা $i-2$ ও $n-i-1$ গেমের যোগফলে যাই।
+$1$ বা $n$ অবস্থানে ক্রস বসানোর প্রান্তিক ক্ষেত্রে, আমরা $n-2$ গেমে যাই।
 
-Thus, the Grundy value $g(n)$ has the form:
+সুতরাং, গ্রান্ডি মান $g(n)$ এর আকার:
 
 $$g(n) = \text{mex} \Bigl( \{ g(n-2) \} \cup \{g(i-2) \oplus g(n-i-1) \mid 2 \leq i \leq n-1\} \Bigr) .$$
 
-So we've got a $O(n^2)$ solution.
+এভাবে আমরা একটি $O(n^2)$ সমাধান পেয়েছি।
 
-In fact, $g(n)$ has a period of length 34 starting with $n=52$.
+আসলে, $g(n)$-র পর্যায়কাল ৩৪, $n=52$ থেকে শুরু।
 
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [KATTIS S-Nim](https://open.kattis.com/problems/snim)
 - [CodeForces - Marbles (2018-2019 ACM-ICPC Brazil Subregional)](https://codeforces.com/gym/101908/problem/B)

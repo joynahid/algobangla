@@ -3,232 +3,231 @@ tags:
   - Original
 ---
 
-# Operations on polynomials and series
+# পলিনোমিয়াল ও সিরিজের উপর অপারেশন
 
-Problems in competitive programming, especially the ones involving enumeration some kind, are often solved by reducing the problem to computing something on polynomials and formal power series.
+প্রতিযোগিতামূলক প্রোগ্রামিংয়ের সমস্যাগুলো, বিশেষত যেগুলো কোনোভাবে গণনা সম্পর্কিত, প্রায়ই পলিনোমিয়াল ও ফর্মাল পাওয়ার সিরিজের উপর কিছু গণনায় সমস্যাটি সংকুচিত করে সমাধান করা হয়।
 
-This includes concepts such as polynomial multiplication, interpolation, and more complicated ones, such as polynomial logarithms and exponents. In this article, a brief overview of such operations and common approaches to them is presented.
+এর মধ্যে রয়েছে পলিনোমিয়াল গুণন, ইন্টারপোলেশন, এবং আরো জটিল ক্রিয়াকলাপ, যেমন পলিনোমিয়াল লগারিদম ও সূচকীয়। এই নিবন্ধে, এরকম অপারেশন ও তাদের সাধারণ পদ্ধতিগুলোর একটি সংক্ষিপ্ত পর্যালোচনা উপস্থাপন করা হয়েছে।
 
-## Basic Notion and facts
+## মৌলিক ধারণা ও তথ্য
 
-In this section, we focus more on the definitions and "intuitive" properties of various polynomial operations. The technical details of their implementation and complexities will be covered in later sections.
+এই বিভাগে, আমরা বিভিন্ন পলিনোমিয়াল অপারেশনের সংজ্ঞা ও "স্বজ্ঞাত" বৈশিষ্ট্যের উপর বেশি মনোযোগ দেবো। তাদের ইমপ্লিমেন্টেশন ও কমপ্লেক্সিটির প্রযুক্তিগত বিবরণ পরবর্তী বিভাগে আলোচনা করা হবে।
 
-### Polynomial multiplication
+### পলিনোমিয়াল গুণন
 
-!!! info "Definition"
-	**Univariate polynomial** is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
+!!! info "সংজ্ঞা"
+	**একচলবিশিষ্ট পলিনোমিয়াল** হলো $A(x) = a_0 + a_1 x + \dots + a_n x^n$ আকারের একটি রাশি।
 
-The values $a_0, \dots, a_n$ are polynomial coefficients, typically taken from some set of numbers or number-like structures. In this article, we assume that the coefficients are taken from some [field](https://en.wikipedia.org/wiki/Field_(mathematics)), meaning that operations of addition, subtraction, multiplication and division are well-defined for them (except for division by $0$) and they generally behave in a similar way to real numbers.
-	
-Typical example of such field is the field of remainders modulo prime number $p$.
+মান $a_0, \dots, a_n$ হলো পলিনোমিয়ালের সহগ, সাধারণত কোনো সংখ্যা বা সংখ্যা-সদৃশ কাঠামোর সেট থেকে নেওয়া। এই নিবন্ধে, আমরা ধরে নিচ্ছি সহগ কোনো [ফিল্ড](https://en.wikipedia.org/wiki/Field_(mathematics)) থেকে নেওয়া, অর্থাৎ যোগ, বিয়োগ, গুণন ও ভাগের অপারেশন তাদের জন্য সুসংজ্ঞায়িত ($0$ দিয়ে ভাগ ছাড়া) এবং তারা সাধারণভাবে বাস্তব সংখ্যার মতোই আচরণ করে।
 
-For simplicity we will drop the term _univariate_, as this is the only kind of polynomials we consider in this article. We will also write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.
+এরকম ফিল্ডের সাধারণ উদাহরণ হলো মৌলিক সংখ্যা $p$ মডুলোতে ভাগশেষের ফিল্ড।
 
-!!! info "Definition"
-	The **product** of two polynomials is defined by expanding it as an arithmetic expression:
+সরলতার জন্য আমরা _একচলবিশিষ্ট_ শব্দটি বাদ দেবো, কারণ এই নিবন্ধে আমরা শুধু এই ধরনের পলিনোমিয়ালই বিবেচনা করি। প্রসঙ্গ থেকে বোঝা যাবে বলে সম্ভব হলে আমরা $A(x)$ এর বদলে $A$-ও লিখবো। ধরে নেওয়া হয় $a_n \neq 0$ অথবা $A(x)=0$।
+
+!!! info "সংজ্ঞা"
+	দুটি পলিনোমিয়ালের **গুণফল** একটি বীজগণিতীয় রাশি হিসেবে প্রসারিত করে সংজ্ঞায়িত:
 
 	$$
 	A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
 	$$
 
-	The sequence $c_0, c_1, \dots, c_{n+m}$ of the coefficients of $C(x)$ is called the **convolution** of $a_0, \dots, a_n$ and $b_0, \dots, b_m$.
+	$C(x)$ এর সহগ ক্রম $c_0, c_1, \dots, c_{n+m}$ কে $a_0, \dots, a_n$ ও $b_0, \dots, b_m$ এর **কনভোলিউশন** বলা হয়।
 
-!!! info "Definition"
-	The **degree** of a polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$.
-	
-	For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$.
+!!! info "সংজ্ঞা"
+	$a_n \neq 0$ বিশিষ্ট পলিনোমিয়াল $A$ এর **ডিগ্রি** $\deg A = n$ হিসেবে সংজ্ঞায়িত।
 
-In this notion, $\deg AB = \deg A + \deg B$ for any polynomials $A$ and $B$.
+	সামঞ্জস্যের জন্য, $A(x) = 0$ এর ডিগ্রি $\deg A = -\infty$ হিসেবে সংজ্ঞায়িত।
 
-Convolutions are the basis of solving many enumerative problems.
+এই ধারণায়, যেকোনো পলিনোমিয়াল $A$ ও $B$ এর জন্য $\deg AB = \deg A + \deg B$।
 
-!!! Example
-	You have $n$ objects of the first kind and $m$ objects of the second kind.
-
-	Objects of first kind are valued $a_1, \dots, a_n$, and objects of the second kind are valued $b_1, \dots, b_m$.
-
-	You pick a single object of the first kind and a single object of the second kind. How many ways are there to get the total value $k$?
-
-??? hint "Solution"
-	Consider the product $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$. If you expand it, each monomial will correspond to the pair $(a_i, b_j)$ and contribute to the coefficient near $x^{a_i+b_j}$. In other words, the answer is the coefficient near $x^k$ in the product.
+কনভোলিউশন অনেক গণনামূলক সমস্যা সমাধানের ভিত্তি।
 
 !!! Example
-	You throw a $6$-sided die $n$ times and sum up the results from all throws. What is the probability of getting sum of $k$?
+	আপনার কাছে প্রথম ধরনের $n$ টি বস্তু এবং দ্বিতীয় ধরনের $m$ টি বস্তু আছে।
 
-??? hint "Solution"
-	The answer is the number of outcomes having the sum $k$, divided by the total number of outcomes, which is $6^n$.
+	প্রথম ধরনের বস্তুগুলোর মান $a_1, \dots, a_n$, এবং দ্বিতীয় ধরনের বস্তুগুলোর মান $b_1, \dots, b_m$।
 
-	What is the number of outcomes having the sum $k$? For $n=1$, it may be represented by a polynomial $A(x) = x^1+x^2+\dots+x^6$.
+	আপনি একটি প্রথম ধরনের ও একটি দ্বিতীয় ধরনের বস্তু বেছে নেন। মোট মান $k$ পাওয়ার কতগুলো উপায় আছে?
 
-	For $n=2$, using the same approach as in the example above, we conclude that it is represented by the polynomial $(x^1+x^2+\dots+x^6)^2$.
+??? hint "সমাধান"
+	গুণফল $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$ বিবেচনা করুন। প্রসারিত করলে, প্রতিটি পদ $(a_i, b_j)$ জোড়ার সাথে সংশ্লিষ্ট এবং $x^{a_i+b_j}$ এর কাছের সহগে অবদান রাখে। অন্য কথায়, উত্তর হলো গুণফলে $x^k$ এর কাছের সহগ।
 
-	That being said, the answer to the problem is the $k$-th coefficient of $(x^1+x^2+\dots+x^6)^n$, divided by $6^n$.
+!!! Example
+	আপনি একটি $6$-পার্শ্ববিশিষ্ট ছক্কা $n$ বার ছোড়েন এবং সব ছোড়ার ফলাফল যোগ করেন। যোগফল $k$ পাওয়ার সম্ভাবনা কত?
 
-The coefficient near $x^k$ in the polynomial $A(x)$ is denoted shortly as $[x^k]A$.
+??? hint "সমাধান"
+	উত্তর হলো যোগফল $k$ হওয়া ফলাফলের সংখ্যাকে মোট ফলাফলের সংখ্যা $6^n$ দিয়ে ভাগ।
 
-### Formal power series
+	যোগফল $k$ হওয়া ফলাফলের সংখ্যা কত? $n=1$ এর জন্য, এটি $A(x) = x^1+x^2+\dots+x^6$ পলিনোমিয়াল দিয়ে উপস্থাপন করা যায়।
 
-!!! info "Definition"
-	A **formal power series** is an infinite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
+	$n=2$ এর জন্য, উপরের উদাহরণের মতো একই পদ্ধতি ব্যবহার করে, আমরা সিদ্ধান্তে আসি এটি $(x^1+x^2+\dots+x^6)^2$ পলিনোমিয়াল দিয়ে উপস্থাপিত।
 
-In other words, when we consider e.g. a sum $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$, we imply that it _converges_ to $2$ when the number of summands approach infinity. However, formal series are only considered in terms of sequences that make them.
+	এজন্য, সমস্যার উত্তর হলো $(x^1+x^2+\dots+x^6)^n$ এর $k$-তম সহগকে $6^n$ দিয়ে ভাগ।
 
-!!! info "Definition"
-	The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arithmetic expression:
+পলিনোমিয়াল $A(x)$ এ $x^k$ এর কাছের সহগকে সংক্ষেপে $[x^k]A$ দ্বারা চিহ্নিত করা হয়।
 
+### ফর্মাল পাওয়ার সিরিজ
+
+!!! info "সংজ্ঞা"
+	একটি **ফর্মাল পাওয়ার সিরিজ** হলো একটি অসীম যোগফল $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, যা এর অভিসারিতা বৈশিষ্ট্য নির্বিশেষে বিবেচিত।
+
+অন্য কথায়, যখন আমরা $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$ এর মতো যোগফল বিবেচনা করি, আমরা বোঝাই যে পদসংখ্যা অসীমে গেলে এটি $2$ তে _অভিসৃত_ হয়। তবে, ফর্মাল সিরিজ শুধু তাদের গঠনকারী ক্রমের পরিপ্রেক্ষিতেই বিবেচিত।
+
+!!! info "সংজ্ঞা"
+	ফর্মাল পাওয়ার সিরিজ $A(x)$ ও $B(x)$ এর **গুণফল**-ও একটি বীজগণিতীয় রাশি হিসেবে প্রসারিত করে সংজ্ঞায়িত:
 
 	$$
 	A(x) B(x) = \left(\sum\limits_{i=0}^\infty a_i x^i \right)\left(\sum\limits_{j=0}^\infty b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{\infty} c_k x^k = C(x),
 	$$
 
-	where the coefficients $c_0, c_1, \dots$ are define as finite sums
+	যেখানে সহগ $c_0, c_1, \dots$ সসীম যোগফল হিসেবে সংজ্ঞায়িত
 
 	$$
 	c_k = \sum\limits_{i=0}^k a_i b_{k-i}.
 	$$
 
-	The sequence $c_0, c_1, \dots$ is also called a **convolution** of $a_0, a_1, \dots$ and $b_0, b_1, \dots$, generalizing the concept to infinite sequences.
+	ক্রম $c_0, c_1, \dots$ কেও $a_0, a_1, \dots$ ও $b_0, b_1, \dots$ এর **কনভোলিউশন** বলা হয়, ধারণাটিকে অসীম ক্রমে সাধারণীকরণ করে।
 
-Thus, polynomials may be considered formal power series, but with finite number of coefficients.
+সুতরাং, পলিনোমিয়ালকে ফর্মাল পাওয়ার সিরিজ হিসেবে বিবেচনা করা যায়, কিন্তু সসীম সংখ্যক সহগ সহ।
 
-Formal power series play a crucial role in enumerative combinatorics, where they're studied as [generating functions](https://en.wikipedia.org/wiki/Generating_function) for various sequences. Detailed explanation of generating functions and the intuition behind them will, unfortunately, be out of scope for this article, therefore the curious reader is referenced e.g. [here](https://codeforces.com/blog/entry/103979) for details about their combinatorial meaning.
+ফর্মাল পাওয়ার সিরিজ গণনামূলক সমাবেশ বিদ্যায় গুরুত্বপূর্ণ ভূমিকা পালন করে, যেখানে তাদের বিভিন্ন ক্রমের [জেনারেটিং ফাংশন](https://en.wikipedia.org/wiki/Generating_function) হিসেবে অধ্যয়ন করা হয়। জেনারেটিং ফাংশনের বিস্তারিত ব্যাখ্যা ও তাদের পেছনের অন্তর্দৃষ্টি, দুর্ভাগ্যবশত, এই নিবন্ধের পরিসরের বাইরে, তাই কৌতূহলী পাঠককে তাদের সমাবেশ বিদ্যামূলক অর্থ সম্পর্কে বিস্তারিত জানতে যেমন [এখানে](https://codeforces.com/blog/entry/103979) উল্লেখ করা হলো।
 
-However, we will very briefly mention that if $A(x)$ and $B(x)$ are generating functions for sequences that enumerate some objects by number of "atoms" in them (e.g. trees by the number of vertices), then the product $A(x) B(x)$ enumerates objects that can be described as pairs of objects of kinds $A$ and $B$, enumerates by the total number of "atoms" in the pair.
+তবে, আমরা অতি সংক্ষেপে উল্লেখ করবো যে যদি $A(x)$ ও $B(x)$ এমন ক্রমের জেনারেটিং ফাংশন হয় যা কিছু বস্তুকে তাদের "পরমাণু" সংখ্যা (যেমন শীর্ষ সংখ্যা দিয়ে ট্রি) দিয়ে গণনা করে, তাহলে $A(x) B(x)$ গুণফল $A$ ও $B$ ধরনের বস্তুর জোড়া হিসেবে বর্ণনাযোগ্য বস্তু গণনা করে, জোড়ায় মোট "পরমাণু" সংখ্যা দিয়ে গণনা করে।
 
 !!! Example
-	Let $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ enumerate packs of stones, each stone colored in one of $2$ colors (so, there are $2^i$ such packs of size $i$) and $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ enumerate packs of stones, each stone colored in one of $3$ colors. Then $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ would enumerate objects that may be described as "two packs of stones, first pack only of stones of type $A$, second pack only of stones of type $B$, with total number of stones being $k$" for $c_k$.
+	ধরি $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ পাথরের প্যাক গণনা করে, প্রতিটি পাথর $2$ রঙের একটিতে রং করা (তাই, আকার $i$ এর $2^i$ টি এরকম প্যাক আছে) এবং $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ পাথরের প্যাক গণনা করে, প্রতিটি পাথর $3$ রঙের একটিতে রং করা। তাহলে $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ এমন বস্তু গণনা করবে যাদের "দুটি পাথরের প্যাক, প্রথম প্যাক শুধু $A$ ধরনের পাথর, দ্বিতীয় প্যাক শুধু $B$ ধরনের পাথর, মোট পাথর সংখ্যা $k$" হিসেবে বর্ণনা করা যায় $c_k$ এর জন্য।
 
-In a similar way, there is an intuitive meaning to some other functions over formal power series.
+অনুরূপভাবে, ফর্মাল পাওয়ার সিরিজের উপর অন্য কিছু ফাংশনেরও স্বজ্ঞাত অর্থ আছে।
 
-### Long polynomial division
+### দীর্ঘ পলিনোমিয়াল ভাগ
 
-Similar to integers, it is possible to define long division on polynomials.
+পূর্ণসংখ্যার মতোই, পলিনোমিয়ালের উপর দীর্ঘ ভাগ সংজ্ঞায়িত করা সম্ভব।
 
-!!! info "Definition"
+!!! info "সংজ্ঞা"
 
-	For any polynomials $A$ and $B \neq 0$, one may represent $A$ as
+	যেকোনো পলিনোমিয়াল $A$ ও $B \neq 0$ এর জন্য, $A$ কে এভাবে উপস্থাপন করা যায়
 
 	$$
 	A = D \cdot B + R,~ \deg R < \deg B,
 	$$
 
-	where $R$ is called the **remainder** of $A$ modulo $B$ and $D$ is called the **quotient**.
+	যেখানে $R$ কে $A$ মডুলো $B$ এর **ভাগশেষ** এবং $D$ কে **ভাগফল** বলা হয়।
 
-Denoting $\deg A = n$ and $\deg B = m$, naive way to do it is to use long division, during which you multiply $B$ by the monomial $\frac{a_n}{b_m} x^{n - m}$ and subtract it from $A$, until the degree of $A$ is smaller than that of $B$. What remains of $A$ in the end will be the remainder (hence the name), and the polynomials with which you multiplied $B$ in the process, summed together, form the quotient.
+$\deg A = n$ ও $\deg B = m$ চিহ্নিত করলে, সহজ উপায়ে দীর্ঘ ভাগ ব্যবহার করা যায়, যেখানে আপনি $B$ কে $\frac{a_n}{b_m} x^{n - m}$ একপদী দিয়ে গুণ করেন এবং $A$ থেকে বিয়োগ করেন, যতক্ষণ না $A$ এর ডিগ্রি $B$ এর চেয়ে ছোট হয়। শেষে $A$ এর যা অবশিষ্ট থাকে তাই ভাগশেষ (তাই এই নাম), এবং প্রক্রিয়ায় আপনি $B$ কে যেগুলো দিয়ে গুণ করেছেন, তাদের যোগফলই ভাগফল।
 
-!!! info "Definition"
-	If $A$ and $B$ have the same remainder modulo $C$, they're said to be **equivalent** modulo $C$, which is denoted as
-	
+!!! info "সংজ্ঞা"
+	যদি $A$ ও $B$ মডুলো $C$ তে একই ভাগশেষ দেয়, তাদের মডুলো $C$ তে **সমতুল্য** বলা হয়, যা এভাবে চিহ্নিত
+
 	$$
 	A \equiv B \pmod{C}.
 	$$
-	
-Polynomial long division is useful because of its many important properties:
 
-- $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
+পলিনোমিয়াল দীর্ঘ ভাগ এর অনেক গুরুত্বপূর্ণ বৈশিষ্ট্যের কারণে কার্যকর:
 
-- It implies that $A \equiv B \pmod C$ if and only if $A-B$ is a multiple of $C$.
+- $A$ $B$ এর গুণিতক যদি এবং কেবলমাত্র যদি $A \equiv 0 \pmod B$।
 
-- In particular, $A \equiv B \pmod{C \cdot D}$ implies $A \equiv B \pmod{C}$.
+- এটি বোঝায় $A \equiv B \pmod C$ যদি এবং কেবলমাত্র যদি $A-B$ $C$ এর গুণিতক হয়।
 
-- For any linear polynomial $x-r$ it holds that $A(x) \equiv A(r) \pmod{x-r}$.
+- বিশেষত, $A \equiv B \pmod{C \cdot D}$ বোঝায় $A \equiv B \pmod{C}$।
 
-- It implies that $A$ is a multiple of $x-r$ if and only if $A(r)=0$.
+- যেকোনো রৈখিক পলিনোমিয়াল $x-r$ এর জন্য $A(x) \equiv A(r) \pmod{x-r}$।
 
-- For modulo being $x^k$, it holds that $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$.
+- এটি বোঝায় $A$ $x-r$ এর গুণিতক যদি এবং কেবলমাত্র যদি $A(r)=0$।
 
-Note that long division can't be properly defined for formal power series. Instead, for any $A(x)$ such that $a_0 \neq 0$, it is possible to define an inverse formal power series $A^{-1}(x)$, such that $A(x) A^{-1}(x) = 1$. This fact, in turn, can be used to compute the result of long division for polynomials.
+- $x^k$ মডুলোর জন্য, $A \equiv a_0 + a_1 x + \dots + a_{k-1} x^{k-1} \pmod{x^k}$।
 
-## Basic implementation
-[Here](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp) you can find the basic implementation of polynomial algebra.
+লক্ষ্য করুন ফর্মাল পাওয়ার সিরিজের জন্য দীর্ঘ ভাগ সঠিকভাবে সংজ্ঞায়িত করা যায় না। বরং, $a_0 \neq 0$ বিশিষ্ট যেকোনো $A(x)$ এর জন্য, একটি বিপরীত ফর্মাল পাওয়ার সিরিজ $A^{-1}(x)$ সংজ্ঞায়িত করা সম্ভব, যেন $A(x) A^{-1}(x) = 1$। এই তথ্য পলিনোমিয়ালের দীর্ঘ ভাগের ফলাফল গণনা করতে ব্যবহার করা যায়।
 
-It supports all trivial operations and some other useful methods. The main class is `poly<T>` for polynomials with coefficients of type `T`.
+## মৌলিক ইমপ্লিমেন্টেশন
+[এখানে](https://cp-algorithms.github.io/cp-algorithms-aux/cp-algo/math/poly.hpp) আপনি পলিনোমিয়াল বীজগণিতের মৌলিক ইমপ্লিমেন্টেশন পাবেন।
 
-All arithmetic operation `+`, `-`, `*`, `%` and `/` are supported, `%` and `/` standing for remainder and quotient in Euclidean division.
+এটি সব তুচ্ছ অপারেশন ও কিছু অন্যান্য কার্যকর মেথড সমর্থন করে। প্রধান ক্লাস হলো `poly<T>` `T` ধরনের সহগ বিশিষ্ট পলিনোমিয়ালের জন্য।
 
-There is also the class `modular<m>` for performing arithmetic operations on remainders modulo a prime number `m`.
+সব বীজগণিতীয় অপারেশন `+`, `-`, `*`, `%` ও `/` সমর্থিত, `%` ও `/` ইউক্লিডীয় ভাগে ভাগশেষ ও ভাগফলের জন্য।
 
-Other useful functions:
+একটি `modular<m>` ক্লাসও আছে মৌলিক সংখ্যা `m` মডুলোতে ভাগশেষের উপর বীজগণিতীয় অপারেশন করতে।
 
-- `deriv()`: computes the derivative $P'(x)$ of $P(x)$.
-- `integr()`: computes the indefinite integral $Q(x) = \int P(x)$ of $P(x)$ such that $Q(0)=0$.
-- `inv(size_t n)`: calculate the first $n$ coefficients of $P^{-1}(x)$ in $O(n \log n)$.
-- `log(size_t n)`: calculate the first $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
-- `exp(size_t n)`: calculate the first $n$ coefficients of $\exp P(x)$ in $O(n \log n)$.
-- `pow(size_t k, size_t n)`: calculate the first $n$ coefficients for $P^{k}(x)$ in $O(n \log nk)$.
-- `deg()`: returns the degree of $P(x)$.
-- `lead()`: returns the coefficient of $x^{\deg P(x)}$.
-- `resultant(poly<T> a, poly<T> b)`: computes the resultant of $a$ and $b$ in $O(|a| \cdot |b|)$.
-- `bpow(T x, size_t n)`: computes $x^n$.
-- `bpow(T x, size_t n, T m)`: computes $x^n \pmod{m}$.
-- `chirpz(T z, size_t n)`: computes $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ in $O(n \log n)$.
-- `vector<T> eval(vector<T> x)`: evaluates $P(x_1), \dots, P(x_n)$ in $O(n \log^2 n)$.
-- `poly<T> inter(vector<T> x, vector<T> y)`: interpolates a polynomial by a set of pairs $P(x_i) = y_i$ in $O(n \log^2 n)$.
-- And some more, feel free to explore the code!
+অন্যান্য কার্যকর ফাংশন:
 
-## Arithmetic
+- `deriv()`: $P(x)$ এর ডেরিভেটিভ $P'(x)$ গণনা করে।
+- `integr()`: $P(x)$ এর অনির্দিষ্ট সমাকলন $Q(x) = \int P(x)$ গণনা করে যেন $Q(0)=0$।
+- `inv(size_t n)`: $O(n \log n)$-এ $P^{-1}(x)$ এর প্রথম $n$ টি সহগ গণনা করে।
+- `log(size_t n)`: $O(n \log n)$-এ $\ln P(x)$ এর প্রথম $n$ টি সহগ গণনা করে।
+- `exp(size_t n)`: $O(n \log n)$-এ $\exp P(x)$ এর প্রথম $n$ টি সহগ গণনা করে।
+- `pow(size_t k, size_t n)`: $O(n \log nk)$-এ $P^{k}(x)$ এর প্রথম $n$ টি সহগ গণনা করে।
+- `deg()`: $P(x)$ এর ডিগ্রি রিটার্ন করে।
+- `lead()`: $x^{\deg P(x)}$ এর সহগ রিটার্ন করে।
+- `resultant(poly<T> a, poly<T> b)`: $O(|a| \cdot |b|)$-এ $a$ ও $b$ এর রেজাল্ট্যান্ট গণনা করে।
+- `bpow(T x, size_t n)`: $x^n$ গণনা করে।
+- `bpow(T x, size_t n, T m)`: $x^n \pmod{m}$ গণনা করে।
+- `chirpz(T z, size_t n)`: $O(n \log n)$-এ $P(1), P(z), P(z^2), \dots, P(z^{n-1})$ গণনা করে।
+- `vector<T> eval(vector<T> x)`: $O(n \log^2 n)$-এ $P(x_1), \dots, P(x_n)$ মূল্যায়ন করে।
+- `poly<T> inter(vector<T> x, vector<T> y)`: $O(n \log^2 n)$-এ $P(x_i) = y_i$ জোড়ার সেট দিয়ে একটি পলিনোমিয়াল ইন্টারপোলেট করে।
+- এবং আরো, কোড অন্বেষণ করুন!
 
-### Multiplication
+## পাটিগণিত
 
-The very core operation is the multiplication of two polynomials. That is, given the polynomials $A$ and $B$:
+### গুণন
+
+মূল অপারেশন হলো দুটি পলিনোমিয়ালের গুণন। অর্থাৎ, পলিনোমিয়াল $A$ ও $B$ দেওয়া আছে:
 
 $$A = a_0 + a_1 x + \dots + a_n x^n$$
 
 $$B = b_0 + b_1 x + \dots + b_m x^m$$
 
-You have to compute polynomial $C = A \cdot B$, which is defined as
+পলিনোমিয়াল $C = A \cdot B$ গণনা করতে হবে, যা এভাবে সংজ্ঞায়িত
 
 $$\boxed{C = \sum\limits_{i=0}^n \sum\limits_{j=0}^m a_i b_j x^{i+j}}  = c_0 + c_1 x + \dots + c_{n+m} x^{n+m}.$$
 
-It can be computed in $O(n \log n)$ via the [Fast Fourier transform](fft.md) and almost all methods here will use it as subroutine.
+এটি $O(n \log n)$-এ [ফাস্ট ফুরিয়ার ট্রান্সফর্ম](fft.md) দিয়ে গণনা করা যায় এবং এখানকার প্রায় সব পদ্ধতি এটিকে সাবরুটিন হিসেবে ব্যবহার করবে।
 
-### Inverse series
+### বিপরীত সিরিজ
 
-If $A(0) \neq 0$ there always exists an infinite formal power series $A^{-1}(x) = q_0+q_1 x + q_2 x^2 + \dots$ such that $A^{-1} A = 1$. It often proves useful to compute first $k$ coefficients of $A^{-1}$ (that is, to compute it modulo $x^k$). There are two major ways to calculate it.
+যদি $A(0) \neq 0$ হয় তাহলে সবসময় একটি অসীম ফর্মাল পাওয়ার সিরিজ $A^{-1}(x) = q_0+q_1 x + q_2 x^2 + \dots$ থাকে যেন $A^{-1} A = 1$। $A^{-1}$ এর প্রথম $k$ সহগ গণনা (অর্থাৎ $x^k$ মডুলোতে গণনা) প্রায়ই কার্যকর। দুটি প্রধান উপায়ে এটি গণনা করা যায়।
 
-#### Divide and conquer
+#### বিভাজন ও জয়
 
-This algorithm was mentioned in [Schönhage's article](http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf) and is inspired by [Graeffe's method](https://en.wikipedia.org/wiki/Graeffe's_method). It is known that for $B(x)=A(x)A(-x)$ it holds that $B(x)=B(-x)$, that is, $B(x)$ is an even polynomial. It means that it only has non-zero coefficients with even numbers and can be represented as $B(x)=T(x^2)$. Thus, we can do the following transition:
+এই অ্যালগরিদম [Schönhage-এর নিবন্ধে](http://algo.inria.fr/seminars/sem00-01/schoenhage.pdf) উল্লেখিত এবং [Graeffe-এর পদ্ধতি](https://en.wikipedia.org/wiki/Graeffe's_method) দ্বারা অনুপ্রাণিত। এটি জানা যে $B(x)=A(x)A(-x)$ এর জন্য $B(x)=B(-x)$, অর্থাৎ $B(x)$ একটি জোড় পলিনোমিয়াল। এর মানে এতে শুধু জোড় সংখ্যক সহগ অশূন্য এবং একে $B(x)=T(x^2)$ আকারে উপস্থাপন করা যায়। সুতরাং, নিম্নলিখিত রূপান্তর করা যায়:
 
 $$A^{-1}(x) \equiv \frac{1}{A(x)} \equiv \frac{A(-x)}{A(x)A(-x)} \equiv \frac{A(-x)}{T(x^2)} \pmod{x^k}$$
 
-Note that $T(x)$ can be computed with a single multiplication, after which we're only interested in the first half of coefficients of its inverse series. This effectively reduces the initial problem of computing $A^{-1} \pmod{x^k}$ to computing $T^{-1} \pmod{x^{\lceil k / 2 \rceil}}$.
+লক্ষ্য করুন $T(x)$ একটি মাত্র গুণনে গণনা করা যায়, এরপর আমরা শুধু এর বিপরীত সিরিজের প্রথম অর্ধেক সহগেই আগ্রহী। এটি কার্যকরভাবে $A^{-1} \pmod{x^k}$ গণনার প্রাথমিক সমস্যাকে $T^{-1} \pmod{x^{\lceil k / 2 \rceil}}$ গণনায় সংকুচিত করে।
 
-The complexity of this method can be estimated as
+এই পদ্ধতির কমপ্লেক্সিটি অনুমান করা যায়
 
 $$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$
 
-#### Sieveking–Kung algorithm
+#### সিভকিং-কুং অ্যালগরিদম
 
-The generic process described here is known as Hensel lifting, as it follows from Hensel's lemma. We'll cover it in more detail further below, but for now let's focus on ad hoc solution. "Lifting" part here means that we start with the approximation $B_0=q_0=a_0^{-1}$, which is $A^{-1} \pmod x$ and then iteratively lift from $\bmod x^a$ to $\bmod x^{2a}$.
+এখানে বর্ণিত সাধারণ প্রক্রিয়া হেনসেল লিফটিং নামে পরিচিত, কারণ এটি হেনসেলের লেমা থেকে অনুসরণ করে। আমরা এটি পরে আরো বিস্তারিত আলোচনা করবো, কিন্তু আপাতত অ্যাড হক সমাধানে মনোযোগ দেই। এখানে "লিফটিং" অংশের মানে হলো আমরা আনুমানিক মান $B_0=q_0=a_0^{-1}$ দিয়ে শুরু করি, যা $A^{-1} \pmod x$ এবং তারপর পুনরাবৃত্তিমূলকভাবে $\bmod x^a$ থেকে $\bmod x^{2a}$ তে লিফট করি।
 
-Let $B_k \equiv A^{-1} \pmod{x^a}$. The next approximation needs to follow the equation $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ and may be represented as $B_{k+1} = B_k + x^a C$. From this follows the equation
+ধরি $B_k \equiv A^{-1} \pmod{x^a}$। পরবর্তী আনুমানিক মান $A B_{k+1} \equiv 1 \pmod{x^{2a}}$ সমীকরণ অনুসরণ করবে এবং $B_{k+1} = B_k + x^a C$ আকারে উপস্থাপন করা যায়। এ থেকে সমীকরণ পাই
 
 $$A(B_k + x^{a}C) \equiv 1 \pmod{x^{2a}}.$$
 
-Let $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, then the equation above implies
+ধরি $A B_k \equiv 1 + x^a D \pmod{x^{2a}}$, তাহলে উপরের সমীকরণ থেকে পাই
 
 $$x^a(D+AC) \equiv 0 \pmod{x^{2a}} \implies D \equiv -AC \pmod{x^a} \implies C \equiv -B_k D \pmod{x^a}.$$
 
-From this, one can obtain the final formula, which is
+এ থেকে চূড়ান্ত সূত্র পাওয়া যায়
 
 $$x^a C \equiv -B_k x^a D  \equiv B_k(1-AB_k) \pmod{x^{2a}} \implies \boxed{B_{k+1} \equiv B_k(2-AB_k) \pmod{x^{2a}}}$$
 
-Thus starting with $B_0 \equiv a_0^{-1} \pmod x$ we will compute the sequence $B_k$ such that $AB_k \equiv 1 \pmod{x^{2^k}}$ with the complexity
+সুতরাং $B_0 \equiv a_0^{-1} \pmod x$ থেকে শুরু করে আমরা $B_k$ ক্রম গণনা করবো যেন $AB_k \equiv 1 \pmod{x^{2^k}}$ কমপ্লেক্সিটিতে
 
 $$T(n) = T(n/2) + O(n \log n) = O(n \log n).$$
 
-The algorithm here might seem a bit more complicated than the first one, but it has a very solid and practical reasoning behind it, as well as a great generalization potential if looked from a different perspective, which would be explained further below.
+এখানকার অ্যালগরিদম প্রথমটির চেয়ে কিছুটা জটিল মনে হতে পারে, কিন্তু এর পেছনে অত্যন্ত মজবুত ও ব্যবহারিক যুক্তি আছে, সেইসাথে ভিন্ন দৃষ্টিকোণ থেকে দেখলে দুর্দান্ত সাধারণীকরণ সম্ভাবনা আছে, যা পরে ব্যাখ্যা করা হবে।
 
-### Euclidean division
+### ইউক্লিডীয় ভাগ
 
-Consider two polynomials $A(x)$ and $B(x)$ of degrees $n$ and $m$. As it was said earlier you can rewrite $A(x)$ as
+$n$ ও $m$ ডিগ্রির দুটি পলিনোমিয়াল $A(x)$ ও $B(x)$ বিবেচনা করুন। আগে বলা হয়েছে আপনি $A(x)$ কে এভাবে লিখতে পারেন
 
 $$A(x) = B(x) D(x) + R(x), \deg R < \deg B.$$
 
-Let $n \geq m$, it would imply that $\deg D = n - m$ and the leading $n-m+1$ coefficients of $A$ don't influence $R$. It means that you can recover $D(x)$ from the largest $n-m+1$ coefficients of $A(x)$ and $B(x)$ if you consider it as a system of equations.
+ধরি $n \geq m$, এটি বোঝায় $\deg D = n - m$ এবং $A$ এর বৃহত্তম $n-m+1$ সহগ $R$ কে প্রভাবিত করে না। অর্থাৎ আপনি $A(x)$ ও $B(x)$ এর বৃহত্তম $n-m+1$ সহগ থেকে $D(x)$ উদ্ধার করতে পারেন যদি এটিকে রৈখিক সমীকরণ ব্যবস্থা হিসেবে বিবেচনা করেন।
 
-The system of linear equations we're talking about can be written in the following form:
+আমরা যে রৈখিক সমীকরণ ব্যবস্থার কথা বলছি তা নিম্নলিখিত আকারে লেখা যায়:
 
 $$\begin{bmatrix} a_n \\ \vdots \\ a_{m+1} \\ a_{m} \end{bmatrix} = \begin{bmatrix}
 b_m & \dots & 0 & 0 \\
@@ -237,7 +236,7 @@ b_m & \dots & 0 & 0 \\
 \dots & \dots & b_{m-1} & b_m
 \end{bmatrix} \begin{bmatrix}d_{n-m} \\ \vdots \\ d_1 \\ d_0\end{bmatrix}$$
 
-From the looks of it, we can conclude that with the introduction of reversed polynomials
+এর চেহারা থেকে, আমরা উপসংহার টানতে পারি যে বিপরীত পলিনোমিয়ালের প্রবর্তনে
 
 $$A^R(x) = x^nA(x^{-1})= a_n + a_{n-1} x + \dots + a_0 x^n$$
 
@@ -245,80 +244,78 @@ $$B^R(x) = x^m B(x^{-1}) = b_m + b_{m-1} x + \dots + b_0 x^m$$
 
 $$D^R(x) = x^{n-m}D(x^{-1}) = d_{n-m} + d_{n-m-1} x + \dots + d_0 x^{n-m}$$
 
-the system may be rewritten as
+ব্যবস্থাটি এভাবে পুনঃলেখা যায়
 
 $$A^R(x) \equiv B^R(x) D^R(x) \pmod{x^{n-m+1}}.$$
 
-From this you can unambiguously recover all coefficients of $D(x)$:
+এ থেকে আপনি $D(x)$ এর সব সহগ দ্ব্যর্থহীনভাবে উদ্ধার করতে পারেন:
 
 $$\boxed{D^R(x) \equiv A^R(x) (B^R(x))^{-1} \pmod{x^{n-m+1}}}$$
 
-And from this, in turn, you can recover $R(x)$ as $R(x) = A(x) - B(x)D(x)$.
+এবং এ থেকে, পালটা, $R(x) = A(x) - B(x)D(x)$ হিসেবে $R(x)$ উদ্ধার করা যায়।
 
-Note that the matrix above is a so-called triangular [Toeplitz matrix](https://en.wikipedia.org/wiki/Toeplitz_matrix) and, as we see here, solving system of linear equations with arbitrary Toeplitz matrix is, in fact, equivalent to polynomial inversion. Moreover, inverse matrix of it would also be triangular Toeplitz matrix and its entries, in terms used above, are the coefficients of $(B^R(x))^{-1} \pmod{x^{n-m+1}}$.
+লক্ষ্য করুন উপরের ম্যাট্রিক্সটি তথাকথিত ত্রিভুজাকার [টোয়েপ্লিৎজ ম্যাট্রিক্স](https://en.wikipedia.org/wiki/Toeplitz_matrix) এবং, এখানে দেখা যাচ্ছে, যেকোনো টোয়েপ্লিৎজ ম্যাট্রিক্স দিয়ে রৈখিক সমীকরণ ব্যবস্থা সমাধান করা আসলে পলিনোমিয়াল বিপরীতকরণের সমতুল্য।
 
-## Calculating functions of polynomial
+## পলিনোমিয়ালের ফাংশন গণনা
 
-### Newton's method
+### নিউটনের পদ্ধতি
 
-Let's generalize the Sieveking–Kung algorithm. Consider equation $F(P) = 0$ where $P(x)$ should be a polynomial and $F(x)$ is some polynomial-valued function defined as
+সিভকিং-কুং অ্যালগরিদমকে সাধারণীকরণ করা যাক। $F(P) = 0$ সমীকরণ বিবেচনা করুন যেখানে $P(x)$ একটি পলিনোমিয়াল হওয়া উচিত এবং $F(x)$ একটি পলিনোমিয়াল-মানবিশিষ্ট ফাংশন যা এভাবে সংজ্ঞায়িত
 
 $$F(x) = \sum\limits_{i=0}^\infty \alpha_i (x-\beta)^i,$$
 
-where $\beta$ is some constant. It can be proven that if we introduce a new formal variable $y$, we can express $F(x)$ as
+যেখানে $\beta$ একটি ধ্রুবক। এটি প্রমাণ করা যায় যে নতুন ফর্মাল চলক $y$ প্রবর্তন করলে $F(x)$ কে এভাবে প্রকাশ করা যায়
 
 $$F(x) = F(y) + (x-y)F'(y) + (x-y)^2 G(x,y),$$
 
-where $F'(x)$ is the derivative formal power series defined as
+যেখানে $F'(x)$ হলো ডেরিভেটিভ ফর্মাল পাওয়ার সিরিজ যা এভাবে সংজ্ঞায়িত
 
 $$F'(x) = \sum\limits_{i=0}^\infty (i+1)\alpha_{i+1}(x-\beta)^i,$$
 
-and $G(x, y)$ is some formal power series of $x$ and $y$. With this result we can find the solution iteratively.
+এবং $G(x, y)$ হলো $x$ ও $y$ এর কোনো ফর্মাল পাওয়ার সিরিজ। এই ফলাফল দিয়ে আমরা পুনরাবৃত্তিমূলকভাবে সমাধান খুঁজতে পারি।
 
-Let $F(Q_k) \equiv 0 \pmod{x^{a}}$. We need to find $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ such that $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$.
+ধরি $F(Q_k) \equiv 0 \pmod{x^{a}}$। আমাদের $Q_{k+1} \equiv Q_k + x^a C \pmod{x^{2a}}$ খুঁজতে হবে যেন $F(Q_{k+1}) \equiv 0 \pmod{x^{2a}}$।
 
-Substituting $x = Q_{k+1}$ and $y=Q_k$ in the formula above, we get
+উপরের সূত্রে $x = Q_{k+1}$ ও $y=Q_k$ বসিয়ে পাই
 
 $$F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) + (Q_{k+1} - Q_k)^2 G(x, y) \pmod x^{2a}.$$
 
-Since $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, it also holds that $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, thus
+যেহেতু $Q_{k+1} - Q_k \equiv 0 \pmod{x^a}$, তাই $(Q_{k+1} - Q_k)^2 \equiv 0 \pmod{x^{2a}}$, সুতরাং
 
 $$0 \equiv F(Q_{k+1}) \equiv F(Q_k) + (Q_{k+1} - Q_k) F'(Q_k) \pmod{x^{2a}}.$$
 
-The last formula gives us the value of $Q_{k+1}$:
+শেষ সূত্রটি আমাদের $Q_{k+1}$ এর মান দেয়:
 
 $$\boxed{Q_{k+1} = Q_k - \dfrac{F(Q_k)}{F'(Q_k)} \pmod{x^{2a}}}$$
 
-Thus, knowing how to invert polynomials and how to compute $F(Q_k)$, we can find $n$ coefficients of $P$ with the complexity
+সুতরাং, পলিনোমিয়াল বিপরীতকরণ এবং $F(Q_k)$ গণনা জানলে, আমরা $P$ এর $n$ সহগ এই কমপ্লেক্সিটিতে খুঁজতে পারি
 
 $$T(n) = T(n/2) + f(n),$$
 
-where $f(n)$ is the time needed to compute $F(Q_k)$ and $F'(Q_k)^{-1}$ which is usually $O(n \log n)$.
+যেখানে $f(n)$ হলো $F(Q_k)$ ও $F'(Q_k)^{-1}$ গণনার জন্য প্রয়োজনীয় সময় যা সাধারণত $O(n \log n)$।
 
-The iterative rule above is known in numerical analysis as [Newton's method](https://en.wikipedia.org/wiki/Newton%27s_method).
+উপরের পুনরাবৃত্তি নিয়মটি সংখ্যাসূচক বিশ্লেষণে [নিউটনের পদ্ধতি](https://en.wikipedia.org/wiki/Newton%27s_method) নামে পরিচিত।
 
-#### Hensel's lemma
+#### হেনসেলের লেমা
 
-As was mentioned earlier, formally and generically this result is known as [Hensel's lemma](https://en.wikipedia.org/wiki/Hensel%27s_lemma) and it may in fact used in even broader sense when we work with a series of nested rings. In this particular case we worked with a sequence of polynomial remainders modulo $x$, $x^2$, $x^3$ and so on.
+আগে উল্লেখ করা হয়েছে, আনুষ্ঠানিকভাবে ও সাধারণভাবে এই ফলাফল [হেনসেলের লেমা](https://en.wikipedia.org/wiki/Hensel%27s_lemma) নামে পরিচিত এবং আমরা নেস্টেড রিংয়ের একটি সিরিজ নিয়ে কাজ করলে আরো বৃহত্তর অর্থে ব্যবহার করা যায়। এই বিশেষ ক্ষেত্রে আমরা $x$, $x^2$, $x^3$ ইত্যাদি মডুলোতে পলিনোমিয়াল ভাগশেষের ক্রম নিয়ে কাজ করেছি।
 
-Another example where Hensel's lifting might be helpful are so-called [p-adic numbers](https://en.wikipedia.org/wiki/P-adic_number) where we, in fact, work with the sequence of integer remainders modulo $p$, $p^2$, $p^3$ and so on. For example, Newton's method can be used to find all possible [automorphic numbers](https://en.wikipedia.org/wiki/Automorphic_number) (numbers that end on itself when squared) with a given number base. The problem is left as an exercise to the reader. You might consider [this](https://acm.timus.ru/problem.aspx?space=1&num=1698) problem to check if your solution works for $10$-based numbers.
+আরেকটি উদাহরণ যেখানে হেনসেলের লিফটিং সহায়ক হতে পারে তা হলো তথাকথিত [p-adic সংখ্যা](https://en.wikipedia.org/wiki/P-adic_number) যেখানে আমরা $p$, $p^2$, $p^3$ ইত্যাদি মডুলোতে পূর্ণসংখ্যা ভাগশেষের ক্রম নিয়ে কাজ করি। উদাহরণস্বরূপ, নিউটনের পদ্ধতি একটি প্রদত্ত সংখ্যা ভিত্তিতে সব সম্ভব [অটোমর্ফিক সংখ্যা](https://en.wikipedia.org/wiki/Automorphic_number) (যে সংখ্যা বর্গ করলে নিজের মধ্যে শেষ হয়) খুঁজতে ব্যবহার করা যায়। সমস্যাটি পাঠকের জন্য অনুশীলন হিসেবে রেখে দেওয়া হলো। আপনার সমাধান $10$-ভিত্তিক সংখ্যার জন্য কাজ করে কিনা পরীক্ষা করতে [এটি](https://acm.timus.ru/problem.aspx?space=1&num=1698) বিবেচনা করতে পারেন।
 
+### লগারিদম
 
-### Logarithm
-
-For the function $\ln P(x)$ it's known that: 
+$\ln P(x)$ ফাংশনের জন্য জানা যে:
 
 $$
 \boxed{(\ln P(x))' = \dfrac{P'(x)}{P(x)}}
 $$
 
-Thus we can calculate $n$ coefficients of $\ln P(x)$ in $O(n \log n)$.
+সুতরাং আমরা $O(n \log n)$-এ $\ln P(x)$ এর $n$ সহগ গণনা করতে পারি।
 
+### বিপরীত সিরিজ
 
-### Inverse series
-
-Turns out, we can get the formula for $A^{-1}$ using Newton's method.
-For this we take the equation $A=Q^{-1}$, thus:
+দেখা যায়, নিউটনের পদ্ধতি ব্যবহার করে $A^{-1}$ এর সূত্র পাওয়া যায়।
+এর জন্য আমরা $A=Q^{-1}$ সমীকরণ নিই, সুতরাং:
 
 $$F(Q) = Q^{-1} - A$$
 
@@ -326,9 +323,9 @@ $$F'(Q) = -Q^{-2}$$
 
 $$\boxed{Q_{k+1} \equiv Q_k(2-AQ_k) \pmod{x^{2^{k+1}}}}$$
 
-### Exponent
+### সূচকীয়
 
-Let's learn to calculate $e^{P(x)}=Q(x)$. It should hold that $\ln Q = P$, thus:
+$e^{P(x)}=Q(x)$ গণনা শিখি। $\ln Q = P$ হওয়া উচিত, সুতরাং:
 
 $$F(Q) = \ln Q - P$$
 
@@ -336,94 +333,94 @@ $$F'(Q) = Q^{-1}$$
 
 $$\boxed{Q_{k+1} \equiv Q_k(1 + P - \ln Q_k) \pmod{x^{2^{k+1}}}}$$
 
-### $k$-th power { data-toc-label="k-th power" }
+### $k$-তম ঘাত { data-toc-label="k-তম ঘাত" }
 
-Now we need to calculate $P^k(x)=Q$. This may be done via the following formula:
+এখন $P^k(x)=Q$ গণনা করতে হবে। এটি নিম্নলিখিত সূত্র দিয়ে করা যায়:
 
 $$Q = \exp\left[k \ln P(x)\right]$$
 
-Note though, that you can calculate the logarithms and the exponents correctly only if you can find some initial $Q_0$.
+লক্ষ্য করুন, লগারিদম ও সূচকীয় সঠিকভাবে গণনা করতে পারবেন শুধু যদি কোনো প্রাথমিক $Q_0$ খুঁজে পান।
 
-To find it, you should calculate the logarithm or the exponent of the constant coefficient of the polynomial.
+এটি খুঁজতে, পলিনোমিয়ালের ধ্রুবক সহগের লগারিদম বা সূচকীয় গণনা করতে হবে।
 
-But the only reasonable way to do it is if $P(0)=1$ for $Q = \ln P$ so $Q(0)=0$ and if $P(0)=0$ for $Q = e^P$ so $Q(0)=1$.
+কিন্তু এটি করার একমাত্র যুক্তিসঙ্গত উপায় হলো $Q = \ln P$ এর জন্য $P(0)=1$ যেন $Q(0)=0$ এবং $Q = e^P$ এর জন্য $P(0)=0$ যেন $Q(0)=1$।
 
-Thus you can use formula above only if $P(0) = 1$. Otherwise if $P(x) = \alpha x^t T(x)$ where $T(0)=1$ you can write that:
+সুতরাং আপনি উপরের সূত্র শুধু $P(0) = 1$ হলেই ব্যবহার করতে পারেন। অন্যথায় যদি $P(x) = \alpha x^t T(x)$ যেখানে $T(0)=1$ তাহলে লেখা যায়:
 
 $$\boxed{P^k(x) = \alpha^kx^{kt} \exp[k \ln T(x)]}$$
 
-Note that you also can calculate some $k$-th root of a polynomial if you can calculate $\sqrt[k]{\alpha}$, for example for $\alpha=1$.
+লক্ষ্য করুন আপনি পলিনোমিয়ালের কোনো $k$-তম মূলও গণনা করতে পারেন যদি $\sqrt[k]{\alpha}$ গণনা করতে পারেন, উদাহরণস্বরূপ $\alpha=1$ এর জন্য।
 
-## Evaluation and Interpolation
+## মূল্যায়ন ও ইন্টারপোলেশন
 
-### Chirp-z Transform
+### চার্প-z ট্রান্সফর্ম
 
-For the particular case when you need to evaluate a polynomial in the points $x_r = z^{2r}$ you can do the following:
+যে বিশেষ ক্ষেত্রে আপনাকে $x_r = z^{2r}$ বিন্দুতে পলিনোমিয়াল মূল্যায়ন করতে হবে সেখানে নিচের কাজ করা যায়:
 
 $$A(z^{2r}) = \sum\limits_{k=0}^n a_k z^{2kr}$$
 
-Let's substitute $2kr = r^2+k^2-(r-k)^2$. Then this sum rewrites as:
+$2kr = r^2+k^2-(r-k)^2$ প্রতিস্থাপন করি। তাহলে এই যোগফল এভাবে লেখা যায়:
 
 $$\boxed{A(z^{2r}) = z^{r^2}\sum\limits_{k=0}^n (a_k z^{k^2}) z^{-(r-k)^2}}$$
 
-Which is up to the factor $z^{r^2}$ equal to the convolution of the sequences $u_k = a_k z^{k^2}$ and $v_k = z^{-k^2}$.
+যা $z^{r^2}$ গুণনীয়ক পর্যন্ত $u_k = a_k z^{k^2}$ ও $v_k = z^{-k^2}$ ক্রমের কনভোলিউশনের সমান।
 
-Note that $u_k$ has indexes from $0$ to $n$ here and $v_k$ has indexes from $-n$ to $m$ where $m$ is the maximum power of $z$ which you need.
+লক্ষ্য করুন $u_k$ এর ইনডেক্স $0$ থেকে $n$ এবং $v_k$ এর ইনডেক্স $-n$ থেকে $m$ যেখানে $m$ হলো $z$ এর সর্বোচ্চ ঘাত যা আপনার দরকার।
 
-Now if you need to evaluate a polynomial in the points $x_r = z^{2r+1}$ you can reduce it to the previous task by the transformation $a_k \to a_k z^k$.
+এখন যদি $x_r = z^{2r+1}$ বিন্দুতে পলিনোমিয়াল মূল্যায়ন করতে হয় তাহলে $a_k \to a_k z^k$ রূপান্তর দিয়ে আগের কাজে সংকুচিত করা যায়।
 
-It gives us an $O(n \log n)$ algorithm when you need to compute values in powers of $z$, thus you may compute the DFT for non-powers of two.
+এটি আমাদের $O(n \log n)$ অ্যালগরিদম দেয় যখন $z$ এর ঘাতে মান গণনা করতে হয়, তাই ২ এর ঘাত নয় এমন সংখ্যার জন্যও DFT গণনা করা যায়।
 
-Another observation is that $kr = \binom{k+r}{2} - \binom{k}{2} - \binom{r}{2}$. Then we have
+আরেকটি পর্যবেক্ষণ হলো $kr = \binom{k+r}{2} - \binom{k}{2} - \binom{r}{2}$। তাহলে
 
 $$\boxed{A(z^r) = z^{-\binom{r}{2}}\sum\limits_{k=0}^n \left(a_k z^{-\binom{k}{2}}\right)z^{\binom{k+r}{2}}}$$
 
-The coefficient of $x^{n+r}$ of the product of the polynomials $A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ and $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ equals $z^{\binom{r}{2}}A(z^r)$. You can use the formula $z^{\binom{k+1}{2}}=z^{\binom{k}{2}+k}$ to calculate the coefficients of $A_0(x)$ and $A_1(x)$.
+$A_0(x) = \sum\limits_{k=0}^n a_{n-k}z^{-\binom{n-k}{2}}x^k$ ও $A_1(x) = \sum\limits_{k\geq 0}z^{\binom{k}{2}}x^k$ পলিনোমিয়ালের গুণফলে $x^{n+r}$ এর সহগ $z^{\binom{r}{2}}A(z^r)$ এর সমান। $A_0(x)$ ও $A_1(x)$ এর সহগ গণনা করতে $z^{\binom{k+1}{2}}=z^{\binom{k}{2}+k}$ সূত্র ব্যবহার করা যায়।
 
-### Multi-point Evaluation
-Assume you need to calculate $A(x_1), \dots, A(x_n)$. As mentioned earlier, $A(x) \equiv A(x_i) \pmod{x-x_i}$. Thus you may do the following:
+### বহুবিন্দু মূল্যায়ন
+ধরি আপনাকে $A(x_1), \dots, A(x_n)$ গণনা করতে হবে। আগে উল্লেখ করা হয়েছে, $A(x) \equiv A(x_i) \pmod{x-x_i}$। সুতরাং আপনি নিচের কাজ করতে পারেন:
 
-1. Compute a segment tree such that in the segment $[l,r)$ stands the product $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$.
-2. Starting with $l=1$ and $r=n+1$ at the root node. Let $m=\lfloor(l+r)/2\rfloor$. Let's move down to $[l,m)$ with the polynomial $A(x) \pmod{P_{l,m}(x)}$.
-3. This will recursively compute $A(x_l), \dots, A(x_{m-1})$, now do the same for $[m,r)$ with $A(x) \pmod{P_{m,r}(x)}$.
-4. Concatenate the results from the first and second recursive call and return them.
+১. একটি সেগমেন্ট ট্রি গণনা করুন যেন $[l,r)$ সেগমেন্টে গুণফল $P_{l, r}(x) = (x-x_l)(x-x_{l+1})\dots(x-x_{r-1})$ থাকে।
+২. রুট নোডে $l=1$ ও $r=n+1$ দিয়ে শুরু করুন। ধরি $m=\lfloor(l+r)/2\rfloor$। $A(x) \pmod{P_{l,m}(x)}$ পলিনোমিয়াল নিয়ে $[l,m)$ এ নামুন।
+৩. এটি রিকার্সিভভাবে $A(x_l), \dots, A(x_{m-1})$ গণনা করবে, এখন $A(x) \pmod{P_{m,r}(x)}$ নিয়ে $[m,r)$ এর জন্যও একই করুন।
+৪. প্রথম ও দ্বিতীয় রিকার্সিভ কলের ফলাফল জুড়ে রিটার্ন করুন।
 
-The whole procedure will run in $O(n \log^2 n)$.
+পুরো প্রক্রিয়া $O(n \log^2 n)$-এ চলবে।
 
-### Interpolation
+### ইন্টারপোলেশন
 
-There's a direct formula by Lagrange to interpolate a polynomial, given set of pairs $(x_i, y_i)$:
+ল্যাগ্রাঞ্জের একটি সরাসরি সূত্র আছে পলিনোমিয়াল ইন্টারপোলেট করতে, $(x_i, y_i)$ জোড়ার সেট দেওয়া আছে:
 
 $$\boxed{A(x) = \sum\limits_{i=1}^n y_i \prod\limits_{j \neq i}\dfrac{x-x_j}{x_i - x_j}}$$
 
-Computing it directly is a hard thing but turns out, we may compute it in $O(n \log^2 n)$ with a divide and conquer approach:
+সরাসরি গণনা কঠিন কিন্তু দেখা যায়, বিভাজন ও জয় পদ্ধতিতে $O(n \log^2 n)$-এ গণনা করা যায়:
 
-Consider $P(x) = (x-x_1)\dots(x-x_n)$. To know the coefficients of the denominators in $A(x)$ we should compute products like: 
+$P(x) = (x-x_1)\dots(x-x_n)$ বিবেচনা করুন। $A(x)$ এ হরের সহগ জানতে এরকম গুণফল গণনা করতে হবে:
 
 $$
 P_i = \prod\limits_{j \neq i} (x_i-x_j)
 $$
 
-But if you consider the derivative $P'(x)$ you'll find out that $P'(x_i) = P_i$. Thus you can compute $P_i$'s via evaluation in $O(n \log^2 n)$.
+কিন্তু ডেরিভেটিভ $P'(x)$ বিবেচনা করলে দেখা যাবে $P'(x_i) = P_i$। সুতরাং $O(n \log^2 n)$-এ মূল্যায়নের মাধ্যমে $P_i$ গণনা করা যায়।
 
-Now consider the recursive algorithm done on same segment tree as in the multi-point evaluation. It starts in the leaves with the value $\dfrac{y_i}{P_i}$ in each leaf.
+এখন একই সেগমেন্ট ট্রিতে রিকার্সিভ অ্যালগরিদম বিবেচনা করুন যা বহুবিন্দু মূল্যায়নে ব্যবহৃত। এটি পাতায় প্রতিটি পাতায় $\dfrac{y_i}{P_i}$ মান দিয়ে শুরু করে।
 
-When we return from the recursion we should merge the results from the left and the right vertices as $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$.
+রিকার্শন থেকে ফিরে আসার সময় বাম ও ডান শীর্ষের ফলাফল $A_{l,r} = A_{l,m}P_{m,r} + P_{l,m} A_{m,r}$ হিসেবে মার্জ করতে হবে।
 
-In this way when you return back to the root you'll have exactly $A(x)$ in it.
-The total procedure also works in $O(n \log^2 n)$.
+এভাবে রুটে ফিরে আসলে ঠিক $A(x)$ পাওয়া যাবে।
+পুরো প্রক্রিয়াও $O(n \log^2 n)$-এ কাজ করে।
 
-## GCD and Resultants
+## গসাগু ও রেজাল্ট্যান্ট
 
-Assume you're given polynomials $A(x) = a_0 + a_1 x + \dots + a_n x^n$ and $B(x) = b_0 + b_1 x + \dots + b_m x^m$.
+ধরি পলিনোমিয়াল $A(x) = a_0 + a_1 x + \dots + a_n x^n$ ও $B(x) = b_0 + b_1 x + \dots + b_m x^m$ দেওয়া আছে।
 
-Let $\lambda_0, \dots, \lambda_n$ be the roots of $A(x)$ and let $\mu_0, \dots, \mu_m$ be the roots of $B(x)$ counted with their multiplicities.
+ধরি $\lambda_0, \dots, \lambda_n$ হলো $A(x)$ এর মূল এবং $\mu_0, \dots, \mu_m$ হলো $B(x)$ এর মূল, বহুত্ব সহ গণনা করা।
 
-You want to know if $A(x)$ and $B(x)$ have any roots in common. There are two interconnected ways to do that.
+আপনি জানতে চান $A(x)$ ও $B(x)$ এর কোনো সাধারণ মূল আছে কিনা। দুটি পরস্পর সম্পর্কিত উপায়ে এটি করা যায়।
 
-### Euclidean algorithm
+### ইউক্লিডীয় অ্যালগরিদম
 
-Well, we already have an [article](euclid-algorithm.md) about it. For an arbitrary  domain you can write the Euclidean algorithm as easy as:
+এটি সম্পর্কে ইতিমধ্যে আমাদের একটি [নিবন্ধ](euclid-algorithm.md) আছে। যেকোনো ডোমেনের জন্য ইউক্লিডীয় অ্যালগরিদম সহজেই লেখা যায়:
 
 ```cpp
 template<typename T>
@@ -432,27 +429,26 @@ T gcd(const T &a, const T &b) {
 }
 ```
 
-It can be proven that for polynomials $A(x)$ and $B(x)$ it will work in $O(nm)$.
+প্রমাণ করা যায় পলিনোমিয়াল $A(x)$ ও $B(x)$ এর জন্য এটি $O(nm)$-এ কাজ করবে।
 
+### রেজাল্ট্যান্ট
 
-### Resultant
+$A(\mu_0)\cdots A(\mu_m)$ গুণফল গণনা করি। এটি শূন্য হবে যদি এবং কেবলমাত্র কোনো $\mu_i$ $A(x)$ এর মূল হয়।
 
-Let's calculate the product $A(\mu_0)\cdots A(\mu_m)$. It will be equal to zero if and only if some $\mu_i$ is the root of $A(x)$.
-
-For symmetry we can also multiply it with $b_m^n$ and rewrite the whole product in the following form:
+প্রতিসাম্যের জন্য $b_m^n$ দিয়েও গুণ করতে পারি এবং পুরো গুণফল নিম্নলিখিত আকারে লেখা যায়:
 
 $$\boxed{\mathcal{R}(A, B) = b_m^n\prod\limits_{j=0}^m A(\mu_j) = b_m^n a_m^n \prod\limits_{i=0}^n \prod\limits_{j=0}^m (\mu_j - \lambda_i)= (-1)^{mn}a_n^m \prod\limits_{i=0}^n B(\lambda_i)}$$
 
-The value defined above is called the resultant of the polynomials $A(x)$ and $B(x)$. From the definition you may find the following properties:
+উপরে সংজ্ঞায়িত মানটিকে পলিনোমিয়াল $A(x)$ ও $B(x)$ এর রেজাল্ট্যান্ট বলা হয়। সংজ্ঞা থেকে নিম্নলিখিত বৈশিষ্ট্য পাওয়া যায়:
 
-1. $\mathcal R(A, B) = (-1)^{nm} \mathcal R(B, A)$.
-2. $\mathcal R(A, B)= a_n^m b_m^n$ when $n=0$ or $m=0$.
-3. If $b_m=1$ then $\mathcal R(A - CB, B) = \mathcal R(A, B)$ for an arbitrary polynomial $C(x)$ and $n,m \geq 1$.
-4. From this follows $\mathcal R(A, B) = b_m^{\deg(A) - \deg(A-CB)}\mathcal R(A - CB, B)$ for arbitrary $A(x)$, $B(x)$, $C(x)$.
+১. $\mathcal R(A, B) = (-1)^{nm} \mathcal R(B, A)$।
+২. $\mathcal R(A, B)= a_n^m b_m^n$ যখন $n=0$ বা $m=0$।
+৩. $b_m=1$ হলে $\mathcal R(A - CB, B) = \mathcal R(A, B)$ যেকোনো পলিনোমিয়াল $C(x)$ এর জন্য এবং $n,m \geq 1$।
+৪. এ থেকে অনুসরণ করে $\mathcal R(A, B) = b_m^{\deg(A) - \deg(A-CB)}\mathcal R(A - CB, B)$ যেকোনো $A(x)$, $B(x)$, $C(x)$ এর জন্য।
 
-Miraculously it means that resultant of two polynomials is actually always from the same ring as their coefficients!
+আশ্চর্যজনকভাবে এর মানে দুটি পলিনোমিয়ালের রেজাল্ট্যান্ট সবসময় তাদের সহগের একই রিং থেকে!
 
-Also these properties allow us to calculate the resultant alongside the Euclidean algorithm, which works in $O(nm)$.
+এই বৈশিষ্ট্যগুলো আমাদের ইউক্লিডীয় অ্যালগরিদমের পাশাপাশি রেজাল্ট্যান্ট গণনা করতে দেয়, যা $O(nm)$-এ কাজ করে।
 
 
 ```cpp
@@ -473,17 +469,17 @@ T resultant(poly<T> a, poly<T> b) {
 }
 ```
 
-### Half-GCD algorithm
+### হাফ-GCD অ্যালগরিদম
 
-There is a way to calculate the GCD and resultants in $O(n \log^2 n)$.
+$O(n \log^2 n)$-এ GCD ও রেজাল্ট্যান্ট গণনা করার একটি উপায় আছে।
 
-The procedure to do so implements a $2 \times 2$ linear transform which maps a pair of polynomials $a(x)$, $b(x)$ into another pair $c(x), d(x)$ such that $\deg d(x) \leq \frac{\deg a(x)}{2}$. If you're careful enough, you can compute the half-GCD of any pair of polynomials with at most $2$ recursive calls to the polynomials which are at least $2$ times smaller.
+এই প্রক্রিয়া একটি $2 \times 2$ রৈখিক রূপান্তর ইমপ্লিমেন্ট করে যা পলিনোমিয়ালের $(a(x), b(x))$ জোড়াকে আরেকটি $(c(x), d(x))$ জোড়ায় রূপান্তর করে যেন $\deg d(x) \leq \frac{\deg a(x)}{2}$। আপনি যথেষ্ট সাবধান হলে, অন্তত ২ গুণ ছোট পলিনোমিয়ালে সর্বোচ্চ ২টি রিকার্সিভ কল দিয়ে যেকোনো পলিনোমিয়াল জোড়ার হাফ-GCD গণনা করতে পারেন।
 
-The specific details of the algorithm are somewhat tedious to explain, however you can find its implementation in the library, as `half_gcd` function.
+অ্যালগরিদমের নির্দিষ্ট বিবরণ ব্যাখ্যা করা কিছুটা ক্লান্তিকর, তবে আপনি লাইব্রেরিতে `half_gcd` ফাংশন হিসেবে এর ইমপ্লিমেন্টেশন পাবেন।
 
-After half-GCD is implemented, you can repeatedly apply it to polynomials until you're reduced to the pair of $\gcd(a, b)$ and $0$.
+হাফ-GCD ইমপ্লিমেন্ট হলে, $\gcd(a, b)$ ও $0$ এর জোড়ায় সংকুচিত না হওয়া পর্যন্ত পুনরাবৃত্তিমূলকভাবে পলিনোমিয়ালে এটি প্রয়োগ করা যায়।
 
-## Problems
+## সমস্যা
 
 - [CodeChef - RNG](https://www.codechef.com/problems/RNG)
 - [CodeForces - Basis Change](https://codeforces.com/gym/102129/problem/D)

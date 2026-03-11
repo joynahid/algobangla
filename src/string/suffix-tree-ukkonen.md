@@ -4,31 +4,31 @@ tags:
 e_maxx_link: ukkonen
 ---
 
-# Suffix Tree. Ukkonen's Algorithm
+# সাফিক্স ট্রি। উক্কোনেনের অ্যালগরিদম
 
-*This article is a stub and doesn't contain any descriptions. For a description of the algorithm, refer to other sources, such as [Algorithms on Strings, Trees, and Sequences](https://www.cs.cmu.edu/afs/cs/project/pscico-guyb/realworld/www/slidesF06/cmuonly/gusfield.pdf) by Dan Gusfield.*
+*এই নিবন্ধটি একটি স্টাব এবং এতে কোনো বিবরণ নেই। অ্যালগরিদমের বিবরণের জন্য, অন্যান্য উৎস দেখুন, যেমন Dan Gusfield রচিত [Algorithms on Strings, Trees, and Sequences](https://www.cs.cmu.edu/afs/cs/project/pscico-guyb/realworld/www/slidesF06/cmuonly/gusfield.pdf)।*
 
-This algorithm builds a suffix tree for a given string $s$ of length $n$ in $O(n\log(k))$) time, where $k$ is the size of the alphabet (if $k$ is considered to be a constant, the asymptotic behavior is linear).
+এই অ্যালগরিদমটি $n$ দৈর্ঘ্যের একটি প্রদত্ত স্ট্রিং $s$-এর জন্য $O(n\log(k))$) সময়ে একটি সাফিক্স ট্রি তৈরি করে, যেখানে $k$ হলো বর্ণমালার আকার (যদি $k$-কে ধ্রুবক ধরা হয়, তাহলে অ্যাসিম্পটোটিক আচরণ লিনিয়ার)।
 
-The input to the algorithm are the string $s$ and its length $n$, which are passed as global variables.
+অ্যালগরিদমে ইনপুট হলো স্ট্রিং $s$ এবং এর দৈর্ঘ্য $n$, যেগুলো গ্লোবাল ভেরিয়েবল হিসেবে পাস করা হয়।
 
-The main function `build_tree` builds a suffix tree. It is stored as an array of structures `node`, where `node[0]` is the root of the tree.
+মূল ফাংশন `build_tree` একটি সাফিক্স ট্রি তৈরি করে। এটি `node` স্ট্রাকচারের একটি অ্যারে হিসেবে সংরক্ষিত হয়, যেখানে `node[0]` হলো ট্রির রুট।
 
-In order to simplify the code, the edges are stored in the same structures: for each vertex its structure `node` stores the information about the edge between it and its parent. Overall each `node` stores the following information: 
+কোড সরলীকরণের জন্য, এজগুলো একই স্ট্রাকচারে সংরক্ষিত হয়: প্রতিটি ভার্টেক্সের জন্য এর `node` স্ট্রাকচারে এটি এবং এর প্যারেন্টের মধ্যের এজ সম্পর্কিত তথ্য সংরক্ষিত থাকে। সামগ্রিকভাবে প্রতিটি `node` নিম্নলিখিত তথ্য সংরক্ষণ করে:
 
-* `(l, r)` - left and right boundaries of the substring `s[l..r-1]` which correspond to the edge to this node,
-* `par` - the parent node,
-* `link` - the suffix link,
-* `next` - the list of edges going out from this node.
+* `(l, r)` - সাবস্ট্রিং `s[l..r-1]`-এর বাম ও ডান সীমানা যা এই নোডে যাওয়ার এজের সাথে সম্পর্কিত,
+* `par` - প্যারেন্ট নোড,
+* `link` - সাফিক্স লিংক,
+* `next` - এই নোড থেকে বের হওয়া এজগুলোর তালিকা।
 
 ```cpp
 string s;
 int n;
- 
+
 struct node {
 	int l, r, par, link;
 	map<char,int> next;
- 
+
 	node (int l=0, int r=0, int par=-1)
 		: l(l), r(r), par(par), link(-1) {}
 	int len()  {  return r - l;  }
@@ -39,13 +39,13 @@ struct node {
 };
 node t[MAXN];
 int sz;
- 
+
 struct state {
 	int v, pos;
 	state (int v, int pos) : v(v), pos(pos)  {}
 };
 state ptr (0, 0);
- 
+
 state go (state st, int l, int r) {
 	while (l < r)
 		if (st.pos == t[st.v].len()) {
@@ -62,7 +62,7 @@ state go (state st, int l, int r) {
 		}
 	return st;
 }
- 
+
 int split (state st) {
 	if (st.pos == t[st.v].len())
 		return st.v;
@@ -77,14 +77,14 @@ int split (state st) {
 	t[st.v].l += st.pos;
 	return id;
 }
- 
+
 int get_link (int v) {
 	if (t[v].link != -1)  return t[v].link;
 	if (t[v].par == -1)  return 0;
 	int to = get_link (t[v].par);
 	return t[v].link = split (go (state(to,t[to].len()), t[v].l + (t[v].par==0), t[v].r));
 }
- 
+
 void tree_extend (int pos) {
 	for(;;) {
 		state nptr = go (ptr, pos, pos+1);
@@ -92,18 +92,18 @@ void tree_extend (int pos) {
 			ptr = nptr;
 			return;
 		}
- 
+
 		int mid = split (ptr);
 		int leaf = sz++;
 		t[leaf] = node (pos, n, mid);
 		t[mid].get( s[pos] ) = leaf;
- 
+
 		ptr.v = get_link (mid);
 		ptr.pos = t[ptr.v].len();
 		if (!mid)  break;
 	}
 }
- 
+
 void build_tree() {
 	sz = 1;
 	for (int i=0; i<n; ++i)
@@ -111,15 +111,15 @@ void build_tree() {
 }
 ```
 
-## Compressed Implementation
+## সংকুচিত ইমপ্লিমেন্টেশন
 
-This compressed implementation was proposed by [freopen](http://codeforces.com/profile/freopen).
+এই সংকুচিত ইমপ্লিমেন্টেশনটি [freopen](http://codeforces.com/profile/freopen) প্রস্তাব করেছেন।
 
 ```cpp
 const int N=1000000,INF=1000000000;
 string a;
 int t[N][26],l[N],r[N],p[N],s[N],tv,tp,ts,la;
- 
+
 void ukkadd (int c) {
 	suff:;
 	if (r[tv]<tp) {
@@ -133,11 +133,11 @@ void ukkadd (int c) {
 		l[tv]=tp;  p[tv]=ts;  t[p[ts]][a[l[ts]]-'a']=ts;  ts+=2;
 		tv=s[p[ts-2]];  tp=l[ts-2];
 		while (tp<=r[ts-2]) {  tv=t[tv][a[tp]-'a'];  tp+=r[tv]-l[tv]+1;}
-		if (tp==r[ts-2]+1)  s[ts-2]=tv;  else s[ts-2]=ts; 
+		if (tp==r[ts-2]+1)  s[ts-2]=tv;  else s[ts-2]=ts;
 		tp=r[tv]-(tp-r[ts-2])+2;  goto suff;
 	}
 }
- 
+
 void build() {
 	ts=2;
 	tv=0;
@@ -155,57 +155,57 @@ void build() {
 }
 ```
 
-Same code with comments:
+কমেন্টসহ একই কোড:
 
 ```cpp
-const int N=1000000,    // maximum possible number of nodes in suffix tree
-	INF=1000000000; // infinity constant
-string a;       // input string for which the suffix tree is being built
-int t[N][26],   // array of transitions (state, letter)
-	l[N],   // left...
-	r[N],   // ...and right boundaries of the substring of a which correspond to incoming edge
-	p[N],   // parent of the node
-	s[N],   // suffix link
-	tv,     // the node of the current suffix (if we're mid-edge, the lower node of the edge)
-	tp,     // position in the string which corresponds to the position on the edge (between l[tv] and r[tv], inclusive)
-	ts,     // the number of nodes
-	la;     // the current character in the string
- 
-void ukkadd(int c) { // add character s to the tree
-	suff:;      // we'll return here after each transition to the suffix (and will add character again)
-	if (r[tv]<tp) { // check whether we're still within the boundaries of the current edge
-		// if we're not, find the next edge. If it doesn't exist, create a leaf and add it to the tree
+const int N=1000000,    // সাফিক্স ট্রিতে সর্বোচ্চ সম্ভাব্য নোড সংখ্যা
+	INF=1000000000; // অসীম ধ্রুবক
+string a;       // ইনপুট স্ট্রিং যার জন্য সাফিক্স ট্রি তৈরি হচ্ছে
+int t[N][26],   // ট্রানজিশনের অ্যারে (স্টেট, অক্ষর)
+	l[N],   // বাম...
+	r[N],   // ...এবং ডান সীমানা, a-এর সাবস্ট্রিং-এর যা ইনকামিং এজের সাথে সম্পর্কিত
+	p[N],   // নোডের প্যারেন্ট
+	s[N],   // সাফিক্স লিংক
+	tv,     // বর্তমান সাফিক্সের নোড (যদি আমরা এজের মাঝে থাকি, এজের নিচের নোড)
+	tp,     // স্ট্রিং-এ অবস্থান যা এজের উপর অবস্থানের সাথে সম্পর্কিত (l[tv] এবং r[tv]-এর মধ্যে, সহ)
+	ts,     // নোডের সংখ্যা
+	la;     // স্ট্রিং-এ বর্তমান অক্ষর
+
+void ukkadd(int c) { // ট্রিতে অক্ষর s যোগ করুন
+	suff:;      // প্রতিটি সাফিক্সে ট্রানজিশনের পর আমরা এখানে ফিরে আসব (এবং আবার অক্ষর যোগ করব)
+	if (r[tv]<tp) { // আমরা এখনও বর্তমান এজের সীমানার মধ্যে আছি কিনা পরীক্ষা করুন
+		// যদি না থাকি, পরবর্তী এজ খুঁজুন। যদি এটি না থাকে, একটি লিফ তৈরি করুন এবং ট্রিতে যোগ করুন
 		if (t[tv][c]==-1) {t[tv][c]=ts;l[ts]=la;p[ts++]=tv;tv=s[tv];tp=r[tv]+1;goto suff;}
 		tv=t[tv][c];tp=l[tv];
-	} // otherwise just proceed to the next edge
+	} // অন্যথায় শুধু পরবর্তী এজে এগিয়ে যান
 	if (tp==-1 || c==a[tp]-'a')
-		tp++; // if the letter on the edge equal c, go down that edge
-	else { 
-		// otherwise split the edge in two with middle in node ts
+		tp++; // যদি এজের অক্ষর c-এর সমান হয়, সেই এজে নেমে যান
+	else {
+		// অন্যথায় এজটিকে দুইভাগে ভাগ করুন, মাঝে ts নোড রেখে
 		l[ts]=l[tv];r[ts]=tp-1;p[ts]=p[tv];t[ts][a[tp]-'a']=tv;
-		// add leaf ts+1. It corresponds to transition through c.
+		// লিফ ts+1 যোগ করুন। এটি c-এর মাধ্যমে ট্রানজিশনের সাথে সম্পর্কিত।
 		t[ts][c]=ts+1;l[ts+1]=la;p[ts+1]=ts;
-		// update info for the current node - remember to mark ts as parent of tv
+		// বর্তমান নোডের তথ্য আপডেট করুন - ts-কে tv-এর প্যারেন্ট হিসেবে চিহ্নিত করতে ভুলবেন না
 		l[tv]=tp;p[tv]=ts;t[p[ts]][a[l[ts]]-'a']=ts;ts+=2;
-		// prepare for descent
-		// tp will mark where are we in the current suffix
+		// নামার জন্য প্রস্তুতি
+		// tp চিহ্নিত করবে আমরা বর্তমান সাফিক্সে কোথায় আছি
 		tv=s[p[ts-2]];tp=l[ts-2];
-		// while the current suffix is not over, descend
+		// যতক্ষণ বর্তমান সাফিক্স শেষ না হয়, নামতে থাকুন
 		while (tp<=r[ts-2]) {tv=t[tv][a[tp]-'a'];tp+=r[tv]-l[tv]+1;}
-		// if we're in a node, add a suffix link to it, otherwise add the link to ts
-		// (we'll create ts on next iteration).
-		if (tp==r[ts-2]+1) s[ts-2]=tv; else s[ts-2]=ts; 
-		// add tp to the new edge and return to add letter to suffix
+		// যদি আমরা একটি নোডে থাকি, এতে একটি সাফিক্স লিংক যোগ করুন, অন্যথায় ts-এ লিংক যোগ করুন
+		// (আমরা পরবর্তী ইটারেশনে ts তৈরি করব)।
+		if (tp==r[ts-2]+1) s[ts-2]=tv; else s[ts-2]=ts;
+		// নতুন এজে tp যোগ করুন এবং সাফিক্সে অক্ষর যোগ করতে ফিরে যান
 		tp=r[tv]-(tp-r[ts-2])+2;goto suff;
 	}
 }
- 
+
 void build() {
 	ts=2;
 	tv=0;
 	tp=0;
 	fill(r,r+N,(int)a.size()-1);
-	// initialize data for the root of the tree
+	// ট্রির রুটের জন্য ডেটা ইনিশিয়ালাইজ করুন
 	s[0]=1;
 	l[0]=-1;
 	r[0]=-1;
@@ -213,12 +213,12 @@ void build() {
 	r[1]=-1;
 	memset (t, -1, sizeof t);
 	fill(t[1],t[1]+26,0);
-	// add the text to the tree, letter by letter
+	// ট্রিতে টেক্সট যোগ করুন, অক্ষরে অক্ষরে
 	for (la=0; la<(int)a.size(); ++la)
 		ukkadd (a[la]-'a');
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [UVA 10679 - I Love Strings!!!](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1620)

@@ -4,29 +4,29 @@ tags:
 e_maxx_link: z_function
 ---
 
-# Z-function and its calculation
+# জেড-ফাংশন এবং এর গণনা
 
-Suppose we are given a string $s$ of length $n$. The **Z-function** for this string is an array of length $n$ where the $i$-th element is equal to the greatest number of characters starting from the position $i$ that coincide with the first characters of $s$.
+ধরা যাক, আমাদের $n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে। এই স্ট্রিংটির জন্য **জেড-ফাংশন** হলো $n$ দৈর্ঘ্যের একটি অ্যারে, যেখানে $i$-তম উপাদানটি হলো $i$ পজিশন থেকে শুরু করে সর্বাধিক যতগুলো ক্যারেক্টার $s$-এর প্রথম ক্যারেক্টারগুলোর সাথে মিলে যায় তার সংখ্যা।
 
-In other words, $z[i]$ is the length of the longest string that is, at the same time, a prefix of $s$ and a prefix of the suffix of $s$ starting at $i$.
+অন্যভাবে বলতে গেলে, $z[i]$ হলো সবচেয়ে দীর্ঘ সেই স্ট্রিংটির দৈর্ঘ্য যেটি একই সাথে $s$-এর একটি প্রিফিক্স এবং $i$ থেকে শুরু হওয়া $s$-এর সাফিক্সের একটি প্রিফিক্স।
 
-**Note.** In this article, to avoid ambiguity, we assume $0$-based indexes; that is: the first character of $s$ has index $0$ and the last one has index $n-1$.
+**দ্রষ্টব্য:** এই আর্টিকেলে অস্পষ্টতা এড়াতে আমরা $0$-ভিত্তিক ইনডেক্স ধরে নিচ্ছি; অর্থাৎ $s$-এর প্রথম ক্যারেক্টারের ইনডেক্স $0$ এবং শেষটির ইনডেক্স $n-1$।
 
-The first element of Z-function, $z[0]$, is generally not well defined. In this article we will assume it is zero (although it doesn't change anything in the algorithm implementation).
+জেড-ফাংশনের প্রথম উপাদান $z[0]$ সাধারণত সুসংজ্ঞায়িত নয়। এই আর্টিকেলে আমরা ধরে নেব এটি শূন্য (যদিও এটি অ্যালগরিদমের ইমপ্লিমেন্টেশনে কোনো পরিবর্তন আনে না)।
 
-This article presents an algorithm for calculating the Z-function in $O(n)$ time, as well as various of its applications.
+এই আর্টিকেলে $O(n)$ সময়ে জেড-ফাংশন গণনার একটি অ্যালগরিদম এবং এর বিভিন্ন অ্যাপ্লিকেশন উপস্থাপন করা হয়েছে।
 
-## Examples
+## উদাহরণ
 
-For example, here are the values of the Z-function computed for different strings:
+উদাহরণস্বরূপ, বিভিন্ন স্ট্রিংয়ের জন্য গণনা করা জেড-ফাংশনের মানগুলো এখানে দেওয়া হলো:
 
 * "aaaaa" - $[0, 4, 3, 2, 1]$
 * "aaabaab" - $[0, 2, 1, 0, 2, 1, 0]$
 * "abacaba" - $[0, 0, 1, 0, 3, 0, 1]$
 
-## Trivial algorithm
+## সাধারণ অ্যালগরিদম
 
-Formal definition can be represented in the following elementary $O(n^2)$ implementation.
+আনুষ্ঠানিক সংজ্ঞাটিকে নিচের সরল $O(n^2)$ ইমপ্লিমেন্টেশনে উপস্থাপন করা যায়।
 
 ```cpp
 vector<int> z_function_trivial(string s) {
@@ -41,51 +41,51 @@ vector<int> z_function_trivial(string s) {
 }
 ```
 
-We just iterate through every position $i$ and update $z[i]$ for each one of them, starting from $z[i] = 0$ and incrementing it as long as we don't find a mismatch (and as long as we don't reach the end of the line).
+আমরা প্রতিটি পজিশন $i$-তে ইটারেট করছি এবং প্রতিটির জন্য $z[i]$ আপডেট করছি, $z[i] = 0$ থেকে শুরু করে এবং যতক্ষণ মিসম্যাচ না পাওয়া যায় (এবং যতক্ষণ লাইনের শেষে না পৌঁছাই) ততক্ষণ বাড়াচ্ছি।
 
-Of course, this is not an efficient implementation. We will now show the construction of an efficient implementation.
+অবশ্যই, এটি একটি দক্ষ ইমপ্লিমেন্টেশন নয়। এখন আমরা একটি দক্ষ ইমপ্লিমেন্টেশনের নির্মাণ দেখাব।
 
-## Efficient algorithm to compute the Z-function
+## জেড-ফাংশন গণনার দক্ষ অ্যালগরিদম
 
-To obtain an efficient algorithm we will compute the values of $z[i]$ in turn from $i = 1$ to $n - 1$ but at the same time, when computing a new value, we'll try to make the best use possible of the previously computed values.
+একটি দক্ষ অ্যালগরিদম পেতে আমরা $z[i]$-এর মানগুলো $i = 1$ থেকে $n - 1$ পর্যন্ত ক্রমান্বয়ে গণনা করব, কিন্তু একই সাথে একটি নতুন মান গণনা করার সময় পূর্বে গণনা করা মানগুলোকে যতটা সম্ভব কাজে লাগানোর চেষ্টা করব।
 
-For the sake of brevity, let's call **segment matches** those substrings that coincide with a prefix of $s$. For example, the value of the desired Z-function $z[i]$ is the length of the segment match starting at position $i$ (and that ends at position $i + z[i] - 1$).
+সংক্ষিপ্ততার জন্য, $s$-এর প্রিফিক্সের সাথে মিলে যাওয়া সাবস্ট্রিংগুলোকে আমরা **সেগমেন্ট ম্যাচ** বলব। উদাহরণস্বরূপ, কাঙ্ক্ষিত জেড-ফাংশনের $z[i]$ মানটি হলো $i$ পজিশনে শুরু হওয়া সেগমেন্ট ম্যাচের দৈর্ঘ্য (এবং এটি $i + z[i] - 1$ পজিশনে শেষ হয়)।
 
-To do this, we will keep **the $[l, r)$ indices of the rightmost segment match**. That is, among all detected segments we will keep the one that ends rightmost. In a way, the index $r$ can be seen as the "boundary" to which our string $s$ has been scanned by the algorithm; everything beyond that point is not yet known.
+এটি করার জন্য, আমরা **সবচেয়ে ডানদিকের সেগমেন্ট ম্যাচের $[l, r)$ ইনডেক্সগুলো** সংরক্ষণ করব। অর্থাৎ, শনাক্ত করা সব সেগমেন্টের মধ্যে আমরা সেটি রাখব যেটি সবচেয়ে ডানদিকে শেষ হয়। একভাবে বলতে গেলে, $r$ ইনডেক্সটিকে একটি "সীমানা" হিসেবে দেখা যেতে পারে যেখান পর্যন্ত অ্যালগরিদম আমাদের স্ট্রিং $s$ স্ক্যান করেছে; সেই বিন্দুর পরের সবকিছু এখনও অজানা।
 
-Then, if the current index (for which we have to compute the next value of the Z-function) is $i$, we have one of two options:
+তাহলে, বর্তমান ইনডেক্স (যেটির জন্য আমাদের জেড-ফাংশনের পরবর্তী মান গণনা করতে হবে) যদি $i$ হয়, তবে দুটি সম্ভাবনা আছে:
 
-*   $i \geq r$ -- the current position is **outside** of what we have already processed.
+*   $i \geq r$ -- বর্তমান পজিশনটি আমরা ইতোমধ্যে যা প্রসেস করেছি তার **বাইরে**।
 
-    We will then compute $z[i]$ with the **trivial algorithm** (that is, just comparing values one by one). Note that in the end, if $z[i] > 0$, we'll have to update the indices of the rightmost segment, because it's guaranteed that the new $r = i + z[i]$ is better than the previous $r$.
+    এক্ষেত্রে আমরা **সাধারণ অ্যালগরিদম** দিয়ে $z[i]$ গণনা করব (অর্থাৎ, একটির পর একটি মান তুলনা করে)। লক্ষ্য করুন, শেষে যদি $z[i] > 0$ হয়, তাহলে আমাদের সবচেয়ে ডানদিকের সেগমেন্টের ইনডেক্সগুলো আপডেট করতে হবে, কারণ নতুন $r = i + z[i]$ পূর্ববর্তী $r$-এর চেয়ে ভালো হবে এটি নিশ্চিত।
 
-*   $i < r$ -- the current position is inside the current segment match $[l, r)$.
+*   $i < r$ -- বর্তমান পজিশনটি বর্তমান সেগমেন্ট ম্যাচ $[l, r)$-এর **ভিতরে**।
 
-    Then we can use the already calculated Z-values to "initialize" the value of $z[i]$ to something (it sure is better than "starting from zero"), maybe even some big number.
+    তাহলে আমরা ইতোমধ্যে গণনা করা জেড-মানগুলো ব্যবহার করে $z[i]$-কে একটি মান দিয়ে "ইনিশিয়ালাইজ" করতে পারি (এটি অবশ্যই "শূন্য থেকে শুরু করা"র চেয়ে ভালো), এমনকি হয়তো কোনো বড় সংখ্যা দিয়ে।
 
-    For this, we observe that the substrings $s[l \dots r)$ and $s[0 \dots r-l)$ **match**. This means that as an initial approximation for $z[i]$ we can take the value already computed for the corresponding segment $s[0 \dots r-l)$, and that is $z[i-l]$.
+    এর জন্য আমরা লক্ষ্য করি যে $s[l \dots r)$ এবং $s[0 \dots r-l)$ সাবস্ট্রিংগুলো **মিলে যায়**। এর অর্থ হলো $z[i]$-এর প্রাথমিক আনুমানিক মান হিসেবে আমরা $s[0 \dots r-l)$ সেগমেন্টের জন্য ইতোমধ্যে গণনা করা মানটি নিতে পারি, আর সেটি হলো $z[i-l]$।
 
-    However, the value $z[i-l]$ could be too large: when applied to position $i$ it could exceed the index $r$. This is not allowed because we know nothing about the characters to the right of $r$: they may differ from those required.
+    তবে, $z[i-l]$-এর মান অনেক বড় হতে পারে: $i$ পজিশনে প্রয়োগ করলে এটি $r$ ইনডেক্সকে অতিক্রম করতে পারে। এটি অনুমোদিত নয় কারণ $r$-এর ডানদিকের ক্যারেক্টারগুলো সম্পর্কে আমরা কিছুই জানি না: সেগুলো প্রয়োজনীয় ক্যারেক্টারগুলো থেকে ভিন্ন হতে পারে।
 
-    Here is **an example** of a similar scenario:
+    এখানে অনুরূপ পরিস্থিতির **একটি উদাহরণ** দেওয়া হলো:
 
     $$ s = "aaaabaa" $$
 
-    When we get to the last position ($i = 6$), the current match segment will be $[5, 7)$. Position $6$ will then match position $6 - 5 = 1$, for which the value of the Z-function is $z[1] = 3$. Obviously, we cannot initialize $z[6]$ to $3$, it would be completely incorrect. The maximum value we could initialize it to is $1$ -- because it's the largest value that doesn't bring us beyond the index $r$ of the match segment $[l, r)$.
+    আমরা যখন শেষ পজিশনে ($i = 6$) পৌঁছাব, তখন বর্তমান ম্যাচ সেগমেন্ট হবে $[5, 7)$। পজিশন $6$, পজিশন $6 - 5 = 1$-এর সাথে মিলবে, যেটির জন্য জেড-ফাংশনের মান $z[1] = 3$। স্পষ্টতই, আমরা $z[6]$-কে $3$ দিয়ে ইনিশিয়ালাইজ করতে পারি না, এটি সম্পূর্ণ ভুল হবে। সর্বোচ্চ যে মান দিয়ে আমরা এটি ইনিশিয়ালাইজ করতে পারি তা হলো $1$ -- কারণ এটিই সবচেয়ে বড় মান যা আমাদের ম্যাচ সেগমেন্ট $[l, r)$-এর $r$ ইনডেক্সের বাইরে নিয়ে যায় না।
 
-    Thus, as an **initial approximation** for $z[i]$ we can safely take:
+    সুতরাং, $z[i]$-এর **প্রাথমিক আনুমানিক মান** হিসেবে আমরা নিরাপদে নিতে পারি:
 
     $$ z_0[i] = \min(r - i,\; z[i-l]) $$
 
-    After having $z[i]$ initialized to $z_0[i]$, we try to increment $z[i]$ by running the **trivial algorithm** -- because in general, after the border $r$, we cannot know if the segment will continue to match or not.
+    $z[i]$-কে $z_0[i]$ দিয়ে ইনিশিয়ালাইজ করার পর, আমরা **সাধারণ অ্যালগরিদম** চালিয়ে $z[i]$ বাড়ানোর চেষ্টা করি -- কারণ সাধারণভাবে, $r$ সীমানার পরে সেগমেন্টটি মিলতে থাকবে কি না তা আমরা জানতে পারি না।
 
-Thus, the whole algorithm is split in two cases, which differ only in **the initial value** of $z[i]$: in the first case it's assumed to be zero, in the second case it is determined by the previously computed values (using the above formula). After that, both branches of this algorithm can be reduced to the implementation of **the trivial algorithm**, which starts immediately after we specify the initial value.
+এভাবে, পুরো অ্যালগরিদমটি দুটি কেসে বিভক্ত, যেগুলো শুধু **$z[i]$-এর প্রাথমিক মানে** পার্থক্য: প্রথম কেসে এটি শূন্য ধরা হয়, দ্বিতীয় কেসে এটি পূর্বে গণনা করা মানগুলো দ্বারা নির্ধারিত হয় (উপরের সূত্র ব্যবহার করে)। এরপর, অ্যালগরিদমের উভয় শাখাই **সাধারণ অ্যালগরিদমের** ইমপ্লিমেন্টেশনে নেমে আসে, যেটি প্রাথমিক মান নির্দিষ্ট করার পরপরই শুরু হয়।
 
-The algorithm turns out to be very simple. Despite the fact that on each iteration the trivial algorithm is run, we have made significant progress, having an algorithm that runs in linear time. Later on we will prove that the running time is linear.
+অ্যালগরিদমটি অত্যন্ত সরল হয়ে যায়। যদিও প্রতিটি ইটারেশনে সাধারণ অ্যালগরিদম চালানো হয়, আমরা উল্লেখযোগ্য অগ্রগতি অর্জন করেছি -- একটি লিনিয়ার সময়ে চলা অ্যালগরিদম পেয়েছি। পরে আমরা প্রমাণ করব যে রানিং টাইম লিনিয়ার।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Implementation turns out to be rather concise:
+ইমপ্লিমেন্টেশনটি বেশ সংক্ষিপ্ত:
 
 ```cpp
 vector<int> z_function(string s) {
@@ -108,101 +108,101 @@ vector<int> z_function(string s) {
 }
 ```
 
-### Comments on this implementation
+### এই ইমপ্লিমেন্টেশন সম্পর্কে মন্তব্য
 
-The whole solution is given as a function which returns an array of length $n$ -- the Z-function of $s$.
+সম্পূর্ণ সমাধানটি একটি ফাংশন হিসেবে দেওয়া হয়েছে যা $n$ দৈর্ঘ্যের একটি অ্যারে রিটার্ন করে -- $s$-এর জেড-ফাংশন।
 
-Array $z$ is initially filled with zeros. The current rightmost match segment is assumed to be $[0; 0)$ (that is, a deliberately small segment which doesn't contain any $i$).
+$z$ অ্যারেটি প্রাথমিকভাবে শূন্য দিয়ে পূরণ করা হয়। বর্তমান সবচেয়ে ডানদিকের ম্যাচ সেগমেন্ট $[0; 0)$ ধরা হয় (অর্থাৎ, ইচ্ছাকৃতভাবে একটি ছোট সেগমেন্ট যেটিতে কোনো $i$ নেই)।
 
-Inside the loop for $i = 1 \dots n - 1$ we first determine the initial value $z[i]$ -- it will either remain zero or be computed using the above formula.
+লুপের ভিতরে $i = 1 \dots n - 1$-এর জন্য আমরা প্রথমে $z[i]$-এর প্রাথমিক মান নির্ধারণ করি -- এটি হয় শূন্য থাকবে অথবা উপরের সূত্র ব্যবহার করে গণনা করা হবে।
 
-Thereafter, the trivial algorithm attempts to increase the value of $z[i]$ as much as possible.
+এরপর, সাধারণ অ্যালগরিদম $z[i]$-এর মান যতটা সম্ভব বাড়ানোর চেষ্টা করে।
 
-In the end, if it's required (that is, if $i + z[i] > r$), we update the rightmost match segment $[l, r)$.
+শেষে, যদি প্রয়োজন হয় (অর্থাৎ, যদি $i + z[i] > r$ হয়), আমরা সবচেয়ে ডানদিকের ম্যাচ সেগমেন্ট $[l, r)$ আপডেট করি।
 
-## Asymptotic behavior of the algorithm
+## অ্যালগরিদমের অ্যাসিম্পটোটিক আচরণ
 
-We will prove that the above algorithm has a running time that is linear in the length of the string -- thus, it's $O(n)$.
+আমরা প্রমাণ করব যে উপরের অ্যালগরিদমের রানিং টাইম স্ট্রিংয়ের দৈর্ঘ্যের সাপেক্ষে লিনিয়ার -- অর্থাৎ, এটি $O(n)$।
 
-The proof is very simple.
+প্রমাণটি অত্যন্ত সরল।
 
-We are interested in the nested `while` loop, since everything else is just a bunch of constant operations which sums up to $O(n)$.
+আমরা নেস্টেড `while` লুপটিতে আগ্রহী, কারণ বাকি সবকিছু ধ্রুবক অপারেশনের সমষ্টি যার যোগফল $O(n)$।
 
-We will show that **each iteration** of the `while` loop will increase the right border $r$ of the match segment.
+আমরা দেখাব যে `while` লুপের **প্রতিটি ইটারেশন** ম্যাচ সেগমেন্টের ডান সীমানা $r$ বাড়াবে।
 
-To do that, we will consider both branches of the algorithm:
+এটি করার জন্য, আমরা অ্যালগরিদমের উভয় শাখা বিবেচনা করব:
 
 *   $i \geq r$
 
-    In this case, either the `while` loop won't make any iteration (if $s[0] \ne s[i]$), or it will take a few iterations, starting at position $i$, each time moving one character to the right. After that, the right border $r$ will necessarily be updated.
+    এক্ষেত্রে, হয় `while` লুপ কোনো ইটারেশন করবে না (যদি $s[0] \ne s[i]$ হয়), অথবা কয়েকটি ইটারেশন করবে, $i$ পজিশন থেকে শুরু করে প্রতিবার একটি ক্যারেক্টার ডানে সরে যাবে। এরপর, ডান সীমানা $r$ অবশ্যই আপডেট হবে।
 
-    So we have found that, when $i \geq r$, each iteration of the `while` loop increases the value of the new $r$ index.
+    তাহলে আমরা দেখেছি যে, যখন $i \geq r$, `while` লুপের প্রতিটি ইটারেশন নতুন $r$ ইনডেক্সের মান বাড়ায়।
 
 *   $i < r$
 
-    In this case, we initialize $z[i]$ to a certain value $z_0$ given by the above formula. Let's compare this initial value $z_0$ to the value $r - i$. We will have three cases:
+    এক্ষেত্রে, আমরা $z[i]$-কে উপরের সূত্র দ্বারা প্রদত্ত একটি নির্দিষ্ট মান $z_0$ দিয়ে ইনিশিয়ালাইজ করি। এই প্রাথমিক মান $z_0$-কে $r - i$ মানের সাথে তুলনা করা যাক। তিনটি কেস হবে:
 
       *   $z_0 < r - i$
 
-          We prove that in this case no iteration of the `while` loop will take place.
+          আমরা প্রমাণ করব যে এক্ষেত্রে `while` লুপের কোনো ইটারেশন হবে না।
 
-          It's easy to prove, for example, by contradiction: if the `while` loop made at least one iteration, it would mean that initial approximation $z[i] = z_0$ was inaccurate (less than the match's actual length). But since $s[l \dots r)$ and $s[0 \dots r-l)$ are the same, this would imply that $z[i-l]$ holds the wrong value (less than it should be).
+          এটি প্রমাণ করা সহজ, যেমন পরস্পরবিরোধিতা দ্বারা: যদি `while` লুপ অন্তত একটি ইটারেশন করত, তাহলে এর অর্থ হতো প্রাথমিক আনুমানিক মান $z[i] = z_0$ ভুল ছিল (ম্যাচের প্রকৃত দৈর্ঘ্যের চেয়ে কম)। কিন্তু যেহেতু $s[l \dots r)$ এবং $s[0 \dots r-l)$ একই, এটি বোঝাত যে $z[i-l]$ ভুল মান ধারণ করে (যা হওয়া উচিত তার চেয়ে কম)।
 
-          Thus, since $z[i-l]$ is correct and it is less than $r - i$, it follows that this value coincides with the required value $z[i]$.
+          সুতরাং, যেহেতু $z[i-l]$ সঠিক এবং এটি $r - i$-এর চেয়ে কম, তাই এই মানটি প্রয়োজনীয় $z[i]$ মানের সাথে মিলে যায়।
 
       *   $z_0 = r - i$
 
-          In this case, the `while` loop can make a few iterations, but each of them will lead to an increase in the value of the $r$ index because we will start comparing from $s[r]$, which will climb beyond the $[l, r)$ interval.
+          এক্ষেত্রে, `while` লুপ কয়েকটি ইটারেশন করতে পারে, কিন্তু প্রতিটি $r$ ইনডেক্সের মান বাড়াবে কারণ আমরা $s[r]$ থেকে তুলনা শুরু করব, যা $[l, r)$ ইন্টারভালের বাইরে চলে যাবে।
 
       *   $z_0 > r - i$
 
-          This option is impossible, by definition of $z_0$.
+          $z_0$-এর সংজ্ঞা অনুসারে এই অপশনটি অসম্ভব।
 
-So, we have proved that each iteration of the inner loop make the $r$ pointer advance to the right. Since $r$ can't be more than $n-1$, this means that the inner loop won't make more than $n-1$ iterations.
+তাহলে, আমরা প্রমাণ করেছি যে ভিতরের লুপের প্রতিটি ইটারেশন $r$ পয়েন্টারকে ডানদিকে এগিয়ে নেয়। যেহেতু $r$, $n-1$-এর বেশি হতে পারে না, এর অর্থ হলো ভিতরের লুপ $n-1$টির বেশি ইটারেশন করবে না।
 
-As the rest of the algorithm obviously works in $O(n)$, we have proved that the whole algorithm for computing Z-functions runs in linear time.
+যেহেতু অ্যালগরিদমের বাকি অংশ স্পষ্টতই $O(n)$-এ কাজ করে, আমরা প্রমাণ করলাম যে জেড-ফাংশন গণনার সম্পূর্ণ অ্যালগরিদম লিনিয়ার সময়ে চলে।
 
-## Applications
+## অ্যাপ্লিকেশন
 
-We will now consider some uses of Z-functions for specific tasks.
+এখন আমরা নির্দিষ্ট কাজের জন্য জেড-ফাংশনের কিছু ব্যবহার বিবেচনা করব।
 
-These applications will be largely similar to applications of [prefix function](prefix-function.md).
+এই অ্যাপ্লিকেশনগুলো মূলত [প্রিফিক্স ফাংশন](prefix-function.md)-এর অ্যাপ্লিকেশনগুলোর সাথে অনেকটা সাদৃশ্যপূর্ণ হবে।
 
-### Search the substring
+### সাবস্ট্রিং সার্চ
 
-To avoid confusion, we call $t$ the **string of text**, and $p$ the **pattern**. The problem is: find all occurrences of the pattern $p$ inside the text $t$.
+বিভ্রান্তি এড়াতে, আমরা $t$-কে **টেক্সট স্ট্রিং** এবং $p$-কে **প্যাটার্ন** বলব। সমস্যাটি হলো: টেক্সট $t$-এর মধ্যে প্যাটার্ন $p$-এর সব অবস্থান খুঁজে বের করা।
 
-To solve this problem, we create a new string $s = p + \diamond + t$, that is, we apply string concatenation to $p$ and $t$ but we also put a separator character $\diamond$ in the middle (we'll choose $\diamond$ so that it will certainly not be present anywhere in the strings $p$ or $t$).
+এই সমস্যা সমাধানের জন্য, আমরা একটি নতুন স্ট্রিং $s = p + \diamond + t$ তৈরি করি, অর্থাৎ $p$ এবং $t$-এর স্ট্রিং কনক্যাটেনেশন করি কিন্তু মাঝখানে একটি সেপারেটর ক্যারেক্টার $\diamond$ রাখি (আমরা $\diamond$ এমনভাবে বেছে নেব যাতে এটি $p$ বা $t$ স্ট্রিংয়ের কোথাও অবশ্যই উপস্থিত না থাকে)।
 
-Compute the Z-function for $s$. Then, for any $i$ in the interval $[0; \; \operatorname{length}(t) - 1]$, we will consider the corresponding value $k = z[i + \operatorname{length}(p) + 1]$. If $k$ is equal to $\operatorname{length}(p)$ then we know there is one occurrence of $p$ in the $i$-th position of $t$, otherwise there is no occurrence of $p$ in the $i$-th position of $t$.
+$s$-এর জন্য জেড-ফাংশন গণনা করি। তাহলে, $[0; \; \operatorname{length}(t) - 1]$ ইন্টারভালের যেকোনো $i$-এর জন্য, আমরা সংশ্লিষ্ট মান $k = z[i + \operatorname{length}(p) + 1]$ বিবেচনা করব। যদি $k$, $\operatorname{length}(p)$-এর সমান হয় তাহলে আমরা জানব $t$-এর $i$-তম পজিশনে $p$-এর একটি অবস্থান আছে, অন্যথায় $t$-এর $i$-তম পজিশনে $p$-এর কোনো অবস্থান নেই।
 
-The running time (and memory consumption) is $O(\operatorname{length}(t) + \operatorname{length}(p))$.
+রানিং টাইম (এবং মেমোরি খরচ) $O(\operatorname{length}(t) + \operatorname{length}(p))$।
 
-### Number of distinct substrings in a string
+### একটি স্ট্রিংয়ে স্বতন্ত্র সাবস্ট্রিংয়ের সংখ্যা
 
-Given a string $s$ of length $n$, count the number of distinct substrings of $s$.
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে, $s$-এর স্বতন্ত্র সাবস্ট্রিংয়ের সংখ্যা গণনা করুন।
 
-We'll solve this problem iteratively. That is: knowing the current number of different substrings, recalculate this amount after adding to the end of $s$ one character.
+আমরা এই সমস্যাটি ইটারেটিভভাবে সমাধান করব। অর্থাৎ: বর্তমানে ভিন্ন সাবস্ট্রিংয়ের সংখ্যা জানা থাকলে, $s$-এর শেষে একটি ক্যারেক্টার যোগ করার পর এই পরিমাণ পুনরায় গণনা করব।
 
-So, let $k$ be the current number of distinct substrings of $s$. We append a new character $c$ to $s$. Obviously, there can be some new substrings ending in this new character $c$ (namely, all those strings that end with this symbol and that we haven't encountered yet).
+ধরা যাক, $k$ হলো $s$-এর বর্তমান স্বতন্ত্র সাবস্ট্রিংয়ের সংখ্যা। আমরা $s$-এ একটি নতুন ক্যারেক্টার $c$ যোগ করি। স্পষ্টতই, এই নতুন ক্যারেক্টার $c$-তে শেষ হওয়া কিছু নতুন সাবস্ট্রিং থাকতে পারে (বিশেষত, সেই সব স্ট্রিং যেগুলো এই প্রতীকে শেষ হয় এবং যেগুলো আমরা আগে পাইনি)।
 
-Take a string $t = s + c$ and invert it (write its characters in reverse order). Our task is now to count how many prefixes of $t$ are not found anywhere else in $t$. Let's compute the Z-function of $t$ and find its maximum value $z_{max}$. Obviously, $t$'s prefix of length $z_{max}$ occurs also somewhere in the middle of $t$. Clearly, shorter prefixes also occur.
+একটি স্ট্রিং $t = s + c$ নিন এবং এটিকে উল্টে দিন (এর ক্যারেক্টারগুলো বিপরীত ক্রমে লিখুন)। আমাদের কাজ হলো এখন $t$-এর কতগুলো প্রিফিক্স $t$-এর অন্য কোথাও পাওয়া যায় না তা গণনা করা। $t$-এর জেড-ফাংশন গণনা করি এবং এর সর্বোচ্চ মান $z_{max}$ বের করি। স্পষ্টতই, $z_{max}$ দৈর্ঘ্যের $t$-এর প্রিফিক্সটি $t$-এর মাঝখানেও কোথাও পাওয়া যায়। স্পষ্টতই, এর চেয়ে ছোট প্রিফিক্সগুলোও পাওয়া যায়।
 
-So, we have found that the number of new substrings that appear when symbol $c$ is appended to $s$ is equal to $\operatorname{length}(t) - z_{max}$.
+তাহলে, আমরা দেখেছি যে $s$-এ $c$ প্রতীক যোগ করলে যে নতুন সাবস্ট্রিংগুলো আসে তাদের সংখ্যা হলো $\operatorname{length}(t) - z_{max}$।
 
-Consequently, the running time of this solution is $O(n^2)$ for a string of length $n$.
+ফলত, $n$ দৈর্ঘ্যের স্ট্রিংয়ের জন্য এই সমাধানের রানিং টাইম হলো $O(n^2)$।
 
-It's worth noting that in exactly the same way we can recalculate, still in $O(n)$ time, the number of distinct substrings when appending a character in the beginning of the string, as well as when removing it (from the end or the beginning).
+উল্লেখযোগ্য যে, ঠিক একইভাবে আমরা $O(n)$ সময়ে স্বতন্ত্র সাবস্ট্রিংয়ের সংখ্যা পুনরায় গণনা করতে পারি যখন স্ট্রিংয়ের শুরুতে একটি ক্যারেক্টার যোগ করা হয়, সেইসাথে যখন এটি সরানো হয় (শেষ থেকে বা শুরু থেকে)।
 
-### String compression
+### স্ট্রিং কম্প্রেশন
 
-Given a string $s$ of length $n$. Find its shortest "compressed" representation, that is: find a string $t$ of shortest length such that $s$ can be represented as a concatenation of one or more copies of $t$.
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে। এর সবচেয়ে ছোট "সংকুচিত" রূপ খুঁজে বের করুন, অর্থাৎ: সবচেয়ে কম দৈর্ঘ্যের এমন একটি স্ট্রিং $t$ খুঁজুন যাতে $s$-কে $t$-এর এক বা একাধিক কপির কনক্যাটেনেশন হিসেবে উপস্থাপন করা যায়।
 
-A solution is: compute the Z-function of $s$, loop through all $i$ such that $i$ divides $n$. Stop at the first $i$ such that $i + z[i] = n$. Then, the string $s$ can be compressed to the length $i$.
+সমাধান হলো: $s$-এর জেড-ফাংশন গণনা করুন, সব $i$ যেখানে $i$, $n$-কে ভাগ করে সেগুলোর মধ্য দিয়ে লুপ করুন। প্রথম যে $i$-তে $i + z[i] = n$ হয় সেখানে থামুন। তাহলে, স্ট্রিং $s$-কে $i$ দৈর্ঘ্যে সংকুচিত করা যাবে।
 
-The proof for this fact is the same as the solution which uses the [prefix function](prefix-function.md).
+এই তথ্যের প্রমাণটি [প্রিফিক্স ফাংশন](prefix-function.md) ব্যবহার করা সমাধানের মতোই।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [CSES - Finding Borders](https://cses.fi/problemset/task/1732)
 * [eolymp - Blocks of string](https://www.eolymp.com/en/problems/1309)

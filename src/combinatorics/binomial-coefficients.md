@@ -4,73 +4,73 @@ tags:
 e_maxx_link: binomial_coeff
 ---
 
-# Binomial Coefficients
+# দ্বিপদী সহগ
 
-Binomial coefficients $\binom n k$ are the number of ways to select a set of $k$ elements from $n$ different elements without taking into account the order of arrangement of these elements (i.e., the number of unordered sets).
+দ্বিপদী সহগ $\binom n k$ হলো $n$ টি ভিন্ন উপাদান থেকে $k$ টি উপাদানের একটি সেট নির্বাচন করার উপায়ের সংখ্যা, যেখানে এই উপাদানগুলোর সাজানোর ক্রম বিবেচনা করা হয় না (অর্থাৎ অক্রমিক সেটের সংখ্যা)।
 
-Binomial coefficients are also the coefficients in the expansion of $(a + b) ^ n$ (so-called binomial theorem):
+দ্বিপদী সহগ $(a + b) ^ n$ এর সম্প্রসারণেও সহগ হিসেবে পাওয়া যায় (তথাকথিত দ্বিপদী উপপাদ্য):
 
 $$ (a+b)^n = \binom n 0 a^n + \binom n 1 a^{n-1} b + \binom n 2 a^{n-2} b^2 + \cdots + \binom n k a^{n-k} b^k + \cdots + \binom n n b^n $$
 
-It is believed that this formula, as well as the triangle which allows efficient calculation of the coefficients, was discovered by Blaise Pascal in the 17th century. Nevertheless, it was known to the Chinese mathematician Yang Hui, who lived in the 13th century. Perhaps it was discovered by a Persian scholar Omar Khayyam. Moreover, Indian mathematician Pingala, who lived  earlier in the 3rd. BC, got similar results. The merit of the Newton is that he generalized this formula for exponents that are not natural.
+এই সূত্রটি, সেইসাথে যে ত্রিভুজ সহগগুলোর দক্ষ হিসাবের সুবিধা দেয়, সেটি ১৭শ শতকে Blaise Pascal আবিষ্কার করেছিলেন বলে মনে করা হয়। তবুও, এটি ১৩শ শতকে বাসকারী চীনা গণিতবিদ Yang Hui এর কাছে পরিচিত ছিল। সম্ভবত এটি পারস্যের পণ্ডিত ওমর খৈয়ামও আবিষ্কার করেছিলেন। তাছাড়া, খ্রিস্টপূর্ব ৩য় শতকে বাসকারী ভারতীয় গণিতবিদ পিঙ্গল একই রকম ফলাফল পেয়েছিলেন। নিউটনের কৃতিত্ব হলো তিনি এই সূত্রটি এমন ঘাতের জন্য সাধারণীকরণ করেছেন যা স্বাভাবিক সংখ্যা নয়।
 
-## Calculation
+## হিসাব
 
-**Analytic formula** for the calculation:
+হিসাবের জন্য **বিশ্লেষণাত্মক সূত্র**:
 
 $$ \binom n k = \frac {n!} {k!(n-k)!} $$
 
-This formula can be easily deduced from the problem of ordered arrangement (number of ways to select $k$ different elements from $n$ different elements). First, let's count the number of ordered selections of $k$ elements. There are $n$ ways to select the first element, $n-1$ ways to select the second element, $n-2$ ways to select the third element, and so on. As a result, we get the formula of the number of ordered arrangements: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$. We can easily move to unordered arrangements, noting that each unordered arrangement corresponds to exactly $k!$ ordered arrangements ($k!$ is the number of possible permutations of $k$ elements). We get the final formula by dividing $\frac {n!} {(n-k)!}$ by $k!$.
+এই সূত্রটি ক্রমিক সাজানোর সমস্যা থেকে সহজেই বের করা যায় ($n$ টি ভিন্ন উপাদান থেকে $k$ টি ভিন্ন উপাদান নির্বাচনের উপায়ের সংখ্যা)। প্রথমে, $k$ টি উপাদানের ক্রমিক নির্বাচনের সংখ্যা গণনা করি। প্রথম উপাদান নির্বাচনের $n$ টি উপায়, দ্বিতীয় উপাদান নির্বাচনের $n-1$ টি উপায়, তৃতীয় উপাদান নির্বাচনের $n-2$ টি উপায়, ইত্যাদি। ফলে আমরা ক্রমিক সাজানোর সংখ্যার সূত্র পাই: $n (n-1) (n-2) \cdots (n - k + 1) = \frac {n!} {(n-k)!}$। প্রতিটি অক্রমিক সাজানো ঠিক $k!$ টি ক্রমিক সাজানোর সাথে সম্পর্কিত ($k!$ হলো $k$ টি উপাদানের সম্ভাব্য পারমুটেশনের সংখ্যা) - এটি লক্ষ করলে আমরা সহজেই অক্রমিক সাজানোতে যেতে পারি। $\frac {n!} {(n-k)!}$ কে $k!$ দিয়ে ভাগ করে আমরা চূড়ান্ত সূত্র পাই।
 
-**Recurrence formula** (which is associated with the famous "Pascal's Triangle"):
+**পুনরাবৃত্তি সূত্র** (যা বিখ্যাত "প্যাসকেলের ত্রিভুজ" এর সাথে সম্পর্কিত):
 
 $$ \binom n k = \binom {n-1} {k-1} + \binom {n-1} k $$
 
-It is easy to deduce this using the analytic formula.
+বিশ্লেষণাত্মক সূত্র ব্যবহার করে এটি সহজেই বের করা যায়।
 
-Note that for $n \lt k$ the value of $\binom n k$ is assumed to be zero.
+লক্ষ্য করুন $n \lt k$ হলে $\binom n k$ এর মান শূন্য ধরা হয়।
 
-## Properties
+## বৈশিষ্ট্য
 
-Binomial coefficients have many different properties. Here are the simplest of them:
+দ্বিপদী সহগের অনেক বিভিন্ন বৈশিষ্ট্য আছে। এখানে সবচেয়ে সরলগুলো দেওয়া হলো:
 
-*   Symmetry rule:
+*   প্রতিসাম্য নিয়ম:
 
     \[ \binom n k = \binom n {n-k} \]
 
-*   Factoring in:
+*   গুণনীয়ককরণ:
 
     \[ \binom n k = \frac n k \binom {n-1} {k-1} \]
 
-*   Sum over $k$:
+*   $k$ এর উপর যোগফল:
 
     \[ \sum_{k = 0}^n \binom n k = 2 ^ n \]
 
-*   Sum over $n$:
+*   $n$ এর উপর যোগফল:
 
     \[ \sum_{m = 0}^n \binom m k = \binom {n + 1} {k + 1} \]
 
-*   Sum over $n$ and $k$:
+*   $n$ এবং $k$ এর উপর যোগফল:
 
     \[ \sum_{k = 0}^m  \binom {n + k} k = \binom {n + m + 1} m \]
 
-*   Sum of the squares:
+*   বর্গের যোগফল:
 
     \[ {\binom n 0}^2 + {\binom n 1}^2 + \cdots + {\binom n n}^2 = \binom {2n} n \]
 
-*   Weighted sum:
+*   ভারযুক্ত যোগফল:
 
     \[ 1 \binom n 1 + 2 \binom n 2 + \cdots + n \binom n n = n 2^{n-1} \]
 
-*   Connection with the [Fibonacci numbers](../algebra/fibonacci-numbers.md):
+*   [ফিবোনাচ্চি সংখ্যার](../algebra/fibonacci-numbers.md) সাথে সম্পর্ক:
 
     \[ \binom n 0 + \binom {n-1} 1 + \cdots + \binom {n-k} k + \cdots + \binom 0 n = F_{n+1} \]
 
-## Calculation
+## হিসাব
 
-### Straightforward calculation using analytical formula
+### বিশ্লেষণাত্মক সূত্র ব্যবহার করে সরাসরি হিসাব
 
-The first, straightforward formula is very easy to code, but this method is likely to overflow even for relatively small values of $n$ and $k$ (even if the answer completely fit into some datatype, the calculation of the intermediate factorials can lead to overflow). Therefore, this method often can only be used with [long arithmetic](../algebra/big-integer.md):
+প্রথম, সরাসরি সূত্রটি কোড করা খুব সহজ, কিন্তু এই পদ্ধতি $n$ এবং $k$ এর তুলনামূলকভাবে ছোট মানের জন্যও ওভারফ্লো হতে পারে (এমনকি উত্তর কোনো ডেটাটাইপে সম্পূর্ণ ফিট করলেও, মধ্যবর্তী ফ্যাক্টোরিয়ালের হিসাব ওভারফ্লো ঘটাতে পারে)। তাই এই পদ্ধতি প্রায়ই শুধুমাত্র [বড় সংখ্যার গাণিতিক](../algebra/big-integer.md) দিয়ে ব্যবহার করা যায়:
 
 ```cpp
 int C(int n, int k) {
@@ -83,11 +83,11 @@ int C(int n, int k) {
 }
 ```
 
-### Improved implementation
+### উন্নত ইমপ্লিমেন্টেশন
 
-Note that in the above implementation numerator and denominator have the same number of factors ($k$), each of which is greater than or equal to 1. Therefore, we can replace our fraction with a product $k$ fractions, each of which is real-valued. However, on each step after multiplying current answer by each of the next fractions the answer will still be integer (this follows from the property of factoring in). 
+লক্ষ্য করুন উপরের ইমপ্লিমেন্টেশনে লব ও হরে সমান সংখ্যক ($k$ টি) গুণনীয়ক আছে, যার প্রতিটি ১ বা তার বেশি। তাই আমরা আমাদের ভগ্নাংশকে $k$ টি ভগ্নাংশের গুণফল দিয়ে প্রতিস্থাপন করতে পারি, যার প্রতিটি বাস্তব মানযুক্ত। তবে, প্রতিটি ধাপে বর্তমান উত্তরকে পরবর্তী ভগ্নাংশ দিয়ে গুণ করার পর উত্তর এখনো পূর্ণ সংখ্যা থাকবে (এটি গুণনীয়ককরণ বৈশিষ্ট্য থেকে অনুসরণ করে)।
 
-C++ implementation:
+C++ ইমপ্লিমেন্টেশন:
 
 ```cpp
 int C(int n, int k) {
@@ -98,13 +98,13 @@ int C(int n, int k) {
 }
 ```
 
-Here we carefully cast the floating point number to an integer, taking into account that due to the accumulated errors, it may be slightly less than the true value (for example, $2.99999$ instead of $3$).
+এখানে আমরা সাবধানে ফ্লোটিং পয়েন্ট সংখ্যাকে পূর্ণ সংখ্যায় রূপান্তর করি, বিবেচনা করে যে জমা হওয়া ত্রুটির কারণে এটি প্রকৃত মানের চেয়ে সামান্য কম হতে পারে (যেমন, $3$ এর পরিবর্তে $2.99999$)।
 
-### Pascal's Triangle
+### প্যাসকেলের ত্রিভুজ
 
-By using the recurrence relation we can construct a table of binomial coefficients (Pascal's triangle) and take the result from it. The advantage of this method is that intermediate results never exceed the answer and calculating each new table element requires only one addition. The flaw is slow execution for large $n$ and $k$ if you just need a single value and not the whole table (because in order to calculate $\binom n k$ you will need to build a table of all $\binom i j, 1 \le i \le n, 1 \le j \le n$, or at least to $1 \le j \le \min (i, 2k)$). The time complexity can be considered to be $\mathcal{O}(n^2)$.
+পুনরাবৃত্তি সম্পর্ক ব্যবহার করে আমরা দ্বিপদী সহগের একটি সারণী (প্যাসকেলের ত্রিভুজ) তৈরি করতে পারি এবং সেখান থেকে ফলাফল নিতে পারি। এই পদ্ধতির সুবিধা হলো মধ্যবর্তী ফলাফল কখনো উত্তরকে অতিক্রম করে না এবং প্রতিটি নতুন সারণী উপাদান হিসাবে শুধুমাত্র একটি যোগ প্রয়োজন। ত্রুটি হলো বড় $n$ এবং $k$ এর জন্য ধীর কার্যকারিতা যদি আপনার শুধু একটি মান দরকার হয় পুরো সারণী নয় (কারণ $\binom n k$ হিসাব করতে সব $\binom i j, 1 \le i \le n, 1 \le j \le n$ বা অন্তত $1 \le j \le \min (i, 2k)$ পর্যন্ত সারণী তৈরি করতে হবে)। টাইম কমপ্লেক্সিটি $\mathcal{O}(n^2)$ ধরা যায়।
 
-C++ implementation:
+C++ ইমপ্লিমেন্টেশন:
 
 ```cpp
 const int maxn = ...;
@@ -117,33 +117,33 @@ for (int n = 1; n <= maxn; ++n) {
 }
 ```
 
-If the entire table of values is not necessary, storing only two last rows of it is sufficient (current $n$-th row and the previous $n-1$-th).
+যদি সম্পূর্ণ মান সারণী প্রয়োজন না হয়, তাহলে শুধু শেষ দুটি সারি (বর্তমান $n$-তম সারি এবং আগের $n-1$-তম) সংরক্ষণ করাই যথেষ্ট।
 
-### Calculation in $O(1)$ {data-toc-label="Calculation in O(1)"}
+### $O(1)$ এ হিসাব {data-toc-label="O(1) এ হিসাব"}
 
-Finally, in some situations it is beneficial to precompute all the factorials in order to produce any necessary binomial coefficient with only two divisions later. This can be advantageous when using [long arithmetic](../algebra/big-integer.md), when the memory does not allow precomputation of the whole Pascal's triangle.
-
-
-## Computing binomial coefficients modulo $m$ {data-toc-label="Computing binomial coefficients modulo m"}
-
-Quite often you come across the problem of computing binomial coefficients modulo some $m$.
-
-### Binomial coefficient for small $n$ {data-toc-label="Binomial coefficient for small n"}
-
-The previously discussed approach of Pascal's triangle can be used to calculate all values of $\binom{n}{k} \bmod m$ for reasonably small $n$, since it requires time complexity $\mathcal{O}(n^2)$. This approach can handle any modulo, since only addition operations are used.
+শেষত, কিছু পরিস্থিতিতে সব ফ্যাক্টোরিয়াল আগে থেকে হিসাব করে রাখা লাভজনক, যাতে পরে শুধুমাত্র দুটি ভাগ দিয়ে যেকোনো প্রয়োজনীয় দ্বিপদী সহগ বের করা যায়। [বড় সংখ্যার গাণিতিক](../algebra/big-integer.md) ব্যবহার করার সময় এটি সুবিধাজনক হতে পারে, যখন মেমরি পুরো প্যাসকেলের ত্রিভুজ আগে থেকে হিসাব করার সুযোগ দেয় না।
 
 
-### Binomial coefficient modulo large prime
+## $m$ মডুলোতে দ্বিপদী সহগ হিসাব {data-toc-label="m মডুলোতে দ্বিপদী সহগ হিসাব"}
 
-The formula for the binomial coefficients is
+প্রায়ই কোনো $m$ মডুলোতে দ্বিপদী সহগ হিসাবের সমস্যা সামনে আসে।
+
+### ছোট $n$ এর জন্য দ্বিপদী সহগ {data-toc-label="ছোট n এর জন্য দ্বিপদী সহগ"}
+
+পূর্বে আলোচিত প্যাসকেলের ত্রিভুজ পদ্ধতি যুক্তিসঙ্গতভাবে ছোট $n$ এর জন্য $\binom{n}{k} \bmod m$ এর সব মান হিসাব করতে ব্যবহার করা যায়, কারণ এর টাইম কমপ্লেক্সিটি $\mathcal{O}(n^2)$। এই পদ্ধতি যেকোনো মডুলো সামলাতে পারে, কারণ শুধুমাত্র যোগ অপারেশন ব্যবহৃত হয়।
+
+
+### বড় মৌলিক মডুলোতে দ্বিপদী সহগ
+
+দ্বিপদী সহগের সূত্র হলো
 
 $$\binom n k = \frac {n!} {k!(n-k)!},$$
 
-so if we want to compute it modulo some prime $m > n$ we get
+তাই যদি আমরা কোনো মৌলিক $m > n$ মডুলোতে এটি হিসাব করতে চাই তাহলে পাই
 
 $$\binom n k \equiv n! \cdot (k!)^{-1} \cdot ((n-k)!)^{-1} \mod m.$$
 
-First we precompute all factorials modulo $m$ up to $\text{MAXN}!$ in $O(\text{MAXN})$ time.
+প্রথমে আমরা $\text{MAXN}!$ পর্যন্ত সব ফ্যাক্টোরিয়াল $m$ মডুলোতে $O(\text{MAXN})$ সময়ে আগে থেকে হিসাব করি।
 
 ```cpp
 factorial[0] = 1;
@@ -152,7 +152,7 @@ for (int i = 1; i <= MAXN; i++) {
 }
 ```
 
-And afterwards we can compute the binomial coefficient in $O(\log m)$ time.
+এবং তারপর আমরা $O(\log m)$ সময়ে দ্বিপদী সহগ হিসাব করতে পারি।
 
 ```cpp
 long long binomial_coefficient(int n, int k) {
@@ -160,7 +160,7 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-We even can compute the binomial coefficient in $O(1)$ time if we precompute the inverses of all factorials in $O(\text{MAXN} \log m)$ using the regular method for computing the inverse, or even in $O(\text{MAXN})$ time using the congruence $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ and the method for [computing all inverses](../algebra/module-inverse.md#mod-inv-all-num) in $O(n)$.
+আমরা $O(1)$ সময়ে দ্বিপদী সহগ হিসাবও করতে পারি যদি আমরা সব ফ্যাক্টোরিয়ালের ইনভার্স $O(\text{MAXN} \log m)$ সময়ে ইনভার্স হিসাবের সাধারণ পদ্ধতি ব্যবহার করে, অথবা এমনকি $O(\text{MAXN})$ সময়ে $(x!)^{-1} \equiv ((x-1)!)^{-1} \cdot x^{-1}$ সর্বসমতা এবং $O(n)$ এ [সব ইনভার্স হিসাবের](../algebra/module-inverse.md#mod-inv-all-num) পদ্ধতি ব্যবহার করে আগে থেকে হিসাব করি।
 
 ```cpp
 long long binomial_coefficient(int n, int k) {
@@ -168,53 +168,53 @@ long long binomial_coefficient(int n, int k) {
 }
 ```
 
-### Binomial coefficient modulo prime power  { #mod-prime-pow}
+### মৌলিক সংখ্যার ঘাত মডুলোতে দ্বিপদী সহগ  { #mod-prime-pow}
 
-Here we want to compute the binomial coefficient modulo some prime power, i.e. $m = p^b$ for some prime $p$.
-If $p > \max(k, n-k)$, then we can use the same method as described in the previous section.
-But if $p \le \max(k, n-k)$, then at least one of $k!$ and $(n-k)!$ are not coprime with $m$, and therefore we cannot compute the inverses - they don't exist.
-Nevertheless we can compute the binomial coefficient.
+এখানে আমরা কোনো মৌলিক সংখ্যার ঘাত মডুলোতে দ্বিপদী সহগ হিসাব করতে চাই, অর্থাৎ $m = p^b$ কোনো মৌলিক $p$ এর জন্য।
+যদি $p > \max(k, n-k)$ হয়, তাহলে আমরা পূর্ববর্তী বিভাগে বর্ণিত একই পদ্ধতি ব্যবহার করতে পারি।
+কিন্তু যদি $p \le \max(k, n-k)$ হয়, তাহলে $k!$ এবং $(n-k)!$ এর অন্তত একটি $m$ এর সাথে সহমৌলিক নয়, এবং তাই আমরা ইনভার্স হিসাব করতে পারি না - সেগুলোর অস্তিত্ব নেই।
+তবুও আমরা দ্বিপদী সহগ হিসাব করতে পারি।
 
-The idea is the following:
-We compute for each $x!$ the biggest exponent $c$ such that $p^c$ divides $x!$, i.e. $p^c ~|~ x!$.
-Let $c(x)$ be that number.
-And let $g(x) := \frac{x!}{p^{c(x)}}$.
-Then we can write the binomial coefficient as:
+ধারণাটি নিম্নরূপ:
+আমরা প্রতিটি $x!$ এর জন্য সবচেয়ে বড় ঘাত $c$ হিসাব করি যেন $p^c$ দিয়ে $x!$ কে ভাগ করা যায়, অর্থাৎ $p^c ~|~ x!$।
+ধরি $c(x)$ হলো সেই সংখ্যা।
+এবং ধরি $g(x) := \frac{x!}{p^{c(x)}}$।
+তাহলে আমরা দ্বিপদী সহগ লিখতে পারি:
 
 $$\binom n k = \frac {g(n) p^{c(n)}} {g(k) p^{c(k)} g(n-k) p^{c(n-k)}} = \frac {g(n)} {g(k) g(n-k)}p^{c(n) - c(k) - c(n-k)}$$
 
-The interesting thing is, that $g(x)$ is now free from the prime divisor $p$.
-Therefore $g(x)$ is coprime to m, and we can compute the modular inverses of $g(k)$ and $g(n-k)$.
+আকর্ষণীয় বিষয় হলো, $g(x)$ এখন মৌলিক ভাজক $p$ থেকে মুক্ত।
+তাই $g(x)$ হলো $m$ এর সাথে সহমৌলিক, এবং আমরা $g(k)$ ও $g(n-k)$ এর মডুলার ইনভার্স হিসাব করতে পারি।
 
-After precomputing all values for $g$ and $c$, which can be done efficiently using dynamic programming in $\mathcal{O}(n)$, we can compute the binomial coefficient in $O(\log m)$ time.
-Or precompute all inverses and all powers of $p$, and then compute the binomial coefficient in $O(1)$.
+$g$ এবং $c$ এর সব মান আগে থেকে হিসাব করার পর, যা $\mathcal{O}(n)$ সময়ে ডায়নামিক প্রোগ্রামিং ব্যবহার করে দক্ষতার সাথে করা যায়, আমরা $O(\log m)$ সময়ে দ্বিপদী সহগ হিসাব করতে পারি।
+অথবা সব ইনভার্স এবং $p$ এর সব ঘাত আগে থেকে হিসাব করে, $O(1)$ সময়ে দ্বিপদী সহগ হিসাব করা যায়।
 
-Notice, if $c(n) - c(k) - c(n-k) \ge b$, than $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, and the binomial coefficient is $0$.
+লক্ষ্য করুন, যদি $c(n) - c(k) - c(n-k) \ge b$ হয়, তাহলে $p^b ~|~ p^{c(n) - c(k) - c(n-k)}$, এবং দ্বিপদী সহগ হলো $0$।
 
-### Binomial coefficient modulo an arbitrary number
+### যেকোনো সংখ্যা মডুলোতে দ্বিপদী সহগ
 
-Now we compute the binomial coefficient modulo some arbitrary modulus $m$.
+এখন আমরা কোনো যেচ্ছা মডুলাস $m$ মডুলোতে দ্বিপদী সহগ হিসাব করি।
 
-Let the prime factorization of $m$ be $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$.
-We can compute the binomial coefficient modulo $p_i^{e_i}$ for every $i$.
-This gives us $h$ different congruences.
-Since all moduli $p_i^{e_i}$ are coprime, we can apply the [Chinese Remainder Theorem](../algebra/chinese-remainder-theorem.md) to compute the binomial coefficient modulo the product of the moduli, which is the desired binomial coefficient modulo $m$.
+ধরি $m$ এর মৌলিক উৎপাদক বিভাজন হলো $m = p_1^{e_1} p_2^{e_2} \cdots p_h^{e_h}$।
+আমরা প্রতিটি $i$ এর জন্য $p_i^{e_i}$ মডুলোতে দ্বিপদী সহগ হিসাব করতে পারি।
+এটি আমাদের $h$ টি ভিন্ন সর্বসমতা দেয়।
+যেহেতু সব মডুলাই $p_i^{e_i}$ পরস্পর সহমৌলিক, আমরা [চীনা ভাগশেষ উপপাদ্য](../algebra/chinese-remainder-theorem.md) প্রয়োগ করে মডুলাইগুলোর গুণফল মডুলোতে দ্বিপদী সহগ হিসাব করতে পারি, যা হলো কাঙ্ক্ষিত $m$ মডুলোতে দ্বিপদী সহগ।
 
-### Binomial coefficient for large $n$ and small modulo {data-toc-label="Binomial coefficient for large n and small modulo"}
+### বড় $n$ এবং ছোট মডুলোর জন্য দ্বিপদী সহগ {data-toc-label="বড় n এবং ছোট মডুলোর জন্য দ্বিপদী সহগ"}
 
-When $n$ is too large, the $\mathcal{O}(n)$ algorithms discussed above become impractical. However, if the modulo $m$ is small there are still ways to calculate $\binom{n}{k} \bmod m$.
+যখন $n$ অনেক বড়, উপরে আলোচিত $\mathcal{O}(n)$ অ্যালগরিদমগুলো অব্যবহারযোগ্য হয়ে যায়। তবে, মডুলো $m$ ছোট হলে $\binom{n}{k} \bmod m$ হিসাবের উপায় এখনো আছে।
 
-When the modulo $m$ is prime, there are 2 options:
+মডুলো $m$ মৌলিক হলে, ২টি বিকল্প আছে:
 
-* [Lucas's theorem](https://en.wikipedia.org/wiki/Lucas's_theorem) can be applied which breaks the problem of computing $\binom{n}{k} \bmod m$ into $\log_m n$ problems of the form $\binom{x_i}{y_i} \bmod m$ where $x_i, y_i < m$.  If each reduced coefficient is calculated using precomputed factorials and inverse factorials, the complexity is $\mathcal{O}(m + \log_m n)$.
-* The method of computing [factorial modulo P](../algebra/factorial-modulo.md) can be used to get the required $g$ and $c$ values and use them as described in the section of [modulo prime power](#mod-prime-pow). This takes $\mathcal{O}(m \log_m n)$.
+* [লুকাসের উপপাদ্য](https://en.wikipedia.org/wiki/Lucas's_theorem) প্রয়োগ করা যায় যা $\binom{n}{k} \bmod m$ হিসাবের সমস্যাকে $\log_m n$ টি $\binom{x_i}{y_i} \bmod m$ আকারের সমস্যায় ভেঙে দেয় যেখানে $x_i, y_i < m$। যদি প্রতিটি হ্রাসকৃত সহগ আগে থেকে হিসাবকৃত ফ্যাক্টোরিয়াল ও ইনভার্স ফ্যাক্টোরিয়াল ব্যবহার করে হিসাব করা হয়, কমপ্লেক্সিটি হলো $\mathcal{O}(m + \log_m n)$।
+* [P মডুলোতে ফ্যাক্টোরিয়াল](../algebra/factorial-modulo.md) হিসাবের পদ্ধতি ব্যবহার করে প্রয়োজনীয় $g$ এবং $c$ মান পেয়ে [মৌলিক সংখ্যার ঘাত মডুলো](#mod-prime-pow) বিভাগে বর্ণিত মতো ব্যবহার করা যায়। এটি $\mathcal{O}(m \log_m n)$ সময় নেয়।
 
-When $m$ is not prime but square-free, the prime factors of $m$ can be obtained and the coefficient modulo each prime factor can be calculated using either of the above methods, and the overall answer can be obtained by the Chinese Remainder Theorem.
+যখন $m$ মৌলিক নয় কিন্তু বর্গমুক্ত, $m$ এর মৌলিক গুণনীয়ক পাওয়া যায় এবং উপরের যেকোনো পদ্ধতি ব্যবহার করে প্রতিটি মৌলিক গুণনীয়ক মডুলোতে সহগ হিসাব করা যায়, এবং চীনা ভাগশেষ উপপাদ্য দিয়ে সামগ্রিক উত্তর পাওয়া যায়।
 
-When $m$ is not square-free, a [generalization of Lucas's theorem for prime powers](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) can be applied instead of Lucas's theorem.
+যখন $m$ বর্গমুক্ত নয়, লুকাসের উপপাদ্যের পরিবর্তে [মৌলিক সংখ্যার ঘাতের জন্য লুকাসের উপপাদ্যের সাধারণীকরণ](https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf) প্রয়োগ করা যায়।
 
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Codechef - Number of ways](https://www.codechef.com/LTIME24/problems/NWAYS/)
 * [Codeforces - Curious Array](http://codeforces.com/problemset/problem/407/C)
 * [LightOj - Necklaces](http://www.lightoj.com/volume_showproblem.php?problem=1419)
@@ -233,7 +233,7 @@ When $m$ is not square-free, a [generalization of Lucas's theorem for prime powe
 * [CodeChef - Long Sandwich](https://www.codechef.com/MAY17/problems/SANDWICH/)
 * [Codeforces - Placing Jinas](https://codeforces.com/problemset/problem/1696/E)
 
-## References
+## রেফারেন্স
 * [Blog fishi.devtail.io](https://fishi.devtail.io/weblog/2015/06/25/computing-large-binomial-coefficients-modulo-prime-non-prime/)
 * [Question on Mathematics StackExchange](https://math.stackexchange.com/questions/95491/n-choose-k-bmod-m-using-chinese-remainder-theorem)
 * [Question on CodeChef Discuss](https://discuss.codechef.com/questions/98129/your-approach-to-solve-sandwich)

@@ -4,49 +4,49 @@ tags:
   - Translated
 e_maxx_link: palindromes_count
 ---
-# Manacher's Algorithm - Finding all sub-palindromes in $O(N)$
+# ম্যানাকারের অ্যালগরিদম - $O(N)$-এ সকল সাব-প্যালিন্ড্রোম বের করা
 
-## Statement
+## সমস্যার বিবৃতি
 
-Given string $s$ with length $n$. Find all the pairs $(i, j)$ such that substring $s[i\dots j]$ is a palindrome. String $t$ is a palindrome when $t = t_{rev}$ ($t_{rev}$ is a reversed string for $t$).
+$n$ দৈর্ঘ্যের স্ট্রিং $s$ দেওয়া আছে। এমন সকল জোড়া $(i, j)$ বের করুন যেন সাবস্ট্রিং $s[i\dots j]$ একটি প্যালিন্ড্রোম হয়। স্ট্রিং $t$ একটি প্যালিন্ড্রোম যখন $t = t_{rev}$ ($t_{rev}$ হলো $t$-এর বিপরীত স্ট্রিং)।
 
-## More precise statement
+## আরও সুনির্দিষ্ট বিবৃতি
 
-In the worst case string might have up to $O(n^2)$ palindromic substrings, and at the first glance it seems that there is no linear algorithm for this problem.
+ওয়ার্স্ট কেসে স্ট্রিং-এ $O(n^2)$ পর্যন্ত প্যালিন্ড্রোমিক সাবস্ট্রিং থাকতে পারে, এবং প্রথম দৃষ্টিতে মনে হয় যে এই সমস্যার কোনো লিনিয়ার অ্যালগরিদম নেই।
 
-But the information about the palindromes can be kept **in a compact way**: for each position $i$ we will find the number of non-empty palindromes centered at this position.
+কিন্তু প্যালিন্ড্রোম সম্পর্কিত তথ্য **সংক্ষিপ্ত আকারে** রাখা যায়: প্রতিটি অবস্থান $i$-এর জন্য আমরা এই অবস্থানকে কেন্দ্র করে অশূন্য প্যালিন্ড্রোমের সংখ্যা বের করব।
 
-Palindromes with a common center form a contiguous chain, that is if we have a palindrome of length $l$ centered in $i$, we also have palindromes of lengths $l-2$, $l-4$ and so on also centered in $i$. Therefore, we will collect the information about all palindromic substrings in this way.
+একটি সাধারণ কেন্দ্র বিশিষ্ট প্যালিন্ড্রোমগুলো একটি সংলগ্ন চেইন তৈরি করে, অর্থাৎ যদি $i$-তে কেন্দ্রিত $l$ দৈর্ঘ্যের একটি প্যালিন্ড্রোম থাকে, তাহলে $i$-তে কেন্দ্রিত $l-2$, $l-4$ ইত্যাদি দৈর্ঘ্যের প্যালিন্ড্রোমও আছে। তাই, আমরা এইভাবে সকল প্যালিন্ড্রোমিক সাবস্ট্রিং-এর তথ্য সংগ্রহ করব।
 
-Palindromes of odd and even lengths are accounted for separately as $d_{odd}[i]$ and $d_{even}[i]$. For the palindromes of even length we assume that they're centered in the position $i$ if their two central characters are $s[i]$ and $s[i-1]$.
+বিজোড় এবং জোড় দৈর্ঘ্যের প্যালিন্ড্রোমগুলো আলাদাভাবে $d_{odd}[i]$ এবং $d_{even}[i]$ হিসেবে গণনা করা হয়। জোড় দৈর্ঘ্যের প্যালিন্ড্রোমের জন্য আমরা ধরে নিই যে সেগুলো $i$ অবস্থানে কেন্দ্রিত যদি তাদের দুটি কেন্দ্রীয় অক্ষর $s[i]$ এবং $s[i-1]$ হয়।
 
-For instance, string $s = abababc$ has three palindromes with odd length with centers in the position $s[3] = b$, i. e. $d_{odd}[3] = 3$:
+উদাহরণস্বরূপ, স্ট্রিং $s = abababc$-তে $s[3] = b$ অবস্থানে কেন্দ্রিত তিনটি বিজোড় দৈর্ঘ্যের প্যালিন্ড্রোম আছে, অর্থাৎ $d_{odd}[3] = 3$:
 
 $$a\ \overbrace{b\ a\ \underbrace{b}_{s_3}\ a\ b}^{d_{odd}[3]=3} c$$
 
-And string $s = cbaabd$ has two palindromes with even length with centers in the position $s[3] = a$, i. e. $d_{even}[3] = 2$:
+এবং স্ট্রিং $s = cbaabd$-তে $s[3] = a$ অবস্থানে কেন্দ্রিত দুটি জোড় দৈর্ঘ্যের প্যালিন্ড্রোম আছে, অর্থাৎ $d_{even}[3] = 2$:
 
 $$c\ \overbrace{b\ a\ \underbrace{a}_{s_3}\ b}^{d_{even}[3]=2} d$$
 
-It's a surprising fact that there is an algorithm, which is simple enough, that calculates these "palindromity arrays" $d_{odd}[]$ and $d_{even}[]$ in linear time. The algorithm is described in this article.
+এটি একটি বিস্ময়কর তথ্য যে এমন একটি অ্যালগরিদম আছে, যা যথেষ্ট সরল, এবং এই "প্যালিন্ড্রোমিটি অ্যারে" $d_{odd}[]$ এবং $d_{even}[]$ লিনিয়ার সময়ে গণনা করে। অ্যালগরিদমটি এই নিবন্ধে বর্ণনা করা হয়েছে।
 
-## Solution
+## সমাধান
 
-In general, this problem has many solutions: with [String Hashing](string-hashing.md) it can be solved in $O(n\cdot \log n)$, and with [Suffix Trees](suffix-tree-ukkonen.md) and fast LCA this problem can be solved in $O(n)$.
+সাধারণভাবে, এই সমস্যার অনেক সমাধান আছে: [স্ট্রিং হ্যাশিং](string-hashing.md) দিয়ে এটি $O(n\cdot \log n)$-এ সমাধান করা যায়, এবং [সাফিক্স ট্রি](suffix-tree-ukkonen.md) ও দ্রুত LCA দিয়ে এই সমস্যা $O(n)$-এ সমাধান করা যায়।
 
-But the method described here is **sufficiently** simpler and has less hidden constant in time and memory complexity. This algorithm was discovered by **Glenn K. Manacher** in 1975.
+কিন্তু এখানে বর্ণিত পদ্ধতিটি **যথেষ্ট** সরল এবং সময় ও মেমোরি কমপ্লেক্সিটিতে কম লুকানো ধ্রুবক আছে। এই অ্যালগরিদমটি **গ্লেন কে. ম্যানাকার** ১৯৭৫ সালে আবিষ্কার করেন।
 
-Another modern way to solve this problem and to deal with palindromes in general is through the so-called palindromic tree, or eertree.
+প্যালিন্ড্রোম নিয়ে কাজ করার আরেকটি আধুনিক পদ্ধতি হলো তথাকথিত প্যালিন্ড্রোমিক ট্রি, বা ইআরট্রি।
 
-## Trivial algorithm
+## ট্রিভিয়াল অ্যালগরিদম
 
-To avoid ambiguities in the further description we denote what "trivial algorithm" is.
+অস্পষ্টতা এড়াতে আমরা সংজ্ঞায়িত করি "ট্রিভিয়াল অ্যালগরিদম" কী।
 
-It's the algorithm that does the following. For each center position $i$ it tries to increase the answer by one as long as it's possible, comparing a pair of corresponding characters each time.
+এটি সেই অ্যালগরিদম যা নিম্নলিখিতটি করে। প্রতিটি কেন্দ্র অবস্থান $i$-এর জন্য এটি যতক্ষণ সম্ভব উত্তর এক এক করে বাড়ানোর চেষ্টা করে, প্রতিবার সংশ্লিষ্ট অক্ষরের একটি জোড়া তুলনা করে।
 
-Such an algorithm is slow, it can calculate the answer only in $O(n^2)$.
+এরকম একটি অ্যালগরিদম ধীর, এটি শুধুমাত্র $O(n^2)$-এ উত্তর গণনা করতে পারে।
 
-The implementation of the trivial algorithm is:
+ট্রিভিয়াল অ্যালগরিদমের ইমপ্লিমেন্টেশন:
 
 ```cpp
 vector<int> manacher_odd_trivial(string s) {
@@ -62,83 +62,83 @@ vector<int> manacher_odd_trivial(string s) {
 }
 ```
 
-Terminal characters `$` and `^` were used to avoid dealing with ends of the string separately.
+টার্মিনাল অক্ষর `$` এবং `^` স্ট্রিং-এর প্রান্তগুলো আলাদাভাবে পরিচালনা এড়াতে ব্যবহার করা হয়েছে।
 
-## Manacher's algorithm
+## ম্যানাকারের অ্যালগরিদম
 
-We describe the algorithm to find all the sub-palindromes with odd length, i. e. to calculate $d_{odd}[]$.
+আমরা সকল বিজোড় দৈর্ঘ্যের সাব-প্যালিন্ড্রোম বের করার অ্যালগরিদম বর্ণনা করি, অর্থাৎ $d_{odd}[]$ গণনা করি।
 
-For fast calculation we'll maintain the **exclusive borders $(l, r)$** of the rightmost found (sub-)palindrome (i. e. the current rightmost (sub-)palindrome is $s[l+1] s[l+2] \dots s[r-1]$). Initially we set $l = 0, r = 1$, which corresponds to the empty string.
+দ্রুত গণনার জন্য আমরা সবচেয়ে ডানে পাওয়া (সাব-)প্যালিন্ড্রোমের **এক্সক্লুসিভ সীমানা $(l, r)$** বজায় রাখব (অর্থাৎ বর্তমানে সবচেয়ে ডানের (সাব-)প্যালিন্ড্রোম হলো $s[l+1] s[l+2] \dots s[r-1]$)। প্রাথমিকভাবে আমরা $l = 0, r = 1$ সেট করি, যা খালি স্ট্রিং-এর সাথে সম্পর্কিত।
 
-So, we want to calculate $d_{odd}[i]$ for the next $i$, and all the previous values in $d_{odd}[]$ have been already calculated. We do the following:
+তাই, আমরা পরবর্তী $i$-এর জন্য $d_{odd}[i]$ গণনা করতে চাই, এবং $d_{odd}[]$-এর সকল পূর্ববর্তী মান ইতিমধ্যে গণনা করা হয়েছে। আমরা নিম্নলিখিতটি করি:
 
-* If $i$ is outside the current sub-palindrome, i. e. $i \geq r$, we'll just launch the trivial algorithm.
-    
-    So we'll increase $d_{odd}[i]$ consecutively and check each time if the current rightmost substring $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ is a palindrome. When we find the first mismatch or meet the boundaries of $s$, we'll stop. In this case we've finally calculated $d_{odd}[i]$. After this, we must not forget to update $(l, r)$. $r$ should be updated in such a way that it represents the last index of the current rightmost sub-palindrome.
+* যদি $i$ বর্তমান সাব-প্যালিন্ড্রোমের বাইরে থাকে, অর্থাৎ $i \geq r$, তাহলে আমরা কেবল ট্রিভিয়াল অ্যালগরিদম চালাব।
 
-* Now consider the case when $i \le r$. We'll try to extract some information from the already calculated values in $d_{odd}[]$. So, let's find the "mirror" position of $i$ in the sub-palindrome $(l, r)$, i.e. we'll get the position $j = l + (r - i)$, and we check the value of $d_{odd}[j]$. Because $j$ is the position symmetrical to $i$ with respect to $(l+r)/2$, we can **almost always** assign $d_{odd}[i] = d_{odd}[j]$. Illustration of this (palindrome around $j$ is actually "copied" into the palindrome around $i$):
-    
+    তাই আমরা ক্রমাগত $d_{odd}[i]$ বাড়াব এবং প্রতিবার পরীক্ষা করব বর্তমান সবচেয়ে ডানের সাবস্ট্রিং $[i - d_{odd}[i]\dots i + d_{odd}[i]]$ একটি প্যালিন্ড্রোম কিনা। যখন আমরা প্রথম অমিল পাই বা $s$-এর সীমানায় পৌঁছাই, আমরা থামব। এই ক্ষেত্রে আমরা শেষ পর্যন্ত $d_{odd}[i]$ গণনা করেছি। এরপর, $(l, r)$ আপডেট করতে ভুলবেন না। $r$ এমনভাবে আপডেট করতে হবে যাতে এটি বর্তমান সবচেয়ে ডানের সাব-প্যালিন্ড্রোমের শেষ ইনডেক্স প্রতিনিধিত্ব করে।
+
+* এখন সেই ক্ষেত্রে বিবেচনা করুন যখন $i \le r$। আমরা $d_{odd}[]$-এর ইতিমধ্যে গণনাকৃত মান থেকে কিছু তথ্য বের করার চেষ্টা করব। তাই, সাব-প্যালিন্ড্রোম $(l, r)$-এ $i$-এর "আয়না" অবস্থান বের করি, অর্থাৎ আমরা $j = l + (r - i)$ অবস্থান পাব, এবং $d_{odd}[j]$-এর মান পরীক্ষা করব। যেহেতু $j$ হলো $(l+r)/2$-এর সাপেক্ষে $i$-এর প্রতিসম অবস্থান, আমরা **প্রায় সবসময়** $d_{odd}[i] = d_{odd}[j]$ অ্যাসাইন করতে পারি। চিত্র ($j$-কে ঘিরে প্যালিন্ড্রোম আসলে $i$-কে ঘিরে প্যালিন্ড্রোমে "কপি" হয়):
+
     $$
-    \ldots\ 
+    \ldots\
     \overbrace{
-        s_{l+1}\ \ldots\ 
+        s_{l+1}\ \ldots\
         \underbrace{
-            s_{j-d_{odd}[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_{odd}[j]-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ 
+            s_{j-d_{odd}[j]+1}\ \ldots\ s_j\ \ldots\ s_{j+d_{odd}[j]-1}\
+        }_\text{palindrome}\
+        \ldots\
         \underbrace{
-            s_{i-d_{odd}[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_{odd}[j]-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ s_{r-1}\ 
-    }^\text{palindrome}\ 
+            s_{i-d_{odd}[j]+1}\ \ldots\ s_i\ \ldots\ s_{i+d_{odd}[j]-1}\
+        }_\text{palindrome}\
+        \ldots\ s_{r-1}\
+    }^\text{palindrome}\
     \ldots
     $$
-    
-    But there is a **tricky case** to be handled correctly: when the "inner" palindrome reaches the borders of the "outer" one, i. e. $j - d_{odd}[j] \le l$ (or, which is the same, $i + d_{odd}[j] \ge r$). Because the symmetry outside the "outer" palindrome is not guaranteed, just assigning $d_{odd}[i] = d_{odd}[j]$ will be incorrect: we do not have enough data to state that the palindrome in the position $i$ has the same length.
-    
-    Actually, we should restrict the length of our palindrome for now, i. e. assign $d_{odd}[i] = r - i$, to handle such situations correctly. After this we'll run the trivial algorithm which will try to increase $d_{odd}[i]$ while it's possible.
-    
-    Illustration of this case (the palindrome with center $j$ is restricted to fit the "outer" palindrome):
-    
+
+    কিন্তু একটি **জটিল ক্ষেত্র** আছে যা সঠিকভাবে পরিচালনা করতে হবে: যখন "ভিতরের" প্যালিন্ড্রোম "বাইরের"-এর সীমানায় পৌঁছায়, অর্থাৎ $j - d_{odd}[j] \le l$ (বা সমতুল্যভাবে, $i + d_{odd}[j] \ge r$)। যেহেতু "বাইরের" প্যালিন্ড্রোমের বাইরে প্রতিসাম্য নিশ্চিত নয়, শুধু $d_{odd}[i] = d_{odd}[j]$ অ্যাসাইন করা ভুল হবে: আমাদের কাছে যথেষ্ট তথ্য নেই যে $i$ অবস্থানের প্যালিন্ড্রোমের দৈর্ঘ্য একই।
+
+    আসলে, এরকম পরিস্থিতি সঠিকভাবে পরিচালনা করতে আমাদের আপাতত প্যালিন্ড্রোমের দৈর্ঘ্য সীমিত করতে হবে, অর্থাৎ $d_{odd}[i] = r - i$ অ্যাসাইন করতে হবে। এরপর আমরা ট্রিভিয়াল অ্যালগরিদম চালাব যা $d_{odd}[i]$ যতটা সম্ভব বাড়ানোর চেষ্টা করবে।
+
+    এই ক্ষেত্রের চিত্র ($j$ কেন্দ্রিক প্যালিন্ড্রোম "বাইরের" প্যালিন্ড্রোমে ফিট করার জন্য সীমিত):
+
     $$
-    \ldots\ 
+    \ldots\
     \overbrace{
         \underbrace{
-            s_{l+1}\ \ldots\ s_j\ \ldots\ s_{j+(j-l)-1}\ 
-        }_\text{palindrome}\ 
-        \ldots\ 
+            s_{l+1}\ \ldots\ s_j\ \ldots\ s_{j+(j-l)-1}\
+        }_\text{palindrome}\
+        \ldots\
         \underbrace{
             s_{i-(r-i)+1}\ \ldots\ s_i\ \ldots\ s_{r-1}
-        }_\text{palindrome}\ 
-    }^\text{palindrome}\ 
+        }_\text{palindrome}\
+    }^\text{palindrome}\
     \underbrace{
         \ldots \ldots \ldots \ldots \ldots
-    }_\text{try moving here}
+    }_\text{এখানে এগোনোর চেষ্টা}
     $$
-    
-    It is shown in the illustration that though the palindrome with center $j$ could be larger and go outside the "outer" palindrome, but with $i$ as the center we can use only the part that entirely fits into the "outer" palindrome. But the answer for the position $i$ ($d_{odd}[i]$) can be much bigger than this part, so next we'll run our trivial algorithm that will try to grow it outside our "outer" palindrome, i. e. to the region "try moving here".
 
-Again, we should not forget to update the values $(l, r)$ after calculating each $d_{odd}[i]$.
+    চিত্রে দেখানো হয়েছে যে, যদিও $j$ কেন্দ্রিক প্যালিন্ড্রোম বড় হতে পারত এবং "বাইরের" প্যালিন্ড্রোমের বাইরে যেতে পারত, কিন্তু $i$ কেন্দ্র হিসেবে আমরা শুধু সেই অংশটুকু ব্যবহার করতে পারি যা সম্পূর্ণরূপে "বাইরের" প্যালিন্ড্রোমের মধ্যে ফিট করে। কিন্তু $i$ অবস্থানের উত্তর ($d_{odd}[i]$) এই অংশের চেয়ে অনেক বড় হতে পারে, তাই এরপর আমরা ট্রিভিয়াল অ্যালগরিদম চালাব যা "বাইরের" প্যালিন্ড্রোমের বাইরে, অর্থাৎ "এখানে এগোনোর চেষ্টা" অঞ্চলে এটি বাড়ানোর চেষ্টা করবে।
 
-## Complexity of Manacher's algorithm
+আবার, প্রতিটি $d_{odd}[i]$ গণনার পরে $(l, r)$ মান আপডেট করতে ভুলবেন না।
 
-At the first glance it's not obvious that this algorithm has linear time complexity, because we often run the naive algorithm while searching the answer for a particular position.
+## ম্যানাকারের অ্যালগরিদমের কমপ্লেক্সিটি
 
-However, a more careful analysis shows that the algorithm is linear. In fact, [Z-function building algorithm](z-function.md), which looks similar to this algorithm, also works in linear time.
+প্রথম দৃষ্টিতে এটি স্পষ্ট নয় যে এই অ্যালগরিদমের লিনিয়ার টাইম কমপ্লেক্সিটি আছে, কারণ একটি নির্দিষ্ট অবস্থানের উত্তর খোঁজার সময় আমরা প্রায়ই নেইভ অ্যালগরিদম চালাই।
 
-We can notice that every iteration of trivial algorithm increases $r$ by one. Also $r$ cannot be decreased during the algorithm. So, trivial algorithm will make $O(n)$ iterations in total.
+তবে, আরও সতর্ক বিশ্লেষণে দেখা যায় যে অ্যালগরিদমটি লিনিয়ার। আসলে, [Z-ফাংশন তৈরির অ্যালগরিদম](z-function.md), যা এই অ্যালগরিদমের মতো দেখায়, সেটিও লিনিয়ার সময়ে কাজ করে।
 
-Other parts of Manacher's algorithm work obviously in linear time. Thus, we get $O(n)$ time complexity.
+আমরা লক্ষ্য করতে পারি যে ট্রিভিয়াল অ্যালগরিদমের প্রতিটি ইটারেশন $r$-কে এক বাড়ায়। এছাড়া অ্যালগরিদম চলাকালীন $r$ কখনো কমে না। তাই, ট্রিভিয়াল অ্যালগরিদম মোট $O(n)$ ইটারেশন করবে।
 
-## Implementation of Manacher's algorithm
+ম্যানাকারের অ্যালগরিদমের অন্যান্য অংশ স্পষ্টতই লিনিয়ার সময়ে কাজ করে। এভাবে, আমরা $O(n)$ টাইম কমপ্লেক্সিটি পাই।
 
-For calculating $d_{odd}[]$, we get the following code. Things to note:
+## ম্যানাকারের অ্যালগরিদমের ইমপ্লিমেন্টেশন
 
- - $i$ is the index of the center letter of the current palindrome.
- - If $i$ exceeds $r$, $d_{odd}[i]$ is initialized to 0.
- - If $i$ does not exceed $r$, $d_{odd}[i]$ is either initialized to the $d_{odd}[j]$, where $j$ is the mirror position of $i$ in $(l,r)$, or $d_{odd}[i]$ is restricted to the size of the "outer" palindrome.
- - The while loop denotes the trivial algorithm. We launch it irrespective of the value of $k$.
- - If the size of palindrome centered at $i$ is $x$, then $d_{odd}[i]$ stores $\frac{x+1}{2}$.
+$d_{odd}[]$ গণনার জন্য, আমরা নিম্নলিখিত কোড পাই। লক্ষণীয় বিষয়গুলো:
+
+ - $i$ হলো বর্তমান প্যালিন্ড্রোমের কেন্দ্র অক্ষরের ইনডেক্স।
+ - যদি $i$, $r$-কে অতিক্রম করে, $d_{odd}[i]$ ০ দিয়ে ইনিশিয়ালাইজ হয়।
+ - যদি $i$, $r$-কে অতিক্রম না করে, $d_{odd}[i]$ হয় $d_{odd}[j]$ দিয়ে ইনিশিয়ালাইজ হয়, যেখানে $j$ হলো $(l,r)$-এ $i$-এর আয়না অবস্থান, অথবা $d_{odd}[i]$ "বাইরের" প্যালিন্ড্রোমের আকারে সীমিত হয়।
+ - while লুপটি ট্রিভিয়াল অ্যালগরিদম নির্দেশ করে। $k$-এর মান নির্বিশেষে আমরা এটি চালাই।
+ - যদি $i$-তে কেন্দ্রিত প্যালিন্ড্রোমের আকার $x$ হয়, তাহলে $d_{odd}[i]$-তে $\frac{x+1}{2}$ সংরক্ষিত থাকে।
 
 ```{.cpp file=manacher_odd}
 vector<int> manacher_odd(string s) {
@@ -159,23 +159,23 @@ vector<int> manacher_odd(string s) {
 }
 ```
 
-## Working with parities
+## প্যারিটি নিয়ে কাজ করা
 
-Although it is possible to implement Manacher's algorithm for odd and even lengths separately, the implementation of the version for even lengths is often deemed more difficult, as it is less natural and easily leads to off-by-one errors.
+যদিও ম্যানাকারের অ্যালগরিদম বিজোড় এবং জোড় দৈর্ঘ্যের জন্য আলাদাভাবে ইমপ্লিমেন্ট করা সম্ভব, জোড় দৈর্ঘ্যের সংস্করণের ইমপ্লিমেন্টেশন প্রায়ই বেশি কঠিন বলে মনে করা হয়, কারণ এটি কম স্বাভাবিক এবং সহজেই অফ-বাই-ওয়ান ত্রুটি ঘটায়।
 
-To mitigate this, it is possible to reduce the whole problem to the case when we only deal with the palindromes of odd length. To do this, we can put an additional `#` character between each letter in the string and also in the beginning and the end of the string:
+এটি প্রশমিত করতে, পুরো সমস্যাটিকে শুধুমাত্র বিজোড় দৈর্ঘ্যের প্যালিন্ড্রোমের ক্ষেত্রে রিডিউস করা সম্ভব। এর জন্য, আমরা স্ট্রিং-এর প্রতিটি অক্ষরের মাঝে এবং শুরু ও শেষে একটি অতিরিক্ত `#` অক্ষর রাখতে পারি:
 
 $$abcbcba \to \#a\#b\#c\#b\#c\#b\#a\#,$$
 
 $$d = [1,2,1,2,1,4,1,8,1,4,1,2,1,2,1].$$
 
-As you can see, $d[2i]=2 d_{even}[i]+1$ and $d[2i+1]=2 d_{odd}[i]$ where $d$ denotes the Manacher array for odd-length palindromes in `#`-joined string, while $d_{odd}$ and $d_{even}$ correspond to the arrays defined above in the initial string.
+আপনি দেখতে পাচ্ছেন, $d[2i]=2 d_{even}[i]+1$ এবং $d[2i+1]=2 d_{odd}[i]$ যেখানে $d$ হলো `#`-যুক্ত স্ট্রিং-এ বিজোড়-দৈর্ঘ্যের প্যালিন্ড্রোমের জন্য ম্যানাকার অ্যারে, আর $d_{odd}$ এবং $d_{even}$ মূল স্ট্রিং-এ উপরে সংজ্ঞায়িত অ্যারেগুলোর সাথে সম্পর্কিত।
 
-Indeed, `#` characters do not affect the odd-length palindromes, which are still centered in the initial string's characters, but now even-length palindromes of the initial string are odd-length palindromes of the new string centered in `#` characters.
+প্রকৃতপক্ষে, `#` অক্ষরগুলো বিজোড়-দৈর্ঘ্যের প্যালিন্ড্রোমগুলোকে প্রভাবিত করে না, যেগুলো এখনও মূল স্ট্রিং-এর অক্ষরগুলোতে কেন্দ্রিত, কিন্তু এখন মূল স্ট্রিং-এর জোড়-দৈর্ঘ্যের প্যালিন্ড্রোমগুলো নতুন স্ট্রিং-এ `#` অক্ষরে কেন্দ্রিত বিজোড়-দৈর্ঘ্যের প্যালিন্ড্রোম হয়ে যায়।
 
-Note that $d[2i]$ and $d[2i+1]$ are essentially the increased by $1$ lengths of the largest odd- and even-length palindromes centered in $i$ correspondingly.
+লক্ষ্য করুন $d[2i]$ এবং $d[2i+1]$ মূলত $i$-তে কেন্দ্রিত সবচেয়ে বড় বিজোড়- এবং জোড়-দৈর্ঘ্যের প্যালিন্ড্রোমের দৈর্ঘ্যের ১ বেশি।
 
-The reduction is implemented in the following way:
+রিডাকশনটি নিম্নলিখিতভাবে ইমপ্লিমেন্ট করা হয়:
 
 ```cpp
 vector<int> manacher(string s) {
@@ -188,9 +188,9 @@ vector<int> manacher(string s) {
 }
 ```
 
-For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as their explicit calculation is omitted.
+সরলতার জন্য, অ্যারেটিকে $d_{odd}$ এবং $d_{even}$-এ বিভক্ত করা এবং তাদের স্পষ্ট গণনা বাদ দেওয়া হয়েছে।
 
-## Problems
+## সমস্যা
 
 - [Library Checker - Enumerate Palindromes](https://judge.yosupo.jp/problem/enumerate_palindromes)
 - [Longest Palindrome](https://cses.fi/problemset/task/1111)
@@ -199,4 +199,3 @@ For simplicity, splitting the array into $d_{odd}$ and $d_{even}$ as well as the
 - [CF - Prefix-Suffix Palindrome](https://codeforces.com/contest/1326/problem/D2)
 - [SPOJ - Number of Palindromes](https://www.spoj.com/problems/NUMOFPAL/)
 - [Kattis - Palindromes](https://open.kattis.com/problems/palindromes)
-

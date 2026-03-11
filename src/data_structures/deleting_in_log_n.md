@@ -3,33 +3,33 @@ title: Deleting from a data structure in O(T(n) log n)
 tags:
   - Original
 ---
-# Deleting from a data structure in $O(T(n)\log n)$
+# একটি ডেটা স্ট্রাকচার থেকে $O(T(n)\log n)$-এ মুছে ফেলা
 
-Suppose you have a data structure which allows adding elements in **true** $O(T(n))$.
-This article will describe a technique that allows deletion in $O(T(n)\log n)$ offline.
+ধরুন আপনার কাছে এমন একটি ডেটা স্ট্রাকচার আছে যা **প্রকৃত** $O(T(n))$-এ উপাদান যোগ করতে পারে।
+এই নিবন্ধে এমন একটি কৌশল বর্ণনা করা হবে যা অফলাইনে $O(T(n)\log n)$-এ মুছে ফেলতে সক্ষম করে।
 
-## Algorithm
+## অ্যালগরিদম
 
-Each element lives in the data structure for some segments of time between additions and deletions.
-Let's build a segment tree over the queries.
-Each segment when some element is alive splits into $O(\log n)$ nodes of the tree.
-Let's put each query when we want to know something about the structure into the corresponding leaf.
-Now to process all queries we will run a DFS on the segment tree.
-When entering the node we will add all the elements that are inside this node.
-Then we will go further to the children of this node or answer the queries (if the node is a leaf).
-When leaving the node, we must undo the additions.
-Note that if we change the structure in $O(T(n))$ we can roll back the changes in $O(T(n))$ by keeping a stack of changes.
-Note that rollbacks break amortized complexity.
+প্রতিটি উপাদান যোগ এবং মুছে ফেলার মধ্যবর্তী সময়ের কিছু সেগমেন্টে ডেটা স্ট্রাকচারে বেঁচে থাকে।
+কোয়েরিগুলোর উপর একটি সেগমেন্ট ট্রি তৈরি করি।
+কোনো উপাদান যতক্ষণ জীবিত থাকে সেই সেগমেন্টটি ট্রি-র $O(\log n)$ নোডে বিভক্ত হয়।
+যখন আমরা স্ট্রাকচার সম্পর্কে কিছু জানতে চাই সেই কোয়েরিটি সংশ্লিষ্ট লিফে রাখি।
+এখন সব কোয়েরি প্রক্রিয়া করতে আমরা সেগমেন্ট ট্রি-তে একটি DFS চালাব।
+কোনো নোডে প্রবেশ করার সময় আমরা সেই নোডের ভেতরের সব উপাদান যোগ করব।
+তারপর এই নোডের চাইল্ডে যাব অথবা কোয়েরির উত্তর দেব (যদি নোডটি একটি লিফ হয়)।
+নোড থেকে বের হওয়ার সময়, আমাদের যোগ করাগুলো পূর্বাবস্থায় ফেরাতে হবে।
+লক্ষ্য করুন যে আমরা যদি $O(T(n))$-এ স্ট্রাকচার পরিবর্তন করি তাহলে পরিবর্তনের একটি স্ট্যাক রেখে $O(T(n))$-এ পরিবর্তনগুলো রোলব্যাক করতে পারি।
+লক্ষ্য করুন রোলব্যাক অ্যামোর্টাইজড কমপ্লেক্সিটি ভেঙে দেয়।
 
-## Notes
+## নোট
 
-The idea of creating a segment tree over segments when something is alive may be used not only for data structure problems.
-See some problems below.
+কোনো কিছু জীবিত থাকার সেগমেন্টের উপর সেগমেন্ট ট্রি তৈরি করার ধারণাটি শুধু ডেটা স্ট্রাকচার সমস্যার জন্য নয়, অন্যত্রও ব্যবহার করা যায়।
+নিচে কিছু সমস্যা দেখুন।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-This implementation is for the [dynamic connectivity](https://en.wikipedia.org/wiki/Dynamic_connectivity) problem.
-It can add edges, remove edges and count the number of connected components.
+এই ইমপ্লিমেন্টেশনটি [ডায়নামিক কানেক্টিভিটি](https://en.wikipedia.org/wiki/Dynamic_connectivity) সমস্যার জন্য।
+এটি এজ যোগ করতে, এজ সরাতে এবং সংযুক্ত কম্পোনেন্টের সংখ্যা গুনতে পারে।
 
 ```{.cpp file=dynamic-conn}
 struct dsu_save {
@@ -150,7 +150,7 @@ struct QueryTree {
 };
 ```
 
-## Problems
+## সমস্যা
 
 - [Codeforces - Connect and Disconnect](https://codeforces.com/gym/100551/problem/A)
 - [Codeforces - Addition on Segments](https://codeforces.com/contest/981/problem/E)

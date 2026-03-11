@@ -1,28 +1,28 @@
 ---
 tags:
-  - Original
+  - Translated
 ---
-# Bit manipulation
+# বিট ম্যানিপুলেশন
 
-## Binary number
+## বাইনারি সংখ্যা
 
-A **binary number** is a number expressed in the base-2 numeral system or binary numeral system, it is a method of mathematical expression which uses only two symbols: typically "0" (zero) and "1" (one).
+একটি **বাইনারি সংখ্যা** হলো ভিত্তি-২ সংখ্যা পদ্ধতি বা বাইনারি সংখ্যা পদ্ধতিতে প্রকাশিত একটি সংখ্যা, এটি গাণিতিক প্রকাশের একটি পদ্ধতি যা শুধুমাত্র দুটি প্রতীক ব্যবহার করে: সাধারণত "0" (শূন্য) এবং "1" (এক)।
 
-We say that a certain bit is **set**, if it is one, and **cleared** if it is zero.
+আমরা বলি একটি নির্দিষ্ট বিট **সেট** আছে, যদি এটি এক হয়, এবং **ক্লিয়ার** যদি এটি শূন্য হয়।
 
-The binary number $(a_k a_{k-1} \dots a_1 a_0)_2$ represents the number:
+বাইনারি সংখ্যা $(a_k a_{k-1} \dots a_1 a_0)_2$ নিম্নলিখিত সংখ্যাটি উপস্থাপন করে:
 
 $$(a_k a_{k-1} \dots a_1 a_0)_2 = a_k \cdot 2^k + a_{k-1} \cdot 2^{k-1} + \dots + a_1 \cdot 2^1 + a_0 \cdot 2^0.$$
 
-For instance the binary number $1101_2$ represents the number $13$:
+উদাহরণস্বরূপ, বাইনারি সংখ্যা $1101_2$ সংখ্যা $13$ উপস্থাপন করে:
 
 $$\begin{align}
 1101_2 &= 1 \cdot 2^3 + 1 \cdot 2^2 + 0 \cdot 2^1 + 1 \cdot 2^0 \\
        &= 1\cdot 8 + 1 \cdot 4 + 0 \cdot 2 + 1 \cdot 1 = 13
 \end{align}$$
 
-Computers represent integers as binary numbers.
-Positive integers (both signed and unsigned) are just represented with their binary digits, and negative signed numbers (which can be positive and negative) are usually represented with the [Two's complement](https://en.wikipedia.org/wiki/Two%27s_complement).
+কম্পিউটার পূর্ণসংখ্যাগুলোকে বাইনারি সংখ্যা হিসেবে উপস্থাপন করে।
+ধনাত্মক পূর্ণসংখ্যাগুলো (সাইনড এবং আনসাইনড উভয়) কেবল তাদের বাইনারি ডিজিট দিয়ে উপস্থাপিত হয়, এবং ঋণাত্মক সাইনড সংখ্যাগুলো (যেগুলো ধনাত্মক এবং ঋণাত্মক হতে পারে) সাধারণত [টু'জ কম্প্লিমেন্ট](https://en.wikipedia.org/wiki/Two%27s_complement) দিয়ে উপস্থাপিত হয়।
 
 ```cpp
 unsigned int unsigned_number = 13;
@@ -35,28 +35,28 @@ int negative_signed_number = -13;
 assert(negative_signed_number == 0b1111'1111'1111'1111'1111'1111'1111'0011);
 ```
 
-CPUs are very fast manipulating those bits with specific operations.
-For some problems we can take these binary number representations to our advantage, and speed up the execution time.
-And for some problems (typically in combinatorics or dynamic programming) where we want to track which objects we already picked from a given set of objects, we can just use an large enough integer where each digit represents an object and depending on if we pick or drop the object we set or clear the digit.
+CPU গুলো নির্দিষ্ট অপারেশন দিয়ে এই বিটগুলো ম্যানিপুলেট করতে অত্যন্ত দ্রুত।
+কিছু সমস্যায় আমরা এই বাইনারি সংখ্যা রিপ্রেজেন্টেশনগুলো আমাদের সুবিধায় ব্যবহার করতে পারি, এবং এক্সিকিউশন টাইম দ্রুত করতে পারি।
+এবং কিছু সমস্যায় (সাধারণত কম্বিনেটরিক্স বা ডায়নামিক প্রোগ্রামিং-এ) যেখানে আমরা ট্র্যাক করতে চাই একটি প্রদত্ত অবজেক্টের সেট থেকে কোন অবজেক্টগুলো আমরা ইতিমধ্যে বেছে নিয়েছি, আমরা কেবল একটি যথেষ্ট বড় ইন্টিজার ব্যবহার করতে পারি যেখানে প্রতিটি ডিজিট একটি অবজেক্ট উপস্থাপন করে এবং আমরা অবজেক্টটি বেছে নিলে বা বাদ দিলে ডিজিটটি সেট বা ক্লিয়ার করি।
 
-## Bit operators
+## বিট অপারেটর
 
-All those introduced operators are instant (same speed as an addition) on a CPU for fixed-length integers.
+এই সব প্রবর্তিত অপারেটর ফিক্সড-লেংথ ইন্টিজারের জন্য একটি CPU-তে তাৎক্ষণিক (যোগের সমান গতি)।
 
-### Bitwise operators
+### বিটওয়াইজ অপারেটর
 
--   $\&$ : The bitwise AND operator compares each bit of its first operand with the corresponding bit of its second operand. 
-    If both bits are 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
- 	
--   $|$ : The bitwise inclusive OR operator compares each bit of its first operand with the corresponding bit of its second operand.
-    If one of the two bits is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
+-   $\&$ : বিটওয়াইজ AND অপারেটর তার প্রথম অপারেন্ডের প্রতিটি বিটকে দ্বিতীয় অপারেন্ডের সংশ্লিষ্ট বিটের সাথে তুলনা করে।
+    যদি উভয় বিট ১ হয়, সংশ্লিষ্ট ফলাফল বিট ১ সেট করা হয়। অন্যথায়, সংশ্লিষ্ট ফলাফল বিট ০ সেট করা হয়।
 
--   $\wedge$ : The bitwise exclusive OR (XOR) operator compares each bit of its first operand with the corresponding bit of its second operand.
-    If one bit is 0 and the other bit is 1, the corresponding result bit is set to 1. Otherwise, the corresponding result bit is set to 0.
+-   $|$ : বিটওয়াইজ ইনক্লুসিভ OR অপারেটর তার প্রথম অপারেন্ডের প্রতিটি বিটকে দ্বিতীয় অপারেন্ডের সংশ্লিষ্ট বিটের সাথে তুলনা করে।
+    যদি দুটি বিটের মধ্যে একটি ১ হয়, সংশ্লিষ্ট ফলাফল বিট ১ সেট করা হয়। অন্যথায়, সংশ্লিষ্ট ফলাফল বিট ০ সেট করা হয়।
 
--   $\sim$ : The bitwise complement (NOT) operator flips each bit of a number, if a bit is set the operator will clear it, if it is cleared the operator sets it.
+-   $\wedge$ : বিটওয়াইজ এক্সক্লুসিভ OR (XOR) অপারেটর তার প্রথম অপারেন্ডের প্রতিটি বিটকে দ্বিতীয় অপারেন্ডের সংশ্লিষ্ট বিটের সাথে তুলনা করে।
+    যদি একটি বিট ০ হয় এবং অন্যটি ১ হয়, সংশ্লিষ্ট ফলাফল বিট ১ সেট করা হয়। অন্যথায়, সংশ্লিষ্ট ফলাফল বিট ০ সেট করা হয়।
 
-Examples:
+-   $\sim$ : বিটওয়াইজ কম্প্লিমেন্ট (NOT) অপারেটর একটি সংখ্যার প্রতিটি বিট উল্টে দেয়, যদি একটি বিট সেট থাকে তাহলে অপারেটর এটি ক্লিয়ার করবে, যদি এটি ক্লিয়ার থাকে তাহলে অপারেটর এটি সেট করবে।
+
+উদাহরণ:
 
 ```
 n         = 01011000
@@ -85,38 +85,38 @@ n         = 01011000
 ~n        = 10100111
 ```
 
-### Shift operators
+### শিফট অপারেটর
 
-There are two operators for shifting bits.
+বিট শিফট করার জন্য দুটি অপারেটর আছে।
 
--   $\gg$ Shifts a number to the right by removing the last few binary digits of the number.
-    Each shift by one represents an integer division by 2, so a right shift by $k$ represents an integer division by $2^k$.
+-   $\gg$ সংখ্যার শেষ কয়েকটি বাইনারি ডিজিট সরিয়ে ডানদিকে শিফট করে।
+    প্রতি একটি শিফট ২ দ্বারা ইন্টিজার ভাগের প্রতিনিধিত্ব করে, তাই $k$ দ্বারা রাইট শিফট $2^k$ দ্বারা ইন্টিজার ভাগের প্রতিনিধিত্ব করে।
 
-    E.g. $5 \gg 2 = 101_2 \gg 2 = 1_2 = 1$ which is the same as $\frac{5}{2^2} = \frac{5}{4} = 1$.
-    For a computer though shifting some bits is a lot faster than doing divisions.
+    যেমন $5 \gg 2 = 101_2 \gg 2 = 1_2 = 1$ যা $\frac{5}{2^2} = \frac{5}{4} = 1$-এর সমান।
+    তবে একটি কম্পিউটারের জন্য কিছু বিট শিফট করা ভাগ করার চেয়ে অনেক দ্রুত।
 
--   $\ll$ Shifts a number to left by appending zero digits.
-    In similar fashion to a right shift by $k$, a left shift by $k$ represents a multiplication by $2^k$.
+-   $\ll$ শূন্য ডিজিট যোগ করে বাঁদিকে শিফট করে।
+    $k$ দ্বারা রাইট শিফটের মতোই, $k$ দ্বারা লেফট শিফট $2^k$ দ্বারা গুণের প্রতিনিধিত্ব করে।
 
-    E.g. $5 \ll 3 = 101_2 \ll 3 = 101000_2 = 40$ which is the same as $5 \cdot 2^3 = 5 \cdot 8 = 40$.
+    যেমন $5 \ll 3 = 101_2 \ll 3 = 101000_2 = 40$ যা $5 \cdot 2^3 = 5 \cdot 8 = 40$-এর সমান।
 
-    Notice however that for a fixed-length integer that means dropping the most left digits, and if you shift too much you end up with the number $0$.
+    তবে লক্ষ্য করুন যে ফিক্সড-লেংথ ইন্টিজারের জন্য এর মানে হলো সবচেয়ে বাঁদিকের ডিজিটগুলো বাদ পড়া, এবং আপনি অনেক বেশি শিফট করলে সংখ্যাটি $0$ হয়ে যায়।
 
 
-## Useful tricks
+## উপকারী কৌশল
 
-### Set/flip/clear a bit
+### একটি বিট সেট/ফ্লিপ/ক্লিয়ার করা
 
-Using bitwise shifts and some basic bitwise operations we can easily set, flip or clear a bit.
-$1 \ll x$ is a number with only the $x$-th bit set, while $\sim(1 \ll x)$ is a number with all bits set except the $x$-th bit.
+বিটওয়াইজ শিফট এবং কিছু মৌলিক বিটওয়াইজ অপারেশন ব্যবহার করে আমরা সহজেই একটি বিট সেট, ফ্লিপ বা ক্লিয়ার করতে পারি।
+$1 \ll x$ হলো একটি সংখ্যা যেখানে শুধুমাত্র $x$-তম বিট সেট, আর $\sim(1 \ll x)$ হলো একটি সংখ্যা যেখানে $x$-তম বিট ছাড়া সব বিট সেট।
 
-- $n ~|~ (1 \ll x)$ sets the $x$-th bit in the number $n$
-- $n ~\wedge~ (1 \ll x)$ flips the $x$-th bit in the number $n$
-- $n ~\&~ \sim(1 \ll x)$ clears the $x$-th bit in the number $n$
+- $n ~|~ (1 \ll x)$ সংখ্যা $n$-এ $x$-তম বিট সেট করে
+- $n ~\wedge~ (1 \ll x)$ সংখ্যা $n$-এ $x$-তম বিট ফ্লিপ করে
+- $n ~\&~ \sim(1 \ll x)$ সংখ্যা $n$-এ $x$-তম বিট ক্লিয়ার করে
 
-### Check if a bit is set
+### একটি বিট সেট আছে কিনা পরীক্ষা করা
 
-The value of the $x$-th bit can be checked by shifting the number $x$ positions to the right, so that the $x$-th bit is at the unit place, after which we can extract it by performing a bitwise & with 1.
+$x$-তম বিটের মান পরীক্ষা করা যায় সংখ্যাটিকে $x$ পজিশন ডানে শিফট করে, যাতে $x$-তম বিটটি এককের স্থানে আসে, তারপর ১-এর সাথে বিটওয়াইজ & সম্পাদন করে এটি বের করা যায়।
 
 ``` cpp
 bool is_set(unsigned int number, int x) {
@@ -124,10 +124,10 @@ bool is_set(unsigned int number, int x) {
 }
 ```
 
-### Check if the number is divisible by a power of 2
+### সংখ্যাটি ২-এর ঘাত দ্বারা বিভাজ্য কিনা পরীক্ষা করা
 
-Using the and operation, we can check if a number $n$ is even because $n ~\&~ 1 = 0$ if $n$ is even, and $n ~\&~ 1 = 1$ if $n$ is odd.
-More generally, $n$ is divisible by $2^{k}$ exactly when $n ~\&~ (2^{k} − 1) = 0$.
+AND অপারেশন ব্যবহার করে, আমরা পরীক্ষা করতে পারি একটি সংখ্যা $n$ জোড় কিনা কারণ $n ~\&~ 1 = 0$ যদি $n$ জোড় হয়, এবং $n ~\&~ 1 = 1$ যদি $n$ বিজোড় হয়।
+আরও সাধারণভাবে, $n$ ঠিক তখনই $2^{k}$ দ্বারা বিভাজ্য যখন $n ~\&~ (2^{k} − 1) = 0$।
 
 ``` cpp
 bool isDivisibleByPowerOf2(int n, int k) {
@@ -136,15 +136,15 @@ bool isDivisibleByPowerOf2(int n, int k) {
 }
 ```
 
-We can calculate $2^{k}$ by left shifting 1 by $k$ positions.
-The trick works, because $2^k - 1$ is a number that consists of exactly $k$ ones.
-And a number that is divisible by $2^k$ must have zero digits in those places.
+আমরা ১-কে $k$ পজিশন বাঁয়ে শিফট করে $2^{k}$ গণনা করতে পারি।
+কৌশলটি কাজ করে, কারণ $2^k - 1$ হলো এমন একটি সংখ্যা যেখানে ঠিক $k$ টি ওয়ান আছে।
+এবং $2^k$ দ্বারা বিভাজ্য একটি সংখ্যায় সেই স্থানগুলোতে শূন্য ডিজিট থাকতে হবে।
 
-### Check if an integer is a power of 2
+### একটি পূর্ণসংখ্যা ২-এর ঘাত কিনা পরীক্ষা করা
 
-A power of two is a number that has only a single bit in it (e.g. $32 = 0010~0000_2$), while the predecessor of that number has that digit not set and all the digits after it set ($31 = 0001~1111_2$).
-So the bitwise AND of a number with it's predecessor will always be 0, as they don't have any common digits set.
-You can easily check that this only happens for the the power of twos and for the number $0$ which already has no digit set.
+২-এর ঘাত এমন একটি সংখ্যা যেখানে শুধুমাত্র একটি বিট আছে (যেমন $32 = 0010~0000_2$), আর সেই সংখ্যার পূর্ববর্তী সংখ্যায় সেই ডিজিটটি সেট নেই এবং এর পরের সব ডিজিট সেট ($31 = 0001~1111_2$)।
+তাই একটি সংখ্যা এবং এর পূর্ববর্তী সংখ্যার বিটওয়াইজ AND সর্বদা ০ হবে, কারণ তাদের কোনো সাধারণ সেট ডিজিট নেই।
+আপনি সহজেই যাচাই করতে পারেন যে এটি কেবল ২-এর ঘাত এবং $0$ সংখ্যার জন্যই ঘটে, যেখানে ইতিমধ্যে কোনো ডিজিট সেট নেই।
 
 ``` cpp
 bool isPowerOfTwo(unsigned int n) {
@@ -152,13 +152,13 @@ bool isPowerOfTwo(unsigned int n) {
 }
 ```
 
-### Clear the right-most set bit
+### সবচেয়ে ডানদিকের সেট বিট ক্লিয়ার করা
 
-The expression $n ~\&~ (n-1)$ can be used to turn off the rightmost set bit of a number $n$.
-This works because the expression $n-1$ flips all bits after the rightmost set bit of $n$, including the rightmost set bit.
-So all those digits are different from the original number, and by doing a bitwise AND they are all set to 0, giving you the original number $n$ with the rightmost set bit flipped.
+এক্সপ্রেশন $n ~\&~ (n-1)$ একটি সংখ্যা $n$-এর সবচেয়ে ডানদিকের সেট বিট বন্ধ করতে ব্যবহার করা যায়।
+এটি কাজ করে কারণ এক্সপ্রেশন $n-1$ সংখ্যা $n$-এর সবচেয়ে ডানদিকের সেট বিটের পরে সব বিট ফ্লিপ করে, সেই সবচেয়ে ডানদিকের সেট বিট সহ।
+তাই সেই সব ডিজিট মূল সংখ্যা থেকে ভিন্ন, এবং বিটওয়াইজ AND করলে সেগুলো সব ০ হয়ে যায়, আপনাকে সবচেয়ে ডানদিকের সেট বিট ফ্লিপ করা মূল সংখ্যা $n$ দেয়।
 
-For example, consider the number $52 = 0011~0100_2$:
+উদাহরণস্বরূপ, $52 = 0011~0100_2$ সংখ্যাটি বিবেচনা করুন:
 
 ```
 n         = 00110100
@@ -167,11 +167,11 @@ n-1       = 00110011
 n & (n-1) = 00110000
 ```
 
-### Brian Kernighan's algorithm
+### ব্রায়ান কার্নিঘানের অ্যালগরিদম
 
-We can count the number of bits set with the above expression.
+উপরের এক্সপ্রেশন দিয়ে আমরা সেট বিটের সংখ্যা গণনা করতে পারি।
 
-The idea is to consider only the set bits of an integer by turning off its rightmost set bit (after counting it), so the next iteration of the loop considers the Next Rightmost bit.
+ধারণাটি হলো একটি ইন্টিজারের শুধুমাত্র সেট বিটগুলো বিবেচনা করা, এর সবচেয়ে ডানদিকের সেট বিট বন্ধ করে (গণনার পর), যাতে লুপের পরবর্তী ইটারেশন পরবর্তী ডানদিকের বিট বিবেচনা করে।
 
 ``` cpp
 int countSetBits(int n)
@@ -186,10 +186,10 @@ int countSetBits(int n)
 }
 ```
 
-### Count set bits upto $n$
-To count the number of set bits of all numbers upto the number $n$ (inclusive), we can run the Brian Kernighan's algorithm on all numbers upto $n$. But this will result in a "Time Limit Exceeded" in contest submissions. 
+### $n$ পর্যন্ত সেট বিট গণনা
+$n$ (সহ) পর্যন্ত সকল সংখ্যার সেট বিটের সংখ্যা গণনা করতে, আমরা $n$ পর্যন্ত সকল সংখ্যায় ব্রায়ান কার্নিঘানের অ্যালগরিদম চালাতে পারি। তবে এটি প্রতিযোগিতায় "Time Limit Exceeded" দেবে।
 
-We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) there are $x \cdot 2^{x-1}$ set bits. This can be visualised as follows.
+আমরা এই তথ্যটি ব্যবহার করতে পারি যে $2^x$ পর্যন্ত সংখ্যাগুলোর জন্য (অর্থাৎ $1$ থেকে $2^x - 1$ পর্যন্ত) $x \cdot 2^{x-1}$ টি সেট বিট আছে। এটি নিম্নরূপে দেখানো যায়।
 ```
 0 ->   0 0 0 0
 1 ->   0 0 0 1
@@ -202,14 +202,14 @@ We can use the fact that for numbers upto $2^x$ (i.e. from $1$ to $2^x - 1$) the
 8 ->   1 0 0 0
 ```
 
-We can see that the all the columns except the leftmost have $4$ (i.e. $2^2$) set bits each, i.e. upto the number $2^3 - 1$, the number of set bits is $3 \cdot 2^{3-1}$.
+আমরা দেখতে পাচ্ছি যে সবচেয়ে বাঁদিকেরটি ছাড়া সব কলামে $4$ (অর্থাৎ $2^2$) টি সেট বিট আছে, অর্থাৎ $2^3 - 1$ পর্যন্ত সংখ্যায়, সেট বিটের সংখ্যা হলো $3 \cdot 2^{3-1}$।
 
-With the new knowledge in hand we can come up with the following algorithm:
+এই নতুন জ্ঞান নিয়ে আমরা নিম্নলিখিত অ্যালগরিদম তৈরি করতে পারি:
 
-- Find the highest power of $2$ that is lesser than or equal to the given number. Let this number be $x$.
-- Calculate the number of set bits from $1$ to $2^x - 1$ by using the formula $x \cdot 2^{x-1}$.
-- Count the no. of set bits in the most significant bit from $2^x$ to $n$ and add it.
-- Subtract $2^x$ from $n$ and repeat the above steps using the new $n$.
+- প্রদত্ত সংখ্যার চেয়ে ছোট বা সমান $2$-এর সর্বোচ্চ ঘাত খুঁজুন। একে $x$ ধরি।
+- $1$ থেকে $2^x - 1$ পর্যন্ত সেট বিটের সংখ্যা $x \cdot 2^{x-1}$ সূত্র ব্যবহার করে গণনা করুন।
+- $2^x$ থেকে $n$ পর্যন্ত সবচেয়ে তাৎপর্যপূর্ণ বিটে সেট বিটের সংখ্যা গণনা করে যোগ করুন।
+- $n$ থেকে $2^x$ বিয়োগ করুন এবং নতুন $n$ ব্যবহার করে উপরের ধাপগুলো পুনরাবৃত্তি করুন।
 
 ```cpp
 int countSetBits(int n) {
@@ -224,36 +224,36 @@ int countSetBits(int n) {
 }
 ```
 
-### Additional tricks
+### অতিরিক্ত কৌশল
 
-- $n ~\&~ (n + 1)$ clears all trailing ones: $0011~0111_2 \rightarrow 0011~0000_2$.
-- $n ~|~ (n + 1)$ sets the last cleared bit: $0011~0101_2 \rightarrow 0011~0111_2$.
-- $n ~\&~ -n$ extracts the last set bit: $0011~0100_2 \rightarrow 0000~0100_2$.
+- $n ~\&~ (n + 1)$ সকল ট্রেইলিং ওয়ান ক্লিয়ার করে: $0011~0111_2 \rightarrow 0011~0000_2$।
+- $n ~|~ (n + 1)$ শেষ ক্লিয়ার বিট সেট করে: $0011~0101_2 \rightarrow 0011~0111_2$।
+- $n ~\&~ -n$ শেষ সেট বিট এক্সট্র্যাক্ট করে: $0011~0100_2 \rightarrow 0000~0100_2$।
 
-Many more can be found in the book [Hacker's Delight](https://en.wikipedia.org/wiki/Hacker%27s_Delight).
+আরও অনেক কৌশল [Hacker's Delight](https://en.wikipedia.org/wiki/Hacker%27s_Delight) বইতে পাওয়া যায়।
 
-### Language and compiler support
+### ল্যাঙ্গুয়েজ এবং কম্পাইলার সাপোর্ট
 
-C++ supports some of those operations since C++20 via the [bit](https://en.cppreference.com/w/cpp/header/bit) standard library:
+C++ এর কিছু অপারেশন C++20 থেকে [bit](https://en.cppreference.com/w/cpp/header/bit) স্ট্যান্ডার্ড লাইব্রেরির মাধ্যমে সাপোর্ট করে:
 
-- `has_single_bit`: checks if the number is a power of two
-- `bit_ceil` / `bit_floor`: round up/down to the next power of two
-- `rotl` / `rotr`: rotate the bits in the number
-- `countl_zero` / `countr_zero` / `countl_one` / `countr_one`: count the leading/trailing zeros/ones
-- `popcount`: count the number of set bits
+- `has_single_bit`: সংখ্যাটি ২-এর ঘাত কিনা পরীক্ষা করে
+- `bit_ceil` / `bit_floor`: পরবর্তী ২-এর ঘাতে রাউন্ড আপ/ডাউন করে
+- `rotl` / `rotr`: সংখ্যার বিটগুলো রোটেট করে
+- `countl_zero` / `countr_zero` / `countl_one` / `countr_one`: লিডিং/ট্রেইলিং জিরো/ওয়ান গণনা করে
+- `popcount`: সেট বিটের সংখ্যা গণনা করে
 
-Additionally, there are also predefined functions in some compilers that help working with bits.
-E.g. GCC defines a list at [Built-in Functions Provided by GCC](https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html) that also work in older versions of C++:
+এছাড়াও, কিছু কম্পাইলারে প্রিডিফাইনড ফাংশন আছে যা বিটের সাথে কাজ করতে সাহায্য করে।
+যেমন GCC [Built-in Functions Provided by GCC](https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html)-এ একটি তালিকা সংজ্ঞায়িত করে যা C++-এর পুরানো ভার্সনেও কাজ করে:
 
-- `__builtin_popcount(unsigned int)` returns the number of set bits (`__builtin_popcount(0b0001'0010'1100) == 4`)
-- `__builtin_ffs(int)` finds the index of the first (most right) set bit (`__builtin_ffs(0b0001'0010'1100) == 3`)
-- `__builtin_clz(unsigned int)` the count of leading zeros (`__builtin_clz(0b0001'0010'1100) == 23`)
-- `__builtin_ctz(unsigned int)` the count of trailing zeros (`__builtin_ctz(0b0001'0010'1100) == 2`)
-- ` __builtin_parity(x)` the parity (even or odd) of the number of ones in the bit representation
+- `__builtin_popcount(unsigned int)` সেট বিটের সংখ্যা রিটার্ন করে (`__builtin_popcount(0b0001'0010'1100) == 4`)
+- `__builtin_ffs(int)` প্রথম (সবচেয়ে ডান) সেট বিটের ইনডেক্স খুঁজে বের করে (`__builtin_ffs(0b0001'0010'1100) == 3`)
+- `__builtin_clz(unsigned int)` লিডিং জিরোর সংখ্যা (`__builtin_clz(0b0001'0010'1100) == 23`)
+- `__builtin_ctz(unsigned int)` ট্রেইলিং জিরোর সংখ্যা (`__builtin_ctz(0b0001'0010'1100) == 2`)
+- ` __builtin_parity(x)` বিট রিপ্রেজেন্টেশনে ওয়ানের সংখ্যার প্যারিটি (জোড় বা বিজোড়)
 
-_Note that some of the operations (both the C++20 functions and the Compiler Built-in ones) might be quite slow in GCC if you don't enable a specific compiler target with `#pragma GCC target("popcnt")`._
+_লক্ষ্য করুন যে কিছু অপারেশন (C++20 ফাংশন এবং কম্পাইলার বিল্ট-ইন উভয়ই) GCC-তে বেশ ধীর হতে পারে যদি আপনি `#pragma GCC target("popcnt")` দিয়ে একটি নির্দিষ্ট কম্পাইলার টার্গেট সক্রিয় না করেন।_
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Codeforces - Raising Bacteria](https://codeforces.com/problemset/problem/579/A)
 * [Codeforces - Fedor and New Game](https://codeforces.com/problemset/problem/467/B)

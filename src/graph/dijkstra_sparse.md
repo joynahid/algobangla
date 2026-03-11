@@ -4,48 +4,48 @@ tags:
 e_maxx_link: dijkstra_sparse
 ---
 
-# Dijkstra on sparse graphs
+# স্পার্স গ্রাফে ডায়াক্সট্রা
 
-For the statement of the problem, the algorithm with implementation and proof can be found on the article [Dijkstra's algorithm](dijkstra.md).
+সমস্যার বিবৃতি, অ্যালগরিদম সহ ইমপ্লিমেন্টেশন এবং প্রমাণ [ডায়াক্সট্রা অ্যালগরিদম](dijkstra.md) নিবন্ধে পাওয়া যাবে।
 
-## Algorithm
+## অ্যালগরিদম
 
-We recall in the derivation of the complexity of Dijkstra's algorithm we used two factors:
-the time of finding the unmarked vertex with the smallest distance $d[v]$, and the time of the relaxation, i.e. the time of changing the values $d[\text{to}]$.
+আমরা স্মরণ করি যে ডায়াক্সট্রা অ্যালগরিদমের কমপ্লেক্সিটি নির্ণয়ে আমরা দুটি ফ্যাক্টর ব্যবহার করেছিলাম:
+সর্বনিম্ন দূরত্ব $d[v]$ বিশিষ্ট অচিহ্নিত ভার্টেক্স খোঁজার সময়, এবং রিলাক্সেশনের সময়, অর্থাৎ $d[\text{to}]$ মান পরিবর্তনের সময়।
 
-In the simplest implementation these operations require $O(n)$ and $O(1)$ time.
-Therefore, since we perform the first operation $O(n)$ times, and the second one $O(m)$ times, we obtained the complexity $O(n^2 + m)$.
+সরলতম ইমপ্লিমেন্টেশনে এই অপারেশনগুলোর জন্য যথাক্রমে $O(n)$ এবং $O(1)$ সময় প্রয়োজন।
+অতএব, যেহেতু আমরা প্রথম অপারেশনটি $O(n)$ বার এবং দ্বিতীয়টি $O(m)$ বার সম্পাদন করি, আমরা $O(n^2 + m)$ কমপ্লেক্সিটি পেয়েছিলাম।
 
-It is clear, that this complexity is optimal for a dense graph, i.e. when $m \approx n^2$.
-However in sparse graphs, when $m$ is much smaller than the maximal number of edges $n^2$, the complexity gets less optimal because of the first term.
-Thus it is necessary to improve the execution time of the first operation (and of course without greatly affecting the second operation by much).
+এটি স্পষ্ট যে এই কমপ্লেক্সিটি ডেন্স গ্রাফের জন্য অপটিমাল, অর্থাৎ যখন $m \approx n^2$।
+তবে স্পার্স গ্রাফে, যখন $m$ সর্বাধিক এজ সংখ্যা $n^2$ এর তুলনায় অনেক কম, প্রথম পদের কারণে কমপ্লেক্সিটি কম অপটিমাল হয়ে যায়।
+তাই প্রথম অপারেশনের সম্পাদন সময় উন্নত করা প্রয়োজন (এবং অবশ্যই দ্বিতীয় অপারেশনকে খুব বেশি প্রভাবিত না করে)।
 
-To accomplish that we can use a variation of multiple auxiliary data structures.
-The most efficient is the **Fibonacci heap**, which allows the first operation to run in $O(\log n)$, and the second operation in $O(1)$.
-Therefore we will get the complexity $O(n \log n + m)$ for Dijkstra's algorithm, which is also the theoretical minimum for the shortest path search problem.
-Therefore this algorithm works optimal, and Fibonacci heaps are the optimal data structure.
-There doesn't exist any data structure, that can perform both operations in $O(1)$, because this would also allow to sort a list of random numbers in linear time, which is impossible.
-Interestingly there exists an algorithm by Thorup that finds the shortest path in $O(m)$ time, however only works for integer weights, and uses a completely different idea.
-So this doesn't lead to any contradictions.
-Fibonacci heaps provide the optimal complexity for this task.
-However they are quite complex to implement, and also have a quite large hidden constant.
+এটি সম্পন্ন করতে আমরা একাধিক সহায়ক ডেটা স্ট্রাকচারের একটি ভ্যারিয়েশন ব্যবহার করতে পারি।
+সবচেয়ে দক্ষ হলো **ফিবোনাচি হিপ**, যেটি প্রথম অপারেশন $O(\log n)$ এ এবং দ্বিতীয় অপারেশন $O(1)$ এ চালাতে দেয়।
+অতএব আমরা ডায়াক্সট্রা অ্যালগরিদমের জন্য $O(n \log n + m)$ কমপ্লেক্সিটি পাব, যেটি শর্টেস্ট পাথ সার্চ সমস্যার তাত্ত্বিক ন্যূনতমও।
+অতএব এই অ্যালগরিদম অপটিমালভাবে কাজ করে, এবং ফিবোনাচি হিপ হলো অপটিমাল ডেটা স্ট্রাকচার।
+কোনো ডেটা স্ট্রাকচার নেই যেটি উভয় অপারেশন $O(1)$ এ সম্পাদন করতে পারে, কারণ এটি র‍্যান্ডম সংখ্যার একটি তালিকা লিনিয়ার সময়ে সর্ট করার সুযোগ দিত, যা অসম্ভব।
+মজার বিষয় হলো, থরাপের একটি অ্যালগরিদম আছে যেটি $O(m)$ সময়ে শর্টেস্ট পাথ খুঁজে পায়, তবে শুধুমাত্র ইন্টিজার ওয়েটের জন্য কাজ করে, এবং সম্পূর্ণ ভিন্ন ধারণা ব্যবহার করে।
+তাই এটি কোনো বৈপরীত্য তৈরি করে না।
+ফিবোনাচি হিপ এই কাজের জন্য অপটিমাল কমপ্লেক্সিটি প্রদান করে।
+তবে এগুলো ইমপ্লিমেন্ট করা বেশ জটিল, এবং এগুলোর হিডেন কনস্ট্যান্টও বেশ বড়।
 
-As a compromise you can use data structures, that perform both types of operations (extracting a minimum and updating an item) in $O(\log n)$.
-Then the complexity of Dijkstra's algorithm is $O(n \log n + m \log n) = O(m \log n)$.
+একটি সমঝোতা হিসেবে আপনি এমন ডেটা স্ট্রাকচার ব্যবহার করতে পারেন, যেগুলো উভয় ধরনের অপারেশন (মিনিমাম বের করা এবং একটি আইটেম আপডেট করা) $O(\log n)$ এ সম্পাদন করে।
+তখন ডায়াক্সট্রা অ্যালগরিদমের কমপ্লেক্সিটি $O(n \log n + m \log n) = O(m \log n)$।
 
-C++ provides two such data structures: `set` and `priority_queue`.
-The first is based on red-black trees, and the second one on heaps.
-Therefore `priority_queue` has a smaller hidden constant, but also has a drawback:
-it doesn't support the operation of removing an element.
-Because of this we need to do a "workaround", that actually leads to a slightly worse factor $\log m$ instead of $\log n$ (although in terms of complexity they are identical).
+C++ এমন দুটি ডেটা স্ট্রাকচার প্রদান করে: `set` এবং `priority_queue`।
+প্রথমটি রেড-ব্ল্যাক ট্রি-র উপর ভিত্তি করে, এবং দ্বিতীয়টি হিপের উপর।
+তাই `priority_queue` এর হিডেন কনস্ট্যান্ট ছোট, কিন্তু এরও একটি অসুবিধা আছে:
+এটি একটি উপাদান মুছে ফেলার অপারেশন সমর্থন করে না।
+এই কারণে আমাদের একটি "ওয়ার্কঅ্যারাউন্ড" করতে হয়, যেটি আসলে $\log n$ এর পরিবর্তে সামান্য খারাপ $\log m$ ফ্যাক্টরে নিয়ে যায় (যদিও কমপ্লেক্সিটির দিক থেকে এগুলো অভিন্ন)।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ### set
 
-Let us start with the container `set`.
-Since we need to store vertices ordered by their values $d[]$, it is convenient to store actual pairs: the distance and the index of the vertex.
-As a result in a `set` pairs are automatically sorted by their distances.
+আসুন `set` কন্টেইনার দিয়ে শুরু করি।
+যেহেতু আমাদের ভার্টেক্সগুলো তাদের $d[]$ মান অনুসারে সাজিয়ে সংরক্ষণ করতে হবে, প্রকৃত পেয়ার সংরক্ষণ করা সুবিধাজনক: দূরত্ব এবং ভার্টেক্সের ইনডেক্স।
+ফলে একটি `set` এ পেয়ারগুলো স্বয়ংক্রিয়ভাবে তাদের দূরত্ব অনুসারে সাজানো হয়।
 
 ```{.cpp file=dijkstra_sparse_set}
 const int INF = 1000000000;
@@ -66,7 +66,7 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
         for (auto edge : adj[v]) {
             int to = edge.first;
             int len = edge.second;
-            
+
             if (d[v] + len < d[to]) {
                 q.erase({d[to], to});
                 d[to] = d[v] + len;
@@ -78,26 +78,26 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
 }
 ```
 
-We don't need the array $u[]$ from the normal Dijkstra's algorithm implementation any more.
-We will use the `set` to store that information, and also find the vertex with the shortest distance with it.
-It kinda acts like a queue.
-The main loops executes until there are no more vertices in the set/queue.
-A vertex with the smallest distance gets extracted, and for each successful relaxation we first remove the old pair, and then after the relaxation add the new pair into the queue.
+আমাদের আর সাধারণ ডায়াক্সট্রা অ্যালগরিদম ইমপ্লিমেন্টেশনের $u[]$ অ্যারের প্রয়োজন নেই।
+আমরা সেই তথ্য সংরক্ষণ করতে `set` ব্যবহার করব, এবং এটি দিয়ে সর্বনিম্ন দূরত্বের ভার্টেক্সও খুঁজব।
+এটি একরকম কিউ-র মতো কাজ করে।
+মূল লুপটি সেট/কিউতে আর কোনো ভার্টেক্স না থাকা পর্যন্ত চলে।
+সর্বনিম্ন দূরত্বের একটি ভার্টেক্স বের করা হয়, এবং প্রতিটি সফল রিলাক্সেশনের জন্য আমরা প্রথমে পুরনো পেয়ার মুছি, এবং তারপর রিলাক্সেশনের পরে নতুন পেয়ার কিউতে যোগ করি।
 
 ### priority_queue
 
-The main difference to the implementation with `set` is that in many languages, including C++, we cannot remove elements from the `priority_queue` (although heaps can support that operation in theory).
-Therefore we have to use a workaround:
-We simply don't delete the old pair from the queue.
-As a result a vertex can appear multiple times with different distance in the queue at the same time.
-Among these pairs we are only interested in the pairs where the first element is equal to the corresponding value in $d[]$, all the other pairs are old.
-Therefore we need to make a small modification:
-at the beginning of each iteration, after extracting the next pair, we check if it is an important pair or if it is already an old and handled pair.
-This check is important, otherwise the complexity can increase up to $O(n m)$.
+`set` এর সাথে ইমপ্লিমেন্টেশনের মূল পার্থক্য হলো যে অনেক ভাষায়, C++ সহ, আমরা `priority_queue` থেকে উপাদান মুছতে পারি না (যদিও হিপ তাত্ত্বিকভাবে সেই অপারেশন সমর্থন করতে পারে)।
+তাই আমাদের একটি ওয়ার্কঅ্যারাউন্ড ব্যবহার করতে হবে:
+আমরা কেবল কিউ থেকে পুরনো পেয়ার মুছি না।
+ফলে একটি ভার্টেক্স বিভিন্ন দূরত্বসহ একই সময়ে কিউতে একাধিকবার দেখা দিতে পারে।
+এই পেয়ারগুলোর মধ্যে আমরা শুধু সেগুলোতে আগ্রহী যেখানে প্রথম উপাদান $d[]$ এর সংশ্লিষ্ট মানের সমান, বাকি সব পেয়ার পুরনো।
+তাই আমাদের একটি ছোট পরিবর্তন করতে হবে:
+প্রতিটি ইটারেশনের শুরুতে, পরবর্তী পেয়ার বের করার পর, আমরা পরীক্ষা করি এটি একটি গুরুত্বপূর্ণ পেয়ার নাকি ইতিমধ্যে পুরনো এবং প্রক্রিয়াকৃত পেয়ার।
+এই চেক গুরুত্বপূর্ণ, অন্যথায় কমপ্লেক্সিটি $O(n m)$ পর্যন্ত বাড়তে পারে।
 
-By default a `priority_queue` sorts elements in descending order.
-To make it sort the elements in ascending order, we can either store the negated distances in it, or pass it a different sorting function.
-We will do the second option.
+ডিফল্টভাবে একটি `priority_queue` উপাদানগুলো নিম্নক্রমে সাজায়।
+এটিকে ঊর্ধ্বক্রমে সাজাতে, আমরা হয় এতে নেগেটেড দূরত্ব সংরক্ষণ করতে পারি, অথবা একটি ভিন্ন সর্টিং ফাংশন পাস করতে পারি।
+আমরা দ্বিতীয় বিকল্পটি করব।
 
 ```{.cpp file=dijkstra_sparse_pq}
 const int INF = 1000000000;
@@ -122,7 +122,7 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
         for (auto edge : adj[v]) {
             int to = edge.first;
             int len = edge.second;
-            
+
             if (d[v] + len < d[to]) {
                 d[to] = d[v] + len;
                 p[to] = v;
@@ -133,20 +133,20 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
 }
 ```
 
-In practice the `priority_queue` version is a little bit faster than the version with `set`.
+বাস্তবে `priority_queue` সংস্করণ `set` সংস্করণের চেয়ে সামান্য দ্রুত।
 
-Interestingly, a [2007 technical report](https://www3.cs.stonybrook.edu/~rezaul/papers/TR-07-54.pdf) concluded the variant of the algorithm not using decrease-key operations ran faster than the decrease-key variant, with a greater performance gap for sparse graphs.
+মজার বিষয় হলো, একটি [২০০৭ সালের টেকনিক্যাল রিপোর্ট](https://www3.cs.stonybrook.edu/~rezaul/papers/TR-07-54.pdf) সিদ্ধান্তে পৌঁছেছিল যে decrease-key অপারেশন ব্যবহার না করা অ্যালগরিদমের ভ্যারিয়েন্ট decrease-key ভ্যারিয়েন্টের চেয়ে দ্রুত চলে, স্পার্স গ্রাফের জন্য পারফরম্যান্স পার্থক্য আরও বেশি।
 
-### Getting rid of pairs
+### পেয়ার থেকে মুক্তি
 
-You can improve the performance a little bit more if you don't store pairs in the containers, but only the vertex indices.
-In this case we must overload the comparison operator:
-it must compare two vertices using the distances stored in $d[]$.
+আপনি পারফরম্যান্স আরেকটু উন্নত করতে পারেন যদি কন্টেইনারে পেয়ার না রেখে শুধু ভার্টেক্স ইনডেক্স রাখেন।
+এক্ষেত্রে আমাদের কম্পারিসন অপারেটর ওভারলোড করতে হবে:
+এটিকে $d[]$ এ সংরক্ষিত দূরত্ব ব্যবহার করে দুটি ভার্টেক্সের তুলনা করতে হবে।
 
-As a result of the relaxation, the distance of some vertices will change.
-However the data structure will not resort itself automatically.
-In fact changing distances of vertices in the queue, might destroy the data structure.
-As before, we need to remove the vertex before we relax it, and then insert it again afterwards.
+রিলাক্সেশনের ফলে কিছু ভার্টেক্সের দূরত্ব পরিবর্তিত হবে।
+তবে ডেটা স্ট্রাকচার স্বয়ংক্রিয়ভাবে পুনরায় সাজাবে না।
+আসলে কিউতে থাকা ভার্টেক্সের দূরত্ব পরিবর্তন করলে ডেটা স্ট্রাকচার নষ্ট হতে পারে।
+আগের মতো, রিলাক্স করার আগে ভার্টেক্সটি সরিয়ে দিতে হবে এবং পরে আবার ঢোকাতে হবে।
 
-Since we only can remove from `set`, this optimization is only applicable for the `set` method, and doesn't work with `priority_queue` implementation.
-In practice this significantly increases the performance, especially when larger data types are used to store distances, like `long long` or `double`.
+যেহেতু আমরা শুধু `set` থেকে সরাতে পারি, এই অপটিমাইজেশন শুধু `set` পদ্ধতির জন্য প্রযোজ্য, এবং `priority_queue` ইমপ্লিমেন্টেশনের সাথে কাজ করে না।
+বাস্তবে এটি পারফরম্যান্স উল্লেখযোগ্যভাবে বাড়ায়, বিশেষত যখন বড় ডেটা টাইপ ব্যবহার করা হয় দূরত্ব সংরক্ষণে, যেমন `long long` বা `double`।

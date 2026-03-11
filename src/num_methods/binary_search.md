@@ -3,58 +3,58 @@ tags:
     - Original
 ---
 
-# Binary search
+# বাইনারি সার্চ
 
-**Binary search** is a method that allows for quicker search of something by splitting the search interval into two. Its most common application is searching values in sorted arrays, however the splitting idea is crucial in many other typical tasks.
+**বাইনারি সার্চ** হলো এমন একটি পদ্ধতি যা সার্চ ইন্টারভালকে দুই ভাগে ভাগ করে দ্রুত কিছু খুঁজে বের করতে সাহায্য করে। এর সবচেয়ে সাধারণ ব্যবহার হলো সর্টেড অ্যারেতে মান খোঁজা, তবে এই ভাগ করার ধারণাটি আরও অনেক আদর্শ সমস্যায় অত্যন্ত গুরুত্বপূর্ণ।
 
-## Search in sorted arrays
+## সর্টেড অ্যারেতে সার্চ
 
-The most typical problem that leads to the binary search is as follows. You're given a sorted array $A_0 \leq A_1 \leq \dots \leq A_{n-1}$, check if $k$ is present within the sequence. The simplest solution would be to check every element one by one and compare it with $k$ (a so-called linear search). This approach works in $O(n)$, but doesn't utilize the fact that the array is sorted.
+সবচেয়ে আদর্শ সমস্যা যা বাইনারি সার্চের দিকে নিয়ে যায় তা হলো নিম্নরূপ। আপনাকে একটি সর্টেড অ্যারে $A_0 \leq A_1 \leq \dots \leq A_{n-1}$ দেওয়া আছে, পরীক্ষা করুন $k$ এই ক্রমের মধ্যে আছে কিনা। সবচেয়ে সরল সমাধান হলো প্রতিটি উপাদান একে একে যাচাই করে $k$-এর সাথে তুলনা করা (একে লিনিয়ার সার্চ বলা হয়)। এই পদ্ধতি $O(n)$-এ কাজ করে, কিন্তু অ্যারে যে সর্টেড সেই তথ্যটি কাজে লাগায় না।
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Binary_Search_Depiction.svg" width="800px">
 <br>
-<i>Binary search of the value $7$ in an array</i>.
+<i>একটি অ্যারেতে $7$ মানের বাইনারি সার্চ</i>।
 <br>
 <i>The <a href="https://commons.wikimedia.org/wiki/File:Binary_Search_Depiction.svg">image</a> by <a href="https://commons.wikimedia.org/wiki/User:AlwaysAngry">AlwaysAngry</a> is distributed under <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">CC BY-SA 4.0</a></i> license.
 </center>
 
-Now assume that we know two indices $L < R$ such that $A_L \leq k \leq A_R$. Because the array is sorted, we can deduce that $k$ either occurs among $A_L, A_{L+1}, \dots, A_R$ or doesn't occur in the array at all. If we pick an arbitrary index $M$ such that $L < M < R$ and check whether $k$ is less or greater than $A_M$. We have two possible cases:
+এখন ধরি আমরা দুটি ইনডেক্স $L < R$ জানি যেন $A_L \leq k \leq A_R$। যেহেতু অ্যারে সর্টেড, আমরা অনুমান করতে পারি যে $k$ হয় $A_L, A_{L+1}, \dots, A_R$-এর মধ্যে আছে, অথবা অ্যারেতে একদমই নেই। যদি আমরা এমন একটি যেকোনো ইনডেক্স $M$ নিই যেন $L < M < R$ এবং $k$, $A_M$-এর চেয়ে ছোট না বড় তা পরীক্ষা করি। দুটি সম্ভাব্য ক্ষেত্র আছে:
 
-1. $A_L \leq k \leq A_M$. In this case, we reduce the problem from $[L, R]$ to $[L, M]$;
-1. $A_M \leq k \leq A_R$. In this case, we reduce the problem from $[L, R]$ to $[M, R]$.
+1. $A_L \leq k \leq A_M$। এই ক্ষেত্রে, আমরা সমস্যাটি $[L, R]$ থেকে $[L, M]$-এ কমিয়ে আনি;
+1. $A_M \leq k \leq A_R$। এই ক্ষেত্রে, আমরা সমস্যাটি $[L, R]$ থেকে $[M, R]$-এ কমিয়ে আনি।
 
-When it is impossible to pick  $M$, that is, when $R = L + 1$, we directly compare $k$ with $A_L$ and $A_R$. Otherwise we would want to pick $M$ in such manner that it reduces the active segment to a single element as quickly as possible _in the worst case_.
+যখন $M$ নেওয়া সম্ভব হয় না, অর্থাৎ যখন $R = L + 1$, তখন আমরা সরাসরি $k$-কে $A_L$ এবং $A_R$-এর সাথে তুলনা করি। অন্যথায় আমরা $M$ এমনভাবে বাছাই করতে চাই যেন _সবচেয়ে খারাপ ক্ষেত্রে_ এটি সক্রিয় সেগমেন্টকে যত দ্রুত সম্ভব একটি মাত্র উপাদানে কমিয়ে আনে।
 
-Since in the worst case we will always reduce to larger segment of $[L, M]$ and $[M, R]$. Thus, in the worst case scenario the reduction would be from $R-L$ to $\max(M-L, R-M)$. To minimize this value, we should pick $M \approx \frac{L+R}{2}$, then
+যেহেতু সবচেয়ে খারাপ ক্ষেত্রে আমরা সবসময় $[L, M]$ এবং $[M, R]$-এর বড়টিতে কমে আসব। সুতরাং, সবচেয়ে খারাপ ক্ষেত্রে হ্রাস হবে $R-L$ থেকে $\max(M-L, R-M)$-এ। এই মানটি ন্যূনতম করতে আমাদের $M \approx \frac{L+R}{2}$ নেওয়া উচিত, তখন
 
 $$
 M-L \approx \frac{R-L}{2} \approx R-M.
 $$
 
-In other words, from the worst-case scenario perspective it is optimal to always pick $M$ in the middle of $[L, R]$ and split it in half. Thus, the active segment halves on each step until it becomes of size $1$. So, if the process needs $h$ steps, in the end it reduces the difference between $R$ and $L$ from $R-L$ to $\frac{R-L}{2^h} \approx 1$, giving us the equation $2^h \approx R-L$.
+অন্যভাবে বলতে গেলে, সবচেয়ে খারাপ ক্ষেত্রের দৃষ্টিকোণ থেকে সবসময় $M$-কে $[L, R]$-এর মাঝখানে নিয়ে অর্ধেক ভাগ করাই সর্বোত্তম। এভাবে সক্রিয় সেগমেন্ট প্রতিটি ধাপে অর্ধেক হতে থাকে যতক্ষণ না এটি আকার $1$ হয়। সুতরাং, যদি প্রক্রিয়াটিতে $h$ ধাপ লাগে, শেষ পর্যন্ত এটি $R$ ও $L$-এর পার্থক্য $R-L$ থেকে $\frac{R-L}{2^h} \approx 1$-এ কমিয়ে আনে, যেখান থেকে আমরা সমীকরণ পাই $2^h \approx R-L$।
 
-Taking $\log_2$ on both sides, we get $h \approx \log_2(R-L) \in O(\log n)$.
+উভয় পক্ষে $\log_2$ নিলে আমরা পাই $h \approx \log_2(R-L) \in O(\log n)$।
 
-Logarithmic number of steps is drastically better than that of linear search. For example, for $n \approx 2^{20} \approx 10^6$ you'd need to make approximately a million operations for linear search, but only around $20$ operations with the binary search.
+লগারিদমিক সংখ্যক ধাপ লিনিয়ার সার্চের তুলনায় অনেক বেশি কার্যকর। উদাহরণস্বরূপ, $n \approx 2^{20} \approx 10^6$ হলে লিনিয়ার সার্চে প্রায় দশ লক্ষ অপারেশন লাগবে, কিন্তু বাইনারি সার্চে লাগবে মাত্র প্রায় $20$টি অপারেশন।
 
-### Lower bound and upper bound
+### লোয়ার বাউন্ড এবং আপার বাউন্ড
 
-It is often convenient to find the position of the first element that is greater or equal than $k$ (called the lower bound of $k$ in the array) or the position of the first element that is greater than $k$ (called the upper bound of $k$) rather than the exact position of the element.
+প্রায়ই $k$-এর সঠিক অবস্থান খোঁজার বদলে প্রথম যে উপাদানটি $k$-এর সমান বা বড় সেটির অবস্থান (অ্যারেতে $k$-এর লোয়ার বাউন্ড) অথবা প্রথম যে উপাদানটি $k$-এর চেয়ে বড় সেটির অবস্থান ($k$-এর আপার বাউন্ড) খোঁজা সুবিধাজনক।
 
-Together, lower and upper bounds produce a possibly empty half-interval of the array elements that are equal to $k$. To check whether $k$ is present in the array it's enough to find its lower bound and check if the corresponding element equates to $k$.
+একসাথে, লোয়ার বাউন্ড ও আপার বাউন্ড অ্যারের উপাদানগুলোর একটি সম্ভবত খালি হাফ-ইন্টারভাল তৈরি করে যেগুলো $k$-এর সমান। অ্যারেতে $k$ আছে কিনা তা পরীক্ষা করতে এর লোয়ার বাউন্ড খুঁজে বের করে সংশ্লিষ্ট উপাদানটি $k$-এর সমান কিনা দেখলেই যথেষ্ট।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The explanation above provides a rough description of the algorithm. For the implementation details, we'd need to be more precise.
+উপরের ব্যাখ্যাটি অ্যালগরিদমের একটি মোটামুটি বর্ণনা দেয়। ইমপ্লিমেন্টেশনের বিস্তারিতের জন্য আমাদের আরও সুনির্দিষ্ট হতে হবে।
 
-We will maintain a pair $L < R$ such that $A_L \leq k < A_R$. Meaning that the active search interval is $[L, R)$. We use half-interval here instead of a segment $[L, R]$ as it turns out to require less corner case work.
+আমরা এমন একটি জোড়া $L < R$ বজায় রাখব যেন $A_L \leq k < A_R$। অর্থাৎ সক্রিয় সার্চ ইন্টারভাল হলো $[L, R)$। এখানে সেগমেন্ট $[L, R]$-এর বদলে হাফ-ইন্টারভাল ব্যবহার করা হয়েছে কারণ এতে কর্নার কেস কম হয়।
 
-When $R = L+1$, we can deduce from definitions above that $R$ is the upper bound of $k$. It is convenient to initialize $R$ with past-the-end index, that is $R=n$ and $L$ with before-the-beginning index, that is $L=-1$. It is fine as long as we never evaluate $A_L$ and $A_R$ in our algorithm directly, formally treating it as $A_L = -\infty$ and $A_R = +\infty$.
+যখন $R = L+1$, তখন উপরের সংজ্ঞা থেকে আমরা বলতে পারি যে $R$ হলো $k$-এর আপার বাউন্ড। $R$-কে past-the-end ইনডেক্স, অর্থাৎ $R=n$, এবং $L$-কে before-the-beginning ইনডেক্স, অর্থাৎ $L=-1$ দিয়ে ইনিশিয়ালাইজ করা সুবিধাজনক। আমাদের অ্যালগরিদমে যতক্ষণ আমরা সরাসরি $A_L$ এবং $A_R$ ইভ্যালুয়েট না করি ততক্ষণ এটি ঠিক আছে, আনুষ্ঠানিকভাবে $A_L = -\infty$ এবং $A_R = +\infty$ ধরে নেওয়া যায়।
 
-Finally, to be specific about the value of $M$ we pick, we will stick with $M = \lfloor \frac{L+R}{2} \rfloor$.
+পরিশেষে, আমরা $M$-এর যে মান নেব সে বিষয়ে সুনির্দিষ্ট হতে, আমরা $M = \lfloor \frac{L+R}{2} \rfloor$ ব্যবহার করব।
 
-Then the implementation could look like this:
+তাহলে ইমপ্লিমেন্টেশনটি এরকম হতে পারে:
 
 ```cpp
 ... // a sorted array is stored as a[0], a[1], ..., a[n-1]
@@ -69,23 +69,23 @@ while (r - l > 1) {
 }
 ```
 
-During the execution of the algorithm, we never evaluate neither $A_L$ nor $A_R$, as $L < M < R$. In the end, $L$ will be the index of the last element that is not greater than $k$ (or $-1$ if there is no such element) and $R$ will be the index of the first element larger than $k$ (or $n$ if there is no such element).
+অ্যালগরিদম চলাকালীন আমরা কখনো $A_L$ বা $A_R$ ইভ্যালুয়েট করি না, কারণ $L < M < R$। শেষে, $L$ হবে শেষ উপাদানটির ইনডেক্স যেটি $k$-এর চেয়ে বড় নয় (অথবা $-1$ যদি এমন কোনো উপাদান না থাকে) এবং $R$ হবে $k$-এর চেয়ে বড় প্রথম উপাদানটির ইনডেক্স (অথবা $n$ যদি এমন কোনো উপাদান না থাকে)।
 
-**Note.** Calculating `m` as `m = (r + l) / 2` can lead to overflow if `l` and `r` are two positive integers, and this error lived about 9 years in JDK as described in the [blogpost](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html). Some alternative approaches include e.g. writing `m = l + (r - l) / 2` which always works for positive integer `l` and `r`, but might still overflow if `l` is a negative number. If you use C++20, it offers an alternative solution in the form of `m = std::midpoint(l, r)` which always works correctly.
+**দ্রষ্টব্য।** `m`-কে `m = (r + l) / 2` হিসেবে হিসাব করলে ওভারফ্লো হতে পারে যদি `l` এবং `r` দুটি পজিটিভ ইন্টিজার হয়, এবং এই বাগটি প্রায় ৯ বছর JDK-তে ছিল যা এই [ব্লগপোস্টে](https://ai.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html) বর্ণিত হয়েছে। কিছু বিকল্প পদ্ধতির মধ্যে রয়েছে যেমন `m = l + (r - l) / 2` লেখা যা পজিটিভ ইন্টিজার `l` ও `r`-এর জন্য সবসময় কাজ করে, কিন্তু `l` নেগেটিভ হলে এখনও ওভারফ্লো হতে পারে। আপনি যদি C++20 ব্যবহার করেন, তাহলে `m = std::midpoint(l, r)` আকারে একটি বিকল্প সমাধান পাওয়া যায় যা সবসময় সঠিকভাবে কাজ করে।
 
-## Search on arbitrary predicate
+## যেকোনো প্রেডিকেটে সার্চ
 
-Let $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ be a boolean function defined on $0,1,\dots,n-1$ such that it is monotonously increasing, that is
+ধরি $f : \{0,1,\dots, n-1\} \to \{0, 1\}$ হলো $0,1,\dots,n-1$-এ সংজ্ঞায়িত একটি বুলিয়ান ফাংশন যা মনোটনিকভাবে বর্ধমান, অর্থাৎ
 
 $$
 f(0) \leq f(1) \leq \dots \leq f(n-1).
 $$
 
-The binary search, the way it is described above, finds the partition of the array by the predicate $f(M)$, holding the boolean value of $k < A_M$ expression.
-It is possible to use arbitrary monotonous predicate instead of $k < A_M$. It is particularly useful when the computation of $f(k)$ requires too much time to actually compute it for every possible value.
-In other words, binary search finds the unique index $L$ such that $f(L) = 0$ and $f(R)=f(L+1)=1$ if such a _transition point_ exists, or gives us $L = n-1$ if $f(0) = \dots = f(n-1) = 0$ or $L = -1$ if $f(0) = \dots = f(n-1) = 1$.
+বাইনারি সার্চ, যেভাবে উপরে বর্ণনা করা হয়েছে, প্রেডিকেট $f(M)$ দ্বারা অ্যারের পার্টিশন খুঁজে বের করে, যেখানে $k < A_M$ এক্সপ্রেশনের বুলিয়ান মান ধারণ করে।
+$k < A_M$-এর বদলে যেকোনো মনোটনিক প্রেডিকেট ব্যবহার করা সম্ভব। এটি বিশেষভাবে উপযোগী যখন $f(k)$-এর হিসাব করতে এত বেশি সময় লাগে যে প্রতিটি সম্ভাব্য মানের জন্য এটি গণনা করা ব্যবহারিক নয়।
+অন্যভাবে বলতে গেলে, বাইনারি সার্চ এমন একটি অনন্য ইনডেক্স $L$ খুঁজে বের করে যেন $f(L) = 0$ এবং $f(R)=f(L+1)=1$ যদি এমন কোনো _ট্রানজিশন পয়েন্ট_ থাকে, অথবা $L = n-1$ দেয় যদি $f(0) = \dots = f(n-1) = 0$ হয় অথবা $L = -1$ দেয় যদি $f(0) = \dots = f(n-1) = 1$ হয়।
 
-Proof of correctness supposing a transition point exists, that is $f(0)=0$ and $f(n-1)=1$: The implementation maintains the _loop invariant_ $f(l)=0, f(r)=1$. When $r - l > 1$, the choice of $m$ means $r-l$ will always decrease. The loop terminates when $r - l = 1$, giving us our desired transition point.
+ট্রানজিশন পয়েন্ট আছে ধরে নিয়ে সঠিকতার প্রমাণ, অর্থাৎ $f(0)=0$ এবং $f(n-1)=1$: ইমপ্লিমেন্টেশনটি _লুপ ইনভ্যারিয়েন্ট_ $f(l)=0, f(r)=1$ বজায় রাখে। যখন $r - l > 1$, $m$-এর বাছাই নিশ্চিত করে যে $r-l$ সবসময় কমবে। লুপটি $r - l = 1$ হলে শেষ হয়, যা আমাদের কাঙ্ক্ষিত ট্রানজিশন পয়েন্ট দেয়।
 
 ```cpp
 ... // f(i) is a boolean function such that f(0) <= ... <= f(n-1)
@@ -100,45 +100,45 @@ while (r - l > 1) {
 }
 ```
 
-### Binary search on the answer
+### বাইনারি সার্চ অন দ্য আনসার
 
-Such situation often occurs when we're asked to compute some value, but we're only capable of checking whether this value is at least $i$. For example, you're given an array $a_1,\dots,a_n$ and you're asked to find the maximum floored average sum
+এই পরিস্থিতি প্রায়ই দেখা যায় যখন আমাদের কোনো মান গণনা করতে বলা হয়, কিন্তু আমরা কেবল পরীক্ষা করতে পারি এই মানটি কমপক্ষে $i$ কিনা। উদাহরণস্বরূপ, আপনাকে একটি অ্যারে $a_1,\dots,a_n$ দেওয়া আছে এবং আপনাকে সর্বোচ্চ ফ্লোরড গড় যোগফল খুঁজে বের করতে বলা হয়েছে
 
 $$
 \left \lfloor \frac{a_l + a_{l+1} + \dots + a_r}{r-l+1} \right\rfloor
 $$
 
-among all possible pairs of $l,r$ such that $r-l \geq x$. One of simple ways to solve this problem is to check whether the answer is at least $\lambda$, that is if there is a pair $l, r$ such that the following is true:
+$l,r$-এর সব সম্ভাব্য জোড়ার মধ্যে যেখানে $r-l \geq x$। এই সমস্যাটি সমাধান করার একটি সহজ উপায় হলো পরীক্ষা করা উত্তরটি কমপক্ষে $\lambda$ কিনা, অর্থাৎ এমন কোনো জোড়া $l, r$ আছে কিনা যেন নিচেরটি সত্য হয়:
 
 $$
 \frac{a_l + a_{l+1} + \dots + a_r}{r-l+1} \geq \lambda.
 $$
 
-Equivalently, it rewrites as
+সমতুল্যভাবে, এটি পুনর্লিখন করা যায়
 
 $$
 (a_l - \lambda) + (a_{l+1} - \lambda) + \dots + (a_r - \lambda) \geq 0,
 $$
 
-so now we need to check whether there is a subarray of a new array $a_i - \lambda$ of length at least $x+1$ with non-negative sum, which is doable with some prefix sums.
+তাহলে এখন আমাদের পরীক্ষা করতে হবে নতুন অ্যারে $a_i - \lambda$-এর কমপক্ষে $x+1$ দৈর্ঘ্যের এমন কোনো সাবঅ্যারে আছে কিনা যার যোগফল অঋণাত্মক, যা কিছু প্রিফিক্স সাম দিয়ে করা সম্ভব।
 
-## Continuous search
+## কন্টিনিউয়াস সার্চ
 
-Let $f : \mathbb R \to \mathbb R$ be a real-valued function that is continuous on a segment $[L, R]$.
+ধরি $f : \mathbb R \to \mathbb R$ হলো একটি বাস্তব-মানের ফাংশন যা $[L, R]$ সেগমেন্টে কন্টিনিউয়াস।
 
-Without loss of generality assume that $f(L) \leq f(R)$. From [intermediate value theorem](https://en.wikipedia.org/wiki/Intermediate_value_theorem) it follows that for any $y \in [f(L), f(R)]$ there is $x \in [L, R]$ such that $f(x) = y$. Note that, unlike previous paragraphs, the function is _not_ required to be monotonous.
+সাধারণতা না হারিয়ে ধরি $f(L) \leq f(R)$। [মধ্যবর্তী মান উপপাদ্য](https://en.wikipedia.org/wiki/Intermediate_value_theorem) থেকে বলা যায় যে যেকোনো $y \in [f(L), f(R)]$-এর জন্য এমন $x \in [L, R]$ আছে যেন $f(x) = y$। লক্ষ্য করুন, পূর্ববর্তী অনুচ্ছেদগুলোর বিপরীতে, ফাংশনটি মনোটনিক হওয়ার _প্রয়োজন নেই_।
 
-The value $x$ could be approximated up to $\pm\delta$ in $O\left(\log \frac{R-L}{\delta}\right)$ time for any specific value of $\delta$. The idea is essentially the same, if we take $M \in (L, R)$ then we would be able to reduce the search interval to either $[L, M]$ or $[M, R]$ depending on whether $f(M)$ is larger than $y$. One common example here would be finding roots of odd-degree polynomials.
+যেকোনো নির্দিষ্ট $\delta$-এর জন্য $x$-এর মান $\pm\delta$ পর্যন্ত সূক্ষ্মভাবে $O\left(\log \frac{R-L}{\delta}\right)$ সময়ে নির্ণয় করা যায়। ধারণাটি মূলত একই, যদি আমরা $M \in (L, R)$ নিই তাহলে $f(M)$, $y$-এর চেয়ে বড় কিনা তার ওপর ভিত্তি করে সার্চ ইন্টারভাল $[L, M]$ অথবা $[M, R]$-এ কমাতে পারব। এখানে একটি সাধারণ উদাহরণ হলো বিজোড়-ডিগ্রি বহুপদীর মূল খোঁজা।
 
-For example, let $f(x)=x^3 + ax^2 + bx + c$. Then $f(L) \to -\infty$ and $f(R) \to +\infty$ with $L \to -\infty$ and $R \to +\infty$. Which means that it is always possible to find sufficiently small $L$ and sufficiently large $R$ such that $f(L) < 0$ and $f(R) > 0$. Then, it is possible to find with binary search arbitrarily small interval containing $x$ such that $f(x)=0$.
+উদাহরণস্বরূপ, ধরি $f(x)=x^3 + ax^2 + bx + c$। তাহলে $L \to -\infty$ এবং $R \to +\infty$ হলে $f(L) \to -\infty$ এবং $f(R) \to +\infty$ হয়। এর অর্থ হলো সবসময় যথেষ্ট ছোট $L$ এবং যথেষ্ট বড় $R$ পাওয়া সম্ভব যেন $f(L) < 0$ এবং $f(R) > 0$ হয়। তারপর, বাইনারি সার্চ দিয়ে ইচ্ছামতো ছোট ইন্টারভাল খুঁজে বের করা সম্ভব যেখানে এমন $x$ আছে যেন $f(x)=0$।
 
-## Search with powers of 2
+## ২-এর পাওয়ার দিয়ে সার্চ
 
-Another noteworthy way to do binary search is, instead of maintaining an active segment, to maintain the current pointer $i$ and the current power $k$. The pointer starts at $i=L$ and then on each iteration one tests the predicate at point $i+2^k$. If the predicate is still $0$, the pointer is advanced from $i$ to $i+2^k$, otherwise it stays the same, then the power $k$ is decreased by $1$.
+বাইনারি সার্চ করার আরেকটি উল্লেখযোগ্য উপায় হলো, একটি সক্রিয় সেগমেন্ট বজায় রাখার বদলে, বর্তমান পয়েন্টার $i$ এবং বর্তমান পাওয়ার $k$ বজায় রাখা। পয়েন্টার $i=L$ থেকে শুরু হয় এবং তারপর প্রতিটি ইটারেশনে $i+2^k$ বিন্দুতে প্রেডিকেট পরীক্ষা করা হয়। যদি প্রেডিকেট এখনও $0$ থাকে, তাহলে পয়েন্টার $i$ থেকে $i+2^k$-এ এগিয়ে যায়, অন্যথায় এটি একই থাকে, তারপর পাওয়ার $k$ ১ কমানো হয়।
 
-This paradigm is widely used in tasks around trees, such as finding lowest common ancestor of two vertices or finding an ancestor of a specific vertex that has a certain height. It could also be adapted to e.g. find the $k$-th non-zero element in a Fenwick tree.
+এই পদ্ধতি ট্রি-সম্পর্কিত সমস্যায় ব্যাপকভাবে ব্যবহৃত হয়, যেমন দুটি ভার্টেক্সের লোয়েস্ট কমন অ্যানসেস্টর খোঁজা অথবা একটি নির্দিষ্ট ভার্টেক্সের এমন পূর্বপুরুষ খোঁজা যার একটি নির্দিষ্ট উচ্চতা আছে। এটি ফেনউইক ট্রি-তে $k$-তম নন-জিরো উপাদান খোঁজার মতো কাজেও ব্যবহার করা যায়।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [LeetCode -  Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
 * [LeetCode -  Search Insert Position](https://leetcode.com/problems/search-insert-position/)

@@ -4,48 +4,48 @@ tags:
 e_maxx_link: sqrt_decomposition
 ---
 
-# Sqrt Decomposition
+# স্কোয়ার্ট ডিকম্পোজিশন
 
-Sqrt Decomposition is a method (or a data structure) that allows you to perform some common operations (finding sum of the elements of the sub-array, finding the minimal/maximal element, etc.) in $O(\sqrt n)$ operations, which is much faster than $O(n)$ for the trivial algorithm.
+স্কোয়ার্ট ডিকম্পোজিশন হলো একটি পদ্ধতি (বা ডেটা স্ট্রাকচার) যা কিছু সাধারণ অপারেশন (সাব-অ্যারের উপাদানের যোগফল বের করা, সর্বনিম্ন/সর্বোচ্চ উপাদান বের করা, ইত্যাদি) $O(\sqrt n)$ অপারেশনে সম্পন্ন করতে দেয়, যা সরল অ্যালগরিদমের $O(n)$ থেকে অনেক দ্রুত।
 
-First we describe the data structure for one of the simplest applications of this idea, then show how to generalize it to solve some other problems, and finally look at a slightly different use of this idea: splitting the input requests into sqrt blocks.
+প্রথমে আমরা এই ধারণার সবচেয়ে সরল প্রয়োগের জন্য ডেটা স্ট্রাকচার বর্ণনা করি, তারপর দেখাই কিভাবে এটিকে অন্য কিছু সমস্যা সমাধানের জন্য সাধারণীকরণ করা যায়, এবং শেষে এই ধারণার একটু ভিন্ন ব্যবহার দেখি: ইনপুট রিকোয়েস্টগুলোকে sqrt ব্লকে ভাগ করা।
 
-## Sqrt-decomposition based data structure
+## স্কোয়ার্ট-ডিকম্পোজিশন ভিত্তিক ডেটা স্ট্রাকচার
 
-Given an array $a[0 \dots n-1]$, implement a data structure that allows to find the sum of the elements $a[l \dots r]$ for arbitrary $l$ and $r$ in $O(\sqrt n)$ operations.
+একটি অ্যারে $a[0 \dots n-1]$ দেওয়া আছে, এমন একটি ডেটা স্ট্রাকচার ইমপ্লিমেন্ট করুন যা যেচ্ছা $l$ এবং $r$ এর জন্য $a[l \dots r]$ উপাদানগুলোর যোগফল $O(\sqrt n)$ অপারেশনে বের করতে পারে।
 
-### Description
+### বর্ণনা
 
-The basic idea of sqrt decomposition is preprocessing. We'll divide the array $a$ into blocks of length approximately $\sqrt n$, and for each block $i$ we'll precalculate the sum of elements in it $b[i]$.
+স্কোয়ার্ট ডিকম্পোজিশনের মূল ধারণা হলো প্রিপ্রসেসিং। আমরা অ্যারে $a$ কে প্রায় $\sqrt n$ দৈর্ঘ্যের ব্লকে ভাগ করবো, এবং প্রতিটি ব্লক $i$ এর জন্য এর উপাদানগুলোর যোগফল $b[i]$ আগে থেকে হিসাব করবো।
 
-We can assume that both the size of the block and the number of blocks are equal to $\sqrt n$ rounded up:
+আমরা ধরে নিতে পারি যে ব্লকের আকার এবং ব্লকের সংখ্যা উভয়ই $\sqrt n$ এর ঊর্ধ্ব পূর্ণ সংখ্যার সমান:
 
 $$ s = \lceil \sqrt n \rceil $$
 
-Then the array $a$ is divided into blocks in the following way:
+তাহলে অ্যারে $a$ নিচের মতো করে ব্লকে ভাগ হয়:
 
 $$ \underbrace{a[0], a[1], \dots, a[s-1]}_{\text{b[0]}}, \underbrace{a[s], \dots, a[2s-1]}_{\text{b[1]}}, \dots, \underbrace{a[(s-1) \cdot s], \dots, a[n-1]}_{\text{b[s-1]}} $$
 
-The last block may have fewer elements than the others (if $n$ not a multiple of $s$), it is not important to the discussion (as it can be handled easily).
-Thus, for each block $k$, we know the sum of elements on it $b[k]$:
+শেষ ব্লকে অন্যগুলোর চেয়ে কম উপাদান থাকতে পারে (যদি $n$, $s$ এর গুণিতক না হয়), আলোচনার জন্য এটি গুরুত্বপূর্ণ নয় (কারণ এটি সহজেই সামলানো যায়)।
+সুতরাং, প্রতিটি ব্লক $k$ এর জন্য, আমরা এর উপাদানগুলোর যোগফল $b[k]$ জানি:
 
 $$ b[k] = \sum\limits_{i=k\cdot s}^{\min {(n-1,(k+1)\cdot s - 1})} a[i] $$
 
-So, we have calculated the values of $b[k]$ (this required $O(n)$ operations). How can they help us to answer each query $[l, r]$ ?
-Notice that if the interval $[l, r]$ is long enough, it will contain several whole blocks, and for those blocks we can find the sum of elements in them in a single operation. As a result, the interval $[l, r]$ will contain parts of only two blocks, and we'll have to calculate the sum of elements in these parts trivially.
+তাহলে, আমরা $b[k]$ এর মানগুলো হিসাব করেছি (এতে $O(n)$ অপারেশন লেগেছে)। এগুলো কিভাবে প্রতিটি কোয়েরি $[l, r]$ এর উত্তর দিতে সাহায্য করতে পারে?
+লক্ষ্য করুন যে ইন্টারভ্যাল $[l, r]$ যথেষ্ট লম্বা হলে, এতে কয়েকটি সম্পূর্ণ ব্লক থাকবে, এবং সেই ব্লকগুলোর উপাদানের যোগফল একটি মাত্র অপারেশনে বের করা যাবে। ফলে, ইন্টারভ্যাল $[l, r]$ এ শুধুমাত্র দুটি ব্লকের অংশ থাকবে, এবং সেই অংশগুলোর উপাদানের যোগফল সরলভাবে হিসাব করতে হবে।
 
-Thus, in order to calculate the sum of elements on the interval $[l, r]$ we only need to sum the elements of the two "tails":
-$[l\dots (k + 1)\cdot s-1]$ and $[p\cdot s\dots r]$ , and sum the values $b[i]$ in all the blocks from $k + 1$ to $p-1$:
+সুতরাং, $[l, r]$ ইন্টারভ্যালে উপাদানের যোগফল হিসাব করতে আমাদের শুধু দুটি "লেজ" এর উপাদানের যোগ করতে হবে:
+$[l\dots (k + 1)\cdot s-1]$ এবং $[p\cdot s\dots r]$, এবং $k + 1$ থেকে $p-1$ পর্যন্ত সব ব্লকের $b[i]$ মান যোগ করতে হবে:
 
 $$ \sum\limits_{i=l}^r a[i] = \sum\limits_{i=l}^{(k+1) \cdot s-1} a[i] + \sum\limits_{i=k+1}^{p-1} b[i] + \sum\limits_{i=p\cdot s}^r a[i] $$
 
-_Note: When $k = p$, i.e. $l$ and $r$ belong to the same block, the formula can't be applied, and the sum should be calculated trivially._
+_নোট: যখন $k = p$, অর্থাৎ $l$ এবং $r$ একই ব্লকে, সূত্রটি প্রয়োগ করা যাবে না, এবং যোগফল সরলভাবে হিসাব করতে হবে।_
 
-This approach allows us to significantly reduce the number of operations. Indeed, the size of each "tail" does not exceed the block length $s$, and the number of blocks in the sum does not exceed $s$. Since we have chosen $s \approx \sqrt n$, the total number of operations required to find the sum of elements on the interval $[l, r]$ is $O(\sqrt n)$.
+এই পদ্ধতি আমাদের অপারেশনের সংখ্যা উল্লেখযোগ্যভাবে কমাতে দেয়। প্রকৃতপক্ষে, প্রতিটি "লেজ" এর আকার ব্লকের দৈর্ঘ্য $s$ এর বেশি নয়, এবং যোগফলে ব্লকের সংখ্যা $s$ এর বেশি নয়। যেহেতু আমরা $s \approx \sqrt n$ বেছে নিয়েছি, $[l, r]$ ইন্টারভ্যালে উপাদানের যোগফল বের করতে প্রয়োজনীয় মোট অপারেশনের সংখ্যা $O(\sqrt n)$।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-Let's start with the simplest implementation:
+সবচেয়ে সরল ইমপ্লিমেন্টেশন দিয়ে শুরু করা যাক:
 
 ```cpp
 // input data
@@ -76,7 +76,7 @@ for (;;) {
 }
 ```
 
-This implementation has unreasonably many division operations (which are much slower than other arithmetical operations). Instead, we can calculate the indices of the blocks $c_l$ and $c_r$ which contain indices $l$ and $r$, and loop through blocks $c_l+1 \dots c_r-1$ with separate processing of the "tails" in blocks $c_l$ and $c_r$. This approach corresponds to the last formula in the description, and makes the case $c_l = c_r$ a special case.
+এই ইমপ্লিমেন্টেশনে অযৌক্তিকভাবে অনেক ভাগ অপারেশন আছে (যা অন্যান্য পাটিগণিত অপারেশনের চেয়ে অনেক ধীর)। এর পরিবর্তে, আমরা $l$ এবং $r$ ইনডেক্স ধারণকারী ব্লকের ইনডেক্স $c_l$ এবং $c_r$ হিসাব করতে পারি, এবং $c_l$ ও $c_r$ ব্লকে "লেজ" এর আলাদা প্রসেসিং সহ $c_l+1 \dots c_r-1$ ব্লকগুলোর মধ্য দিয়ে লুপ করতে পারি। এই পদ্ধতি বর্ণনার শেষ সূত্রের সাথে মিলে যায়, এবং $c_l = c_r$ কেসটিকে বিশেষ কেস বানায়।
 
 ```cpp
 int sum = 0;
@@ -94,50 +94,50 @@ else {
 }
 ```
 
-## Other problems
+## অন্যান্য সমস্যা
 
-So far we were discussing the problem of finding the sum of elements of a continuous subarray. This problem can be extended to allow to **update individual array elements**. If an element $a[i]$ changes, it's sufficient to update the value of $b[k]$ for the block to which this element belongs ($k = i / s$) in one operation:
+এখন পর্যন্ত আমরা একটি ধারাবাহিক সাব-অ্যারের উপাদানের যোগফল বের করার সমস্যা নিয়ে আলোচনা করছিলাম। এই সমস্যাটি **পৃথক অ্যারে উপাদান আপডেট** করার অনুমতি দিতে সম্প্রসারিত করা যায়। যদি একটি উপাদান $a[i]$ পরিবর্তন হয়, তাহলে এই উপাদানটি যে ব্লকে আছে সেই $b[k]$ এর মান একটি অপারেশনে আপডেট করাই যথেষ্ট ($k = i / s$):
 
 $$ b[k] += a_{new}[i] - a_{old}[i] $$
 
-On the other hand, the task of finding the sum of elements can be replaced with the task of finding minimal/maximal element of a subarray. If this problem has to address individual elements' updates as well, updating the value of $b[k]$ is also possible, but it will require iterating through all values of block $k$ in $O(s) = O(\sqrt{n})$ operations.
+অন্যদিকে, উপাদানের যোগফল বের করার কাজটি একটি সাব-অ্যারের সর্বনিম্ন/সর্বোচ্চ উপাদান বের করার কাজ দিয়ে প্রতিস্থাপন করা যায়। যদি এই সমস্যায় পৃথক উপাদানের আপডেটও সামলাতে হয়, $b[k]$ এর মান আপডেট করাও সম্ভব, কিন্তু এজন্য $O(s) = O(\sqrt{n})$ অপারেশনে ব্লক $k$ এর সব মানের মধ্য দিয়ে ইটারেট করতে হবে।
 
-Sqrt decomposition can be applied in a similar way to a whole class of other problems: finding the number of zero elements, finding the first non-zero element, counting elements which satisfy a certain property etc.
+স্কোয়ার্ট ডিকম্পোজিশন একইভাবে আরো অনেক শ্রেণীর সমস্যায় প্রয়োগ করা যায়: শূন্য উপাদানের সংখ্যা বের করা, প্রথম অ-শূন্য উপাদান খুঁজে বের করা, নির্দিষ্ট শর্ত পূরণ করে এমন উপাদান গণনা ইত্যাদি।
 
-Another class of problems appears when we need to **update array elements on intervals**: increment existing elements or replace them with a given value.
+আরেকটি শ্রেণীর সমস্যা দেখা দেয় যখন আমাদের **ইন্টারভ্যালে অ্যারে উপাদান আপডেট** করতে হয়: বিদ্যমান উপাদানে যোগ করা বা একটি নির্দিষ্ট মান দিয়ে প্রতিস্থাপন করা।
 
-For example, let's say we can do two types of operations on an array: add a given value $\delta$ to all array elements on interval $[l, r]$ or query the value of element $a[i]$. Let's store the value which has to be added to all elements of block $k$ in $b[k]$ (initially all $b[k] = 0$). During each "add" operation we need to add $\delta$ to $b[k]$ for all blocks which belong to interval $[l, r]$ and to add $\delta$ to $a[i]$ for all elements which belong to the "tails" of the interval. The answer to query $i$ is simply $a[i] + b[i/s]$. This way "add" operation has $O(\sqrt{n})$ complexity, and answering a query has $O(1)$ complexity.
+উদাহরণস্বরূপ, ধরুন আমরা একটি অ্যারেতে দুই ধরনের অপারেশন করতে পারি: $[l, r]$ ইন্টারভ্যালের সব অ্যারে উপাদানে একটি নির্দিষ্ট মান $\delta$ যোগ করা অথবা $a[i]$ উপাদানের মান কোয়েরি করা। ধরি $b[k]$ এ ব্লক $k$ এর সব উপাদানে যে মান যোগ করতে হবে তা সংরক্ষণ করি (শুরুতে সব $b[k] = 0$)। প্রতিটি "যোগ" অপারেশনে $[l, r]$ ইন্টারভ্যালে থাকা সব ব্লকের জন্য $b[k]$ তে $\delta$ যোগ করতে হবে এবং ইন্টারভ্যালের "লেজ" এ থাকা সব উপাদানে $a[i]$ তে $\delta$ যোগ করতে হবে। কোয়েরি $i$ এর উত্তর হলো সহজভাবে $a[i] + b[i/s]$। এভাবে "যোগ" অপারেশনের কমপ্লেক্সিটি $O(\sqrt{n})$, এবং কোয়েরির উত্তরের কমপ্লেক্সিটি $O(1)$।
 
-Finally, those two classes of problems can be combined if the task requires doing **both** element updates on an interval and queries on an interval. Both operations can be done with $O(\sqrt{n})$ complexity. This will require two block arrays $b$ and $c$: one to keep track of element updates and another to keep track of answers to the query.
+শেষত, এই দুই শ্রেণীর সমস্যা একত্রিত করা যায় যদি কাজে ইন্টারভ্যালে উপাদান আপডেট এবং ইন্টারভ্যালে কোয়েরি **উভয়ই** করতে হয়। উভয় অপারেশন $O(\sqrt{n})$ কমপ্লেক্সিটিতে করা যায়। এর জন্য দুটি ব্লক অ্যারে $b$ এবং $c$ প্রয়োজন: একটি উপাদান আপডেটের ট্র্যাক রাখতে এবং আরেকটি কোয়েরির উত্তরের ট্র্যাক রাখতে।
 
-There exist other problems which can be solved using sqrt decomposition, for example, a problem about maintaining a set of numbers which would allow adding/deleting numbers, checking whether a number belongs to the set and finding $k$-th largest number. To solve it one has to store numbers in increasing order, split into several blocks with $\sqrt{n}$ numbers in each. Every time a number is added/deleted, the blocks have to be rebalanced by moving numbers between beginnings and ends of adjacent blocks.
+স্কোয়ার্ট ডিকম্পোজিশন ব্যবহার করে সমাধানযোগ্য আরো সমস্যা আছে, যেমন, সংখ্যার একটি সেট রক্ষণাবেক্ষণ করা যেখানে সংখ্যা যোগ/মুছে ফেলা, কোনো সংখ্যা সেটে আছে কিনা পরীক্ষা করা এবং $k$-তম বৃহত্তম সংখ্যা খুঁজে বের করা সম্ভব হবে। এটি সমাধান করতে সংখ্যাগুলো ক্রমবর্ধমান ক্রমে সংরক্ষণ করতে হবে, প্রতিটিতে $\sqrt{n}$ সংখ্যা সহ কয়েকটি ব্লকে ভাগ করে। প্রতিবার কোনো সংখ্যা যোগ/মুছে ফেলার সময়, পাশের ব্লকের শুরু ও শেষের মধ্যে সংখ্যা সরিয়ে ব্লকগুলো পুনঃসন্তুলিত করতে হবে।
 
-## Mo's algorithm
+## Mo-এর অ্যালগরিদম
 
-A similar idea, based on sqrt decomposition, can be used to answer range queries ($Q$) offline in $O((N+Q)\sqrt{N})$.
-This might sound like a lot worse than the methods in the previous section, since this is a slightly worse complexity than we had earlier and cannot update values between two queries.
-But in a lot of situations this method has advantages.
-During a normal sqrt decomposition, we have to precompute the answers for each block, and merge them during answering queries.
-In some problems this merging step can be quite problematic.
-E.g. when each queries asks to find the **mode** of its range (the number that appears the most often).
-For this each block would have to store the count of each number in it in some sort of data structure, and we can no longer perform the merge step fast enough any more.
-**Mo's algorithm** uses a completely different approach, that can answer these kind of queries fast, because it only keeps track of one data structure, and the only operations with it are easy and fast.
+একটি অনুরূপ ধারণা, স্কোয়ার্ট ডিকম্পোজিশনের উপর ভিত্তি করে, রেঞ্জ কোয়েরি ($Q$) অফলাইনে $O((N+Q)\sqrt{N})$ এ উত্তর দিতে ব্যবহার করা যায়।
+এটি পূর্ববর্তী বিভাগের পদ্ধতিগুলোর চেয়ে কিছুটা খারাপ মনে হতে পারে, কারণ এটি আগের চেয়ে সামান্য খারাপ কমপ্লেক্সিটি এবং দুটি কোয়েরির মধ্যে মান আপডেট করতে পারে না।
+কিন্তু অনেক পরিস্থিতিতে এই পদ্ধতির সুবিধা আছে।
+একটি সাধারণ স্কোয়ার্ট ডিকম্পোজিশনে, আমাদের প্রতিটি ব্লকের উত্তর আগে থেকে হিসাব করতে হয়, এবং কোয়েরির উত্তর দেওয়ার সময় সেগুলো মার্জ করতে হয়।
+কিছু সমস্যায় এই মার্জ ধাপটি বেশ সমস্যাজনক হতে পারে।
+যেমন যখন প্রতিটি কোয়েরি তার রেঞ্জের **মোড** (সবচেয়ে বেশিবার প্রদর্শিত সংখ্যা) জানতে চায়।
+এজন্য প্রতিটি ব্লকে কোনো ধরনের ডেটা স্ট্রাকচারে প্রতিটি সংখ্যার গণনা সংরক্ষণ করতে হবে, এবং আমরা আর যথেষ্ট দ্রুত মার্জ ধাপ সম্পাদন করতে পারব না।
+**Mo-এর অ্যালগরিদম** সম্পূর্ণ ভিন্ন একটি পদ্ধতি ব্যবহার করে, যা এই ধরনের কোয়েরি দ্রুত উত্তর দিতে পারে, কারণ এটি শুধুমাত্র একটি ডেটা স্ট্রাকচারের ট্র্যাক রাখে, এবং এর সাথে অপারেশনগুলো সহজ ও দ্রুত।
 
-The idea is to answer the queries in a special order based on the indices.
-We will first answer all queries which have the left index in block 0, then answer all queries which have left index in block 1 and so on.
-And also we will have to answer the queries of a block is a special order, namely sorted by the right index of the queries.
+ধারণাটি হলো ইনডেক্সের উপর ভিত্তি করে একটি বিশেষ ক্রমে কোয়েরির উত্তর দেওয়া।
+আমরা প্রথমে সেই সব কোয়েরির উত্তর দেবো যাদের বাম ইনডেক্স ব্লক ০ তে, তারপর সেই সব কোয়েরির উত্তর দেবো যাদের বাম ইনডেক্স ব্লক ১ তে এবং এভাবে চলবে।
+এবং আমাদের একটি ব্লকের কোয়েরিগুলোও বিশেষ ক্রমে উত্তর দিতে হবে, যথা কোয়েরির ডান ইনডেক্স অনুসারে সাজানো।
 
-As already said we will use a single data structure.
-This data structure will store information about the range.
-At the beginning this range will be empty.
-When we want to answer the next query (in the special order), we simply extend or reduce the range, by adding/removing elements on both sides of the current range, until we transformed it into the query range.
-This way, we only need to add or remove a single element once at a time, which should be pretty easy operations in our data structure.
+ইতিমধ্যে বলা হয়েছে আমরা একটি একক ডেটা স্ট্রাকচার ব্যবহার করবো।
+এই ডেটা স্ট্রাকচার রেঞ্জ সম্পর্কে তথ্য সংরক্ষণ করবে।
+শুরুতে এই রেঞ্জ খালি থাকবে।
+যখন আমরা পরবর্তী কোয়েরির (বিশেষ ক্রমে) উত্তর দিতে চাই, আমরা সহজভাবে বর্তমান রেঞ্জের দুই পাশে উপাদান যোগ/সরিয়ে রেঞ্জ বাড়াই বা কমাই, যতক্ষণ না আমরা এটিকে কোয়েরি রেঞ্জে রূপান্তরিত করি।
+এভাবে, আমাদের একবারে শুধু একটি উপাদান যোগ বা সরাতে হয়, যা আমাদের ডেটা স্ট্রাকচারে বেশ সহজ অপারেশন হওয়া উচিত।
 
-Since we change the order of answering the queries, this is only possible when we are allowed to answer the queries in offline mode.
+যেহেতু আমরা কোয়েরির উত্তর দেওয়ার ক্রম পরিবর্তন করি, এটি শুধুমাত্র তখনই সম্ভব যখন আমাদের কোয়েরি অফলাইন মোডে উত্তর দেওয়ার অনুমতি থাকে।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-In Mo's algorithm we use two functions for adding an index and for removing an index from the range which we are currently maintaining.
+Mo-এর অ্যালগরিদমে আমরা দুটি ফাংশন ব্যবহার করি: একটি রেঞ্জে একটি ইনডেক্স যোগ করার জন্য এবং একটি রেঞ্জ থেকে একটি ইনডেক্স সরানোর জন্য যা আমরা বর্তমানে রক্ষণাবেক্ষণ করছি।
 
 ```cpp
 void remove(idx);  // TODO: remove value at idx from data structure
@@ -187,42 +187,42 @@ vector<int> mo_s_algorithm(vector<Query> queries) {
 }
 ```
 
-Based on the problem we can use a different data structure and modify the `add`/`remove`/`get_answer` functions accordingly.
-For example if we are asked to find range sum queries then we use a simple integer as data structure, which is $0$ at the beginning.
-The `add` function will simply add the value of the position and subsequently update the answer variable.
-On the other hand `remove` function will subtract the value at position and subsequently update the answer variable.
-And `get_answer` just returns the integer.
+সমস্যার উপর ভিত্তি করে আমরা ভিন্ন ডেটা স্ট্রাকচার ব্যবহার করতে পারি এবং সেই অনুযায়ী `add`/`remove`/`get_answer` ফাংশন পরিবর্তন করতে পারি।
+উদাহরণস্বরূপ যদি আমাদের রেঞ্জ যোগফল কোয়েরি করতে বলা হয় তাহলে আমরা ডেটা স্ট্রাকচার হিসেবে একটি সাধারণ ইন্টিজার ব্যবহার করি, যা শুরুতে $0$।
+`add` ফাংশন সহজভাবে পজিশনের মান যোগ করবে এবং পরবর্তীতে উত্তর ভেরিয়েবল আপডেট করবে।
+অন্যদিকে `remove` ফাংশন পজিশনের মান বিয়োগ করবে এবং পরবর্তীতে উত্তর ভেরিয়েবল আপডেট করবে।
+এবং `get_answer` শুধু ইন্টিজারটি রিটার্ন করে।
 
-For answering mode-queries, we can use a binary search tree (e.g. `map<int, int>`) for storing how often each number appears in the current range, and a second binary search tree (e.g. `set<pair<int, int>>`) for keeping counts of the numbers (e.g. as count-number pairs) in order.
-The `add` method removes the current number from the second BST, increases the count in the first one, and inserts the number back into the second one.
-`remove` does the same thing, it only decreases the count.
-And `get_answer` just looks at second tree and returns the best value in $O(1)$.
+মোড-কোয়েরির উত্তর দিতে, আমরা বর্তমান রেঞ্জে প্রতিটি সংখ্যা কতবার দেখা যায় তা সংরক্ষণ করতে একটি বাইনারি সার্চ ট্রি (যেমন `map<int, int>`) এবং সংখ্যাগুলোর গণনা ক্রমে রাখতে একটি দ্বিতীয় বাইনারি সার্চ ট্রি (যেমন `set<pair<int, int>>`) ব্যবহার করতে পারি।
+`add` মেথড দ্বিতীয় BST থেকে বর্তমান সংখ্যা সরায়, প্রথমটিতে গণনা বাড়ায়, এবং সংখ্যাটি দ্বিতীয়টিতে আবার ঢোকায়।
+`remove`ও একই কাজ করে, শুধু গণনা কমায়।
+এবং `get_answer` শুধু দ্বিতীয় ট্রি দেখে $O(1)$ এ সেরা মান রিটার্ন করে।
 
-### Complexity
+### কমপ্লেক্সিটি
 
 
-Sorting all queries will take $O(Q \log Q)$.
+সব কোয়েরি সাজাতে $O(Q \log Q)$ লাগবে।
 
-How about the other operations?
-How many times will the `add` and `remove` be called?
+অন্যান্য অপারেশনগুলোর কী হবে?
+`add` এবং `remove` কতবার কল হবে?
 
-Let's say the block size is $S$.
+ধরি ব্লকের আকার $S$।
 
-If we only look at all queries having the left index in the same block, the queries are sorted by the right index.
-Therefore we will call `add(cur_r)` and `remove(cur_r)` only $O(N)$ times for all these queries combined.
-This gives $O(\frac{N}{S} N)$ calls for all blocks.
+যদি আমরা শুধু একই ব্লকে বাম ইনডেক্স আছে এমন সব কোয়েরি দেখি, কোয়েরিগুলো ডান ইনডেক্স অনুসারে সাজানো।
+তাই এই সব কোয়েরি মিলিয়ে আমরা `add(cur_r)` এবং `remove(cur_r)` শুধু $O(N)$ বার কল করবো।
+এটি সব ব্লকের জন্য $O(\frac{N}{S} N)$ কল দেয়।
 
-The value of `cur_l` can change by at most $O(S)$ during between two queries.
-Therefore we have an additional $O(S Q)$ calls of `add(cur_l)` and `remove(cur_l)`.
+দুটি কোয়েরির মধ্যে `cur_l` এর মান সর্বোচ্চ $O(S)$ পরিবর্তন হতে পারে।
+তাই আমাদের `add(cur_l)` এবং `remove(cur_l)` এর অতিরিক্ত $O(S Q)$ কল আছে।
 
-For $S \approx \sqrt{N}$ this gives $O((N + Q) \sqrt{N})$ operations in total.
-Thus the complexity is $O((N+Q)F\sqrt{N})$ where $O(F)$  is the complexity of `add` and `remove` function.
+$S \approx \sqrt{N}$ হলে এটি মোট $O((N + Q) \sqrt{N})$ অপারেশন দেয়।
+সুতরাং কমপ্লেক্সিটি হলো $O((N+Q)F\sqrt{N})$ যেখানে $O(F)$ হলো `add` এবং `remove` ফাংশনের কমপ্লেক্সিটি।
 
-### Tips for improving runtime
+### রানটাইম উন্নতির টিপস
 
-* Block size of precisely $\sqrt{N}$ doesn't always offer the best runtime.  For example, if $\sqrt{N}=750$ then it may happen that block size of $700$ or $800$ may run better.
-More importantly, don't compute the block size at runtime - make it `const`. Division by constants is well optimized by compilers.
-* In odd blocks sort the right index in ascending order and in even blocks sort it in descending order. This will minimize the movement of right pointer, as the normal sorting will move the right pointer from the end back to the beginning at the start of every block. With the improved version this resetting is no more necessary.
+* ঠিক $\sqrt{N}$ ব্লক সাইজ সবসময় সেরা রানটাইম দেয় না। উদাহরণস্বরূপ, $\sqrt{N}=750$ হলে ব্লক সাইজ $700$ বা $800$ ভালো চলতে পারে।
+আরো গুরুত্বপূর্ণ, রানটাইমে ব্লক সাইজ হিসাব করবেন না - একে `const` বানান। ধ্রুবক দ্বারা ভাগ কম্পাইলার দ্বারা ভালোভাবে অপটিমাইজ হয়।
+* বিজোড় ব্লকে ডান ইনডেক্স ক্রমবর্ধমান ক্রমে এবং জোড় ব্লকে ক্রমহ্রাসমান ক্রমে সাজান। এটি ডান পয়েন্টারের চলাচল কমিয়ে দেবে, কারণ স্বাভাবিক সাজানো প্রতিটি ব্লকের শুরুতে ডান পয়েন্টারকে শেষ থেকে শুরুতে ফেরত নিয়ে যাবে। উন্নত সংস্করণে এই রিসেটিং আর প্রয়োজন নেই।
 
 ```cpp
 bool cmp(pair<int, int> p, pair<int, int> q) {
@@ -232,9 +232,9 @@ bool cmp(pair<int, int> p, pair<int, int> q) {
 }
 ```
 
-You can read about even faster sorting approach [here](https://codeforces.com/blog/entry/61203).
+আরো দ্রুত সাজানোর পদ্ধতি সম্পর্কে [এখানে](https://codeforces.com/blog/entry/61203) পড়তে পারেন।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Codeforces - Kuriyama Mirai's Stones](https://codeforces.com/problemset/problem/433/B)
 * [UVA - 12003 - Array Transformer](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3154)

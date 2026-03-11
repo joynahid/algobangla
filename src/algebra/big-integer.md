@@ -4,37 +4,37 @@ tags:
 e_maxx_link: big_integer
 ---
 
-# Arbitrary-Precision Arithmetic
+# আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক
 
-Arbitrary-Precision arithmetic, also known as "bignum" or simply "long arithmetic" is a set of data structures and algorithms which allows to process much greater numbers than can be fit in standard data types. Here are several types of arbitrary-precision arithmetic.
+আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক, যা "bignum" বা সহজভাবে "লং অ্যারিথমেটিক" নামেও পরিচিত, ডেটা স্ট্রাকচার এবং অ্যালগরিদমের একটি সেট যা স্ট্যান্ডার্ড ডেটা টাইপে ধারণ করা সম্ভব এমন সংখ্যার চেয়ে অনেক বড় সংখ্যা প্রসেস করতে দেয়। এখানে আরবিট্রারি-প্রিসিশন অ্যারিথমেটিকের কয়েকটি ধরন আলোচনা করা হলো।
 
-## Classical Integer Long Arithmetic
+## ক্লাসিক্যাল ইন্টিজার লং অ্যারিথমেটিক
 
-The main idea is that the number is stored as an array of its "digits" in some base. Several most frequently used bases are decimal, powers of decimal ($10^4$ or $10^9$) and binary.
+মূল ধারণাটি হলো সংখ্যাটি কোনো ভিত্তিতে এর "ডিজিট"-এর একটি অ্যারে হিসেবে সংরক্ষিত থাকে। সবচেয়ে বেশি ব্যবহৃত কয়েকটি ভিত্তি হলো দশমিক, দশমিকের ঘাত ($10^4$ বা $10^9$) এবং বাইনারি।
 
-Operations on numbers in this form are performed using "school" algorithms of column addition, subtraction, multiplication and division. It's also possible to use fast multiplication algorithms: fast Fourier transform and Karatsuba algorithm.
+এই ফর্মে সংখ্যার উপর অপারেশনগুলো কলাম যোগ, বিয়োগ, গুণ এবং ভাগের "স্কুল" অ্যালগরিদম ব্যবহার করে সম্পাদিত হয়। দ্রুত গুণ অ্যালগরিদমও ব্যবহার করা সম্ভব: ফাস্ট ফুরিয়ে ট্রান্সফর্ম এবং কারাৎসুবা অ্যালগরিদম।
 
-Here we describe long arithmetic for only non-negative integers. To extend the algorithms to handle negative integers one has to introduce and maintain additional "negative number" flag or use two's complement integer representation.
+এখানে আমরা শুধুমাত্র অ-ঋণাত্মক পূর্ণসংখ্যার জন্য লং অ্যারিথমেটিক বর্ণনা করি। ঋণাত্মক পূর্ণসংখ্যা সামলানোর জন্য অ্যালগরিদমগুলো সম্প্রসারিত করতে একটি অতিরিক্ত "ঋণাত্মক সংখ্যা" ফ্ল্যাগ প্রবর্তন ও রক্ষণাবেক্ষণ করতে হবে অথবা টু'জ কম্প্লিমেন্ট ইন্টিজার রিপ্রেজেন্টেশন ব্যবহার করতে হবে।
 
-### Data Structure
+### ডেটা স্ট্রাকচার
 
-We'll store numbers as a `vector<int>`, in which each element is a single "digit" of the number.
+আমরা সংখ্যাগুলো `vector<int>` হিসেবে সংরক্ষণ করব, যেখানে প্রতিটি এলিমেন্ট সংখ্যার একটি একক "ডিজিট"।
 
 ```cpp
 typedef vector<int> lnum;
 ```
 
-To improve performance we'll use $10^9$ as the base, so that each "digit" of the long number contains 9 decimal digits at once.
+পারফর্মেন্স উন্নত করতে আমরা $10^9$ ভিত্তি হিসেবে ব্যবহার করব, যাতে লং সংখ্যার প্রতিটি "ডিজিট"-এ একসাথে ৯টি দশমিক ডিজিট থাকে।
 
 ```cpp
 const int base = 1000*1000*1000;
 ```
 
-Digits will be stored in order from least to most significant. All operations will be implemented so that after each of them the result doesn't have any leading zeros, as long as operands didn't have any leading zeros either. All operations which might result in a number with leading zeros should be followed by code which removes them. Note that in this representation there are two valid notations for number zero: an empty vector, and a vector with a single zero digit.
+ডিজিটগুলো সর্বনিম্ন থেকে সর্বোচ্চ তাৎপর্যপূর্ণ ক্রমে সংরক্ষিত থাকবে। সকল অপারেশন এমনভাবে ইমপ্লিমেন্ট করা হবে যাতে প্রতিটির পরে ফলাফলে কোনো লিডিং জিরো থাকে না, যতক্ষণ অপারেন্ডগুলোতে কোনো লিডিং জিরো না থাকে। সকল অপারেশন যেগুলোর ফলে লিডিং জিরোসহ সংখ্যা আসতে পারে, তার পরে সেগুলো সরানোর কোড থাকা উচিত। লক্ষ্য করুন যে এই রিপ্রেজেন্টেশনে শূন্য সংখ্যার জন্য দুটি বৈধ নোটেশন আছে: একটি খালি ভেক্টর, এবং একটি একক শূন্য ডিজিটসহ ভেক্টর।
 
-### Output
+### আউটপুট
 
-Printing the long integer is the easiest operation. First we print the last element of the vector (or 0 if the vector is empty), followed by the rest of the elements padded with leading zeros if necessary so that they are exactly 9 digits long.
+লং ইন্টিজার প্রিন্ট করা সবচেয়ে সহজ অপারেশন। প্রথমে আমরা ভেক্টরের শেষ এলিমেন্ট প্রিন্ট করি (ভেক্টর খালি হলে 0), তারপর বাকি এলিমেন্টগুলো প্রয়োজনে লিডিং জিরো দিয়ে প্যাড করে প্রিন্ট করি যাতে সেগুলো ঠিক ৯ ডিজিট দীর্ঘ হয়।
 
 ```cpp
 printf ("%d", a.empty() ? 0 : a.back());
@@ -42,11 +42,11 @@ for (int i=(int)a.size()-2; i>=0; --i)
 	printf ("%09d", a[i]);
 ```
 
-Note that we cast `a.size()` to integer to avoid unsigned integer underflow if vector contains less than 2 elements.
+লক্ষ্য করুন যে আমরা `a.size()` কে ইন্টিজারে কাস্ট করি আনসাইনড ইন্টিজার আন্ডারফ্লো এড়াতে, যদি ভেক্টরে ২টির কম এলিমেন্ট থাকে।
 
-### Input
+### ইনপুট
 
-To read a long integer, read its notation into a `string` and then convert it to "digits":
+একটি লং ইন্টিজার পড়তে, এর নোটেশন একটি `string`-এ পড়ুন এবং তারপর "ডিজিট"-এ রূপান্তর করুন:
 
 ```cpp
 for (int i=(int)s.length(); i>0; i-=9)
@@ -56,7 +56,7 @@ for (int i=(int)s.length(); i>0; i-=9)
 		a.push_back (atoi (s.substr (i-9, 9).c_str()));
 ```
 
-If we use an array of `char` instead of a `string`, the code will be even shorter:
+`string`-এর পরিবর্তে `char`-এর অ্যারে ব্যবহার করলে, কোড আরও সংক্ষিপ্ত হবে:
 
 ```cpp
 for (int i=(int)strlen(s); i>0; i-=9) {
@@ -65,16 +65,16 @@ for (int i=(int)strlen(s); i>0; i-=9) {
 }
 ```
 
-If the input can contain leading zeros, they can be removed as follows:
+ইনপুটে লিডিং জিরো থাকলে, সেগুলো নিম্নরূপে সরানো যায়:
 
 ```cpp
 while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
 
-### Addition
+### যোগ
 
-Increment long integer $a$ by $b$ and store result in $a$:
+লং ইন্টিজার $a$-কে $b$ দ্বারা বৃদ্ধি করুন এবং ফলাফল $a$-তে সংরক্ষণ করুন:
 
 ```cpp
 int carry = 0;
@@ -87,9 +87,9 @@ for (size_t i=0; i<max(a.size(),b.size()) || carry; ++i) {
 }
 ```
 
-### Subtraction
+### বিয়োগ
 
-Decrement long integer $a$ by $b$ ($a \ge b$) and store result in $a$:
+লং ইন্টিজার $a$ থেকে $b$ বিয়োগ করুন ($a \ge b$) এবং ফলাফল $a$-তে সংরক্ষণ করুন:
 
 ```cpp
 int carry = 0;
@@ -102,11 +102,11 @@ while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
 
-Note that after performing subtraction we remove leading zeros to keep up with the premise that our long integers don't have leading zeros.
+লক্ষ্য করুন যে বিয়োগ সম্পাদনের পর আমরা লিডিং জিরো সরিয়ে ফেলি, যাতে আমাদের প্রেমিসটি বজায় থাকে যে আমাদের লং ইন্টিজারে লিডিং জিরো থাকে না।
 
-### Multiplication by short integer
+### শর্ট ইন্টিজার দ্বারা গুণ
 
-Multiply long integer $a$ by short integer $b$ ($b < base$) and store result in $a$:
+লং ইন্টিজার $a$-কে শর্ট ইন্টিজার $b$ ($b < base$) দ্বারা গুণ করুন এবং ফলাফল $a$-তে সংরক্ষণ করুন:
 
 ```cpp
 int carry = 0;
@@ -121,11 +121,11 @@ while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
 
-Additional optimization: If runtime is extremely important, you can try to replace two divisions with one by finding only integer result of division (variable `carry`) and then use it to find modulo using multiplication. This usually makes the code faster, though not dramatically.
+অতিরিক্ত অপটিমাইজেশন: যদি রানটাইম অত্যন্ত গুরুত্বপূর্ণ হয়, তাহলে আপনি দুটি ভাগকে একটি দিয়ে প্রতিস্থাপন করার চেষ্টা করতে পারেন - শুধুমাত্র ভাগের ইন্টিজার ফলাফল (ভেরিয়েবল `carry`) খুঁজে বের করে এবং তারপর গুণ ব্যবহার করে মডুলো খুঁজে বের করে। এটি সাধারণত কোডকে দ্রুত করে, যদিও নাটকীয়ভাবে নয়।
 
-### Multiplication by long integer
+### লং ইন্টিজার দ্বারা গুণ
 
-Multiply long integers $a$ and $b$ and store result in $c$:
+লং ইন্টিজার $a$ এবং $b$ গুণ করুন এবং ফলাফল $c$-তে সংরক্ষণ করুন:
 
 ```cpp
 lnum c (a.size()+b.size());
@@ -139,9 +139,9 @@ while (c.size() > 1 && c.back() == 0)
 	c.pop_back();
 ```
 
-### Division by short integer
+### শর্ট ইন্টিজার দ্বারা ভাগ
 
-Divide long integer $a$ by short integer $b$ ($b < base$), store integer result in $a$ and remainder in `carry`:
+লং ইন্টিজার $a$-কে শর্ট ইন্টিজার $b$ ($b < base$) দ্বারা ভাগ করুন, ইন্টিজার ফলাফল $a$-তে এবং ভাগশেষ `carry`-তে সংরক্ষণ করুন:
 
 ```cpp
 int carry = 0;
@@ -154,43 +154,43 @@ while (a.size() > 1 && a.back() == 0)
 	a.pop_back();
 ```
 
-## Long Integer Arithmetic for Factorization Representation
+## ফ্যাক্টরাইজেশন রিপ্রেজেন্টেশনের জন্য লং ইন্টিজার অ্যারিথমেটিক
 
-The idea is to store the integer as its factorization, i.e. the powers of primes which divide it.
+ধারণাটি হলো পূর্ণসংখ্যাকে এর ফ্যাক্টরাইজেশন হিসেবে, অর্থাৎ এটিকে ভাগ করে এমন মৌলিক সংখ্যাগুলোর ঘাত হিসেবে সংরক্ষণ করা।
 
-This approach is very easy to implement, and allows to do multiplication and division easily (asymptotically faster than the classical method), but not addition or subtraction. It is also very memory-efficient compared to the classical approach.
+এই পদ্ধতিটি ইমপ্লিমেন্ট করা খুব সহজ, এবং গুণ ও ভাগ সহজে (ক্লাসিক্যাল পদ্ধতির চেয়ে অ্যাসিম্পটোটিক্যালি দ্রুত) করতে দেয়, কিন্তু যোগ বা বিয়োগ নয়। ক্লাসিক্যাল পদ্ধতির তুলনায় এটি মেমোরি-এফিশিয়েন্টও।
 
-This method is often used for calculations modulo non-prime number M; in this case a number is stored as powers of divisors of M which divide the number, plus the remainder modulo M.
+এই পদ্ধতিটি প্রায়ই অ-মৌলিক সংখ্যা M মডুলোতে গণনার জন্য ব্যবহৃত হয়; এই ক্ষেত্রে একটি সংখ্যা M-এর ভাজকগুলোর ঘাত হিসেবে সংরক্ষিত থাকে যেগুলো সংখ্যাটিকে ভাগ করে, এবং সাথে M মডুলোতে ভাগশেষ।
 
-## Long Integer Arithmetic in prime modulos (Garner Algorithm)
+## মৌলিক মডুলোতে লং ইন্টিজার অ্যারিথমেটিক (গার্নার অ্যালগরিদম)
 
-The idea is to choose a set of prime numbers (typically they are small enough to fit into standard integer data type) and to store an integer as a vector of remainders from division of the integer by each of those primes.
+ধারণাটি হলো মৌলিক সংখ্যার একটি সেট নির্বাচন করা (সাধারণত এগুলো যথেষ্ট ছোট হয় যাতে স্ট্যান্ডার্ড ইন্টিজার ডেটা টাইপে ধারণ করা যায়) এবং একটি পূর্ণসংখ্যাকে সেই প্রতিটি মৌলিক সংখ্যা দ্বারা ভাগের ভাগশেষের ভেক্টর হিসেবে সংরক্ষণ করা।
 
-Chinese remainder theorem states that this representation is sufficient to uniquely restore any number from 0 to product of these primes minus one. [Garner algorithm](garners-algorithm.md) allows to restore the number from such representation to normal integer.
+চায়নিজ রিমেইন্ডার থিওরেম বলে যে এই রিপ্রেজেন্টেশন ০ থেকে এই মৌলিক সংখ্যাগুলোর গুণফল বিয়োগ এক পর্যন্ত যেকোনো সংখ্যা স্বতন্ত্রভাবে পুনরুদ্ধার করতে যথেষ্ট। [গার্নার অ্যালগরিদম](garners-algorithm.md) এই রিপ্রেজেন্টেশন থেকে সংখ্যাটি স্বাভাবিক ইন্টিজারে পুনরুদ্ধার করতে দেয়।
 
-This method allows to save memory compared to the classical approach (though the savings are not as dramatic as in factorization representation). Besides, it allows to perform fast addition, subtraction and multiplication in time proportional to the number of prime numbers used as modulos (see [Chinese remainder theorem](chinese-remainder-theorem.md) article for implementation).
+এই পদ্ধতি ক্লাসিক্যাল পদ্ধতির তুলনায় মেমোরি সাশ্রয় করতে দেয় (যদিও সাশ্রয় ফ্যাক্টরাইজেশন রিপ্রেজেন্টেশনের মতো নাটকীয় নয়)। এছাড়াও, এটি মডুলো হিসেবে ব্যবহৃত মৌলিক সংখ্যার সংখ্যার সমানুপাতিক সময়ে দ্রুত যোগ, বিয়োগ এবং গুণ করতে দেয় (ইমপ্লিমেন্টেশনের জন্য [চায়নিজ রিমেইন্ডার থিওরেম](chinese-remainder-theorem.md) আর্টিকেল দেখুন)।
 
-The tradeoff is that converting the integer back to normal form is rather laborious and requires implementing classical arbitrary-precision arithmetic with multiplication. Besides, this method doesn't support division.
+ট্রেডঅফ হলো পূর্ণসংখ্যাকে আবার স্বাভাবিক ফর্মে রূপান্তর করা বেশ কষ্টসাধ্য এবং গুণসহ ক্লাসিক্যাল আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক ইমপ্লিমেন্ট করা প্রয়োজন। এছাড়াও, এই পদ্ধতি ভাগ সাপোর্ট করে না।
 
-## Fractional Arbitrary-Precision Arithmetic
+## ভগ্নাংশ আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক
 
-Fractions occur in programming competitions less frequently than integers, and long arithmetic is much trickier to implement for fractions, so programming competitions feature only a small subset of fractional long arithmetic.
+প্রোগ্রামিং প্রতিযোগিতায় পূর্ণসংখ্যার তুলনায় ভগ্নাংশ কম ঘন ঘন দেখা যায়, এবং ভগ্নাংশের জন্য লং অ্যারিথমেটিক ইমপ্লিমেন্ট করা অনেক বেশি জটিল, তাই প্রোগ্রামিং প্রতিযোগিতায় ভগ্নাংশ লং অ্যারিথমেটিকের শুধুমাত্র একটি ছোট সাবসেট দেখা যায়।
 
-### Arithmetic in Irreducible Fractions
+### অনূহ্য ভগ্নাংশে অ্যারিথমেটিক
 
-A number is represented as an irreducible fraction $\frac{a}{b}$, where $a$ and $b$ are integers. All operations on fractions can be represented as operations on integer numerators and denominators of these fractions. Usually this requires using classical arbitrary-precision arithmetic for storing numerator and denominator, but sometimes a built-in 64-bit integer data type suffices.
+একটি সংখ্যাকে অনূহ্য ভগ্নাংশ $\frac{a}{b}$ হিসেবে উপস্থাপন করা হয়, যেখানে $a$ এবং $b$ পূর্ণসংখ্যা। ভগ্নাংশের উপর সকল অপারেশন এই ভগ্নাংশগুলোর ইন্টিজার লব এবং হরের উপর অপারেশন হিসেবে উপস্থাপন করা যায়। সাধারণত এর জন্য লব এবং হর সংরক্ষণের জন্য ক্লাসিক্যাল আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক ব্যবহার করা প্রয়োজন, তবে কখনো কখনো বিল্ট-ইন ৬৪-বিট ইন্টিজার ডেটা টাইপ যথেষ্ট হয়।
 
-### Storing Floating Point Position as Separate Type
+### ফ্লোটিং পয়েন্ট পজিশন আলাদা টাইপ হিসেবে সংরক্ষণ
 
-Sometimes a problem requires handling very small or very large numbers without allowing overflow or underflow. Built-in double data type uses 8-10 bytes and allows values of the exponent in $[-308; 308]$ range, which sometimes might be insufficient.
+কখনো কখনো একটি সমস্যায় ওভারফ্লো বা আন্ডারফ্লোর অনুমতি না দিয়ে অত্যন্ত ছোট বা অত্যন্ত বড় সংখ্যা হ্যান্ডেল করা প্রয়োজন। বিল্ট-ইন double ডেটা টাইপ ৮-১০ বাইট ব্যবহার করে এবং $[-308; 308]$ রেঞ্জে এক্সপোনেন্টের মান অনুমোদন করে, যা কখনো কখনো অপর্যাপ্ত হতে পারে।
 
-The approach is very simple: a separate integer variable is used to store the value of the exponent, and after each operation the floating-point number is normalized, i.e. returned to $[0.1; 1)$ interval by adjusting the exponent accordingly. 
+পদ্ধতিটি খুব সরল: একটি আলাদা ইন্টিজার ভেরিয়েবল এক্সপোনেন্টের মান সংরক্ষণ করতে ব্যবহৃত হয়, এবং প্রতিটি অপারেশনের পর ফ্লোটিং-পয়েন্ট সংখ্যাটি নরমালাইজ করা হয়, অর্থাৎ এক্সপোনেন্ট সামঞ্জস্য করে $[0.1; 1)$ ব্যবধানে ফিরিয়ে আনা হয়।
 
-When two such numbers are multiplied or divided, their exponents should be added or subtracted, respectively. When numbers are added or subtracted, they have to be brought to common exponent first by multiplying one of them by 10 raised to the power equal to the difference of exponent values.
+দুটি এই ধরনের সংখ্যা গুণ বা ভাগ করার সময়, তাদের এক্সপোনেন্ট যথাক্রমে যোগ বা বিয়োগ করতে হয়। সংখ্যাগুলো যোগ বা বিয়োগ করার সময়, প্রথমে এক্সপোনেন্ট মানের পার্থক্যের সমান ঘাতে ১০ দ্বারা গুণ করে তাদের সাধারণ এক্সপোনেন্টে আনতে হয়।
 
-As a final note, the exponent base doesn't have to equal 10. Based on the internal representation of floating-point numbers, it makes most sense to use 2 as the exponent base.
+একটি শেষ কথা, এক্সপোনেন্ট ভিত্তি ১০ হতে হবে না। ফ্লোটিং-পয়েন্ট সংখ্যার অভ্যন্তরীণ রিপ্রেজেন্টেশনের উপর ভিত্তি করে, এক্সপোনেন্ট ভিত্তি হিসেবে ২ ব্যবহার করা সবচেয়ে যুক্তিসঙ্গত।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 
 * [UVA - How Many Fibs?](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1124)

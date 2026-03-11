@@ -91,3 +91,148 @@ MathJax = {
 };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Homepage title override: prevent "algobangla | algobangla" duplication -->
+{{- if .IsHome -}}
+<title>AlgoBangla — CP Algorithms in Bangla{{ if eq .Language.Lang "bn" }} | বাংলায় অ্যালগরিদম{{ end }}</title>
+{{- end -}}
+
+<!-- Meta description (clean, no # artifact) -->
+{{- if .Description }}
+<meta name="description" content="{{ .Description | truncate 160 }}">
+{{- else if .IsHome }}
+<meta name="description" content="AlgoBangla — বাংলায় কম্পিটিটিভ প্রোগ্রামিং অ্যালগরিদম। Competitive programming algorithms in Bangla and English. 150+ articles on algebra, graph theory, data structures, DP, geometry, and string algorithms. Free, ad-free, CC BY-SA 4.0.">
+{{- else }}
+<meta name="description" content="{{ .Title }} — {{ if eq .Language.Lang "bn" }}বাংলায় সম্পূর্ণ ব্যাখ্যা, জটিলতা বিশ্লেষণ ও C++ ইমপ্লিমেন্টেশনসহ। AlgoBangla-এর কম্পিটিটিভ প্রোগ্রামিং রেফারেন্স।{{ else }}Complete explanation with complexity analysis and C++ implementation. Part of AlgoBangla's bilingual competitive programming reference.{{ end }}">
+{{- end }}
+
+<!-- Open Graph image -->
+{{- if not (isset .Params "ogimage") }}
+<meta property="og:image" content="https://algobangla.web.app/algobangla-social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{{- end }}
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}AlgoBangla — CP Algorithms in Bangla{{ else }}{{ .Title }} | algobangla{{ end }}">
+<meta name="twitter:description" content="{{ if .Description }}{{ .Description | truncate 200 }}{{ else }}{{ .Title }} — competitive programming algorithm with full explanation and C++ implementation.{{ end }}">
+<meta name="twitter:image" content="https://algobangla.web.app/algobangla-social.png">
+
+<!-- hreflang x-default -->
+<link rel="alternate" hreflang="x-default" href="https://algobangla.web.app/en/">
+
+<!-- JSON-LD Structured Data -->
+{{- if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "AlgoBangla",
+  "url": "https://algobangla.web.app/",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://algobangla.web.app/favicon.svg",
+    "width": 512,
+    "height": 512
+  },
+  "description": "A free, open-source bilingual reference for competitive programming algorithms and data structures in English and Bangla (Bengali).",
+  "inLanguage": ["en", "bn"],
+  "sameAs": [
+    "https://github.com/joynahid/algobangla"
+  ],
+  "isBasedOn": {
+    "@type": "WebSite",
+    "name": "CP-Algorithms",
+    "url": "https://cp-algorithms.com/"
+  },
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AlgoBangla",
+  "url": "https://algobangla.web.app/",
+  "description": "Competitive programming algorithms in Bangla and English — algebra, data structures, graph theory, DP, geometry, string algorithms.",
+  "inLanguage": ["en", "bn"],
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://algobangla.web.app/en/?search={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{{- else if not .IsSection }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": {{ .Title | jsonify }},
+  "description": {{ if .Description }}{{ .Description | truncate 300 | jsonify }}{{ else }}{{ printf "%s — competitive programming algorithm with complexity analysis and C++ implementation." .Title | jsonify }}{{ end }},
+  "url": {{ .Permalink | jsonify }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ .Permalink | jsonify }}
+  },
+  "inLanguage": {{ .Language.Lang | jsonify }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "wordCount": {{ .WordCount }},
+  "articleSection": {{ .Section | jsonify }},
+  "author": {
+    "@type": "Organization",
+    "name": "cp-algorithms contributors",
+    "url": "https://github.com/cp-algorithms/cp-algorithms/graphs/contributors"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "AlgoBangla",
+    "url": "https://algobangla.web.app/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://algobangla.web.app/favicon.svg"
+    }
+  },
+  "isBasedOn": "https://cp-algorithms.com/",
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "educationalLevel": "intermediate",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".markdown > h1", ".markdown > h2", ".markdown > p:first-of-type"]
+  }
+}
+</script>
+{{- end }}
+{{- if not .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "AlgoBangla",
+      "item": {{ printf "https://algobangla.web.app/%s/" .Language.Lang | jsonify }}
+    }{{ if not .IsSection }},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ .Section | title | jsonify }},
+      "item": {{ printf "https://algobangla.web.app/%s/%s/" .Language.Lang .Section | jsonify }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ .Title | jsonify }},
+      "item": {{ .Permalink | jsonify }}
+    }{{ end }}
+  ]
+}
+</script>
+{{- end }}

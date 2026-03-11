@@ -7,12 +7,8 @@
   gtag('config', 'G-KJT02RWWKZ');
 </script>
 
-<!-- Bengali fonts: Kalpurush + Tiro Bangla -->
-<link rel="preconnect" href="https://fonts.maateen.me">
-<link rel="stylesheet" href="https://fonts.maateen.me/kalpurush/font.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+<!-- Bengali fonts: Kalpurush + Tiro Bangla (self-hosted) -->
+<link rel="stylesheet" href="{{ "/fonts/fonts.css" | relURL }}">
 
 <!-- Theme toggle CSS — must load after book.css -->
 <link rel="stylesheet" href="{{ "/theme-toggle.css" | relURL }}">
@@ -99,7 +95,7 @@ MathJax = {
   }
 };
 </script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script id="MathJax-script" async src="{{ "/mathjax/es5/tex-mml-chtml.js" | relURL }}"></script>
 
 <!-- Homepage title override: prevent "algobangla | algobangla" duplication -->
 {{- if .IsHome -}}

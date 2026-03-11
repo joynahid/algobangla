@@ -1,0 +1,40 @@
+baseURL = "https://cp-algorithms.com/"
+title = "CP-Algorithms"
+theme = "hugo-book"
+enableGitInfo = true
+defaultContentLanguage = "en"
+
+# Hugo-book settings
+[params]
+  # Sidebar
+  BookSection = "/"
+  BookToC = true
+  BookTheme = "auto"  # auto = supports dark/light toggle
+  BookSearch = true
+  BookCollapseSection = true
+  BookComments = false
+  BookPortableLinks = false
+  BookMenuBundle = false
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [["$$", "$$"], ["\\[", "\\]"]]
+          inline = [["$", "$"], ["\\(", "\\)"]]
+
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+    codeFences = true
+    guessSyntax = true
+    noClasses = false
+
+[outputs]
+  home = ["HTML"]
+  page = ["HTML"]
+  section = ["HTML"]

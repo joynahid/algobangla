@@ -1,0 +1,2979 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ternary Search#We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function:
+The function strictly increases first, reaches a maximum (at a single point or over an interval), and then strictly decreases.
+The function strictly decreases first, reaches a minimum, and then strictly increases.
+In this article, we will assume the first scenario. The second scenario is completely symmetrical to the first.
+">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:url" content="https://cp-algorithms.com/num_methods/ternary_search/">
+  <meta property="og:site_name" content="CP-Algorithms">
+  <meta property="og:title" content="Ternary Search">
+  <meta property="og:description" content="Ternary Search#We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function:
+The function strictly increases first, reaches a maximum (at a single point or over an interval), and then strictly decreases.
+The function strictly decreases first, reaches a minimum, and then strictly increases.
+In this article, we will assume the first scenario. The second scenario is completely symmetrical to the first.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="num_methods">
+
+
+  <meta itemprop="name" content="Ternary Search">
+  <meta itemprop="description" content="Ternary Search#We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function:
+The function strictly increases first, reaches a maximum (at a single point or over an interval), and then strictly decreases.
+The function strictly decreases first, reaches a minimum, and then strictly increases.
+In this article, we will assume the first scenario. The second scenario is completely symmetrical to the first.">
+  <meta itemprop="wordCount" content="1307">
+
+<title>Ternary Search | CP-Algorithms</title>
+<link rel="icon" href="/favicon.png" >
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://cp-algorithms.com/num_methods/ternary_search/">
+<link rel="stylesheet" href="/book.min.4a33288e0ab7b574cceca7762512545aa1546379f89a14d0f48aec132f269283.css" integrity="sha256-SjMojgq3tXTM7Kd2JRJUWqFUY3n4mhTQ9IrsEy8mkoM=" crossorigin="anonymous">
+
+
+  <script defer src="/fuse.min.js"></script>
+  <script defer src="/en.search.min.5023809c4ed6e86e1552577213d6e74916a420e0090e2e133548dfe5b2617bab.js" integrity="sha256-UCOAnE7W6G4VUldyE9bnSRakIOAJDi4TNUjf5bJhe6s=" crossorigin="anonymous"></script>
+
+
+
+  
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+<body dir="ltr" class="book-kind-page book-type-num_methods">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    
+<aside class="book-menu">
+  <div class="book-menu-content">
+    
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>CP-Algorithms</span>
+  </a>
+</h2>
+
+
+<div class="book-search hidden">
+  <input id="book-search-input" type="text" 
+    placeholder="Search"
+    aria-label="Search"
+    maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+<script>document.querySelector(".book-search").classList.remove("hidden")</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-7f16a425dd8a59a2a37e83481599f3d0" class="toggle"  />
+    <label for="section-7f16a425dd8a59a2a37e83481599f3d0" class="flex">
+      <a href="/algebra/" class="">
+        Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/balanced-ternary/" class="">
+      Balanced Ternary</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/binary-exp/" class="">
+      Binary Exponentiation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/bit-manipulation/" class="">
+      Bit manipulation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/phi-function/" class="">
+      Euler&#39;s totient function</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-divisors/" class="">
+      Finding Power of Factorial Divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/module-inverse/" class="">
+      Modular Multiplicative Inverse</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/sieve-of-eratosthenes/" class="">
+      Sieve of Eratosthenes</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/euclid-algorithm/" class="">
+      Euclidean algorithm for computing the greatest common divisor</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/gray-code/" class="">
+      Gray code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear_congruence_equation/" class="">
+      Linear Congruence Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/prime-sieve-linear/" class="">
+      Linear Sieve</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/divisors/" class="">
+      Number of divisors / sum of divisors</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/all-submasks/" class="">
+      Submask Enumeration</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/big-integer/" class="">
+      Arbitrary-Precision Arithmetic</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/chinese-remainder-theorem/" class="">
+      Chinese Remainder Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/extended-euclid-algorithm/" class="">
+      Extended Euclidean Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/primality_tests/" class="">
+      Primality tests</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fft/" class="">
+      Fast Fourier transform</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/garners-algorithm/" class="">
+      Garner&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorization/" class="">
+      Integer factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/linear-diophantine-equation/" class="">
+      Linear Diophantine Equation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factorial-modulo/" class="">
+      Factorial modulo p</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/fibonacci-numbers/" class="">
+      Fibonacci Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/polynomial/" class="">
+      Operations on polynomials and series</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/continued-fractions/" class="">
+      Continued fractions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/discrete-log/" class="">
+      Discrete Logarithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/factoring-exp/" class="">
+      Binary Exponentiation by Factoring</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/primitive-root/" class="">
+      Primitive Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/discrete-root/" class="">
+      Discrete Root</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/algebra/montgomery_multiplication/" class="">
+      Montgomery Multiplication</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-9eae1d4a85f72ae6c749e07ebe7dbc98" class="toggle"  />
+    <label for="section-9eae1d4a85f72ae6c749e07ebe7dbc98" class="flex">
+      <a role="button" class="">
+        Data Structures</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/deleting_in_log_n/" class="">
+      Deleting from a data structure in O(T(n) log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/disjoint_set_union/" class="">
+      Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/stack_queue_modification/" class="">
+      Minimum stack / Minimum queue</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/fenwick/" class="">
+      Fenwick Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/sparse-table/" class="">
+      Sparse Table</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/sqrt_decomposition/" class="">
+      Sqrt Decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/segment_tree/" class="">
+      Segment Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/treap/" class="">
+      Treap (Cartesian tree)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/sqrt-tree/" class="">
+      Sqrt Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/data_structures/randomized_heap/" class="">
+      Randomized Heap</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/contrib/" class="">
+      Contrib</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-ef7f003ea661c1a15b9ac9de3c281447" class="toggle"  />
+    <label for="section-ef7f003ea661c1a15b9ac9de3c281447" class="flex">
+      <a role="button" class="">
+        Dynamic Programming</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/divide-and-conquer-dp/" class="">
+      Divide and Conquer DP</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/profile-dynamics/" class="">
+      Dynamic Programming on Broken Profile. Problem &#34;Parquet&#34;</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/intro-to-dp/" class="">
+      Introduction to Dynamic Programming</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/zero_matrix/" class="">
+      Finding the largest zero submatrix</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knapsack/" class="">
+      Knapsack Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/knuth-optimization/" class="">
+      Knuth&#39;s Optimization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/dynamic_programming/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/code_of_conduct/" class="">
+      Code of Conduct</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e363d769074316e7754f6bc50d223681" class="toggle"  />
+    <label for="section-e363d769074316e7754f6bc50d223681" class="flex">
+      <a role="button" class="">
+        String Processing</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/expression_parsing/" class="">
+      Expression parsing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/string-hashing/" class="">
+      String Hashing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/suffix-tree-ukkonen/" class="">
+      Suffix Tree. Ukkonen&#39;s Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/manacher/" class="">
+      Manacher&#39;s Algorithm - Finding all sub-palindromes in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/rabin-karp/" class="">
+      Rabin-Karp Algorithm for string matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/suffix-automaton/" class="">
+      Suffix Automaton</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/main_lorentz/" class="">
+      Finding repetitions</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/lyndon_factorization/" class="">
+      Lyndon factorization</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/prefix-function/" class="">
+      Prefix function. Knuth–Morris–Pratt algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/z-function/" class="">
+      Z-function and its calculation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/suffix-array/" class="">
+      Suffix Array</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/string/aho_corasick/" class="">
+      Aho-Corasick algorithm</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-b64f262849d6fbf1204b8bb30e568ac4" class="toggle"  />
+    <label for="section-b64f262849d6fbf1204b8bb30e568ac4" class="flex">
+      <a role="button" class="">
+        Linear Algebra</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/linear_algebra/linear-system-gauss/" class="">
+      Gauss method for solving system of linear equations</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/linear_algebra/determinant-gauss/" class="">
+      Calculating the determinant of a matrix by Gauss</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/linear_algebra/determinant-kraut/" class="">
+      Calculating the determinant using Kraut method</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/linear_algebra/rank-matrix/" class="">
+      Finding the rank of a matrix</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-63d66d4b4add14b88ec2fdcbcfc93409" class="toggle"  />
+    <label for="section-63d66d4b4add14b88ec2fdcbcfc93409" class="flex">
+      <a role="button" class="">
+        Combinatorics</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bishops-on-chessboard/" class="">
+      Placing Bishops on a Chessboard</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/inclusion-exclusion/" class="">
+      The Inclusion-Exclusion Principle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/bracket_sequences/" class="">
+      Balanced bracket sequences</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/binomial-coefficients/" class="">
+      Binomial Coefficients</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/burnside/" class="">
+      Burnside&#39;s lemma / Pólya enumeration theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/catalan-numbers/" class="">
+      Catalan Numbers</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/counting_labeled_graphs/" class="">
+      Counting labeled graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/stars_and_bars/" class="">
+      Stars and bars</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/combinatorics/generating_combinations/" class="">
+      Generating all K-combinations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5c8c10d16b88954386f115c6f0d3807f" class="toggle" checked />
+    <label for="section-5c8c10d16b88954386f115c6f0d3807f" class="flex">
+      <a role="button" class="">
+        Numerical Methods</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/num_methods/binary_search/" class="">
+      Binary search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/num_methods/simpson-integration/" class="">
+      Integration by Simpson&#39;s formula</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/num_methods/ternary_search/" class="active">
+      Ternary Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/num_methods/roots_newton/" class="">
+      Newton&#39;s method for finding roots</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/num_methods/simulated_annealing/" class="">
+      Simulated Annealing</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-0a0d28f10679253efa0878805fb53dcf" class="toggle"  />
+    <label for="section-0a0d28f10679253efa0878805fb53dcf" class="flex">
+      <a role="button" class="">
+        Geometry</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/basic-geometry/" class="">
+      Basic Geometry</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex-hull/" class="">
+      Convex Hull construction</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/planar/" class="">
+      Finding faces of a planar graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/nearest_points/" class="">
+      Finding the nearest pair of points</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/oriented-triangle-area/" class="">
+      Oriented area of a triangle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/intersecting_segments/" class="">
+      Search for a pair of intersecting segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/convex_hull_trick/" class="">
+      Convex hull trick and Li Chao tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/delaunay/" class="">
+      Delaunay triangulation and Voronoi diagram</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/area-of-simple-polygon/" class="">
+      Finding area of simple polygon in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segment-to-line/" class="">
+      Finding the equation of a line for a segment</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/point-location/" class="">
+      Point location in O(log n)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/point-in-convex-polygon/" class="">
+      Check if point belongs to the convex polygon in O(log N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/lines-intersection/" class="">
+      Intersection Point of Lines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/vertical_decomposition/" class="">
+      Vertical decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/check-segments-intersection/" class="">
+      Check if two segments intersect</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/halfplane-intersection/" class="">
+      Half-plane intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/minkowski/" class="">
+      Minkowski sum of convex polygons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/segments-intersection/" class="">
+      Finding intersection of two segments</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/manhattan-distance/" class="">
+      Manhattan Distance</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/picks-theorem/" class="">
+      Pick&#39;s Theorem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-line-intersection/" class="">
+      Circle-Line Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/lattice-points/" class="">
+      Lattice points inside non-lattice polygon</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/enclosing-circle/" class="">
+      Minimum Enclosing Circle</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/circle-circle-intersection/" class="">
+      Circle-Circle Intersection</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/tangents-to-two-circles/" class="">
+      Finding common tangents to two circles</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/geometry/length-of-segments-union/" class="">
+      Length of the union of segments</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c58f4fb355eb158f3bcb41b07ea850da" class="toggle"  />
+    <label for="section-c58f4fb355eb158f3bcb41b07ea850da" class="flex">
+      <a role="button" class="">
+        Graphs</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/breadth-first-search/" class="">
+      Breadth-first search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/bipartite-check/" class="">
+      Check whether a graph is bipartite</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/finding-cycle/" class="">
+      Checking a graph for acyclicity and finding a cycle in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra/" class="">
+      Dijkstra Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/all-pair-shortest-path-floyd-warshall/" class="">
+      Floyd-Warshall Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca/" class="">
+      Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edmonds_karp/" class="">
+      Maximum flow - Ford-Fulkerson and Edmonds-Karp</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/mst_prim/" class="">
+      Minimum spanning tree - Prim&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/search-for-connected-components/" class="">
+      Search for connected components in a graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/topological-sort/" class="">
+      Topological Sorting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/depth-first-search/" class="">
+      Depth First Search</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dijkstra_sparse/" class="">
+      Dijkstra on sparse graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/edge_vertex_connectivity/" class="">
+      Edge connectivity / Vertex connectivity</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/finding-negative-cycle-in-graph/" class="">
+      Finding a negative cycle in the graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/bridge-searching/" class="">
+      Finding bridges in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kuhn_maximum_bipartite_matching/" class="">
+      Kuhn&#39;s Algorithm for Maximum Bipartite Matching</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_binary_lifting/" class="">
+      Lowest Common Ancestor - Binary Lifting</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel/" class="">
+      Maximum flow - Push-relabel algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/mst_kruskal/" class="">
+      Minimum spanning tree - Kruskal&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/fixed_length_paths/" class="">
+      Number of paths of fixed length / Shortest paths of fixed length</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/bellman_ford/" class="">
+      Bellman-Ford Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/bridge-searching-online/" class="">
+      Finding Bridges Online</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/euler_path/" class="">
+      Finding the Eulerian path in O(M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hungarian-algorithm/" class="">
+      Hungarian algorithm for solving the assignment problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_farachcoltonbender/" class="">
+      Lowest Common Ancestor - Farach-Colton and Bender Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/push-relabel-faster/" class="">
+      Maximum flow - Push-relabel method improved</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/mst_kruskal_with_dsu/" class="">
+      Minimum spanning tree - Kruskal with Disjoint Set Union</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/tree_painting/" class="">
+      Paint the edges of the tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/01_bfs/" class="">
+      0-1 BFS</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/2sat/" class="">
+      2-SAT</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/cutpoints/" class="">
+      Finding articulation points in a graph in O(N&#43;M)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/dinic/" class="">
+      Maximum flow - Dinic&#39;s algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/second_best_mst/" class="">
+      Second Best Minimum Spanning Tree</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/rmq_linear/" class="">
+      Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/desopo_pape/" class="">
+      D´Esopo-Pape algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/hld/" class="">
+      Heavy-light decomposition</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/kirchhoff-theorem/" class="">
+      Kirchhoff&#39;s theorem. Finding the number of spanning trees</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/lca_tarjan/" class="">
+      Lowest Common Ancestor - Tarjan&#39;s off-line algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/mpm/" class="">
+      Maximum flow - MPM algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/strongly-connected-components/" class="">
+      Strongly connected components and the condensation graph</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/flow_with_demands/" class="">
+      Flows with demands</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/pruefer_code/" class="">
+      Prüfer code</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/strong-orientation/" class="">
+      Strong Orientation</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/min_cost_flow/" class="">
+      Minimum-cost flow - Successive shortest path algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/graph/assignment-problem-min-flow/" class="">
+      Solving assignment problem using min-cost-flow</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d11c423a87a4e8a80850ca6f9c13488a" class="toggle"  />
+    <label for="section-d11c423a87a4e8a80850ca6f9c13488a" class="flex">
+      <a role="button" class="">
+        Sequences</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sequences/rmq/" class="">
+      Range Minimum Query</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sequences/k-th/" class="">
+      K-th order statistic in O(N)</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sequences/mex/" class="">
+      MEX (minimal excluded) of a sequence</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/sequences/longest_increasing_subsequence/" class="">
+      Longest increasing subsequence</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-a50868b776ae0c431247a3daf07981a7" class="toggle"  />
+    <label for="section-a50868b776ae0c431247a3daf07981a7" class="flex">
+      <a role="button" class="">
+        Miscellaneous</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/others/tortoise_and_hare/" class="">
+      Floyd&#39;s Linked List Cycle Finding Algorithm</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/others/josephus_problem/" class="">
+      Josephus Problem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/others/maximum_average_segment/" class="">
+      Search the subarray with the maximum/minimum sum</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/others/15-puzzle/" class="">
+      15 Puzzle Game: Existence Of The Solution</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/others/stern_brocot_tree_farey_sequences/" class="">
+      The Stern-Brocot tree and Farey sequences</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-1a9831f1aa7a0178f6ff5b1209d7ca7c" class="toggle"  />
+    <label for="section-1a9831f1aa7a0178f6ff5b1209d7ca7c" class="flex">
+      <a role="button" class="">
+        Game Theory</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/game_theory/games_on_graphs/" class="">
+      Games on arbitrary graphs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/game_theory/sprague-grundy-nim/" class="">
+      Sprague-Grundy theorem. Nim</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4e5802d2638a9a8c39af71781e252c4d" class="toggle"  />
+    <label for="section-4e5802d2638a9a8c39af71781e252c4d" class="flex">
+      <a role="button" class="">
+        Schedules</a>
+      <img src="/icons/chevron-right.svg" class="book-icon" alt="Expand" />
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/schedules/schedule_one_machine/" class="">
+      Scheduling jobs on one machine</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/schedules/schedule_two_machines/" class="">
+      Scheduling jobs on two machines</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/schedules/schedule-with-completion-duration/" class="">
+      Optimal schedule of jobs given their deadlines and durations</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+
+  </div>
+</aside>
+ 
+
+    <div class="book-page">
+      <header class="book-header hidden">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/icons/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <h3>Ternary Search</h3>
+
+  <label for="toc-control">
+    
+    <img src="/icons/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#algorithm">Algorithm</a>
+      <ul>
+        <li><a href="#run-time-analysis">Run time analysis</a></li>
+        <li><a href="#the-case-of-the-integer-arguments">The case of the integer arguments</a></li>
+        <li><a href="#golden-section-search">Golden section search</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#practice-problems">Practice Problems</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="ternary-search">Ternary Search<a class="anchor" href="#ternary-search">#</a></h1>
+<p>We are given a function $f(x)$ which is unimodal on an interval $[l, r]$. By unimodal function, we mean one of two behaviors of the function:</p>
+<ol>
+<li>
+<p>The function strictly increases first, reaches a maximum (at a single point or over an interval), and then strictly decreases.</p>
+</li>
+<li>
+<p>The function strictly decreases first, reaches a minimum, and then strictly increases.</p>
+</li>
+</ol>
+<p>In this article, we will assume the first scenario.
+The second scenario is completely symmetrical to the first.</p>
+<p>The task is to find the maximum of function $f(x)$ on the interval $[l, r]$.</p>
+<h2 id="algorithm">Algorithm<a class="anchor" href="#algorithm">#</a></h2>
+<p>Consider any 2 points $m_1$, and $m_2$ in this interval: $l < m_1 < m_2 < r$. We evaluate the function at $m_1$ and $m_2$, i.e. find the values of $f(m_1)$ and $f(m_2)$. Now, we get one of three options:</p>
+<ul>
+<li>
+<p>$f(m_1) < f(m_2)$</p>
+<p>The desired maximum can not be located on the left side of $m_1$, i.e. on the interval $[l, m_1]$, since either both points $m_1$ and $m_2$ or just $m_1$ belong to the area where the function increases. In either case, this means that we have to search for the maximum in the segment $[m_1, r]$.</p>
+</li>
+<li>
+<p>$f(m_1) > f(m_2)$</p>
+<p>This situation is symmetrical to the previous one: the maximum can not be located on the right side of $m_2$, i.e. on the interval $[m_2, r]$, and the search space is reduced to the segment $[l, m_2]$.</p>
+</li>
+<li>
+<p>$f(m_1) = f(m_2)$</p>
+<p>We can see that either both of these points belong to the area where the value of the function is maximized, or $m_1$ is in the area of increasing values and $m_2$ is in the area of descending values (here we used the strictness of function increasing/decreasing). Thus, the search space is reduced to $[m_1, m_2]$. To simplify the code, this case can be combined with any of the previous cases.</p>
+</li>
+</ul>
+<p>Thus, based on the comparison of the values in the two inner points, we can replace the current interval $[l, r]$ with a new, shorter interval $[l^\prime, r^\prime]$. Repeatedly applying the described procedure to the interval, we can get an arbitrarily short interval. Eventually, its length will be less than a certain pre-defined constant (accuracy), and the process can be stopped. This is a numerical method, so we can assume that after that the function reaches its maximum at all points of the last interval $[l, r]$. Without loss of generality, we can take $f(l)$ as the return value.</p>
+<p>We didn&rsquo;t impose any restrictions on the choice of points $m_1$ and $m_2$. This choice will define the convergence rate and the accuracy of the implementation. The most common way is to choose the points so that they divide the interval $[l, r]$ into three equal parts. Thus, we have</p>
+$$m_1 = l + \frac{(r - l)}{3}$$$$m_2 = r - \frac{(r - l)}{3}$$<p>If $m_1$ and $m_2$ are chosen to be closer to each other, the convergence rate will increase slightly.</p>
+<h3 id="run-time-analysis">Run time analysis<a class="anchor" href="#run-time-analysis">#</a></h3>
+$$T(n) = T({2n}/{3}) + O(1) = \Theta(\log n)$$<p>It can be visualized as follows: every time after evaluating the function at points $m_1$ and $m_2$, we are essentially ignoring about one third of the interval, either the left or right one. Thus the size of the search space is ${2n}/{3}$ of the original one.</p>
+<p>Applying <a href="https://en.wikipedia.org/wiki/Master_theorem_%28analysis_of_algorithms%29">Master&rsquo;s Theorem</a>, we get the desired complexity estimate.</p>
+<h3 id="the-case-of-the-integer-arguments">The case of the integer arguments<a class="anchor" href="#the-case-of-the-integer-arguments">#</a></h3>
+<p>If $f(x)$ takes integer parameter, the interval $[l, r]$ becomes discrete. Since we did not impose any restrictions on the choice of points $m_1$ and $m_2$, the correctness of the algorithm is not affected. $m_1$ and $m_2$ can still be chosen to divide $[l, r]$ into 3 approximately equal parts.</p>
+<p>The difference occurs in the stopping criterion of the algorithm. Ternary search will have to stop when $(r - l) < 3$, because in that case we can no longer select $m_1$ and $m_2$ to be different from each other as well as from $l$ and $r$, and this can cause an infinite loop. Once $(r - l) < 3$, the remaining pool of candidate points $(l, l + 1, \ldots, r)$ needs to be checked to find the point which produces the maximum value $f(x)$.</p>
+<h3 id="golden-section-search">Golden section search<a class="anchor" href="#golden-section-search">#</a></h3>
+<p>In some cases computing $f(x)$ may be quite slow, but reducing the number of iterations is infeasible due to precision issues. Fortunately, it is possible to compute $f(x)$ only once at each iteration (except the first one).</p>
+<p>To see how to do this, let&rsquo;s revisit the selection method for $m_1$ and $m_2$. Suppose that we select $m_1$ and $m_2$ on $[l, r]$ in such a way that $\frac{r - l}{r - m_1} = \frac{r - l}{m_2 - l} = \varphi$ where $\varphi$ is some constant. In order to reduce the amount of computations, we want to select such $\varphi$ that on the next iteration one of the new evaluation points $m_1'$, $m_2'$ will coincide with either $m_1$ or $m_2$, so that we can reuse the already computed function value.</p>
+<p>Now suppose that after the current iteration we set $l = m_1$. Then the point $m_1'$ will satisfy $\frac{r - m_1}{r - m_1'} = \varphi$. We want this point to coincide with $m_2$, meaning that $\frac{r - m_1}{r - m_2} = \varphi$.</p>
+<p>Multiplying both sides of $\frac{r - m_1}{r - m_2} = \varphi$ by $\frac{r - m_2}{r - l}$ we obtain $\frac{r - m_1}{r - l} = \varphi\frac{r - m_2}{r - l}$. Note that $\frac{r - m_1}{r - l} = \frac{1}{\varphi}$ and $\frac{r - m_2}{r - l} = \frac{r - l + l - m_2}{r - l} = 1 - \frac{1}{\varphi}$. Substituting that and multiplying by $\varphi$, we obtain the following equation:</p>
+<p>$\varphi^2 - \varphi - 1 = 0$</p>
+<p>This is a well-known golden section equation. Solving it yields $\frac{1 \pm \sqrt{5}}{2}$. Since $\varphi$ must be positive, we obtain $\varphi = \frac{1 + \sqrt{5}}{2}$. By applying the same logic to the case when we set $r = m_2$ and want $m_2'$ to coincide with $m_1$, we obtain the same value of $\varphi$ as well. So, if we choose $m_1 = l + \frac{r - l}{1 + \varphi}$ and $m_2 = r - \frac{r - l}{1 + \varphi}$, on each iteration we can re-use one of the values $f(x)$ computed on the previous iteration.</p>
+<h2 id="implementation">Implementation<a class="anchor" href="#implementation">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">double</span> <span class="nf">ternary_search</span><span class="p">(</span><span class="kt">double</span> <span class="n">l</span><span class="p">,</span> <span class="kt">double</span> <span class="n">r</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">double</span> <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-9</span><span class="p">;</span>				<span class="c1">//set the error limit here
+</span></span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">m1</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">m2</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="n">l</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">m1</span><span class="p">);</span>		<span class="c1">//evaluates the function at m1
+</span></span></span><span class="line"><span class="cl">		<span class="kt">double</span> <span class="n">f2</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">m2</span><span class="p">);</span>		<span class="c1">//evaluates the function at m2
+</span></span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">f1</span> <span class="o">&lt;</span> <span class="n">f2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="n">l</span> <span class="o">=</span> <span class="n">m1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span>
+</span></span><span class="line"><span class="cl">			<span class="n">r</span> <span class="o">=</span> <span class="n">m2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">l</span><span class="p">);</span>					<span class="c1">//return the maximum of f(x) in [l, r]
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div><p>Here <code>eps</code> is in fact the absolute error (not taking into account errors due to the inaccurate calculation of the function).</p>
+<p>Instead of the criterion <code>r - l &gt; eps</code>, we can select a constant number of iterations as a stopping criterion. The number of iterations should be chosen to ensure the required accuracy. Typically, in most programming challenges the error limit is ${10}^{-6}$ and thus 200 - 300 iterations are sufficient. Also, the number of iterations doesn&rsquo;t depend on the values of $l$ and $r$, so the number of iterations corresponds to the required relative error.</p>
+<h2 id="practice-problems">Practice Problems<a class="anchor" href="#practice-problems">#</a></h2>
+<ul>
+<li><a href="https://codeforces.com/problemset/problem/1978/B">Codeforces - New Bakery</a></li>
+<li><a href="https://www.codechef.com/problems/AMCS03">Codechef - Race time</a></li>
+<li><a href="https://www.hackerearth.com/problem/algorithm/rescuer-2d2495cb/">Hackerearth - Rescuer</a></li>
+<li><a href="http://www.spoj.com/problems/KOPC12A/">Spoj - Building Construction</a></li>
+<li><a href="http://codeforces.com/problemset/problem/578/C">Codeforces - Weakness and Poorness</a></li>
+</ul>
+<ul>
+<li><a href="http://lightoj.com/volume_showproblem.php?problem=1146">LOJ - Closest Distance</a></li>
+<li><a href="http://codeforces.com/gym/101309">GYM - Dome of Circus (D)</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4898">UVA - Galactic Taxes</a></li>
+<li><a href="http://codeforces.com/gym/100829">GYM - Chasing the Cheetahs (A)</a></li>
+<li><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=3349">UVA - 12197 - Trick or Treat</a></li>
+<li><a href="http://www.spoj.com/problems/KOPC12A/">SPOJ - Building Construction</a></li>
+<li><a href="https://codeforces.com/problemset/problem/439/D">Codeforces - Devu and his Brother</a></li>
+<li><a href="https://www.codechef.com/problems/ICM2003">Codechef - Is This JEE </a></li>
+<li><a href="https://codeforces.com/contest/1355/problem/E">Codeforces - Restorer Distance</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1058">TIMUS 1058 Chocolate</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1436">TIMUS 1436 Billboard</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1451">TIMUS 1451 Beerhouse Tale</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1719">TIMUS 1719 Kill the Shaitan-Boss</a></li>
+<li><a href="https://acm.timus.ru/problem.aspx?space=1&amp;num=1913">TIMUS 1913 Titan Ruins: Alignment of Forces</a></li>
+</ul>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+<div>
+
+</div>
+
+<div>
+
+</div>
+
+</div>
+
+
+
+
+
+  
+  
+  
+  <div class="flex flex-wrap justify-between">
+    <span>
+    
+      <a href="/num_methods/simpson-integration/" class="flex align-center">
+        <img src="/icons/backward.svg" class="book-icon" alt="Backward" />
+        <span>Integration by Simpson&#39;s formula</span>
+      </a>
+    
+    </span>
+    <span>
+    
+      <a href="/num_methods/roots_newton/" class="flex align-center">
+        <span>Newton&#39;s method for finding roots</span>
+        <img src="/icons/forward.svg" class="book-icon" alt="Forward" />
+      </a>
+    
+    </span>
+  </div>
+  
+
+
+ 
+        
+  
+ 
+        <div style="font-size:0.8em; color: var(--gray-500); margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--gray-200);">
+  Based on <a href="https://cp-algorithms.com">cp-algorithms.com</a> by
+  <a href="https://github.com/cp-algorithms/cp-algorithms/graphs/contributors">cp-algorithms contributors</a>,
+  licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+</div>
+
+        
+  
+ 
+        
+  
+  
+    <script>(function(){document.querySelectorAll("pre:has(code)").forEach(e=>{e.addEventListener("click",e.focus),e.addEventListener("copy",function(t){if(t.preventDefault(),navigator.clipboard){const t=window.getSelection().toString()||e.textContent;navigator.clipboard.writeText(t)}})})})()</script>
+  
+
+      </footer>
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+  
+  <aside class="book-toc">
+    <div class="book-toc-content">
+      
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#algorithm">Algorithm</a>
+      <ul>
+        <li><a href="#run-time-analysis">Run time analysis</a></li>
+        <li><a href="#the-case-of-the-integer-arguments">The case of the integer arguments</a></li>
+        <li><a href="#golden-section-search">Golden section search</a></li>
+      </ul>
+    </li>
+    <li><a href="#implementation">Implementation</a></li>
+    <li><a href="#practice-problems">Practice Problems</a></li>
+  </ul>
+</nav>
+
+
+
+    </div>
+  </aside>
+  
+ 
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

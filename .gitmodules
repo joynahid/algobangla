@@ -1,3 +1,6 @@
 [submodule "plugins/mkdocs-git-committers-plugin-2"]
 	path = plugins/mkdocs-git-committers-plugin-2
 	url = https://github.com/adamant-pwn/mkdocs-git-committers-plugin-2.git
+[submodule "hugo/themes/hugo-book"]
+	path = hugo/themes/hugo-book
+	url = https://github.com/alex-shpak/hugo-book

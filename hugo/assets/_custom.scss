@@ -1,0 +1,84 @@
+// CP-Algorithms custom styles
+// Overrides theme's assets/_custom.scss via Hugo asset merging
+
+// Bengali (Kalpurush) font
+@import url('https://fonts.maateen.me/kalpurush/font.css');
+
+// Apply Kalpurush as a fallback for Bengali script content
+:lang(bn), .lang-bn {
+  font-family: 'Kalpurush', sans-serif;
+}
+
+// Hint boxes — supplement the theme's CSS variable-based styling
+// with explicit fallback colors for older browsers and the "tip" alias
+.book-hint {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-left: 4px solid;
+  border-radius: var(--border-radius, 4px);
+
+  // "tip" is an alias of "success" in the theme accent palette
+  &.tip {
+    border-color: var(--color-accent-tip, #3bad3b);
+    background-color: var(--color-accent-tip-tint, rgba(#3bad3b, 0.1));
+  }
+
+  // Ensure "info" maps to the theme's info accent
+  &.info {
+    border-color: var(--color-accent-info, #4486dd);
+    background-color: var(--color-accent-info-tint, rgba(#4486dd, 0.1));
+  }
+
+  // Ensure "danger" maps to the theme's danger accent
+  &.danger {
+    border-color: var(--color-accent-danger, #d84747);
+    background-color: var(--color-accent-danger-tint, rgba(#d84747, 0.1));
+  }
+
+  // Ensure "warning" maps to the theme's warning accent
+  &.warning {
+    border-color: var(--color-accent-warning, #f59e42);
+    background-color: var(--color-accent-warning-tint, rgba(#f59e42, 0.1));
+  }
+}
+
+// Math overflow handling
+.math-display,
+.arithmatex,
+mjx-container[display="true"] {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+// Inline math — prevent line breaks inside formulas
+mjx-container:not([display="true"]) {
+  display: inline-block;
+}
+
+// Code block improvements
+pre {
+  border-radius: var(--border-radius, 6px);
+}
+
+// Details/summary shortcode styling
+details {
+  border: 1px solid var(--gray-200, #e2e8f0);
+  border-radius: var(--border-radius, 4px);
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.25rem 0;
+    user-select: none;
+
+    &:hover {
+      color: var(--color-link);
+    }
+  }
+
+  > div {
+    padding-top: 0.5rem;
+  }
+}

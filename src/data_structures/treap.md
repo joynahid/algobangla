@@ -4,107 +4,107 @@ tags:
 e_maxx_link: treap
 ---
 
-# ট্রিপ (কার্টেসিয়ান ট্রি)
+# ট্রিপ (কার্তেসিয়ান ট্রি)
 
-একটি ট্রিপ একটি ডেটা স্ট্রাকচার যা বাইনারি ট্রি এবং বাইনারি হিপকে একত্রিত করে (তাই নাম: ট্রি + হিপ $\Rightarrow$ ট্রিপ)।
+ট্রিপ হলো একটি ডেটা স্ট্রাকচার যা বাইনারি ট্রি এবং বাইনারি হিপ একত্রিত করে (তাই নাম: tree + heap $\Rightarrow$ Treap)।
 
-আরও নির্দিষ্টভাবে, ট্রিপ একটি ডেটা স্ট্রাকচার যা জোড়া $(X, Y)$ একটি বাইনারি ট্রিতে এমনভাবে সংরক্ষণ করে যে এটি $X$ দ্বারা একটি বাইনারি সার্চ ট্রি এবং $Y$ দ্বারা একটি বাইনারি হিপ।
-যদি ট্রির কোনো নোড মানগুলি $(X_0, Y_0)$ রাখে, তাহলে বাম সাবট্রির সমস্ত নোডের $X \leq X_0$, ডান সাবট্রির সমস্ত নোডের $X_0 \leq X$, এবং বাম এবং ডান উভয় সাবট্রির সমস্ত নোডের $Y \leq Y_0$ থাকে।
+আরো নির্দিষ্টভাবে বলতে গেলে, ট্রিপ এমন একটি ডেটা স্ট্রাকচার যা $(X, Y)$ জোড়া একটি বাইনারি ট্রিতে এমনভাবে সংরক্ষণ করে যে এটি $X$ অনুসারে একটি বাইনারি সার্চ ট্রি এবং $Y$ অনুসারে একটি বাইনারি হিপ।
+যদি ট্রি-র কোনো নোডে মান $(X_0, Y_0)$ থাকে, তাহলে বাম সাবট্রির সব নোডে $X \leq X_0$, ডান সাবট্রির সব নোডে $X_0 \leq X$, এবং বাম ও ডান উভয় সাবট্রির সব নোডে $Y \leq Y_0$।
 
-A treap is also often referred to as a "cartesian tree", as it is easy to embed it in a Cartesian plane:
+ট্রিপকে প্রায়ই "কার্তেসিয়ান ট্রি"-ও বলা হয়, কারণ এটি সহজেই কার্তেসিয়ান সমতলে স্থাপন করা যায়:
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Treap.svg" width="350px"/>
 </center>
 
-Treaps have been proposed by Raimund Siedel and Cecilia Aragon in 1989.
+ট্রিপ ১৯৮৯ সালে Raimund Siedel এবং Cecilia Aragon প্রস্তাব করেছিলেন।
 
-## এই ধরনের ডেটা সংগঠনের সুবিধা
+## এই ডেটা সংগঠনের সুবিধা
 
-এই ইমপ্লিমেন্টেশনে, $X$ মানগুলি হল চাবি (এবং একই সাথে ট্রিপে সংরক্ষিত মানগুলি), এবং $Y$ মানগুলিকে **অগ্রাধিকার** বলা হয়। অগ্রাধিকার ছাড়া, ট্রিপ $X$ দ্বারা একটি নিয়মিত বাইনারি সার্চ ট্রি হবে, এবং $X$ মানগুলির একটি সেট অনেক বিভিন্ন গাছের সাথে মিলিত হতে পারে, যার কিছু অবক্ষয়িত হতে পারে (উদাহরণস্বরূপ, লিংকড তালিকার আকারে), এবং তাই অত্যন্ত ধীর (প্রধান অপারেশনগুলির $O(N)$ কমপ্লেক্সিটি থাকবে)।
+এই ইমপ্লিমেন্টেশনে, $X$ মানগুলো হলো কী (এবং একই সাথে ট্রিপে সংরক্ষিত মান), এবং $Y$ মানগুলোকে **প্রায়োরিটি** বলা হয়। প্রায়োরিটি ছাড়া, ট্রিপটি $X$ অনুসারে একটি সাধারণ বাইনারি সার্চ ট্রি হতো, এবং একই $X$ মানের সেট অনেক ভিন্ন ট্রির সাথে সংশ্লিষ্ট হতে পারত, কিছু অধঃপতিত (উদাহরণস্বরূপ, লিঙ্কড লিস্টের আকারে), এবং তাই অত্যন্ত ধীর (প্রধান অপারেশনগুলোর কমপ্লেক্সিটি $O(N)$ হতো)।
 
-একই সময়ে, **অগ্রাধিকারগুলি** (যখন তারা অনন্য) যে গাছটি নির্মিত হবে তা **অনন্যভাবে** নির্দিষ্ট করতে অনুমতি দেয় (অবশ্যই, এটি যে ক্রমে মানগুলি যোগ করা হয় তার উপর নির্ভর করে না), যা সংশ্লিষ্ট উপপাদ্য ব্যবহার করে প্রমাণ করা যায়। স্পষ্টতই, যদি আপনি **অগ্রাধিকারগুলি র্যান্ডমলি বেছে নেন**, আপনি গড়ে অবক্ষয়িত নয় এমন গাছ পাবেন, যা প্রধান অপারেশনগুলির জন্য $O(\log N)$ কমপ্লেক্সিটি নিশ্চিত করবে। তাই এই ডেটা স্ট্রাকচারের আরেকটি নাম - **র্যান্ডমাইজড বাইনারি সার্চ ট্রি**।
+একই সাথে, **প্রায়োরিটি** (যখন তারা অনন্য) ট্রিটিকে **অনন্যভাবে** নির্দিষ্ট করতে দেয় যা তৈরি হবে (অবশ্যই, এটি মান যোগ করার ক্রমের উপর নির্ভর করে না), যা সংশ্লিষ্ট উপপাদ্য দিয়ে প্রমাণ করা যায়। স্পষ্টতই, যদি আপনি **এলোমেলোভাবে প্রায়োরিটি বেছে নেন**, আপনি গড়ে অধঃপতিত-নয় এমন ট্রি পাবেন, যা প্রধান অপারেশনগুলোর জন্য $O(\log N)$ কমপ্লেক্সিটি নিশ্চিত করবে। তাই এই ডেটা স্ট্রাকচারের আরেকটি নাম - **র‍্যান্ডমাইজড বাইনারি সার্চ ট্রি**।
 
 ## অপারেশন
 
 একটি ট্রিপ নিম্নলিখিত অপারেশন প্রদান করে:
 
-- **সন্নিবেশ (X,Y)** $O(\log N)$ তে।
-  গাছে একটি নতুন নোড যোগ করে। একটি সম্ভাব্য রূপ হল শুধুমাত্র $X$ পাস করা এবং অপারেশনের মধ্যে $Y$ র্যান্ডমলি তৈরি করা।
-- **অনুসন্ধান (X)** $O(\log N)$ তে।
-  নির্দিষ্ট কী মান $X$ সহ একটি নোড খুঁজে বের করে। ইমপ্লিমেন্টেশন একটি সাধারণ বাইনারি সার্চ ট্রির মতোই।
-- **মুছে ফেলা (X)** $O(\log N)$ তে।
-  নির্দিষ্ট কী মান $X$ সহ একটি নোড খুঁজে বের করে এবং এটি গাছ থেকে সরিয়ে দেয়।
-- **নির্মাণ ($X_1$, ..., $X_N$)** $O(N)$ তে।
-  মানগুলির একটি তালিকা থেকে একটি গাছ নির্মাণ করে। এটি লিনিয়ার সময়ে করা যায় (ধরে নিয়ে যে $X_1, ..., X_N$ সাজানো আছে)।
-- **ইউনিয়ন ($T_1$, $T_2$)** $O(M \log (N/M))$ তে।
-  দুটি গাছ একত্রিত করে, ধরে নিয়ে যে সমস্ত উপাদান ভিন্ন। মার্জের সময় ডুপ্লিকেট উপাদানগুলি সরিয়ে দিতে হলে একই কমপ্লেক্সিটি অর্জন করা সম্ভব।
-- **ছেদ ($T_1$, $T_2$)** $O(M \log (N/M))$ তে।
-  দুটি গাছের ছেদ খুঁজে বের করে (অর্থাৎ তাদের সাধারণ উপাদান)। আমরা এই অপারেশনের ইমপ্লিমেন্টেশন এখানে বিবেচনা করব না।
+- **Insert (X,Y)** $O(\log N)$-এ।
+  ট্রি-তে একটি নতুন নোড যোগ করে। একটি সম্ভব্য ভ্যারিয়ান্ট হলো শুধু $X$ পাস করা এবং অপারেশনের ভেতরে এলোমেলোভাবে $Y$ তৈরি করা।
+- **Search (X)** $O(\log N)$-এ।
+  নির্দিষ্ট কী মান $X$ এর একটি নোড খোঁজে। ইমপ্লিমেন্টেশন সাধারণ বাইনারি সার্চ ট্রির মতোই।
+- **Erase (X)** $O(\log N)$-এ।
+  নির্দিষ্ট কী মান $X$ এর একটি নোড খুঁজে ট্রি থেকে সরিয়ে দেয়।
+- **Build ($X_1$, ..., $X_N$)** $O(N)$-এ।
+  মানের তালিকা থেকে একটি ট্রি তৈরি করে। এটি লিনিয়ার সময়ে করা যায় (ধরে নিচ্ছি $X_1, ..., X_N$ সাজানো আছে)।
+- **Union ($T_1$, $T_2$)** $O(M \log (N/M))$-এ।
+  দুটি ট্রি মার্জ করে, ধরে নিচ্ছি সব উপাদান ভিন্ন। মার্জের সময় ডুপ্লিকেট উপাদান সরানো হলেও একই কমপ্লেক্সিটি অর্জন করা সম্ভব।
+- **Intersect ($T_1$, $T_2$)** $O(M \log (N/M))$-এ।
+  দুটি ট্রির ছেদ খোঁজে (অর্থাৎ তাদের সাধারণ উপাদান)। এই অপারেশনের ইমপ্লিমেন্টেশন এখানে আলোচনা করা হবে না।
 
-In addition, due to the fact that a treap is a binary search tree, it can implement other operations, such as finding the $K$-th largest element or finding the index of an element.
+এছাড়াও, ট্রিপ একটি বাইনারি সার্চ ট্রি হওয়ায়, এটি অন্যান্য অপারেশনও ইমপ্লিমেন্ট করতে পারে, যেমন $K$-তম বৃহত্তম উপাদান খোঁজা বা কোনো উপাদানের ইনডেক্স বের করা।
 
-## Implementation Description
+## ইমপ্লিমেন্টেশন বর্ণনা
 
-In terms of implementation, each node contains $X$, $Y$ and pointers to the left ($L$) and right ($R$) children.
+ইমপ্লিমেন্টেশনের দিক থেকে, প্রতিটি নোডে $X$, $Y$ এবং বাম ($L$) ও ডান ($R$) সন্তানের পয়েন্টার থাকে।
 
-We will implement all the required operations using just two auxiliary operations: Split and Merge.
+আমরা সব প্রয়োজনীয় অপারেশন শুধু দুটি সহায়ক অপারেশন ব্যবহার করে ইমপ্লিমেন্ট করবো: স্প্লিট এবং মার্জ।
 
-### Split
+### স্প্লিট
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Treap_split.svg" width="450px"/>
 </center>
 
-**Split ($T$, $X$)** separates tree $T$ in 2 subtrees $L$ and $R$ trees (which are the return values of split) so that $L$ contains all elements with key $X_L \le X$, and $R$ contains all elements with key $X_R > X$. This operation has $O (\log N)$ complexity and is implemented using a clean recursion:
+**Split ($T$, $X$)** ট্রি $T$ কে ২টি সাবট্রি $L$ ও $R$ এ আলাদা করে (যেগুলো স্প্লিটের রিটার্ন ভ্যালু) যেন $L$ তে কী $X_L \le X$ এর সব উপাদান থাকে, এবং $R$ তে কী $X_R > X$ এর সব উপাদান থাকে। এই অপারেশনের কমপ্লেক্সিটি $O (\log N)$ এবং এটি পরিষ্কার রিকার্শন দিয়ে ইমপ্লিমেন্ট করা হয়:
 
-1. If the value of the root node (R) is $\le X$, then `L` would at least consist of `R->L` and `R`. We then call split on `R->R`, and note its split result as `L'` and `R'`. Finally, `L` would also contain `L'`, whereas `R = R'`.
-2. If the value of the root node (R) is $> X$, then `R` would at least consist of `R` and `R->R`. We then call split on `R->L`, and note its split result as `L'` and `R'`. Finally, `L=L'`, whereas `R` would also contain `R'`.
+১. যদি রুট নোডের (R) মান $\le X$ হয়, তাহলে `L` অন্তত `R->L` এবং `R` নিয়ে গঠিত হবে। তারপর আমরা `R->R` এ স্প্লিট কল করি, এবং এর স্প্লিট ফলাফলকে `L'` এবং `R'` বলি। পরিশেষে, `L`-তে `L'`-ও থাকবে, এবং `R = R'`।
+২. যদি রুট নোডের (R) মান $> X$ হয়, তাহলে `R` অন্তত `R` এবং `R->R` নিয়ে গঠিত হবে। তারপর আমরা `R->L` এ স্প্লিট কল করি, এবং এর স্প্লিট ফলাফলকে `L'` এবং `R'` বলি। পরিশেষে, `L=L'`, এবং `R`-তে `R'`-ও থাকবে।
 
-Thus, the split algorithm is:
+সুতরাং, স্প্লিট অ্যালগরিদম হলো:
 
-1. decide which subtree the root node would belong to (left or right)
-2. recursively call split on one of its children
-3. create the final result by reusing the recursive split call.
+১. রুট নোড কোন সাবট্রিতে যাবে (বাম বা ডান) তা ঠিক করো
+২. এর একটি সন্তানের উপর রিকার্সিভভাবে স্প্লিট কল করো
+৩. রিকার্সিভ স্প্লিট কলের ফলাফল পুনরায় ব্যবহার করে চূড়ান্ত ফলাফল তৈরি করো।
 
-### Merge
+### মার্জ
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Treap_merge.svg" width="500px"/>
 </center>
 
-**Merge ($T_1$, $T_2$)** combines two subtrees $T_1$ and $T_2$ and returns the new tree. This operation also has $O (\log N)$ complexity. It works under the assumption that $T_1$ and $T_2$ are ordered (all keys $X$ in $T_1$ are smaller than keys in $T_2$). Thus, we need to combine these trees without violating the order of priorities $Y$. To do this, we choose as the root the tree which has higher priority $Y$ in the root node, and recursively call Merge for the other tree and the corresponding subtree of the selected root node.
+**Merge ($T_1$, $T_2$)** দুটি সাবট্রি $T_1$ এবং $T_2$ সংযুক্ত করে এবং নতুন ট্রি রিটার্ন করে। এই অপারেশনেরও কমপ্লেক্সিটি $O (\log N)$। এটি কাজ করে এই ধারণায় যে $T_1$ এবং $T_2$ ক্রমানুসারে সাজানো ($T_1$ এর সব কী $X$ $T_2$ এর কী-গুলোর চেয়ে ছোট)। সুতরাং, প্রায়োরিটি $Y$ এর ক্রম ভঙ্গ না করে আমাদের এই ট্রিগুলো সংযুক্ত করতে হবে। এর জন্য, আমরা রুট হিসেবে সেই ট্রিটি বেছে নিই যার রুট নোডে প্রায়োরিটি $Y$ বেশি, এবং রিকার্সিভভাবে অন্য ট্রি ও নির্বাচিত রুট নোডের সংশ্লিষ্ট সাবট্রির জন্য মার্জ কল করি।
 
-### Insert
+### ইনসার্ট
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Treap_insert.svg" width="500px"/>
 </center>
 
-Now implementation of **Insert ($X$, $Y$)** becomes obvious. First we descend in the tree (as in a regular binary search tree by X), and stop at the first node in which the priority value is less than $Y$. We have found the place where we will insert the new element. Next, we call **Split (T, X)** on the subtree starting at the found node, and use returned subtrees $L$ and $R$ as left and right children of the new node.
+এখন **Insert ($X$, $Y$)** এর ইমপ্লিমেন্টেশন স্পষ্ট হয়ে যায়। প্রথমে আমরা ট্রিতে নামি (X অনুসারে সাধারণ বাইনারি সার্চ ট্রির মতো), এবং প্রথম নোডে থামি যেখানে প্রায়োরিটি মান $Y$ এর চেয়ে কম। আমরা সেই জায়গা পেয়ে গেছি যেখানে নতুন উপাদান বসাবো। এরপর, আমরা পাওয়া নোড থেকে শুরু করে সাবট্রিতে **Split (T, X)** কল করি, এবং রিটার্ন হওয়া সাবট্রি $L$ ও $R$ কে নতুন নোডের বাম ও ডান সন্তান হিসেবে ব্যবহার করি।
 
-Alternatively, insert can be done by splitting the initial treap on $X$ and doing $2$ merges with the new node (see the picture).
+বিকল্পভাবে, ইনসার্ট প্রাথমিক ট্রিপকে $X$ এ স্প্লিট করে এবং নতুন নোডের সাথে ২টি মার্জ করেও করা যায় (ছবি দেখুন)।
 
 
-### Erase
+### ইরেজ
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Treap_erase.svg" width="500px"/>
 </center>
 
-Implementation of **Erase ($X$)** is also clear. First we descend in the tree (as in a regular binary search tree by $X$), looking for the element we want to delete. Once the node is found, we call **Merge** on its children and put the return value of the operation in the place of the element we're deleting.
+**Erase ($X$)** এর ইমপ্লিমেন্টেশনও স্পষ্ট। প্রথমে আমরা ট্রিতে নামি ($X$ অনুসারে সাধারণ বাইনারি সার্চ ট্রির মতো), যে উপাদান মুছতে চাই তা খুঁজি। নোড পাওয়া গেলে, আমরা এর সন্তানদের উপর **Merge** কল করি এবং অপারেশনের রিটার্ন ভ্যালু যে উপাদান মুছছি তার জায়গায় বসাই।
 
-Alternatively, we can factor out the subtree holding $X$ with $2$ split operations and merge the remaining treaps (see the picture).
+বিকল্পভাবে, আমরা ২টি স্প্লিট অপারেশন দিয়ে $X$ ধারণকারী সাবট্রি আলাদা করে বাকি ট্রিপগুলো মার্জ করতে পারি (ছবি দেখুন)।
 
-### Build
+### বিল্ড
 
-We implement **Build** operation with $O (N \log N)$ complexity using $N$ **Insert** calls.
+আমরা **Build** অপারেশন $O (N \log N)$ কমপ্লেক্সিটিতে $N$ টি **Insert** কল দিয়ে ইমপ্লিমেন্ট করি।
 
-### Union
+### ইউনিয়ন
 
-**Union ($T_1$, $T_2$)** has theoretical complexity $O (M \log (N / M))$, but in practice it works very well, probably with a very small hidden constant. Let's assume without loss of generality that $T_1 \rightarrow Y > T_2 \rightarrow Y$, i. e. root of $T_1$ will be the root of the result. To get the result, we need to merge trees $T_1 \rightarrow L$, $T_1 \rightarrow R$ and $T_2$ in two trees which could be children of $T_1$ root. To do this, we call Split ($T_2$, $T_1\rightarrow X$), thus splitting $T_2$ in two parts L and R, which we then recursively combine with children of $T_1$: Union ($T_1 \rightarrow L$, $L$) and Union ($T_1 \rightarrow R$, $R$), thus getting left and right subtrees of the result.
+**Union ($T_1$, $T_2$)** এর তাত্ত্বিক কমপ্লেক্সিটি $O (M \log (N / M))$, কিন্তু ব্যবহারিকভাবে এটি খুব ভালো কাজ করে, সম্ভবত অত্যন্ত ছোট লুকায়িত ধ্রুবক সহ। ধরি সাধারণতার ক্ষতি ছাড়া $T_1 \rightarrow Y > T_2 \rightarrow Y$, অর্থাৎ $T_1$ এর রুট ফলাফলের রুট হবে। ফলাফল পেতে, আমাদের $T_1 \rightarrow L$, $T_1 \rightarrow R$ এবং $T_2$ ট্রি দুটি ট্রিতে মার্জ করতে হবে যা $T_1$ রুটের সন্তান হতে পারে। এর জন্য, আমরা Split ($T_2$, $T_1\rightarrow X$) কল করি, এভাবে $T_2$ কে দুটি ভাগে L ও R এ বিভক্ত করি, যেগুলো তারপর রিকার্সিভভাবে $T_1$ এর সন্তানদের সাথে সংযুক্ত করি: Union ($T_1 \rightarrow L$, $L$) এবং Union ($T_1 \rightarrow R$, $R$), এভাবে ফলাফলের বাম ও ডান সাবট্রি পাই।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 struct item {
@@ -117,7 +117,7 @@ struct item {
 typedef item* pitem;
 ```
 
-This is our item defintion. Note there are two child pointers, and an integer key (for the BST) and an integer priority (for the heap). The priority is assigned using a random number generator.
+এটি আমাদের আইটেম সংজ্ঞা। লক্ষ্য করুন দুটি সন্তান পয়েন্টার আছে, এবং একটি পূর্ণসংখ্যা কী (BST এর জন্য) ও একটি পূর্ণসংখ্যা প্রায়োরিটি (হিপের জন্য)। প্রায়োরিটি একটি র‍্যান্ডম নম্বর জেনারেটর ব্যবহার করে নির্ধারণ করা হয়।
 
 ```cpp
 void split (pitem t, int key, pitem & l, pitem & r) {
@@ -130,7 +130,7 @@ void split (pitem t, int key, pitem & l, pitem & r) {
 }
 ```
 
-`t` is the treap to split, and `key` is the BST value by which to split. Note that we do not `return` the result values anywhere, instead, we just use them like so:
+`t` হলো স্প্লিট করার ট্রিপ, এবং `key` হলো BST মান যা দিয়ে স্প্লিট করতে হবে। লক্ষ্য করুন আমরা কোথাও ফলাফল `return` করি না, বরং এভাবে ব্যবহার করি:
 
 ```cpp
 pitem l = nullptr, r = nullptr;
@@ -139,12 +139,12 @@ if (l) cout << "Left subtree size: " << (l->size) << endl;
 if (r) cout << "Right subtree size: " << (r->size) << endl;
 ```
 
-This `split` function can be tricky to understand, as it has both pointers (`pitem`) as well as reference to those pointers (`pitem &l`). Let us understand in words what the function call `split(t, k, l, r)` intends: "split treap `t` by value `k` into two treaps, and store the left treaps in `l` and right treap in `r`". Great! Now, let us apply this definition to the two recursive calls, using the case work we analyzed in the previous section: (The first if condition is a trivial base case for an empty treap)
+এই `split` ফাংশনটি বুঝতে কঠিন হতে পারে, কারণ এতে পয়েন্টার (`pitem`) এবং সেই পয়েন্টারের রেফারেন্স (`pitem &l`) উভয়ই আছে। আসুন `split(t, k, l, r)` ফাংশন কলের অর্থ বুঝি: "ট্রিপ `t` কে মান `k` দিয়ে দুটি ট্রিপে স্প্লিট করো, এবং বাম ট্রিপ `l` এ ও ডান ট্রিপ `r` এ সংরক্ষণ করো"। এখন, আসুন এই সংজ্ঞা দুটি রিকার্সিভ কলে প্রয়োগ করি, পূর্ববর্তী বিভাগে বিশ্লেষিত কেস ওয়ার্ক ব্যবহার করে: (প্রথম if শর্তটি খালি ট্রিপের জন্য একটি তুচ্ছ ভিত্তি ক্ষেত্র)
 
-1. When the root node value is $\le$ key, we call `split (t->r, key, t->r, r)`, which means: "split treap `t->r` (right subtree of `t`) by value `key` and store the left subtree in `t->r` and right subtree in `r`". After that, we set `l = t`. Note now that the `l` result value contains `t->l`, `t` as well as `t->r` (which is the result of the recursive call we made) all already merged in the correct order! You should pause to ensure that this result of `l` and `r` corresponds exactly with what we discussed earlier in Implementation Description.
-2. When the root node value is greater than key, we call `split (t->l, key, l, t->l)`, which means: "split treap `t->l` (left subtree of `t`) by value `key` and store the left subtree in `l` and right subtree in `t->l`". After that, we set `r = t`. Note now that the `r` result value contains `t->l` (which is the result of the recursive call we made), `t` as well as `t->r`, all already merged in the correct order! You should pause to ensure that this result of `l` and `r` corresponds exactly with what we discussed earlier in Implementation Description.
+১. যখন রুট নোডের মান $\le$ key, আমরা `split (t->r, key, t->r, r)` কল করি, যার অর্থ: "ট্রিপ `t->r` (`t` এর ডান সাবট্রি) কে মান `key` দিয়ে স্প্লিট করো এবং বাম সাবট্রি `t->r` এ ও ডান সাবট্রি `r` এ সংরক্ষণ করো"। এরপর, আমরা `l = t` সেট করি। লক্ষ্য করুন এখন `l` ফলাফল মানে `t->l`, `t` এবং `t->r` (যা আমাদের রিকার্সিভ কলের ফলাফল) সবই ইতিমধ্যে সঠিক ক্রমে মার্জ হয়ে আছে! আপনার থামা উচিত নিশ্চিত করতে যে `l` ও `r` এর এই ফলাফল আগে ইমপ্লিমেন্টেশন বর্ণনায় আমরা যা আলোচনা করেছি তার সাথে ঠিক মিলে যায়।
+২. যখন রুট নোডের মান key এর চেয়ে বড়, আমরা `split (t->l, key, l, t->l)` কল করি, যার অর্থ: "ট্রিপ `t->l` (`t` এর বাম সাবট্রি) কে মান `key` দিয়ে স্প্লিট করো এবং বাম সাবট্রি `l` এ ও ডান সাবট্রি `t->l` এ সংরক্ষণ করো"। এরপর, আমরা `r = t` সেট করি। লক্ষ্য করুন এখন `r` ফলাফল মানে `t->l` (যা আমাদের রিকার্সিভ কলের ফলাফল), `t` এবং `t->r`, সবই ইতিমধ্যে সঠিক ক্রমে মার্জ হয়ে আছে! আপনার থামা উচিত নিশ্চিত করতে যে `l` ও `r` এর এই ফলাফল আগে ইমপ্লিমেন্টেশন বর্ণনায় আমরা যা আলোচনা করেছি তার সাথে ঠিক মিলে যায়।
 
-If you're still having trouble understanding the implementation, you should look at it _inductively_, that is: do *not* try to break down the recursive calls over and over again. Assume the split implementation works correct on empty treap, then try to run it for a single node treap, then a two node treap, and so on, each time reusing your knowledge that split on smaller treaps works.
+আপনার যদি ইমপ্লিমেন্টেশন বুঝতে এখনো সমস্যা হয়, আপনার এটিকে _আরোহী পদ্ধতিতে_ দেখা উচিত, অর্থাৎ: রিকার্সিভ কলগুলো বারবার ভেঙে দেখার চেষ্টা করবেন *না*। ধরে নিন স্প্লিট ইমপ্লিমেন্টেশন খালি ট্রিপে সঠিকভাবে কাজ করে, তারপর একটি একক নোড ট্রিপে চালানোর চেষ্টা করুন, তারপর দুই নোড ট্রিপে, এভাবে এগিয়ে যান, প্রতিবার আপনার জ্ঞান ব্যবহার করুন যে ছোট ট্রিপে স্প্লিট কাজ করে।
 
 ```cpp
 void insert (pitem & t, pitem it) {
@@ -186,11 +186,11 @@ pitem unite (pitem l, pitem r) {
 }
 ```
 
-## Maintaining the sizes of subtrees
+## সাবট্রির আকার সংরক্ষণ
 
-To extend the functionality of the treap, it is often necessary to store the number of nodes in subtree of each node - field `int cnt` in the `item` structure. For example, it can be used to find K-th largest element of tree in $O (\log N)$, or to find the index of the element in the sorted list with the same complexity. The implementation of these operations will be the same as for the regular binary search tree.
+ট্রিপের কার্যকারিতা বাড়াতে, প্রায়ই প্রতিটি নোডের সাবট্রিতে নোডের সংখ্যা সংরক্ষণ করা প্রয়োজন - `item` স্ট্রাকচারে `int cnt` ফিল্ড। উদাহরণস্বরূপ, এটি ট্রি-র $K$-তম বৃহত্তম উপাদান $O (\log N)$-এ খুঁজতে, অথবা সাজানো তালিকায় উপাদানের ইনডেক্স একই কমপ্লেক্সিটিতে বের করতে ব্যবহার করা যায়। এই অপারেশনগুলোর ইমপ্লিমেন্টেশন সাধারণ বাইনারি সার্চ ট্রির মতোই হবে।
 
-When a tree changes (nodes are added or removed etc.), `cnt` of some nodes should be updated accordingly. We'll create two functions: `cnt()` will return the current value of `cnt` or 0 if the node does not exist, and `upd_cnt()` will update the value of `cnt` for this node assuming that for its children L and R the values of `cnt` have already been updated. Evidently it's sufficient to add calls of `upd_cnt()` to the end of `insert`, `erase`, `split` and `merge` to keep `cnt` values up-to-date.
+যখন ট্রি পরিবর্তন হয় (নোড যোগ বা সরানো হয় ইত্যাদি), কিছু নোডের `cnt` সেই অনুযায়ী আপডেট করা উচিত। আমরা দুটি ফাংশন তৈরি করবো: `cnt()` বর্তমান `cnt` এর মান রিটার্ন করবে অথবা নোড না থাকলে ০, এবং `upd_cnt()` এই নোডের `cnt` এর মান আপডেট করবে ধরে নিয়ে যে এর সন্তান L ও R এর `cnt` মান ইতিমধ্যে আপডেট হয়ে আছে। স্পষ্টতই `cnt` মান হালনাগাদ রাখতে `insert`, `erase`, `split` এবং `merge` এর শেষে `upd_cnt()` কল যোগ করাই যথেষ্ট।
 
 ```cpp
 int cnt (pitem t) {
@@ -203,9 +203,9 @@ void upd_cnt (pitem t) {
 }
 ```
 
-## Building a Treap in $O (N)$ in offline mode {data-toc-label="Building a Treap in O(N) in offline mode"}
+## $O (N)$-এ অফলাইন মোডে ট্রিপ তৈরি {data-toc-label="O(N)-এ অফলাইন মোডে ট্রিপ তৈরি"}
 
-Given a sorted list of keys, it is possible to construct a treap faster than by inserting the keys one at a time which takes $O(N \log N)$. Since the keys are sorted, a balanced binary search tree can be easily constructed in linear time. The heap values $Y$ are initialized randomly and then can be heapified independent of the keys $X$ to [build the heap](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap) in $O(N)$.
+কী-গুলোর একটি সাজানো তালিকা দেওয়া আছে, একটি একটি করে কী ইনসার্ট করে ট্রিপ তৈরির চেয়ে ($O(N \log N)$ সময় লাগে) দ্রুততর উপায়ে ট্রিপ তৈরি করা সম্ভব। যেহেতু কী-গুলো সাজানো, একটি সুষম বাইনারি সার্চ ট্রি সহজেই লিনিয়ার সময়ে তৈরি করা যায়। হিপ মান $Y$ এলোমেলোভাবে ইনিশিয়ালাইজ করা হয় এবং তারপর কী $X$ থেকে স্বাধীনভাবে $O(N)$-এ [হিপ তৈরি](https://en.wikipedia.org/wiki/Binary_heap#Building_a_heap) করা যায়।
 
 ```cpp
 void heapify (pitem t) {
@@ -234,18 +234,18 @@ pitem build (int * a, int n) {
 }
 ```
 
-Note: calling `upd_cnt(t)` is only necessary if you need the subtree sizes.
+দ্রষ্টব্য: `upd_cnt(t)` কল শুধু তখনই প্রয়োজন যখন আপনার সাবট্রির আকার দরকার।
 
-The approach above always provides a perfectly balanced tree, which is generally good for practical purposes, but at the cost of not preserving the priorities that were initially assigned to each node. Thus, this approach is not feasible to solve the following problem:
+উপরের পদ্ধতি সবসময় একটি পুরোপুরি সুষম ট্রি দেয়, যা সাধারণত ব্যবহারিক উদ্দেশ্যে ভালো, কিন্তু প্রতিটি নোডে প্রাথমিকভাবে নির্ধারিত প্রায়োরিটি সংরক্ষিত না থাকার মূল্যে। তাই, এই পদ্ধতি নিম্নলিখিত সমস্যা সমাধানে কাজে আসবে না:
 
 !!! example "[acmsguru - Cartesian Tree](https://codeforces.com/problemsets/acmsguru/problem/99999/155)"
-    Given a sequence of pairs $(x_i, y_i)$, construct a cartesian tree on them. All $x_i$ and all $y_i$ are unique.
+    $(x_i, y_i)$ জোড়ার একটি ক্রম দেওয়া আছে, এদের উপর একটি কার্তেসিয়ান ট্রি তৈরি করুন। সব $x_i$ এবং সব $y_i$ অনন্য।
 
-Note that in this problem priorities are not random, hence just inserting vertices one by one could provide a quadratic solution.
+লক্ষ্য করুন এই সমস্যায় প্রায়োরিটি এলোমেলো নয়, তাই একটি একটি করে শীর্ষ ইনসার্ট করলে কোয়াড্রাটিক সমাধান হতে পারে।
 
-One of possible solutions here is to find for each element the closest elements to the left and to the right which have a smaller priority than this element. Among these two elements, the one with the larger priority must be the parent of the current element.
+এখানে একটি সম্ভব্য সমাধান হলো প্রতিটি উপাদানের জন্য বাম ও ডানে সবচেয়ে কাছের উপাদান খোঁজা যাদের প্রায়োরিটি এই উপাদানের চেয়ে ছোট। এই দুটি উপাদানের মধ্যে, বড় প্রায়োরিটি বিশিষ্টটি বর্তমান উপাদানের প্যারেন্ট হতে হবে।
 
-This problem is solvable with a [minimum stack](./stack_queue_modification.md) modification in linear time:
+এই সমস্যা [মিনিমাম স্ট্যাক](./stack_queue_modification.md) পরিবর্তন দিয়ে লিনিয়ার সময়ে সমাধানযোগ্য:
 
 ```cpp
 void connect(auto from, auto to) {
@@ -283,24 +283,24 @@ pitem build(int *x, int *y, int n) {
 }
 ```
 
-## Implicit Treaps
+## ইমপ্লিসিট ট্রিপ
 
-Implicit treap is a simple modification of the regular treap which is a very powerful data structure. In fact, implicit treap can be considered as an array with the following procedures implemented (all in $O (\log N)$ in the online mode):
+ইমপ্লিসিট ট্রিপ হলো সাধারণ ট্রিপের একটি সরল পরিবর্তন যা একটি অত্যন্ত শক্তিশালী ডেটা স্ট্রাকচার। প্রকৃতপক্ষে, ইমপ্লিসিট ট্রিপকে নিম্নলিখিত প্রক্রিয়াগুলো ইমপ্লিমেন্ট করা একটি অ্যারে হিসেবে বিবেচনা করা যায় (সবই অনলাইন মোডে $O (\log N)$-এ):
 
-- Inserting an element in the array in any location
-- Removal of an arbitrary element
-- Finding sum, minimum / maximum element etc. on an arbitrary interval
-- Addition, painting on an arbitrary interval
-- Reversing elements on an arbitrary interval
+- অ্যারের যেকোনো স্থানে উপাদান ইনসার্ট করা
+- যেকোনো উপাদান সরানো
+- যেকোনো ব্যবধানে যোগফল, সর্বনিম্ন / সর্বোচ্চ উপাদান ইত্যাদি বের করা
+- যেকোনো ব্যবধানে যোগ, রং করা
+- যেকোনো ব্যবধানে উপাদান উল্টানো
 
-The idea is that the keys should be null-based **indices** of the elements in the array. But we will not store these values explicitly (otherwise, for example, inserting an element would cause changes of the key in $O (N)$ nodes of the tree).
+ধারণাটি হলো কী-গুলো হওয়া উচিত অ্যারেতে উপাদানগুলোর শূন্য-ভিত্তিক **ইনডেক্স**। কিন্তু আমরা এই মানগুলো সুস্পষ্টভাবে সংরক্ষণ করবো না (অন্যথায়, উদাহরণস্বরূপ, একটি উপাদান ইনসার্ট করলে ট্রি-র $O (N)$ নোডের কী পরিবর্তন করতে হতো)।
 
-Note that the key of a node is the number of nodes less than it (such nodes can be present not only in its left subtree but also in left subtrees of its ancestors). 
-More specifically, the **implicit key** for some node T is the number of vertices $cnt (T \rightarrow L)$ in the left subtree of this node plus similar values $cnt (P \rightarrow L) + 1$ for each ancestor P of the node T, if T is in the right subtree of P.
+লক্ষ্য করুন একটি নোডের কী হলো তার চেয়ে ছোট নোডের সংখ্যা (এরকম নোড শুধু এর বাম সাবট্রিতেই নয়, এর পূর্বপুরুষদের বাম সাবট্রিতেও থাকতে পারে)।
+আরো নির্দিষ্টভাবে, কোনো নোড T এর **ইমপ্লিসিট কী** হলো এই নোডের বাম সাবট্রিতে শীর্ষের সংখ্যা $cnt (T \rightarrow L)$ যোগ নোড T এর প্রতিটি পূর্বপুরুষ P এর জন্য অনুরূপ মান $cnt (P \rightarrow L) + 1$, যদি T P এর ডান সাবট্রিতে থাকে।
 
-Now it's clear how to calculate the implicit key of current node quickly. Since in all operations we arrive to any node by descending in the tree, we can just accumulate this sum and pass it to the function. If we go to the left subtree, the accumulated sum does not change, if we go to the right subtree it increases by $cnt (T \rightarrow L) +1$.
+এখন স্পষ্ট কীভাবে বর্তমান নোডের ইমপ্লিসিট কী দ্রুত গণনা করা যায়। যেহেতু সব অপারেশনে আমরা ট্রিতে নেমে যেকোনো নোডে পৌঁছাই, আমরা এই যোগফল জমা করে ফাংশনে পাস করতে পারি। যদি আমরা বাম সাবট্রিতে যাই, জমানো যোগফল পরিবর্তন হয় না, যদি ডান সাবট্রিতে যাই তা $cnt (T \rightarrow L) +1$ বেড়ে যায়।
 
-Here are the new implementations of **Split** and **Merge**:
+এখানে **Split** এবং **Merge** এর নতুন ইমপ্লিমেন্টেশন:
 
 ```cpp
 void merge (pitem & t, pitem l, pitem r) {
@@ -325,24 +325,24 @@ void split (pitem t, pitem & l, pitem & r, int key, int add = 0) {
 }
 ```
 
-In the implementation above, after the call of $split(T, T_1, T_2, k)$, the tree $T_1$ will consist of first $k$ elements of $T$ (that is, of elements having their implicit key less than $k$) and $T_2$ will consist of all the rest.
+উপরের ইমপ্লিমেন্টেশনে, $split(T, T_1, T_2, k)$ কলের পর, ট্রি $T_1$ $T$ এর প্রথম $k$ টি উপাদান নিয়ে গঠিত হবে (অর্থাৎ যেসব উপাদানের ইমপ্লিসিট কী $k$ এর চেয়ে কম) এবং $T_2$ বাকি সব নিয়ে।
 
-Now let's consider the implementation of various operations on implicit treaps:
+এখন ইমপ্লিসিট ট্রিপে বিভিন্ন অপারেশনের ইমপ্লিমেন্টেশন দেখা যাক:
 
-- **Insert element**.  
-  Suppose we need to insert an element at position $pos$. We divide the treap into two parts, which correspond to arrays $[0..pos-1]$ and $[pos..sz]$; to do this we call $split(T, T_1, T_2, pos)$. Then we can combine tree $T_1$ with the new vertex by calling $merge(T_1, T_1, \text{new item})$ (it is easy to see that all preconditions are met). Finally, we combine trees $T_1$ and $T_2$ back into $T$ by calling $merge(T, T_1, T_2)$.
-- **Delete element**.  
- This operation is even easier: find the element to be deleted $T$, perform merge of its children $L$ and $R$, and replace the element $T$ with the result of merge. In fact, element deletion in the implicit treap is exactly the same as in the regular treap.
-- Find **sum / minimum**, etc. on the interval.  
- First, create an additional field $F$ in the `item` structure to store the value of the target function for this node's subtree. This field is easy to maintain similarly to maintaining sizes of subtrees: create a function which calculates this value for a node based on values for its children and add calls of this function in the end of all functions which modify the tree.  
- Second, we need to know how to process a query for an arbitrary interval $[A; B]$.  
- To get a part of tree which corresponds to the interval $[A; B]$, we need to call $split(T, T_2, T_3, B+1)$, and then $split(T_2, T_1, T_2, A)$: after this $T_2$ will consist of all the elements in the interval $[A; B]$, and only of them. Therefore, the response to the query will be stored in the field $F$ of the root of $T_2$. After the query is answered, the tree has to be restored by calling $merge(T, T_1, T_2)$ and $merge(T, T, T_3)$.
-- **Addition / painting** on the interval.  
- We act similarly to the previous paragraph, but instead of the field F we will store a field `add` which will contain the added value for the subtree (or the value to which the subtree is painted). Before performing any operation we have to "push" this value correctly - i.e. change $T \rightarrow L \rightarrow add$ and $T \rightarrow R \rightarrow add$, and to clean up `add` in the parent node. This way after any changes to the tree the information will not be lost.
-- **Reverse** on the interval.  
- This is again similar to the previous operation: we have to add boolean flag `rev` and set it to true when the subtree of the current node has to be reversed. "Pushing" this value is a bit complicated - we swap children of this node and set this flag to true for them.
+- **উপাদান ইনসার্ট।**
+  ধরি আমাদের $pos$ অবস্থানে একটি উপাদান ইনসার্ট করতে হবে। আমরা ট্রিপটিকে দুটি ভাগে ভাগ করি, যেগুলো $[0..pos-1]$ এবং $[pos..sz]$ অ্যারের সাথে সংশ্লিষ্ট; এর জন্য আমরা $split(T, T_1, T_2, pos)$ কল করি। তারপর আমরা ট্রি $T_1$ কে নতুন শীর্ষের সাথে $merge(T_1, T_1, \text{new item})$ কল করে সংযুক্ত করতে পারি (দেখা সহজ যে সব পূর্বশর্ত পূরণ হয়)। পরিশেষে, আমরা $T_1$ ও $T_2$ কে $merge(T, T_1, T_2)$ কল করে $T$ তে সংযুক্ত করি।
+- **উপাদান মুছে ফেলা।**
+  এই অপারেশন আরো সহজ: মুছতে হবে এমন উপাদান $T$ খুঁজুন, এর সন্তান $L$ ও $R$ এর মার্জ করুন, এবং মার্জের ফলাফল দিয়ে উপাদান $T$ প্রতিস্থাপন করুন। প্রকৃতপক্ষে, ইমপ্লিসিট ট্রিপে উপাদান মুছে ফেলা সাধারণ ট্রিপের মতোই।
+- ব্যবধানে **যোগফল / সর্বনিম্ন** ইত্যাদি খোঁজা।
+  প্রথমে, `item` স্ট্রাকচারে একটি অতিরিক্ত ফিল্ড $F$ তৈরি করুন এই নোডের সাবট্রির জন্য লক্ষ্য ফাংশনের মান সংরক্ষণ করতে। সাবট্রির আকার বজায় রাখার মতোই এই ফিল্ড বজায় রাখা সহজ: একটি ফাংশন তৈরি করুন যা সন্তানদের মানের উপর ভিত্তি করে একটি নোডের এই মান গণনা করে এবং ট্রি পরিবর্তনকারী সব ফাংশনের শেষে এই ফাংশনের কল যোগ করুন।
+  দ্বিতীয়ত, যেকোনো ব্যবধান $[A; B]$ এর জন্য একটি কোয়েরি প্রক্রিয়া করতে হবে।
+  ট্রির যে অংশ $[A; B]$ ব্যবধানের সাথে সংশ্লিষ্ট তা পেতে, আমাদের $split(T, T_2, T_3, B+1)$, তারপর $split(T_2, T_1, T_2, A)$ কল করতে হবে: এরপর $T_2$ $[A; B]$ ব্যবধানের সব উপাদান নিয়ে গঠিত হবে, এবং শুধু সেগুলোই। তাই কোয়েরির উত্তর $T_2$ এর রুটের $F$ ফিল্ডে সংরক্ষিত থাকবে। কোয়েরির উত্তর দেওয়ার পর, $merge(T, T_1, T_2)$ এবং $merge(T, T, T_3)$ কল করে ট্রি পুনরুদ্ধার করতে হবে।
+- ব্যবধানে **যোগ / রং করা।**
+  আমরা আগের অনুচ্ছেদের মতোই কাজ করি, কিন্তু F ফিল্ডের বদলে একটি `add` ফিল্ড সংরক্ষণ করবো যাতে সাবট্রিতে যোগ করা মান (বা সাবট্রিতে রং করার মান) থাকবে। কোনো অপারেশন করার আগে আমাদের এই মান সঠিকভাবে "পুশ" করতে হবে - অর্থাৎ $T \rightarrow L \rightarrow add$ ও $T \rightarrow R \rightarrow add$ পরিবর্তন করতে হবে, এবং প্যারেন্ট নোডে `add` পরিষ্কার করতে হবে। এভাবে ট্রিতে যেকোনো পরিবর্তনের পরও তথ্য হারাবে না।
+- ব্যবধানে **উল্টানো।**
+  এটিও আগের অপারেশনের মতো: আমাদের একটি বুলিয়ান ফ্ল্যাগ `rev` যোগ করতে হবে এবং বর্তমান নোডের সাবট্রি উল্টাতে হলে এটি true সেট করতে হবে। এই মান "পুশ" করা একটু জটিল - আমরা এই নোডের সন্তানদের অদলবদল করি এবং তাদের জন্য এই ফ্ল্যাগ true সেট করি।
 
-Here is an example implementation of the implicit treap with reverse on the interval. For each node we store field called `value` which is the actual value of the array element at current position. We also provide implementation of the function `output()`, which outputs an array that corresponds to the current state of the implicit treap.
+এখানে ব্যবধানে উল্টানো সহ ইমপ্লিসিট ট্রিপের একটি উদাহরণ ইমপ্লিমেন্টেশন। প্রতিটি নোডে আমরা `value` নামে ফিল্ড সংরক্ষণ করি যা বর্তমান অবস্থানে অ্যারে উপাদানের প্রকৃত মান। আমরা `output()` ফাংশনেরও ইমপ্লিমেন্টেশন দিচ্ছি, যা ইমপ্লিসিট ট্রিপের বর্তমান অবস্থার সাথে সংশ্লিষ্ট অ্যারে আউটপুট করে।
 
 ```cpp
 typedef struct item * pitem;
@@ -412,7 +412,7 @@ void output (pitem t) {
 }
 ```
 
-## Literature
+## সাহিত্য
 
 * [Blelloch, Reid-Miller "Fast Set Operations Using Treaps"](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
 

@@ -8,187 +8,187 @@ e_maxx_link: assignment_hungary
 
 ## অ্যাসাইনমেন্ট সমস্যার বিবৃতি
 
-অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি মান সূত্র রয়েছে (যার সবগুলি মূলত সমতুল্য)। এখানে কয়েকটি রয়েছে:
+অ্যাসাইনমেন্ট সমস্যার বেশ কয়েকটি আদর্শ রূপ আছে (যেগুলো মূলত সমতুল্য)। এখানে কয়েকটি দেওয়া হলো:
 
-- $n$ টি চাকরি এবং $n$ জন কর্মচারী রয়েছে। প্রতিটি কর্মচারী একটি নির্দিষ্ট চাকরির জন্য যে পরিমাণ অর্থ প্রত্যাশা করে তা নির্দিষ্ট করে। প্রতিটি কর্মচারী শুধুমাত্র একটি চাকরিতে নিয়োগ করা যায়। উদ্দেশ্য হল চাকরিগুলি কর্মচারীদের এমনভাবে নির্ধারণ করা যা মোট খরচ কমায়।
+- $n$ টি কাজ এবং $n$ জন কর্মী আছে। প্রতিটি কর্মী একটি নির্দিষ্ট কাজের জন্য যে পরিমাণ অর্থ আশা করে তা উল্লেখ করে। প্রতিটি কর্মীকে শুধুমাত্র একটি কাজে নিয়োগ করা যায়। লক্ষ্য হলো কর্মীদের এমনভাবে কাজে নিয়োগ করা যাতে মোট খরচ সর্বনিম্ন হয়।
 
-- একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া হলে, কাজটি প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করা যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয় এবং নির্বাচিত সংখ্যাগুলির যোগফল কমানো হয়।
+- একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, প্রতিটি সারি থেকে একটি সংখ্যা নির্বাচন করতে হবে যাতে প্রতিটি কলাম থেকে ঠিক একটি সংখ্যা নির্বাচিত হয়, এবং নির্বাচিত সংখ্যাগুলোর যোগফল সর্বনিম্ন হয়।
 
-- একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া হলে, কাজটি দৈর্ঘ্য $n$ এর একটি ক্রমপরিবর্তন $p$ খুঁজে বের করা যাতে মান $\sum A[i]\left[p[i]\right]$ কমানো হয়।
+- একটি $n \times n$ ম্যাট্রিক্স $A$ দেওয়া আছে, $n$ দৈর্ঘ্যের একটি পারমুটেশন $p$ খুঁজে বের করতে হবে যাতে $\sum A[i]\left[p[i]\right]$ মান সর্বনিম্ন হয়।
 
-- $n$ টি ভার্টেক্স প্রতি অংশে একটি সম্পূর্ণ দ্বিপার্শ্বিক গ্রাফ বিবেচনা করুন, যেখানে প্রতিটি এজ একটি ওজন নির্ধারিত হয়। উদ্দেশ্য হল ন্যূনতম মোট ওজন সহ একটি নিখুঁত ম্যাচিং খুঁজে বের করা।
+- প্রতি পার্টে $n$ টি ভার্টেক্স বিশিষ্ট একটি কমপ্লিট বাইপার্টাইট গ্রাফ বিবেচনা করুন, যেখানে প্রতিটি এজে একটি ওয়েট নির্ধারিত। লক্ষ্য হলো সর্বনিম্ন মোট ওয়েটের একটি পারফেক্ট ম্যাচিং খুঁজে বের করা।
 
-It is important to note that all the above scenarios are "**square**" problems, meaning both dimensions are always equal to $n$. In practice, similar "**rectangular**" formulations are often encountered, where $n$ is not equal to $m$, and the task is to select $\min(n,m)$ elements. However, it can be observed that a "rectangular" problem can always be transformed into a "square" problem by adding rows or columns with zero or infinite values, respectively.
+এটি লক্ষ্য করা গুরুত্বপূর্ণ যে উপরের সমস্ত পরিস্থিতি "**বর্গাকার**" সমস্যা, অর্থাৎ উভয় মাত্রা সর্বদা $n$ এর সমান। বাস্তবে, প্রায়ই "**আয়তাকার**" রূপ দেখা যায় যেখানে $n$ $m$ এর সমান নয়, এবং কাজটি হলো $\min(n,m)$ টি উপাদান নির্বাচন করা। তবে, এটি লক্ষ্য করা যায় যে একটি "আয়তাকার" সমস্যা সবসময় শূন্য বা অসীম মানের সারি বা কলাম যোগ করে "বর্গাকার" সমস্যায় রূপান্তরিত করা যায়।
 
-We also note that by analogy with the search for a **minimum** solution, one can also pose the problem of finding a **maximum** solution. However, these two problems are equivalent to each other: it is enough to multiply all the weights by $-1$.
+আমরা এটিও লক্ষ্য করি যে **সর্বনিম্ন** সমাধান খোঁজার অনুরূপ, **সর্বাধিক** সমাধান খোঁজার সমস্যাও করা যায়। তবে, এই দুটি সমস্যা একে অপরের সমতুল্য: সমস্ত ওয়েটকে $-1$ দিয়ে গুণ করাই যথেষ্ট।
 
 ## হাঙ্গেরিয়ান অ্যালগরিদম
 
-### ঐতিহাসিক উল্লেখ
+### ঐতিহাসিক তথ্য
 
-অ্যালগরিদমটি ১৯৫৫ সালে হ্যারল্ড **কুহন** দ্বারা বিকাশিত এবং প্রকাশিত হয়েছিল। কুহন নিজেই এটির নাম "হাঙ্গেরিয়ান" দিয়েছিলেন কারণ এটি হাঙ্গেরীয় গণিতবিদ ডেনেস কোনিগ এবং জেনো এগারভারির পূর্ববর্তী কাজের উপর ভিত্তি করে ছিল।<br>
-১৯৫৭ সালে, জেমস **মুনকরেস** দেখিয়েছিলেন যে এই অ্যালগরিদম খরচের থেকে স্বাধীনভাবে (কঠোরভাবে) পলিনোমিয়াল সময়ে চলে।<br>
-অতএব, সাহিত্যে, এই অ্যালগরিদম শুধুমাত্র "হাঙ্গেরিয়ান" নয়, বরং "কুহন-মুনকরেস অ্যালগরিদম" বা "মুনকরেস অ্যালগরিদম" হিসাবেও পরিচিত।<br>
-তবে, ২০০৬ সালে সম্প্রতি আবিষ্কৃত হয়েছে যে একই অ্যালগরিদম কুহনের **শত বছর আগে** জার্মান গণিতবিদ কার্ল গুস্তাফ **জ্যাকোবি** দ্বারা আবিষ্কৃত হয়েছিল। তার কাজ, _স্বেচ্ছাচারী সাধারণ ডিফারেনশিয়াল সমীকরণের একটি সিস্টেমের ক্রমের গবেষণা সম্পর্কে_, যা ১৮৯০ সালে মরণোত্তর প্রকাশিত হয়েছিল, অন্যান্য অনুসন্ধানের মধ্যে, অ্যাসাইনমেন্ট সমস্যা সমাধানের জন্য একটি পলিনোমিয়াল অ্যালগরিদম রয়েছে। দুর্ভাগ্যবশত, প্রকাশনাটি লাতিনে ছিল বলে এটি গণিতবিদদের মধ্যে অলক্ষিত ছিল।
+এই অ্যালগরিদমটি হ্যারল্ড **কুন** ১৯৫৫ সালে তৈরি ও প্রকাশ করেন। কুন নিজেই এর নাম দেন "হাঙ্গেরিয়ান" কারণ এটি হাঙ্গেরিয়ান গণিতবিদ ডেনেশ ক্যোনিগ ও ইয়েনো এগেরভারির পূর্ববর্তী কাজের উপর ভিত্তি করে তৈরি।<br>
+১৯৫৭ সালে, জেমস **মুঙ্করেশ** দেখান যে এই অ্যালগরিদম (কঠোরভাবে) পলিনোমিয়াল সময়ে চলে, খরচ নির্বিশেষে।<br>
+তাই সাহিত্যে, এই অ্যালগরিদম শুধু "হাঙ্গেরিয়ান" নয়, বরং "কুন-মুঙ্করেশ অ্যালগরিদম" বা "মুঙ্করেশ অ্যালগরিদম" নামেও পরিচিত।<br>
+তবে, সম্প্রতি ২০০৬ সালে আবিষ্কৃত হয়েছে যে কুনের **এক শতাব্দী আগে** জার্মান গণিতবিদ কার্ল গুস্তাভ **ইয়াকোবি** একই অ্যালগরিদম আবিষ্কার করেছিলেন। তাঁর কাজ, _সাধারণ সাধারণ ডিফারেনশিয়াল সমীকরণের একটি সিস্টেমের ক্রম গবেষণা সম্পর্কে_, যেটি ১৮৯০ সালে মরণোত্তর প্রকাশিত হয়েছিল, অন্যান্য ফলাফলের মধ্যে, অ্যাসাইনমেন্ট সমস্যা সমাধানের একটি পলিনোমিয়াল অ্যালগরিদম ধারণ করেছিল। দুর্ভাগ্যবশত, প্রকাশনাটি ল্যাটিনে হওয়ায় এটি গণিতবিদদের দৃষ্টি এড়িয়ে যায়।
 
-এটি লক্ষ করার যোগ্য যে কুহনের মূল অ্যালগরিদমের $\mathcal{O}(n^4)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটি ছিল, এবং শুধুমাত্র পরে জ্যাক **এডমন্ডস** এবং রিচার্ড **কার্প** (এবং স্বাধীনভাবে **তমিজাওয়া**) দেখিয়েছিলেন কীভাবে এটিকে $\mathcal{O}(n^3)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটিতে উন্নত করতে হয়।
+এটিও উল্লেখযোগ্য যে কুনের মূল অ্যালগরিদমের অ্যাসিম্পটোটিক কমপ্লেক্সিটি ছিল $\mathcal{O}(n^4)$, এবং পরে জ্যাক **এডমন্ডস** ও রিচার্ড **কার্প** (এবং স্বাধীনভাবে **তোমিজাওয়া**) দেখান কীভাবে এটিকে $\mathcal{O}(n^3)$ অ্যাসিম্পটোটিক কমপ্লেক্সিটিতে উন্নত করা যায়।
 
-### The $\mathcal{O}(n^4)$ algorithm
+### $\mathcal{O}(n^4)$ অ্যালগরিদম
 
-To avoid ambiguity, we note right away that we are mainly concerned with the assignment problem in a matrix formulation (i.e., given a matrix $A$, you need to select $n$ cells from it that are in different rows and columns). We index arrays starting with $1$, i.e., for example, a matrix $A$ has indices $A[1 \dots n][1 \dots n]$.
+অস্পষ্টতা এড়াতে, আমরা এখনই উল্লেখ করি যে আমরা মূলত ম্যাট্রিক্স রূপে অ্যাসাইনমেন্ট সমস্যা নিয়ে কাজ করছি (অর্থাৎ একটি ম্যাট্রিক্স $A$ দেওয়া আছে, এটি থেকে $n$ টি সেল নির্বাচন করতে হবে যেগুলো ভিন্ন সারি এবং কলামে)। আমরা ১ থেকে শুরু করে অ্যারে ইনডেক্স করি, অর্থাৎ উদাহরণস্বরূপ একটি ম্যাট্রিক্স $A$ এর ইনডেক্স $A[1 \dots n][1 \dots n]$।
 
-We will also assume that all numbers in matrix A are **non-negative** (if this is not the case, you can always make the matrix non-negative by adding some constant to all numbers).
+আমরা এটিও ধরে নিই যে ম্যাট্রিক্স A-র সমস্ত সংখ্যা **অ-ঋণাত্মক** (যদি এটি না হয়, সমস্ত সংখ্যায় কোনো ধ্রুবক যোগ করে ম্যাট্রিক্সকে সর্বদা অ-ঋণাত্মক করা যায়)।
 
-Let's call a **potential** two arbitrary arrays of numbers $u[1 \ldots n]$ and $v[1 \ldots n]$, such that the following condition is satisfied:
+আসুন সংখ্যার দুটি ইচ্ছামতো অ্যারে $u[1 \ldots n]$ এবং $v[1 \ldots n]$ কে একটি **পটেনশিয়াল** বলি, যাতে নিম্নলিখিত শর্ত পূরণ হয়:
 
 $$u[i]+v[j]\leq A[i][j],\quad i=1\dots n,\ j=1\dots n$$
 
-(As you can see, $u[i]$ corresponds to the $i$-th row, and $v[j]$ corresponds to the $j$-th column of the matrix).
+(যেমনটি দেখা যাচ্ছে, $u[i]$ $i$-তম সারির সাথে সম্পর্কিত, এবং $v[j]$ ম্যাট্রিক্সের $j$-তম কলামের সাথে সম্পর্কিত)।
 
-Let's call **the value $f$ of the potential** the sum of its elements:
+আসুন পটেনশিয়ালের **মান $f$** কে এর উপাদানগুলোর যোগফল বলি:
 
 $$f=\sum_{i=1}^{n} u[i] + \sum_{j=1}^{n} v[j].$$
 
-On one hand, it is easy to see that the cost of the desired solution $sol$ **is not less than** the value of any potential.
+একদিকে, এটি দেখা সহজ যে কাঙ্ক্ষিত সমাধান $sol$ এর খরচ যেকোনো পটেনশিয়ালের মানের **চেয়ে কম নয়**।
 
 !!! info ""
 
-    **Lemma.** $sol\geq f.$
+    **লেমা।** $sol\geq f.$
 
-??? info "Proof"
+??? info "প্রমাণ"
 
-    The desired solution of the problem consists of $n$ cells of the matrix $A$, so $u[i]+v[j]\leq A[i][j]$ for each of them. Since all the elements in $sol$ are in different rows and columns, summing these inequalities over all the selected $A[i][j]$, you get $f$ on the left side of the inequality, and $sol$ on the right side.
+    সমস্যার কাঙ্ক্ষিত সমাধান ম্যাট্রিক্স $A$ এর $n$ টি সেল নিয়ে গঠিত, তাই প্রতিটির জন্য $u[i]+v[j]\leq A[i][j]$। যেহেতু $sol$ এর সমস্ত উপাদান ভিন্ন সারি এবং কলামে, সমস্ত নির্বাচিত $A[i][j]$ এর উপর এই অসমতাগুলো যোগ করলে, অসমতার বাম পাশে $f$ এবং ডান পাশে $sol$ পাওয়া যায়।
 
-On the other hand, it turns out that there is always a solution and a potential that turns this inequality into **equality**. The Hungarian algorithm described below will be a constructive proof of this fact. For now, let's just pay attention to the fact that if any solution has a cost equal to any potential, then this solution is **optimal**.
+অন্যদিকে, দেখা যায় যে সর্বদা একটি সমাধান এবং একটি পটেনশিয়াল পাওয়া যায় যেটি এই অসমতাকে **সমতায়** পরিণত করে। নিচে বর্ণিত হাঙ্গেরিয়ান অ্যালগরিদম এই তথ্যের একটি গঠনমূলক প্রমাণ হবে। আপাতত, শুধু লক্ষ্য করি যে যদি কোনো সমাধানের খরচ কোনো পটেনশিয়ালের সমান হয়, তাহলে সেই সমাধান **অপটিমাল**।
 
-Let's fix some potential. Let's call an edge $(i,j)$ **rigid** if $u[i]+v[j]=A[i][j].$
+আসুন কোনো পটেনশিয়াল ঠিক করি। একটি এজ $(i,j)$ কে **রিজিড** বলি যদি $u[i]+v[j]=A[i][j].$
 
-Recall an alternative formulation of the assignment problem, using a bipartite graph. Denote with $H$ a bipartite graph composed only of rigid edges. The Hungarian algorithm will maintain, for the current potential, **the maximum-number-of-edges matching** $M$ of the graph $H$. As soon as $M$ contains $n$ edges, then the solution to the problem will be just $M$ (after all, it will be a solution whose cost coincides with the value of a potential).
+বাইপার্টাইট গ্রাফে অ্যাসাইনমেন্ট সমস্যার বিকল্প রূপ স্মরণ করি। $H$ দিয়ে শুধুমাত্র রিজিড এজ দিয়ে গঠিত বাইপার্টাইট গ্রাফ বোঝাই। হাঙ্গেরিয়ান অ্যালগরিদম বর্তমান পটেনশিয়ালের জন্য গ্রাফ $H$ এর **সর্বাধিক-এজ-সংখ্যার ম্যাচিং** $M$ বজায় রাখবে। $M$ এ $n$ টি এজ থাকলেই সমস্যার সমাধান হলো $M$ (যেহেতু এটি এমন একটি সমাধান হবে যার খরচ পটেনশিয়ালের মানের সাথে মিলে যায়)।
 
-Let's proceed directly to **the description of the algorithm**.
+এখন সরাসরি **অ্যালগরিদমের বর্ণনায়** আসা যাক।
 
-**Step 1.** At the beginning, the potential is assumed to be zero ($u[i]=v[i]=0$ for all $i$), and the matching $M$ is assumed to be empty.
+**ধাপ ১।** শুরুতে পটেনশিয়াল শূন্য ধরা হয় (সমস্ত $i$ এর জন্য $u[i]=v[i]=0$), এবং ম্যাচিং $M$ খালি ধরা হয়।
 
-**Step 2.** Further, at each step of the algorithm, we try, without changing the potential, to increase the cardinality of the current matching $M$ by one (recall that the matching is searched in the graph of rigid edges $H$). To do this, the usual [Kuhn Algorithm for finding the maximum matching in bipartite graphs](kuhn_maximum_bipartite_matching.md) is used. Let us recall the algorithm here.
-All edges of the matching $M$ are oriented in the direction from the right part to the left one, and all other edges of the graph $H$ are oriented in the opposite direction.
+**ধাপ ২।** এরপর, অ্যালগরিদমের প্রতিটি ধাপে, আমরা পটেনশিয়াল পরিবর্তন না করে বর্তমান ম্যাচিং $M$ এর কার্ডিনালিটি এক বাড়ানোর চেষ্টা করি (স্মরণ করুন যে ম্যাচিং রিজিড এজের গ্রাফ $H$ এ খোঁজা হয়)। এর জন্য, [বাইপার্টাইট গ্রাফে ম্যাক্সিমাম ম্যাচিং খোঁজার কুন অ্যালগরিদম](kuhn_maximum_bipartite_matching.md) ব্যবহৃত হয়। আসুন অ্যালগরিদমটি এখানে স্মরণ করি।
+ম্যাচিং $M$ এর সমস্ত এজ ডান অংশ থেকে বাম অংশে নির্দেশিত, এবং গ্রাফ $H$ এর অন্যান্য সমস্ত এজ বিপরীত দিকে নির্দেশিত।
 
-Recall (from the terminology of searching for matchings) that a vertex is called saturated if an edge of the current matching is adjacent to it. A vertex that is not adjacent to any edge of the current matching is called unsaturated. A path of odd length, in which the first edge does not belong to the matching, and for all subsequent edges there is an alternating belonging to the matching (belongs/does not belong) - is called an augmenting path.
-From all unsaturated vertices in the left part, a [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal is started. If, as a result of the search, it was possible to reach an unsaturated vertex of the right part, we have found an augmenting path from the left part to the right one. If we include odd edges of the path and remove the even ones in the matching (i.e. include the first edge in the matching, exclude the second, include the third, etc.), then we will increase the matching cardinality by one.
+স্মরণ করি (ম্যাচিং খোঁজার পরিভাষা থেকে) যে একটি ভার্টেক্সকে স্যাচুরেটেড বলা হয় যদি বর্তমান ম্যাচিং-এর একটি এজ এর সাথে সংশ্লিষ্ট হয়। বর্তমান ম্যাচিং-এর কোনো এজের সাথে সংশ্লিষ্ট নয় এমন ভার্টেক্সকে আনস্যাচুরেটেড বলা হয়। বিজোড় দৈর্ঘ্যের একটি পাথ, যার প্রথম এজ ম্যাচিং-এ নেই, এবং পরবর্তী সমস্ত এজের জন্য ম্যাচিং-এ থাকা/না-থাকা পর্যায়ক্রমে হয় - একে অগমেন্টিং পাথ বলা হয়।
+বাম অংশের সমস্ত আনস্যাচুরেটেড ভার্টেক্স থেকে একটি [ডেপথ-ফার্স্ট](depth-first-search.md) বা [ব্রেডথ-ফার্স্ট](breadth-first-search.md) ট্রাভার্সাল শুরু করা হয়। সার্চের ফলে যদি ডান অংশের একটি আনস্যাচুরেটেড ভার্টেক্সে পৌঁছানো যায়, আমরা বাম অংশ থেকে ডান অংশে একটি অগমেন্টিং পাথ পেয়েছি। যদি আমরা পাথের বিজোড় এজগুলো ম্যাচিং-এ অন্তর্ভুক্ত করি এবং জোড় এজগুলো বাদ দিই (অর্থাৎ প্রথম এজ ম্যাচিং-এ অন্তর্ভুক্ত, দ্বিতীয় বাদ, তৃতীয় অন্তর্ভুক্ত ইত্যাদি), তাহলে আমরা ম্যাচিং কার্ডিনালিটি এক বাড়াব।
 
-If there was no augmenting path, then the current matching $M$ is maximal in the graph $H$.
+যদি কোনো অগমেন্টিং পাথ না পাওয়া যায়, তাহলে বর্তমান ম্যাচিং $M$ গ্রাফ $H$ এ ম্যাক্সিমাল।
 
-**Step 3.** If at the current step, it is not possible to increase the cardinality of the current matching, then a recalculation of the potential is performed in such a way that, at the next steps, there will be more opportunities to increase the matching.
+**ধাপ ৩।** যদি বর্তমান ধাপে বর্তমান ম্যাচিং-এর কার্ডিনালিটি বাড়ানো সম্ভব না হয়, তাহলে পটেনশিয়াল এমনভাবে পুনরায় গণনা করা হয় যাতে পরবর্তী ধাপে ম্যাচিং বাড়ানোর আরও সুযোগ তৈরি হয়।
 
-Denote by $Z_1$ the set of vertices of the left part that were visited during the last traversal of Kuhn's algorithm, and through $Z_2$ the set of visited vertices of the right part.
+$Z_1$ দিয়ে কুন অ্যালগরিদমের শেষ ট্রাভার্সালে পরিদর্শিত বাম অংশের ভার্টেক্সের সেট এবং $Z_2$ দিয়ে পরিদর্শিত ডান অংশের ভার্টেক্সের সেট বোঝাই।
 
-Let's calculate the value $\Delta$:
+$\Delta$ মানটি গণনা করি:
 
 $$\Delta = \min_{i\in Z_1,\ j\notin Z_2} A[i][j]-u[i]-v[j].$$
 
 !!! info ""
 
-     **Lemma.** $\Delta > 0.$
+     **লেমা।** $\Delta > 0.$
 
-??? info "Proof"
+??? info "প্রমাণ"
 
-    Suppose $\Delta=0$. Then there exists a rigid edge $(i,j)$ with $i\in Z_1$ and $j\notin Z_2$. It follows that the edge $(i,j)$ must be oriented from the right part to the left one, i.e. $(i,j)$ must be included in the matching $M$. However, this is impossible, because we could not get to the saturated vertex $i$ except by going along the edge from j to i. So $\Delta > 0$.
+    ধরি $\Delta=0$। তাহলে $i\in Z_1$ এবং $j\notin Z_2$ সহ একটি রিজিড এজ $(i,j)$ আছে। এর ফলে এজ $(i,j)$ ডান অংশ থেকে বাম অংশে নির্দেশিত হতে হবে, অর্থাৎ $(i,j)$ ম্যাচিং $M$ এ অন্তর্ভুক্ত হতে হবে। তবে, এটি অসম্ভব, কারণ আমরা $j$ থেকে $i$ তে যাওয়া এজ ছাড়া স্যাচুরেটেড ভার্টেক্স $i$ তে পৌঁছাতে পারতাম না। তাই $\Delta > 0$।
 
-Now let's **recalculate the potential** in this way:
+এখন এভাবে **পটেনশিয়াল পুনরায় গণনা** করি:
 
-- for all vertices $i\in Z_1$, do $u[i] \gets u[i]+\Delta$,
+- সমস্ত ভার্টেক্স $i\in Z_1$ এর জন্য, $u[i] \gets u[i]+\Delta$ করি,
 
-- for all vertices $j\in Z_2$, do $v[j] \gets v[j]-\Delta$.
-
-!!! info ""
-
-    **Lemma.** The resulting potential is still a correct potential.
-
-??? info "Proof"
-
-    We will show that, after recalculation, $u[i]+v[j]\leq A[i][j]$ for all $i,j$. For all the elements of $A$ with $i\in Z_1$ and $j\in Z_2$, the sum $u[i]+v[j]$ does not change, so the inequality remains true. For all the elements with $i\notin Z_1$ and $j\in Z_2$, the sum $u[i]+v[j]$ decreases by $\Delta$, so the inequality is still true. For the other elements whose $i\in Z_1$ and $j\notin Z_2$, the sum increases, but the inequality is still preserved, since the value $\Delta$ is, by definition, the maximum increase that does not change the inequality.
+- সমস্ত ভার্টেক্স $j\in Z_2$ এর জন্য, $v[j] \gets v[j]-\Delta$ করি।
 
 !!! info ""
 
-    **Lemma.** The old matching $M$ of rigid edges is valid, i.e. all edges of the matching will remain rigid.
+    **লেমা।** ফলস্বরূপ পটেনশিয়াল এখনো একটি সঠিক পটেনশিয়াল।
 
-??? info "Proof"
+??? info "প্রমাণ"
 
-    For some rigid edge $(i,j)$ to stop being rigid as a result of a change in potential, it is necessary that equality $u[i] + v[j] = A[i][j]$ turns into inequality $u[i] + v[j] < A[i][j]$. However, this can happen only when $i \notin Z_1$ and $j \in Z_2$. But $i \notin Z_1$ implies that the edge $(i,j)$ could not be a matching edge.
+    আমরা দেখাব যে, পুনরায় গণনার পর, সমস্ত $i,j$ এর জন্য $u[i]+v[j]\leq A[i][j]$। $i\in Z_1$ এবং $j\in Z_2$ সহ $A$ এর সমস্ত উপাদানের জন্য, $u[i]+v[j]$ যোগফল পরিবর্তন হয় না, তাই অসমতা সত্য থাকে। $i\notin Z_1$ এবং $j\in Z_2$ সহ সমস্ত উপাদানের জন্য, $u[i]+v[j]$ যোগফল $\Delta$ কমে, তাই অসমতা এখনো সত্য। অন্যান্য উপাদানগুলোর জন্য যাদের $i\in Z_1$ এবং $j\notin Z_2$, যোগফল বাড়ে, কিন্তু অসমতা এখনো সংরক্ষিত, কারণ $\Delta$ মানটি, সংজ্ঞা অনুসারে, সেই সর্বাধিক বৃদ্ধি যা অসমতা পরিবর্তন করে না।
 
 !!! info ""
 
-    **Lemma.** After each recalculation of the potential, the number of vertices reachable by the traversal, i.e. $|Z_1|+|Z_2|$, strictly increases.
+    **লেমা।** পুরনো ম্যাচিং $M$ রিজিড এজের বৈধ, অর্থাৎ ম্যাচিং-এর সমস্ত এজ রিজিড থাকবে।
 
-??? info "Proof"
+??? info "প্রমাণ"
 
-    First, note that any vertex that was reachable before recalculation, is still reachable. Indeed, if some vertex is reachable, then there is some path from reachable vertices to it, starting from the unsaturated vertex of the left part; since for edges of the form $(i,j),\ i\in Z_1,\ j\in Z_2$ the sum $u[i]+v[j]$ does not change, this entire path will be preserved after changing the potential.
-    Secondly, we show that after a recalculation, at least one new vertex will be reachable. This follows from the definition of $\Delta$: the edge $(i,j)$ which $\Delta$ refers to will become rigid, so vertex $j$ will be reachable from vertex $i$.
+    কোনো রিজিড এজ $(i,j)$ পটেনশিয়াল পরিবর্তনের ফলে রিজিড না থাকতে হলে, সমতা $u[i] + v[j] = A[i][j]$ অসমতা $u[i] + v[j] < A[i][j]$ তে পরিণত হতে হবে। তবে, এটি শুধুমাত্র তখনই ঘটতে পারে যখন $i \notin Z_1$ এবং $j \in Z_2$। কিন্তু $i \notin Z_1$ বোঝায় যে এজ $(i,j)$ ম্যাচিং এজ হতে পারে না।
 
-Due to the last lemma, **no more than $n$ potential recalculations can occur** before an augmenting path is found and the matching cardinality of $M$ is increased.
-Thus, sooner or later, a potential that corresponds to a perfect matching $M^*$ will be found, and $M^*$ will be the answer to the problem.
-If we talk about the complexity of the algorithm, then it is $\mathcal{O}(n^4)$: in total there should be at most $n$ increases in matching, before each of which there are no more than $n$ potential recalculations, each of which is performed in time $\mathcal{O}(n^2)$.
+!!! info ""
 
-We will not give the implementation for the $\mathcal{O}(n^4)$ algorithm here, since it will turn out to be no shorter than the implementation for the $\mathcal{O}(n^3)$ one, described below.
+    **লেমা।** পটেনশিয়ালের প্রতিটি পুনরায় গণনার পর, ট্রাভার্সাল দ্বারা গম্য ভার্টেক্সের সংখ্যা, অর্থাৎ $|Z_1|+|Z_2|$, কঠোরভাবে বৃদ্ধি পায়।
 
-### The $\mathcal{O}(n^3)$ algorithm
+??? info "প্রমাণ"
 
-Now let's learn how to implement the same algorithm in $\mathcal{O}(n^3)$ (for rectangular problems $n \times m$, $\mathcal{O}(n^2m)$).
+    প্রথমত, লক্ষ্য করুন যে পুনরায় গণনার আগে যে কোনো ভার্টেক্স গম্য ছিল, সেটি এখনো গম্য। প্রকৃতপক্ষে, যদি কোনো ভার্টেক্স গম্য হয়, তাহলে বাম অংশের আনস্যাচুরেটেড ভার্টেক্স থেকে শুরু করে গম্য ভার্টেক্সের মধ্য দিয়ে কোনো পাথ আছে; যেহেতু $(i,j),\ i\in Z_1,\ j\in Z_2$ আকারের এজগুলোর জন্য $u[i]+v[j]$ যোগফল পরিবর্তন হয় না, পটেনশিয়াল পরিবর্তনের পরও এই সম্পূর্ণ পাথ সংরক্ষিত থাকবে।
+    দ্বিতীয়ত, আমরা দেখাই যে পুনরায় গণনার পর, কমপক্ষে একটি নতুন ভার্টেক্স গম্য হবে। এটি $\Delta$ এর সংজ্ঞা থেকে অনুসরণ করে: যে এজ $(i,j)$ এর জন্য $\Delta$ নির্ধারিত সেটি রিজিড হয়ে যাবে, তাই ভার্টেক্স $j$ ভার্টেক্স $i$ থেকে গম্য হবে।
 
-The key idea is to **consider matrix rows one by one**, and not all at once. Thus, the algorithm described above will take the following form:
+শেষ লেমার কারণে, একটি অগমেন্টিং পাথ পাওয়া এবং ম্যাচিং $M$ এর কার্ডিনালিটি বাড়ানোর আগে **সর্বাধিক $n$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে**।
+এভাবে, একটি পারফেক্ট ম্যাচিং $M^*$ এর সাথে সম্পর্কিত একটি পটেনশিয়াল শীঘ্রই বা পরে পাওয়া যাবে, এবং $M^*$ হবে সমস্যার উত্তর।
+অ্যালগরিদমের কমপ্লেক্সিটি নিয়ে বললে, এটি $\mathcal{O}(n^4)$: মোটে সর্বাধিক $n$ বার ম্যাচিং বৃদ্ধি হওয়া উচিত, প্রতিটির আগে সর্বাধিক $n$ বার পটেনশিয়াল পুনরায় গণনা, যার প্রতিটি $\mathcal{O}(n^2)$ সময়ে সম্পাদিত হয়।
 
-1.  Consider the next row of the matrix $A$.
+আমরা এখানে $\mathcal{O}(n^4)$ অ্যালগরিদমের ইমপ্লিমেন্টেশন দেব না, কারণ এটি নিচে বর্ণিত $\mathcal{O}(n^3)$ এর ইমপ্লিমেন্টেশনের চেয়ে ছোট হবে না।
 
-2.  While there is no increasing path starting in this row, recalculate the potential.
+### $\mathcal{O}(n^3)$ অ্যালগরিদম
 
-3.  As soon as an augmenting path is found, propagate the matching along it (thus including the last edge in the matching), and restart from step 1 (to consider the next line).
+এখন শিখি কীভাবে একই অ্যালগরিদম $\mathcal{O}(n^3)$ এ ইমপ্লিমেন্ট করতে হয় (আয়তাকার সমস্যা $n \times m$ এর জন্য $\mathcal{O}(n^2m)$)।
 
-To achieve the required complexity, it is necessary to implement steps 2-3, which are performed for each row of the matrix, in time $\mathcal{O}(n^2)$ (for rectangular problems in $\mathcal{O}(nm)$).
+মূল ধারণা হলো **ম্যাট্রিক্সের সারিগুলো একটি করে বিবেচনা করা**, একবারে সব নয়। এভাবে, উপরে বর্ণিত অ্যালগরিদম নিম্নলিখিত রূপ নেবে:
 
-To do this, recall two facts proved above:
+১.  ম্যাট্রিক্স $A$ এর পরবর্তী সারি বিবেচনা করুন।
 
-- With a change in the potential, the vertices that were reachable by Kuhn's traversal will remain reachable.
+২.  যতক্ষণ এই সারি থেকে শুরু করে কোনো অগমেন্টিং পাথ না পাওয়া যায়, পটেনশিয়াল পুনরায় গণনা করুন।
 
-- In total, only $\mathcal{O}(n)$ recalculations of the potential could occur before an augmenting path was found.
+৩.  অগমেন্টিং পাথ পাওয়া মাত্র, এটি বরাবর ম্যাচিং প্রচার করুন (এভাবে শেষ এজটি ম্যাচিং-এ অন্তর্ভুক্ত করা), এবং ধাপ ১ থেকে পুনরায় শুরু করুন (পরবর্তী সারি বিবেচনা করতে)।
 
-From this follow these **key ideas** that allow us to achieve the required complexity:
+প্রয়োজনীয় কমপ্লেক্সিটি অর্জন করতে, ধাপ ২-৩ ম্যাট্রিক্সের প্রতিটি সারির জন্য $\mathcal{O}(n^2)$ সময়ে (আয়তাকার সমস্যায় $\mathcal{O}(nm)$) ইমপ্লিমেন্ট করা প্রয়োজন।
 
-- To check for the presence of an augmenting path, there is no need to start the Kuhn traversal again after each potential recalculation. Instead, you can make the Kuhn traversal in an **iterative form**: after each recalculation of the potential, look at the added rigid edges and, if their left ends were reachable, mark their right ends reachable as well and continue the traversal from them.
+এটি করতে, উপরে প্রমাণিত দুটি তথ্য স্মরণ করি:
 
-- Developing this idea further, we can present the algorithm as follows: at each step of the loop, the potential is recalculated. Subsequently, a column that has become reachable is identified (which will always exist as new reachable vertices emerge after every potential recalculation). If the column is unsaturated, an augmenting chain is discovered. Conversely, if the column is saturated, the matching row also becomes reachable.
+- পটেনশিয়াল পরিবর্তনে, কুনের ট্রাভার্সাল দ্বারা গম্য ভার্টেক্সগুলো গম্যই থাকবে।
 
-- To quickly recalculate the potential (faster than the $\mathcal{O}(n^2)$ naive version), you need to maintain auxiliary minima for each of the columns:
+- মোটে, অগমেন্টিং পাথ পাওয়ার আগে শুধুমাত্র $\mathcal{O}(n)$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে।
+
+এ থেকে এই **মূল ধারণাগুলো** অনুসরণ করে যা আমাদের প্রয়োজনীয় কমপ্লেক্সিটি অর্জন করতে দেয়:
+
+- অগমেন্টিং পাথের উপস্থিতি পরীক্ষা করতে, প্রতিটি পটেনশিয়াল পুনরায় গণনার পর কুন ট্রাভার্সাল আবার শুরু করার প্রয়োজন নেই। পরিবর্তে, আপনি কুন ট্রাভার্সালকে একটি **ইটারেটিভ রূপে** করতে পারেন: প্রতিটি পটেনশিয়াল পুনরায় গণনার পর, যোগ হওয়া রিজিড এজগুলো দেখুন এবং, যদি তাদের বাম প্রান্ত গম্য ছিল, তাদের ডান প্রান্তগুলোও গম্য হিসেবে চিহ্নিত করুন এবং সেখান থেকে ট্রাভার্সাল চালিয়ে যান।
+
+- এই ধারণাটি আরও বিকশিত করে, আমরা অ্যালগরিদমকে এভাবে উপস্থাপন করতে পারি: লুপের প্রতিটি ধাপে পটেনশিয়াল পুনরায় গণনা করা হয়। পরবর্তীতে, একটি কলাম চিহ্নিত করা হয় যেটি গম্য হয়েছে (যেটি সর্বদা থাকবে কারণ প্রতিটি পটেনশিয়াল পুনরায় গণনার পর নতুন গম্য ভার্টেক্স আসে)। যদি কলামটি আনস্যাচুরেটেড হয়, একটি অগমেন্টিং চেইন আবিষ্কৃত হয়। বিপরীতভাবে, যদি কলামটি স্যাচুরেটেড হয়, ম্যাচিং সারিটিও গম্য হয়ে যায়।
+
+- পটেনশিয়াল দ্রুত পুনরায় গণনা করতে ($\mathcal{O}(n^2)$ নেইভ সংস্করণের চেয়ে দ্রুত), প্রতিটি কলামের জন্য সহায়ক ন্যূনতম মান বজায় রাখতে হবে:
 
     <br><div style="text-align:center">$minv[j]=\min_{i\in Z_1} A[i][j]-u[i]-v[j].$</div><br>
 
-    It's easy to see that the desired value $\Delta$ is expressed in terms of them as follows:
+    এটি দেখা সহজ যে কাঙ্ক্ষিত মান $\Delta$ এগুলো দিয়ে নিম্নরূপ প্রকাশ করা যায়:
 
     <br><div style="text-align:center">$\Delta=\min_{j\notin Z_2} minv[j].$</div><br>
 
-    Thus, finding $\Delta$ can now be done in $\mathcal{O}(n)$.
+    এভাবে, $\Delta$ খোঁজা এখন $\mathcal{O}(n)$ এ করা যায়।
 
-    It is necessary to update the array $minv$ when new visited rows appear. This can be done in $\mathcal{O}(n)$ for the added row (which adds up over all rows to $\mathcal{O}(n^2)$). It is also necessary to update the array $minv$ when recalculating the potential, which is also done in time $\mathcal{O}(n)$ ($minv$ changes only for columns that have not yet been reached: namely, it decreases by $\Delta$).
+    নতুন পরিদর্শিত সারি আসলে $minv$ অ্যারে আপডেট করতে হবে। এটি যোগ করা সারির জন্য $\mathcal{O}(n)$ এ করা যায় (যা সমস্ত সারি মিলে $\mathcal{O}(n^2)$ হয়)। পটেনশিয়াল পুনরায় গণনার সময়ও $minv$ অ্যারে আপডেট করতে হবে, যেটিও $\mathcal{O}(n)$ সময়ে করা হয় ($minv$ শুধুমাত্র সেই কলামগুলোর জন্য পরিবর্তিত হয় যেগুলো এখনো গম্য হয়নি: যথা, এটি $\Delta$ কমে)।
 
-Thus, the algorithm takes the following form: in the outer loop, we consider matrix rows one by one. Each row is processed in time $\mathcal{O}(n^2)$, since only $\mathcal{O}(n)$ potential recalculations could occur (each in time $\mathcal{O}(n)$), and the array $minv$ is maintained in time $\mathcal{O}(n^2)$; Kuhn's algorithm will work in time $\mathcal{O}(n^2)$ (since it is presented in the form of $\mathcal{O}(n)$ iterations, each of which visits a new column).
+এভাবে, অ্যালগরিদমটি নিম্নলিখিত রূপ নেয়: বাইরের লুপে, আমরা ম্যাট্রিক্সের সারিগুলো একটি করে বিবেচনা করি। প্রতিটি সারি $\mathcal{O}(n^2)$ সময়ে প্রক্রিয়া করা হয়, যেহেতু শুধুমাত্র $\mathcal{O}(n)$ বার পটেনশিয়াল পুনরায় গণনা হতে পারে (প্রতিটি $\mathcal{O}(n)$ সময়ে), এবং $minv$ অ্যারে $\mathcal{O}(n^2)$ সময়ে বজায় রাখা হয়; কুনের অ্যালগরিদম $\mathcal{O}(n^2)$ সময়ে কাজ করবে (যেহেতু এটি $\mathcal{O}(n)$ ইটারেশনের রূপে উপস্থাপিত, যার প্রতিটি একটি নতুন কলাম পরিদর্শন করে)।
 
-The resulting complexity is $\mathcal{O}(n^3)$ or, if the problem is rectangular, $\mathcal{O}(n^2m)$.
+ফলস্বরূপ কমপ্লেক্সিটি $\mathcal{O}(n^3)$ বা, সমস্যা আয়তাকার হলে, $\mathcal{O}(n^2m)$।
 
-## Implementation of the Hungarian algorithm
+## হাঙ্গেরিয়ান অ্যালগরিদমের ইমপ্লিমেন্টেশন
 
-The implementation below was developed by **Andrey Lopatin** several years ago. It is distinguished by amazing conciseness: the entire algorithm consists of **30 lines of code**.
+নিচের ইমপ্লিমেন্টেশনটি কয়েক বছর আগে **আন্দ্রে লোপাতিন** তৈরি করেছিলেন। এটি আশ্চর্যজনক সংক্ষিপ্ততায় আলাদা: সম্পূর্ণ অ্যালগরিদম **৩০ লাইনের কোডে** গঠিত।
 
-The implementation finds a solution for the rectangular matrix $A[1\dots n][1\dots m]$, where $n\leq m$. The matrix is ​1-based for convenience and code brevity: this implementation introduces a dummy zero row and zero column, which allows us to write many cycles in a general form, without additional checks.
+ইমপ্লিমেন্টেশনটি $A[1\dots n][1\dots m]$ আয়তাকার ম্যাট্রিক্সের জন্য সমাধান খুঁজে, যেখানে $n\leq m$। ম্যাট্রিক্সটি সুবিধা ও কোডের সংক্ষিপ্ততার জন্য ১-ভিত্তিক: এই ইমপ্লিমেন্টেশন একটি ডামি শূন্য সারি ও শূন্য কলাম প্রবর্তন করে, যা আমাদের অতিরিক্ত চেক ছাড়া অনেক সাইকেল সাধারণ রূপে লিখতে দেয়।
 
-Arrays $u[0 \ldots n]$ and $v[0 \ldots m]$ store potential. Initially, they are set to zero, which is consistent with a matrix of zero rows (Note that it is unimportant for this implementation whether or not the matrix $A$ contains negative numbers).
+$u[0 \ldots n]$ এবং $v[0 \ldots m]$ অ্যারে পটেনশিয়াল সংরক্ষণ করে। প্রাথমিকভাবে, এগুলো শূন্যে সেট করা হয়, যা শূন্য সারি ম্যাট্রিক্সের সাথে সামঞ্জস্যপূর্ণ (লক্ষ্য করুন যে এই ইমপ্লিমেন্টেশনের জন্য ম্যাট্রিক্স $A$ তে ঋণাত্মক সংখ্যা আছে কিনা তা গুরুত্বপূর্ণ নয়)।
 
-The array $p[0 \ldots m]$ contains a matching: for each column $j = 1 \ldots m$, it stores the number $p[j]$ of the selected row (or $0$ if nothing has been selected yet). For the convenience of implementation, $p[0]$ is assumed to be equal to the number of the current row.
+$p[0 \ldots m]$ অ্যারে একটি ম্যাচিং ধারণ করে: প্রতিটি কলাম $j = 1 \ldots m$ এর জন্য, এটি নির্বাচিত সারির সংখ্যা $p[j]$ সংরক্ষণ করে (বা $0$ যদি কিছু নির্বাচিত না হয়)। ইমপ্লিমেন্টেশনের সুবিধার্থে, $p[0]$ বর্তমান সারির সংখ্যার সমান ধরা হয়।
 
-The array $minv[1 \ldots m]$ contains, for each column $j$, the auxiliary minima necessary for a quick recalculation of the potential, as described above.
+$minv[1 \ldots m]$ অ্যারে, প্রতিটি কলাম $j$ এর জন্য, পটেনশিয়ালের দ্রুত পুনরায় গণনার জন্য প্রয়োজনীয় সহায়ক ন্যূনতম মান ধারণ করে, যেমন উপরে বর্ণিত হয়েছে।
 
-The array $way[1 \ldots m]$ contains information about where these minimums are reached so that we can later reconstruct the augmenting path. Note that, to reconstruct the path, it is sufficient to store only column values, since the row numbers can be taken from the matching (i.e., from the array $p$). Thus, $way[j]$, for each column $j$, contains the number of the previous column in the path (or $0$ if there is none).
+$way[1 \ldots m]$ অ্যারে তথ্য ধারণ করে কোথায় এই ন্যূনতম মানগুলো পৌঁছায় যাতে আমরা পরে অগমেন্টিং পাথ পুনর্গঠন করতে পারি। লক্ষ্য করুন যে, পাথ পুনর্গঠনের জন্য শুধু কলাম মান সংরক্ষণ করাই যথেষ্ট, কারণ সারি সংখ্যা ম্যাচিং (অর্থাৎ $p$ অ্যারে) থেকে নেওয়া যায়। এভাবে, প্রতিটি কলাম $j$ এর জন্য $way[j]$ পাথে পূর্ববর্তী কলামের সংখ্যা ধারণ করে (বা $0$ যদি না থাকে)।
 
-The algorithm itself is an outer **loop through the rows of the matrix**, inside which the $i$-th row of the matrix is ​​considered. The first _do-while_ loop runs until a free column $j0$ is found. Each iteration of the loop marks visited a new column with the number $j0$ (calculated at the last iteration; and initially equal to zero - i.e. we start from a dummy column), as well as a new row $i0$ - adjacent to it in the matching (i.e. $p[j0]$; and initially when $j0=0$ the $i$-th row is taken). Due to the appearance of a new visited row $i0$, you need to recalculate the array $minv$ and $\Delta$ accordingly. If $\Delta$ is updated, then the column $j1$ becomes the minimum that has been reached (note that with such an implementation $\Delta$ could turn out to be equal to zero, which means that the potential cannot be changed at the current step: there is already a new reachable column). After that, the potential and the $minv$ array are recalculated. At the end of the "do-while" loop, we found an augmenting path ending in a column $j0$ that can be "unrolled" using the ancestor array $way$.
+অ্যালগরিদমটি হলো **ম্যাট্রিক্সের সারি দিয়ে** বাইরের লুপ, যার ভেতরে $i$-তম সারি বিবেচনা করা হয়। প্রথম _do-while_ লুপটি চলে যতক্ষণ না একটি মুক্ত কলাম $j0$ পাওয়া যায়। লুপের প্রতিটি ইটারেশন $j0$ নম্বরের একটি নতুন কলাম (শেষ ইটারেশনে গণিত; এবং প্রাথমিকভাবে শূন্যের সমান - অর্থাৎ আমরা ডামি কলাম থেকে শুরু করি) এবং একটি নতুন সারি $i0$ - ম্যাচিং-এ এর সংশ্লিষ্ট (অর্থাৎ $p[j0]$; এবং প্রাথমিকভাবে যখন $j0=0$ তখন $i$-তম সারি নেওয়া হয়) পরিদর্শিত হিসেবে চিহ্নিত করে। নতুন পরিদর্শিত সারি $i0$ এর কারণে, আপনাকে $minv$ অ্যারে এবং $\Delta$ সেই অনুযায়ী পুনরায় গণনা করতে হবে। যদি $\Delta$ আপডেট হয়, তাহলে $j1$ কলামটি পৌঁছানো ন্যূনতম হয়ে যায় (লক্ষ্য করুন যে এমন ইমপ্লিমেন্টেশনে $\Delta$ শূন্য হতে পারে, যার মানে বর্তমান ধাপে পটেনশিয়াল পরিবর্তন করা যায় না: ইতিমধ্যে একটি নতুন গম্য কলাম আছে)। এরপর, পটেনশিয়াল এবং $minv$ অ্যারে পুনরায় গণনা করা হয়। "do-while" লুপের শেষে, আমরা $j0$ কলামে শেষ হওয়া একটি অগমেন্টিং পাথ পেয়েছি যেটি পূর্বসূরি অ্যারে $way$ ব্যবহার করে "আনরোল" করা যায়।
 
-The constant <tt>INF</tt> is "infinity", i.e. some number, obviously greater than all possible numbers in the input matrix $A$.
+<tt>INF</tt> ধ্রুবকটি হলো "অসীম", অর্থাৎ এমন একটি সংখ্যা যা স্পষ্টতই ইনপুট ম্যাট্রিক্স $A$ এর সমস্ত সম্ভাব্য সংখ্যার চেয়ে বড়।
 
 ```{.cpp file=hungarian}
 vector<int> u (n+1), v (m+1), p (m+1), way (m+1);
@@ -223,7 +223,7 @@ for (int i=1; i<=n; ++i) {
 }
 ```
 
-To restore the answer in a more familiar form, i.e. finding for each row $i = 1 \ldots n$ the number $ans[i]$ of the column selected in it, can be done as follows:
+আরও পরিচিত রূপে উত্তর পুনরুদ্ধার করতে, অর্থাৎ প্রতিটি সারি $i = 1 \ldots n$ এর জন্য এতে নির্বাচিত কলামের সংখ্যা $ans[i]$ খুঁজতে, নিম্নরূপ করা যায়:
 
 ```cpp
 vector<int> ans (n+1);
@@ -231,68 +231,68 @@ for (int j=1; j<=m; ++j)
     ans[p[j]] = j;
 ```
 
-The cost of the matching can simply be taken as the potential of the zero column (taken with the opposite sign). Indeed, as you can see from the code, $-v[0]$ contains the sum of all the values of $\Delta$​​, i.e. total change in potential. Although several values ​​​​of $u[i]$ and $v[j]$ could change at once, the total change in the potential is exactly equal to $\Delta$, since until there is an augmenting path, the number of reachable rows is exactly one more than the number of the reachable columns (only the current row $i$ does not have a "pair" in the form of a visited column):
+ম্যাচিং-এর খরচ কেবল শূন্য কলামের পটেনশিয়াল (বিপরীত চিহ্নসহ) হিসেবে নেওয়া যায়। প্রকৃতপক্ষে, কোড থেকে দেখা যায় যে $-v[0]$ সমস্ত $\Delta$ মানের যোগফল ধারণ করে, অর্থাৎ পটেনশিয়ালের মোট পরিবর্তন। যদিও একসাথে বেশ কয়েকটি $u[i]$ এবং $v[j]$ মান পরিবর্তিত হতে পারে, পটেনশিয়ালের মোট পরিবর্তন ঠিক $\Delta$ এর সমান, কারণ অগমেন্টিং পাথ না পাওয়া পর্যন্ত, গম্য সারির সংখ্যা গম্য কলামের সংখ্যার চেয়ে ঠিক এক বেশি (শুধুমাত্র বর্তমান সারি $i$ এর পরিদর্শিত কলামের রূপে "জোড়া" নেই):
 
 ```cpp
 int cost = -v[0];
 ```
 
-## Connection to the Successive Shortest Path Algorithm
+## সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদমের সাথে সম্পর্ক
 
-The Hungarian algorithm can be seen as the [Successive Shortest Path Algorithm](min_cost_flow.md), adapted for the assignment problem. Without going into the details, let's provide an intuition regarding the connection between them.
+হাঙ্গেরিয়ান অ্যালগরিদমকে [সাক্সেসিভ শর্টেস্ট পাথ অ্যালগরিদম](min_cost_flow.md) হিসেবে দেখা যায়, অ্যাসাইনমেন্ট সমস্যার জন্য অভিযোজিত। বিস্তারিত না গিয়ে, তাদের মধ্যে সম্পর্কের ব্যাপারে একটি স্বজ্ঞাত ধারণা দেওয়া যাক।
 
-The Successive Path algorithm uses a modified version of Johnson's algorithm as reweighting technique. This one is divided into four steps:
+সাক্সেসিভ পাথ অ্যালগরিদম জনসনের অ্যালগরিদমের একটি পরিবর্তিত সংস্করণ রিওয়েটিং টেকনিক হিসেবে ব্যবহার করে। এটি চারটি ধাপে বিভক্ত:
 
-- Use the [Bellman-Ford](bellman_ford.md) algorithm, starting from the sink $s$ and, for each node, find the minimum weight $h(v)$ of a path from $s$ to $v$.
+- সিঙ্ক $s$ থেকে শুরু করে [বেলম্যান-ফোর্ড](bellman_ford.md) অ্যালগরিদম ব্যবহার করুন এবং, প্রতিটি নোডের জন্য, $s$ থেকে $v$ পর্যন্ত পাথের সর্বনিম্ন ওয়েট $h(v)$ খুঁজুন।
 
-For every step of the main algorithm:
+মূল অ্যালগরিদমের প্রতিটি ধাপের জন্য:
 
-- Reweight the edges of the original graph in this way: $w(u,v) \gets w(u,v)+h(u)-h(v)$.
-- Use [Dijkstra](dijkstra.md)'s algorithm to find the shortest-paths subgraph of the original network.
-- Update potentials for the next iteration.
+- মূল গ্রাফের এজগুলো এভাবে রিওয়েট করুন: $w(u,v) \gets w(u,v)+h(u)-h(v)$।
+- মূল নেটওয়ার্কের শর্টেস্ট-পাথ সাবগ্রাফ খুঁজতে [ডায়াক্সট্রা](dijkstra.md) অ্যালগরিদম ব্যবহার করুন।
+- পরবর্তী ইটারেশনের জন্য পটেনশিয়াল আপডেট করুন।
 
-Given this description, we can observe that there is a strong analogy between $h(v)$ and potentials: it can be checked that they are equal up to a constant offset. In addition, it can be shown that, after reweighting, the set of all zero-weight edges represents the shortest-path subgraph where the main algorithm tries to increase the flow. This also happens in the Hungarian algorithm: we create a subgraph made of rigid edges (the ones for which the quantity $A[i][j]-u[i]-v[j]$ is zero), and we try to increase the size of the matching.
+এই বর্ণনা দেওয়া হলে, আমরা দেখতে পারি যে $h(v)$ এবং পটেনশিয়ালের মধ্যে একটি শক্তিশালী সাদৃশ্য আছে: এটি যাচাই করা যায় যে একটি ধ্রুবক অফসেট পর্যন্ত এগুলো সমান। এছাড়া, এটি দেখানো যায় যে, রিওয়েটিং-এর পরে, সমস্ত শূন্য-ওয়েট এজের সেট শর্টেস্ট-পাথ সাবগ্রাফ উপস্থাপন করে যেখানে মূল অ্যালগরিদম ফ্লো বাড়ানোর চেষ্টা করে। এটি হাঙ্গেরিয়ান অ্যালগরিদমেও ঘটে: আমরা রিজিড এজ দিয়ে (যেগুলোর জন্য $A[i][j]-u[i]-v[j]$ পরিমাণ শূন্য) একটি সাবগ্রাফ তৈরি করি, এবং ম্যাচিং-এর আকার বাড়ানোর চেষ্টা করি।
 
-In step 4, all the $h(v)$ are updated: every time we modify the flow network, we should guarantee that the distances from the source are correct (otherwise, in the next iteration, Dijkstra's algorithm might fail). This sounds like the update performed on the potentials, but in this case, they are not equally incremented.
+ধাপ ৪-এ, সমস্ত $h(v)$ আপডেট করা হয়: প্রতিবার আমরা ফ্লো নেটওয়ার্ক পরিবর্তন করলে, নিশ্চিত করতে হবে যে সোর্স থেকে দূরত্বগুলো সঠিক (অন্যথায়, পরবর্তী ইটারেশনে ডায়াক্সট্রা অ্যালগরিদম ব্যর্থ হতে পারে)। এটি পটেনশিয়ালে করা আপডেটের মতো শোনায়, কিন্তু এক্ষেত্রে এগুলো সমানভাবে বৃদ্ধি পায় না।
 
-To deepen the understanding of potentials, refer to this [article](https://codeforces.com/blog/entry/105658).
+পটেনশিয়ালের গভীর বোঝাপড়ার জন্য, এই [নিবন্ধটি](https://codeforces.com/blog/entry/105658) দেখুন।
 
-## Task examples
+## কাজের উদাহরণ
 
-Here are a few examples related to the assignment problem, from very trivial to less obvious tasks:
+এখানে অ্যাসাইনমেন্ট সমস্যা সম্পর্কিত কিছু উদাহরণ দেওয়া হলো, খুব তুচ্ছ থেকে কম স্পষ্ট কাজ পর্যন্ত:
 
-- Given a bipartite graph, it is required to find in it **the maximum matching with the minimum weight** (i.e., first of all, the size of the matching is maximized, and secondly, its cost is minimized).<br>
-  To solve it, we simply build an assignment problem, putting the number "infinity" in place of the missing edges. After that, we solve the problem with the Hungarian algorithm, and remove edges of infinite weight from the answer (they could enter the answer if the problem does not have a solution in the form of a perfect matching).
+- একটি বাইপার্টাইট গ্রাফ দেওয়া আছে, এতে **সর্বনিম্ন ওয়েটের ম্যাক্সিমাম ম্যাচিং** খুঁজে বের করতে হবে (অর্থাৎ প্রথমত ম্যাচিং-এর আকার সর্বাধিক করা হয়, এবং দ্বিতীয়ত এর খরচ সর্বনিম্ন করা হয়)।<br>
+  এটি সমাধান করতে, আমরা কেবল অনুপস্থিত এজের জায়গায় "অসীম" সংখ্যা রেখে একটি অ্যাসাইনমেন্ট সমস্যা তৈরি করি। তারপর, আমরা হাঙ্গেরিয়ান অ্যালগরিদম দিয়ে সমস্যাটি সমাধান করি, এবং উত্তর থেকে অসীম ওয়েটের এজ সরিয়ে দিই (এগুলো উত্তরে প্রবেশ করতে পারে যদি সমস্যার পারফেক্ট ম্যাচিং আকারে সমাধান না থাকে)।
 
-- Given a bipartite graph, it is required to find in it **the maximum matching with the maximum weight**.<br>
-  The solution is again obvious, all weights must be multiplied by minus one.
+- একটি বাইপার্টাইট গ্রাফ দেওয়া আছে, এতে **সর্বাধিক ওয়েটের ম্যাক্সিমাম ম্যাচিং** খুঁজে বের করতে হবে।<br>
+  সমাধান আবার স্পষ্ট, সমস্ত ওয়েটকে মাইনাস এক দিয়ে গুণ করতে হবে।
 
-- The task of **detecting moving objects in images**: two images were taken, as a result of which two sets of coordinates were obtained. It is required to correlate the objects in the first and second images, i.e. determine for each point of the second image, which point of the first image it corresponded to. In this case, it is required to minimize the sum of distances between the compared points (i.e., we are looking for a solution in which the objects have taken the shortest path in total).<br>
-  To solve, we simply build and solve an assignment problem, where the weights of the edges are the Euclidean distances between points.
+- **ইমেজে চলমান বস্তু সনাক্তকরণের** কাজ: দুটি ইমেজ তোলা হয়েছে, যার ফলে দুটি স্থানাঙ্ক সেট পাওয়া গেছে। প্রথম ও দ্বিতীয় ইমেজের বস্তুগুলো সম্পর্কিত করতে হবে, অর্থাৎ দ্বিতীয় ইমেজের প্রতিটি বিন্দুর জন্য নির্ধারণ করতে হবে প্রথম ইমেজের কোন বিন্দুর সাথে এটি সম্পর্কিত ছিল। এক্ষেত্রে, তুলনা করা বিন্দুগুলোর মধ্যে দূরত্বের যোগফল সর্বনিম্ন করতে হবে (অর্থাৎ আমরা এমন একটি সমাধান খুঁজছি যেখানে বস্তুগুলো মোটে সবচেয়ে কম পথ অতিক্রম করেছে)।<br>
+  সমাধানে, আমরা কেবল একটি অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করি, যেখানে এজের ওয়েট হলো বিন্দুগুলোর মধ্যে ইউক্লিডীয় দূরত্ব।
 
-- The task of **detecting moving objects by locators**: there are two locators that can't determine the position of an object in space, but only its direction. Both locators (located at different points) received information in the form of $n$ such directions. It is required to determine the position of objects, i.e. determine the expected positions of objects and their corresponding pairs of directions in such a way that the sum of distances from objects to direction rays is minimized.<br>
-  Solution: again, we simply build and solve the assignment problem, where the vertices of the left part are the $n$ directions from the first locator, the vertices of the right part are the $n$ directions from the second locator, and the weights of the edges are the distances between the corresponding rays.
+- **লোকেটর দ্বারা চলমান বস্তু সনাক্তকরণের** কাজ: দুটি লোকেটর আছে যেগুলো বস্তুর অবস্থান নির্ণয় করতে পারে না, শুধু তার দিক জানতে পারে। উভয় লোকেটর (বিভিন্ন বিন্দুতে অবস্থিত) $n$ টি এমন দিক আকারে তথ্য পেয়েছে। বস্তুগুলোর অবস্থান নির্ণয় করতে হবে, অর্থাৎ বস্তুগুলোর প্রত্যাশিত অবস্থান এবং তাদের সংশ্লিষ্ট দিক জোড়া নির্ধারণ করতে হবে এমনভাবে যাতে বস্তু থেকে দিক রশ্মি পর্যন্ত দূরত্বের যোগফল সর্বনিম্ন হয়।<br>
+  সমাধান: আবার, আমরা কেবল অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করি, যেখানে বাম অংশের ভার্টেক্সগুলো প্রথম লোকেটরের $n$ টি দিক, ডান অংশের ভার্টেক্সগুলো দ্বিতীয় লোকেটরের $n$ টি দিক, এবং এজের ওয়েটগুলো সংশ্লিষ্ট রশ্মির মধ্যে দূরত্ব।
 
-- Covering a **directed acyclic graph with paths**: given a directed acyclic graph, it is required to find the smallest number of paths (if equal, with the smallest total weight) so that each vertex of the graph lies in exactly one path.<br>
-  The solution is to build the corresponding bipartite graph from the given graph and find the maximum matching of the minimum weight in it. See separate article for more details.
+- **ডিরেক্টেড অ্যাসাইক্লিক গ্রাফকে পাথ দিয়ে কভার করা**: একটি ডিরেক্টেড অ্যাসাইক্লিক গ্রাফ দেওয়া আছে, সবচেয়ে কম সংখ্যক পাথ (সমান হলে, সর্বনিম্ন মোট ওয়েটসহ) খুঁজে বের করতে হবে যাতে গ্রাফের প্রতিটি ভার্টেক্স ঠিক একটি পাথে থাকে।<br>
+  সমাধান হলো দেওয়া গ্রাফ থেকে সংশ্লিষ্ট বাইপার্টাইট গ্রাফ তৈরি করা এবং এতে সর্বনিম্ন ওয়েটের ম্যাক্সিমাম ম্যাচিং খোঁজা। আরও বিস্তারিতের জন্য আলাদা নিবন্ধ দেখুন।
 
-- **Tree coloring book**. Given a tree in which each vertex, except for leaves, has exactly $k-1$ children. It is required to choose for each vertex one of the $k$ colors available so that no two adjacent vertices have the same color. In addition, for each vertex and each color, the cost of painting this vertex with this color is known, and it is required to minimize the total cost.<br>
-  To solve this problem, we use dynamic programming. Namely, let's learn how to calculate the value $d[v][c]$, where $v$ is the vertex number, $c$ is the color number, and the value $d[v][c]$ itself is the minimum cost needed to color all the vertices in the subtree rooted at $v$, and the vertex $v$ itself with color $c$. To calculate such a value $d[v][c]$, it is necessary to distribute the remaining $k-1$ colors among the children of the vertex $v$, and for this, it is necessary to build and solve the assignment problem (in which the vertices of the left part are colors, the vertices of the right part are children, and the weights of the edges are the corresponding values of $d$).<br>
-  Thus, each value $d[v][c]$ is calculated using the solution of the assignment problem, which ultimately gives the asymptotic $\mathcal{O}(nk^4)$.
+- **ট্রি কালারিং বুক**। একটি ট্রি দেওয়া আছে যেখানে পাতা ব্যতীত প্রতিটি ভার্টেক্সের ঠিক $k-1$ টি চাইল্ড আছে। প্রতিটি ভার্টেক্সের জন্য $k$ টি রংয়ের একটি বেছে নিতে হবে যাতে কোনো দুটি সংলগ্ন ভার্টেক্সের একই রং না হয়। এছাড়া, প্রতিটি ভার্টেক্স ও প্রতিটি রংয়ের জন্য, সেই ভার্টেক্সকে সেই রংয়ে রং করার খরচ জানা আছে, এবং মোট খরচ সর্বনিম্ন করতে হবে।<br>
+  এই সমস্যা সমাধানে আমরা ডায়নামিক প্রোগ্রামিং ব্যবহার করি। যথা, আসুন $d[v][c]$ মান গণনা করতে শিখি, যেখানে $v$ হলো ভার্টেক্স নম্বর, $c$ হলো রং নম্বর, এবং $d[v][c]$ মানটি হলো $v$ তে রুটকৃত সাবট্রি-র সমস্ত ভার্টেক্স এবং ভার্টেক্স $v$ নিজেকে $c$ রংয়ে রং করতে প্রয়োজনীয় সর্বনিম্ন খরচ। $d[v][c]$ গণনা করতে, বাকি $k-1$ টি রং $v$ এর চাইল্ডদের মধ্যে বিতরণ করা প্রয়োজন, এবং এর জন্য অ্যাসাইনমেন্ট সমস্যা তৈরি ও সমাধান করা প্রয়োজন (যেখানে বাম অংশের ভার্টেক্সগুলো রং, ডান অংশের ভার্টেক্সগুলো চাইল্ড, এবং এজের ওয়েটগুলো $d$ এর সংশ্লিষ্ট মান)।<br>
+  এভাবে প্রতিটি $d[v][c]$ মান অ্যাসাইনমেন্ট সমস্যার সমাধান ব্যবহার করে গণনা করা হয়, যা চূড়ান্ত অ্যাসিম্পটোটিক $\mathcal{O}(nk^4)$ দেয়।
 
-- If, in the assignment problem, the weights are not on the edges, but on the vertices, and only **on the vertices of the same part**, then it's not necessary to use the Hungarian algorithm: just sort the vertices by weight and run the usual [Kuhn algorithm](kuhn_maximum_bipartite_matching.md) (for more details, see a [separate article](http://e-maxx.ru/algo/vertex_weighted_matching)).
+- যদি অ্যাসাইনমেন্ট সমস্যায় ওয়েট এজে নয়, ভার্টেক্সে থাকে, এবং শুধুমাত্র **একই অংশের ভার্টেক্সে**, তাহলে হাঙ্গেরিয়ান অ্যালগরিদম ব্যবহার করা প্রয়োজন নয়: কেবল ওয়েট অনুসারে ভার্টেক্স সর্ট করুন এবং সাধারণ [কুন অ্যালগরিদম](kuhn_maximum_bipartite_matching.md) চালান (আরও বিস্তারিতের জন্য, [আলাদা নিবন্ধ](http://e-maxx.ru/algo/vertex_weighted_matching) দেখুন)।
 
-- Consider the following **special case**. Let each vertex of the left part be assigned some number $\alpha[i]$, and each vertex of the right part $\beta[j]$. Let the weight of any edge $(i,j)$ be equal to $\alpha[i]\cdot \beta[j]$ (the numbers $\alpha[i]$ and $\beta[j]$ are known). Solve the assignment problem.<br>
-  To solve it without the Hungarian algorithm, we first consider the case when both parts have two vertices. In this case, as you can easily see, it is better to connect the vertices in the reverse order: connect the vertex with the smaller $\alpha[i]$ to the vertex with the larger $\beta[j]$. This rule can be easily generalized to an arbitrary number of vertices: you need to sort the vertices of the first part in increasing order of $\alpha[i]$ values, the second part in decreasing order of $\beta[j]$ values, and connect the vertices in pairs in that order. Thus, we obtain a solution with complexity of $\mathcal{O}(n\log n)$.
+- নিম্নলিখিত **বিশেষ ক্ষেত্র** বিবেচনা করুন। বাম অংশের প্রতিটি ভার্টেক্সে একটি সংখ্যা $\alpha[i]$ এবং ডান অংশের প্রতিটিতে $\beta[j]$ নির্ধারিত। যেকোনো এজ $(i,j)$ এর ওয়েট $\alpha[i]\cdot \beta[j]$ এর সমান ($\alpha[i]$ এবং $\beta[j]$ সংখ্যাগুলো জানা)। অ্যাসাইনমেন্ট সমস্যা সমাধান করুন।<br>
+  এটি হাঙ্গেরিয়ান অ্যালগরিদম ছাড়া সমাধান করতে, প্রথমে দুটি ভার্টেক্স বিশিষ্ট উভয় অংশের ক্ষেত্র বিবেচনা করুন। এক্ষেত্রে, সহজেই দেখা যায় যে ভার্টেক্সগুলো বিপরীত ক্রমে সংযুক্ত করা ভালো: ছোট $\alpha[i]$ বিশিষ্ট ভার্টেক্সটিকে বড় $\beta[j]$ বিশিষ্ট ভার্টেক্সের সাথে সংযুক্ত করুন। এই নিয়মটি সহজেই যেকোনো সংখ্যক ভার্টেক্সে সাধারণীকরণ করা যায়: প্রথম অংশের ভার্টেক্সগুলো $\alpha[i]$ মানের ঊর্ধ্বক্রমে, দ্বিতীয় অংশেরগুলো $\beta[j]$ মানের নিম্নক্রমে সর্ট করুন, এবং সেই ক্রমে ভার্টেক্সগুলো জোড়ায় জোড়ায় সংযুক্ত করুন। এভাবে, আমরা $\mathcal{O}(n\log n)$ কমপ্লেক্সিটির একটি সমাধান পাই।
 
-- **The Problem of Potentials**. Given a matrix $A[1 \ldots n][1 \ldots m]$, it is required to find two arrays $u[1 \ldots n]$ and $v[1 \ldots m]$ such that, for any $i$ and $j$, $u[i] + v[j] \leq a[i][j]$ and the sum of elements of arrays $u$ and $v$ is maximum.<br>
-  Knowing the Hungarian algorithm, the solution to this problem will not be difficult: the Hungarian algorithm just finds such a potential $u, v$ that satisfies the condition of the problem. On the other hand, without knowledge of the Hungarian algorithm, it seems almost impossible to solve such a problem.
+- **পটেনশিয়ালের সমস্যা**। একটি ম্যাট্রিক্স $A[1 \ldots n][1 \ldots m]$ দেওয়া আছে, দুটি অ্যারে $u[1 \ldots n]$ এবং $v[1 \ldots m]$ খুঁজে বের করতে হবে যাতে, যেকোনো $i$ এবং $j$ এর জন্য, $u[i] + v[j] \leq a[i][j]$ এবং অ্যারে $u$ ও $v$ এর উপাদানের যোগফল সর্বাধিক হয়।<br>
+  হাঙ্গেরিয়ান অ্যালগরিদম জানলে, এই সমস্যার সমাধান কঠিন হবে না: হাঙ্গেরিয়ান অ্যালগরিদম ঠিক এমন পটেনশিয়াল $u, v$ খুঁজে পায় যেটি সমস্যার শর্ত পূরণ করে। অন্যদিকে, হাঙ্গেরিয়ান অ্যালগরিদমের জ্ঞান ছাড়া এমন সমস্যা সমাধান করা প্রায় অসম্ভব বলে মনে হয়।
 
-    !!! info "Remark"
+    !!! info "মন্তব্য"
 
-        This task is also called the **dual problem** of the assignment problem: minimizing the total cost of the assignment is equivalent to maximizing the sum of the potentials.
+        এই কাজটি অ্যাসাইনমেন্ট সমস্যার **ডুয়াল সমস্যা** নামেও পরিচিত: অ্যাসাইনমেন্টের মোট খরচ সর্বনিম্ন করা পটেনশিয়ালের যোগফল সর্বাধিক করার সমতুল্য।
 
-## Literature
+## সাহিত্য
 
 - [Ravindra Ahuja, Thomas Magnanti, James Orlin. Network Flows [1993]](https://books.google.it/books/about/Network_Flows.html?id=rFuLngEACAAJ&redir_esc=y)
 

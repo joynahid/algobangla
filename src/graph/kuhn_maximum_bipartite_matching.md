@@ -30,108 +30,103 @@ e_maxx_link: kuhn_matching
 তারা ম্যাচিং-এ অন্তর্গত নয়।
 
 * **প্রতিসম পার্থক্য** (যাকে **বিচ্ছিন্ন সংমিশ্রণ**ও বলা হয়) সেট $A$ এবং $B$ এর, $A \oplus B$ দ্বারা প্রতিনিধিত্ব করা হয়, সমস্ত উপাদানের সেট যা ঠিক $A$ বা $B$ এর একটিতে অন্তর্গত, কিন্তু উভয়েই নয়। 
-That is, $A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B)$.
+অর্থাৎ, $A \oplus B = (A - B) \cup (B - A) = (A \cup B) - (A \cap B)$।
 
-### Berge's lemma
+### Berge এর লেম্মা
 
-This lemma was proven by the French mathematician **Claude Berge** in 1957, although it already was observed by the Danish mathematician **Julius Petersen** in 1891 and 
-the Hungarian mathematician **Denés Kőnig** in 1931.
+এই লেম্মা ফরাসি গণিতবিদ **Claude Berge** দ্বারা 1957 সালে প্রমাণ করা হয়েছিল, যদিও এটি ইতিমধ্যে ডেনিশ গণিতবিদ **Julius Petersen** দ্বারা 1891 সালে এবং হাঙ্গেরিয়ান গণিতবিদ **Denés Kőnig** দ্বারা 1931 সালে পর্যবেক্ষণ করা হয়েছিল।
 
-#### Formulation 
-A matching $M$ is maximum $\Leftrightarrow$ there is no augmenting path relative to the matching $M$.
+#### প্রণয়ন
+একটি ম্যাচিং $M$ সর্বাধিক $\Leftrightarrow$ ম্যাচিং $M$ এর সাপেক্ষে কোনো বর্ধিত পথ নেই।
 
-#### Proof
+#### প্রমাণ
 
-Both sides of the bi-implication will be proven by contradiction.
+দ্বি-ইমপ্লিকেশনের উভয় পক্ষ পরোক্ষভাবে প্রমাণ করা হবে।
 
-1.  A matching $M$ is maximum $\Rightarrow$ there is no augmenting path relative to the matching $M$.
+१।  একটি ম্যাচিং $M$ সর্বাধিক $\Rightarrow$ ম্যাচিং $M$ এর সাপেক্ষে কোনো বর্ধিত পথ নেই।
+
+    প্রদত্ত সর্বাধিক ম্যাচিং $M$ এর সাপেক্ষে একটি বর্ধিত পথ $P$ রয়েছে বলে ধরুন। এই বর্ধিত পথ $P$ অপরিহার্যভাবে বিজোড় দৈর্ঘ্যের হবে, $M$ এ নেই এমন এক বেশি এজ রয়েছে যা $M$ এতেও আছে এমন এজের সংখ্যার চেয়ে।
+    আমরা একটি নতুন ম্যাচিং $M'$ তৈরি করি মূল ম্যাচিং $M$ এর সমস্ত এজ অন্তর্ভুক্ত করে যদি তারা $P$ এতেও থাকে তবে ছাড়া, এবং $P$ এর এজ যা $M$ এতে নেই।
+    এটি একটি বৈধ ম্যাচিং কারণ $P$ এর প্রাথমিক এবং চূড়ান্ত ভার্টেক্স $M$ দ্বারা অসম্পৃক্ত, এবং বাকী ভার্টেক্সগুলি শুধুমাত্র ম্যাচিং $P \cap M$ দ্বারা সম্পৃক্ত।
+    এই নতুন ম্যাচিং $M'$ $M$ এর চেয়ে একটি বেশি এজ থাকবে, তাই $M$ সর্বাধিক হতে পারে না।
+
+    আনুষ্ঠানিকভাবে, একটি বর্ধিত পথ $P$ দেওয়া হলে কিছু সর্বাধিক ম্যাচিং $M$ এর সাপেক্ষে, ম্যাচিং $M' = P \oplus M$ এমন যে $|M'| = |M| + १$, যা একটি বৈপরীত্য।
+
+२।  একটি ম্যাচিং $M$ সর্বাধিক $\Leftarrow$ ম্যাচিং $M$ এর সাপেক্ষে কোনো বর্ধিত পথ নেই।
+
+    $M$ এর চেয়ে বেশি কার্ডিনালিটির একটি ম্যাচিং $M'$ রয়েছে বলে ধরুন। আমরা প্রতিসম পার্থক্য $Q = M \oplus M'$ বিবেচনা করি। সাবগ্রাফ $Q$ আর অপরিহার্যভাবে একটি ম্যাচিং নয়।
+    $Q$ তে যেকোনো ভার্টেক্সের সর্বোচ্চ ডিগ্রি २ রয়েছে, যার মানে এতে সমস্ত সংযুক্ত উপাদান তিনটির একটি -
+
+      * একটি বিচ্ছিন্ন ভার্টেক্স
+      * একটি (সরল) পথ যার এজগুলি $M$ এবং $M'$ থেকে বিকল্পভাবে আসে
+      * একটি সমবর্তী দৈর্ঘ্যের চক্র যার এজগুলি $M$ এবং $M'$ থেকে বিকল্পভাবে আসে
+
+    যেহেতু $M'$ $M$ এর চেয়ে বেশি কার্ডিনালিটি রয়েছে, $Q$ এর $M'$ থেকে বেশি এজ আছে $M$ থেকে।
+    Pigeonhole নীতি দ্বারা, কমপক্ষে একটি সংযুক্ত উপাদান একটি পথ হবে যেটির $M'$ থেকে বেশি এজ আছে $M$ থেকে।
+    কারণ যেকোনো এই ধরনের পথ পরিবর্তনকারী, এটি প্রাথমিক এবং চূড়ান্ত ভার্টেক্স অসম্পৃক্ত থাকবে $M$ দ্বারা, এটিকে $M$ এর জন্য একটি বর্ধিত পথ করে তোলে,
+    যা প্রাথমিক অবস্থার সাথে পরস্পরবিরোধী। &ensp; $\blacksquare$
   
-    Let there be an augmenting path $P$ relative to the given maximum matching $M$. This augmenting path $P$ will necessarily be of odd length, having one more edge not in $M$ than the number of edges it has that are also in $M$. 
-    We create a new matching $M'$ by including all edges in the original matching $M$ except those also in the $P$, and the edges in $P$ that are not in $M$. 
-    This is a valid matching because the initial and final vertices of $P$ are unsaturated by $M$, and the rest of the vertices are saturated only by the matching $P \cap M$.
-    This new matching $M'$ will have one more edge than $M$, and so $M$ could not have been maximum. 
-    
-    Formally, given an augmenting path $P$ w.r.t. some maximum matching $M$, the matching $M' = P \oplus M$ is such that $|M'| = |M| + 1$, a contradiction.
+### কুহনের অ্যালগরিদম
+
+কুহনের অ্যালগরিদম Berge এর লেম্মার একটি সরাসরি প্রয়োগ। এটি মূলত নিম্নরূপ বর্ণিত:
+
+প্রথমে, আমরা একটি খালি ম্যাচিং নিই। তারপর, যখন অ্যালগরিদম একটি বর্ধিত পথ খুঁজে পেতে সক্ষম হয়, আমরা এই পথ বরাবর বিকল্প করে ম্যাচিং আপডেট করি এবং বর্ধিত পথ খোঁজার প্রক্রিয়া পুনরাবৃত্তি করি। যখনই এই ধরনের পথ খুঁজে পাওয়া সম্ভব নয়, আমরা প্রক্রিয়া থামাই - বর্তমান ম্যাচিং সর্বাধিক।
+
+বর্ধিত পথ খুঁজে পাওয়ার উপায় বিস্তারিত করতে অবশিষ্ট। কুহনের অ্যালগরিদম সহজভাবে এই পথগুলির যেকোনো একটি খোঁজে [গভীরতা-প্রথম](depth-first-search.md) বা [প্রস্থ-প্রথম](breadth-first-search.md) ট্রাভার্সাল ব্যবহার করে। অ্যালগরিদম গ্রাফের সমস্ত ভার্টেক্স পর্যায়ক্রমে দেখে, প্রতিটি ট্রাভার্সাল এটি থেকে শুরু করে, এই ভার্টেক্স থেকে শুরু হওয়া একটি বর্ধিত পথ খুঁজে পাওয়ার চেষ্টা করে।
+
+অ্যালগরিদম বর্ণনা করা আরও সুবিধাজনক যদি আমরা অনুমান করি যে ইনপুট গ্রাফ ইতিমধ্যে দুটি অংশে বিভক্ত (যদিও, প্রকৃতপক্ষে, অ্যালগরিদম এমনভাবে প্রয়োগ করা যায় যাতে ইনপুট গ্রাফ স্পষ্টভাবে দুটি অংশে বিভক্ত না হয়)।
+
+অ্যালগরিদম গ্রাফের প্রথম অংশের সমস্ত ভার্টেক্স দেখে: $v = १ \ldots n_१$। যদি বর্তমান ভার্টেক্স $v$ ইতিমধ্যে বর্তমান ম্যাচিংয়ের সাথে সম্পৃক্ত (অর্থাৎ, এর সাথে সংলগ্ন কিছু এজ ইতিমধ্যে নির্বাচিত হয়েছে), তবে এই ভার্টেক্স এড়িয়ে যান। অন্যথায়, অ্যালগরিদম এই ভার্টেক্স সম্পৃক্ত করার চেষ্টা করে, যার জন্য এটি এই ভার্টেক্স থেকে শুরু হওয়া একটি বর্ধিত পথ খোঁজার প্রক্রিয়া শুরু করে।
+
+বর্ধিত পথ খোঁজা একটি বিশেষ গভীরতা-প্রথম বা প্রস্থ-প্রথম ট্রাভার্সাল ব্যবহার করে সম্পাদিত হয় (সাধারণত প্রয়োগের সহজতার জন্য গভীরতা-প্রথম ট্রাভার্সাল ব্যবহৃত হয়)।
+প্রাথমিকভাবে, গভীরতা-প্রথম ট্রাভার্সাল প্রথম অংশের বর্তমান অসম্পৃক্ত ভার্টেক্স $v$ এ রয়েছে। আসুন এই ভার্টেক্স থেকে সমস্ত এজ দেখি। বর্তমান এজ একটি এজ $(v, to)$ হোক।
+যদি ভার্টেক্স $to$ এখনও ম্যাচিংয়ের সাথে সম্পৃক্ত না হয়, তবে আমরা একটি বর্ধিত পথ খুঁজে পাওয়ার সফল হয়েছি: এটি একটি একক এজ $(v, to)$ নিয়ে গঠিত;
+এই ক্ষেত্রে, আমরা সহজভাবে এই এজ ম্যাচিংয়ে অন্তর্ভুক্ত করি এবং ভার্টেক্স $v$ থেকে বর্ধিত পথ খোঁজা থামাই।
+অন্যথায়, যদি $to$ ইতিমধ্যে কিছু এজ $(to, p)$ এর সাথে সম্পৃক্ত হয়,
+তবে এই এজ বরাবর যাব: এইভাবে আমরা এজ $(v, to),(to, p), \ldots$ এর মাধ্যমে একটি বর্ধিত পথ খুঁজে পাওয়ার চেষ্টা করব।
+এটি করতে, সহজভাবে আমাদের ট্রাভার্সালে ভার্টেক্স $p$ এ যান - এখন আমরা এই ভার্টেক্স থেকে একটি বর্ধিত পথ খুঁজে পাওয়ার চেষ্টা করি।
+
+তাই, ভার্টেক্স $v$ থেকে শুরু হওয়া এই ট্রাভার্সাল, বা একটি বর্ধিত পথ খুঁজে পাবে, এবং তার দ্বারা ভার্টেক্স $v$ সম্পৃক্ত করবে, বা এই ধরনের একটি বর্ধিত পথ খুঁজে পাবে না (এবং, তাই, এই ভার্টেক্স $v$ সম্পৃক্ত করা যায় না)।
+
+সমস্ত ভার্টেক্স $v = १ \ldots n_१$ পরীক্ষা করা হয়েছে পরে, বর্তমান ম্যাচিং সর্বাধিক হবে।
   
-2.  A matching $M$ is maximum $\Leftarrow$ there is no augmenting path relative to the matching $M$.
+### চলমান সময়
 
-    Let there be a matching $M'$ of greater cardinality than $M$. We consider the symmetric difference $Q = M \oplus M'$. The subgraph $Q$ is no longer necessarily a matching. 
-    Any vertex in $Q$ has a maximum degree of $2$, which means that all connected components in it are one of the three - 
+কুহনের অ্যালগরিদম সম্পূর্ণ গ্রাফে $n$ গভীরতা/প্রস্থ-প্রথম ট্রাভার্সাল রানের একটি সিরিজ হিসাবে চিন্তা করা যেতে পারে। অতএব, সম্পূর্ণ অ্যালগরিদম $O(nm)$ সময়ে সম্পাদিত হয়,
+সর্বোচ্চ ক্ষেত্রে যা $O(n^३)$ হয়।
 
-      * an isolated vertex
-      * a (simple) path whose edges are alternately from $M$ and $M'$
-      * a cycle of even length whose edges are alternately from $M$ and $M'$
- 
-    Since $M'$ has a cardinality greater than $M$, $Q$ has more edges from $M'$ than $M$. By the Pigeonhole principle, at least one connected component will be a path having 
-    more edges from $M'$ than $M$. Because any such path is alternating, it will have initial and final vertices unsaturated by $M$, making it an augmenting path for $M$, 
-    which contradicts the premise. &ensp; $\blacksquare$
-  
-### Kuhn's algorithm
-  
-Kuhn's algorithm is a direct application of Berge's lemma. It is essentially described as follows: 
+তবে, এই অনুমান সামান্য উন্নত করা যায়। দেখা যায় যে কুহনের অ্যালগরিদমের জন্য, কোন অংশ প্রথম এবং কোন দ্বিতীয় হিসাবে নির্বাচিত হয় তা গুরুত্বপূর্ণ।
+প্রকৃতপক্ষে, উপরে বর্ণিত ইমপ্লিমেন্টেশনে, গভীরতা/প্রস্থ-প্রথম ট্রাভার্সাল শুধুমাত্র প্রথম অংশের ভার্টেক্স থেকে শুরু হয়, তাই সম্পূর্ণ অ্যালগরিদম $O(n_१m)$ সময়ে সম্পাদিত হয়,
+যেখানে $n_१$ হল প্রথম অংশের ভার্টেক্সের সংখ্যা। সর্বোচ্চ ক্ষেত্রে, এটি $O(n_१ ^ २ n_२)$ (যেখানে $n_२$ হল দ্বিতীয় অংশের ভার্টেক্সের সংখ্যা)।
+এটি দেখায় যে যখন প্রথম অংশ দ্বিতীয়ের চেয়ে কম ভার্টেক্স থাকে তখন এটি আরও লাভজনক। অত্যন্ত ভারসাম্যহীন গ্রাফে ($n_१$ এবং $n_२$ খুব আলাদা হলে),
+এটি চলমান সময়ে উল্লেখযোগ্য পার্থক্যে অনুবাদ করে।
 
-First, we take an empty matching. Then, while the algorithm is able to find an augmenting path, we update the matching by alternating it along this path and repeat the process of finding the augmenting path.  As soon as it is not possible to find such a path, we stop the process - the current matching is the maximum. 
+## ইমপ্লিমেন্টেশন
 
-It remains to detail the way to find augmenting paths. Kuhn's algorithm simply searches for any of these paths using [depth-first](depth-first-search.md) or [breadth-first](breadth-first-search.md) traversal. The algorithm 
-looks through all the vertices of the graph in turn, starting each traversal from it, trying to find an augmenting path starting at this vertex.
+### স্ট্যান্ডার্ড ইমপ্লিমেন্টেশন
+আসুন এখানে উপরোক্ত অ্যালগরিদমের একটি ইমপ্লিমেন্টেশন উপস্থাপন করি গভীরতা-প্রথম ট্রাভার্সালের উপর ভিত্তি করে এবং একটি দ্বিপার্শ্বিক গ্রাফ গ্রহণ করে দুটি অংশে স্পষ্টভাবে বিভক্ত একটি গ্রাফের আকারে।
+এই ইমপ্লিমেন্টেশন অত্যন্ত সংক্ষিপ্ত, এবং সম্ভবত এটি এই রূপে মনে রাখা উচিত।
 
-The algorithm is more convenient to describe if we assume that the input graph is already split into two parts (although, in fact, the algorithm can be implemented in such a way 
-that the input graph is not explicitly split into two parts).
+এখানে $n$ হল প্রথম অংশে ভার্টেক্সের সংখ্যা, $k$ - দ্বিতীয় অংশে, $g[v]$ হল প্রথম অংশের শীর্ষ থেকে এজের তালিকা (অর্থাৎ সংখ্যার তালিকা যা এজ $v$ থেকে নিয়ে যায়)।
+উভয় অংশের ভার্টেক্সগুলি স্বাধীনভাবে সংখ্যায়িত, অর্থাৎ প্রথম অংশের ভার্টেক্সগুলি $१ \ldots n$ দ্বারা সংখ্যায়িত, এবং দ্বিতীয়টিতে $१ \ldots k$ দ্বারা সংখ্যায়িত।
 
-The algorithm looks at all the vertices $v$ of the first part of the graph: $v = 1 \ldots n_1$. If the current vertex $v$ is already saturated with the current matching 
-(i.e., some edge adjacent to it has already been selected), then skip this vertex. Otherwise, the algorithm tries to saturate this vertex, for which it starts 
-a search for an augmenting path starting from this vertex.
+তারপর দুটি সহায়ক অ্যারে রয়েছে: $\rm mt$ এবং $\rm used$। প্রথম - $\rm mt$ - বর্তমান ম্যাচিং সম্পর্কিত তথ্য ধারণ করে। প্রোগ্রামিংয়ের সুবিধার জন্য,
+এই তথ্য শুধুমাত্র দ্বিতীয় অংশের ভার্টেক্সের জন্য অন্তর্ভুক্ত: $\textrm{mt[} i \rm]$ - এটি প্রথম অংশের ভার্টেক্সের সংখ্যা যা দ্বিতীয় অংশের ভার্টেক্স $i$ এর সাথে একটি এজ দ্বারা সংযুক্ত (বা $-१$, যদি এটি থেকে কোনো ম্যাচিং এজ বের না হয়)।
+দ্বিতীয় অ্যারে হল $\rm used$: গভীরতা-প্রথম ট্রাভার্সালে ভার্টেক্সে "পরিদর্শন" এর সাধারণ অ্যারে
+(এটি শুধুমাত্র প্রয়োজন যাতে গভীরতা-প্রথম ট্রাভার্সাল একই ভার্টেক্সে দুইবার প্রবেশ না করে)।
 
-The search for an augmenting path is carried out using a special depth-first or breadth-first traversal (usually depth-first traversal is used for ease of implementation). 
-Initially, the depth-first traversal is at the current unsaturated vertex $v$ of the first part. Let's look through all edges from this vertex. Let the current edge be an edge 
-$(v, to)$. If the vertex $to$ is not yet saturated with matching, then we have succeeded in finding an augmenting path: it consists of a single edge $(v, to)$; 
-in this case, we simply include this edge in the matching and stop searching for the augmenting path from the vertex $v$. Otherwise, if $to$ is already saturated with some edge 
-$(to, p)$, 
-then will go along this edge: thus we will try to find an augmenting path passing through the edges $(v, to),(to, p), \ldots$. 
-To do this, simply go to the vertex $p$ in our traversal - now we try to find an augmenting path from this vertex.
+একটি ফাংশন $\textrm{try_kuhn}$ একটি গভীরতা-প্রথম ট্রাভার্সাল। এটি $\rm true$ রিটার্ন করে যদি এটি ভার্টেক্স $v$ থেকে একটি বর্ধিত পথ খুঁজে পেতে সক্ষম হয়েছে, এবং এটি বিবেচনা করা হয় যে এই
+ফাংশন ইতিমধ্যে খুঁজে পাওয়া শৃঙ্খল বরাবর ম্যাচিংয়ের বিকল্প সম্পাদন করেছে।
 
-So, this traversal, launched from the vertex $v$, will either find an augmenting path, and thereby saturate the vertex $v$, or it will not find such an augmenting path (and, therefore, this vertex $v$ cannot be saturated).
+ফাংশনের মধ্যে, প্রথম অংশের ভার্টেক্স $v$ থেকে বের হওয়া সমস্ত এজ স্ক্যান করা হয়, এবং তারপর নিম্নোক্তটি পরীক্ষা করা হয়: যদি এই এজ একটি অসম্পৃক্ত ভার্টেক্স $to$ এর দিকে নিয়ে যায়,
+বা যদি এই ভার্টেক্স $to$ সম্পৃক্ত হয়, তবে এটি $\textrm{mt[}to \rm ]$ থেকে রিকার্সিভভাবে শুরু করে একটি ক্রমবর্ধমান শৃঙ্খল খুঁজে পাওয়া সম্ভব,
+তবে আমরা বলি যে আমরা একটি বর্ধিত পথ খুঁজে পেয়েছি, এবং ফলাফল $\rm true$ সহ ফাংশন থেকে রিটার্ন করার আগে, আমরা বর্তমান এজ বিকল্প করি: আমরা $to$ এর সাথে সংলগ্ন এজ ভার্টেক্স $v$ এর দিকে পুনর্নির্দেশ করি।
 
-After all the vertices $v = 1 \ldots n_1$ have been scanned, the current matching will be maximum.
-  
-### Running time
+প্রধান প্রোগ্রাম প্রথমে নির্দেশ করে যে বর্তমান ম্যাচিং খালি (তালিকা $\rm mt$ সংখ্যা $-१$ দিয়ে পূর্ণ)। তারপর প্রথম অংশের ভার্টেক্স $v$ $\textrm{try_kuhn}$ দ্বারা অনুসন্ধান করা হয়,
+এবং এটি থেকে গভীরতা-প্রথম ট্রাভার্সাল শুরু করা হয়, আগে থেকেই অ্যারে $\rm used$ সেট করা হয়েছে।
 
-Kuhn's algorithm can be thought of as a series of $n$ depth/breadth-first traversal runs on the entire graph. Therefore, the whole algorithm is executed in time $O(nm)$, which
-in the worst case is $O(n^3)$.
-
-However, this estimate can be improved slightly. It turns out that for Kuhn's algorithm, it is important which part of the graph is chosen as the first and which as the second. 
-Indeed, in the implementation described above, the depth/breadth-first traversal starts only from the vertices of the first part, so the entire algorithm is executed in 
-time $O(n_1m)$, where $n_1$ is the number of vertices of the first part. In the worst case, this is $O(n_1 ^ 2 n_2)$ (where $n_2$ is the number of vertices of the second part). 
-This shows that it is more profitable when the first part contains fewer vertices than the second. On very unbalanced graphs (when $n_1$ and $n_2$ are very different), 
-this translates into a significant difference in runtimes.
-
-## Implementation
-
-### Standard implementation
-Let us present here an implementation of the above algorithm based on depth-first traversal and accepting a bipartite graph in the form of a graph explicitly split into two parts.
-This implementation is very concise, and perhaps it should be remembered in this form.
-
-Here $n$ is the number of vertices in the first part, $k$ - in the second part, $g[v]$ is the list of edges from the top of the first part (i.e. the list of numbers of the 
-vertices to which these edges lead from $v$). The vertices in both parts are numbered independently, i.e. vertices in the first part are numbered $1 \ldots n$, and those in the 
-second are numbered $1 \ldots k$.
-
-Then there are two auxiliary arrays: $\rm mt$ and $\rm used$. The first - $\rm mt$ - contains information about the current matching. For convenience of programming, 
-this information is contained only for the vertices of the second part: $\textrm{mt[} i \rm]$ - this is the number of the vertex of the first part connected by an edge with the vertex $i$ of 
-the second part (or $-1$, if no matching edge comes out of it). The second array is $\rm used$: the usual array of "visits" to the vertices in the depth-first traversal 
-(it is needed just so that the depth-first traversal does not enter the same vertex twice).
-
-A function $\textrm{try_kuhn}$ is a depth-first traversal. It returns $\rm true$ if it was able to find an augmenting path from the vertex $v$, and it is considered that this 
-function has already performed the alternation of matching along the found chain.
-
-Inside the function, all the edges outgoing from the vertex $v$ of the first part are scanned, and then the following is checked: if this edge leads to an unsaturated vertex 
-$to$, or if this vertex $to$ is saturated, but it is possible to find an increasing chain by recursively starting from $\textrm{mt[}to \rm ]$, then we say that we have found an 
-augmenting path, and before returning from the function with the result $\rm true$, we alternate the current edge: we redirect the edge adjacent to $to$ to the vertex $v$.
-
-The main program first indicates that the current matching is empty (the list $\rm mt$ is filled with numbers $-1$). Then the vertex $v$ of the first part is searched by $\textrm{try_kuhn}$, 
-and a depth-first traversal is started from it, having previously zeroed the array $\rm used$.
-
-It is worth noting that the size of the matching is easy to get as the number of calls $\textrm{try_kuhn}$ in the main program that returned the result $\rm true$. The desired 
-maximum matching itself is contained in the array $\rm mt$.
+এটি উল্লেখযোগ্য যে ম্যাচিংয়ের আকার সহজেই পাওয়া যায় প্রধান প্রোগ্রামে $\textrm{try_kuhn}$ এর কল সংখ্যা হিসাবে যা ফলাফল $\rm true$ রিটার্ন করেছে। পছন্দসই
+সর্বাধিক ম্যাচিং নিজেই অ্যারে $\rm mt$ তে অন্তর্ভুক্ত।
 
 ```cpp
 int n, k;
@@ -172,20 +167,19 @@ has not been given. In this case, it will be necessary to abandon the convenient
 an array of lists $g$ is now specified not only for the vertices of the first part, but for all the vertices of the graph (of course, now the vertices of both parts are numbered 
 in a common numbering - from $1$ to $n$). Arrays $\rm mt$ and are $\rm used$ are now also defined for the vertices of both parts, and, accordingly, they need to be kept in this state.
 
-### Improved implementation
+### উন্নত ইমপ্লিমেন্টেশন
 
-Let us modify the algorithm as follows. Before the main loop of the algorithm, we will find an **arbitrary matching** by some simple algorithm (a simple **heuristic algorithm**), 
-and only then we will execute a loop with calls to the $\textrm{try_kuhn}()$ function, which will improve this matching. As a result, the algorithm will work noticeably faster on 
-random graphs - because in most graphs, you can easily find a matching of a sufficiently large size using heuristics, and then improve the found matching to the maximum using 
-the usual Kuhn's algorithm. Thus, we will save on launching a depth-first traversal from those vertices that we have already included using the heuristic into the current matching.
+আসুন অ্যালগরিদম নিম্নরূপ পরিবর্তন করি। অ্যালগরিদমের প্রধান লুপের আগে, আমরা কিছু সাধারণ অ্যালগরিদম দ্বারা একটি **স্বেচ্ছাচারী ম্যাচিং** খুঁজে পাব (একটি সাধারণ **হিউরিস্টিক অ্যালগরিদম**),
+এবং শুধুমাত্র তারপর আমরা $\textrm{try_kuhn}()$ ফাংশনের কল সহ একটি লুপ সম্পাদন করব, যা এই ম্যাচিং উন্নত করবে। ফলস্বরূপ, অ্যালগরিদম র্যান্ডম গ্রাফে উল্লেখযোগ্যভাবে দ্রুত কাজ করবে -
+কারণ বেশিরভাগ গ্রাফে, আপনি সহজেই হিউরিস্টিক ব্যবহার করে যথেষ্ট বড় আকারের একটি ম্যাচিং খুঁজে পেতে পারেন, এবং তারপর সাধারণ কুহনের অ্যালগরিদম ব্যবহার করে খুঁজে পাওয়া ম্যাচিংকে সর্বাধিকে উন্নত করুন।
+এভাবে, আমরা সেই ভার্টেক্স থেকে গভীরতা-প্রথম ট্রাভার্সাল চালু করতে সংরক্ষণ করব যা আমরা ইতিমধ্যে হিউরিস্টিক ব্যবহার করে বর্তমান ম্যাচিংয়ে অন্তর্ভুক্ত করেছি।
 
-For example, you can simply iterate over all the vertices of the first part, and for each of them, find an arbitrary edge that can be added to the matching, and add it. 
-Even such a simple heuristic can speed up Kuhn's algorithm several times.
+উদাহরণস্বরূপ, আপনি সহজভাবে প্রথম অংশের সমস্ত ভার্টেক্সের উপর পুনরাবৃত্তি করতে পারেন, এবং প্রতিটির জন্য, ম্যাচিংয়ে যোগ করা যেতে পারে এমন একটি স্বেচ্ছাচারী এজ খুঁজে পান এবং এটি যোগ করুন।
+এমনকি এই ধরনের সাধারণ হিউরিস্টিক কুহনের অ্যালগরিদম কয়েকগুণ গতি দিতে পারে।
 
-Please note that the main loop will have to be slightly modified. Since when calling the function $\textrm{try_kuhn}$ in the main loop, it is assumed that the current vertex is 
-not yet included in the matching, you need to add an appropriate check.
+মনে রাখবেন যে প্রধান লুপ সামান্য পরিবর্তন করতে হবে। যেহেতু প্রধান লুপে $\textrm{try_kuhn}$ ফাংশন ডাকার সময়, অনুমান করা হয় যে বর্তমান ভার্টেক্স এখনও ম্যাচিংয়ে অন্তর্ভুক্ত নয়, আপনাকে একটি উপযুক্ত চেক যোগ করতে হবে।
 
-In the implementation, only the code in the $\textrm{main}()$ function will change:
+ইমপ্লিমেন্টেশনে, শুধুমাত্র $\textrm{main}()$ ফাংশনে কোড পরিবর্তিত হবে:
 
 ```cpp
 int main() {
@@ -215,16 +209,16 @@ int main() {
 }
 ```
 
-**Another good heuristic** is as follows. At each step, it will search for the vertex of the smallest degree (but not isolated), select any edge from it and add it to the matching,
-then remove both these vertices with all incident edges from the graph. Such greed works very well on random graphs; in many cases it even builds the maximum matching (although 
-there is a test case against it, on which it will find a matching that is much smaller than the maximum).
+**আরেকটি ভাল হিউরিস্টিক** নিম্নরূপ। প্রতিটি ধাপে, এটি সবচেয়ে ছোট ডিগ্রির ভার্টেক্স (তবে বিচ্ছিন্ন নয়) খুঁজে পাবে, এটি থেকে যেকোনো এজ নির্বাচন করবে এবং ম্যাচিংয়ে যোগ করবে,
+তারপর এই উভয় ভার্টেক্স এবং তাদের সমস্ত সংলগ্ন এজ গ্রাফ থেকে সরাবে। এই ধরনের লোভ র্যান্ডম গ্রাফে অত্যন্ত ভালভাবে কাজ করে; অনেক ক্ষেত্রে এটি এমনকি সর্বাধিক ম্যাচিং তৈরি করে (যদিও এর বিপরীতে একটি পরীক্ষার ক্ষেত্র রয়েছে,
+যেখানে এটি সর্বাধিকের চেয়ে অনেক ছোট একটি ম্যাচিং খুঁজে পাবে)।
 
-## Notes
+## নোট
 
-* Kuhn's algorithm is a subroutine in the **Hungarian algorithm**, also known as the **Kuhn-Munkres algorithm**.
-* Kuhn's algorithm runs in $O(nm)$ time. It is generally simple to implement, however, more efficient algorithms exist for the maximum bipartite matching problem - such as the 
-    **Hopcroft-Karp-Karzanov algorithm**, which runs in $O(\sqrt{n}m)$ time.
-* The [minimum vertex cover problem](https://en.wikipedia.org/wiki/Vertex_cover) is NP-hard for general graphs.  However, [Kőnig's theorem](https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)) gives that, for bipartite graphs, the cardinality of the maximum matching equals the cardinality of the minimum vertex cover.  Hence, we can use maximum bipartite matching algorithms to solve the minimum vertex cover problem in polynomial time for bipartite graphs.
+* কুহনের অ্যালগরিদম **Hungarian অ্যালগরিদম** এর একটি সাবরুটিন, যা **Kuhn-Munkres অ্যালগরিদম** নামেও পরিচিত।
+* কুহনের অ্যালগরিদম $O(nm)$ সময়ে চলে। এটি সাধারণত প্রয়োগ করা সহজ, তবে সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং সমস্যার জন্য আরও দক্ষ অ্যালগরিদম বিদ্যমান - যেমন
+    **Hopcroft-Karp-Karzanov অ্যালগরিদম**, যা $O(\sqrt{n}m)$ সময়ে চলে।
+* [ন্যূনতম শীর্ষ কভার সমস্যা](https://en.wikipedia.org/wiki/Vertex_cover) সাধারণ গ্রাফের জন্য NP-কঠিন। তবে, [Kőnig এর উপপাদ্য](https://en.wikipedia.org/wiki/K%C5%91nig%27s_theorem_(graph_theory)) দেয় যে দ্বিপার্শ্বিক গ্রাফের জন্য, সর্বাধিক ম্যাচিংয়ের কার্ডিনালিটি ন্যূনতম শীর্ষ কভারের কার্ডিনালিটির সমান। সুতরাং, আমরা সর্বাধিক দ্বিপার্শ্বিক ম্যাচিং অ্যালগরিদম ব্যবহার করে দ্বিপার্শ্বিক গ্রাফের জন্য বহুপদ সময়ে ন্যূনতম শীর্ষ কভার সমস্যা সমাধান করতে পারি।
 
 ## অনুশীলন সমস্যা
 

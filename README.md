@@ -10,7 +10,7 @@
 
 It is a Bangla adaptation of [cp-algorithms.com](https://cp-algorithms.com), which itself is based on the legendary Russian resource [e-maxx.ru/algo](https://e-maxx.ru/algo). The goal is simple: make world-class algorithm knowledge accessible to the millions of Bengali-speaking students and programmers who think and learn best in their first language.
 
-🌐 **Live site:** [algobangla.web.app](https://algobangla.web.app)
+🌐 **Live site:** [algobangla.com](https://algobangla.com)
 
 ---
 

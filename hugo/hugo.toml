@@ -1,4 +1,4 @@
-baseURL = "https://algobangla.web.app/"
+baseURL = "https://algobangla.com/"
 title = "algobangla"
 theme = "hugo-book"
 enableGitInfo = true

@@ -1,6 +1,6 @@
 # AlgoBangla — বাংলায় CP Algorithms
 
-[![Website](https://img.shields.io/badge/website-algobangla.web.app-blue)](https://algobangla.web.app)
+[![Website](https://img.shields.io/badge/website-algobangla.com-blue)](https://algobangla.com)
 [![Contributors](https://img.shields.io/github/contributors/joynahid/algobangla.svg)](https://github.com/joynahid/algobangla/graphs/contributors)
 [![Pull Requests](https://img.shields.io/github/issues-pr/joynahid/algobangla.svg)](https://github.com/joynahid/algobangla/pulls)
 [![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)

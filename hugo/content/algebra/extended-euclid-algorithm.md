@@ -1,58 +1,58 @@
 ---
-title: "Extended Euclidean Algorithm"
+title: "এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম"
 tags: 
 weight: 30
 ---
-# Extended Euclidean Algorithm
+# এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদম
 
-While the [Euclidean algorithm](euclid-algorithm.md) calculates only the greatest common divisor (GCD) of two integers $a$ and $b$, the extended version also finds a way to represent GCD in terms of $a$ and $b$, i.e. coefficients $x$ and $y$ for which:
+[ইউক্লিডীয় অ্যালগরিদম](euclid-algorithm.md) যেখানে দুটি পূর্ণসংখ্যা $a$ ও $b$-এর শুধুমাত্র গসাগু (GCD) গণনা করে, এক্সটেন্ডেড ভার্সন $a$ ও $b$-এর মাধ্যমে GCD কে উপস্থাপন করার একটি উপায়ও খুঁজে বের করে, অর্থাৎ সহগ $x$ ও $y$ যেন:
 
 $$a \cdot x + b \cdot y = \gcd(a, b)$$
 
-It's important to note that by [Bézout's identity](https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity) we can always find such a representation. For instance, $\gcd(55, 80) = 5$, therefore we can represent $5$ as a linear combination with the terms $55$ and $80$: $55 \cdot 3 + 80 \cdot (-2) = 5$ 
+এটি গুরুত্বপূর্ণ যে [বেজুর অভেদ](https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity) অনুযায়ী আমরা সর্বদা এমন একটি উপস্থাপনা খুঁজে পেতে পারি। উদাহরণস্বরূপ, $\gcd(55, 80) = 5$, তাই আমরা $5$ কে $55$ এবং $80$ পদবিশিষ্ট একটি রৈখিক সমন্বয় হিসেবে উপস্থাপন করতে পারি: $55 \cdot 3 + 80 \cdot (-2) = 5$
 
-A more general form of that problem is discussed in the article about [Linear Diophantine Equations](linear-diophantine-equation.md).
-It will build upon this algorithm.
+এই সমস্যার একটি আরও সাধারণ রূপ [রৈখিক ডায়োফ্যান্টাইন সমীকরণ](linear-diophantine-equation.md) সম্পর্কিত আর্টিকেলে আলোচনা করা হয়েছে।
+এটি এই অ্যালগরিদমের উপর ভিত্তি করে তৈরি হবে।
 
-## Algorithm
+## অ্যালগরিদম
 
-We will denote the GCD of $a$ and $b$ with $g$ in this section.
+এই অনুচ্ছেদে আমরা $a$ ও $b$-এর GCD কে $g$ দ্বারা চিহ্নিত করব।
 
-The changes to the original algorithm are very simple.
-If we recall the algorithm, we can see that the algorithm ends with $b = 0$ and $a = g$.
-For these parameters we can easily find coefficients, namely $g \cdot 1 + 0 \cdot 0 = g$.
+মূল অ্যালগরিদমে পরিবর্তনগুলো খুবই সরল।
+আমরা যদি অ্যালগরিদমটি স্মরণ করি, দেখতে পাব যে অ্যালগরিদমটি $b = 0$ এবং $a = g$ দিয়ে শেষ হয়।
+এই প্যারামিটারগুলোর জন্য আমরা সহজেই সহগ খুঁজে পেতে পারি, যথা $g \cdot 1 + 0 \cdot 0 = g$।
 
-Starting from these coefficients $(x, y) = (1, 0)$, we can go backwards up the recursive calls.
-All we need to do is to figure out how the coefficients $x$ and $y$ change during the transition from $(a, b)$ to $(b, a \bmod b)$.
+এই সহগ $(x, y) = (1, 0)$ থেকে শুরু করে, আমরা রিকার্সিভ কলগুলোতে পেছনে যেতে পারি।
+আমাদের শুধু বুঝতে হবে $(a, b)$ থেকে $(b, a \bmod b)$-এ রূপান্তরের সময় সহগ $x$ ও $y$ কীভাবে পরিবর্তিত হয়।
 
-Let us assume we found the coefficients $(x_1, y_1)$ for $(b, a \bmod b)$:
+ধরি আমরা $(b, a \bmod b)$-এর জন্য সহগ $(x_1, y_1)$ পেয়েছি:
 
 $$b \cdot x_1 + (a \bmod b) \cdot y_1 = g$$
 
-and we want to find the pair $(x, y)$ for $(a, b)$:
+এবং আমরা $(a, b)$-এর জন্য জোড়া $(x, y)$ খুঁজতে চাই:
 
 $$ a \cdot x + b \cdot y = g$$
 
-We can represent $a \bmod b$ as:
+আমরা $a \bmod b$ কে এভাবে উপস্থাপন করতে পারি:
 
 $$ a \bmod b = a - \left\lfloor \frac{a}{b} \right\rfloor \cdot b$$
 
-Substituting this expression in the coefficient equation of $(x_1, y_1)$ gives:
+$(x_1, y_1)$-এর সহগ সমীকরণে এই এক্সপ্রেশন প্রতিস্থাপন করলে পাই:
 
 $$ g = b \cdot x_1 + (a \bmod b) \cdot y_1 = b \cdot x_1 + \left(a - \left\lfloor \frac{a}{b} \right\rfloor \cdot b \right) \cdot y_1$$
 
-and after rearranging the terms:
+এবং পদগুলো পুনর্বিন্যাস করলে:
 
 $$g = a \cdot y_1 + b \cdot \left( x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \right\rfloor \right)$$
 
-We found the values of $x$ and $y$:
+আমরা $x$ ও $y$-এর মান পেলাম:
 
 $$\begin{cases}
 x = y_1 \\
 y = x_1 - y_1 \cdot \left\lfloor \frac{a}{b} \right\rfloor
 \end{cases} $$
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int gcd(int a, int b, int& x, int& y) {
@@ -69,14 +69,14 @@ int gcd(int a, int b, int& x, int& y) {
 }
 ```
 
-The recursive function above returns the GCD and the values of coefficients to `x` and `y` (which are passed by reference to the function).
+উপরের রিকার্সিভ ফাংশনটি GCD এবং সহগের মান `x` ও `y`-তে রিটার্ন করে (যেগুলো ফাংশনে রেফারেন্স দ্বারা পাঠানো হয়)।
 
-This implementation of extended Euclidean algorithm produces correct results for negative integers as well.
+এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদমের এই ইমপ্লিমেন্টেশন ঋণাত্মক পূর্ণসংখ্যার জন্যও সঠিক ফলাফল প্রদান করে।
 
-## Iterative version
+## ইটারেটিভ ভার্সন
 
-It's also possible to write the Extended Euclidean algorithm in an iterative way.
-Because it avoids recursion, the code will run a little bit faster than the recursive one.
+এক্সটেন্ডেড ইউক্লিডীয় অ্যালগরিদমকে ইটারেটিভভাবেও লেখা সম্ভব।
+যেহেতু এটি রিকার্সন এড়ায়, কোডটি রিকার্সিভটির চেয়ে একটু দ্রুত চলবে।
 
 ```cpp
 int gcd(int a, int b, int& x, int& y) {
@@ -92,42 +92,42 @@ int gcd(int a, int b, int& x, int& y) {
 }
 ```
 
-If you look closely at the variables `a1` and `b1`, you can notice that they take exactly the same values as in the iterative version of the normal [Euclidean algorithm](euclid-algorithm.md#implementation). So the algorithm will at least compute the correct GCD.
+আপনি যদি `a1` ও `b1` ভেরিয়েবলগুলো ভালো করে দেখেন, লক্ষ্য করবেন যে তারা স্বাভাবিক [ইউক্লিডীয় অ্যালগরিদমের](euclid-algorithm.md#implementation) ইটারেটিভ ভার্সনে ঠিক একই মান নেয়। তাই অ্যালগরিদম অন্তত সঠিক GCD গণনা করবে।
 
-To see why the algorithm computes the correct coefficients, consider that the following invariants hold at any given time (before the while loop begins and at the end of each iteration):
+অ্যালগরিদম কেন সঠিক সহগ গণনা করে তা দেখতে, বিবেচনা করুন যে নিম্নলিখিত ইনভেরিয়েন্টগুলো যেকোনো সময়ে ধরে রাখে (while লুপ শুরু হওয়ার আগে এবং প্রতিটি ইটারেশনের শেষে):
 
 $$x \cdot a + y \cdot b = a_1$$
 
 $$x_1 \cdot a + y_1 \cdot b = b_1$$
 
-Let the values at the end of an iteration be denoted by a prime ($'$), and assume $q = \frac{a_1}{b_1}$. From the [Euclidean algorithm](euclid-algorithm.md), we have:
+ধরি একটি ইটারেশনের শেষে মানগুলো প্রাইম ($'$) দ্বারা চিহ্নিত, এবং ধরুন $q = \frac{a_1}{b_1}$। [ইউক্লিডীয় অ্যালগরিদম](euclid-algorithm.md) থেকে, আমরা পাই:
 
 $$a_1' = b_1$$
 
 $$b_1' = a_1 - q \cdot b_1$$
 
-For the first invariant to hold, the following should be true:
+প্রথম ইনভেরিয়েন্ট ধরে রাখতে, নিম্নলিখিতটি সত্য হওয়া উচিত:
 
 $$x' \cdot a + y' \cdot b = a_1' = b_1$$
 
 $$x' \cdot a + y' \cdot b = x_1 \cdot a + y_1 \cdot b$$
 
-Similarly for the second invariant, the following should hold:
+একইভাবে দ্বিতীয় ইনভেরিয়েন্টের জন্য, নিম্নলিখিতটি ধরে রাখা উচিত:
 
 $$x_1' \cdot a + y_1' \cdot b = a_1 - q \cdot b_1$$
 
 $$x_1' \cdot a + y_1' \cdot b = (x - q \cdot x_1) \cdot a + (y - q \cdot y_1) \cdot b$$
 
-By comparing the coefficients of $a$ and $b$, the update equations for each variable can be derived, ensuring that the invariants are maintained throughout the algorithm.
+$a$ ও $b$-এর সহগ তুলনা করে, প্রতিটি ভেরিয়েবলের আপডেট সমীকরণ বের করা যায়, যা নিশ্চিত করে যে ইনভেরিয়েন্টগুলো সমগ্র অ্যালগরিদম জুড়ে বজায় থাকে।
 
 
-At the end we know that $a_1$ contains the GCD, so $x \cdot a + y \cdot b = g$.
-Which means that we have found the required coefficients.
+শেষে আমরা জানি $a_1$-এ GCD আছে, তাই $x \cdot a + y \cdot b = g$।
+যার মানে আমরা প্রয়োজনীয় সহগ খুঁজে পেয়েছি।
 
-You can even optimize the code more, and remove the variable $a_1$ and $b_1$ from the code, and just reuse $a$ and $b$.
-However if you do so, you lose the ability to argue about the invariants.
+আপনি কোড আরও অপটিমাইজ করতে পারেন, এবং কোড থেকে $a_1$ ও $b_1$ ভেরিয়েবল সরিয়ে $a$ ও $b$ পুনর্ব্যবহার করতে পারেন।
+তবে এটি করলে, ইনভেরিয়েন্ট নিয়ে যুক্তি দেওয়ার ক্ষমতা হারাবেন।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [UVA - 10104 - Euclid Problem](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1045)
 * [GYM - (J) Once Upon A Time](http://codeforces.com/gym/100963)

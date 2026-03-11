@@ -1,31 +1,31 @@
 ---
-title: "Longest increasing subsequence"
+title: "দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স"
 tags: 
 weight: 30
 ---
-# Longest increasing subsequence
+# দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স
 
-We are given an array with $n$ numbers: $a[0 \dots n-1]$.
-The task is to find the longest, strictly increasing, subsequence in $a$.
+আমাদের $n$ সংখ্যাবিশিষ্ট একটি অ্যারে দেওয়া আছে: $a[0 \dots n-1]$।
+কাজ হলো $a$-তে দীর্ঘতম, কঠোরভাবে ক্রমবর্ধমান, সাবসিকোয়েন্স খুঁজে বের করা।
 
-Formally we look for the longest sequence of indices $i_1, \dots i_k$ such that
+আনুষ্ঠানিকভাবে আমরা ইনডেক্সের দীর্ঘতম ক্রম $i_1, \dots i_k$ খুঁজি যেন
 
 $$i_1 < i_2 < \dots < i_k,\quad
 a[i_1] < a[i_2] < \dots < a[i_k]$$
 
-In this article we discuss multiple algorithms for solving this task.
-Also we will discuss some other problems, that can be reduced to this problem.
+এই আর্টিকেলে আমরা এই কাজটি সমাধানের জন্য একাধিক অ্যালগরিদম আলোচনা করব।
+এছাড়াও আমরা কিছু অন্যান্য সমস্যা আলোচনা করব, যেগুলো এই সমস্যায় সরলীকৃত করা যায়।
 
-## Solution in $O(n^2)$ with dynamic programming {data-toc-label="Solution in O(n^2) with dynamic programming"}
+## ডায়নামিক প্রোগ্রামিং দিয়ে $O(n^2)$ সমাধান {data-toc-label="Solution in O(n^2) with dynamic programming"}
 
-Dynamic programming is a very general technique that allows to solve a huge class of problems.
-Here we apply the technique for our specific task.
+ডায়নামিক প্রোগ্রামিং একটি অত্যন্ত সাধারণ কৌশল যা বিশাল শ্রেণীর সমস্যা সমাধান করতে দেয়।
+এখানে আমরা আমাদের নির্দিষ্ট কাজের জন্য এই কৌশলটি প্রয়োগ করি।
 
-First we will search only for the **length** of the longest increasing subsequence, and only later learn how to restore the subsequence itself.
+প্রথমে আমরা শুধু দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের **দৈর্ঘ্য** খুঁজব, এবং পরে শিখব কীভাবে সাবসিকোয়েন্সটি পুনরুদ্ধার করতে হয়।
 
-### Finding the length
+### দৈর্ঘ্য বের করা
 
-To accomplish this task, we define an array $d[0 \dots n-1]$, where $d[i]$ is the length of the longest increasing subsequence that ends in the element at index $i$.
+এই কাজ সম্পন্ন করতে, আমরা একটি অ্যারে $d[0 \dots n-1]$ সংজ্ঞায়িত করি, যেখানে $d[i]$ হলো $i$ ইনডেক্সের উপাদানে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের দৈর্ঘ্য।
 
 {{< hint info >}}
 **Example**
@@ -36,34 +36,34 @@ a &= \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\} \\
 d &= \{1, 1, 2, 3, 3, 1, 1, 4, 5, 2\}
 \end{array}$$
 
-The longest increasing subsequence that ends at index 4 is $\{3, 4, 5\}$ with a length of 3, the longest ending at index 8 is either $\{3, 4, 5, 7, 9\}$ or $\{3, 4, 6, 7, 9\}$, both having length 5, and the longest ending at index 9 is $\{0, 1\}$ having length 2.
+ইনডেক্স ৪-এ শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স হলো $\{3, 4, 5\}$ যার দৈর্ঘ্য ৩, ইনডেক্স ৮-এ শেষ হওয়া দীর্ঘতমটি হলো $\{3, 4, 5, 7, 9\}$ বা $\{3, 4, 6, 7, 9\}$, উভয়ের দৈর্ঘ্য ৫, এবং ইনডেক্স ৯-এ শেষ হওয়া দীর্ঘতমটি হলো $\{0, 1\}$ যার দৈর্ঘ্য ২।
 {{< /hint >}}
-We will compute this array gradually: first $d[0]$, then $d[1]$, and so on.
-After this array is computed, the answer to the problem will be the maximum value in the array $d[]$.
+আমরা এই অ্যারে ধাপে ধাপে হিসাব করব: প্রথমে $d[0]$, তারপর $d[1]$, ইত্যাদি।
+এই অ্যারে হিসাব হয়ে গেলে, সমস্যার উত্তর হবে $d[]$ অ্যারের সর্বোচ্চ মান।
 
-So let the current index be $i$.
-I.e. we want to compute the value $d[i]$ and all previous values $d[0], \dots, d[i-1]$ are already known.
-Then there are two options:
+তাহলে ধরি বর্তমান ইনডেক্স $i$।
+অর্থাৎ আমরা $d[i]$-র মান হিসাব করতে চাই এবং পূর্ববর্তী সব মান $d[0], \dots, d[i-1]$ ইতিমধ্যে জানা।
+তাহলে দুটি বিকল্প আছে:
 
--   $d[i] = 1$: the required subsequence consists only of the element $a[i]$.
+-   $d[i] = 1$: প্রয়োজনীয় সাবসিকোয়েন্সে শুধুমাত্র $a[i]$ উপাদানটি আছে।
 
--   $d[i] > 1$: The subsequence will end at $a[i]$, and right before it will be some number $a[j]$ with $j < i$ and $a[j] < a[i]$.
+-   $d[i] > 1$: সাবসিকোয়েন্স $a[i]$-তে শেষ হবে, এবং এর ঠিক আগে কোনো সংখ্যা $a[j]$ থাকবে যেখানে $j < i$ এবং $a[j] < a[i]$।
 
-    It's easy to see, that the subsequence ending in $a[j]$ will itself be one of the longest increasing subsequences that ends in $a[j]$.
-    The number $a[i]$ just extends that longest increasing subsequence by one number.
+    সহজেই দেখা যায়, $a[j]$-তে শেষ হওয়া সাবসিকোয়েন্সটি নিজেই $a[j]$-তে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সগুলোর একটি হবে।
+    $a[i]$ সংখ্যাটি সেই দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সকে একটি সংখ্যা দ্বারা প্রসারিত করে।
 
-    Therefore, we can just iterate over all $j < i$ with $a[j] < a[i]$, and take the longest sequence that we get by appending $a[i]$ to the longest increasing subsequence ending in $a[j]$.
-    The longest increasing subsequence ending in $a[j]$ has length $d[j]$, extending it by one gives the length $d[j] + 1$.
-  
+    সুতরাং, আমরা $j < i$ সহ $a[j] < a[i]$ এমন সব $j$ এর উপর ইটারেট করতে পারি, এবং $a[j]$-তে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সে $a[i]$ যোগ করে যে দীর্ঘতম ক্রম পাই সেটি নিতে পারি।
+    $a[j]$-তে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের দৈর্ঘ্য $d[j]$, একটি দ্বারা প্রসারিত করলে দৈর্ঘ্য $d[j] + 1$ হয়।
+
     $$d[i] = \max_{\substack{j < i \\\\ a[j] < a[i]}} \left(d[j] + 1\right)$$
 
-If we combine these two cases we get the final answer for $d[i]$:
+এই দুটি ক্ষেত্র একত্রিত করলে $d[i]$-র চূড়ান্ত উত্তর পাই:
 
 $$d[i] = \max\left(1, \max_{\substack{j < i \\\\ a[j] < a[i]}} \left(d[j] + 1\right)\right)$$
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-Here is an implementation of the algorithm described above, which computes the length of the longest increasing subsequence.
+এখানে উপরে বর্ণিত অ্যালগরিদমের একটি ইমপ্লিমেন্টেশন দেওয়া হলো, যা দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের দৈর্ঘ্য হিসাব করে।
 
 ```cpp
 int lis(vector<int> const& a) {
@@ -84,24 +84,24 @@ int lis(vector<int> const& a) {
 }
 ```
 
-### Restoring the subsequence
+### সাবসিকোয়েন্স পুনরুদ্ধার
 
-So far we only learned how to find the length of the subsequence, but not how to find the subsequence itself.
+এখনো পর্যন্ত আমরা শুধু সাবসিকোয়েন্সের দৈর্ঘ্য বের করতে শিখেছি, সাবসিকোয়েন্সটি নিজে নয়।
 
-To be able to restore the subsequence we generate an additional auxiliary array $p[0 \dots n-1]$ that we will compute alongside the array $d[]$.
-$p[i]$ will be the index $j$ of the second last element in the longest increasing subsequence ending in $i$.
-In other words the index $p[i]$ is the same index $j$ at which the highest value $d[i]$ was obtained.
-This auxiliary array $p[]$ points in some sense to the ancestors.
+সাবসিকোয়েন্স পুনরুদ্ধার করতে আমরা একটি অতিরিক্ত সহায়ক অ্যারে $p[0 \dots n-1]$ তৈরি করি যা $d[]$ অ্যারের পাশাপাশি হিসাব করব।
+$p[i]$ হবে $i$-তে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের দ্বিতীয় শেষ উপাদানের ইনডেক্স $j$।
+অন্য কথায় ইনডেক্স $p[i]$ হলো সেই $j$ যেটিতে সর্বোচ্চ $d[i]$ মান পাওয়া গেছে।
+এই সহায়ক অ্যারে $p[]$ কোনো অর্থে পূর্বসূরীদের দিকে নির্দেশ করে।
 
-Then to derive the subsequence, we just start at the index $i$ with the maximal $d[i]$, and follow the ancestors until we deduced the entire subsequence, i.e. until we reach the element with $d[i] = 1$.
+তারপর সাবসিকোয়েন্স বের করতে, আমরা সর্বোচ্চ $d[i]$ বিশিষ্ট ইনডেক্স $i$ থেকে শুরু করি এবং সম্পূর্ণ সাবসিকোয়েন্স পাওয়া না পর্যন্ত পূর্বসূরী অনুসরণ করি, অর্থাৎ $d[i] = 1$ এমন উপাদানে পৌঁছানো পর্যন্ত।
 
-### Implementation of restoring
+### পুনরুদ্ধারের ইমপ্লিমেন্টেশন
 
-We will change the code from the previous sections a little bit.
-We will compute the array $p[]$ alongside $d[]$, and afterwards compute the subsequence.
+আমরা পূর্ববর্তী অনুচ্ছেদের কোড কিছুটা পরিবর্তন করব।
+আমরা $d[]$-র পাশাপাশি $p[]$ অ্যারে হিসাব করব, এবং তারপর সাবসিকোয়েন্স হিসাব করব।
 
-For convenience we originally assign the ancestors with $p[i] = -1$.
-For elements with $d[i] = 1$, the ancestors value will remain $-1$, which will be slightly more convenient for restoring the subsequence.
+সুবিধার জন্য আমরা প্রাথমিকভাবে পূর্বসূরীদের $p[i] = -1$ রাখি।
+$d[i] = 1$ এমন উপাদানের জন্য, পূর্বসূরীর মান $-1$ থাকবে, যা সাবসিকোয়েন্স পুনরুদ্ধারে কিছুটা সুবিধাজনক।
 
 ```cpp
 vector<int> lis(vector<int> const& a) {
@@ -134,31 +134,31 @@ vector<int> lis(vector<int> const& a) {
 }
 ```
 
-### Alternative way of restoring the subsequence
+### সাবসিকোয়েন্স পুনরুদ্ধারের বিকল্প উপায়
 
-It is also possible to restore the subsequence without the auxiliary array $p[]$.
-We can simply recalculate the current value of $d[i]$ and also see how the maximum was reached.
+সহায়ক অ্যারে $p[]$ ছাড়াও সাবসিকোয়েন্স পুনরুদ্ধার করা সম্ভব।
+আমরা কেবল $d[i]$-র বর্তমান মান পুনঃহিসাব করতে পারি এবং সর্বোচ্চ কীভাবে অর্জিত হয়েছে তাও দেখতে পারি।
 
-This method leads to a slightly longer code, but in return we save some memory.
+এই পদ্ধতিতে কোড কিছুটা লম্বা হয়, কিন্তু বিনিময়ে কিছু মেমোরি সাশ্রয় হয়।
 
-## Solution in $O(n \log n)$ with dynamic programming and binary search {data-toc-label="Solution in O(n log n) with dynamic programming and binary search"}
+## ডায়নামিক প্রোগ্রামিং ও বাইনারি সার্চ দিয়ে $O(n \log n)$ সমাধান {data-toc-label="Solution in O(n log n) with dynamic programming and binary search"}
 
-In order to obtain a faster solution for the problem, we construct a different dynamic programming solution that runs in $O(n^2)$, and then later improve it to $O(n \log n)$.
+দ্রুততর সমাধান পেতে, আমরা $O(n^2)$-এ চলে এমন একটি ভিন্ন ডায়নামিক প্রোগ্রামিং সমাধান তৈরি করি, এবং পরে $O(n \log n)$-এ উন্নত করি।
 
-We will use the dynamic programming array $d[0 \dots n]$.
-This time $d[l]$ doesn't correspond to the element $a[i]$ or to a prefix of the array. 
-$d[l]$ will be the smallest element at which an increasing subsequence of length $l$ ends.
+আমরা ডায়নামিক প্রোগ্রামিং অ্যারে $d[0 \dots n]$ ব্যবহার করব।
+এবার $d[l]$ উপাদান $a[i]$ বা অ্যারের প্রিফিক্সের সাথে সংশ্লিষ্ট নয়।
+$d[l]$ হবে সেই ক্ষুদ্রতম উপাদান যেটিতে $l$ দৈর্ঘ্যের একটি ক্রমবর্ধমান সাবসিকোয়েন্স শেষ হয়।
 
-Initially we assume $d[0] = -\infty$ and for all other lengths $d[l] = \infty$.
+প্রাথমিকভাবে আমরা ধরি $d[0] = -\infty$ এবং অন্য সব দৈর্ঘ্যের জন্য $d[l] = \infty$।
 
-We will again gradually process the numbers, first $a[0]$, then $a[1]$, etc, and in each step maintain the array $d[]$ so that it is up to date.
+আমরা আবার ধাপে ধাপে সংখ্যাগুলো প্রসেস করব, প্রথমে $a[0]$, তারপর $a[1]$, ইত্যাদি, এবং প্রতিটি ধাপে $d[]$ অ্যারে হালনাগাদ রাখব।
 
 {{< hint info >}}
 **Example**
 
 
-Given the array $a = \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\}$, here are all their prefixes and their dynamic programming array.
-Notice, that the values of the array don't always change at the end.
+অ্যারে $a = \{8, 3, 4, 6, 5, 2, 0, 7, 9, 1\}$ দেওয়া থাকলে, এখানে তাদের সব প্রিফিক্স এবং ডায়নামিক প্রোগ্রামিং অ্যারে।
+লক্ষ্য করুন, অ্যারের মান সবসময় শেষে পরিবর্তিত হয় না।
 
 $$
 \begin{array}{ll}
@@ -176,20 +176,20 @@ $$
 \end{array}
 $$
 {{< /hint >}}
-When we process $a[i]$, we can ask ourselves.
-What have the conditions to be, that we write the current number $a[i]$ into the $d[0 \dots n]$ array?
+যখন আমরা $a[i]$ প্রসেস করি, আমরা নিজেদের জিজ্ঞাসা করতে পারি।
+শর্ত কী হতে হবে যাতে আমরা বর্তমান সংখ্যা $a[i]$ $d[0 \dots n]$ অ্যারেতে লিখি?
 
-We set $d[l] = a[i]$, if there is a longest increasing sequence of length $l$ that ends in $a[i]$, and there is no longest increasing sequence of length $l$ that ends in a smaller number.
-Similar to the previous approach, if we remove the number $a[i]$ from the longest increasing sequence of length $l$, we get another longest increasing sequence of length $l -1$.
-So we want to extend a longest increasing sequence of length $l - 1$ by the number $a[i]$, and obviously the longest increasing sequence of length $l - 1$ that ends with the smallest element will work the best, in other words the sequence of length $l-1$ that ends in element $d[l-1]$.
+আমরা $d[l] = a[i]$ সেট করি, যদি $l$ দৈর্ঘ্যের একটি দীর্ঘতম ক্রমবর্ধমান ক্রম $a[i]$-তে শেষ হয়, এবং $l$ দৈর্ঘ্যের কোনো দীর্ঘতম ক্রমবর্ধমান ক্রম আরো ছোট সংখ্যায় শেষ না হয়।
+পূর্ববর্তী পদ্ধতির মতো, যদি আমরা $l$ দৈর্ঘ্যের দীর্ঘতম ক্রমবর্ধমান ক্রম থেকে $a[i]$ সরাই, তাহলে $l -1$ দৈর্ঘ্যের আরেকটি দীর্ঘতম ক্রমবর্ধমান ক্রম পাই।
+তাই আমরা $l - 1$ দৈর্ঘ্যের দীর্ঘতম ক্রমবর্ধমান ক্রমকে $a[i]$ দিয়ে প্রসারিত করতে চাই, এবং স্পষ্টতই সবচেয়ে ছোট উপাদানে শেষ হওয়া $l - 1$ দৈর্ঘ্যের ক্রমটি সবচেয়ে ভালো কাজ করবে, অর্থাৎ $d[l-1]$ উপাদানে শেষ হওয়া $l-1$ দৈর্ঘ্যের ক্রম।
 
-There is a longest increasing sequence of length $l - 1$ that we can extend with the number $a[i]$, exactly if $d[l-1] < a[i]$.
-So we can just iterate over each length $l$, and check if we can extend a longest increasing sequence of length $l - 1$ by checking the criteria.
+$l - 1$ দৈর্ঘ্যের একটি দীর্ঘতম ক্রমবর্ধমান ক্রম আছে যা আমরা $a[i]$ দিয়ে প্রসারিত করতে পারি, ঠিক তখনই যদি $d[l-1] < a[i]$।
+তাই আমরা প্রতিটি দৈর্ঘ্য $l$ এর উপর ইটারেট করতে পারি, এবং শর্ত পরীক্ষা করে $l - 1$ দৈর্ঘ্যের ক্রম প্রসারিত করা যায় কিনা দেখতে পারি।
 
-Additionally we also need to check, if we maybe have already found a longest increasing sequence of length $l$ with a smaller number at the end.
-So we only update if $a[i] < d[l]$.
+অতিরিক্তভাবে আমাদের পরীক্ষা করতে হবে, হয়তো আমরা ইতিমধ্যে $l$ দৈর্ঘ্যের একটি দীর্ঘতম ক্রমবর্ধমান ক্রম পেয়েছি যা আরো ছোট সংখ্যায় শেষ হয়।
+তাই আমরা শুধু তখনই আপডেট করি যদি $a[i] < d[l]$।
 
-After processing all the elements of $a[]$ the length of the desired subsequence is the largest $l$ with $d[l] < \infty$.
+$a[]$-র সব উপাদান প্রসেস করার পরে কাঙ্ক্ষিত সাবসিকোয়েন্সের দৈর্ঘ্য হলো সবচেয়ে বড় $l$ যেখানে $d[l] < \infty$।
 
 ```cpp
 int lis(vector<int> const& a) {
@@ -214,24 +214,24 @@ int lis(vector<int> const& a) {
 }
 ```
 
-We now make two important observations.
+আমরা এখন দুটি গুরুত্বপূর্ণ পর্যবেক্ষণ করি।
 
-1.  The array $d$ will always be sorted: 
-    $d[l-1] < d[l]$ for all $i = 1 \dots n$.
+১.  $d$ অ্যারে সবসময় সাজানো থাকবে:
+    সব $i = 1 \dots n$ এর জন্য $d[l-1] < d[l]$।
 
-    This is trivial, as you can just remove the last element from the increasing subsequence of length $l$, and you get a increasing subsequence of length $l-1$ with a smaller ending number.
+    এটি তুচ্ছ, কারণ আপনি $l$ দৈর্ঘ্যের ক্রমবর্ধমান সাবসিকোয়েন্স থেকে শেষ উপাদান সরাতে পারেন, এবং $l-1$ দৈর্ঘ্যের একটি ক্রমবর্ধমান সাবসিকোয়েন্স পান যা আরো ছোট সংখ্যায় শেষ হয়।
 
-2.  The element $a[i]$ will only update at most one value $d[l]$.
+২.  উপাদান $a[i]$ সর্বাধিক একটি মান $d[l]$ আপডেট করবে।
 
-    This follows immediately from the above implementation.
-    There can only be one place in the array with $d[l-1] < a[i] < d[l]$.
+    এটি উপরের ইমপ্লিমেন্টেশন থেকে তৎক্ষণাৎ অনুসরণ করে।
+    $d[l-1] < a[i] < d[l]$ এমন অ্যারেতে শুধু একটি জায়গা থাকতে পারে।
 
-Thus we can find this element in the array $d[]$ using [binary search](../num_methods/binary_search.md) in $O(\log n)$.
-In fact we can simply look in the array $d[]$ for the first number that is strictly greater than $a[i]$, and we try to update this element in the same way as the above implementation.
+সুতরাং আমরা [বাইনারি সার্চ](../num_methods/binary_search.md) ব্যবহার করে $O(\log n)$-এ $d[]$ অ্যারেতে এই উপাদান খুঁজতে পারি।
+আসলে আমরা কেবল $d[]$ অ্যারেতে $a[i]$-র চেয়ে কঠোরভাবে বড় প্রথম সংখ্যা খুঁজতে পারি, এবং উপরের ইমপ্লিমেন্টেশনের মতোই সেই উপাদান আপডেট করার চেষ্টা করি।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-This gives us the improved $O(n \log n)$ implementation:
+এটি আমাদের উন্নত $O(n \log n)$ ইমপ্লিমেন্টেশন দেয়:
 
 ```cpp
 int lis(vector<int> const& a) {
@@ -255,98 +255,98 @@ int lis(vector<int> const& a) {
 }
 ```
 
-### Restoring the subsequence
+### সাবসিকোয়েন্স পুনরুদ্ধার
 
-It is also possible to restore the subsequence using this approach.
-This time we have to maintain two auxiliary arrays.
-One that tells us the index of the elements in $d[]$.
-And again we have to create an array of "ancestors" $p[i]$.
-$p[i]$ will be the index of the previous element for the optimal subsequence ending in element $i$.
+এই পদ্ধতিতেও সাবসিকোয়েন্স পুনরুদ্ধার করা সম্ভব।
+এবার আমাদের দুটি সহায়ক অ্যারে রাখতে হবে।
+একটি যেটি $d[]$-তে উপাদানগুলোর ইনডেক্স বলে।
+এবং আবারও "পূর্বসূরী" $p[i]$-র একটি অ্যারে তৈরি করতে হবে।
+$p[i]$ হবে $i$ উপাদানে শেষ হওয়া অপটিমাল সাবসিকোয়েন্সের পূর্ববর্তী উপাদানের ইনডেক্স।
 
-It's easy to maintain these two arrays in the course of iteration over the array $a[]$ alongside the computations of $d[]$.
-And at the end it is not difficult to restore the desired subsequence using these arrays.
+$a[]$ অ্যারের উপর ইটারেশনের সময় $d[]$-র হিসাবের পাশাপাশি এই দুটি অ্যারে রাখা সহজ।
+এবং শেষে এই অ্যারেগুলো ব্যবহার করে কাঙ্ক্ষিত সাবসিকোয়েন্স পুনরুদ্ধার করা কঠিন নয়।
 
-## Solution in $O(n \log n)$ with data structures {data-toc-label="Solution in O(n log n) with data structures"}
+## ডেটা স্ট্রাকচার দিয়ে $O(n \log n)$ সমাধান {data-toc-label="Solution in O(n log n) with data structures"}
 
-Instead of the above method for computing the longest increasing subsequence in $O(n \log n)$ we can also solve the problem in a different way: using some simple data structures.
+$O(n \log n)$-এ দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স হিসাবের উপরের পদ্ধতির বদলে আমরা সমস্যাটি ভিন্নভাবেও সমাধান করতে পারি: কিছু সাধারণ ডেটা স্ট্রাকচার ব্যবহার করে।
 
-Let's go back to the first method.
-Remember that $d[i]$ is the value $d[j] + 1$ with $j < i$ and $a[j] < a[i]$.
+আসুন প্রথম পদ্ধতিতে ফিরে যাই।
+মনে রাখুন $d[i]$ হলো $j < i$ এবং $a[j] < a[i]$ সহ $d[j] + 1$ মান।
 
-Thus if we define an additional array $t[]$ such that
+সুতরাং যদি আমরা একটি অতিরিক্ত অ্যারে $t[]$ সংজ্ঞায়িত করি যেন
 
 $$t[a[i]] = d[i],$$
 
-then the problem of computing the value $d[i]$ is equivalent to finding the **maximum value in a prefix** of the array $t[]$:
+তাহলে $d[i]$-র মান হিসাবের সমস্যা $t[]$ অ্যারের একটি **প্রিফিক্সে সর্বোচ্চ মান** খোঁজার সমতুল্য:
 
 $$d[i] = \max\left(t[0 \dots a[i] - 1] + 1\right)$$
 
-The problem of finding the maximum of a prefix of an array (which changes) is a standard problem that can be solved by many different data structures. 
-For instance we can use a [Segment tree](../data_structures/segment_tree.md) or a [Fenwick tree](../data_structures/fenwick.md).
+একটি অ্যারের (যা পরিবর্তিত হয়) প্রিফিক্সের সর্বোচ্চ খোঁজার সমস্যা একটি স্ট্যান্ডার্ড সমস্যা যা বিভিন্ন ডেটা স্ট্রাকচার দিয়ে সমাধান করা যায়।
+উদাহরণস্বরূপ আমরা একটি [সেগমেন্ট ট্রি](../data_structures/segment_tree.md) বা একটি [ফেনউইক ট্রি](../data_structures/fenwick.md) ব্যবহার করতে পারি।
 
-This method has obviously some **shortcomings**:
-in terms of length and complexity of the implementation this approach will be worse than the method using binary search.
-In addition if the input numbers $a[i]$ are especially large, then we would have to use some tricks, like compressing the numbers (i.e. renumber them from $0$ to $n-1$), or use a dynamic segment tree (only generate the branches of the tree that are important).
-Otherwise the memory consumption will be too high.
+এই পদ্ধতির কিছু স্পষ্ট **অসুবিধা** আছে:
+ইমপ্লিমেন্টেশনের দৈর্ঘ্য ও কমপ্লেক্সিটির দিক থেকে এই পদ্ধতি বাইনারি সার্চ ব্যবহারকারী পদ্ধতির চেয়ে খারাপ হবে।
+এছাড়াও ইনপুট সংখ্যা $a[i]$ বিশেষভাবে বড় হলে, কিছু কৌশল ব্যবহার করতে হবে, যেমন সংখ্যা সংকোচন (অর্থাৎ $0$ থেকে $n-1$ পর্যন্ত পুনঃনম্বরায়ন), অথবা ডায়নামিক সেগমেন্ট ট্রি ব্যবহার করতে হবে (কেবল ট্রির গুরুত্বপূর্ণ শাখাগুলো তৈরি করা)।
+অন্যথায় মেমোরি খরচ অত্যধিক হবে।
 
-On the other hand this method has also some **advantages**:
-with this method you don't have to think about any tricky properties in the dynamic programming solution.
-And this approach allows us to generalize the problem very easily (see below).
+অন্যদিকে এই পদ্ধতির কিছু **সুবিধাও** আছে:
+এই পদ্ধতিতে ডায়নামিক প্রোগ্রামিং সমাধানের কোনো জটিল ধর্ম নিয়ে চিন্তা করতে হয় না।
+এবং এই পদ্ধতি আমাদের সমস্যাটি খুব সহজে সাধারণীকৃত করতে দেয় (নিচে দেখুন)।
 
-## Related tasks
+## সম্পর্কিত সমস্যা
 
-Here are several problems that are closely related to the problem of finding the longest increasing subsequence.
+এখানে কয়েকটি সমস্যা দেওয়া হলো যেগুলো দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স খোঁজার সমস্যার সাথে ঘনিষ্ঠভাবে সম্পর্কিত।
 
-### Longest non-decreasing subsequence
+### দীর্ঘতম অ-হ্রাসমান সাবসিকোয়েন্স
 
-This is in fact nearly the same problem.
-Only now it is allowed to use identical numbers in the subsequence.
+এটি আসলে প্রায় একই সমস্যা।
+এবার শুধু সাবসিকোয়েন্সে অভিন্ন সংখ্যা ব্যবহার করার অনুমতি আছে।
 
-The solution is essentially also nearly the same.
-We just have to change the inequality signs, and make a slight modification to the binary search.
+সমাধানও প্রায় একই।
+আমাদের কেবল অসমতার চিহ্ন পরিবর্তন করতে হবে, এবং বাইনারি সার্চে সামান্য পরিবর্তন করতে হবে।
 
-### Number of longest increasing subsequences
+### দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের সংখ্যা
 
-We can use the first discussed method, either the $O(n^2)$ version or the version using data structures.
-We only have to additionally store in how many ways we can obtain longest increasing subsequences ending in the values $d[i]$.
+আমরা প্রথম আলোচিত পদ্ধতি ব্যবহার করতে পারি, হয় $O(n^2)$ সংস্করণ বা ডেটা স্ট্রাকচার ব্যবহারকারী সংস্করণ।
+আমাদের কেবল অতিরিক্তভাবে সংরক্ষণ করতে হবে $d[i]$ মানে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সগুলো কতভাবে পাওয়া যায়।
 
-The number of ways to form a longest increasing subsequences ending in $a[i]$ is the sum of all ways for all longest increasing subsequences ending in $j$ where $d[j]$ is maximal.
-There can be multiple such $j$, so we need to sum all of them.
+$a[i]$-তে শেষ হওয়া দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্স গঠনের উপায়ের সংখ্যা হলো $j$-তে শেষ হওয়া সব দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের উপায়ের যোগফল যেখানে $d[j]$ সর্বোচ্চ।
+একাধিক এরকম $j$ থাকতে পারে, তাই সবগুলো যোগ করতে হবে।
 
-Using a Segment tree this approach can also be implemented in $O(n \log n)$.
+সেগমেন্ট ট্রি ব্যবহার করে এই পদ্ধতিও $O(n \log n)$-এ ইমপ্লিমেন্ট করা যায়।
 
-It is not possible to use the binary search approach for this task.
+এই কাজের জন্য বাইনারি সার্চ পদ্ধতি ব্যবহার করা সম্ভব নয়।
 
-### Smallest number of non-increasing subsequences covering a sequence
+### একটি ক্রমকে আচ্ছাদনকারী অ-বর্ধমান সাবসিকোয়েন্সের ন্যূনতম সংখ্যা
 
-For a given array with $n$ numbers $a[0 \dots n - 1]$ we have to colorize the numbers in the smallest number of colors, so that each color forms a non-increasing subsequence.
+$n$ সংখ্যা $a[0 \dots n - 1]$ বিশিষ্ট একটি প্রদত্ত অ্যারের জন্য আমাদের সংখ্যাগুলোকে ন্যূনতম সংখ্যক রঙে রঙ করতে হবে, যাতে প্রতিটি রঙ একটি অ-বর্ধমান সাবসিকোয়েন্স গঠন করে।
 
-To solve this, we notice that the minimum number of required colors is equal to the length of the longest increasing subsequence.
+এটি সমাধান করতে, আমরা লক্ষ্য করি যে প্রয়োজনীয় রঙের ন্যূনতম সংখ্যা দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের দৈর্ঘ্যের সমান।
 
-**Proof**:
-We need to prove the **duality** of these two problems.
+**প্রমাণ**:
+আমাদের এই দুটি সমস্যার **দ্বৈততা** প্রমাণ করতে হবে।
 
-Let's denote by $x$ the length of the longest increasing subsequence and by $y$ the least number of non-increasing subsequences that form a cover.
-We need to prove that $x = y$.
+ধরি $x$ হলো দীর্ঘতম ক্রমবর্ধমান সাবসিকোয়েন্সের দৈর্ঘ্য এবং $y$ হলো একটি আচ্ছাদন গঠনকারী অ-বর্ধমান সাবসিকোয়েন্সের ন্যূনতম সংখ্যা।
+আমাদের প্রমাণ করতে হবে $x = y$।
 
-It is clear that $y < x$ is not possible, because if we have $x$ strictly increasing elements, than no two can be part of the same non-increasing subsequence.
-Therefore we have $y \ge x$.
+স্পষ্টতই $y < x$ সম্ভব নয়, কারণ যদি আমাদের $x$টি কঠোরভাবে ক্রমবর্ধমান উপাদান থাকে, তাহলে কোনো দুটি একই অ-বর্ধমান সাবসিকোয়েন্সের অংশ হতে পারে না।
+সুতরাং $y \ge x$।
 
-We now show that $y > x$ is not possible by contradiction.
-Suppose that $y > x$.
-Then we consider any optimal set of $y$ non-increasing subsequences.
-We transform this in set in the following way:
-as long as there are two such subsequences such that the first begins before the second subsequence, and the first sequence start with a number greater than or equal to the second, then we unhook this starting number and attach it to the beginning of second.
-After a finite number of steps we have $y$ subsequences, and their starting numbers will form an increasing subsequence of length $y$.
-Since we assumed that $y > x$ we reached a contradiction.
+এখন আমরা দেখাব যে $y > x$ সম্ভব নয় বিরোধের মাধ্যমে।
+ধরি $y > x$।
+তাহলে আমরা $y$টি অ-বর্ধমান সাবসিকোয়েন্সের যেকোনো অপটিমাল সেট বিবেচনা করি।
+আমরা এই সেটকে নিম্নলিখিতভাবে রূপান্তরিত করি:
+যতক্ষণ দুটি সাবসিকোয়েন্স আছে যেন প্রথমটি দ্বিতীয় সাবসিকোয়েন্সের আগে শুরু হয়, এবং প্রথম ক্রমটি দ্বিতীয়ের চেয়ে বড় বা সমান সংখ্যা দিয়ে শুরু হয়, তাহলে আমরা এই শুরুর সংখ্যাটি খুলে দ্বিতীয়টির শুরুতে লাগাই।
+সসীম সংখ্যক ধাপের পরে আমাদের $y$টি সাবসিকোয়েন্স থাকবে, এবং তাদের শুরুর সংখ্যাগুলো $y$ দৈর্ঘ্যের একটি ক্রমবর্ধমান সাবসিকোয়েন্স গঠন করবে।
+যেহেতু আমরা ধরেছিলাম $y > x$ আমরা বিরোধে পৌঁছেছি।
 
-Thus it follows that $y = x$.
+সুতরাং $y = x$।
 
-**Restoring the sequences**:
-The desired partition of the sequence into subsequences can be done greedily.
-I.e. go from left to right and assign the current number or that subsequence ending with the minimal number which is greater than or equal to the current one.
+**ক্রমগুলো পুনরুদ্ধার**:
+ক্রমের কাঙ্ক্ষিত বিভাজন সাবসিকোয়েন্সে গ্রিডিভাবে করা যায়।
+অর্থাৎ বাম থেকে ডানে যান এবং বর্তমান সংখ্যাটি সেই সাবসিকোয়েন্সে অ্যাসাইন করুন যেটি ন্যূনতম সংখ্যায় শেষ হয়েছে যা বর্তমান সংখ্যার চেয়ে বড় বা সমান।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [ACMSGURU - "North-East"](http://codeforces.com/problemsets/acmsguru/problem/99999/521)
 - [Codeforces - LCIS](http://codeforces.com/problemset/problem/10/D)

@@ -1,108 +1,108 @@
 ---
-title: "2-SAT"
+title: "২-স্যাট"
 tags: 
 weight: 40
 ---
-# 2-SAT 
+# ২-স্যাট
 
-SAT (Boolean satisfiability problem) is the problem of assigning Boolean values to variables to satisfy a given Boolean formula.
-The Boolean formula will usually be given in CNF (conjunctive normal form), which is a conjunction of multiple clauses, where each clause is a disjunction of literals (variables or negation of variables).
-2-SAT (2-satisfiability) is a restriction of the SAT problem, in 2-SAT every clause has exactly two literals.
-Here is an example of such a 2-SAT problem.
-Find an assignment of $a, b, c$ such that the following formula is true:
-
-$$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$
-
-SAT is NP-complete, there is no known efficient solution for it.
-However 2SAT can be solved efficiently in $O(n + m)$ where $n$ is the number of variables and $m$ is the number of clauses.
-
-## Algorithm:
-
-First we need to convert the problem to a different form, the so-called implicative normal form.
-Note that the expression $a \lor b$ is equivalent to $\lnot a \Rightarrow b \land \lnot b \Rightarrow a$ (if one of the two variables is false, then the other one must be true).
-
-We now construct a directed graph of these implications:
-for each variable $x$ there will be two vertices $v_x$ and $v_{\lnot x}$.
-The edges will correspond to the implications.
-
-Let's look at the example in 2-CNF form:
+SAT (বুলিয়ান স্যাটিসফায়াবিলিটি প্রবলেম) হলো একটি প্রদত্ত বুলিয়ান ফর্মুলা সিদ্ধ করার জন্য ভেরিয়েবলগুলোতে বুলিয়ান মান অ্যাসাইন করার সমস্যা।
+বুলিয়ান ফর্মুলাটি সাধারণত CNF (কনজাঙ্কটিভ নর্মাল ফর্ম)-এ দেওয়া থাকে, যা একাধিক ক্লজের কনজাঙ্কশন, যেখানে প্রতিটি ক্লজ হলো লিটারেলগুলোর (ভেরিয়েবল বা ভেরিয়েবলের নেগেশন) ডিসজাঙ্কশন।
+২-স্যাট (২-স্যাটিসফায়াবিলিটি) হলো SAT সমস্যার একটি সীমাবদ্ধতা, ২-স্যাটে প্রতিটি ক্লজে ঠিক দুটি লিটারেল থাকে।
+এখানে এরকম একটি ২-স্যাট সমস্যার উদাহরণ দেওয়া হলো।
+এমন $a, b, c$-এর অ্যাসাইনমেন্ট বের করুন যেন নিম্নলিখিত ফর্মুলাটি সত্য হয়:
 
 $$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$
 
-The oriented graph will contain the following vertices and edges:
+SAT হলো NP-complete, এর জন্য কোনো পরিচিত দক্ষ সমাধান নেই।
+তবে ২-স্যাট $O(n + m)$ সময়ে দক্ষভাবে সমাধান করা যায় যেখানে $n$ হলো ভেরিয়েবলের সংখ্যা এবং $m$ হলো ক্লজের সংখ্যা।
+
+## অ্যালগরিদম:
+
+প্রথমে আমাদের সমস্যাটিকে একটি ভিন্ন রূপে রূপান্তর করতে হবে, যাকে ইমপ্লিকেটিভ নর্মাল ফর্ম বলা হয়।
+লক্ষ্য করুন $a \lor b$ রাশিটি $\lnot a \Rightarrow b \land \lnot b \Rightarrow a$ এর সমতুল্য (যদি দুটি ভেরিয়েবলের একটি মিথ্যা হয়, তাহলে অন্যটি অবশ্যই সত্য)।
+
+এখন আমরা এই ইমপ্লিকেশনগুলোর একটি ডিরেক্টেড গ্রাফ তৈরি করি:
+প্রতিটি ভেরিয়েবল $x$-এর জন্য দুটি ভার্টেক্স $v_x$ এবং $v_{\lnot x}$ থাকবে।
+এজগুলো ইমপ্লিকেশনের সাথে সঙ্গতিপূর্ণ হবে।
+
+আসুন ২-CNF ফর্মে উদাহরণটি দেখি:
+
+$$(a \lor \lnot b) \land (\lnot a \lor b) \land (\lnot a \lor \lnot b) \land (a \lor \lnot c)$$
+
+ওরিয়েন্টেড গ্রাফে নিম্নলিখিত ভার্টেক্স এবং এজ থাকবে:
 
 $$\begin{array}{cccc}
 \lnot a \Rightarrow \lnot b & a \Rightarrow b & a \Rightarrow \lnot b & \lnot a \Rightarrow \lnot c\\
 b \Rightarrow a & \lnot b \Rightarrow \lnot a & b \Rightarrow \lnot a & c \Rightarrow a
 \end{array}$$
 
-You can see the implication graph in the following image:
+আপনি নিম্নলিখিত ছবিতে ইমপ্লিকেশন গ্রাফ দেখতে পারেন:
 
 <div style="text-align: center;">
   <img src="/images/graph/2SAT.png" alt=""Implication Graph of 2-SAT example"">
 </div>
 
-It is worth paying attention to the property of the implication graph:
-if there is an edge $a \Rightarrow b$, then there also is an edge $\lnot b \Rightarrow \lnot a$. 
+ইমপ্লিকেশন গ্রাফের বৈশিষ্ট্যটিতে মনোযোগ দেওয়া উচিত:
+যদি $a \Rightarrow b$ এজ থাকে, তাহলে $\lnot b \Rightarrow \lnot a$ এজও থাকে।
 
-Also note, that if $x$ is reachable from $\lnot x$, and $\lnot x$ is reachable from $x$, then the problem has no solution.
-Whatever value we choose for the variable $x$, it will always end in a contradiction - if $x$ will be assigned $\text{true}$ then the implication tells us that $\lnot x$ should also be $\text{true}$ and visa versa.
-It turns out, that this condition is not only necessary, but also sufficient.
-We will prove this in a few paragraphs below.
-First recall, if a vertex is reachable from a second one, and the second one is reachable from the first one, then these two vertices are in the same strongly connected component.
-Therefore we can formulate the criterion for the existence of a solution as follows:
+এছাড়াও লক্ষ্য করুন, যদি $x$ থেকে $\lnot x$ পৌঁছানো যায়, এবং $\lnot x$ থেকে $x$ পৌঁছানো যায়, তাহলে সমস্যার কোনো সমাধান নেই।
+ভেরিয়েবল $x$-এর জন্য আমরা যে মানই বাছাই করি না কেন, এটি সর্বদা একটি দ্বন্দ্বে শেষ হবে — যদি $x$-কে $\text{true}$ অ্যাসাইন করা হয় তাহলে ইমপ্লিকেশন বলে যে $\lnot x$-ও $\text{true}$ হওয়া উচিত এবং বিপরীতভাবে।
+দেখা যায়, এই শর্তটি শুধু প্রয়োজনীয়ই নয়, যথেষ্টও।
+আমরা নিচের কয়েকটি অনুচ্ছেদে এটি প্রমাণ করব।
+প্রথমে স্মরণ করুন, যদি একটি ভার্টেক্স দ্বিতীয়টি থেকে পৌঁছানোযোগ্য হয়, এবং দ্বিতীয়টি প্রথমটি থেকে পৌঁছানোযোগ্য হয়, তাহলে এই দুটি ভার্টেক্স একই স্ট্রংলি কানেক্টেড কম্পোনেন্টে আছে।
+তাই আমরা সমাধানের অস্তিত্বের মানদণ্ডটি এভাবে প্রণয়ন করতে পারি:
 
-In order for this 2-SAT problem to have a solution, it is necessary and sufficient that for any variable $x$ the vertices $x$ and $\lnot x$ are in different strongly connected components of the strong connection of the implication graph.
+এই ২-স্যাট সমস্যার সমাধান থাকার জন্য, প্রয়োজনীয় ও যথেষ্ট শর্ত হলো যেকোনো ভেরিয়েবল $x$-এর জন্য ভার্টেক্স $x$ এবং $\lnot x$ ইমপ্লিকেশন গ্রাফের স্ট্রং কানেকশনের বিভিন্ন স্ট্রংলি কানেক্টেড কম্পোনেন্টে থাকবে।
 
-This criterion can be verified in $O(n + m)$ time by finding all strongly connected components.
+এই মানদণ্ডটি সকল স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজে $O(n + m)$ সময়ে যাচাই করা যায়।
 
-The following image shows all strongly connected components for the example.
-As we can check easily, neither of the four components contain a vertex $x$ and its negation $\lnot x$, therefore the example has a solution.
-We will learn in the next paragraphs how to compute a valid assignment, but just for demonstration purposes the solution $a = \text{false}$, $b = \text{false}$, $c = \text{false}$ is given.
+নিম্নলিখিত ছবিতে উদাহরণটির সকল স্ট্রংলি কানেক্টেড কম্পোনেন্ট দেখানো হয়েছে।
+আমরা সহজেই যাচাই করতে পারি যে চারটি কম্পোনেন্টের কোনোটিতেই একটি ভার্টেক্স $x$ এবং এর নেগেশন $\lnot x$ একসাথে নেই, তাই উদাহরণটির একটি সমাধান আছে।
+পরবর্তী অনুচ্ছেদগুলোতে আমরা শিখব কীভাবে একটি বৈধ অ্যাসাইনমেন্ট গণনা করতে হয়, তবে শুধু প্রদর্শনের জন্য $a = \text{false}$, $b = \text{false}$, $c = \text{false}$ সমাধানটি দেওয়া হলো।
 
 <div style="text-align: center;">
   <img src="/images/graph/2SAT_SCC.png" alt=""Strongly Connected Components of the 2-SAT example"">
 </div>
 
-Now we construct the algorithm for finding the solution of the 2-SAT problem on the assumption that the solution exists.
+এখন আমরা ২-স্যাট সমস্যার সমাধান খোঁজার অ্যালগরিদম তৈরি করি এই অনুমানে যে সমাধান বিদ্যমান।
 
-Note that, in spite of the fact that the solution exists, it can happen that $\lnot x$ is reachable from $x$ in the implication graph, or that (but not simultaneously) $x$ is reachable from $\lnot x$.
-In that case the choice of either $\text{true}$ or $\text{false}$ for $x$ will lead to a contradiction, while the choice of the other one will not.
-Let's learn how to choose a value, such that we don't generate a contradiction.
+লক্ষ্য করুন, সমাধান বিদ্যমান থাকা সত্ত্বেও, ইমপ্লিকেশন গ্রাফে $x$ থেকে $\lnot x$ পৌঁছানোযোগ্য হতে পারে, অথবা (কিন্তু একই সাথে নয়) $\lnot x$ থেকে $x$ পৌঁছানোযোগ্য হতে পারে।
+সেক্ষেত্রে $x$-এর জন্য $\text{true}$ বা $\text{false}$-এর একটি বাছাই দ্বন্দ্ব তৈরি করবে, অন্যটি করবে না।
+আসুন শিখি কীভাবে এমন মান বাছাই করতে হয় যেন আমরা দ্বন্দ্ব তৈরি না করি।
 
-Let us sort the strongly connected components in topological order (i.e. $\text{comp}[v] \le \text{comp}[u]$ if there is a path from $v$ to $u$) and let $\text{comp}[v]$ denote the index of strongly connected component to which the vertex $v$ belongs.
-Then, if $\text{comp}[x] < \text{comp}[\lnot x]$ we assign $x$ with $\text{false}$ and $\text{true}$ otherwise.
+আমরা স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো টপোলজিক্যাল ক্রমে সাজাই (অর্থাৎ $v$ থেকে $u$-তে পাথ থাকলে $\text{comp}[v] \le \text{comp}[u]$) এবং $\text{comp}[v]$ দ্বারা $v$ ভার্টেক্স যে স্ট্রংলি কানেক্টেড কম্পোনেন্টের অন্তর্ভুক্ত তার ইনডেক্স বোঝানো হোক।
+তাহলে, যদি $\text{comp}[x] < \text{comp}[\lnot x]$ হয় তাহলে আমরা $x$-কে $\text{false}$ অ্যাসাইন করি এবং অন্যথায় $\text{true}$।
 
-Let us prove that with this assignment of the variables we do not arrive at a contradiction.
-Suppose $x$ is assigned with $\text{true}$.
-The other case can be proven in a similar way.
+আসুন প্রমাণ করি যে ভেরিয়েবলগুলোর এই অ্যাসাইনমেন্টে আমরা দ্বন্দ্বে পৌঁছাই না।
+ধরুন $x$-কে $\text{true}$ অ্যাসাইন করা হয়েছে।
+অন্য ক্ষেত্রটি একইভাবে প্রমাণ করা যায়।
 
-First we prove that the vertex $x$ cannot reach the vertex $\lnot x$.
-Because we assigned $\text{true}$ it has to hold that the index of strongly connected component of $x$ is greater than the index of the component of $\lnot x$.
-This means that $\lnot x$ is located on the left of the component containing $x$, and the later vertex cannot reach the first.
+প্রথমে আমরা প্রমাণ করি যে ভার্টেক্স $x$ থেকে ভার্টেক্স $\lnot x$ পৌঁছানো সম্ভব নয়।
+যেহেতু আমরা $\text{true}$ অ্যাসাইন করেছি, তাই $x$-এর স্ট্রংলি কানেক্টেড কম্পোনেন্টের ইনডেক্স $\lnot x$-এর কম্পোনেন্টের ইনডেক্সের চেয়ে বড়।
+এর মানে $\lnot x$, $x$ ধারণকারী কম্পোনেন্টের বামে অবস্থিত, এবং পরবর্তী ভার্টেক্স থেকে প্রথমটিতে পৌঁছানো সম্ভব নয়।
 
-Secondly we prove that there doesn't exist a variable $y$, such that the vertices $y$ and $\lnot y$ are both reachable from $x$ in the implication graph.
-This would cause a contradiction, because $x = \text{true}$ implies that $y = \text{true}$ and $\lnot y = \text{true}$.
-Let us prove this by contradiction.
-Suppose that $y$ and $\lnot y$ are both reachable from $x$, then by the property of the implication graph $\lnot x$ is reachable from both $y$ and $\lnot y$.
-By transitivity this results that $\lnot x$ is reachable by $x$, which contradicts the assumption.
+দ্বিতীয়ত আমরা প্রমাণ করি যে এমন কোনো ভেরিয়েবল $y$ নেই, যেন ইমপ্লিকেশন গ্রাফে $x$ থেকে $y$ এবং $\lnot y$ উভয়ই পৌঁছানোযোগ্য।
+এটি একটি দ্বন্দ্ব তৈরি করত, কারণ $x = \text{true}$ মানে $y = \text{true}$ এবং $\lnot y = \text{true}$।
+আসুন পরোক্ষ প্রমাণ করি।
+ধরুন $y$ এবং $\lnot y$ উভয়ই $x$ থেকে পৌঁছানোযোগ্য, তাহলে ইমপ্লিকেশন গ্রাফের বৈশিষ্ট্য অনুযায়ী $\lnot x$, $y$ এবং $\lnot y$ উভয় থেকে পৌঁছানোযোগ্য।
+সংক্রমণশীলতা দ্বারা এর ফলে $\lnot x$, $x$ থেকে পৌঁছানোযোগ্য, যা অনুমানের সাথে দ্বন্দ্ব করে।
 
-So we have constructed an algorithm that finds the required values of variables under the assumption that for any variable $x$ the vertices $x$ and $\lnot x$ are in different strongly connected components.
-Above showed the correctness of this algorithm.
-Consequently we simultaneously proved the above criterion for the existence of a solution.
+সুতরাং আমরা এমন একটি অ্যালগরিদম তৈরি করেছি যা ভেরিয়েবলগুলোর প্রয়োজনীয় মান খুঁজে বের করে এই অনুমানে যে যেকোনো ভেরিয়েবল $x$-এর জন্য ভার্টেক্স $x$ এবং $\lnot x$ ভিন্ন স্ট্রংলি কানেক্টেড কম্পোনেন্টে আছে।
+উপরে এই অ্যালগরিদমের সঠিকতা প্রমাণ করা হয়েছে।
+ফলস্বরূপ আমরা একই সাথে সমাধানের অস্তিত্বের উপরোক্ত মানদণ্ডটিও প্রমাণ করলাম।
 
-## Implementation:
+## ইমপ্লিমেন্টেশন:
 
-Now we can implement the entire algorithm.
-First we construct the graph of implications and find all strongly connected components.
-This can be accomplished with Kosaraju's algorithm in $O(n + m)$ time.
-In the second traversal of the graph Kosaraju's algorithm visits the strongly connected components in topological order, therefore it is easy to compute $\text{comp}[v]$ for each vertex $v$.
+এখন আমরা সম্পূর্ণ অ্যালগরিদম ইমপ্লিমেন্ট করতে পারি।
+প্রথমে আমরা ইমপ্লিকেশনের গ্রাফ তৈরি করি এবং সকল স্ট্রংলি কানেক্টেড কম্পোনেন্ট খুঁজি।
+এটি কোসারাজুর অ্যালগরিদম দিয়ে $O(n + m)$ সময়ে করা যায়।
+গ্রাফের দ্বিতীয় ট্রাভার্সালে কোসারাজুর অ্যালগরিদম স্ট্রংলি কানেক্টেড কম্পোনেন্টগুলো টপোলজিক্যাল ক্রমে ভিজিট করে, তাই প্রতিটি ভার্টেক্স $v$-এর জন্য $\text{comp}[v]$ গণনা করা সহজ।
 
-Afterwards we can choose the assignment of $x$ by comparing $\text{comp}[x]$ and $\text{comp}[\lnot x]$. 
-If $\text{comp}[x] = \text{comp}[\lnot x]$ we return $\text{false}$ to indicate that there doesn't exist a valid assignment that satisfies the 2-SAT problem.
+এরপর আমরা $\text{comp}[x]$ এবং $\text{comp}[\lnot x]$ তুলনা করে $x$-এর অ্যাসাইনমেন্ট বাছাই করতে পারি।
+যদি $\text{comp}[x] = \text{comp}[\lnot x]$ হয় তাহলে আমরা $\text{false}$ রিটার্ন করি এটি বোঝাতে যে ২-স্যাট সমস্যা সিদ্ধ করে এমন কোনো বৈধ অ্যাসাইনমেন্ট নেই।
 
-Below is the implementation of the solution of the 2-SAT problem for the already constructed graph of implication $adj$ and the transpose graph $adj^{\intercal}$ (in which the direction of each edge is reversed).
-In the graph the vertices with indices $2k$ and $2k+1$ are the two vertices corresponding to variable $k$ with $2k+1$ corresponding to the negated variable.
+নিচে ইতিমধ্যে তৈরি করা ইমপ্লিকেশনের গ্রাফ $adj$ এবং ট্রান্সপোজ গ্রাফ $adj^{\intercal}$ (যেখানে প্রতিটি এজের দিক উল্টানো হয়েছে) ব্যবহার করে ২-স্যাট সমস্যার সমাধানের ইমপ্লিমেন্টেশন দেওয়া হলো।
+গ্রাফে $2k$ এবং $2k+1$ ইনডেক্সের ভার্টেক্সগুলো ভেরিয়েবল $k$-এর দুটি ভার্টেক্স, যেখানে $2k+1$ নেগেটেড ভেরিয়েবলের সাথে সঙ্গতিপূর্ণ।
 
 ```cpp
 struct TwoSatSolver {
@@ -158,7 +158,7 @@ struct TwoSatSolver {
     }
 
     void add_disjunction(int a, bool na, int b, bool nb) {
-        // na and nb signify whether a and b are to be negated 
+        // na and nb signify whether a and b are to be negated
         a = 2 * a ^ na;
         b = 2 * b ^ nb;
         int neg_a = a ^ 1;
@@ -182,7 +182,7 @@ struct TwoSatSolver {
 };
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
  * [Codeforces: The Door Problem](http://codeforces.com/contest/776/problem/D)
  * [Kattis: Illumination](https://open.kattis.com/problems/illumination)
  * [UVA: Rectangles](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3081)

@@ -1,65 +1,65 @@
 ---
-title: "Convex hull trick and Li Chao tree"
+title: "কনভেক্স হাল ট্রিক এবং লি চাও ট্রি"
 tags: 
 weight: 20
 ---
-# Convex hull trick and Li Chao tree
+# কনভেক্স হাল ট্রিক এবং লি চাও ট্রি
 
-Consider the following problem. There are $n$ cities. You want to travel from city $1$ to city $n$ by car. To do this you have to buy some gasoline. It is known that a liter of gasoline costs $cost_k$ in the $k^{th}$ city. Initially your fuel tank is empty and you spend one liter of gasoline per kilometer. Cities are located on the same line in ascending order with $k^{th}$ city having coordinate $x_k$. Also you have to pay $toll_k$ to enter $k^{th}$ city. Your task is to make the trip with minimum possible cost. It's obvious that the solution can be calculated via dynamic programming:
+নিম্নলিখিত সমস্যাটি বিবেচনা করুন। $n$ টি শহর আছে। আপনি গাড়িতে করে শহর ১ থেকে শহর $n$-এ যেতে চান। এর জন্য আপনাকে কিছু পেট্রোল কিনতে হবে। জানা আছে যে $k$-তম শহরে এক লিটার পেট্রোলের দাম $cost_k$। শুরুতে আপনার ফুয়েল ট্যাঙ্ক খালি এবং আপনি প্রতি কিলোমিটারে এক লিটার পেট্রোল খরচ করেন। শহরগুলো একই রেখায় ক্রমবর্ধমান ক্রমে অবস্থিত যেখানে $k$-তম শহরের স্থানাঙ্ক $x_k$। এছাড়াও $k$-তম শহরে প্রবেশ করতে আপনাকে $toll_k$ দিতে হবে। আপনার কাজ হলো ন্যূনতম সম্ভাব্য খরচে ভ্রমণ করা। স্পষ্টতই সমাধানটি ডায়নামিক প্রোগ্রামিং দিয়ে হিসাব করা যায়:
 
 $$dp_i = toll_i+\min\limits_{j<i}(cost_j \cdot (x_i - x_j)+dp_j)$$
 
-Naive approach will give you $O(n^2)$ complexity which can be improved to $O(n \log n)$ or $O(n \log [C \varepsilon^{-1}])$ where $C$ is largest possible $|x_i|$ and $\varepsilon$ is precision with which $x_i$ is considered ($\varepsilon = 1$ for integers which is usually the case). To do this one should note that the problem can be reduced to adding linear functions $k \cdot x + b$ to the set and finding minimum value of the functions in some particular point $x$. There are two main approaches one can use here.
+নেইভ পদ্ধতিতে $O(n^2)$ কমপ্লেক্সিটি হবে যা $O(n \log n)$ বা $O(n \log [C \varepsilon^{-1}])$-এ উন্নত করা যায় যেখানে $C$ হলো সবচেয়ে বড় সম্ভাব্য $|x_i|$ এবং $\varepsilon$ হলো $x_i$ যে নির্ভুলতায় বিবেচিত ($\varepsilon = 1$ পূর্ণ সংখ্যার জন্য যা সাধারণত হয়ে থাকে)। এটি করতে লক্ষ্য করা উচিত যে সমস্যাটিকে সেটে লিনিয়ার ফাংশন $k \cdot x + b$ যোগ করা এবং কোনো নির্দিষ্ট বিন্দু $x$-এ ফাংশনগুলোর ন্যূনতম মান খুঁজে বের করায় সরলীকৃত করা যায়। এখানে দুটি প্রধান পদ্ধতি ব্যবহার করা যায়।
 
-## Convex hull trick
+## কনভেক্স হাল ট্রিক
 
-The idea of this approach is to maintain a lower convex hull of linear functions.
-Actually it would be a bit more convenient to consider them not as linear functions, but as points $(k;b)$ on the plane such that we will have to find the point which has the least dot product with a given point $(x;1)$, that is, for this point $kx+b$ is minimized which is the same as initial problem.
-Such minimum will necessarily be on lower convex envelope of these points as can be seen below:
+এই পদ্ধতির ধারণা হলো লিনিয়ার ফাংশনগুলোর একটি লোয়ার কনভেক্স হাল বজায় রাখা।
+আসলে এগুলোকে লিনিয়ার ফাংশন হিসেবে না ভেবে সমতলে $(k;b)$ বিন্দু হিসেবে বিবেচনা করা আরো সুবিধাজনক, যেন আমাদের সেই বিন্দু খুঁজতে হবে যার প্রদত্ত বিন্দু $(x;1)$ এর সাথে ডট প্রোডাক্ট সবচেয়ে কম, অর্থাৎ এই বিন্দুর জন্য $kx+b$ ন্যূনতম যা মূল সমস্যার একই।
+এই ন্যূনতম অবশ্যই এই বিন্দুগুলোর লোয়ার কনভেক্স এনভেলোপে থাকবে যেমনটি নিচে দেখা যায়:
 
 <div style="text-align: center;">
   <img src="/images/geometry/convex_hull_trick.png" alt="lower convex hull">
 </div>
 
-One has to keep points on the convex hull and normal vectors of the hull's edges.
-When you have a $(x;1)$ query you'll have to find the normal vector closest to it in terms of angles between them, then the optimum linear function will correspond to one of its endpoints.
-To see that, one should note that points having a constant dot product with $(x;1)$ lie on a line which is orthogonal to $(x;1)$, so the optimum linear function will be the one in which tangent to convex hull which is collinear with normal to $(x;1)$ touches the hull.
-This point is the one such that normals of edges lying to the left and to the right of it are headed in different sides of $(x;1)$.
+কনভেক্স হালের বিন্দু এবং হালের এজগুলোর নরমাল ভেক্টর রাখতে হবে।
+যখন আপনার $(x;1)$ কুয়েরি থাকে তখন আপনাকে এর সাথে কোণের দিক থেকে সবচেয়ে কাছের নরমাল ভেক্টর খুঁজতে হবে, তাহলে অপটিমাল লিনিয়ার ফাংশন এর কোনো একটি প্রান্তবিন্দুর সাথে সংশ্লিষ্ট হবে।
+এটি দেখতে লক্ষ্য করুন, $(x;1)$ এর সাথে ধ্রুবক ডট প্রোডাক্টবিশিষ্ট বিন্দুগুলো $(x;1)$ এর সাথে লম্ব একটি রেখায় থাকে, তাই অপটিমাল লিনিয়ার ফাংশন হবে সেটি যেখানে কনভেক্স হালের স্পর্শক রেখা $(x;1)$ এর নরমালের সাথে সমরেখ হয়ে হালকে স্পর্শ করে।
+এই বিন্দুটি সেটি যেন এর বাম ও ডানের এজের নরমালগুলো $(x;1)$ এর বিভিন্ন পাশে নির্দেশিত।
 
-This approach is useful when queries of adding linear functions are monotone in terms of $k$ or if we work offline, i.e. we may firstly add all linear functions and answer queries afterwards.
-So we cannot solve the cities/gasoline problems using this way.
-That would require handling online queries.
-When it comes to deal with online queries however, things will go tough and one will have to use some kind of set data structure to implement a proper convex hull.
-Online approach will however not be considered in this article due to its hardness and because second approach (which is Li Chao tree) allows to solve the problem way more simply.
-Worth mentioning that one can still use this approach online without complications by square-root-decomposition.
-That is, rebuild convex hull from scratch each $\sqrt n$ new lines. 
+এই পদ্ধতিটি উপকারী যখন লিনিয়ার ফাংশন যোগ করার কুয়েরিগুলো $k$-এর দিক থেকে মনোটোন অথবা আমরা অফলাইনে কাজ করি, অর্থাৎ আমরা প্রথমে সব লিনিয়ার ফাংশন যোগ করে তারপর কুয়েরির উত্তর দিতে পারি।
+তাই আমরা এই উপায়ে শহর/পেট্রোল সমস্যা সমাধান করতে পারি না।
+সেটির জন্য অনলাইন কুয়েরি হ্যান্ডল করা প্রয়োজন।
+তবে অনলাইন কুয়েরি হ্যান্ডল করা কঠিন এবং একটি সঠিক কনভেক্স হাল ইমপ্লিমেন্ট করতে কোনো ধরনের সেট ডেটা স্ট্রাকচার ব্যবহার করতে হবে।
+অনলাইন পদ্ধতি এই আর্টিকেলে কঠিনতার কারণে বিবেচনা করা হবে না এবং কারণ দ্বিতীয় পদ্ধতি (লি চাও ট্রি) সমস্যাটি অনেক সহজে সমাধান করতে দেয়।
+উল্লেখযোগ্য যে স্কয়ার-রুট-ডিকম্পোজিশন দ্বারা জটিলতা ছাড়াই এই পদ্ধতি অনলাইনে ব্যবহার করা যায়।
+অর্থাৎ, প্রতি $\sqrt n$ নতুন রেখায় কনভেক্স হাল শুরু থেকে পুনর্নির্মাণ করা।
 
-To implement this approach one should begin with some geometric utility functions, here we suggest to use the C++ complex number type.
+এই পদ্ধতি ইমপ্লিমেন্ট করতে কিছু জ্যামিতিক ইউটিলিটি ফাংশন দিয়ে শুরু করা উচিত, এখানে আমরা C++ কমপ্লেক্স নম্বর টাইপ ব্যবহার করার পরামর্শ দিই।
 
 ```cpp
 typedef int ftype;
 typedef complex<ftype> point;
 #define x real
 #define y imag
- 
+
 ftype dot(point a, point b) {
 	return (conj(a) * b).x();
 }
- 
+
 ftype cross(point a, point b) {
 	return (conj(a) * b).y();
 }
 ```
 
-Here we will assume that when linear functions are added, their $k$ only increases and we want to find minimum values.
-We will keep points in vector $hull$ and normal vectors in vector $vecs$.
-When we add a new point, we have to look at the angle formed between last edge in convex hull and vector from last point in convex hull to new point.
-This angle has to be directed counter-clockwise, that is the dot product of the last normal vector in the hull (directed inside hull) and the vector from the last point to the new one has to be non-negative.
-As long as this isn't true, we should erase the last point in the convex hull alongside with the corresponding edge.
+এখানে আমরা ধরে নেব যে লিনিয়ার ফাংশন যোগ করার সময়, তাদের $k$ শুধু বাড়ে এবং আমরা ন্যূনতম মান খুঁজতে চাই।
+আমরা বিন্দুগুলো `hull` ভেক্টরে এবং নরমাল ভেক্টরগুলো `vecs` ভেক্টরে রাখব।
+যখন আমরা নতুন বিন্দু যোগ করি, কনভেক্স হালের শেষ এজ এবং হালের শেষ বিন্দু থেকে নতুন বিন্দুর ভেক্টরের মধ্যে গঠিত কোণ দেখতে হবে।
+এই কোণটি ঘড়ির কাঁটার বিপরীতে নির্দেশিত হতে হবে, অর্থাৎ হালের শেষ নরমাল ভেক্টর (হালের ভিতরের দিকে নির্দেশিত) এবং শেষ বিন্দু থেকে নতুন বিন্দুর ভেক্টরের ডট প্রোডাক্ট অ-ঋণাত্মক হতে হবে।
+যতক্ষণ এটি সত্য না, কনভেক্স হালের শেষ বিন্দু সংশ্লিষ্ট এজসহ মুছে ফেলতে হবে।
 
 ```cpp
 vector<point> hull, vecs;
- 
+
 void add_line(ftype k, ftype b) {
     point nw = {k, b};
     while(!vecs.empty() && dot(vecs.back(), nw - hull.back()) < 0) {
@@ -71,9 +71,9 @@ void add_line(ftype k, ftype b) {
     }
     hull.push_back(nw);
 }
- 
+
 ```
-Now to get the minimum value in some point we will find the first normal vector in the convex hull that is directed counter-clockwise from $(x;1)$. The left endpoint of such edge will be the answer. To check if vector $a$ is not directed counter-clockwise of vector $b$, we should check if their cross product $[a,b]$ is positive.
+এখন কোনো বিন্দুতে ন্যূনতম মান পেতে আমরা কনভেক্স হালে $(x;1)$ থেকে ঘড়ির কাঁটার বিপরীতে নির্দেশিত প্রথম নরমাল ভেক্টর খুঁজব। এই এজের বাম প্রান্তবিন্দু হবে উত্তর। ভেক্টর $a$ ভেক্টর $b$-র ঘড়ির কাঁটার বিপরীতে নির্দেশিত নয় কিনা পরীক্ষা করতে, তাদের ক্রস প্রোডাক্ট $[a,b]$ ধনাত্মক কিনা দেখতে হবে।
 ```cpp
 int get(ftype x) {
     point query = {x, 1};
@@ -84,42 +84,42 @@ int get(ftype x) {
 }
 ```
 
-## Li Chao tree
+## লি চাও ট্রি
 
-Assume you're given a set of functions such that each two can intersect at most once. Let's keep in each vertex of a segment tree some function in such way, that if we go from root to the leaf it will be guaranteed that one of the functions we met on the path will be the one giving the minimum value in that leaf. Let's see how to construct it.
+ধরুন আপনাকে এমন ফাংশনের একটি সেট দেওয়া আছে যেখানে প্রতি দুটি সর্বাধিক একবার ছেদ করতে পারে। আসুন সেগমেন্ট ট্রির প্রতিটি ভার্টেক্সে একটি ফাংশন রাখি এমনভাবে যে, যদি আমরা রুট থেকে পাতায় যাই তাহলে গ্যারান্টি থাকবে যে পথে পাওয়া ফাংশনগুলোর একটি সেই পাতায় ন্যূনতম মান দেবে। আসুন দেখি কীভাবে এটি তৈরি করা যায়।
 
-Assume we're in some vertex corresponding to half-segment $[l,r)$ and the function $f_{old}$ is kept there and we add the function $f_{new}$. Then the intersection point will be either in $[l;m)$ or in $[m;r)$ where $m=\left\lfloor\tfrac{l+r}{2}\right\rfloor$. We can efficiently find that out by comparing the values of the functions in points $l$ and $m$. If the dominating function changes, then it is in $[l;m)$ otherwise it is in $[m;r)$. Now for the half of the segment with no intersection we will pick the lower function and write it in the current vertex. You can see that it will always be the one which is lower in point $m$. After that we recursively go to the other half of the segment with the function which was the upper one. As you can see this will keep correctness on the first half of segment and in the other one correctness will be maintained during the recursive call. Thus we can add functions and check the minimum value in the point in $O(\log [C\varepsilon^{-1}])$.
+ধরি আমরা হাফ-সেগমেন্ট $[l,r)$-র সাথে সংশ্লিষ্ট কোনো ভার্টেক্সে আছি এবং সেখানে ফাংশন $f_{old}$ রাখা আছে এবং আমরা ফাংশন $f_{new}$ যোগ করি। তাহলে ছেদবিন্দু হয় $[l;m)$-তে অথবা $[m;r)$-তে থাকবে যেখানে $m=\left\lfloor\tfrac{l+r}{2}\right\rfloor$। $l$ ও $m$ বিন্দুতে ফাংশনের মান তুলনা করে আমরা কার্যকরভাবে এটি বের করতে পারি। ছেদবিহীন অর্ধেক সেগমেন্টের জন্য আমরা নিচের ফাংশনটি বেছে নিয়ে বর্তমান ভার্টেক্সে লিখব। দেখা যায় এটি সবসময় সেটি হবে যেটি $m$ বিন্দুতে নিচে। এরপর আমরা রিকার্সিভভাবে সেগমেন্টের অন্য অর্ধে যাই যেটি উপরে ছিল সেই ফাংশন নিয়ে। দেখা যায় এটি প্রথম অর্ধে সঠিকতা বজায় রাখবে এবং অন্যটিতে রিকার্সিভ কলের সময় সঠিকতা বজায় থাকবে। সুতরাং আমরা ফাংশন যোগ করতে এবং বিন্দুতে ন্যূনতম মান পরীক্ষা করতে পারি $O(\log [C\varepsilon^{-1}])$-এ।
 
-Here is the illustration of what is going on in the vertex when we add new function:
+ভার্টেক্সে নতুন ফাংশন যোগ করার সময় কী ঘটে তার চিত্র:
 
 <div style="text-align: center;">
   <img src="/images/geometry/li_chao_vertex.png" alt="Li Chao Tree vertex">
 </div>
 
-Let's go to implementation now. Once again we will use complex numbers to keep linear functions.
+আসুন এখন ইমপ্লিমেন্টেশনে যাই। আবারও আমরা লিনিয়ার ফাংশন রাখতে কমপ্লেক্স নম্বর ব্যবহার করব।
 
 ```cpp
 typedef long long ftype;
 typedef complex<ftype> point;
 #define x real
 #define y imag
- 
+
 ftype dot(point a, point b) {
     return (conj(a) * b).x();
 }
- 
+
 ftype f(point a,  ftype x) {
     return dot(a, {x, 1});
 }
 ```
-We will keep functions in the array $line$ and use binary indexing of the segment tree. If you want to use it on large numbers or doubles, you should use a dynamic segment tree. 
-The segment tree should be initialized with default values, e.g. with lines $0x + \infty$.
+আমরা ফাংশনগুলো `line` অ্যারেতে রাখব এবং সেগমেন্ট ট্রির বাইনারি ইনডেক্সিং ব্যবহার করব। বড় সংখ্যা বা ডাবলে ব্যবহার করতে চাইলে, ডায়নামিক সেগমেন্ট ট্রি ব্যবহার করা উচিত।
+সেগমেন্ট ট্রি ডিফল্ট মান দিয়ে ইনিশিয়ালাইজ করতে হবে, যেমন $0x + \infty$ রেখা দিয়ে।
 
 ```cpp
 const int maxn = 2e5;
- 
+
 point line[4 * maxn];
- 
+
 void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
     bool lef = f(nw, l) < f(line[v], l);
@@ -136,7 +136,7 @@ void add_line(point nw, int v = 1, int l = 0, int r = maxn) {
     }
 }
 ```
-Now to get the minimum in some point $x$ we simply choose the minimum value along the path to the point.
+এখন কোনো বিন্দু $x$-এ ন্যূনতম পেতে আমরা কেবল বিন্দু পর্যন্ত পথ ধরে ন্যূনতম মান বেছে নিই।
 ```cpp
 ftype get(int x, int v = 1, int l = 0, int r = maxn) {
     int m = (l + r) / 2;
@@ -150,9 +150,9 @@ ftype get(int x, int v = 1, int l = 0, int r = maxn) {
 }
 ```
 
-## Problems
+## সমস্যাসমূহ
 
-* [Codebreaker - TROUBLES](https://codeforces.com/gym/103536/problem/B) (simple application of Convex Hull Trick after a couple of observations)
+* [Codebreaker - TROUBLES](https://codeforces.com/gym/103536/problem/B) (কয়েকটি পর্যবেক্ষণের পর কনভেক্স হাল ট্রিকের সরল প্রয়োগ)
 * [CS Academy - Squared Ends](https://csacademy.com/contest/archive/task/squared-ends)
 * [Codeforces - Escape Through Leaf](http://codeforces.com/contest/932/problem/F)
 * [CodeChef - Polynomials](https://www.codechef.com/NOV17/problems/POLY)

@@ -1,58 +1,58 @@
 ---
-title: "Fibonacci Numbers"
+title: "ফিবোনাচ্চি সংখ্যা"
 tags: 
 weight: 50
 ---
-# Fibonacci Numbers
+# ফিবোনাচ্চি সংখ্যা
 
-The Fibonacci sequence is defined as follows:
+ফিবোনাচ্চি সিকোয়েন্সটি নিম্নরূপে সংজ্ঞায়িত:
 
 $$F_0 = 0, F_1 = 1, F_n = F_{n-1} + F_{n-2}$$
 
-The first elements of the sequence ([OEIS A000045](http://oeis.org/A000045)) are:
+সিকোয়েন্সের প্রথম কয়েকটি পদ ([OEIS A000045](http://oeis.org/A000045)):
 
 $$0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...$$
 
-## Properties
+## বৈশিষ্ট্য
 
-Fibonacci numbers possess a lot of interesting properties. Here are a few of them:
+ফিবোনাচ্চি সংখ্যাগুলোর অনেক আকর্ষণীয় বৈশিষ্ট্য রয়েছে। এখানে কয়েকটি উল্লেখ করা হলো:
 
-* Cassini's identity:
-  
+* ক্যাসিনির অভেদ (Cassini's identity):
+
 $$F_{n-1} F_{n+1} - F_n^2 = (-1)^n$$
 
->This can be proved by induction. A one-line proof by Knuth comes from taking the determinant of the 2x2 matrix form below.
+>এটি আরোহ পদ্ধতিতে (induction) প্রমাণ করা যায়। নুথ (Knuth) কর্তৃক একটি এক-লাইনের প্রমাণ পাওয়া যায়, যেটি নিচে দেওয়া ২x২ ম্যাট্রিক্স ফর্মের ডিটারমিন্যান্ট থেকে আসে।
 
-* The "addition" rule:
-  
+* "যোগের" নিয়ম:
+
 $$F_{n+k} = F_k F_{n+1} + F_{k-1} F_n$$
 
-* Applying the previous identity to the case $k = n$, we get:
-  
+* উপরের অভেদটিতে $k = n$ বসালে আমরা পাই:
+
 $$F_{2n} = F_n (F_{n+1} + F_{n-1})$$
 
-* From this we can prove by induction that for any positive integer $k$,  $F_{nk}$ is multiple of $F_n$.
+* এটি থেকে আরোহ পদ্ধতিতে প্রমাণ করা যায় যে, যেকোনো ধনাত্মক পূর্ণসংখ্যা $k$-এর জন্য $F_{nk}$, $F_n$-এর গুণিতক।
 
-* The inverse is also true: if $F_m$ is multiple of $F_n$, then $m$ is multiple of $n$.
+* বিপরীতটিও সত্য: যদি $F_m$, $F_n$-এর গুণিতক হয়, তাহলে $m$, $n$-এর গুণিতক।
 
-* GCD identity:
-  
+* GCD অভেদ:
+
 $$GCD(F_m, F_n) = F_{GCD(m, n)}$$
 
-* Fibonacci numbers are the worst possible inputs for Euclidean algorithm (see Lame's theorem in [Euclidean algorithm](euclid-algorithm.md))
+* ইউক্লিডীয় অ্যালগরিদমের জন্য ফিবোনাচ্চি সংখ্যাগুলো সবচেয়ে খারাপ ইনপুট (লেমির উপপাদ্য দেখুন [ইউক্লিডীয় অ্যালগরিদম](euclid-algorithm.md)-এ)
 
-## Fibonacci Coding
+## ফিবোনাচ্চি কোডিং
 
-We can use the sequence to encode positive integers into binary code words. According to Zeckendorf's theorem, any natural number $n$ can be uniquely represented as a sum of Fibonacci numbers:
+আমরা এই সিকোয়েন্সটি ব্যবহার করে ধনাত্মক পূর্ণসংখ্যাগুলোকে বাইনারি কোডওয়ার্ডে এনকোড করতে পারি। জেকেনডর্ফের উপপাদ্য (Zeckendorf's theorem) অনুসারে, যেকোনো স্বাভাবিক সংখ্যা $n$-কে ফিবোনাচ্চি সংখ্যাগুলোর যোগফল হিসেবে অনন্যভাবে প্রকাশ করা যায়:
 
 $$N = F_{k_1} + F_{k_2} + \ldots + F_{k_r}$$
 
-such that $k_1 \ge k_2 + 2,\ k_2 \ge k_3 + 2,\  \ldots,\  k_r \ge 2$ (i.e.: the representation cannot use two consecutive Fibonacci numbers).
+যেখানে $k_1 \ge k_2 + 2,\ k_2 \ge k_3 + 2,\  \ldots,\  k_r \ge 2$ (অর্থাৎ, এই উপস্থাপনে পরপর দুটি ফিবোনাচ্চি সংখ্যা ব্যবহার করা যাবে না)।
 
-It follows that any number can be uniquely encoded in the Fibonacci coding.
-And we can describe this representation with binary codes $d_0 d_1 d_2 \dots d_s 1$, where $d_i$ is $1$ if $F_{i+2}$ is used in the representation.
-The code will be appended by a $1$ to indicate the end of the code word.
-Notice that this is the only occurrence where two consecutive 1-bits appear.
+এটি থেকে বোঝা যায় যে, যেকোনো সংখ্যাকে ফিবোনাচ্চি কোডিং-এ অনন্যভাবে এনকোড করা সম্ভব।
+এবং আমরা এই উপস্থাপনটিকে বাইনারি কোড $d_0 d_1 d_2 \dots d_s 1$ দিয়ে বর্ণনা করতে পারি, যেখানে $d_i$ হলো $1$ যদি $F_{i+2}$ উপস্থাপনে ব্যবহৃত হয়।
+কোডওয়ার্ডের শেষ নির্দেশ করতে একটি $1$ যোগ করা হয়।
+লক্ষ্য করুন, এটিই একমাত্র স্থান যেখানে পরপর দুটি 1-বিট দেখা যায়।
 
 $$\begin{eqnarray}
 1 &=& 1 &=& F_2 &=& (11)_F \\
@@ -63,42 +63,42 @@ $$\begin{eqnarray}
 19 &=& 13 + 5 + 1 &=& F_7 + F_5 + F_2 &=& (1001011)_F
 \end{eqnarray}$$
 
-The encoding of an integer $n$ can be done with a simple greedy algorithm:
+একটি পূর্ণসংখ্যা $n$-এর এনকোডিং একটি সহজ গ্রিডি অ্যালগরিদম দিয়ে করা যায়:
 
-1. Iterate through the Fibonacci numbers from the largest to the smallest until you find one less than or equal to $n$.
+১. সবচেয়ে বড় থেকে সবচেয়ে ছোট ফিবোনাচ্চি সংখ্যাগুলোর মধ্যে দিয়ে ইটারেট করুন যতক্ষণ না $n$-এর সমান বা ছোট একটি সংখ্যা পাওয়া যায়।
 
-2. Suppose this number was $F_i$. Subtract $F_i$ from $n$ and put a $1$ in the $i-2$ position of the code word (indexing from 0 from the leftmost to the rightmost bit).
+২. ধরুন সেই সংখ্যাটি $F_i$। $n$ থেকে $F_i$ বিয়োগ করুন এবং কোডওয়ার্ডের $i-2$ অবস্থানে একটি $1$ বসান (বাম থেকে ডানে ০ থেকে ইনডেক্সিং)।
 
-3. Repeat until there is no remainder.
+৩. বাকি না থাকা পর্যন্ত পুনরাবৃত্তি করুন।
 
-4. Add a final $1$ to the codeword to indicate its end.
+৪. কোডওয়ার্ডের শেষে একটি $1$ যোগ করুন এর সমাপ্তি নির্দেশ করতে।
 
-To decode a code word, first remove the final $1$. Then, if the $i$-th bit is set (indexing from 0 from the leftmost to the rightmost bit), sum $F_{i+2}$ to the number.
+একটি কোডওয়ার্ড ডিকোড করতে, প্রথমে শেষের $1$ সরিয়ে ফেলুন। তারপর, যদি $i$-তম বিট সেট থাকে (বাম থেকে ডানে ০ থেকে ইনডেক্সিং), তাহলে সংখ্যাটির সাথে $F_{i+2}$ যোগ করুন।
 
 
-## Formulas for the $n^{\text{th}}$ Fibonacci number { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
+## $n^{\text{th}}$ ফিবোনাচ্চি সংখ্যার সূত্রসমূহ { data-toc-label="Formulas for the <script type='math/tex'>n</script>-th Fibonacci number" }
 
-### Closed-form expression
+### ক্লোজড-ফর্ম এক্সপ্রেশন
 
-There is a formula known as "Binet's formula", even though it was already known by Moivre:
+একটি সূত্র আছে যা "বিনের সূত্র" (Binet's formula) নামে পরিচিত, যদিও এটি আগে থেকেই ময়ভ্র (Moivre) জানতেন:
 
 $$F_n = \frac{\left(\frac{1 + \sqrt{5}}{2}\right)^n - \left(\frac{1 - \sqrt{5}}{2}\right)^n}{\sqrt{5}}$$
 
-This formula is easy to prove by induction, but it can be deduced with the help of the concept of generating functions or by solving a functional equation.
+এই সূত্রটি আরোহ পদ্ধতিতে সহজেই প্রমাণ করা যায়, তবে এটি জেনারেটিং ফাংশনের ধারণা বা একটি ফাংশনাল সমীকরণ সমাধানের মাধ্যমেও বের করা সম্ভব।
 
-You can immediately notice that the second term's absolute value is always less than $1$, and it also decreases very rapidly (exponentially). Hence the value of the first term alone is "almost" $F_n$. This can be written strictly as: 
+সহজেই লক্ষ্য করা যায় যে দ্বিতীয় পদের পরম মান সর্বদা $1$-এর চেয়ে কম, এবং এটি অত্যন্ত দ্রুত (সূচকীয়ভাবে) হ্রাস পায়। তাই শুধু প্রথম পদের মানই "প্রায়" $F_n$-এর সমান। এটি কঠোরভাবে লেখা যায়:
 
 $$F_n = \left[\frac{\left(\frac{1 + \sqrt{5}}{2}\right)^n}{\sqrt{5}}\right]$$
 
-where the square brackets denote rounding to the nearest integer.
+যেখানে তৃতীয় বন্ধনী নিকটতম পূর্ণসংখ্যায় রাউন্ডিং নির্দেশ করে।
 
-As these two formulas would require very high accuracy when working with fractional numbers, they are of little use in practical calculations.
+এই দুটি সূত্রে ভগ্নাংশ সংখ্যা নিয়ে কাজ করতে খুব উচ্চ নির্ভুলতা প্রয়োজন হওয়ায়, ব্যবহারিক গণনায় এগুলো তেমন কাজে আসে না।
 
-### Fibonacci in linear time
+### লিনিয়ার সময়ে ফিবোনাচ্চি
 
-The $n$-th Fibonacci number can be easily found in $O(n)$ by computing the numbers one by one up to $n$. However, there are also faster ways, as we will see.
+$n$-তম ফিবোনাচ্চি সংখ্যা সহজেই $O(n)$ সময়ে বের করা যায়, একটি একটি করে $n$ পর্যন্ত গণনা করে। তবে আরও দ্রুত পদ্ধতিও আছে, যা আমরা পরে দেখব।
 
-We can start from an iterative approach, to take advantage of the use of the formula $F_n = F_{n-1} + F_{n-2}$, therefore, we will simply precalculate those values in an array. Taking into account the base cases for $F_0$ and $F_1$.
+আমরা একটি ইটারেটিভ পদ্ধতি থেকে শুরু করতে পারি, $F_n = F_{n-1} + F_{n-2}$ সূত্রটি ব্যবহার করে। তাই আমরা মানগুলো একটি অ্যারেতে আগে থেকে গণনা করে রাখব। $F_0$ এবং $F_1$-এর বেস কেস বিবেচনা করে:
 
 ```cpp
 int fib(int n) {
@@ -113,11 +113,11 @@ int fib(int n) {
 }
 ```
 
-In this way, we obtain a linear solution, $O(n)$ time, saving all the values prior to $n$ in the sequence.
+এভাবে আমরা একটি লিনিয়ার সমাধান পাই, $O(n)$ সময়ে, সিকোয়েন্সের $n$-এর আগের সব মান সংরক্ষণ করে।
 
-### Matrix form
+### ম্যাট্রিক্স ফর্ম
 
-To go from $(F_n, F_{n-1})$ to $(F_{n+1}, F_n)$, we can express the linear recurrence as a 2x2 matrix multiplication:
+$(F_n, F_{n-1})$ থেকে $(F_{n+1}, F_n)$-এ যেতে, আমরা এই লিনিয়ার রিকারেন্সটিকে একটি ২x২ ম্যাট্রিক্স গুণ হিসেবে প্রকাশ করতে পারি:
 
 $$
 \begin{pmatrix}
@@ -140,7 +140,7 @@ F_{n}
 \end{pmatrix}
 $$
 
-This lets us treat iterating the recurrence as repeated matrix multiplication, which has nice properties. In particular,
+এটি আমাদের রিকারেন্সের ইটারেশনকে বারবার ম্যাট্রিক্স গুণ হিসেবে বিবেচনা করতে দেয়, যার চমৎকার বৈশিষ্ট্য রয়েছে। বিশেষত,
 
 $$
 \begin{pmatrix}
@@ -158,22 +158,22 @@ F_{n}
 \end{pmatrix}
 $$
 
-where $F_1 = 1, F_0 = 0$. 
-In fact, since 
+যেখানে $F_1 = 1, F_0 = 0$।
+প্রকৃতপক্ষে, যেহেতু
 
 $$
 \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}
 = \begin{pmatrix} F_2 & F_1 \\ F_1 & F_0 \end{pmatrix}
 $$
 
-we can use the matrix directly:
+আমরা সরাসরি ম্যাট্রিক্সটি ব্যবহার করতে পারি:
 
 $$
 \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}^n
 = \begin{pmatrix} F_{n+1} & F_n \\ F_n & F_{n-1} \end{pmatrix}
 $$
 
-Thus, in order to find $F_n$ in $O(\log  n)$ time, we must raise the matrix to n. (See [Binary exponentiation](binary-exp.md))
+সুতরাং, $O(\log  n)$ সময়ে $F_n$ বের করতে আমাদের ম্যাট্রিক্সটিকে n-তম ঘাতে উন্নীত করতে হবে। (দেখুন [বাইনারি এক্সপোনেনশিয়েশন](binary-exp.md))
 
 ```cpp
 struct matrix {
@@ -215,9 +215,9 @@ long long fib(int n) {
 }
 ```
 
-### Fast Doubling Method
+### ফাস্ট ডাবলিং মেথড
 
-By expanding the above matrix expression for $n = 2\cdot k$
+উপরের ম্যাট্রিক্স এক্সপ্রেশনটি $n = 2\cdot k$-এর জন্য বিস্তৃত করলে
 
 $$
 \begin{pmatrix}
@@ -237,14 +237,14 @@ F_{k} & F_{k-1}
 ^2
 $$
 
-we can find these simpler equations:
+আমরা এই সরলতর সমীকরণগুলো পাই:
 
 $$ \begin{align}
 F_{2k+1} &= F_{k+1}^2 + F_{k}^2 \\
 F_{2k} &= F_k(F_{k+1}+F_{k-1}) = F_k (2F_{k+1} - F_{k})\\
 \end{align}.$$
 
-Thus using above two equations Fibonacci numbers can be calculated easily by the following code:
+এভাবে উপরের দুটি সমীকরণ ব্যবহার করে ফিবোনাচ্চি সংখ্যা সহজেই নিম্নলিখিত কোড দিয়ে গণনা করা যায়:
 
 ```cpp
 pair<int, int> fib (int n) {
@@ -260,21 +260,21 @@ pair<int, int> fib (int n) {
         return {c, d};
 }
 ```
-The above code returns $F_n$ and $F_{n+1}$ as a pair.
+উপরের কোডটি একটি পেয়ার হিসেবে $F_n$ এবং $F_{n+1}$ রিটার্ন করে।
 
-## Periodicity modulo p
+## p দ্বারা মডুলোতে পর্যায়ক্রমিকতা
 
-Consider the Fibonacci sequence modulo $p$. We will prove the sequence is periodic.
+ফিবোনাচ্চি সিকোয়েন্সটি $p$ মডুলোতে বিবেচনা করি। আমরা প্রমাণ করব যে সিকোয়েন্সটি পর্যায়ক্রমিক (periodic)।
 
-Let us prove this by contradiction. Consider the first $p^2 + 1$ pairs of Fibonacci numbers taken modulo $p$:
+আসুন এটি পরোক্ষ প্রমাণের (contradiction) মাধ্যমে দেখাই। $p$ মডুলোতে নেওয়া প্রথম $p^2 + 1$ জোড়া ফিবোনাচ্চি সংখ্যা বিবেচনা করুন:
 
 $$(F_0,\ F_1),\ (F_1,\ F_2),\ \ldots,\ (F_{p^2},\ F_{p^2 + 1})$$
 
-There can only be $p$ different remainders modulo $p$, and at most $p^2$ different pairs of remainders, so there are at least two identical pairs among them. This is sufficient to prove the sequence is periodic, as a Fibonacci number is only determined by its two predecessors. Hence if two pairs of consecutive numbers repeat, that would also mean the numbers after the pair will repeat in the same fashion.
+$p$ মডুলোতে মাত্র $p$ ধরনের ভাগশেষ সম্ভব, এবং সর্বোচ্চ $p^2$ ধরনের ভাগশেষের জোড়া সম্ভব, তাই এদের মধ্যে অন্তত দুটি অভিন্ন জোড়া থাকবে। এটি সিকোয়েন্সটি যে পর্যায়ক্রমিক তা প্রমাণের জন্য যথেষ্ট, কারণ একটি ফিবোনাচ্চি সংখ্যা শুধুমাত্র তার পূর্ববর্তী দুটি সংখ্যা দ্বারা নির্ধারিত হয়। অতএব, যদি পরপর দুটি সংখ্যার দুটি জোড়া পুনরাবৃত্ত হয়, তাহলে জোড়ার পরের সংখ্যাগুলোও একই ধাঁচে পুনরাবৃত্ত হবে।
 
-We now choose two pairs of identical remainders with the smallest indices in the sequence. Let the pairs be $(F_a,\ F_{a + 1})$ and $(F_b,\ F_{b + 1})$. We will prove that $a = 0$. If this was false, there would be two previous pairs $(F_{a-1},\ F_a)$ and $(F_{b-1},\ F_b)$, which, by the property of Fibonacci numbers, would also be equal. However, this contradicts the fact that we had chosen pairs with the smallest indices, completing our proof that there is no pre-period (i.e the numbers are periodic starting from $F_0$).
+এখন আমরা সিকোয়েন্সে ক্ষুদ্রতম সূচকবিশিষ্ট দুটি অভিন্ন ভাগশেষের জোড়া বেছে নিই। ধরুন জোড়া দুটি হলো $(F_a,\ F_{a + 1})$ এবং $(F_b,\ F_{b + 1})$। আমরা প্রমাণ করব যে $a = 0$। যদি এটি মিথ্যা হতো, তাহলে দুটি পূর্ববর্তী জোড়া $(F_{a-1},\ F_a)$ এবং $(F_{b-1},\ F_b)$ থাকত, যেগুলো ফিবোনাচ্চি সংখ্যার বৈশিষ্ট্য অনুসারে সমান হতো। কিন্তু এটি আমাদের ক্ষুদ্রতম সূচকের জোড়া বেছে নেওয়ার শর্তের সাথে সাংঘর্ষিক, যা প্রমাণ করে যে কোনো পূর্ব-পর্যায় (pre-period) নেই (অর্থাৎ সংখ্যাগুলো $F_0$ থেকেই পর্যায়ক্রমিক)।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [SPOJ - Euclid Algorithm Revisited](http://www.spoj.com/problems/MAIN74/)
 * [SPOJ - Fibonacci Sum](http://www.spoj.com/problems/FIBOSUM/)

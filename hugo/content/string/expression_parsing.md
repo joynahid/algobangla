@@ -1,56 +1,56 @@
 ---
-title: "Expression parsing"
+title: "এক্সপ্রেশন পার্সিং"
 tags: 
 weight: 10
 ---
-# Expression parsing
+# এক্সপ্রেশন পার্সিং
 
-A string containing a mathematical expression containing numbers and various operators is given.
-We have to compute the value of it in $O(n)$, where $n$ is the length of the string.
+একটি স্ট্রিং দেওয়া আছে যাতে সংখ্যা এবং বিভিন্ন অপারেটর সম্বলিত একটি গাণিতিক এক্সপ্রেশন আছে।
+আমাদের $O(n)$ সময়ে এর মান গণনা করতে হবে, যেখানে $n$ হলো স্ট্রিং-এর দৈর্ঘ্য।
 
-The algorithm discussed here translates an expression into the so-called **reverse Polish notation** (explicitly or implicitly), and evaluates this expression.
+এখানে আলোচিত অ্যালগরিদমটি একটি এক্সপ্রেশনকে তথাকথিত **রিভার্স পোলিশ নোটেশনে** রূপান্তর করে (স্পষ্ট বা অন্তর্নিহিতভাবে), এবং এই এক্সপ্রেশনটি মূল্যায়ন করে।
 
-## Reverse Polish notation
+## রিভার্স পোলিশ নোটেশন
 
-The reverse Polish notation is a form of writing mathematical expressions, in which the operators are located after their operands.
-For example the following expression
+রিভার্স পোলিশ নোটেশন হলো গাণিতিক এক্সপ্রেশন লেখার একটি ফর্ম, যেখানে অপারেটরগুলো তাদের অপারেন্ডের পরে থাকে।
+উদাহরণস্বরূপ নিম্নলিখিত এক্সপ্রেশনটি
 
 $$a + b * c * d + (e - f) * (g * h + i)$$
 
-can be written in reverse Polish notation in the following way:
+রিভার্স পোলিশ নোটেশনে নিম্নলিখিতভাবে লেখা যায়:
 
 $$a b c * d * + e f - g h * i + * +$$
 
-The reverse Polish notation was developed by the Australian philosopher and computer science specialist Charles Hamblin in the mid 1950s on the basis of the Polish notation, which was proposed in 1920 by the Polish mathematician Jan Łukasiewicz.
+রিভার্স পোলিশ নোটেশন অস্ট্রেলিয়ান দার্শনিক ও কম্পিউটার বিজ্ঞান বিশেষজ্ঞ চার্লস হ্যাম্বলিন ১৯৫০-এর দশকের মাঝামাঝিতে পোলিশ নোটেশনের ভিত্তিতে তৈরি করেন, যেটি ১৯২০ সালে পোলিশ গণিতবিদ ইয়ান উকাশেভিচ প্রস্তাব করেছিলেন।
 
-The convenience of the reverse Polish notation is, that expressions in this form are very **easy to evaluate** in linear time.
-We use a stack, which is initially empty.
-We will iterate over the operands and operators of the expression in reverse Polish notation.
-If the current element is a number, then we put the value on top of the stack, if the current element is an operator, then we get the top two elements from the stack, perform the operation, and put the result back on top of the stack.
-In the end there will be exactly one element left in the stack, which will be the value of the expression.
+রিভার্স পোলিশ নোটেশনের সুবিধা হলো, এই আকারের এক্সপ্রেশনগুলো লিনিয়ার সময়ে **মূল্যায়ন করা খুব সহজ**।
+আমরা একটি স্ট্যাক ব্যবহার করি, যা প্রাথমিকভাবে খালি থাকে।
+আমরা রিভার্স পোলিশ নোটেশনের এক্সপ্রেশনের অপারেন্ড এবং অপারেটরগুলোর উপর ইটারেট করব।
+যদি বর্তমান উপাদানটি একটি সংখ্যা হয়, তাহলে আমরা মানটি স্ট্যাকের শীর্ষে রাখি, যদি বর্তমান উপাদানটি একটি অপারেটর হয়, তাহলে আমরা স্ট্যাক থেকে শীর্ষের দুটি উপাদান নিই, অপারেশনটি সম্পাদন করি, এবং ফলাফলটি আবার স্ট্যাকের শীর্ষে রাখি।
+শেষে স্ট্যাকে ঠিক একটি উপাদান থাকবে, যেটি হবে এক্সপ্রেশনের মান।
 
-Obviously this simple evaluation runs in $O(n)$ time.
+স্পষ্টতই এই সরল মূল্যায়ন $O(n)$ সময়ে চলে।
 
-## Parsing of simple expressions
+## সরল এক্সপ্রেশন পার্সিং
 
-For the time being we only consider a simplified problem:
-we assume that all operators are **binary** (i.e. they take two arguments), and all are **left-associative** (if the priorities are equal, they get executed from left to right).
-Parentheses are allowed.
+আপাতত আমরা শুধু একটি সরলীকৃত সমস্যা বিবেচনা করি:
+আমরা ধরে নিই যে সকল অপারেটর **বাইনারি** (অর্থাৎ তারা দুটি আর্গুমেন্ট নেয়), এবং সবগুলো **লেফট-অ্যাসোসিয়েটিভ** (যদি অগ্রাধিকার সমান হয়, তারা বাম থেকে ডানে কার্যকর হয়)।
+বন্ধনী অনুমোদিত।
 
-We will set up two stacks: one for numbers, and one for operators and parentheses.
-Initially both stacks are empty.
-For the second stack we will maintain the condition that all operations are ordered by strict descending priority.
-If there are parenthesis on the stack, than each block of operators (corresponding to one pair of parenthesis) is ordered, and the entire stack is not necessarily ordered.
+আমরা দুটি স্ট্যাক সেট আপ করব: একটি সংখ্যার জন্য, এবং একটি অপারেটর ও বন্ধনীর জন্য।
+প্রাথমিকভাবে উভয় স্ট্যাক খালি।
+দ্বিতীয় স্ট্যাকের জন্য আমরা এই শর্ত বজায় রাখব যে সকল অপারেশন কঠোর অবনমনশীল অগ্রাধিকার অনুসারে সাজানো।
+যদি স্ট্যাকে বন্ধনী থাকে, তাহলে অপারেটরের প্রতিটি ব্লক (এক জোড়া বন্ধনীর সাথে সম্পর্কিত) সাজানো, এবং সম্পূর্ণ স্ট্যাক অগত্যা সাজানো নয়।
 
-We will iterate over the characters of the expression from left to right.
-If the current character is a digit, then we put the value of this number on the stack.
-If the current character is an opening parenthesis, then we put it on the stack.
-If the current character is a closing parenthesis, the we execute all operators on the stack until we reach the opening bracket (in other words we perform all operations inside the parenthesis).
-Finally if the current character is an operator, then while the top of the stack has an operator with the same or higher priority, we will execute this operation, and put the new operation on the stack.
+আমরা এক্সপ্রেশনের অক্ষরগুলোর উপর বাম থেকে ডানে ইটারেট করব।
+যদি বর্তমান অক্ষরটি একটি অঙ্ক হয়, তাহলে আমরা এই সংখ্যার মান স্ট্যাকে রাখি।
+যদি বর্তমান অক্ষরটি একটি ওপেনিং বন্ধনী হয়, তাহলে আমরা এটি স্ট্যাকে রাখি।
+যদি বর্তমান অক্ষরটি একটি ক্লোজিং বন্ধনী হয়, তাহলে আমরা ওপেনিং বন্ধনী না পাওয়া পর্যন্ত স্ট্যাকের সকল অপারেটর কার্যকর করি (অন্য কথায় আমরা বন্ধনীর ভিতরের সকল অপারেশন সম্পাদন করি)।
+সবশেষে যদি বর্তমান অক্ষরটি একটি অপারেটর হয়, তাহলে স্ট্যাকের শীর্ষে একই বা উচ্চতর অগ্রাধিকারের অপারেটর থাকা পর্যন্ত, আমরা সেই অপারেশন কার্যকর করব, এবং নতুন অপারেশনটি স্ট্যাকে রাখব।
 
-After we processed the entire string, some operators might still be in the stack, so we execute them.
+সম্পূর্ণ স্ট্রিং প্রক্রিয়া করার পরে, কিছু অপারেটর এখনও স্ট্যাকে থাকতে পারে, তাই আমরা সেগুলো কার্যকর করি।
 
-Here is the implementation of this method for the four operators $+$ $-$ $*$ $/$:
+এখানে চারটি অপারেটর $+$ $-$ $*$ $/$ এর জন্য এই পদ্ধতির ইমপ্লিমেন্টেশন:
 
 ```cpp
 bool delim(char c) {
@@ -86,7 +86,7 @@ int evaluate(string& s) {
     for (int i = 0; i < (int)s.size(); i++) {
         if (delim(s[i]))
             continue;
-        
+
         if (s[i] == '(') {
             op.push('(');
         } else if (s[i] == ')') {
@@ -119,50 +119,50 @@ int evaluate(string& s) {
 }
 ```
 
-Thus we learned how to calculate the value of an expression in $O(n)$, at the same time we implicitly used the reverse Polish notation.
-By slightly modifying the above implementation it is also possible to obtain the expression in reverse Polish notation in an explicit form.
+এইভাবে আমরা $O(n)$-এ একটি এক্সপ্রেশনের মান গণনা করতে শিখলাম, একই সাথে আমরা পরোক্ষভাবে রিভার্স পোলিশ নোটেশন ব্যবহার করেছি।
+উপরের ইমপ্লিমেন্টেশনটি সামান্য পরিবর্তন করে রিভার্স পোলিশ নোটেশনে এক্সপ্রেশনটি স্পষ্ট আকারে পাওয়াও সম্ভব।
 
-## Unary operators
+## ইউনারি অপারেটর
 
-Now suppose that the expression also contains **unary** operators (operators that take one argument).
-The unary plus and unary minus are common examples of such operators.
+এখন ধরা যাক এক্সপ্রেশনে **ইউনারি** অপারেটরও আছে (যে অপারেটর একটি আর্গুমেন্ট নেয়)।
+ইউনারি প্লাস এবং ইউনারি মাইনাস এরকম অপারেটরের সাধারণ উদাহরণ।
 
-One of the differences in this case, is that we need to determine whether the current operator is a unary or a binary one.
+এই ক্ষেত্রে একটি পার্থক্য হলো, আমাদের নির্ধারণ করতে হবে বর্তমান অপারেটরটি ইউনারি নাকি বাইনারি।
 
-You can notice, that before an unary operator, there always is another operator or an opening parenthesis, or nothing at all (if it is at the very beginning of the expression).
-On the contrary before a binary operator there will always be an operand (number) or a closing parenthesis.
-Thus it is easy to flag whether the next operator can be unary or not. 
+আপনি লক্ষ্য করতে পারেন যে, একটি ইউনারি অপারেটরের আগে সবসময় অন্য একটি অপারেটর বা একটি ওপেনিং বন্ধনী থাকে, অথবা কিছুই থাকে না (যদি এটি এক্সপ্রেশনের একেবারে শুরুতে থাকে)।
+বিপরীতে, একটি বাইনারি অপারেটরের আগে সবসময় একটি অপারেন্ড (সংখ্যা) বা একটি ক্লোজিং বন্ধনী থাকবে।
+তাই পরবর্তী অপারেটর ইউনারি হতে পারে কি না তা ফ্ল্যাগ করা সহজ।
 
-Additionally we need to execute a unary and a binary operator differently.
-And we need to chose the priority of a unary operator higher than all of the binary operators.
+অতিরিক্তভাবে, আমাদের একটি ইউনারি এবং একটি বাইনারি অপারেটর ভিন্নভাবে কার্যকর করতে হবে।
+এবং আমাদের ইউনারি অপারেটরের অগ্রাধিকার সকল বাইনারি অপারেটরের চেয়ে বেশি বেছে নিতে হবে।
 
-In addition it should be noted, that some unary operators (e.g. unary plus and unary minus) are actually **right-associative**.
+এছাড়াও লক্ষ্য করা উচিত যে, কিছু ইউনারি অপারেটর (যেমন ইউনারি প্লাস এবং ইউনারি মাইনাস) আসলে **রাইট-অ্যাসোসিয়েটিভ**।
 
-## Right-associativity
+## রাইট-অ্যাসোসিয়েটিভিটি
 
-Right-associative means, that whenever the priorities are equal, the operators must be evaluated from right to left.
+রাইট-অ্যাসোসিয়েটিভ মানে হলো, যখনই অগ্রাধিকার সমান হয়, অপারেটরগুলো ডান থেকে বামে মূল্যায়িত হতে হবে।
 
-As noted above, unary operators are usually right-associative.
-Another example for an right-associative operator is the exponentiation operator ($a \wedge b \wedge c$ is usually perceived as $a^{b^c}$ and not as $(a^b)^c$).
+উপরে উল্লেখ করা হয়েছে যে, ইউনারি অপারেটরগুলো সাধারণত রাইট-অ্যাসোসিয়েটিভ।
+রাইট-অ্যাসোসিয়েটিভ অপারেটরের আরেকটি উদাহরণ হলো ঘাত অপারেটর ($a \wedge b \wedge c$ সাধারণত $a^{b^c}$ হিসেবে বোঝা হয় এবং $(a^b)^c$ হিসেবে নয়)।
 
-What difference do we need to make in order to correctly handle right-associative operators?
-It turns out that the changes are very minimal.
-The only difference will be, if the priorities are equal we will postpone the execution of the right-associative operation.
+রাইট-অ্যাসোসিয়েটিভ অপারেটরগুলো সঠিকভাবে পরিচালনা করতে আমাদের কী পার্থক্য করতে হবে?
+দেখা যায় যে পরিবর্তনগুলো খুবই সামান্য।
+একমাত্র পার্থক্য হবে, যদি অগ্রাধিকার সমান হয় তাহলে আমরা রাইট-অ্যাসোসিয়েটিভ অপারেশনের কার্যকরকরণ স্থগিত করব।
 
-The only line that needs to be replaced is
+শুধুমাত্র যে লাইনটি প্রতিস্থাপন করতে হবে তা হলো
 ```cpp
 while (!op.empty() && priority(op.top()) >= priority(cur_op))
 ```
-with
+এটি দিয়ে
 ```cpp
 while (!op.empty() && (
         (left_assoc(cur_op) && priority(op.top()) >= priority(cur_op)) ||
         (!left_assoc(cur_op) && priority(op.top()) > priority(cur_op))
     ))
 ```
-where `left_assoc` is a function that decides if an operator is left_associative or not.
+যেখানে `left_assoc` হলো এমন একটি ফাংশন যা নির্ধারণ করে একটি অপারেটর লেফট-অ্যাসোসিয়েটিভ কিনা।
 
-Here is an implementation for the binary operators $+$ $-$ $*$ $/$ and the unary  operators $+$ and $-$.
+এখানে বাইনারি অপারেটর $+$ $-$ $*$ $/$ এবং ইউনারি অপারেটর $+$ ও $-$ এর জন্য একটি ইমপ্লিমেন্টেশন।
 
 ```cpp
 bool delim(char c) {
@@ -213,7 +213,7 @@ int evaluate(string& s) {
     for (int i = 0; i < (int)s.size(); i++) {
         if (delim(s[i]))
             continue;
-        
+
         if (s[i] == '(') {
             op.push('(');
             may_be_unary = true;
@@ -254,4 +254,3 @@ int evaluate(string& s) {
     return st.top();
 }
 ```
-

@@ -1,27 +1,27 @@
 ---
-title: "Finding the rank of a matrix"
+title: "ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়"
 tags: 
 weight: 40
 ---
-# Finding the rank of a matrix
+# ম্যাট্রিক্সের র‍্যাঙ্ক নির্ণয়
 
-**The rank of a matrix** is the largest number of linearly independent rows/columns of the matrix. The rank is not only defined  for square matrices.
+**ম্যাট্রিক্সের র‍্যাঙ্ক** হলো ম্যাট্রিক্সের সর্বাধিক সংখ্যক লিনিয়ারলি ইন্ডিপেন্ডেন্ট সারি/কলাম। র‍্যাঙ্ক শুধুমাত্র বর্গ ম্যাট্রিক্সের জন্য সংজ্ঞায়িত নয়।
 
-The rank of a matrix can also be defined as the largest order of any non-zero minor in the matrix.
+ম্যাট্রিক্সের র‍্যাঙ্ককে ম্যাট্রিক্সের যেকোনো অশূন্য মাইনরের সর্ববৃহৎ অর্ডার হিসেবেও সংজ্ঞায়িত করা যায়।
 
-Let the matrix be rectangular and have size $N \times M$.
-Note that if the matrix is square and its determinant is non-zero, then the rank is $N$ ($=M$); otherwise it will be less. Generally, the rank of a matrix does not exceed $\min (N, M)$.
+ধরি ম্যাট্রিক্সটি আয়তাকার এবং এর আকার $N \times M$।
+লক্ষ্য করুন যে ম্যাট্রিক্সটি যদি বর্গ হয় এবং এর ডিটারমিন্যান্ট অশূন্য হয়, তাহলে র‍্যাঙ্ক হলো $N$ ($=M$); অন্যথায় এটি কম হবে। সাধারণত, একটি ম্যাট্রিক্সের র‍্যাঙ্ক $\min (N, M)$ এর বেশি হয় না।
 
-## Algorithm
+## অ্যালগরিদম
 
-You can search for the rank using [Gaussian elimination](linear-system-gauss.md). We will perform the same operations as when solving the system or finding its determinant. But if at any step in the $i$-th column there are no rows with an non-empty entry among those that we didn't selected already, then we skip this step.
-Otherwise, if we have found a row with a non-zero element in the $i$-th column during the $i$-th step, then we mark this row as a selected one, increase the rank by one (initially the rank is set equal to $0$), and perform the usual operations of taking this row away from the rest.
+আপনি [গাউসীয় এলিমিনেশন](linear-system-gauss.md) ব্যবহার করে র‍্যাঙ্ক অনুসন্ধান করতে পারেন। আমরা সিস্টেম সমাধান বা এর ডিটারমিন্যান্ট নির্ণয়ের মতো একই অপারেশনগুলো সম্পাদন করব। কিন্তু যদি কোনো ধাপে $i$-তম কলামে, আমরা ইতিমধ্যে নির্বাচন করিনি এমন সারিগুলোর মধ্যে কোনো অশূন্য এন্ট্রি বিশিষ্ট সারি না থাকে, তাহলে আমরা এই ধাপটি এড়িয়ে যাই।
+অন্যথায়, যদি আমরা $i$-তম ধাপে $i$-তম কলামে একটি অশূন্য উপাদান বিশিষ্ট সারি পাই, তাহলে আমরা এই সারিটিকে নির্বাচিত হিসেবে চিহ্নিত করি, র‍্যাঙ্ক এক বাড়াই (প্রাথমিকভাবে র‍্যাঙ্ক $0$ সমান ধরা হয়), এবং বাকি সারিগুলো থেকে এই সারি বিয়োগ করার স্বাভাবিক অপারেশন সম্পাদন করি।
 
-## Complexity
+## কমপ্লেক্সিটি
 
-This algorithm runs in $\mathcal{O}(n^3)$.
+এই অ্যালগরিদম $\mathcal{O}(n^3)$ এ চলে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 const double EPS = 1E-9;
@@ -55,5 +55,5 @@ int compute_rank(vector<vector<double>> A) {
     return rank;
 }
 ```
-## Problems
+## সমস্যা
  * [TIMUS1041 Nikifor](http://acm.timus.ru/problem.aspx?space=1&num=1041)

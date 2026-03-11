@@ -3,25 +3,19 @@ title: Finding the Eulerian path in O(M)
 tags: 
 weight: 30
 ---
-# Finding the Eulerian path in $O(M)$
+# $O(M)$-এ অয়লারিয়ান পাথ বের করা
 
-A Eulerian path is a path in a graph that passes through all of its edges exactly once.
-A Eulerian cycle is a Eulerian path that is a cycle.
+একটি অয়লারিয়ান পাথ হল একটি গ্রাফের এমন একটি পাথ যা এর সমস্ত এজ দিয়ে ঠিক একবার যায়। একটি অয়লারিয়ান সাইকেল হল একটি অয়লারিয়ান পাথ যা একটি সাইকেল।
 
-The problem is to find the Eulerian path in an **undirected multigraph with loops**.
+সমস্যাটি হল একটি **লুপসহ আনডিরেক্টেড মাল্টিগ্রাফে** অয়লারিয়ান পাথ খুঁজে বের করা।
 
-## Algorithm
+## অ্যালগরিদম
 
-First we can check if there is an Eulerian path.
-We can use the following theorem. An Eulerian cycle exists if and only if the degrees of all vertices are even.
-And an Eulerian path exists if and only if the number of vertices with odd degrees is two (or zero, in the case of the existence of a Eulerian cycle).
-In addition, of course, the graph must be sufficiently connected (i.e., if you remove all isolated vertices from it, you should get a connected graph).
+প্রথমে আমরা পরীক্ষা করতে পারি অয়লারিয়ান পাথ আছে কি না। আমরা নিম্নলিখিত উপপাদ্য ব্যবহার করতে পারি। একটি অয়লারিয়ান সাইকেল বিদ্যমান যদি এবং কেবল যদি সমস্ত ভার্টেক্সের ডিগ্রি জোড় হয়। এবং একটি অয়লারিয়ান পাথ বিদ্যমান যদি এবং কেবল যদি বিজোড় ডিগ্রিযুক্ত ভার্টেক্সের সংখ্যা দুই হয় (অথবা শূন্য, অয়লারিয়ান সাইকেল থাকার ক্ষেত্রে)। এছাড়াও, অবশ্যই, গ্রাফটি যথেষ্ট সংযুক্ত হতে হবে (অর্থাৎ, সমস্ত বিচ্ছিন্ন ভার্টেক্স সরিয়ে দিলে একটি সংযুক্ত গ্রাফ পাওয়া উচিত)।
 
-To find the Eulerian path / Eulerian cycle we can use the following strategy:
-We find all simple cycles and combine them into one - this will be the Eulerian cycle.
-If the graph is such that the Eulerian path is not a cycle, then add the missing edge, find the Eulerian cycle, then remove the extra edge.
+অয়লারিয়ান পাথ / অয়লারিয়ান সাইকেল খুঁজে পেতে আমরা নিম্নলিখিত কৌশল ব্যবহার করতে পারি: আমরা সমস্ত সিম্পল সাইকেল খুঁজি এবং তাদের একটিতে একত্রিত করি - এটিই অয়লারিয়ান সাইকেল হবে। গ্রাফটি এমন হলে যে অয়লারিয়ান পাথ একটি সাইকেল নয়, তাহলে অনুপস্থিত এজটি যোগ করি, অয়লারিয়ান সাইকেল খুঁজি, তারপর অতিরিক্ত এজটি সরিয়ে দিই।
 
-Looking for all cycles and combining them can be done with a simple recursive procedure:
+সমস্ত সাইকেল খোঁজা এবং একত্রিত করা একটি সাধারণ রিকার্সিভ প্রসিডিউর দিয়ে করা যায়:
 
 ```nohighlight
 procedure FindEulerPath(V)
@@ -31,9 +25,9 @@ procedure FindEulerPath(V)
   2. add vertex V to the answer.
 ```
 
-The complexity of this algorithm is obviously linear with respect to the number of edges.
+এই অ্যালগরিদমের কমপ্লেক্সিটি স্পষ্টতই এজের সংখ্যার সাপেক্ষে লিনিয়ার।
 
-But we can write the same algorithm in the non-recursive version:
+তবে আমরা একই অ্যালগরিদম নন-রিকার্সিভ ভার্সনে লিখতে পারি:
 
 ```nohighlight
 stack St;
@@ -49,29 +43,23 @@ until St is empty
     put the second end of this edge in St;
 ```
 
-It is easy to check the equivalence of these two forms of the algorithm. However, the second form is obviously faster, and the code will be much more efficient.
+এই দুটি রূপের সমতুল্যতা যাচাই করা সহজ। তবে, দ্বিতীয় রূপটি স্পষ্টতই দ্রুততর, এবং কোডটি অনেক বেশি কার্যকর হবে।
 
-## The Domino problem
+## ডমিনো সমস্যা
 
-We give here a classical Eulerian cycle problem - the Domino problem.
+এখানে আমরা একটি ক্লাসিক অয়লারিয়ান সাইকেল সমস্যা দিই - ডমিনো সমস্যা।
 
-There are $N$ dominoes, as it is known, on both ends of the Domino one number is written(usually from 1 to 6, but in our case it is not important). You want to put all the dominoes in a row so that the numbers on any two adjacent dominoes, written on their common side, coincide. Dominoes are allowed to turn.
+$N$টি ডমিনো আছে, যেমনটি জানা যায়, ডমিনোর উভয় প্রান্তে একটি সংখ্যা লেখা থাকে (সাধারণত ১ থেকে ৬, কিন্তু আমাদের ক্ষেত্রে এটি গুরুত্বপূর্ণ নয়)। আপনি সমস্ত ডমিনো একটি সারিতে রাখতে চান যাতে যেকোনো দুটি পাশাপাশি ডমিনোর, তাদের সাধারণ পাশে লেখা সংখ্যা, মিলে যায়। ডমিনো ঘোরানো যায়।
 
-Reformulate the problem. Let the numbers written on the bottoms be the vertices of the graph, and the dominoes be the edges of this graph (each Domino with numbers $(a,b)$ are the edges $(a,b)$ and $(b, a)$). Then our problem is reduced to the problem of finding the Eulerian path in this graph.
+সমস্যাটি পুনর্গঠন করি। ধরি নিচে লেখা সংখ্যাগুলো গ্রাফের ভার্টেক্স, এবং ডমিনোগুলো এই গ্রাফের এজ (প্রতিটি $(a,b)$ সংখ্যাযুক্ত ডমিনো হল এজ $(a,b)$ এবং $(b, a)$)। তাহলে আমাদের সমস্যা এই গ্রাফে অয়লারিয়ান পাথ খুঁজে বের করার সমস্যায় পরিণত হয়।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The program below searches for and outputs a Eulerian loop or path in a graph, or outputs $-1$ if it does not exist.
+নিচের প্রোগ্রামটি একটি গ্রাফে অয়লারিয়ান লুপ বা পাথ খোঁজে এবং আউটপুট দেয়, অথবা এটি বিদ্যমান না থাকলে $-1$ আউটপুট দেয়।
 
-First, the program checks the degree of vertices: if there are no vertices with an odd degree, then the graph has an Euler cycle, if there are $2$ vertices with an odd degree, then in the graph there is only an Euler path (but no Euler cycle), if there are more than $2$ such vertices, then in the graph there is no Euler cycle or Euler path.
-To find the Euler path (not a cycle), let's do this: if $V1$ and $V2$ are two vertices of odd degree, then just add an edge $(V1, V2)$, in the resulting graph we find the Euler cycle (it will obviously exist), and then remove the "fictitious" edge $(V1, V2)$ from the answer.
-We will look for the Euler cycle exactly as described above (non-recursive version), and at the same time at the end of this algorithm we will check whether the graph was connected or not (if the graph was not connected, then at the end of the algorithm some edges will remain in the graph, and in this case we need to print $-1$).
-Finally, the program takes into account that there can be isolated vertices in the graph.
+প্রথমে, প্রোগ্রামটি ভার্টেক্সের ডিগ্রি পরীক্ষা করে: বিজোড় ডিগ্রিযুক্ত কোনো ভার্টেক্স না থাকলে গ্রাফে অয়লার সাইকেল আছে, বিজোড় ডিগ্রিযুক্ত $2$টি ভার্টেক্স থাকলে গ্রাফে শুধু অয়লার পাথ আছে (কিন্তু অয়লার সাইকেল নেই), $2$-এর বেশি এমন ভার্টেক্স থাকলে গ্রাফে অয়লার সাইকেল বা অয়লার পাথ কোনোটিই নেই। অয়লার পাথ (সাইকেল নয়) খুঁজতে, আমরা এটি করি: $V1$ এবং $V2$ বিজোড় ডিগ্রির দুটি ভার্টেক্স হলে, শুধু একটি এজ $(V1, V2)$ যোগ করি, ফলাফল গ্রাফে অয়লার সাইকেল খুঁজি (এটি স্পষ্টতই বিদ্যমান হবে), তারপর উত্তর থেকে "কাল্পনিক" এজ $(V1, V2)$ সরিয়ে দিই। আমরা ঠিক উপরে বর্ণিত (নন-রিকার্সিভ ভার্সন) অনুযায়ী অয়লার সাইকেল খুঁজব, এবং একই সাথে এই অ্যালগরিদমের শেষে পরীক্ষা করব গ্রাফটি সংযুক্ত ছিল কি না (গ্রাফ সংযুক্ত না হলে, অ্যালগরিদমের শেষে কিছু এজ গ্রাফে থেকে যাবে, এবং সেক্ষেত্রে আমাদের $-1$ প্রিন্ট করতে হবে)। পরিশেষে, প্রোগ্রামটি গ্রাফে বিচ্ছিন্ন ভার্টেক্স থাকতে পারে তা বিবেচনা করে।
 
-Notice that we use an adjacency matrix in this problem.
-Also this implementation handles finding the next with brute-force, which requires to iterate over the complete row in the matrix over and over.
-A better way would be to store the graph as an adjacency list, and remove edges in $O(1)$ and mark the reversed edges in separate list.
-This way we can achieve an $O(N)$ algorithm.
+লক্ষ্য করুন যে এই সমস্যায় আমরা একটি অ্যাডজেসেন্সি ম্যাট্রিক্স ব্যবহার করি। এছাড়াও এই ইমপ্লিমেন্টেশনটি ব্রুট ফোর্সে পরবর্তী এজ খোঁজে, যার জন্য ম্যাট্রিক্সের সম্পূর্ণ সারিতে বারবার ইটারেট করতে হয়। একটি ভালো উপায় হবে গ্রাফটি অ্যাডজেসেন্সি লিস্ট হিসেবে সংরক্ষণ করা, এবং $O(1)$-এ এজ সরানো এবং আলাদা লিস্টে বিপরীত এজ চিহ্নিত করা। এভাবে আমরা একটি $O(N)$ অ্যালগরিদম পেতে পারি।
 
 ```cpp
 int main() {
@@ -158,7 +146,7 @@ int main() {
     }
 }
 ```
-### Practice problems:
+### অনুশীলন সমস্যা:
 
 - [CSES : Mail Delivery](https://cses.fi/problemset/task/1691)
 - [CSES : Teleporters Path](https://cses.fi/problemset/task/1693)

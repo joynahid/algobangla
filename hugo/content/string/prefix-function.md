@@ -1,26 +1,26 @@
 ---
-title: "Prefix function. Knuth–Morris–Pratt algorithm"
+title: "প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম"
 tags: 
 weight: 30
 ---
-# Prefix function. Knuth–Morris–Pratt algorithm
+# প্রিফিক্স ফাংশন। নুথ-মরিস-প্র্যাট অ্যালগরিদম
 
-## Prefix function definition
+## প্রিফিক্স ফাংশনের সংজ্ঞা
 
-You are given a string $s$ of length $n$.
-The **prefix function** for this string is defined as an array $\pi$ of length $n$, where $\pi[i]$ is the length of the longest proper prefix of the substring $s[0 \dots i]$ which is also a suffix of this substring.
-A proper prefix of a string is a prefix that is not equal to the string itself.
-By definition, $\pi[0] = 0$.
+আপনাকে $n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে।
+এই স্ট্রিং-এর **প্রিফিক্স ফাংশন** হলো $n$ দৈর্ঘ্যের একটি অ্যারে $\pi$ হিসেবে সংজ্ঞায়িত, যেখানে $\pi[i]$ হলো সাবস্ট্রিং $s[0 \dots i]$-এর দীর্ঘতম প্রকৃত প্রিফিক্সের দৈর্ঘ্য যেটি এই সাবস্ট্রিং-এর সাফিক্সও।
+একটি স্ট্রিং-এর প্রকৃত প্রিফিক্স হলো এমন প্রিফিক্স যা স্ট্রিং নিজেই নয়।
+সংজ্ঞা অনুযায়ী, $\pi[0] = 0$।
 
-Mathematically the definition of the prefix function can be written as follows:
+গাণিতিকভাবে প্রিফিক্স ফাংশনের সংজ্ঞা নিম্নরূপে লেখা যায়:
 
 $$\pi[i] = \max_ {k = 0 \dots i} \{k : s[0 \dots k-1] = s[i-(k-1) \dots i] \}$$
 
-For example, prefix function of string "abcabcd" is $[0, 0, 0, 1, 2, 3, 0]$, and prefix function of string "aabaaab" is $[0, 1, 0, 1, 2, 2, 3]$.
+উদাহরণস্বরূপ, "abcabcd" স্ট্রিং-এর প্রিফিক্স ফাংশন হলো $[0, 0, 0, 1, 2, 3, 0]$, এবং "aabaaab" স্ট্রিং-এর প্রিফিক্স ফাংশন হলো $[0, 1, 0, 1, 2, 2, 3]$।
 
-## Trivial Algorithm
+## ট্রিভিয়াল অ্যালগরিদম
 
-An algorithm which follows the definition of prefix function exactly is the following:
+প্রিফিক্স ফাংশনের সংজ্ঞা হুবহু অনুসরণ করে এমন অ্যালগরিদম নিম্নরূপ:
 
 ```cpp
 vector<int> prefix_function(string s) {
@@ -34,77 +34,77 @@ vector<int> prefix_function(string s) {
 }
 ```
 
-It is easy to see that its complexity is $O(n^3)$, which has room for improvement.
+দেখা সহজ যে এর কমপ্লেক্সিটি $O(n^3)$, যা উন্নতির সুযোগ রাখে।
 
-## Efficient Algorithm
+## দক্ষ অ্যালগরিদম
 
-This algorithm was proposed by Knuth and Pratt and independently from them by Morris in 1977. 
-It was used as the main function of a substring search algorithm.
+এই অ্যালগরিদমটি নুথ এবং প্র্যাট প্রস্তাব করেন এবং তাদের থেকে স্বাধীনভাবে মরিস ১৯৭৭ সালে।
+এটি একটি সাবস্ট্রিং সার্চ অ্যালগরিদমের মূল ফাংশন হিসেবে ব্যবহৃত হয়েছিল।
 
-### First optimization
+### প্রথম অপটিমাইজেশন
 
-The first important observation is, that the values of the prefix function can only increase by at most one.
+প্রথম গুরুত্বপূর্ণ পর্যবেক্ষণ হলো, প্রিফিক্স ফাংশনের মান সর্বাধিক এক বাড়তে পারে।
 
-Indeed, otherwise, if $\pi[i + 1] \gt \pi[i] + 1$, then we can take this suffix ending in position $i + 1$ with the length $\pi[i + 1]$ and remove the last character from it.
-We end up with a suffix ending in position $i$ with the length $\pi[i + 1] - 1$, which is better than $\pi[i]$, i.e. we get a contradiction.
+প্রকৃতপক্ষে, অন্যথায় যদি $\pi[i + 1] \gt \pi[i] + 1$ হয়, তাহলে আমরা $\pi[i + 1]$ দৈর্ঘ্যের $i + 1$ অবস্থানে শেষ হওয়া এই সাফিক্সটি নিতে পারি এবং এর শেষ অক্ষর সরিয়ে দিতে পারি।
+আমরা $\pi[i + 1] - 1$ দৈর্ঘ্যের $i$ অবস্থানে শেষ হওয়া একটি সাফিক্স পাই, যা $\pi[i]$-এর চেয়ে ভালো, অর্থাৎ আমরা একটি দ্বন্দ্ব পাই।
 
-The following illustration shows this contradiction.
-The longest proper suffix at position $i$ that also is a prefix is of length $2$, and at position $i+1$ it is of length $4$.
-Therefore the string $s_0 ~ s_1 ~ s_2 ~ s_3$ is equal to the string $s_{i-2} ~ s_{i-1} ~ s_i ~ s_{i+1}$, which means that also the strings $s_0 ~ s_1 ~ s_2$ and $s_{i-2} ~ s_{i-1} ~ s_i$ are equal, therefore $\pi[i]$ has to be $3$.
+নিম্নলিখিত চিত্রটি এই দ্বন্দ্ব দেখায়।
+$i$ অবস্থানে দীর্ঘতম প্রকৃত সাফিক্স যা প্রিফিক্সও তার দৈর্ঘ্য $2$, এবং $i+1$ অবস্থানে এটি $4$।
+তাই স্ট্রিং $s_0 ~ s_1 ~ s_2 ~ s_3$ স্ট্রিং $s_{i-2} ~ s_{i-1} ~ s_i ~ s_{i+1}$-এর সমান, যার মানে স্ট্রিং $s_0 ~ s_1 ~ s_2$ এবং $s_{i-2} ~ s_{i-1} ~ s_i$-ও সমান, তাই $\pi[i]$ অবশ্যই $3$ হতে হবে।
 
 $$\underbrace{\overbrace{s_0 ~ s_1}^{\pi[i] = 2} ~ s_2 ~ s_3}_{\pi[i+1] = 4} ~ \dots ~ \underbrace{s_{i-2} ~ \overbrace{s_{i-1} ~ s_{i}}^{\pi[i] = 2} ~ s_{i+1}}_{\pi[i+1] = 4}$$
 
-Thus when moving to the next position, the value of the prefix function can either increase by one, stay the same, or decrease by some amount.
-This fact already allows us to reduce the complexity of the algorithm to $O(n^2)$, because in one step the prefix function can grow at most by one.
-In total the function can grow at most $n$ steps, and therefore also only can decrease a total of $n$ steps.
-This means we only have to perform $O(n)$ string comparisons, and reach the complexity $O(n^2)$.
+তাই পরবর্তী অবস্থানে যাওয়ার সময়, প্রিফিক্স ফাংশনের মান হয় এক বাড়তে পারে, একই থাকতে পারে, অথবা কিছু পরিমাণ কমতে পারে।
+এই তথ্যটি ইতিমধ্যে অ্যালগরিদমের কমপ্লেক্সিটি $O(n^2)$-এ কমাতে দেয়, কারণ এক ধাপে প্রিফিক্স ফাংশন সর্বাধিক এক বাড়তে পারে।
+মোট ফাংশন সর্বাধিক $n$ ধাপ বাড়তে পারে, এবং তাই মোট $n$ ধাপ কমতে পারে।
+এর মানে আমাদের শুধু $O(n)$ স্ট্রিং তুলনা করতে হবে, এবং $O(n^2)$ কমপ্লেক্সিটিতে পৌঁছাই।
 
-### Second optimization
+### দ্বিতীয় অপটিমাইজেশন
 
-Let's go further, we want to get rid of the string comparisons.
-To accomplish this, we have to use all the information computed in the previous steps.
+আরও এগিয়ে যাই, আমরা স্ট্রিং তুলনা থেকে মুক্তি পেতে চাই।
+এটি করতে, আমাদের পূর্ববর্তী ধাপগুলোতে গণনাকৃত সকল তথ্য ব্যবহার করতে হবে।
 
-So let us compute the value of the prefix function $\pi$ for $i + 1$.
-If $s[i+1] = s[\pi[i]]$, then we can say with certainty that $\pi[i+1] = \pi[i] + 1$, since we already know that the suffix at position $i$ of length $\pi[i]$ is equal to the prefix of length $\pi[i]$.
-This is illustrated again with an example.
+তাহলে $i + 1$-এর জন্য প্রিফিক্স ফাংশন $\pi$-এর মান গণনা করি।
+যদি $s[i+1] = s[\pi[i]]$ হয়, তাহলে আমরা নিশ্চিতভাবে বলতে পারি $\pi[i+1] = \pi[i] + 1$, যেহেতু আমরা ইতিমধ্যে জানি $i$ অবস্থানে $\pi[i]$ দৈর্ঘ্যের সাফিক্স $\pi[i]$ দৈর্ঘ্যের প্রিফিক্সের সমান।
+এটি আবার একটি উদাহরণ দিয়ে চিত্রিত করা হয়েছে।
 
 $$\underbrace{\overbrace{s_0 ~ s_1 ~ s_2}^{\pi[i]} ~ \overbrace{s_3}^{s_3 = s_{i+1}}}_{\pi[i+1] = \pi[i] + 1} ~ \dots ~ \underbrace{\overbrace{s_{i-2} ~ s_{i-1} ~ s_{i}}^{\pi[i]} ~ \overbrace{s_{i+1}}^{s_3 = s_{i + 1}}}_{\pi[i+1] = \pi[i] + 1}$$
 
-If this is not the case, $s[i+1] \neq s[\pi[i]]$, then we need to try a shorter string.
-In order to speed things up, we would like to immediately move to the longest length $j \lt \pi[i]$, such that the prefix property in the position $i$ holds, i.e. $s[0 \dots j-1] = s[i-j+1 \dots i]$:
+যদি এটি না হয়, $s[i+1] \neq s[\pi[i]]$, তাহলে আমাদের একটি ছোট স্ট্রিং চেষ্টা করতে হবে।
+গতি বাড়ানোর জন্য, আমরা সরাসরি এমন দীর্ঘতম দৈর্ঘ্য $j \lt \pi[i]$-এ যেতে চাই, যেন $i$ অবস্থানে প্রিফিক্স বৈশিষ্ট্য বজায় থাকে, অর্থাৎ $s[0 \dots j-1] = s[i-j+1 \dots i]$:
 
 $$\overbrace{\underbrace{s_0 ~ s_1}_j ~ s_2 ~ s_3}^{\pi[i]} ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_j}^{\pi[i]} ~ s_{i+1}$$
 
-Indeed, if we find such a length $j$, then we again only need to compare the characters $s[i+1]$ and $s[j]$.
-If they are equal, then we can assign $\pi[i+1] = j + 1$.
-Otherwise we will need to find the largest value smaller than $j$, for which the prefix property holds, and so on.
-It can happen that this goes until $j = 0$.
-If then $s[i+1] = s[0]$, we assign $\pi[i+1] = 1$, and $\pi[i+1] = 0$ otherwise.
+প্রকৃতপক্ষে, যদি আমরা এরকম দৈর্ঘ্য $j$ পাই, তাহলে আবার শুধু অক্ষর $s[i+1]$ এবং $s[j]$ তুলনা করতে হবে।
+যদি এরা সমান হয়, তাহলে $\pi[i+1] = j + 1$ অ্যাসাইন করতে পারি।
+অন্যথায় আমাদের $j$-এর চেয়ে ছোট সবচেয়ে বড় মান খুঁজতে হবে, যার জন্য প্রিফিক্স বৈশিষ্ট্য বজায় থাকে, এবং এভাবে চলতে থাকে।
+$j = 0$ পর্যন্ত যেতে পারে।
+তখন যদি $s[i+1] = s[0]$ হয়, আমরা $\pi[i+1] = 1$ অ্যাসাইন করি, এবং অন্যথায় $\pi[i+1] = 0$।
 
-So we already have a general scheme of the algorithm.
-The only question left is how do we effectively find the lengths for $j$.
-Let's recap:
-for the current length $j$ at the position $i$ for which the prefix property holds, i.e. $s[0 \dots j-1] = s[i-j+1 \dots i]$, we want to find the greatest $k \lt j$, for which the prefix property holds.
+তাই আমাদের কাছে ইতিমধ্যে অ্যালগরিদমের একটি সাধারণ স্কিম আছে।
+একমাত্র প্রশ্ন হলো কিভাবে দক্ষতার সাথে $j$-এর দৈর্ঘ্যগুলো খুঁজব।
+সংক্ষেপে:
+বর্তমান দৈর্ঘ্য $j$-এর জন্য $i$ অবস্থানে প্রিফিক্স বৈশিষ্ট্য বজায় আছে, অর্থাৎ $s[0 \dots j-1] = s[i-j+1 \dots i]$, আমরা সবচেয়ে বড় $k \lt j$ খুঁজতে চাই, যার জন্য প্রিফিক্স বৈশিষ্ট্য বজায় থাকে।
 
 $$\overbrace{\underbrace{s_0 ~ s_1}_k ~ s_2 ~ s_3}^j ~ \dots ~ \overbrace{s_{i-3} ~ s_{i-2} ~ \underbrace{s_{i-1} ~ s_{i}}_k}^j ~s_{i+1}$$
 
-The illustration shows, that this has to be the value of $\pi[j-1]$, which we already calculated earlier.
+চিত্রটি দেখায় যে, এটি অবশ্যই $\pi[j-1]$-এর মান, যা আমরা আগেই গণনা করেছি।
 
-### Final algorithm
+### চূড়ান্ত অ্যালগরিদম
 
-So we finally can build an algorithm that doesn't perform any string comparisons and only performs $O(n)$ actions.
+তাই আমরা শেষ পর্যন্ত এমন একটি অ্যালগরিদম তৈরি করতে পারি যা কোনো স্ট্রিং তুলনা করে না এবং শুধু $O(n)$ কাজ করে।
 
-Here is the final procedure:
+এখানে চূড়ান্ত পদ্ধতি:
 
-- We compute the prefix values $\pi[i]$ in a loop by iterating from $i = 1$ to $i = n-1$ ($\pi[0]$ just gets assigned with $0$).
-- To calculate the current value $\pi[i]$ we set the variable $j$ denoting the length of the best suffix for $i-1$. Initially $j = \pi[i-1]$.
-- Test if the suffix of length $j+1$ is also a prefix by comparing $s[j]$ and $s[i]$.
-If they are equal then we assign $\pi[i] = j + 1$, otherwise we reduce $j$ to $\pi[j-1]$ and repeat this step.
-- If we have reached the length $j = 0$ and still don't have a match, then we assign $\pi[i] = 0$ and go to the next index $i + 1$.
+- আমরা $i = 1$ থেকে $i = n-1$ পর্যন্ত ইটারেট করে লুপে প্রিফিক্স মান $\pi[i]$ গণনা করি ($\pi[0]$-এ কেবল $0$ অ্যাসাইন হয়)।
+- বর্তমান মান $\pi[i]$ গণনা করতে আমরা ভেরিয়েবল $j$ সেট করি যা $i-1$-এর জন্য সেরা সাফিক্সের দৈর্ঘ্য নির্দেশ করে। প্রাথমিকভাবে $j = \pi[i-1]$।
+- পরীক্ষা করি $j+1$ দৈর্ঘ্যের সাফিক্সটিও প্রিফিক্স কিনা, $s[j]$ এবং $s[i]$ তুলনা করে।
+যদি সমান হয় তাহলে $\pi[i] = j + 1$ অ্যাসাইন করি, অন্যথায় $j$-কে $\pi[j-1]$-এ কমাই এবং এই ধাপ পুনরাবৃত্তি করি।
+- যদি দৈর্ঘ্য $j = 0$-এ পৌঁছাই এবং এখনও মিল না পাই, তাহলে $\pi[i] = 0$ অ্যাসাইন করি এবং পরবর্তী ইনডেক্স $i + 1$-এ যাই।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The implementation ends up being surprisingly short and expressive.
+ইমপ্লিমেন্টেশনটি আশ্চর্যজনকভাবে সংক্ষিপ্ত এবং প্রকাশপূর্ণ।
 
 ```cpp
 vector<int> prefix_function(string s) {
@@ -122,51 +122,51 @@ vector<int> prefix_function(string s) {
 }
 ```
 
-This is an **online** algorithm, i.e. it processes the data as it arrives - for example, you can read the string characters one by one and process them immediately, finding the value of prefix function for each next character.
-The algorithm still requires storing the string itself and the previously calculated values of prefix function, but if we know beforehand the maximum value $M$ the prefix function can take on the string, we can store only $M+1$ first characters of the string and the same number of values of the prefix function.
+এটি একটি **অনলাইন** অ্যালগরিদম, অর্থাৎ এটি ডেটা আসার সাথে সাথে প্রক্রিয়া করে - উদাহরণস্বরূপ, আপনি স্ট্রিং-এর অক্ষরগুলো একটি একটি করে পড়তে পারেন এবং সঙ্গে সঙ্গে প্রক্রিয়া করতে পারেন, প্রতিটি পরবর্তী অক্ষরের জন্য প্রিফিক্স ফাংশনের মান বের করে।
+অ্যালগরিদমে এখনও স্ট্রিং নিজে এবং প্রিফিক্স ফাংশনের পূর্বে গণনাকৃত মান সংরক্ষণ করতে হবে, কিন্তু যদি আমরা আগে থেকে জানি স্ট্রিং-এ প্রিফিক্স ফাংশন সর্বোচ্চ $M$ মান নিতে পারে, তাহলে আমরা স্ট্রিং-এর শুধু প্রথম $M+1$ অক্ষর এবং একই সংখ্যক প্রিফিক্স ফাংশনের মান সংরক্ষণ করতে পারি।
 
-## Applications
+## প্রয়োগ
 
-### Search for a substring in a string. The Knuth-Morris-Pratt algorithm
+### একটি স্ট্রিং-এ সাবস্ট্রিং খোঁজা। নুথ-মরিস-প্র্যাট অ্যালগরিদম
 
-The task is the classical application of the prefix function.
+এই কাজটি প্রিফিক্স ফাংশনের ক্লাসিক্যাল প্রয়োগ।
 
-Given a text $t$ and a string $s$, we want to find and display the positions of all occurrences of the string $s$ in the text $t$.
+একটি টেক্সট $t$ এবং একটি স্ট্রিং $s$ দেওয়া আছে, আমরা টেক্সট $t$-তে স্ট্রিং $s$-এর সকল অবস্থান খুঁজে বের করতে এবং প্রদর্শন করতে চাই।
 
-For convenience we denote with $n$ the length of the string s and with $m$ the length of the text $t$.
+সুবিধার জন্য আমরা $n$ দিয়ে স্ট্রিং $s$-এর দৈর্ঘ্য এবং $m$ দিয়ে টেক্সট $t$-এর দৈর্ঘ্য চিহ্নিত করি।
 
-We generate the string $s + \# + t$, where $\#$ is a separator that appears neither in $s$ nor in $t$.
-Let us calculate the prefix function for this string.
-Now think about the meaning of the values of the prefix function, except for the first $n + 1$ entries (which belong to the string $s$ and the separator).
-By definition the value $\pi[i]$ shows the longest length of a substring ending in position $i$ that coincides with the prefix.
-But in our case this is nothing more than the largest block that coincides with $s$ and ends at position $i$.
-This length cannot be bigger than $n$ due to the separator.
-But if equality $\pi[i] = n$ is achieved, then it means that the string $s$ appears completely in at this position, i.e. it ends at position $i$.
-Just do not forget that the positions are indexed in the string $s + \# + t$.
+আমরা স্ট্রিং $s + \# + t$ তৈরি করি, যেখানে $\#$ একটি সেপারেটর যা $s$ বা $t$-তে নেই।
+এই স্ট্রিং-এর জন্য প্রিফিক্স ফাংশন গণনা করি।
+এখন প্রিফিক্স ফাংশনের মানগুলোর অর্থ ভাবুন, প্রথম $n + 1$ এন্ট্রি ছাড়া (যেগুলো স্ট্রিং $s$ এবং সেপারেটরের)।
+সংজ্ঞা অনুযায়ী $\pi[i]$ মান $i$ অবস্থানে শেষ হওয়া সাবস্ট্রিং-এর দীর্ঘতম দৈর্ঘ্য দেখায় যা প্রিফিক্সের সাথে মিলে।
+কিন্তু আমাদের ক্ষেত্রে এটি $s$-এর সাথে মিলে যাওয়া এবং $i$ অবস্থানে শেষ হওয়া সবচেয়ে বড় ব্লক ছাড়া আর কিছু নয়।
+সেপারেটরের কারণে এই দৈর্ঘ্য $n$-এর চেয়ে বড় হতে পারে না।
+কিন্তু যদি $\pi[i] = n$ সমতা অর্জিত হয়, তাহলে এর মানে স্ট্রিং $s$ এই অবস্থানে সম্পূর্ণরূপে উপস্থিত, অর্থাৎ এটি $i$ অবস্থানে শেষ হয়।
+শুধু ভুলবেন না যে অবস্থানগুলো $s + \# + t$ স্ট্রিং-এ ইনডেক্সড।
 
-Thus if at some position $i$ we have $\pi[i] = n$, then at the position $i - (n + 1) - n + 1 = i - 2n$ in the string $t$ the string $s$ appears.
+তাই যদি কোনো অবস্থান $i$-তে $\pi[i] = n$ পাই, তাহলে স্ট্রিং $t$-তে $i - (n + 1) - n + 1 = i - 2n$ অবস্থানে স্ট্রিং $s$ উপস্থিত।
 
-As already mentioned in the description of the prefix function computation, if we know that the prefix values never exceed a certain value, then we do not need to store the entire string and the entire function, but only its beginning.
-In our case this means that we only need to store the string $s + \#$ and the values of the prefix function for it.
-We can read one character at a time of the string $t$ and calculate the current value of the prefix function.
+প্রিফিক্স ফাংশন গণনার বর্ণনায় ইতিমধ্যে উল্লেখ করা হয়েছে, যদি আমরা জানি প্রিফিক্সের মান একটি নির্দিষ্ট মান অতিক্রম করবে না, তাহলে পুরো স্ট্রিং এবং পুরো ফাংশন সংরক্ষণ করার দরকার নেই, শুধু এর শুরুটুকু।
+আমাদের ক্ষেত্রে এর মানে হলো আমাদের শুধু স্ট্রিং $s + \#$ এবং এর প্রিফিক্স ফাংশনের মান সংরক্ষণ করতে হবে।
+আমরা স্ট্রিং $t$-এর একটি একটি অক্ষর পড়তে পারি এবং প্রিফিক্স ফাংশনের বর্তমান মান গণনা করতে পারি।
 
-Thus the Knuth-Morris-Pratt algorithm solves the problem in $O(n + m)$ time and $O(n)$ memory.
+এভাবে নুথ-মরিস-প্র্যাট অ্যালগরিদম $O(n + m)$ সময়ে এবং $O(n)$ মেমোরিতে সমস্যাটি সমাধান করে।
 
-### Counting the number of occurrences of each prefix
+### প্রতিটি প্রিফিক্সের উপস্থিতির সংখ্যা গণনা
 
-Here we discuss two problems at once.
-Given a string $s$ of length $n$.
-In the first variation of the problem we want to count the number of appearances of each prefix $s[0 \dots i]$ in the same string.
-In the second variation of the problem another string $t$ is given and we want to count the number of appearances of each prefix $s[0 \dots i]$ in $t$.
+এখানে আমরা একসাথে দুটি সমস্যা আলোচনা করি।
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে।
+প্রথম ভ্যারিয়েশনে আমরা একই স্ট্রিং-এ প্রতিটি প্রিফিক্স $s[0 \dots i]$-এর উপস্থিতির সংখ্যা গণনা করতে চাই।
+দ্বিতীয় ভ্যারিয়েশনে আরেকটি স্ট্রিং $t$ দেওয়া আছে এবং আমরা $t$-তে প্রতিটি প্রিফিক্স $s[0 \dots i]$-এর উপস্থিতির সংখ্যা গণনা করতে চাই।
 
-First we solve the first problem.
-Consider the value of the prefix function $\pi[i]$ at a position $i$.
-By definition it means that the prefix of length $\pi[i]$ of the string $s$ occurs and ends at position $i$, and there is no longer prefix that follows this definition.
-At the same time shorter prefixes can end at this position.
-It is not difficult to see, that we have the same question that we already answered when we computed the prefix function itself:
-Given a prefix of length $j$ that is a suffix ending at position $i$, what is the next smaller prefix $\lt j$ that is also a suffix ending at position $i$.
-Thus at the position $i$ ends the prefix of length $\pi[i]$, the prefix of length $\pi[\pi[i] - 1]$, the prefix $\pi[\pi[\pi[i] - 1] - 1]$, and so on, until the index becomes zero.
-Thus we can compute the answer in the following way.
+প্রথমে প্রথম সমস্যাটি সমাধান করি।
+$i$ অবস্থানে প্রিফিক্স ফাংশনের মান $\pi[i]$ বিবেচনা করুন।
+সংজ্ঞা অনুযায়ী এর মানে হলো $\pi[i]$ দৈর্ঘ্যের স্ট্রিং $s$-এর প্রিফিক্স $i$ অবস্থানে ঘটে এবং শেষ হয়, এবং এর চেয়ে দীর্ঘ কোনো প্রিফিক্স এই সংজ্ঞা অনুসরণ করে না।
+একই সময়ে ছোট প্রিফিক্সগুলো এই অবস্থানে শেষ হতে পারে।
+দেখা কঠিন নয় যে, আমাদের সেই একই প্রশ্ন আছে যার উত্তর আমরা ইতিমধ্যে দিয়েছি যখন প্রিফিক্স ফাংশন নিজেই গণনা করেছি:
+$j$ দৈর্ঘ্যের একটি প্রিফিক্স দেওয়া আছে যা $i$ অবস্থানে শেষ হওয়া সাফিক্স, পরবর্তী ছোট প্রিফিক্স $\lt j$ কী যেটিও $i$ অবস্থানে শেষ হওয়া সাফিক্স।
+তাই $i$ অবস্থানে $\pi[i]$ দৈর্ঘ্যের প্রিফিক্স, $\pi[\pi[i] - 1]$ দৈর্ঘ্যের প্রিফিক্স, $\pi[\pi[\pi[i] - 1] - 1]$ দৈর্ঘ্যের প্রিফিক্স, ইত্যাদি শেষ হয়, যতক্ষণ না ইনডেক্স শূন্য হয়।
+তাই আমরা নিম্নলিখিতভাবে উত্তর গণনা করতে পারি।
 
 ```cpp
 vector<int> ans(n + 1);
@@ -178,71 +178,71 @@ for (int i = 0; i <= n; i++)
     ans[i]++;
 ```
 
-Here for each value of the prefix function we first count how many times it occurs in the array $\pi$, and then compute the final answers:
-if we know that the length prefix $i$ appears exactly $\text{ans}[i]$ times, then this number must be added to the number of occurrences of its longest suffix that is also a prefix.
-At the end we need to add $1$ to each result, since we also need to count the original prefixes also.
+এখানে প্রিফিক্স ফাংশনের প্রতিটি মানের জন্য আমরা প্রথমে গণনা করি এটি $\pi$ অ্যারেতে কতবার ঘটে, এবং তারপর চূড়ান্ত উত্তর গণনা করি:
+যদি আমরা জানি $i$ দৈর্ঘ্যের প্রিফিক্স ঠিক $\text{ans}[i]$ বার ঘটে, তাহলে এই সংখ্যাটি এর দীর্ঘতম সাফিক্স যা প্রিফিক্সও তার উপস্থিতির সংখ্যায় যোগ করতে হবে।
+শেষে প্রতিটি ফলাফলে $1$ যোগ করতে হবে, কারণ মূল প্রিফিক্সগুলোও গণনা করতে হবে।
 
-Now let us consider the second problem.
-We apply the trick from Knuth-Morris-Pratt:
-we create the string $s + \# + t$ and compute its prefix function.
-The only differences to the first task is, that we are only interested in the prefix values that relate to the string $t$, i.e. $\pi[i]$ for $i \ge n + 1$.
-With those values we can perform the exact same computations as in the first task.
+এখন দ্বিতীয় সমস্যাটি বিবেচনা করি।
+আমরা নুথ-মরিস-প্র্যাটের কৌশল প্রয়োগ করি:
+আমরা স্ট্রিং $s + \# + t$ তৈরি করি এবং এর প্রিফিক্স ফাংশন গণনা করি।
+প্রথম কাজের সাথে একমাত্র পার্থক্য হলো, আমরা শুধু $t$ স্ট্রিং-এর সাথে সম্পর্কিত প্রিফিক্স মানগুলোতে আগ্রহী, অর্থাৎ $i \ge n + 1$-এর জন্য $\pi[i]$।
+সেই মানগুলো দিয়ে আমরা প্রথম কাজের মতোই হুবহু একই গণনা করতে পারি।
 
-### The number of different substring in a string
+### একটি স্ট্রিং-এ ভিন্ন সাবস্ট্রিং-এর সংখ্যা
 
-Given a string $s$ of length $n$.
-We want to compute the number of different substrings appearing in it.
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে।
+আমরা এতে উপস্থিত ভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা করতে চাই।
 
-We will solve this problem iteratively.
-Namely we will learn, knowing the current number of different substrings, how to recompute this count by adding a character to the end.
+আমরা এই সমস্যাটি পুনরাবৃত্তিমূলকভাবে সমাধান করব।
+যথা আমরা শিখব, ভিন্ন সাবস্ট্রিং-এর বর্তমান সংখ্যা জানা থাকলে, শেষে একটি অক্ষর যোগ করে এই গণনা কিভাবে পুনর্গণনা করতে হয়।
 
-So let $k$ be the current number of different substrings in $s$, and we add the character $c$ to the end of $s$.
-Obviously some new substrings ending in $c$ will appear.
-We want to count these new substrings that didn't appear before.
+তাই $k$ হলো $s$-তে ভিন্ন সাবস্ট্রিং-এর বর্তমান সংখ্যা, এবং আমরা শেষে $c$ অক্ষর যোগ করি।
+স্পষ্টতই $c$-তে শেষ হওয়া কিছু নতুন সাবস্ট্রিং উপস্থিত হবে।
+আমরা এই নতুন সাবস্ট্রিং গণনা করতে চাই যেগুলো আগে ছিল না।
 
-We take the string $t = s + c$ and reverse it.
-Now the task is transformed into computing how many prefixes there are that don't appear anywhere else.
-If we compute the maximal value of the prefix function $\pi_{\text{max}}$ of the reversed string $t$, then the longest prefix that appears in $s$ is $\pi_{\text{max}}$ long.
-Clearly also all prefixes of smaller length appear in it.
+আমরা স্ট্রিং $t = s + c$ নিই এবং এটি বিপরীত করি।
+এখন কাজটি রূপান্তরিত হয় এমন কতগুলো প্রিফিক্স আছে যা অন্য কোথাও নেই তা গণনায়।
+যদি আমরা বিপরীত স্ট্রিং $t$-এর প্রিফিক্স ফাংশনের সর্বোচ্চ মান $\pi_{\text{max}}$ গণনা করি, তাহলে $s$-তে উপস্থিত দীর্ঘতম প্রিফিক্সটি $\pi_{\text{max}}$ দীর্ঘ।
+স্পষ্টতই ছোট দৈর্ঘ্যের সকল প্রিফিক্সও এতে উপস্থিত।
 
-Therefore the number of new substrings appearing when we add a new character $c$ is $|s| + 1 - \pi_{\text{max}}$.
+তাই নতুন অক্ষর $c$ যোগ করার সময় নতুন সাবস্ট্রিং-এর সংখ্যা $|s| + 1 - \pi_{\text{max}}$।
 
-So for each character appended we can compute the number of new substrings in $O(n)$ times, which gives a time complexity of $O(n^2)$ in total.
+তাই প্রতিটি যোগ করা অক্ষরের জন্য আমরা $O(n)$ সময়ে নতুন সাবস্ট্রিং-এর সংখ্যা গণনা করতে পারি, যা মোট $O(n^2)$ টাইম কমপ্লেক্সিটি দেয়।
 
-It is worth noting, that we can also compute the number of different substrings by appending the characters at the beginning, or by deleting characters from the beginning or the end.
+উল্লেখযোগ্য যে, শুরুতে অক্ষর যোগ করে, অথবা শুরু বা শেষ থেকে অক্ষর মুছেও ভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা করা যায়।
 
-### Compressing a string
+### একটি স্ট্রিং সংকুচিত করা
 
-Given a string $s$ of length $n$.
-We want to find the shortest "compressed" representation of the string, i.e. we want to find a string $t$ of smallest length such that $s$ can be represented as a concatenation of one or more copies of $t$.
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে।
+আমরা স্ট্রিং-এর সংক্ষিপ্ততম "সংকুচিত" উপস্থাপনা খুঁজতে চাই, অর্থাৎ আমরা ক্ষুদ্রতম দৈর্ঘ্যের এমন স্ট্রিং $t$ খুঁজতে চাই যেন $s$-কে $t$-এর এক বা একাধিক কপির সংযুক্তি হিসেবে উপস্থাপন করা যায়।
 
-It is clear, that we only need to find the length of $t$. Knowing the length, the answer to the problem will be the prefix of $s$ with this length.
+এটি স্পষ্ট যে, আমাদের শুধু $t$-এর দৈর্ঘ্য খুঁজতে হবে। দৈর্ঘ্য জানা থাকলে, সমস্যার উত্তর হবে এই দৈর্ঘ্যের $s$-এর প্রিফিক্স।
 
-Let us compute the prefix function for $s$.
-Using the last value of it we define the value $k = n - \pi[n - 1]$.
-We will show, that if $k$ divides $n$, then $k$ will be the answer, otherwise there is no effective compression and the answer is $n$.
+$s$-এর জন্য প্রিফিক্স ফাংশন গণনা করি।
+এর শেষ মান ব্যবহার করে মান $k = n - \pi[n - 1]$ সংজ্ঞায়িত করি।
+আমরা দেখাব যে, যদি $k$, $n$-কে ভাগ করে, তাহলে $k$ হবে উত্তর, অন্যথায় কোনো কার্যকর সংকুচন নেই এবং উত্তর হলো $n$।
 
-Let $n$ be divisible by $k$.
-Then the string can be partitioned into blocks of the length $k$.
-By definition of the prefix function, the prefix of length $n - k$ will be equal with its suffix.
-But this means that the last block is equal to the block before.
-And the block before has to be equal to the block before it.
-And so on.
-As a result, it turns out that all blocks are equal, therefore we can compress the string $s$ to length $k$.
+$n$ যদি $k$ দ্বারা বিভাজ্য হয়।
+তাহলে স্ট্রিংটি $k$ দৈর্ঘ্যের ব্লকে ভাগ করা যায়।
+প্রিফিক্স ফাংশনের সংজ্ঞা অনুযায়ী, $n - k$ দৈর্ঘ্যের প্রিফিক্স এর সাফিক্সের সমান।
+কিন্তু এর মানে শেষ ব্লক আগের ব্লকের সমান।
+এবং আগের ব্লক তার আগের ব্লকের সমান হতে হবে।
+ইত্যাদি।
+ফলে, দেখা যায় সব ব্লক সমান, তাই আমরা স্ট্রিং $s$-কে $k$ দৈর্ঘ্যে সংকুচিত করতে পারি।
 
-Of course we still need to show that this is actually the optimum.
-Indeed, if there was a smaller compression than $k$, than the prefix function at the end would be greater than $n - k$.
-Therefore $k$ is really the answer.
+অবশ্যই আমাদের এখনও দেখাতে হবে এটি আসলেই অপটিমাম।
+প্রকৃতপক্ষে, যদি $k$-এর চেয়ে ছোট সংকুচন থাকত, তাহলে শেষে প্রিফিক্স ফাংশনের মান $n - k$-এর চেয়ে বড় হতো।
+তাই $k$ সত্যিই উত্তর।
 
-Now let us assume that $n$ is not divisible by $k$.
-We show that this implies that the length of the answer is $n$.
-We prove it by contradiction.
-Assuming there exists an answer, and the compression has length $p$ ($p$ divides $n$).
-Then the last value of the prefix function has to be greater than $n - p$, i.e. the suffix will partially cover the first block.
-Now consider the second block of the string.
-Since the prefix is equal with the suffix, and both the prefix and the suffix cover this block and their displacement relative to each other $k$ does not divide the block length $p$ (otherwise $k$ divides $n$), then all the characters of the block have to be identical.
-But then the string consists of only one character repeated over and over, hence we can compress it to a string of size $1$, which gives $k = 1$, and $k$ divides $n$.
-Contradiction.
+এখন ধরি $n$, $k$ দ্বারা বিভাজ্য নয়।
+আমরা দেখাই যে এর মানে উত্তরের দৈর্ঘ্য $n$।
+আমরা দ্বন্দ্ব দিয়ে প্রমাণ করি।
+ধরি একটি উত্তর আছে, এবং সংকুচনের দৈর্ঘ্য $p$ ($p$, $n$-কে ভাগ করে)।
+তাহলে প্রিফিক্স ফাংশনের শেষ মান $n - p$-এর চেয়ে বড় হতে হবে, অর্থাৎ সাফিক্স আংশিকভাবে প্রথম ব্লক ঢাকবে।
+এখন স্ট্রিং-এর দ্বিতীয় ব্লক বিবেচনা করুন।
+যেহেতু প্রিফিক্স সাফিক্সের সমান, এবং প্রিফিক্স ও সাফিক্স উভয়ই এই ব্লক ঢাকে এবং তাদের পরস্পরের সাপেক্ষে সরণ $k$ ব্লক দৈর্ঘ্য $p$ ভাগ করে না (অন্যথায় $k$, $n$ ভাগ করত), তাহলে ব্লকের সব অক্ষর অভিন্ন হতে হবে।
+কিন্তু তাহলে স্ট্রিংটি শুধু একটি অক্ষরের পুনরাবৃত্তি, ফলে এটি $1$ আকারের স্ট্রিং-এ সংকুচিত হয়, যা $k = 1$ দেয়, এবং $k$, $n$ ভাগ করে।
+দ্বন্দ্ব।
 
 $$\overbrace{s_0 ~ s_1 ~ s_2 ~ s_3}^p ~ \overbrace{s_4 ~ s_5 ~ s_6 ~ s_7}^p$$
 
@@ -250,19 +250,19 @@ $$s_0 ~ s_1 ~ s_2 ~ \underbrace{\overbrace{s_3 ~ s_4 ~ s_5 ~ s_6}^p ~ s_7}_{\pi[
 
 $$s_4 = s_3, ~ s_5 = s_4, ~ s_6 = s_5, ~ s_7 = s_6 ~ \Rightarrow ~ s_0 = s_1 = s_2 = s_3$$
 
-### Building an automaton according to the prefix function
+### প্রিফিক্স ফাংশন অনুযায়ী একটি অটোমেটন তৈরি
 
-Let's return to the concatenation to the two strings through a separator, i.e. for the strings $s$ and $t$ we compute the prefix function for the string $s + \# + t$.
-Obviously, since $\#$ is a separator, the value of the prefix function will never exceed $|s|$.
-It follows, that it is sufficient to only store the string $s + \#$ and the values of the prefix function for it, and we can compute the prefix function for all subsequent character on the fly:
+আসুন সেপারেটর দিয়ে দুটি স্ট্রিং-এর সংযুক্তিতে ফিরে যাই, অর্থাৎ স্ট্রিং $s$ এবং $t$-এর জন্য আমরা $s + \# + t$ স্ট্রিং-এর প্রিফিক্স ফাংশন গণনা করি।
+স্পষ্টতই, যেহেতু $\#$ একটি সেপারেটর, প্রিফিক্স ফাংশনের মান কখনো $|s|$-কে অতিক্রম করবে না।
+এ থেকে বোঝা যায়, শুধু স্ট্রিং $s + \#$ এবং এর প্রিফিক্স ফাংশনের মান সংরক্ষণ করাই যথেষ্ট, এবং আমরা পরবর্তী সকল অক্ষরের জন্য চলমানভাবে প্রিফিক্স ফাংশন গণনা করতে পারি:
 
-$$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \#}_{\text{need to store}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}_{\text{do not need to store}}$$
+$$\underbrace{s_0 ~ s_1 ~ \dots ~ s_{n-1} ~ \#}_{\text{সংরক্ষণ করতে হবে}} ~ \underbrace{t_0 ~ t_1 ~ \dots ~ t_{m-1}}_{\text{সংরক্ষণ করতে হবে না}}$$
 
-Indeed, in such a situation, knowing the next character $c \in t$ and the value of the prefix function of the previous position is enough information to compute the next value of the prefix function, without using any previous characters of the string $t$ and the value of the prefix function in them.
+প্রকৃতপক্ষে, এরকম পরিস্থিতিতে পরবর্তী অক্ষর $c \in t$ এবং আগের অবস্থানের প্রিফিক্স ফাংশনের মান জানা থাকলেই পরবর্তী প্রিফিক্স ফাংশনের মান গণনা করার জন্য যথেষ্ট তথ্য থাকে, স্ট্রিং $t$-এর কোনো পূর্ববর্তী অক্ষর বা তাদের প্রিফিক্স ফাংশনের মান ব্যবহার না করেই।
 
-In other words, we can construct an **automaton** (a finite state machine): the state in it is the current value of the prefix function, and the transition from one state to another will be performed via the next character.
+অন্য কথায়, আমরা একটি **অটোমেটন** (ফিনাইট স্টেট মেশিন) তৈরি করতে পারি: এতে স্টেট হলো প্রিফিক্স ফাংশনের বর্তমান মান, এবং একটি স্টেট থেকে অন্য স্টেটে ট্রানজিশন পরবর্তী অক্ষরের মাধ্যমে হবে।
 
-Thus, even without having the string $t$, we can construct such a transition table $(\text{old}_\pi, c) \rightarrow \text{new}_\pi$ using the same algorithm as for calculating the transition table:
+তাই, স্ট্রিং $t$ ছাড়াই, আমরা এরকম ট্রানজিশন টেবিল $(\text{old}_\pi, c) \rightarrow \text{new}_\pi$ তৈরি করতে পারি, ট্রানজিশন টেবিল গণনার জন্য একই অ্যালগরিদম ব্যবহার করে:
 
 ```cpp
 void compute_automaton(string s, vector<vector<int>>& aut) {
@@ -283,9 +283,9 @@ void compute_automaton(string s, vector<vector<int>>& aut) {
 }
 ```
 
-However in this form the algorithm runs in $O(n^2 26)$ time for the lowercase letters of the alphabet.
-Note that we can apply dynamic programming and use the already calculated parts of the table.
-Whenever we go from the value $j$ to the value $\pi[j-1]$, we actually mean that the transition $(j, c)$ leads to the same state as the transition as $(\pi[j-1], c)$, and this answer is already accurately computed.
+তবে এই ফর্মে অ্যালগরিদমটি ছোট হাতের বর্ণমালার জন্য $O(n^2 26)$ সময়ে চলে।
+লক্ষ্য করুন আমরা ডায়নামিক প্রোগ্রামিং প্রয়োগ করতে পারি এবং টেবিলের ইতিমধ্যে গণনাকৃত অংশ ব্যবহার করতে পারি।
+যখনই আমরা $j$ মান থেকে $\pi[j-1]$ মানে যাই, আমরা আসলে বলছি ট্রানজিশন $(j, c)$ একই স্টেটে নিয়ে যায় যেটিতে ট্রানজিশন $(\pi[j-1], c)$ নিয়ে যায়, এবং এই উত্তর ইতিমধ্যে সঠিকভাবে গণনা করা হয়েছে।
 
 ```cpp
 void compute_automaton(string s, vector<vector<int>>& aut) {
@@ -304,23 +304,23 @@ void compute_automaton(string s, vector<vector<int>>& aut) {
 }
 ```
 
-As a result we construct the automaton in $O(26 n)$ time.
+ফলে আমরা $O(26 n)$ সময়ে অটোমেটন তৈরি করি।
 
-When is such a automaton useful?
-To begin with, remember that we use the prefix function for the string $s + \# + t$ and its values mostly for a single purpose: find all occurrences of the string $s$ in the string $t$.
+এরকম অটোমেটন কখন উপযোগী?
+শুরুতে মনে রাখুন আমরা স্ট্রিং $s + \# + t$-এর প্রিফিক্স ফাংশন এবং এর মানগুলো বেশিরভাগ ক্ষেত্রে একটি একক উদ্দেশ্যে ব্যবহার করি: স্ট্রিং $t$-তে স্ট্রিং $s$-এর সকল অবস্থান খোঁজা।
 
-Therefore the most obvious benefit of this automaton is the **acceleration of calculating the prefix function** for the string $s + \# + t$.
-By building the automaton for $s + \#$, we no longer need to store the string $s$ or the values of the prefix function in it.
-All transitions are already computed in the table.
+তাই এই অটোমেটনের সবচেয়ে স্পষ্ট সুবিধা হলো $s + \# + t$ স্ট্রিং-এর জন্য **প্রিফিক্স ফাংশন গণনার ত্বরণ**।
+$s + \#$-এর জন্য অটোমেটন তৈরি করে, আমাদের আর স্ট্রিং $s$ বা এতে প্রিফিক্স ফাংশনের মান সংরক্ষণ করতে হবে না।
+সকল ট্রানজিশন ইতিমধ্যে টেবিলে গণনা করা হয়েছে।
 
-But there is a second, less obvious, application.
-We can use the automaton when the string $t$ is a **gigantic string constructed using some rules**.
-This can for instance be the Gray strings, or a string formed by a recursive combination of several short strings from the input.
+কিন্তু দ্বিতীয়, কম স্পষ্ট, প্রয়োগও আছে।
+আমরা অটোমেটন ব্যবহার করতে পারি যখন স্ট্রিং $t$ কোনো নিয়ম অনুসারে তৈরি **বিশাল স্ট্রিং** হয়।
+এটি যেমন হতে পারে গ্রে স্ট্রিং, বা ইনপুটের কয়েকটি সংক্ষিপ্ত স্ট্রিং-এর রিকার্সিভ সমন্বয়ে গঠিত স্ট্রিং।
 
-For completeness we will solve such a problem:
-given a number $k \le 10^5$ and a string $s$ of length $\le 10^5$.
-We have to compute the number of occurrences of $s$ in the $k$-th Gray string.
-Recall that Gray's strings are define in the following way:
+পূর্ণতার জন্য আমরা এরকম একটি সমস্যা সমাধান করব:
+একটি সংখ্যা $k \le 10^5$ এবং সর্বোচ্চ $\le 10^5$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে।
+আমাদের $k$-তম গ্রে স্ট্রিং-এ $s$-এর উপস্থিতির সংখ্যা গণনা করতে হবে।
+মনে রাখুন গ্রে-এর স্ট্রিং নিম্নরূপে সংজ্ঞায়িত:
 
 $$\begin{align}
 g_1 &= \text{"a"}\\
@@ -329,34 +329,34 @@ g_3 &= \text{"abacaba"}\\
 g_4 &= \text{"abacabadabacaba"}
 \end{align}$$
 
-In such cases even constructing the string $t$ will be impossible, because of its astronomical length.
-The $k$-th Gray string is $2^k-1$ characters long.
-However we can calculate the value of the prefix function at the end of the string effectively, by only knowing the value of the prefix function at the start.
+এরকম ক্ষেত্রে স্ট্রিং $t$ তৈরি করাই অসম্ভব, কারণ এর জ্যোতির্বিদ্যাসুলভ দৈর্ঘ্য।
+$k$-তম গ্রে স্ট্রিং $2^k-1$ অক্ষর দীর্ঘ।
+তবে আমরা দক্ষতার সাথে স্ট্রিং-এর শেষে প্রিফিক্স ফাংশনের মান গণনা করতে পারি, শুধু শুরুতে প্রিফিক্স ফাংশনের মান জানা থাকলেই।
 
-In addition to the automaton itself, we also compute values $G[i][j]$ - the value of the automaton after processing the string $g_i$ starting with the state $j$.
-And additionally we compute values $K[i][j]$ - the number of occurrences of $s$ in $g_i$, before during the processing of $g_i$ starting with the state $j$.
-Actually $K[i][j]$ is the number of times that the prefix function took the value $|s|$ while performing the operations.
-The answer to the problem will then be $K[k][0]$.
+অটোমেটন ছাড়াও, আমরা $G[i][j]$ মানও গণনা করি - $j$ স্টেট থেকে শুরু করে $g_i$ স্ট্রিং প্রক্রিয়া করার পরে অটোমেটনের মান।
+এবং অতিরিক্তভাবে $K[i][j]$ মান গণনা করি - $j$ স্টেট থেকে শুরু করে $g_i$ প্রক্রিয়া করার সময় $s$-এর উপস্থিতির সংখ্যা।
+আসলে $K[i][j]$ হলো যতবার প্রিফিক্স ফাংশন $|s|$ মান নিয়েছে সেই সংখ্যা।
+সমস্যার উত্তর হবে $K[k][0]$।
 
-How can we compute these values?
-First the basic values are $G[0][j] = j$ and $K[0][j] = 0$.
-And all subsequent values can be calculated from the previous values and using the automaton.
-To calculate the value for some $i$ we remember that the string $g_i$ consists of $g_{i-1}$, the $i$ character of the alphabet, and $g_{i-1}$.
-Thus the automaton will go into the state:
+কিভাবে এই মানগুলো গণনা করব?
+প্রথমে মূল মান হলো $G[0][j] = j$ এবং $K[0][j] = 0$।
+এবং সকল পরবর্তী মান পূর্ববর্তী মান এবং অটোমেটন ব্যবহার করে গণনা করা যায়।
+কোনো $i$-এর মান গণনা করতে আমরা মনে রাখি স্ট্রিং $g_i$ গঠিত $g_{i-1}$, বর্ণমালার $i$-তম অক্ষর, এবং $g_{i-1}$ দিয়ে।
+তাই অটোমেটন স্টেটে যাবে:
 
 $$\text{mid} = \text{aut}[G[i-1][j]][i]$$
 
 $$G[i][j] = G[i-1][\text{mid}]$$
 
-The values for $K[i][j]$ can also be easily counted.
+$K[i][j]$-এর মানও সহজে গণনা করা যায়।
 
 $$K[i][j] = K[i-1][j] + (\text{mid} == |s|) + K[i-1][\text{mid}]$$
 
-So we can solve the problem for Gray strings, and similarly also a huge number of other similar problems.
-For example the exact same method also solves the following problem:
-we are given a string $s$ and some patterns $t_i$, each of which is specified as follows:
-it is a string of ordinary characters, and there might be some recursive insertions of the previous strings of the form $t_k^{\text{cnt}}$, which means that at this place we have to insert the string $t_k$ $\text{cnt}$ times.
-An example of such patterns:
+তাই আমরা গ্রে স্ট্রিং-এর সমস্যা সমাধান করতে পারি, এবং একইভাবে অন্যান্য অনেক অনুরূপ সমস্যাও।
+উদাহরণস্বরূপ একই পদ্ধতি নিম্নলিখিত সমস্যাও সমাধান করে:
+একটি স্ট্রিং $s$ এবং কিছু প্যাটার্ন $t_i$ দেওয়া আছে, প্রতিটি নিম্নরূপে নির্দিষ্ট:
+এটি সাধারণ অক্ষরের একটি স্ট্রিং, এবং $t_k^{\text{cnt}}$ আকারে পূর্ববর্তী স্ট্রিং-এর রিকার্সিভ ইনসার্শন থাকতে পারে, যার মানে সেই জায়গায় $t_k$ স্ট্রিং $\text{cnt}$ বার ইনসার্ট হবে।
+এরকম প্যাটার্নের উদাহরণ:
 
 $$\begin{align}
 t_1 &= \text{"abdeca"}\\
@@ -365,13 +365,13 @@ t_3 &= t_2^{50} + t_1^{100}\\
 t_4 &= t_2^{10} + t_3^{100}
 \end{align}$$
 
-The recursive substitutions blow the string up, so that their lengths can reach the order of $100^{100}$.
+রিকার্সিভ প্রতিস্থাপন স্ট্রিংকে বিস্ফোরিত করে, তাই তাদের দৈর্ঘ্য $100^{100}$ ক্রমের পর্যন্ত পৌঁছাতে পারে।
 
-We have to find the number of times the string $s$ appears in each of the strings.
+আমাদের প্রতিটি স্ট্রিং-এ $s$ কতবার উপস্থিত তা বের করতে হবে।
 
-The problem can be solved in the same way by constructing the automaton of the prefix function, and then we calculate the transitions in for each pattern by using the previous results.
+সমস্যাটি একইভাবে সমাধান করা যায় প্রিফিক্স ফাংশনের অটোমেটন তৈরি করে, এবং তারপর পূর্ববর্তী ফলাফল ব্যবহার করে প্রতিটি প্যাটার্নের ট্রানজিশন গণনা করে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [UVA # 455 "Periodic Strings"](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=396)
 * [UVA # 11022 "String Factoring"](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1963)

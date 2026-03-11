@@ -1,141 +1,141 @@
 ---
-title: "Finding repetitions"
+title: "পুনরাবৃত্তি (রিপিটিশন) খোঁজা"
 tags: 
 weight: 30
 ---
-# Finding repetitions
+# পুনরাবৃত্তি (রিপিটিশন) খোঁজা
 
-Given a string $s$ of length $n$.
+$n$ দৈর্ঘ্যের একটি স্ট্রিং $s$ দেওয়া আছে।
 
-A **repetition** is two occurrences of a string in a row.
-In other words a repetition can be described by a pair of indices $i < j$ such that the substring $s[i \dots j]$ consists of two identical strings written after each other.
+একটি **পুনরাবৃত্তি** হলো পরপর দুটি অভিন্ন স্ট্রিং-এর উপস্থিতি।
+অন্য কথায়, একটি পুনরাবৃত্তি ইনডেক্সের এমন একটি জোড়া $i < j$ দ্বারা বর্ণনা করা যায় যেন সাবস্ট্রিং $s[i \dots j]$ পরপর লেখা দুটি অভিন্ন স্ট্রিং দিয়ে গঠিত।
 
-The challenge is to **find all repetitions** in a given string $s$.
-Or a simplified task: find **any** repetition or find the **longest** repetition.
+চ্যালেঞ্জ হলো একটি প্রদত্ত স্ট্রিং $s$-এ **সকল পুনরাবৃত্তি খুঁজে বের করা**।
+অথবা একটি সরলীকৃত কাজ: **যেকোনো** পুনরাবৃত্তি খুঁজুন বা **দীর্ঘতম** পুনরাবৃত্তি খুঁজুন।
 
-The algorithm described here was published in 1982 by Main and Lorentz.
+এখানে বর্ণিত অ্যালগরিদমটি ১৯৮২ সালে মেইন এবং লোরেন্টজ প্রকাশ করেন।
 
-## Example
+## উদাহরণ
 
-Consider the repetitions in the following example string:
+নিম্নলিখিত উদাহরণ স্ট্রিং-এ পুনরাবৃত্তিগুলো বিবেচনা করুন:
 
 $$acababaee$$
 
-The string contains the following three repetitions:
+স্ট্রিংটিতে নিম্নলিখিত তিনটি পুনরাবৃত্তি আছে:
 
 - $s[2 \dots 5] = abab$
 - $s[3 \dots 6] = baba$
 - $s[7 \dots 8] = ee$
 
-Another example:
+আরেকটি উদাহরণ:
 
 $$abaaba$$
 
-Here there are only two repetitions
+এখানে শুধু দুটি পুনরাবৃত্তি আছে
 
 - $s[0 \dots 5] = abaaba$
 - $s[2 \dots 3] = aa$
 
-## Number of repetitions
+## পুনরাবৃত্তির সংখ্যা
 
-In general there can be up to $O(n^2)$ repetitions in a string of length $n$.
-An obvious example is a string consisting of $n$ times the same letter, in this case any substring of even length is a repetition.
-In general any periodic string with a short period will contain a lot of repetitions.
+সাধারণভাবে $n$ দৈর্ঘ্যের একটি স্ট্রিং-এ $O(n^2)$ পর্যন্ত পুনরাবৃত্তি থাকতে পারে।
+একটি স্পষ্ট উদাহরণ হলো $n$ বার একই অক্ষর দিয়ে গঠিত স্ট্রিং, এই ক্ষেত্রে জোড় দৈর্ঘ্যের যেকোনো সাবস্ট্রিং একটি পুনরাবৃত্তি।
+সাধারণভাবে ছোট পিরিয়ডের যেকোনো পিরিয়ডিক স্ট্রিং-এ অনেক পুনরাবৃত্তি থাকবে।
 
-On the other hand this fact does not prevent computing the number of repetitions in $O(n \log n)$ time, because the algorithm can give the repetitions in compressed form, in groups of several pieces at once.
+অন্যদিকে এই তথ্যটি পুনরাবৃত্তির সংখ্যা $O(n \log n)$ সময়ে গণনা করতে বাধা দেয় না, কারণ অ্যালগরিদম সংকুচিত আকারে, একসাথে কয়েকটি করে গ্রুপে পুনরাবৃত্তি দিতে পারে।
 
-There is even the concept, that describes groups of periodic substrings with tuples of size four.
-It has been proven that we the number of such groups is at most linear with respect to the string length.
+এমনকি এমন ধারণাও আছে, যা পিরিয়ডিক সাবস্ট্রিং-এর গ্রুপগুলোকে চারটি আকারের টাপল দিয়ে বর্ণনা করে।
+প্রমাণিত হয়েছে যে এরকম গ্রুপের সংখ্যা স্ট্রিং দৈর্ঘ্যের সাপেক্ষে সর্বাধিক লিনিয়ার।
 
-Also, here are some more interesting results related to the number of repetitions:
+এছাড়া, পুনরাবৃত্তির সংখ্যা সম্পর্কিত আরও কিছু আকর্ষণীয় ফলাফল:
 
-  - The number of primitive repetitions (those whose halves are not repetitions) is at most $O(n \log n)$.
-  - If we encode repetitions with tuples of numbers (called Crochemore triples) $(i,~ p,~ r)$ (where $i$ is the position of the beginning, $p$ the length of the repeating substring, and $r$ the number of repetitions), then all repetitions can be described with $O(n \log n)$ such triples.
-  - Fibonacci strings, defined as 
-    
+  - প্রিমিটিভ পুনরাবৃত্তির সংখ্যা (যেগুলোর অর্ধেক আবার পুনরাবৃত্তি নয়) সর্বাধিক $O(n \log n)$।
+  - যদি আমরা পুনরাবৃত্তিগুলোকে সংখ্যার টাপল (ক্রোশেমোর ট্রিপল বলা হয়) $(i,~ p,~ r)$ দিয়ে এনকোড করি (যেখানে $i$ শুরুর অবস্থান, $p$ পুনরাবৃত্ত সাবস্ট্রিং-এর দৈর্ঘ্য, এবং $r$ পুনরাবৃত্তির সংখ্যা), তাহলে সকল পুনরাবৃত্তি $O(n \log n)$ এরকম ট্রিপল দিয়ে বর্ণনা করা যায়।
+  - ফিবোনাচি স্ট্রিং, যা নিম্নরূপে সংজ্ঞায়িত
+
     \[\begin{align}
     t_0 &= a, \\\\
     t_1 &= b, \\\\
     t_i &= t_{i-1} + t_{i-2},
     \end{align}\]
-    
-    are "strongly" periodic.
-    The number of repetitions in the Fibonacci string $f_i$, even in the compressed with Crochemore triples, is $O(f_n \log f_n)$.
-    The number of primitive repetitions is also $O(f_n \log f_n)$.
 
-## Main-Lorentz algorithm
+    "দৃঢ়ভাবে" পিরিয়ডিক।
+    ফিবোনাচি স্ট্রিং $f_i$-তে পুনরাবৃত্তির সংখ্যা, এমনকি ক্রোশেমোর ট্রিপলে সংকুচিত করলেও, $O(f_n \log f_n)$।
+    প্রিমিটিভ পুনরাবৃত্তির সংখ্যাও $O(f_n \log f_n)$।
 
-The idea behind the Main-Lorentz algorithm is **divide-and-conquer**.
+## মেইন-লোরেন্টজ অ্যালগরিদম
 
-It splits the initial string into halves, and computes the number of repetitions that lie completely in each halve by two recursive calls.
-Then comes the difficult part.
-The algorithm finds all repetitions starting in the first half and ending in the second half (which we will call **crossing repetitions**).
-This is the essential part of the Main-Lorentz algorithm, and we will discuss it in detail here.
+মেইন-লোরেন্টজ অ্যালগরিদমের পেছনের ধারণা হলো **ডিভাইড অ্যান্ড কনকার**।
 
-The complexity of divide-and-conquer algorithms is well researched.
-The [master theorem](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)) says, that we will end up with an $O(n \log n)$ algorithm, if we can compute the crossing repetitions in $O(n)$ time.
+এটি প্রাথমিক স্ট্রিংকে দুই ভাগে ভাগ করে, এবং দুটি রিকার্সিভ কলের মাধ্যমে প্রতিটি অর্ধে সম্পূর্ণ থাকা পুনরাবৃত্তির সংখ্যা গণনা করে।
+এরপর আসে কঠিন অংশ।
+অ্যালগরিদম প্রথম অর্ধে শুরু হয়ে দ্বিতীয় অর্ধে শেষ হওয়া সকল পুনরাবৃত্তি খুঁজে বের করে (যাদেরকে আমরা **ক্রসিং পুনরাবৃত্তি** বলব)।
+এটি মেইন-লোরেন্টজ অ্যালগরিদমের মূল অংশ, এবং আমরা এটি এখানে বিস্তারিত আলোচনা করব।
 
-### Search for crossing repetitions
+ডিভাইড অ্যান্ড কনকার অ্যালগরিদমের কমপ্লেক্সিটি ভালোভাবে গবেষণা করা হয়েছে।
+[মাস্টার থিওরেম](https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)) বলে, আমরা একটি $O(n \log n)$ অ্যালগরিদম পাব, যদি আমরা ক্রসিং পুনরাবৃত্তি $O(n)$ সময়ে গণনা করতে পারি।
 
-So we want to find all such repetitions that start in the first half of the string, let's call it $u$, and end in the second half, let's call it $v$:
+### ক্রসিং পুনরাবৃত্তি খোঁজা
+
+তাই আমরা এমন সকল পুনরাবৃত্তি খুঁজতে চাই যেগুলো স্ট্রিং-এর প্রথম অর্ধে শুরু হয়, যাকে $u$ বলি, এবং দ্বিতীয় অর্ধে শেষ হয়, যাকে $v$ বলি:
 
 $$s = u + v$$
 
-Their lengths are approximately equal to the length of $s$ divided by two.
+তাদের দৈর্ঘ্য প্রায় $s$-এর দৈর্ঘ্যের অর্ধেকের সমান।
 
-Consider an arbitrary repetition and look at the middle character (more precisely the first character of the second half of the repetition).
-I.e. if the repetition is a substring $s[i \dots j]$, then the middle character is $(i + j + 1) / 2$.
+একটি নির্বিচার পুনরাবৃত্তি বিবেচনা করুন এবং মাঝের অক্ষরটি দেখুন (আরও সুনির্দিষ্টভাবে পুনরাবৃত্তির দ্বিতীয় অর্ধের প্রথম অক্ষর)।
+অর্থাৎ যদি পুনরাবৃত্তিটি সাবস্ট্রিং $s[i \dots j]$ হয়, তাহলে মাঝের অক্ষর হলো $(i + j + 1) / 2$।
 
-We call a repetition **left** or **right** depending on which string this character is located - in the string $u$ or in the string $v$.
-In other words a string is called left, if the majority of it lies in $u$, otherwise we call it right.
+আমরা একটি পুনরাবৃত্তিকে **বাম** বা **ডান** বলি এই অক্ষরটি কোন স্ট্রিং-এ আছে তার উপর নির্ভর করে - স্ট্রিং $u$-তে নাকি স্ট্রিং $v$-তে।
+অন্য কথায়, একটি স্ট্রিংকে বাম বলা হয়, যদি এর অধিকাংশ $u$-তে থাকে, অন্যথায় আমরা একে ডান বলি।
 
-We will now discuss how to find **all left repetitions**.
-Finding all right repetitions can be done in the same way.
+আমরা এখন আলোচনা করব কিভাবে **সকল বাম পুনরাবৃত্তি** খুঁজতে হয়।
+সকল ডান পুনরাবৃত্তি একইভাবে পাওয়া যায়।
 
-Let us denote the length of the left repetition by $2l$ (i.e. each half of the repetition has length $l$).
-Consider the first character of the repetition falling into the string $v$ (it is at position $|u|$ in the string $s$).
-It coincides with the character $l$ positions before it, let's denote this position $cntr$.
+বাম পুনরাবৃত্তির দৈর্ঘ্যকে $2l$ দিয়ে চিহ্নিত করি (অর্থাৎ পুনরাবৃত্তির প্রতিটি অর্ধের দৈর্ঘ্য $l$)।
+স্ট্রিং $v$-তে পড়া পুনরাবৃত্তির প্রথম অক্ষরটি বিবেচনা করুন (এটি স্ট্রিং $s$-এ $|u|$ অবস্থানে আছে)।
+এটি $l$ অবস্থান আগের অক্ষরের সাথে মিলে, এই অবস্থানকে $cntr$ বলি।
 
-We will fixate this position $cntr$, and **look for all repetitions at this position** $cntr$.
+আমরা এই $cntr$ অবস্থানটি ফিক্স করব, এবং **এই $cntr$ অবস্থানের সকল পুনরাবৃত্তি খুঁজব**।
 
-For example:
+উদাহরণস্বরূপ:
 
 $$c ~ \underset{cntr}{a} ~ c ~ | ~ a ~ d ~ a$$
 
-The vertical lines divides the two halves.
-Here we fixated the position $cntr = 1$, and at this position we find the repetition $caca$.
+উল্লম্ব রেখাটি দুটি অর্ধকে ভাগ করে।
+এখানে আমরা $cntr = 1$ অবস্থান ফিক্স করেছি, এবং এই অবস্থানে আমরা পুনরাবৃত্তি $caca$ পাই।
 
-It is clear, that if we fixate the position $cntr$, we simultaneously fixate the length of the possible repetitions: $l = |u| - cntr$.
-Once we know how to find these repetitions, we will iterate over all possible values for $cntr$ from $0$ to $|u|-1$, and find all left crossover repetitions of length $l = |u|,~ |u|-1,~ \dots, 1$.
+এটি স্পষ্ট যে, যদি আমরা $cntr$ অবস্থান ফিক্স করি, আমরা একই সাথে সম্ভাব্য পুনরাবৃত্তির দৈর্ঘ্যও ফিক্স করি: $l = |u| - cntr$।
+একবার আমরা জানি কিভাবে এই পুনরাবৃত্তিগুলো খুঁজতে হয়, আমরা $cntr$-এর সকল সম্ভাব্য মান $0$ থেকে $|u|-1$ পর্যন্ত ইটারেট করব, এবং $l = |u|,~ |u|-1,~ \dots, 1$ দৈর্ঘ্যের সকল বাম ক্রসওভার পুনরাবৃত্তি খুঁজব।
 
-### Criterion for left crossing repetitions
+### বাম ক্রসিং পুনরাবৃত্তির শর্ত
 
-Now, how can we find all such repetitions for a fixated $cntr$?
-Keep in mind that there still can be multiple such repetitions.
+এখন, একটি ফিক্সড $cntr$-এর জন্য কিভাবে সকল পুনরাবৃত্তি খুঁজব?
+মনে রাখবেন এরকম একাধিক পুনরাবৃত্তি থাকতে পারে।
 
-Let's again look at a visualization, this time for the repetition $abcabc$:
+আসুন আবার একটি ভিজুয়ালাইজেশন দেখি, এবার পুনরাবৃত্তি $abcabc$-এর জন্য:
 
 $$\overbrace{a}^{l_1} ~ \overbrace{\underset{cntr}{b} ~ c}^{l_2} ~ \overbrace{a}^{l_1} ~ | ~ \overbrace{b ~ c}^{l_2}$$
 
-Here we denoted the lengths of the two pieces of the repetition with $l_1$ and $l_2$:
-$l_1$ is the length of the repetition up to the position $cntr-1$, and $l_2$ is the length of the repetition from $cntr$ to the end of the half of the repetition.
-We have $2l = l_1 + l_2 + l_1 + l_2$ as the total length of the repetition.
+এখানে আমরা পুনরাবৃত্তির দুটি খণ্ডের দৈর্ঘ্যকে $l_1$ এবং $l_2$ দিয়ে চিহ্নিত করেছি:
+$l_1$ হলো $cntr-1$ অবস্থান পর্যন্ত পুনরাবৃত্তির দৈর্ঘ্য, এবং $l_2$ হলো $cntr$ থেকে পুনরাবৃত্তির অর্ধের শেষ পর্যন্ত দৈর্ঘ্য।
+পুনরাবৃত্তির মোট দৈর্ঘ্য $2l = l_1 + l_2 + l_1 + l_2$।
 
-Let us generate **necessary and sufficient** conditions for such a repetition at position $cntr$ of length $2l = 2(l_1 + l_2) = 2(|u| - cntr)$:
+$cntr$ অবস্থানে $2l = 2(l_1 + l_2) = 2(|u| - cntr)$ দৈর্ঘ্যের এরকম পুনরাবৃত্তির জন্য **প্রয়োজনীয় ও পর্যাপ্ত** শর্ত তৈরি করা যাক:
 
-- Let $k_1$ be the largest number such that the first $k_1$ characters before the position $cntr$ coincide with the last $k_1$ characters in the string $u$:
-  
+- $k_1$ হলো সেই সর্ববৃহৎ সংখ্যা যেন $cntr$ অবস্থানের আগের প্রথম $k_1$ অক্ষর স্ট্রিং $u$-এর শেষ $k_1$ অক্ষরের সাথে মিলে:
+
 $$
 u[cntr - k_1 \dots cntr - 1] = u[|u| - k_1 \dots |u| - 1]
 $$
-  
-- Let $k_2$ be the largest number such that the $k_2$ characters starting at position $cntr$ coincide with the first $k_2$ characters in the string $v$:
 
-$$  
+- $k_2$ হলো সেই সর্ববৃহৎ সংখ্যা যেন $cntr$ অবস্থান থেকে শুরু হওয়া $k_2$ অক্ষর স্ট্রিং $v$-এর প্রথম $k_2$ অক্ষরের সাথে মিলে:
+
+$$
   u[cntr \dots cntr + k_2 - 1] = v[0 \dots k_2 - 1]
 $$
-  
-- Then we have a repetition exactly for any pair $(l_1,~ l_2)$ with
+
+- তাহলে যেকোনো জোড়া $(l_1,~ l_2)$ এর জন্য ঠিক তখনই পুনরাবৃত্তি আছে যখন
 
 $$
   \begin{align}
@@ -144,13 +144,13 @@ $$
   \end{align}
 $$
 
-To summarize:
+সারসংক্ষেপ:
 
-- We fixate a specific position $cntr$.
-- All repetition which we will find now have length $2l = 2(|u| - cntr)$.
-  There might be multiple such repetitions, they depend on the lengths $l_1$ and $l_2 = l - l_1$.
-- We find $k_1$ and $k_2$ as described above.
-- Then all suitable repetitions are the ones for which the lengths of the pieces $l_1$ and $l_2$ satisfy the conditions:
+- আমরা একটি নির্দিষ্ট $cntr$ অবস্থান ফিক্স করি।
+- আমরা এখন যে সকল পুনরাবৃত্তি খুঁজব তাদের দৈর্ঘ্য $2l = 2(|u| - cntr)$।
+  একাধিক এরকম পুনরাবৃত্তি থাকতে পারে, তারা $l_1$ এবং $l_2 = l - l_1$ দৈর্ঘ্যের উপর নির্ভর করে।
+- আমরা উপরে বর্ণিত অনুযায়ী $k_1$ এবং $k_2$ খুঁজি।
+- তাহলে সকল উপযুক্ত পুনরাবৃত্তি হলো সেগুলো যেখানে খণ্ড $l_1$ এবং $l_2$-এর দৈর্ঘ্য নিম্নলিখিত শর্ত পূরণ করে:
 
 $$
   \begin{align}
@@ -160,35 +160,35 @@ $$
   \end{align}
 $$
 
-Therefore the only remaining part is how we can compute the values $k_1$ and $k_2$ quickly for every position $cntr$.
-Luckily we can compute them in $O(1)$ using the [Z-function](../string/z-function.md):
+তাই একমাত্র অবশিষ্ট অংশ হলো কিভাবে আমরা প্রতিটি $cntr$ অবস্থানের জন্য দ্রুত $k_1$ এবং $k_2$ মান গণনা করতে পারি।
+সৌভাগ্যবশত আমরা [Z-ফাংশন](../string/z-function.md) ব্যবহার করে $O(1)$-এ এগুলো গণনা করতে পারি:
 
-- To can find the value $k_1$ for each position by calculating the Z-function for the string $\overline{u}$ (i.e. the reversed string $u$).
-  Then the value $k_1$ for a particular $cntr$ will be equal to the corresponding value of the array of the Z-function.
-- To precompute all values $k_2$, we calculate the Z-function for the string $v + \# + u$ (i.e. the string $u$ concatenated with the separator character $\#$ and the string $v$).
-  Again we just need to look up the corresponding value in the Z-function to get the $k_2$ value.
+- প্রতিটি অবস্থানের জন্য $k_1$ মান খুঁজতে আমরা $\overline{u}$ স্ট্রিং-এর (অর্থাৎ বিপরীত স্ট্রিং $u$) Z-ফাংশন গণনা করি।
+  তাহলে একটি নির্দিষ্ট $cntr$-এর জন্য $k_1$ মান Z-ফাংশন অ্যারের সংশ্লিষ্ট মানের সমান হবে।
+- সকল $k_2$ মান আগে থেকে গণনা করতে আমরা $v + \# + u$ স্ট্রিং-এর (অর্থাৎ সেপারেটর অক্ষর $\#$ সহ $u$ এবং $v$ জোড়া) Z-ফাংশন গণনা করি।
+  আবার $k_2$ মান পেতে আমাদের শুধু Z-ফাংশনের সংশ্লিষ্ট মান দেখতে হবে।
 
-So this is enough to find all left crossing repetitions.
+তাই এটি সকল বাম ক্রসিং পুনরাবৃত্তি খুঁজে পেতে যথেষ্ট।
 
-### Right crossing repetitions
+### ডান ক্রসিং পুনরাবৃত্তি
 
-For computing the right crossing repetitions we act similarly:
-we define the center $cntr$ as the character corresponding to the last character in the string $u$.
+ডান ক্রসিং পুনরাবৃত্তি গণনার জন্য আমরা একইভাবে কাজ করি:
+আমরা কেন্দ্র $cntr$-কে স্ট্রিং $u$-এর শেষ অক্ষরের সাথে সম্পর্কিত অক্ষর হিসেবে সংজ্ঞায়িত করি।
 
-Then the length $k_1$ will be defined as the largest number of characters before the position $cntr$ (inclusive) that coincide with the last characters of the string $u$.
-And the length $k_2$ will be defined as the largest number of characters starting at $cntr + 1$ that coincide with the characters of the string $v$.
+তাহলে $k_1$ দৈর্ঘ্যকে $cntr$ অবস্থানের আগে (সহ) সবচেয়ে বেশি সংখ্যক অক্ষর হিসেবে সংজ্ঞায়িত করা হবে যেগুলো স্ট্রিং $u$-এর শেষ অক্ষরগুলোর সাথে মিলে।
+এবং $k_2$ দৈর্ঘ্যকে $cntr + 1$ থেকে শুরু হওয়া সবচেয়ে বেশি সংখ্যক অক্ষর হিসেবে সংজ্ঞায়িত করা হবে যেগুলো স্ট্রিং $v$-এর অক্ষরগুলোর সাথে মিলে।
 
-Thus we can find the values $k_1$ and $k_2$ by computing the Z-function for the strings $\overline{u} + \# + \overline{v}$ and $v$.
+তাই আমরা $\overline{u} + \# + \overline{v}$ এবং $v$ স্ট্রিং-এর Z-ফাংশন গণনা করে $k_1$ এবং $k_2$ মান খুঁজতে পারি।
 
-After that we can find the repetitions by looking at all positions $cntr$, and use the same criterion as we had for left crossing repetitions.
+এরপর আমরা সকল $cntr$ অবস্থান দেখে পুনরাবৃত্তি খুঁজতে পারি, এবং বাম ক্রসিং পুনরাবৃত্তির জন্য যে শর্ত ব্যবহার করেছিলাম সেই একই শর্ত ব্যবহার করতে পারি।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The implementation of the Main-Lorentz algorithm finds all repetitions in form of peculiar tuples of size four: $(cntr,~ l,~ k_1,~ k_2)$ in $O(n \log n)$ time.
-If you only want to find the number of repetitions in a string, or only want to find the longest repetition in a string, this information is enough and the runtime will still be $O(n \log n)$.
+মেইন-লোরেন্টজ অ্যালগরিদমের ইমপ্লিমেন্টেশন $O(n \log n)$ সময়ে চারটি আকারের বিশেষ টাপল $(cntr,~ l,~ k_1,~ k_2)$ আকারে সকল পুনরাবৃত্তি খুঁজে বের করে।
+আপনি যদি শুধুমাত্র একটি স্ট্রিং-এ পুনরাবৃত্তির সংখ্যা খুঁজতে চান, বা শুধুমাত্র দীর্ঘতম পুনরাবৃত্তি খুঁজতে চান, তাহলে এই তথ্যই যথেষ্ট এবং রানটাইম $O(n \log n)$ থাকবে।
 
-Notice that if you want to expand these tuples to get the starting and end position of each repetition, then the runtime will be the runtime will be $O(n^2)$ (remember that there can be $O(n^2)$ repetitions).
-In this implementation we will do so, and store all found repetition in a vector of pairs of start and end indices.
+লক্ষ্য করুন যদি আপনি এই টাপলগুলো প্রসারিত করে প্রতিটি পুনরাবৃত্তির শুরু এবং শেষ অবস্থান পেতে চান, তাহলে রানটাইম $O(n^2)$ হবে (মনে রাখবেন $O(n^2)$ পুনরাবৃত্তি থাকতে পারে)।
+এই ইমপ্লিমেন্টেশনে আমরা তাই করব, এবং সকল পাওয়া পুনরাবৃত্তি শুরু এবং শেষ ইনডেক্সের জোড়ার ভেক্টরে সংরক্ষণ করব।
 
 ```cpp
 vector<int> z_function(string const& s) {

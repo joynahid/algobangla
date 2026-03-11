@@ -1,65 +1,64 @@
 ---
-title: "Minkowski sum of convex polygons"
+title: "উত্তল পলিগনের মিনকোস্কি সাম"
 tags: 
 weight: 40
 ---
-# Minkowski sum of convex polygons
+# উত্তল পলিগনের মিনকোস্কি সাম
 
-## Definition
-Consider two sets $A$ and $B$ of points on a plane. Minkowski sum $A + B$ is defined as $\{a + b| a \in A, b \in B\}$.
-Here we will consider the case when $A$ and $B$ consist of convex polygons $P$ and $Q$ with their interiors.
-Throughout this article we will identify polygons with ordered sequences of their vertices, so that notation like $|P|$ or
-$P_i$ makes sense.
-It turns out that the sum of convex polygons $P$ and $Q$ is a convex polygon with at most $|P| + |Q|$ vertices.
+## সংজ্ঞা
+সমতলে দুটি বিন্দু সমষ্টি $A$ ও $B$ বিবেচনা করুন। মিনকোস্কি সাম $A + B$ সংজ্ঞায়িত হয় $\{a + b| a \in A, b \in B\}$ হিসেবে।
+এখানে আমরা সেই ক্ষেত্র বিবেচনা করব যেখানে $A$ ও $B$ উত্তল পলিগন $P$ ও $Q$ এবং তাদের অভ্যন্তর নিয়ে গঠিত।
+এই নিবন্ধ জুড়ে আমরা পলিগনকে তাদের শীর্ষবিন্দুগুলোর ক্রমিক অনুক্রম দিয়ে চিহ্নিত করব, যাতে $|P|$ বা
+$P_i$-এর মতো স্বরলিপি অর্থবহ হয়।
+দেখা যায় যে উত্তল পলিগন $P$ ও $Q$-এর যোগফল সর্বাধিক $|P| + |Q|$ শীর্ষবিন্দু বিশিষ্ট একটি উত্তল পলিগন।
 
-## Algorithm
+## অ্যালগরিদম
 
-Here we consider the polygons to be cyclically enumerated, i. e. $P_{|P|} = P_0,\ Q_{|Q|} = Q_0$ and so on.
+এখানে আমরা পলিগনগুলোকে চক্রীয়ভাবে সংখ্যায়িত বিবেচনা করি, অর্থাৎ $P_{|P|} = P_0,\ Q_{|Q|} = Q_0$ ইত্যাদি।
 
-Since the size of the sum is linear in terms of the sizes of initial polygons, we should aim at finding a linear-time algorithm.
-Suppose that both polygons are ordered counter-clockwise. Consider sequences of edges $\{\overrightarrow{P_iP_{i+1}}\}$
-and $\{\overrightarrow{Q_jQ_{j+1}}\}$ ordered by polar angle. We claim that the sequence of edges of $P + Q$ can be obtained by merging
-these two sequences preserving polar angle order and replacing consecutive co-directed vectors with their sum. Straightforward usage of this idea results
-in a linear-time algorithm, however, restoring the vertices of $P + Q$ from the sequence of sides requires repeated addition of vectors,
-which may introduce unwanted precision issues if we're working with floating-point coordinates, so we will describe a slight
-modification of this idea.
+যেহেতু যোগফলের আকার প্রারম্ভিক পলিগনগুলোর আকারের সাপেক্ষে লিনিয়ার, আমাদের একটি লিনিয়ার-টাইম অ্যালগরিদম খুঁজে বের করা উচিত।
+ধরুন উভয় পলিগন ঘড়ির কাঁটার বিপরীত দিকে সাজানো। এজগুলোর অনুক্রম $\{\overrightarrow{P_iP_{i+1}}\}$
+ও $\{\overrightarrow{Q_jQ_{j+1}}\}$ পোলার কোণ অনুযায়ী সাজানো বিবেচনা করুন। আমরা দাবি করি যে $P + Q$-এর এজগুলোর অনুক্রম
+এই দুটি অনুক্রম পোলার কোণের ক্রম বজায় রেখে মার্জ করে এবং ক্রমিক সমদিক ভেক্টরগুলোকে তাদের যোগফল দিয়ে প্রতিস্থাপন করে পাওয়া যায়। এই ধারণার সরাসরি ব্যবহার
+লিনিয়ার-টাইম অ্যালগরিদম দেয়, তবে, বাহুগুলোর অনুক্রম থেকে $P + Q$-এর শীর্ষবিন্দু পুনরুদ্ধার করতে বারবার ভেক্টর যোগ প্রয়োজন,
+যা ফ্লোটিং-পয়েন্ট স্থানাঙ্কে কাজ করলে অবাঞ্ছিত প্রেসিশন সমস্যা আনতে পারে, তাই আমরা এই ধারণার একটি সামান্য
+পরিবর্তিত সংস্করণ বর্ণনা করব।
 
 
-Firstly we should reorder the vertices in such a way that the first vertex
-of each polygon has the lowest y-coordinate (in case of several such vertices pick the one with the smallest x-coordinate). After that the sides of both polygons
-will become sorted by polar angle, so there is no need to sort them manually.
-Now we create two pointers $i$ (pointing to a vertex of $P$) and $j$ (pointing to a vertex of $Q$), both initially set to 0.
-We repeat the following steps while $i < |P|$ or $j < |Q|$.
+প্রথমে আমাদের শীর্ষবিন্দুগুলো এমনভাবে পুনর্বিন্যাস করতে হবে যাতে প্রতিটি পলিগনের প্রথম
+শীর্ষবিন্দুর y-স্থানাঙ্ক সবচেয়ে কম হয় (একাধিক এমন শীর্ষবিন্দু থাকলে সবচেয়ে ছোট x-স্থানাঙ্ক বিশিষ্টটি নিন)। এর পর উভয় পলিগনের বাহুগুলো
+পোলার কোণ অনুযায়ী সাজানো হয়ে যাবে, তাই ম্যানুয়ালি সাজানোর প্রয়োজন নেই।
+এখন আমরা দুটি পয়েন্টার $i$ ($P$-এর একটি শীর্ষবিন্দুতে) ও $j$ ($Q$-এর একটি শীর্ষবিন্দুতে) তৈরি করি, উভয়ই প্রথমে ০-তে সেট।
+আমরা $i < |P|$ বা $j < |Q|$ থাকাকালীন নিম্নলিখিত ধাপগুলো পুনরাবৃত্তি করি।
 
-1. Append $P_i + Q_j$ to $P + Q$.
+১. $P + Q$-তে $P_i + Q_j$ যোগ করুন।
 
-2. Compare polar angles of $\overrightarrow{P_iP_{i + 1}}$ and $\overrightarrow{Q_jQ_{j+1}}$.
+২. $\overrightarrow{P_iP_{i + 1}}$ ও $\overrightarrow{Q_jQ_{j+1}}$-এর পোলার কোণ তুলনা করুন।
 
-3. Increment the pointer which corresponds to the smallest angle (if the angles are equal, increment both).
+৩. যে পয়েন্টারটি ক্ষুদ্রতম কোণের সাথে সম্পর্কিত সেটি বাড়ান (কোণ সমান হলে উভয়ই বাড়ান)।
 
-## Visualization
+## ভিজুয়ালাইজেশন
 
-Here is a nice visualization, which may help you understand what is going on.
+এখানে একটি সুন্দর ভিজুয়ালাইজেশন, যা আপনাকে কী ঘটছে তা বুঝতে সাহায্য করতে পারে।
 
 <div style="text-align: center;">
   <img src="/images/geometry/minkowski.gif" alt="Visual">
 </div>
 
-## Distance between two polygons
-One of the most common applications of Minkowski sum is computing the distance between two convex polygons (or simply checking whether they intersect).
-The distance between two convex polygons $P$ and $Q$ is defined as $\min\limits_{a \in P, b \in Q} ||a - b||$. One can note that
-the distance is always attained between two vertices or a vertex and an edge, so we can easily find the distance in $O(|P||Q|)$. However,
-with clever usage of Minkowski sum we can reduce the complexity to $O(|P| + |Q|)$.
+## দুটি পলিগনের মধ্যে দূরত্ব
+মিনকোস্কি সামের সবচেয়ে সাধারণ অ্যাপ্লিকেশনগুলোর একটি হলো দুটি উত্তল পলিগনের মধ্যে দূরত্ব গণনা (বা সহজভাবে তারা ছেদ করে কি না তা পরীক্ষা করা)।
+দুটি উত্তল পলিগন $P$ ও $Q$-এর মধ্যে দূরত্ব সংজ্ঞায়িত হয় $\min\limits_{a \in P, b \in Q} ||a - b||$ হিসেবে। লক্ষ্য করা যায় যে
+দূরত্ব সর্বদা দুটি শীর্ষবিন্দু বা একটি শীর্ষবিন্দু ও একটি বাহুর মধ্যে অর্জিত হয়, তাই আমরা সহজেই $O(|P||Q|)$-এ দূরত্ব বের করতে পারি। তবে,
+মিনকোস্কি সামের চতুর ব্যবহারে আমরা কমপ্লেক্সিটি $O(|P| + |Q|)$-এ কমাতে পারি।
 
-If we reflect $Q$ through the point $(0, 0)$ obtaining polygon $-Q$, the problem boils down to finding the smallest distance between a point in
-$P + (-Q)$ and $(0, 0)$. We can find that distance in linear time using the following idea.
-If $(0, 0)$ is inside or on the boundary of polygon, the distance is $0$, otherwise the distance is attained between $(0, 0)$ and some vertex or edge of the polygon.
-Since Minkowski sum can be computed
-in linear time, we obtain a linear-time algorithm for finding the distance between two convex polygons.
+যদি আমরা $Q$ কে $(0, 0)$ বিন্দুর সাপেক্ষে প্রতিফলিত করে পলিগন $-Q$ পাই, তাহলে সমস্যাটি $P + (-Q)$-এর একটি বিন্দু ও $(0, 0)$-এর মধ্যে ক্ষুদ্রতম দূরত্ব বের করায় পরিণত হয়। আমরা নিম্নলিখিত ধারণা ব্যবহার করে সেই দূরত্ব লিনিয়ার সময়ে বের করতে পারি।
+যদি $(0, 0)$ পলিগনের ভেতরে বা সীমানায় থাকে, দূরত্ব $0$, অন্যথায় দূরত্ব $(0, 0)$ ও পলিগনের কোনো শীর্ষবিন্দু বা বাহুর মধ্যে অর্জিত হয়।
+যেহেতু মিনকোস্কি সাম
+লিনিয়ার সময়ে গণনা করা যায়, আমরা দুটি উত্তল পলিগনের মধ্যে দূরত্ব বের করার একটি লিনিয়ার-টাইম অ্যালগরিদম পাই।
 
-## Implementation
-Below is the implementation of Minkowski sum for polygons with integer points. Note that in this case all computations can be done in integers since
-instead of computing polar angles and directly comparing them we can look at the sign of cross product of two vectors.
+## ইমপ্লিমেন্টেশন
+নিচে পূর্ণসংখ্যা বিন্দু বিশিষ্ট পলিগনের জন্য মিনকোস্কি সামের ইমপ্লিমেন্টেশন দেওয়া হলো। লক্ষ্য করুন এই ক্ষেত্রে সব গণনা পূর্ণসংখ্যায় করা যায় কারণ
+পোলার কোণ গণনা ও সরাসরি তুলনা করার বদলে আমরা দুটি ভেক্টরের ক্রস প্রোডাক্টের চিহ্ন দেখতে পারি।
 
 ```cpp
 struct pt{
@@ -109,7 +108,7 @@ vector<pt> minkowski(vector<pt> P, vector<pt> Q){
 
 ```
 
-## Problems
+## অনুশীলন সমস্যা
  * [Codeforces 87E Mogohu-Rea Idol](https://codeforces.com/problemset/problem/87/E)
  * [Codeforces 1195F Geometers Anonymous Club](https://codeforces.com/contest/1195/problem/F)
  * [TIMUS 1894 Non-Flying Weather](https://acm.timus.ru/problem.aspx?space=1&num=1894)

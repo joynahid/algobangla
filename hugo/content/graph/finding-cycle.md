@@ -3,20 +3,19 @@ title: Checking a graph for acyclicity and finding a cycle in O(M)
 tags: 
 weight: 10
 ---
-# Checking a graph for acyclicity and finding a cycle in $O(M)$
+# $O(M)$-এ গ্রাফে অ্যাসাইক্লিসিটি পরীক্ষা করা এবং সাইকেল খুঁজে বের করা
 
-Consider a directed or undirected graph without loops and multiple edges. We have to check whether it is acyclic, and if it is not, then find any cycle.
+লুপ ও মাল্টিপল এজবিহীন একটি ডিরেক্টেড বা আনডিরেক্টেড গ্রাফ বিবেচনা করুন। আমাদের পরীক্ষা করতে হবে এটি অ্যাসাইক্লিক কি না, এবং না হলে যেকোনো একটি সাইকেল খুঁজে বের করতে হবে।
 
-We can solve this problem by using [Depth First Search](depth-first-search.md) in $O(M)$ where $M$ is number of edges.
+আমরা [ডেপথ ফার্স্ট সার্চ](depth-first-search.md) ব্যবহার করে $O(M)$-এ এই সমস্যাটি সমাধান করতে পারি, যেখানে $M$ হল এজের সংখ্যা।
 
-## Algorithm
+## অ্যালগরিদম
 
-We will run a series of DFS in the graph. Initially all vertices are colored white (0). From each unvisited (white) vertex, start the DFS, mark it gray (1) while entering and mark it black (2) on exit. If DFS moves to a gray vertex, then we have found a cycle (if the graph is undirected, the edge to parent is not considered).
-The cycle itself can be reconstructed using parent array.
+আমরা গ্রাফে DFS-এর একটি সিরিজ চালাব। প্রাথমিকভাবে সমস্ত ভার্টেক্স সাদা (০) রঙের। প্রতিটি ভিজিট না করা (সাদা) ভার্টেক্স থেকে DFS শুরু করি, প্রবেশের সময় ধূসর (১) চিহ্নিত করি এবং প্রস্থানের সময় কালো (২) চিহ্নিত করি। DFS যদি একটি ধূসর ভার্টেক্সে যায়, তাহলে আমরা একটি সাইকেল পেয়েছি (গ্রাফ আনডিরেক্টেড হলে, প্যারেন্টের দিকে যাওয়া এজটি বিবেচনা করা হয় না)। সাইকেলটি প্যারেন্ট অ্যারে ব্যবহার করে পুনর্গঠন করা যায়।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is an implementation for directed graph.
+এখানে ডিরেক্টেড গ্রাফের জন্য একটি ইমপ্লিমেন্টেশন দেওয়া হল।
 
 ```cpp
 int n;
@@ -70,12 +69,7 @@ void find_cycle() {
 }
 ```
 
-Here is an implementation for undirected graph.
-Note that in the undirected version, if a vertex `v` gets colored black, it will never be visited again by the DFS.
-This is because we already explored all connected edges of `v` when we first visited it.
-The connected component containing `v` (after removing the edge between `v` and its parent) must be a tree, if the DFS has completed processing `v` without finding a cycle.
-So we don't even need to distinguish between gray and black states.
-Thus we can turn the char vector `color` into a boolean vector `visited`.
+এখানে আনডিরেক্টেড গ্রাফের জন্য একটি ইমপ্লিমেন্টেশন দেওয়া হল। লক্ষ্য করুন যে আনডিরেক্টেড ভার্সনে, যদি একটি ভার্টেক্স `v` কালো রঙ করা হয়, তাহলে DFS আর কখনো সেটি ভিজিট করবে না। কারণ আমরা `v`-কে প্রথম ভিজিট করার সময়ই `v`-এর সমস্ত সংযুক্ত এজ অন্বেষণ করেছি। `v` ধারণকারী সংযুক্ত কম্পোনেন্ট (`v` এবং তার প্যারেন্টের মধ্যের এজ সরানোর পরে) অবশ্যই একটি ট্রি হবে, যদি DFS `v`-কে প্রসেস করার সময় কোনো সাইকেল না পায়। তাই আমাদের ধূসর এবং কালো অবস্থার মধ্যে পার্থক্য করারও দরকার নেই। এভাবে আমরা char ভেক্টর `color`-কে boolean ভেক্টর `visited`-এ রূপান্তর করতে পারি।
 
 ```cpp
 int n;
@@ -126,7 +120,7 @@ void find_cycle() {
     }
 }
 ```
-### Practice problems:
+### অনুশীলন সমস্যা:
 
 - [AtCoder : Reachability in Functional Graph](https://atcoder.jp/contests/abc357/tasks/abc357_e)
 - [CSES : Round Trip](https://cses.fi/problemset/task/1669)

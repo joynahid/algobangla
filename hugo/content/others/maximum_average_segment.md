@@ -1,48 +1,48 @@
 ---
-title: "Search the subarray with the maximum/minimum sum"
+title: "সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান"
 tags: 
 weight: 20
 ---
-# Search the subarray with the maximum/minimum sum
+# সর্বাধিক/সর্বনিম্ন যোগফলবিশিষ্ট সাবঅ্যারে অনুসন্ধান
 
-Here, we consider the problem of finding a subarray with maximum sum, as well as some of its variations (including the algorithm for solving this problem online).
+এখানে, আমরা সর্বাধিক যোগফলবিশিষ্ট সাবঅ্যারে খুঁজে বের করার সমস্যাটি বিবেচনা করব, সেইসাথে এর কিছু ভিন্নরূপ (এই সমস্যাটি অনলাইনে সমাধানের অ্যালগরিদমসহ)।
 
-## Problem statement
+## সমস্যার বিবৃতি
 
-Given an array of numbers $a[1 \ldots n]$. It is required to find a subarray $a[l \ldots r]$ with the maximal sum:
+একটি সংখ্যার অ্যারে $a[1 \ldots n]$ দেওয়া আছে। সর্বাধিক যোগফলবিশিষ্ট একটি সাবঅ্যারে $a[l \ldots r]$ খুঁজে বের করতে হবে:
 
 $$ \max_{ 1 \le l \le r \le n } \sum_{i=l}^{r} a[i].$$
 
-For example, if all integers in array $a[]$ were non-negative, then the answer would be the array itself.
-However, the solution is non-trivial when the array can contain both positive and negative numbers.
+উদাহরণস্বরূপ, যদি অ্যারে $a[]$-এর সমস্ত পূর্ণসংখ্যা অঋণাত্মক হয়, তাহলে উত্তর হবে সম্পূর্ণ অ্যারেটি।
+তবে, যখন অ্যারেতে ধনাত্মক এবং ঋণাত্মক উভয় সংখ্যা থাকতে পারে তখন সমাধানটি অতুচ্ছ।
 
-It is clear that the problem of finding the **minimum** subarray is essentially the same, you just need to change the signs of all numbers.
+এটা স্পষ্ট যে **সর্বনিম্ন** সাবঅ্যারে খুঁজে বের করার সমস্যাটি মূলত একই, শুধু সমস্ত সংখ্যার চিহ্ন পরিবর্তন করতে হবে।
 
-## Algorithm 1
+## অ্যালগরিদম ১
 
-Here we consider an almost obvious algorithm. (Next, we'll look at another algorithm, which is a little harder to come up with, but its implementation is even shorter.)
+এখানে আমরা একটি প্রায় সুস্পষ্ট অ্যালগরিদম বিবেচনা করি। (পরে, আমরা আরেকটি অ্যালগরিদম দেখব, যেটি বের করা একটু কঠিন, কিন্তু এর ইমপ্লিমেন্টেশন আরও ছোট।)
 
-### Algorithm description
+### অ্যালগরিদমের বর্ণনা
 
-The algorithm is very simple.
+অ্যালগরিদমটি খুবই সরল।
 
-We introduce for convenience the **notation**: $s[i] = \sum_{j=1}^{i} a[j]$. That is, the array $s[i]$ is an array of partial sums of array $a[]$. Also, set $s[0] = 0$.
+সুবিধার জন্য আমরা **সংকেত** প্রবর্তন করি: $s[i] = \sum_{j=1}^{i} a[j]$। অর্থাৎ, অ্যারে $s[i]$ হলো অ্যারে $a[]$-এর আংশিক যোগফলের অ্যারে। এছাড়া, $s[0] = 0$ ধরি।
 
-Let us now iterate over the index $r = 1 \ldots n$, and learn how to quickly find the optimal $l$ for each current value $r$, at which the maximum sum is reached on the subarray $[l, r]$.
+এখন আমরা ইনডেক্স $r = 1 \ldots n$ জুড়ে ইটারেট করি এবং প্রতিটি বর্তমান মান $r$-এর জন্য সেই সর্বোত্তম $l$ দ্রুত খুঁজে বের করতে শিখি, যেখানে সাবঅ্যারে $[l, r]$-এ সর্বাধিক যোগফল পাওয়া যায়।
 
-Formally, this means that for the current $r$ we need to find an $l$ (not exceeding $r$), so that the value of $s[r] - s[l-1]$ is maximal. After a trivial transformation, we can see that we need to find in the array $s[]$ a minimum on the segment $[0, r-1]$.
+আনুষ্ঠানিকভাবে, এর অর্থ হলো বর্তমান $r$-এর জন্য আমাদের এমন একটি $l$ ($r$-এর বেশি নয়) খুঁজে বের করতে হবে, যাতে $s[r] - s[l-1]$-এর মান সর্বাধিক হয়। একটি তুচ্ছ রূপান্তরের পর, আমরা দেখতে পাই যে আমাদের অ্যারে $s[]$-এ $[0, r-1]$ সেগমেন্টে সর্বনিম্ন খুঁজে বের করতে হবে।
 
-From here, we immediately obtain a solution: we simply store where the current minimum is in the array $s[]$. Using this minimum, we find the current optimal index $l$ in $O(1)$, and when moving from the current index $r$ to the next one, we simply update this minimum.
+এখান থেকে, আমরা তাৎক্ষণিকভাবে একটি সমাধান পাই: আমরা কেবল অ্যারে $s[]$-এ বর্তমান সর্বনিম্ন কোথায় আছে তা সংরক্ষণ করি। এই সর্বনিম্ন ব্যবহার করে, আমরা $O(1)$-এ বর্তমান সর্বোত্তম ইনডেক্স $l$ খুঁজে পাই, এবং বর্তমান ইনডেক্স $r$ থেকে পরবর্তীতে যাওয়ার সময়, আমরা সহজভাবে এই সর্বনিম্ন আপডেট করি।
 
-Obviously, this algorithm works in $O(n)$ and is asymptotically optimal.
+স্পষ্টতই, এই অ্যালগরিদম $O(n)$-এ কাজ করে এবং অ্যাসিম্পটোটিকভাবে সর্বোত্তম।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-To implement it, we don't even need to explicitly store an array of partial sums $s[]$ — we will only need the current element from it.
+এটি ইমপ্লিমেন্ট করতে, আমাদের স্পষ্টভাবে আংশিক যোগফলের অ্যারে $s[]$ সংরক্ষণ করার প্রয়োজন নেই — আমাদের শুধু এর বর্তমান উপাদানটি প্রয়োজন হবে।
 
-The implementation is given in 0-indexed arrays, not in 1-numbering as described above.
+ইমপ্লিমেন্টেশনটি ০-ইনডেক্সড অ্যারেতে দেওয়া হয়েছে, উপরে বর্ণিত ১-নম্বরিং-এ নয়।
 
-We first give a solution that finds a simple numerical answer without finding the indices of the desired segment:
+প্রথমে আমরা একটি সরল সংখ্যাসূচক উত্তর খুঁজে বের করার সমাধান দিই যেখানে কাঙ্ক্ষিত সেগমেন্টের ইনডেক্স খোঁজা হয় না:
 
 ```cpp
 int ans = a[0], sum = 0, min_sum = 0;
@@ -54,7 +54,7 @@ for (int r = 0; r < n; ++r) {
 }
 ```
 
-Now we give a full version of the solution, which additionally also finds the boundaries of the desired segment:
+এখন আমরা সম্পূর্ণ সমাধান দিই, যেখানে অতিরিক্তভাবে কাঙ্ক্ষিত সেগমেন্টের সীমানাও খুঁজে বের করা হয়:
 
 ```cpp
 int ans = a[0], ans_l = 0, ans_r = 0;
@@ -75,27 +75,27 @@ for (int r = 0; r < n; ++r) {
 }
 ```
 
-## Algorithm 2
+## অ্যালগরিদম ২
 
-Here we consider a different algorithm. It is a little more difficult to understand, but it is more elegant than the above, and its implementation is a little bit shorter. This algorithm was proposed by Jay Kadane in 1984.
+এখানে আমরা একটি ভিন্ন অ্যালগরিদম বিবেচনা করি। এটি বুঝতে একটু বেশি কঠিন, কিন্তু এটি উপরেরটির চেয়ে বেশি মার্জিত, এবং এর ইমপ্লিমেন্টেশন একটু ছোট। এই অ্যালগরিদমটি জে কাডেন ১৯৮৪ সালে প্রস্তাব করেছিলেন।
 
-### Algorithm description
+### অ্যালগরিদমের বর্ণনা
 
-The algorithm itself is as follows. Let's go through the array and accumulate the current partial sum in some variable $s$. If at some point $s$ is negative, we just assign $s=0$. It is argued that the maximum all the values that the variable $s$ is assigned to during the algorithm will be the answer to the problem.
+অ্যালগরিদমটি নিম্নরূপ। আমরা অ্যারের মধ্য দিয়ে যাই এবং কোনো একটি চলক $s$-এ বর্তমান আংশিক যোগফল জমা করি। যদি কোনো সময়ে $s$ ঋণাত্মক হয়, আমরা কেবল $s=0$ নির্ধারণ করি। দাবি করা হয় যে অ্যালগরিদম চলাকালীন $s$ চলকে নির্ধারিত সমস্ত মানের মধ্যে সর্বাধিকটি হবে সমস্যার উত্তর।
 
-**Proof:**
+**প্রমাণ:**
 
-Consider the first index when the sum of $s$ becomes negative. This means that starting with a zero partial sum, we eventually obtain a negative partial sum — so this whole prefix of the array, as well as any suffix, has a negative sum. Therefore, this subarray never contributes to the partial sum of any subarray of which it is a prefix, and can simply be dropped.
+প্রথম যে ইনডেক্সে $s$-এর যোগফল ঋণাত্মক হয় তা বিবেচনা করুন। এর অর্থ হলো শূন্য আংশিক যোগফল দিয়ে শুরু করে, আমরা শেষ পর্যন্ত একটি ঋণাত্মক আংশিক যোগফল পাই — তাই অ্যারের এই সম্পূর্ণ প্রিফিক্স, সেইসাথে এর যেকোনো সাফিক্সের যোগফল ঋণাত্মক। অতএব, এই সাবঅ্যারেটি কখনোই এমন কোনো সাবঅ্যারের আংশিক যোগফলে অবদান রাখে না যার এটি প্রিফিক্স, এবং এটি সরলভাবে বাদ দেওয়া যায়।
 
-However, this is not enough to prove the algorithm. In the algorithm, we are actually limited in finding the answer only to such segments that begin immediately after the places when $s<0$ happened.
+তবে, অ্যালগরিদমটি প্রমাণ করতে এটি যথেষ্ট নয়। অ্যালগরিদমে, আমরা আসলে শুধুমাত্র সেই সেগমেন্টগুলোতে উত্তর খুঁজতে সীমাবদ্ধ যেগুলো $s<0$ ঘটার ঠিক পরের স্থান থেকে শুরু হয়।
 
-But, in fact, consider an arbitrary segment $[l, r]$, and $l$ is not in such a "critical" position (i.e. $l > p+1$, where $p$ is the last such position, in which $s<0$). Since the last critical position is strictly earlier than in $l-1$, it turns out that the sum of $a[p+1 \ldots l-1]$ is non-negative. This means that by moving $l$ to position $p+1$, we will increase the answer or, in extreme cases, we will not change it.
+কিন্তু, প্রকৃতপক্ষে, একটি ইচ্ছামতো সেগমেন্ট $[l, r]$ বিবেচনা করুন, এবং $l$ এমন একটি "ক্রিটিক্যাল" অবস্থানে নেই (অর্থাৎ $l > p+1$, যেখানে $p$ হলো শেষ এমন অবস্থান, যেখানে $s<0$ হয়েছিল)। যেহেতু শেষ ক্রিটিক্যাল অবস্থান $l-1$-এর কঠোরভাবে আগে, তাই দেখা যাচ্ছে যে $a[p+1 \ldots l-1]$-এর যোগফল অঋণাত্মক। এর মানে হলো $l$-কে $p+1$ অবস্থানে সরালে, আমরা উত্তর বাড়াব অথবা, চরম ক্ষেত্রে, এটি অপরিবর্তিত থাকবে।
 
-One way or another, it turns out that when searching for an answer, you can limit yourself to only segments that begin immediately after the positions in which $s<0$ appeared. This proves that the algorithm is correct.
+যেভাবেই হোক, দেখা যাচ্ছে যে উত্তর অনুসন্ধানের সময়, আমরা কেবল সেই সেগমেন্টগুলোতে নিজেদের সীমাবদ্ধ রাখতে পারি যেগুলো $s<0$ দেখা দেওয়ার ঠিক পরের অবস্থান থেকে শুরু হয়। এটি প্রমাণ করে যে অ্যালগরিদমটি সঠিক।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-As in algorithm 1, we first gave a simplified implementation that looks for only a numerical answer without finding the boundaries of the desired segment:
+অ্যালগরিদম ১-এর মতো, প্রথমে আমরা একটি সরলীকৃত ইমপ্লিমেন্টেশন দিই যেটি কাঙ্ক্ষিত সেগমেন্টের সীমানা না খুঁজে শুধু সংখ্যাসূচক উত্তর বের করে:
 
 ```cpp
 int ans = a[0], sum = 0;
@@ -107,7 +107,7 @@ for (int r = 0; r < n; ++r) {
 }
 ```
 
-A complete solution, maintaining the indexes of the boundaries of the corresponding segment:
+একটি সম্পূর্ণ সমাধান, সংশ্লিষ্ট সেগমেন্টের সীমানার ইনডেক্সও রক্ষণাবেক্ষণ করে:
 
 ```cpp
 int ans = a[0], ans_l = 0, ans_r = 0;
@@ -127,42 +127,42 @@ for (int r = 0; r < n; ++r) {
 }
 ```
 
-## Related tasks
+## সম্পর্কিত সমস্যাসমূহ
 
-### Finding the maximum/minimum subarray with constraints
+### শর্তসাপেক্ষে সর্বাধিক/সর্বনিম্ন সাবঅ্যারে খুঁজে বের করা
 
-If the problem condition imposes additional restrictions on the required segment $[l, r]$ (for example, that the length $r-l+1$ of the segment must be within the specified limits), then the described algorithm is likely to be easily generalized to these cases — anyway, the problem will still be to find the minimum in the array $s[]$ with the specified additional restrictions.
+যদি সমস্যার শর্ত কাঙ্ক্ষিত সেগমেন্ট $[l, r]$-এর উপর অতিরিক্ত বিধিনিষেধ আরোপ করে (উদাহরণস্বরূপ, সেগমেন্টের দৈর্ঘ্য $r-l+1$ নির্দিষ্ট সীমার মধ্যে থাকতে হবে), তাহলে বর্ণিত অ্যালগরিদম সম্ভবত সহজেই এই ক্ষেত্রগুলোতে সাধারণীকরণ করা যায় — যেকোনো ক্ষেত্রেই সমস্যাটি নির্দিষ্ট অতিরিক্ত বিধিনিষেধসহ অ্যারে $s[]$-এ সর্বনিম্ন খুঁজে বের করাতেই থাকবে।
 
-### Two-dimensional case of the problem: search for maximum/minimum submatrix
+### সমস্যার দ্বিমাত্রিক ক্ষেত্র: সর্বাধিক/সর্বনিম্ন সাবম্যাট্রিক্স অনুসন্ধান
 
-The problem described in this article is naturally generalized to large dimensions. For example, in a two-dimensional case, it turns into a search for such a submatrix $[l_1 \ldots r_1, l_2 \ldots r_2]$ of a given matrix, which has the maximum sum of numbers in it.
+এই নিবন্ধে বর্ণিত সমস্যাটি স্বাভাবিকভাবে বৃহত্তর মাত্রায় সাধারণীকরণ হয়। উদাহরণস্বরূপ, দ্বিমাত্রিক ক্ষেত্রে, এটি একটি প্রদত্ত ম্যাট্রিক্সের এমন একটি সাবম্যাট্রিক্স $[l_1 \ldots r_1, l_2 \ldots r_2]$ অনুসন্ধানে পরিণত হয়, যার মধ্যে সংখ্যাগুলোর যোগফল সর্বাধিক।
 
-Using the solution for the one-dimensional case, it is easy to obtain a solution in $O(n^3)$ for the two-dimensions case:
-we iterate over all possible values of $l_1$ and $r_1$, and calculate the sums from $l_1$ to $r_1$ in each row of the matrix. Now we have the one-dimensional problem of finding the indices $l_2$ and $r_2$ in this array, which can already be solved in linear time.
+একমাত্রিক ক্ষেত্রের সমাধান ব্যবহার করে, দ্বিমাত্রিক ক্ষেত্রে $O(n^3)$-এ একটি সমাধান পাওয়া সহজ:
+আমরা $l_1$ এবং $r_1$-এর সমস্ত সম্ভাব্য মানে ইটারেট করি এবং ম্যাট্রিক্সের প্রতিটি সারিতে $l_1$ থেকে $r_1$ পর্যন্ত যোগফল হিসাব করি। এখন আমাদের কাছে এই অ্যারেতে $l_2$ এবং $r_2$ ইনডেক্স খুঁজে বের করার একমাত্রিক সমস্যা আছে, যা ইতোমধ্যেই রৈখিক সময়ে সমাধান করা যায়।
 
-**Faster** algorithms for solving this problem are known, but they are not much faster than $O(n^3)$, and are very complex (so complex that many of them are inferior to the trivial algorithm for all reasonable constraints by the hidden constant). Currently, the best known algorithm works in $O\left(n^3 \frac{ \log^3 \log n }{ \log^2 n} \right)$ time (T. Chan 2007 "More algorithms for all-pairs shortest paths in weighted graphs")
+**দ্রুততর** অ্যালগরিদম এই সমস্যা সমাধানের জন্য পরিচিত, কিন্তু সেগুলো $O(n^3)$-এর চেয়ে খুব বেশি দ্রুত নয়, এবং অত্যন্ত জটিল (এতটাই জটিল যে এদের অনেকগুলোই লুক্কায়িত ধ্রুবকের কারণে সমস্ত যুক্তিসংগত সীমাবদ্ধতায় তুচ্ছ অ্যালগরিদমের চেয়ে নিকৃষ্ট)। বর্তমানে, সবচেয়ে ভালো পরিচিত অ্যালগরিদম $O\left(n^3 \frac{ \log^3 \log n }{ \log^2 n} \right)$ সময়ে কাজ করে (T. Chan ২০০৭ "More algorithms for all-pairs shortest paths in weighted graphs")
 
-This algorithm by Chan, as well as many other results in this area, actually describe **fast matrix multiplication** (where matrix multiplication means modified multiplication: minimum is used instead of addition, and addition is used instead of multiplication). The problem of finding the submatrix with the largest sum can be reduced to the problem of finding the shortest paths between all pairs of vertices, and this problem, in turn, can be reduced to such a multiplication of matrices.
+Chan-এর এই অ্যালগরিদম, সেইসাথে এই ক্ষেত্রের অন্যান্য অনেক ফলাফল, আসলে **ফাস্ট ম্যাট্রিক্স মাল্টিপ্লিকেশন** বর্ণনা করে (যেখানে ম্যাট্রিক্স গুণন বলতে পরিবর্তিত গুণন বোঝায়: যোগের পরিবর্তে সর্বনিম্ন ব্যবহৃত হয়, এবং গুণের পরিবর্তে যোগ ব্যবহৃত হয়)। সর্ববৃহৎ যোগফলের সাবম্যাট্রিক্স খুঁজে বের করার সমস্যাটি সমস্ত জোড়া শীর্ষবিন্দুর মধ্যে শর্টেস্ট পাথ খুঁজে বের করার সমস্যায় রিডিউস করা যায়, এবং এই সমস্যাটি আবার এই ধরনের ম্যাট্রিক্স গুণনে রিডিউস করা যায়।
 
-### Search for a subarray with a maximum/minimum average
+### সর্বাধিক/সর্বনিম্ন গড়বিশিষ্ট সাবঅ্যারে অনুসন্ধান
 
-This problem lies in finding such a segment $a[l, r]$, such that the average value is maximal:
+এই সমস্যাটি হলো এমন একটি সেগমেন্ট $a[l, r]$ খুঁজে বের করা, যাতে গড় মান সর্বাধিক হয়:
 
 $$ \max_{l \le r} \frac{ 1 }{ r-l+1 } \sum_{i=l}^{r} a[i].$$
 
-Of course, if no other conditions are imposed on the required segment $[l, r]$, then the solution will always be a segment of length $1$ at the maximum element of the array. 
-The problem only makes sense, if there are additional restrictions (for example, the length of the desired segment is bounded below).
+অবশ্যই, কাঙ্ক্ষিত সেগমেন্ট $[l, r]$-এর উপর কোনো অতিরিক্ত শর্ত না থাকলে, সমাধান সবসময় অ্যারের সর্বাধিক উপাদানে দৈর্ঘ্য ১-এর একটি সেগমেন্ট হবে।
+সমস্যাটি তখনই অর্থবহ হয়, যখন অতিরিক্ত বিধিনিষেধ থাকে (উদাহরণস্বরূপ, কাঙ্ক্ষিত সেগমেন্টের দৈর্ঘ্য নিচে থেকে সীমাবদ্ধ)।
 
-In this case, we apply the **standard technique** when working with the problems of the average value: we will select the desired maximum average value by **binary search**.
+এই ক্ষেত্রে, আমরা গড় মানের সমস্যাগুলোর সাথে কাজ করার সময় **স্ট্যান্ডার্ড কৌশল** প্রয়োগ করি: আমরা **বাইনারি সার্চ** দিয়ে কাঙ্ক্ষিত সর্বাধিক গড় মান নির্বাচন করব।
 
-To do this, we need to learn how to solve the following subproblem: given the number $x$, and we need to check whether there is a subarray of array $a[]$ (of course, satisfying all additional constraints of the problem), where the average value is greater than $x$.
+এটি করতে, আমাদের নিচের উপসমস্যাটি সমাধান করতে শিখতে হবে: একটি সংখ্যা $x$ দেওয়া আছে, এবং আমাদের পরীক্ষা করতে হবে যে অ্যারে $a[]$-এর কোনো সাবঅ্যারে আছে কি না (অবশ্যই, সমস্যার সমস্ত অতিরিক্ত শর্ত পূরণ করে), যার গড় মান $x$-এর চেয়ে বেশি।
 
-To solve this subproblem, subtract $x$ from each element of array $a[]$. Then our subproblem actually turns into this one: whether or not there are positive sum subarrays in this array. And we already know how to solve this problem.
+এই উপসমস্যা সমাধানের জন্য, অ্যারে $a[]$-এর প্রতিটি উপাদান থেকে $x$ বিয়োগ করুন। তাহলে আমাদের উপসমস্যাটি আসলে এটিতে পরিণত হয়: এই অ্যারেতে ধনাত্মক যোগফলের সাবঅ্যারে আছে কি না। এবং আমরা ইতোমধ্যেই জানি এই সমস্যা কিভাবে সমাধান করতে হয়।
 
-Thus, we obtained the solution for the asymptotic $O(T(n) \log W)$, where $W$ is the required accuracy, $T(n)$ is the time of solving the subtask for an array of length $n$ (which may vary depending on the specific additional restrictions imposed).
+এভাবে, আমরা $O(T(n) \log W)$ অ্যাসিম্পটোটিকের সমাধান পাই, যেখানে $W$ হলো প্রয়োজনীয় নির্ভুলতা, $T(n)$ হলো $n$ দৈর্ঘ্যের একটি অ্যারের জন্য উপসমস্যা সমাধানের সময় (যা আরোপিত নির্দিষ্ট অতিরিক্ত বিধিনিষেধের উপর নির্ভর করে পরিবর্তিত হতে পারে)।
 
-### Solving the online problem
+### অনলাইন সমস্যা সমাধান
 
-The condition of the problem is as follows: given an array of $n$ numbers, and a number $L$. There are queries of the form $(l,r)$, and in response to each query, it is required to find a subarray of the segment $[l, r]$ of length not less than $L$ with the maximum possible arithmetic mean.
+সমস্যার শর্ত নিম্নরূপ: $n$ সংখ্যার একটি অ্যারে এবং একটি সংখ্যা $L$ দেওয়া আছে। $(l,r)$ আকারের কুয়েরি আছে, এবং প্রতিটি কুয়েরির উত্তরে, $[l, r]$ সেগমেন্টে $L$ বা তার বেশি দৈর্ঘ্যের সর্বাধিক সম্ভাব্য গাণিতিক গড়বিশিষ্ট সাবঅ্যারে খুঁজে বের করতে হবে।
 
-The algorithm for solving this problem is quite complex. KADR (Yaroslav Tverdokhleb) described his algorithm on the [Russian forum](http://e-maxx.ru/forum/viewtopic.php?id=410).
+এই সমস্যা সমাধানের অ্যালগরিদম বেশ জটিল। KADR (ইয়ারোস্লাভ টভের্দোখলেব) তার অ্যালগরিদম [রুশ ফোরামে](http://e-maxx.ru/forum/viewtopic.php?id=410) বর্ণনা করেছেন।

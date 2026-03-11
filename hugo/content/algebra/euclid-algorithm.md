@@ -1,32 +1,32 @@
 ---
-title: "Euclidean algorithm for computing the greatest common divisor"
+title: "গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম"
 tags: 
 weight: 20
 ---
-# Euclidean algorithm for computing the greatest common divisor
+# গসাগু (গরিষ্ঠ সাধারণ গুণনীয়ক) নির্ণয়ের ইউক্লিডীয় অ্যালগরিদম
 
-Given two non-negative integers $a$ and $b$, we have to find their **GCD** (greatest common divisor), i.e. the largest number which is a divisor of both $a$ and $b$.
-It's commonly denoted by $\gcd(a, b)$. Mathematically it is defined as:
+দুটি অঋণাত্মক পূর্ণ সংখ্যা $a$ ও $b$ দেওয়া আছে, আমাদের এদের **জিসিডি** (গরিষ্ঠ সাধারণ গুণনীয়ক বা গসাগু) বের করতে হবে, অর্থাৎ সেই বৃহত্তম সংখ্যা যা $a$ ও $b$ উভয়ের গুণনীয়ক।
+একে সাধারণত $\gcd(a, b)$ দ্বারা প্রকাশ করা হয়। গাণিতিকভাবে এটি নিম্নরূপে সংজ্ঞায়িত:
 
-$$\gcd(a, b) = \max \{k > 0 : (k \mid a) \text{ and } (k \mid b) \}$$
+$$\gcd(a, b) = \max \{k > 0 : (k \mid a) \text{ এবং } (k \mid b) \}$$
 
-(here the symbol "$\mid$" denotes divisibility, i.e. "$k \mid a$" means "$k$ divides $a$")
+(এখানে "$\mid$" চিহ্নটি বিভাজ্যতা নির্দেশ করে, অর্থাৎ "$k \mid a$" মানে "$k$, $a$-কে বিভাজ্য করে")
 
-When one of the numbers is zero, while the other is non-zero, their greatest common divisor, by definition, is the second number. When both numbers are zero, their greatest common divisor is undefined (it can be any arbitrarily large number), but it is convenient to define it as zero as well to preserve the associativity of $\gcd$. Which gives us a simple rule: if one of the numbers is zero, the greatest common divisor is the other number.
+যখন একটি সংখ্যা শূন্য এবং অপরটি অশূন্য, তখন সংজ্ঞা অনুসারে তাদের গসাগু হলো দ্বিতীয় সংখ্যাটি। যখন দুটি সংখ্যাই শূন্য, তখন তাদের গসাগু অসংজ্ঞায়িত (এটি যেকোনো বৃহৎ সংখ্যা হতে পারে), কিন্তু $\gcd$-এর সাহচর্য ধর্ম বজায় রাখতে এটিকেও শূন্য হিসেবে সংজ্ঞায়িত করা সুবিধাজনক। এটি আমাদের একটি সহজ নিয়ম দেয়: যদি একটি সংখ্যা শূন্য হয়, তাহলে গসাগু হলো অপর সংখ্যাটি।
 
-The Euclidean algorithm, discussed below, allows to find the greatest common divisor of two numbers $a$ and $b$ in $O(\log \min(a, b))$. Since the function is **associative**, to find the GCD of **more than two numbers**, we can do $\gcd(a, b, c) = \gcd(a, \gcd(b, c))$ and so forth.
+ইউক্লিডীয় অ্যালগরিদম, যা নিচে আলোচনা করা হয়েছে, দুটি সংখ্যা $a$ ও $b$-এর গসাগু $O(\log \min(a, b))$ সময়ে বের করতে পারে। যেহেতু ফাংশনটি **সাহচর্য ধর্ম** মেনে চলে, তাই **দুইয়ের অধিক সংখ্যার** গসাগু বের করতে আমরা $\gcd(a, b, c) = \gcd(a, \gcd(b, c))$ এভাবে করতে পারি।
 
-The algorithm was first described in Euclid's "Elements" (circa 300 BC), but it is possible that the algorithm has even earlier origins.
+এই অ্যালগরিদমটি প্রথম বর্ণিত হয়েছিল ইউক্লিডের "Elements" গ্রন্থে (আনুমানিক ৩০০ খ্রিস্টপূর্বাব্দ), তবে সম্ভবত এই অ্যালগরিদমের উৎপত্তি আরও আগে।
 
-## Algorithm
+## অ্যালগরিদম
 
-Originally, the Euclidean algorithm was formulated as follows: subtract the smaller number from the larger one until one of the numbers is zero. Indeed, if $g$ divides $a$ and $b$, it also divides $a-b$. On the other hand, if $g$ divides $a-b$ and $b$, then it also divides $a = b + (a-b)$, which means that the sets of the common divisors of $\{a, b\}$ and $\{b,a-b\}$ coincide.
+মূলত, ইউক্লিডীয় অ্যালগরিদম এভাবে প্রণয়ন করা হয়েছিল: বড় সংখ্যা থেকে ছোট সংখ্যা বিয়োগ করতে থাকো যতক্ষণ না একটি সংখ্যা শূন্য হয়। প্রকৃতপক্ষে, যদি $g$, $a$ ও $b$ উভয়কে বিভাজ্য করে, তাহলে এটি $a-b$-কেও বিভাজ্য করে। অন্যদিকে, যদি $g$, $a-b$ ও $b$-কে বিভাজ্য করে, তাহলে এটি $a = b + (a-b)$-কেও বিভাজ্য করে, যার অর্থ হলো $\{a, b\}$ ও $\{b, a-b\}$-এর সাধারণ গুণনীয়কের সেট একই।
 
-Note that $a$ remains the larger number until $b$ is subtracted from it at least $\left\lfloor\frac{a}{b}\right\rfloor$ times. Therefore, to speed things up, $a-b$ is substituted with $a-\left\lfloor\frac{a}{b}\right\rfloor b = a \bmod b$. Then the algorithm is formulated in an extremely simple way:
+লক্ষ্য করি যে, $b$-কে $a$ থেকে কমপক্ষে $\left\lfloor\frac{a}{b}\right\rfloor$ বার বিয়োগ না করা পর্যন্ত $a$ বড় সংখ্যা থেকে যায়। তাই গতি বাড়াতে, $a-b$-এর পরিবর্তে $a-\left\lfloor\frac{a}{b}\right\rfloor b = a \bmod b$ ব্যবহার করা হয়। তখন অ্যালগরিদমটি অত্যন্ত সহজভাবে লেখা যায়:
 
-$$\gcd(a, b) = \begin{cases}a,&\text{if }b = 0 \\ \gcd(b, a \bmod b),&\text{otherwise.}\end{cases}$$
+$$\gcd(a, b) = \begin{cases}a,&\text{যদি }b = 0 \\ \gcd(b, a \bmod b),&\text{অন্যথায়।}\end{cases}$$
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int gcd (int a, int b) {
@@ -37,7 +37,7 @@ int gcd (int a, int b) {
 }
 ```
 
-Using the ternary operator in C++, we can write it as a one-liner.
+C++-এর টার্নারি অপারেটর ব্যবহার করে আমরা এটি এক লাইনে লিখতে পারি।
 
 ```cpp
 int gcd (int a, int b) {
@@ -45,7 +45,7 @@ int gcd (int a, int b) {
 }
 ```
 
-And finally, here is a non-recursive implementation:
+এবং সবশেষে, এখানে একটি নন-রিকার্সিভ ইমপ্লিমেন্টেশন দেওয়া হলো:
 
 ```cpp
 int gcd (int a, int b) {
@@ -57,29 +57,29 @@ int gcd (int a, int b) {
 }
 ```
 
-Note that since C++17, `gcd` is implemented as a [standard function](https://en.cppreference.com/w/cpp/numeric/gcd) in C++.
+লক্ষ্য করুন যে C++১৭ থেকে `gcd` একটি [স্ট্যান্ডার্ড ফাংশন](https://en.cppreference.com/w/cpp/numeric/gcd) হিসেবে C++-এ ইমপ্লিমেন্ট করা আছে।
 
-## Time Complexity
+## টাইম কমপ্লেক্সিটি
 
-The running time of the algorithm is estimated by Lamé's theorem, which establishes a surprising connection between the Euclidean algorithm and the Fibonacci sequence:
+অ্যালগরিদমের রানিং টাইম লামের উপপাদ্য দ্বারা অনুমান করা হয়, যা ইউক্লিডীয় অ্যালগরিদম ও ফিবোনাচ্চি সিকোয়েন্সের মধ্যে একটি চমকপ্রদ সম্পর্ক স্থাপন করে:
 
-If $a > b \geq 1$ and $b < F_n$ for some $n$, the Euclidean algorithm performs at most $n-2$ recursive calls.
+যদি $a > b \geq 1$ এবং কোনো $n$-এর জন্য $b < F_n$ হয়, তাহলে ইউক্লিডীয় অ্যালগরিদম সর্বাধিক $n-2$ বার রিকার্সিভ কল করে।
 
-Moreover, it is possible to show that the upper bound of this theorem is optimal. When $a = F_n$ and $b = F_{n-1}$, $gcd(a, b)$ will perform exactly $n-2$ recursive calls. In other words, consecutive Fibonacci numbers are the worst case input for Euclid's algorithm.
+তদুপরি, দেখানো সম্ভব যে এই উপপাদ্যের ঊর্ধ্বসীমা অপটিমাল। যখন $a = F_n$ এবং $b = F_{n-1}$, তখন $gcd(a, b)$ ঠিক $n-2$ বার রিকার্সিভ কল করবে। অন্যভাবে বলতে গেলে, পরপর দুটি ফিবোনাচ্চি সংখ্যা ইউক্লিডের অ্যালগরিদমের জন্য সবচেয়ে খারাপ ইনপুট।
 
-Given that Fibonacci numbers grow exponentially, we get that the Euclidean algorithm works in $O(\log \min(a, b))$.
+যেহেতু ফিবোনাচ্চি সংখ্যাগুলো এক্সপোনেনশিয়ালি বৃদ্ধি পায়, তাই আমরা পাই যে ইউক্লিডীয় অ্যালগরিদম $O(\log \min(a, b))$ সময়ে কাজ করে।
 
-Another way to estimate the complexity is to notice that $a \bmod b$ for the case $a \geq b$ is at least $2$ times smaller than $a$, so the larger number is reduced at least in half on each iteration of the algorithm. Applying this reasoning to the case when we compute the GCD of the set of numbers $a_1,\dots,a_n \leq C$, this also allows us to estimate the total runtime as $O(n + \log C)$, rather than $O(n \log C)$, since every non-trivial iteration of the algorithm reduces the current GCD candidate by at least a factor of $2$.
+কমপ্লেক্সিটি অনুমানের আরেকটি উপায় হলো এটি লক্ষ্য করা যে $a \geq b$ হলে $a \bmod b$, $a$-এর তুলনায় কমপক্ষে $2$ গুণ ছোট, তাই অ্যালগরিদমের প্রতিটি ইটারেশনে বড় সংখ্যাটি কমপক্ষে অর্ধেক হয়ে যায়। এই যুক্তি প্রয়োগ করে, যখন আমরা $a_1,\dots,a_n \leq C$ সংখ্যার সেটের জিসিডি নির্ণয় করি, তখন মোট রানটাইম $O(n \log C)$-এর পরিবর্তে $O(n + \log C)$ হিসেবে অনুমান করা যায়, কারণ অ্যালগরিদমের প্রতিটি অ-তুচ্ছ ইটারেশনে বর্তমান জিসিডি ক্যান্ডিডেট কমপক্ষে $2$ গুণ হ্রাস পায়।
 
-## Least common multiple
+## লিস্ট কমন মাল্টিপল (ল.সা.গু)
 
-Calculating the least common multiple (commonly denoted **LCM**) can be reduced to calculating the GCD with the following simple formula:
+লিস্ট কমন মাল্টিপল (সাধারণত **এলসিএম** হিসেবে পরিচিত) নির্ণয়কে নিম্নলিখিত সহজ সূত্রের সাহায্যে জিসিডি নির্ণয়ে রূপান্তরিত করা যায়:
 
 $$\text{lcm}(a, b) = \frac{a \cdot b}{\gcd(a, b)}$$
 
-Thus, LCM can be calculated using the Euclidean algorithm with the same time complexity:
+সুতরাং, ইউক্লিডীয় অ্যালগরিদম ব্যবহার করে একই টাইম কমপ্লেক্সিটিতে এলসিএম নির্ণয় করা যায়:
 
-A possible implementation, that cleverly avoids integer overflows by first dividing $a$ with the GCD, is given here:
+এখানে একটি সম্ভাব্য ইমপ্লিমেন্টেশন দেওয়া হলো, যা চতুরতার সাথে প্রথমে $a$-কে জিসিডি দিয়ে ভাগ করে ইন্টিজার ওভারফ্লো এড়ায়:
 
 ```cpp
 int lcm (int a, int b) {
@@ -87,21 +87,21 @@ int lcm (int a, int b) {
 }
 ```
 
-## Binary GCD
+## বাইনারি জিসিডি
 
-The Binary GCD algorithm is an optimization to the normal Euclidean algorithm.
+বাইনারি জিসিডি অ্যালগরিদম হলো সাধারণ ইউক্লিডীয় অ্যালগরিদমের একটি অপটিমাইজেশন।
 
-The slow part of the normal algorithm are the modulo operations. Modulo operations, although we see them as $O(1)$, are a lot slower than simpler operations like addition, subtraction or bitwise operations.
-So it would be better to avoid those.
+সাধারণ অ্যালগরিদমের ধীর অংশটি হলো মডুলো অপারেশন। মডুলো অপারেশন, যদিও আমরা সেগুলোকে $O(1)$ হিসেবে দেখি, যোগ, বিয়োগ বা বিটওয়াইজ অপারেশনের মতো সহজ অপারেশনগুলোর তুলনায় অনেক ধীর।
+তাই এগুলো এড়িয়ে চলাই ভালো।
 
-It turns out, that you can design a fast GCD algorithm that avoids modulo operations.
-It's based on a few properties:
+দেখা যায় যে, মডুলো অপারেশন ছাড়াই একটি দ্রুত জিসিডি অ্যালগরিদম ডিজাইন করা সম্ভব।
+এটি কয়েকটি বৈশিষ্ট্যের উপর ভিত্তি করে:
 
-  - If both numbers are even, then we can factor out a two of both and compute the GCD of the remaining numbers: $\gcd(2a, 2b) = 2 \gcd(a, b)$.
-  - If one of the numbers is even and the other one is odd, then we can remove the factor 2 from the even one: $\gcd(2a, b) = \gcd(a, b)$ if $b$ is odd.
-  - If both numbers are odd, then subtracting one number of the other one will not change the GCD: $\gcd(a, b) = \gcd(b, a-b)$
+  - যদি দুটি সংখ্যাই জোড় হয়, তাহলে আমরা উভয় থেকে ২ বের করে আনতে পারি এবং বাকি সংখ্যাগুলোর জিসিডি নির্ণয় করতে পারি: $\gcd(2a, 2b) = 2 \gcd(a, b)$।
+  - যদি একটি সংখ্যা জোড় এবং অপরটি বিজোড় হয়, তাহলে জোড় সংখ্যাটি থেকে ২ গুণনীয়কটি সরিয়ে ফেলা যায়: $\gcd(2a, b) = \gcd(a, b)$ যদি $b$ বিজোড় হয়।
+  - যদি দুটি সংখ্যাই বিজোড় হয়, তাহলে একটি সংখ্যা থেকে অপরটি বিয়োগ করলে জিসিডি পরিবর্তন হবে না: $\gcd(a, b) = \gcd(b, a-b)$
 
-Using only these properties, and some fast bitwise functions from GCC, we can implement a fast version:
+শুধুমাত্র এই বৈশিষ্ট্যগুলো এবং GCC-এর কিছু দ্রুত বিটওয়াইজ ফাংশন ব্যবহার করে আমরা একটি দ্রুত ভার্সন ইমপ্লিমেন্ট করতে পারি:
 
 ```cpp
 int gcd(int a, int b) {
@@ -119,10 +119,10 @@ int gcd(int a, int b) {
 }
 ```
 
-Notice, that such an optimization is usually not necessary, and most programming languages already have a GCD function in their standard libraries.
-E.g. C++17 has such a function `std::gcd` in the `numeric` header.
+লক্ষ্য করুন যে, এই ধরনের অপটিমাইজেশন সাধারণত প্রয়োজন হয় না, এবং বেশিরভাগ প্রোগ্রামিং ল্যাঙ্গুয়েজে ইতিমধ্যেই তাদের স্ট্যান্ডার্ড লাইব্রেরিতে একটি জিসিডি ফাংশন রয়েছে।
+যেমন, C++১৭-এ `numeric` হেডারে `std::gcd` নামে এমন একটি ফাংশন আছে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [CSAcademy - Greatest Common Divisor](https://csacademy.com/contest/archive/task/gcd/)
 - [Codeforces 1916B - Two Divisors](https://codeforces.com/contest/1916/problem/B)

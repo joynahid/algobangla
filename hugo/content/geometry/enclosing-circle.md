@@ -1,53 +1,53 @@
 ---
-title: "Minimum Enclosing Circle"
+title: "মিনিমাম এনক্লোজিং সার্কেল"
 tags: 
 weight: 60
 ---
-# Minimum Enclosing Circle
+# মিনিমাম এনক্লোজিং সার্কেল
 
-Consider the following problem:
+নিচের সমস্যাটি বিবেচনা করুন:
 
 {{< hint info >}}
 **[Library Checker - Minimum Enclosing Circle](https://judge.yosupo.jp/problem/minimum_enclosing_circle)**
 
 
-You're given $n \leq 10^5$ points $p_i=(x_i, y_i)$.
+আপনাকে $n \leq 10^5$ টি বিন্দু $p_i=(x_i, y_i)$ দেওয়া হয়েছে।
 
-For each $p_i$, find whether it lies on the circumference of the minimum enclosing circle of $\{p_1,\dots,p_n\}$.
+প্রতিটি $p_i$-এর জন্য নির্ণয় করুন এটি $\{p_1,\dots,p_n\}$-এর মিনিমাম এনক্লোজিং সার্কেলের পরিধির উপর অবস্থিত কি না।
 {{< /hint >}}
-Here, by the minimum enclosing circle (MEC) we mean a circle with minimum possible radius that contains all the $n$ points, inside the circle or on its boundary. This problem has a simple randomized solution that, on first glance, looks like it would run in $O(n^3)$, but actually works in $O(n)$ expected time.
+এখানে, মিনিমাম এনক্লোজিং সার্কেল (MEC) বলতে আমরা এমন একটি বৃত্ত বুঝি যার ব্যাসার্ধ সম্ভাব্য সর্বনিম্ন এবং যা সব $n$ টি বিন্দুকে ধারণ করে — বৃত্তের ভেতরে অথবা সীমানায়। এই সমস্যাটির একটি সরল র‍্যান্ডমাইজড সমাধান রয়েছে যা প্রথম দৃষ্টিতে $O(n^3)$-এ চলবে মনে হলেও বাস্তবে $O(n)$ প্রত্যাশিত সময়ে কাজ করে।
 
-To better understand the reasoning below, we should immediately note that the solution to the problem is unique:
+নিচের যুক্তি আরও ভালোভাবে বোঝার জন্য, আমাদের তৎক্ষণাৎ লক্ষ্য করা উচিত যে এই সমস্যার সমাধান অনন্য:
 
-{{< details "Why is the MEC unique?" >}}
+{{< details "MEC কেন অনন্য?" >}}
 
-Consider the following setup: Let $r$ be the radius of the MEC. We draw a circle of radius $r$ around each of the points $p_1,\dots,p_n$. Geometrically, the centers of circles that have radius $r$ and cover all the points $p_1,\dots,p_n$ form the intersection of all $n$ circles.
+নিচের ব্যবস্থাটি বিবেচনা করুন: ধরি $r$ হলো MEC-এর ব্যাসার্ধ। আমরা প্রতিটি বিন্দু $p_1,\dots,p_n$-এর চারপাশে $r$ ব্যাসার্ধের একটি বৃত্ত আঁকি। জ্যামিতিকভাবে, যেসব বৃত্তের ব্যাসার্ধ $r$ এবং যেগুলো সব $p_1,\dots,p_n$ বিন্দু ধারণ করে, তাদের কেন্দ্রগুলো এই $n$ টি বৃত্তের ছেদ গঠন করে।
 
-Now, if the intersection is just a single point, this already proves that it is unique. Otherwise, the intersection is a shape of non-zero area, so we can reduce $r$ by a tiny bit, and still have non-empty intersection, which contradicts the assumption that $r$ was the minimum possible radius of the enclosing circle.
+এখন, যদি ছেদটি মাত্র একটি বিন্দু হয়, তাহলে এটি ইতিমধ্যেই প্রমাণ করে যে সমাধান অনন্য। অন্যথায়, ছেদটি একটি শূন্য-নয় ক্ষেত্রফলের আকৃতি, তাই আমরা $r$ কে সামান্য কমাতে পারি এবং তবুও অশূন্য ছেদ পাব, যা $r$ সম্ভাব্য সর্বনিম্ন ব্যাসার্ধ হওয়ার অনুমানের সাথে বিরোধ তৈরি করে।
 
-With a similar logic, we can also show the uniqueness of the MEC if we additionally demand that it passes through a given specific point $p_i$ or two points $p_i$ and $p_j$ (it is also unique because its radius uniquely defines it).
+একই যুক্তি দিয়ে, আমরা দেখাতে পারি যে MEC অনন্য থাকে যদি আমরা অতিরিক্তভাবে দাবি করি যে এটি একটি নির্দিষ্ট বিন্দু $p_i$ বা দুটি বিন্দু $p_i$ ও $p_j$-এর মধ্য দিয়ে যায় (এটিও অনন্য কারণ এর ব্যাসার্ধ একে অনন্যভাবে নির্ধারণ করে)।
 
-Alternatively, we can also assume that there are two MECs, and then notice that their intersection (which contains the points $p_1,\dots,p_n$ already) must have a smaller diameter than initial circles, and thus can be covered with a smaller circle.
+বিকল্পভাবে, আমরা ধরে নিতে পারি যে দুটি MEC আছে, এবং তারপর লক্ষ্য করি যে তাদের ছেদ (যা ইতিমধ্যেই $p_1,\dots,p_n$ বিন্দুগুলো ধারণ করে) অবশ্যই মূল বৃত্তগুলোর চেয়ে ছোট ব্যাস বিশিষ্ট, এবং তাই একটি ছোট বৃত্ত দ্বারা আবৃত করা যায়।
 {{< /details >}}
-## Welzl's algorithm
+## ওয়েলজল অ্যালগরিদম
 
-For brevity, let's denote $\operatorname{mec}(p_1,\dots,p_n)$ to be the MEC of $\{p_1,\dots,p_n\}$, and let $P_i = \{p_1,\dots,p_i\}$.
+সংক্ষিপ্ততার জন্য, $\operatorname{mec}(p_1,\dots,p_n)$ দিয়ে $\{p_1,\dots,p_n\}$-এর MEC বোঝাই, এবং $P_i = \{p_1,\dots,p_i\}$ ধরি।
 
-The algorithm, initially [proposed](https://doi.org/10.1007/BFb0038202) by Welzl in 1991, goes as follows:
+ওয়েলজল ১৯৯১ সালে প্রথম [প্রস্তাবিত](https://doi.org/10.1007/BFb0038202) এই অ্যালগরিদমটি নিম্নরূপ:
 
-1. Apply a random permutation to the input sequence of points.
-2. Maintain the current candidate to be the MEC $C$, starting with $C = \operatorname{mec}(p_1, p_2)$.
-3. Iterate over $i=3..n$ and check if $p_i \in C$.
-    1. If $p_i \in C$ it means that $C$ is the MEC of $P_i$.
-    2. Otherwise, assign $C = \operatorname{mec}(p_i, p_1)$ and iterate over $j=2..i$ and check if $p_j \in C$.
-        1. If $p_j \in C$, then $C$ is the MEC of $P_j$ among circles that pass through $p_i$.
-        2. Otherwise, assign $C=\operatorname{mec}(p_i, p_j)$ and iterate over $k=1..j$ and check if $p_k \in C$.
-            1. If $p_k \in C$, then $C$ is the MEC of $P_k$ among circles that pass through $p_i$ and $p_j$.
-            2. Otherwise, $C=\operatorname{mec}(p_i,p_j,p_k)$ is the MEC of $P_k$ among circles that pass through $p_i$ and $p_j$.
+১. ইনপুট বিন্দুগুলোর ক্রমানুসারে একটি র‍্যান্ডম পারমুটেশন প্রয়োগ করুন।
+২. বর্তমান MEC প্রার্থী $C$ বজায় রাখুন, $C = \operatorname{mec}(p_1, p_2)$ দিয়ে শুরু করে।
+৩. $i=3..n$ পর্যন্ত ইটারেট করুন এবং পরীক্ষা করুন $p_i \in C$ কি না।
+    ১. যদি $p_i \in C$ হয় তাহলে $C$ হলো $P_i$-এর MEC।
+    ২. অন্যথায়, $C = \operatorname{mec}(p_i, p_1)$ নির্ধারণ করুন এবং $j=2..i$ পর্যন্ত ইটারেট করে পরীক্ষা করুন $p_j \in C$ কি না।
+        ১. যদি $p_j \in C$ হয়, তাহলে $C$ হলো $P_j$-এর MEC যা $p_i$-এর মধ্য দিয়ে যায়।
+        ২. অন্যথায়, $C=\operatorname{mec}(p_i, p_j)$ নির্ধারণ করুন এবং $k=1..j$ পর্যন্ত ইটারেট করে পরীক্ষা করুন $p_k \in C$ কি না।
+            ১. যদি $p_k \in C$ হয়, তাহলে $C$ হলো $P_k$-এর MEC যা $p_i$ ও $p_j$-এর মধ্য দিয়ে যায়।
+            ২. অন্যথায়, $C=\operatorname{mec}(p_i,p_j,p_k)$ হলো $P_k$-এর MEC যা $p_i$ ও $p_j$-এর মধ্য দিয়ে যায়।
 
-We can see that each level of nestedness here has an invariant to maintain (that $C$ is the MEC among circles that also pass through additionally given $0$, $1$ or $2$ points), and whenever the inner loop closes, its invariant becomes equivalent to the invariant of the current iteration of its parent loop. This, in turn, ensures the _correctness_ of the algorithm as a whole.
+আমরা দেখতে পাচ্ছি যে নেস্টেডনেসের প্রতিটি স্তরে এখানে একটি ইনভ্যারিয়েন্ট বজায় রাখতে হয় (যে $C$ হলো MEC যা অতিরিক্তভাবে প্রদত্ত $0$, $1$ বা $2$ টি বিন্দুর মধ্য দিয়ে যায়), এবং যখনই ভেতরের লুপ শেষ হয়, এর ইনভ্যারিয়েন্ট প্যারেন্ট লুপের বর্তমান ইটারেশনের ইনভ্যারিয়েন্টের সমতুল্য হয়ে যায়। এটি, পরিবর্তে, সামগ্রিকভাবে অ্যালগরিদমের _সঠিকতা_ নিশ্চিত করে।
 
-Omitting some technical details, for now, the whole algorithm can be implemented in C++ as follows:
+আপাতত কিছু টেকনিক্যাল বিবরণ বাদ দিয়ে, পুরো অ্যালগরিদমটি C++-এ নিম্নরূপে ইমপ্লিমেন্ট করা যায়:
 
 ```cpp
 struct point {...};
@@ -84,91 +84,91 @@ mec enclosing_circle(vector<point> &p) {
 }
 ```
 
-Now, it is to be expected that checking that a point $p_i$ is inside the MEC of $2$ or $3$ points can be done in $O(1)$ (we will discuss this later on). But even then, the algorithm above looks as if it would take $O(n^3)$ in the worst case just because of all the nested loops. So, how come we claimed the linear expected runtime? Let's figure out!
+এখন, এটা আশা করা যায় যে একটি বিন্দু $p_i$ $2$ বা $3$ টি বিন্দুর MEC-এর ভেতরে কি না তা $O(1)$-এ পরীক্ষা করা যায় (এটি আমরা পরে আলোচনা করব)। কিন্তু তারপরও, উপরের অ্যালগরিদমটি দেখে মনে হয় শুধু নেস্টেড লুপগুলোর কারণে সবচেয়ে খারাপ ক্ষেত্রে $O(n^3)$ লাগবে। তাহলে আমরা কীভাবে লিনিয়ার প্রত্যাশিত রানটাইম দাবি করলাম? চলুন জেনে নিই!
 
-### Complexity analysis
+### কমপ্লেক্সিটি বিশ্লেষণ
 
-For the inner-most loop (over $k$), clearly its expected runtime is $O(j)$ operations. What about the loop over $j$?
+সবচেয়ে ভেতরের লুপের জন্য ($k$-এর উপর), স্পষ্টতই এর প্রত্যাশিত রানটাইম হলো $O(j)$ অপারেশন। $j$-এর উপর লুপটির ক্ষেত্রে কী হবে?
 
-It only triggers the next loop if $p_j$ is on the boundary of the MEC of $P_j$ that also passes through point $i$, _and removing $p_j$ would further shrink the circle_. Of all points in $P_j$ there can only be at most $2$ points with such property, because if there are more than $2$ points from $P_j$ on the boundary, it means that after removing any of them, there will still be at least $3$ points on the boundary, sufficient to uniquely define the circle.
+এটি শুধুমাত্র তখনই পরবর্তী লুপ ট্রিগার করে যদি $p_j$, $P_j$-এর MEC-এর সীমানায় থাকে যা বিন্দু $i$-এর মধ্য দিয়েও যায়, _এবং $p_j$ সরিয়ে ফেললে বৃত্তটি আরও ছোট হতো_। $P_j$-র সব বিন্দুর মধ্যে এই বৈশিষ্ট্যসম্পন্ন সর্বাধিক $2$ টি বিন্দু থাকতে পারে, কারণ যদি সীমানায় $2$ টির বেশি বিন্দু থাকে, তাহলে তাদের যেকোনো একটি সরানোর পরেও সীমানায় অন্তত $3$ টি বিন্দু থাকবে, যা বৃত্তটিকে অনন্যভাবে নির্ধারণ করতে যথেষ্ট।
 
-In other words, after initial random shuffle, there is at most $\frac{2}{j}$ probability that we get one of the at most two unlucky points as $p_j$. Summing it up over all $j$ from $1$ to $i$, we get the expected runtime of
+অন্য কথায়, প্রাথমিক র‍্যান্ডম শাফলের পর, $p_j$ হিসেবে সর্বাধিক দুটি দুর্ভাগ্যজনক বিন্দুর একটি পাওয়ার সম্ভাবনা সর্বাধিক $\frac{2}{j}$। $1$ থেকে $i$ পর্যন্ত সব $j$-এর উপর যোগ করলে, আমরা প্রত্যাশিত রানটাইম পাই
 
 $$
 \sum\limits_{j=1}^i \frac{2}{j} \cdot O(j) = O(i).
 $$
 
-In exactly same fashion we can now also prove that the outermost loop has expected runtime of $O(n)$.
+ঠিক একই পদ্ধতিতে আমরা এখন প্রমাণ করতে পারি যে সবচেয়ে বাইরের লুপেরও প্রত্যাশিত রানটাইম $O(n)$।
 
-### Checking that a point is in the MEC of 2 or 3 points
+### একটি বিন্দু ২ বা ৩ বিন্দুর MEC-এর মধ্যে কি না তা পরীক্ষা করা
 
-Let's now figure out the implementation detail of `point` and `mec`. In this problem, it turns out to be particularly useful to use [std::complex](https://codeforces.com/blog/entry/22175) as a class for points:
+চলুন এখন `point` এবং `mec`-এর ইমপ্লিমেন্টেশন বিবরণ বের করি। এই সমস্যায়, [std::complex](https://codeforces.com/blog/entry/22175) কে বিন্দুর ক্লাস হিসেবে ব্যবহার করা বিশেষভাবে কার্যকর:
 
 ```cpp
 using ftype = int64_t;
 using point = complex<ftype>;
 ```
 
-As a reminder, a complex number is a number of type $x+yi$, where $i^2=-1$ and $x, y \in \mathbb R$. In C++, such complex number is represented by a 2-dimensional point $(x, y)$. Complex numbers already implement basic component-wise linear operations (addition, multiplication by a real number), but also their multiplication and division carry certain geometric meaning.
+স্মরণ করিয়ে দিই, একটি জটিল সংখ্যা হলো $x+yi$ ধরনের, যেখানে $i^2=-1$ এবং $x, y \in \mathbb R$। C++-এ, এই জটিল সংখ্যাকে একটি ২-মাত্রিক বিন্দু $(x, y)$ দ্বারা উপস্থাপন করা হয়। জটিল সংখ্যা ইতিমধ্যেই মৌলিক কম্পোনেন্ট-ভিত্তিক লিনিয়ার অপারেশনগুলো (যোগ, বাস্তব সংখ্যা দিয়ে গুণ) ইমপ্লিমেন্ট করে, তবে তাদের গুণ ও ভাগেরও নির্দিষ্ট জ্যামিতিক তাৎপর্য রয়েছে।
 
-Without going in too much detail, we will note the most important property for this particular task: Multiplying two complex numbers adds up their polar angles (counted from $Ox$ counter-clockwise), and taking a conjugate (i.e. changing $z=x+yi$ into $\overline{z} = x-yi$) multiplies the polar angle with $-1$. This allows us to formulate some very simple criteria for whether a point $z$ is inside the MEC of $2$ or $3$ specific points.
+খুব বেশি বিস্তারিত না গিয়ে, আমরা এই নির্দিষ্ট কাজের জন্য সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্যটি উল্লেখ করব: দুটি জটিল সংখ্যার গুণ তাদের পোলার কোণ যোগ করে ($Ox$ থেকে ঘড়ির কাঁটার বিপরীত দিকে গণনা করা), এবং কনজুগেট নেওয়া (অর্থাৎ $z=x+yi$ কে $\overline{z} = x-yi$-তে পরিবর্তন করা) পোলার কোণকে $-1$ দিয়ে গুণ করে। এটি আমাদের $2$ বা $3$ টি নির্দিষ্ট বিন্দুর MEC-এর ভেতরে একটি বিন্দু $z$ আছে কি না তার জন্য কিছু অত্যন্ত সরল শর্ত তৈরি করতে দেয়।
 
-#### MEC of 2 points
+#### ২ বিন্দুর MEC
 
-For $2$ points $a$ and $b$, their MEC is simply the circle centered at $\frac{a+b}{2}$ with the radius $\frac{|a-b|}{2}$, in other words the circle that has $ab$ as a diameter. To check if $z$ is inside this circle we simply need to check that the angle between $za$ and $zb$ is not acute.
+$2$ টি বিন্দু $a$ ও $b$-এর জন্য, তাদের MEC হলো $\frac{a+b}{2}$ কেন্দ্র এবং $\frac{|a-b|}{2}$ ব্যাসার্ধ বিশিষ্ট বৃত্ত, অন্য কথায় সেই বৃত্ত যার $ab$ ব্যাস। $z$ এই বৃত্তের ভেতরে আছে কি না তা পরীক্ষা করতে আমাদের শুধু দেখতে হবে $za$ ও $zb$-এর মধ্যবর্তী কোণ সূক্ষ্ম নয়।
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Diameter_angles.svg">
 <br>
-<i>Inner angles are obtuse, external angles are acute and angles on the circumference are right</i>
+<i>অন্তঃস্থ কোণগুলো স্থূলকোণ, বহিঃস্থ কোণগুলো সূক্ষ্মকোণ এবং পরিধির উপরের কোণগুলো সমকোণ</i>
 </center>
 
-Equivalently, we need to check that
+সমতুল্যভাবে, আমাদের পরীক্ষা করতে হবে যে
 
 $$
 I_0=(b-z)\overline{(a-z)}
 $$
 
-doesn't have a positive real coordinate (corresponding to points that have a polar angle between $-90^\circ$ and $90^\circ$).
+একটি ধনাত্মক বাস্তব স্থানাঙ্ক নেই (যা $-90^\circ$ ও $90^\circ$-এর মধ্যে পোলার কোণ বিশিষ্ট বিন্দুগুলোর সাথে সম্পর্কিত)।
 
-#### MEC of 3 points
+#### ৩ বিন্দুর MEC
 
-Adding $z$ to the triangle $abc$ will make it a quadrilateral. Consider the following expression:
+ত্রিভুজ $abc$-তে $z$ যোগ করলে এটি একটি চতুর্ভুজ হবে। নিম্নলিখিত রাশিটি বিবেচনা করুন:
 
 $$
 \angle azb + \angle bca
 $$
 
-In a [cyclic quadrilateral](https://en.wikipedia.org/wiki/Cyclic_quadrilateral), if $c$ and $z$ are from the same side of $ab$, then the angles are equal, and will add up to $0^\circ$ when summed up signed (i.e. positive if counter-clockwise and negative if clockwise). Correspondingly, if $c$ and $z$ are on the opposite sides, the angles will add up to $180^\circ$.
+একটি [চক্রীয় চতুর্ভুজে](https://en.wikipedia.org/wiki/Cyclic_quadrilateral), যদি $c$ এবং $z$ একই পাশে $ab$-এর সাপেক্ষে থাকে, তাহলে কোণগুলো সমান, এবং চিহ্নসহ (অর্থাৎ ঘড়ির কাঁটার বিপরীতে ধনাত্মক এবং ঘড়ির কাঁটার দিকে ঋণাত্মক) যোগ করলে $0^\circ$ হবে। অনুরূপভাবে, যদি $c$ ও $z$ বিপরীত পাশে থাকে, তাহলে কোণগুলোর যোগফল $180^\circ$ হবে।
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Opposing_inscribed_angles.svg">
 <br>
-<i>Adjacent inscribed angles are same, opposing angles complement to 180 degrees</i>
+<i>পাশাপাশি অন্তর্লিখিত কোণগুলো সমান, বিপরীত কোণগুলো ১৮০ ডিগ্রি পূরক</i>
 </center>
 
-In terms of complex numbers, we can note that $\angle azb$ is the polar angle of $(b-z)\overline{(a-z)}$ and $\angle bca$ is the polar angle of $(a-c)\overline{(b-c)}$. Thus, we can conclude that $\angle azb + \angle bca$ is the polar angle of
+জটিল সংখ্যার ভাষায়, আমরা লক্ষ্য করতে পারি যে $\angle azb$ হলো $(b-z)\overline{(a-z)}$-এর পোলার কোণ এবং $\angle bca$ হলো $(a-c)\overline{(b-c)}$-এর পোলার কোণ। সুতরাং, আমরা সিদ্ধান্তে পৌঁছাতে পারি যে $\angle azb + \angle bca$ হলো নিম্নলিখিতের পোলার কোণ
 
 $$
 I_1 = (b-z) \overline{(a-z)} (a-c) \overline{(b-c)}
 $$
 
-If the angle is $0^\circ$ or $180^\circ$, it means that the imaginary part of $I_1$ is $0$, otherwise we can deduce whether $z$ is inside or outside of the enclosing circle of $abc$ by checking the sign of the imaginary part of $I_1$. Positive imaginary part corresponds to positive angles, and negative imaginary part corresponds to negative angles.
+যদি কোণটি $0^\circ$ বা $180^\circ$ হয়, তাহলে $I_1$-এর কাল্পনিক অংশ $0$, অন্যথায় আমরা $I_1$-এর কাল্পনিক অংশের চিহ্ন পরীক্ষা করে বুঝতে পারি $z$ $abc$-এর এনক্লোজিং সার্কেলের ভেতরে না বাইরে। ধনাত্মক কাল্পনিক অংশ ধনাত্মক কোণের সাথে সম্পর্কিত, এবং ঋণাত্মক কাল্পনিক অংশ ঋণাত্মক কোণের সাথে সম্পর্কিত।
 
-But which one of them means that $z$ is inside or outside of the circle? As we already noticed, having $z$ inside the circle generally increases the magnitude of $\angle azb$, while having it outside the circle decreases it. As such, we have the following 4 cases:
+কিন্তু কোনটি বোঝায় $z$ বৃত্তের ভেতরে এবং কোনটি বাইরে? আমরা ইতিমধ্যেই লক্ষ্য করেছি, $z$ বৃত্তের ভেতরে থাকলে সাধারণত $\angle azb$-এর পরিমাণ বৃদ্ধি পায়, আর বাইরে থাকলে কমে। সুতরাং, আমাদের নিম্নলিখিত ৪টি ক্ষেত্র রয়েছে:
 
-1. $\angle bca > 0^\circ$, $c$ on the same side of $ab$ as $z$. Then, $\angle azb < 0^\circ$, and $\angle azb + \angle bca < 0^\circ$ for points inside the circle.
-3. $\angle bca < 0^\circ$, $c$ on the same side of $ab$ as $z$. Then, $\angle azb > 0^\circ$, and $\angle azb + \angle bca > 0^\circ$ for points inside the circle.
-2. $\angle bca > 0^\circ$, $c$ on the opposite side of $ab$ to $z$. Then, $\angle azb > 0^\circ$ and $\angle azb + \angle bca > 180^\circ$ for points inside the circle.
-4. $\angle bca < 0^\circ$, $c$ on the opposite side of $ab$ to $z$. Then, $\angle azb < 0^\circ$ and $\angle azb + \angle bca < 180^\circ$ for points inside the circle.
+১. $\angle bca > 0^\circ$, $c$ এবং $z$ একই পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb < 0^\circ$, এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca < 0^\circ$।
+৩. $\angle bca < 0^\circ$, $c$ এবং $z$ একই পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb > 0^\circ$, এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca > 0^\circ$।
+২. $\angle bca > 0^\circ$, $c$ এবং $z$ বিপরীত পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb > 0^\circ$ এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca > 180^\circ$।
+৪. $\angle bca < 0^\circ$, $c$ এবং $z$ বিপরীত পাশে $ab$-এর সাপেক্ষে। তখন, $\angle azb < 0^\circ$ এবং বৃত্তের ভেতরের বিন্দুগুলোর জন্য $\angle azb + \angle bca < 180^\circ$।
 
-In other words, if $\angle bca$ is positive, points inside the circle will have $\angle azb + \angle bca < 0^\circ$, otherwise they will have $\angle azb + \angle bca > 0^\circ$, assuming that we normalize the angles between $-180^\circ$ and $180^\circ$. This, in turn, can be checked by the signs of imaginary parts of $I_2=(a-c)\overline{(b-c)}$ and $I_1 = I_0 I_2$.
+অন্য কথায়, যদি $\angle bca$ ধনাত্মক হয়, বৃত্তের ভেতরের বিন্দুগুলোর $\angle azb + \angle bca < 0^\circ$ হবে, অন্যথায় $\angle azb + \angle bca > 0^\circ$ হবে, ধরে নিচ্ছি আমরা কোণগুলো $-180^\circ$ ও $180^\circ$-এর মধ্যে নরমালাইজ করি। এটি, পরিবর্তে, $I_2=(a-c)\overline{(b-c)}$ ও $I_1 = I_0 I_2$-এর কাল্পনিক অংশের চিহ্ন দ্বারা পরীক্ষা করা যায়।
 
-**Note**: As we multiply four complex numbers to get $I_1$, the intermediate coefficients can be as large as $O(A^4)$, where $A$ is the largest coordinate magnitude in the input. On the bright side, if the input is integer, both checks above can be done fully in integers.
+**দ্রষ্টব্য**: আমরা $I_1$ পেতে চারটি জটিল সংখ্যা গুণ করায়, মধ্যবর্তী সহগ $O(A^4)$ পর্যন্ত বড় হতে পারে, যেখানে $A$ হলো ইনপুটে সর্ববৃহৎ স্থানাঙ্কের পরিমাণ। ভালো দিক হলো, যদি ইনপুট পূর্ণসংখ্যা হয়, তাহলে উভয় পরীক্ষাই সম্পূর্ণ পূর্ণসংখ্যায় করা যায়।
 
-#### Implementation
+#### ইমপ্লিমেন্টেশন
 
-Now, to actually implement the check, we should first decide how to represent the MEC. As our criteria work with the points directly, a natural and efficient way to do this is to say that MEC is directly represented as a pair or triple of points that defines it:
+এখন, আসলেই পরীক্ষাটি ইমপ্লিমেন্ট করতে, আমাদের প্রথমে ঠিক করতে হবে MEC কীভাবে রিপ্রেজেন্ট করব। যেহেতু আমাদের শর্তগুলো সরাসরি বিন্দু নিয়ে কাজ করে, একটি স্বাভাবিক ও দক্ষ উপায় হলো MEC কে সরাসরি দুই বা তিনটি বিন্দুর জোড়া বা ত্রয়ী হিসেবে রিপ্রেজেন্ট করা:
 
 ```cpp
 using mec = variant<
@@ -177,7 +177,7 @@ using mec = variant<
 >;
 ```
 
-Now, we can use `std::visit` to efficiently deal with both cases in accordance with criteria above:
+এখন, আমরা `std::visit` ব্যবহার করে উপরের শর্ত অনুযায়ী উভয় ক্ষেত্র দক্ষভাবে হ্যান্ডেল করতে পারি:
 
 ```cpp
 /* I < 0 if z inside C,
@@ -204,9 +204,9 @@ bool inside(mec const& C, point p) {
 
 ```
 
-Now, we can finally ensure that everything works by submitting the problem to the Library Checker: [#308668](https://judge.yosupo.jp/submission/308668).
+এখন, আমরা Library Checker-এ সমস্যাটি সাবমিট করে সবকিছু কাজ করছে কি না নিশ্চিত হতে পারি: [#308668](https://judge.yosupo.jp/submission/308668)।
 
-## Practice problems
+## অনুশীলন সমস্যা
 
 - [Library Checker - Minimum Enclosing Circle](https://judge.yosupo.jp/problem/minimum_enclosing_circle)
 - [BOI 2002 - Aliens](https://www.spoj.com/problems/ALIENS)

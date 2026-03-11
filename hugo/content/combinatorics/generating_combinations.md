@@ -3,20 +3,20 @@ title: Generating all K-combinations
 tags: 
 weight: 40
 ---
-# Generating all $K$-combinations
+# সব $K$-কম্বিনেশন জেনারেট করা
 
-In this article we will discuss the problem of generating all $K$-combinations.
-Given the natural numbers $N$ and $K$, and considering a set of numbers from $1$ to $N$.
-The task is to derive all **subsets of size $K$**.
+এই নিবন্ধে আমরা সব $K$-কম্বিনেশন জেনারেট করার সমস্যা আলোচনা করব।
+প্রাকৃতিক সংখ্যা $N$ এবং $K$ দেওয়া আছে, এবং $1$ থেকে $N$ পর্যন্ত সংখ্যার একটি সেট বিবেচনা করা হচ্ছে।
+কাজ হলো **$K$ আকারের সব সাবসেট** বের করা।
 
-## Generate next lexicographical $K$-combination {data-toc-label="Generate next lexicographical K-combination"}
+## পরবর্তী লেক্সিকোগ্রাফিক্যাল $K$-কম্বিনেশন জেনারেট করা {data-toc-label="Generate next lexicographical K-combination"}
 
-First we will generate them in lexicographical order.
-The algorithm for this is simple. The first combination will be ${1, 2, ..., K}$. Now let's see how
-to find the combination that immediately follows this, lexicographically. To do so, we consider our
-current combination, and find the rightmost element that has not yet reached its highest possible value. Once
-finding this element, we increment it by $1$, and assign the lowest valid value to all subsequent
-elements.
+প্রথমে আমরা লেক্সিকোগ্রাফিক্যাল ক্রমে জেনারেট করব।
+এর জন্য অ্যালগরিদমটি সরল। প্রথম কম্বিনেশন হবে ${1, 2, ..., K}$। এখন দেখা যাক কীভাবে
+এর ঠিক পরের লেক্সিকোগ্রাফিক্যাল কম্বিনেশন খুঁজে পাওয়া যায়। এর জন্য, আমরা আমাদের
+বর্তমান কম্বিনেশন বিবেচনা করি এবং সবচেয়ে ডানদিকের সেই উপাদানটি খুঁজি যেটি এখনও তার সর্বোচ্চ সম্ভাব্য মানে পৌঁছায়নি। এই
+উপাদানটি পাওয়ার পর, আমরা এটি $1$ বাড়াই এবং পরবর্তী সব
+উপাদানে সবচেয়ে ছোট বৈধ মান বসাই।
 
 ```cpp
 bool next_combination(vector<int>& a, int n) {
@@ -33,44 +33,36 @@ bool next_combination(vector<int>& a, int n) {
 }
 ```
 
-## Generate all $K$-combinations such that adjacent combinations differ by one element {data-toc-label="Generate all K-combinations such that adjacent combinations differ by one element"}
+## এমন সব $K$-কম্বিনেশন জেনারেট করা যেখানে পাশাপাশি কম্বিনেশনগুলো একটি উপাদানে ভিন্ন {data-toc-label="Generate all K-combinations such that adjacent combinations differ by one element"}
 
-This time we want to generate all $K$-combinations in such
-an order, that adjacent combinations differ exactly by one element.
+এবার আমরা এমনভাবে সব $K$-কম্বিনেশন জেনারেট করতে চাই
+যেন পাশাপাশি কম্বিনেশনগুলো ঠিক একটি উপাদানে ভিন্ন হয়।
 
-This can be solved using the [Gray Code](../algebra/gray-code.md):
-If we assign a bitmask to each subset, then by generating and iterating over these bitmasks with Gray codes, we can obtain our answer.
+এটি [গ্রে কোড](../algebra/gray-code.md) ব্যবহার করে সমাধান করা যায়:
+যদি আমরা প্রতিটি সাবসেটে একটি বিটমাস্ক বসাই, তাহলে গ্রে কোড দিয়ে এই বিটমাস্কগুলো জেনারেট এবং ইটারেট করে আমরা আমাদের উত্তর পেতে পারি।
 
-The task of generating $K$-combinations can also be solved using Gray Codes in a different way:
-Generate Gray Codes for the numbers from $0$ to $2^N - 1$ and leave only those codes containing $K$ $1$s.
-The surprising fact is that in the resulting sequence of $K$ set bits, any two neighboring masks (including the
-first and last mask - neighboring in a cyclic sense) - will differ exactly by two bits, which is our objective (remove
-a number, add a number).
+$K$-কম্বিনেশন জেনারেট করার কাজটি গ্রে কোড ব্যবহার করে ভিন্নভাবেও সমাধান করা যায়:
+$0$ থেকে $2^N - 1$ পর্যন্ত সংখ্যার জন্য গ্রে কোড জেনারেট করুন এবং শুধু সেই কোডগুলো রাখুন যেগুলোতে $K$টি $1$ আছে।
+বিস্ময়কর তথ্য হলো $K$টি সেট বিট বিশিষ্ট ফলাফল ক্রমে, যেকোনো দুটি প্রতিবেশী মাস্ক (প্রথম এবং শেষ মাস্ক সহ — চক্রীয় অর্থে প্রতিবেশী) — ঠিক দুটি বিটে ভিন্ন হবে, যা আমাদের উদ্দেশ্য (একটি সংখ্যা সরাও, একটি সংখ্যা যোগ করো)।
 
-Let us prove this:
+এটি প্রমাণ করা যাক:
 
-For the proof, we recall the fact that the sequence $G(N)$ (representing the $N$<sup>th</sup> Gray Code) can 
-be obtained as follows:
+প্রমাণের জন্য, আমরা স্মরণ করি যে $G(N)$ ক্রম ($N$-তম গ্রে কোড উপস্থাপন করে) নিম্নলিখিতভাবে পাওয়া যায়:
 
 $$G(N) = 0G(N-1) \cup 1G(N-1)^\text{R}$$
 
-That is, consider the Gray Code sequence for $N-1$, and prefix $0$ before every term. And consider the 
-reversed Gray Code sequence for $N-1$ and prefix a $1$ before every mask, and
-concatenate these two sequences.
+অর্থাৎ, $N-1$-এর জন্য গ্রে কোড ক্রম বিবেচনা করুন এবং প্রতিটি পদের আগে $0$ বসান। এবং $N-1$-এর বিপরীত গ্রে কোড ক্রম বিবেচনা করুন এবং প্রতিটি মাস্কের আগে $1$ বসান, তারপর এই দুটি ক্রম সংযুক্ত করুন।
 
-Now we may produce our proof.
+এখন আমরা প্রমাণ করতে পারি।
 
-First, we prove that the first and last masks differ exactly in two bits. To do this, it is sufficient to note
-that the first mask of the sequence $G(N)$, will be of the form $N-K$ $0$s, followed by $K$ $1$s. As
-the first bit is set as $0$, after which $(N-K-1)$ $0$s follow, after which $K$ set bits follow and the last mask will be of the form $1$, then $(N-K)$ $0$s, then $K-1$ $1$s.
-Applying the principle of mathematical induction, and using the formula for $G(N)$, concludes the proof.
+প্রথমে, আমরা প্রমাণ করি যে প্রথম এবং শেষ মাস্ক ঠিক দুটি বিটে ভিন্ন। এটি করতে, লক্ষ্য করাই যথেষ্ট যে $G(N)$ ক্রমের প্রথম মাস্কটি হবে $N-K$টি $0$, তারপর $K$টি $1$। যেহেতু প্রথম বিটটি $0$ হিসেবে সেট করা, তারপর $(N-K-1)$টি $0$, তারপর $K$টি সেট বিট আসে এবং শেষ মাস্কটি হবে $1$, তারপর $(N-K)$টি $0$, তারপর $K-1$টি $1$।
+গাণিতিক আরোহ নীতি প্রয়োগ করে এবং $G(N)$-এর সূত্র ব্যবহার করে প্রমাণ সম্পূর্ণ হয়।
 
-Now our task is to show that any two adjacent codes also differ exactly in two bits, we can do this by considering our recursive equation for the generation of Gray Codes. Let us assume the content of the two halves formed by $G(N-1)$ is true. Now we need to prove that the new consecutive pair formed at the junction (by the concatenation of these two halves) is also valid, i.e. they differ by exactly two bits.
+এখন আমাদের কাজ দেখানো যে যেকোনো দুটি পাশাপাশি কোডও ঠিক দুটি বিটে ভিন্ন, আমরা গ্রে কোড জেনারেশনের রিকার্সিভ সমীকরণ বিবেচনা করে এটি করতে পারি। ধরে নিই $G(N-1)$ দ্বারা গঠিত দুই অংশের বিষয়বস্তু সত্য। এখন আমাদের প্রমাণ করতে হবে যে জংশনে (এই দুই অংশের সংযোগস্থলে) গঠিত নতুন পরপর জোড়াটিও বৈধ, অর্থাৎ তারা ঠিক দুটি বিটে ভিন্ন।
 
-This can be done, as we know the last mask of the first half and the first mask of the second half. The last mask of the first half would be $1$, then $(N-K-1)$ $0$s, then $K-1$ $1$s. And the first mask of the second half would be $0$, then $(N-K-2)$ $0$s would follow, and then $K$ $1$s. Thus, comparing the two masks, we find exactly two bits that differ.
+এটি করা যায়, কারণ আমরা জানি প্রথম অর্ধের শেষ মাস্ক এবং দ্বিতীয় অর্ধের প্রথম মাস্ক। প্রথম অর্ধের শেষ মাস্ক হবে $1$, তারপর $(N-K-1)$টি $0$, তারপর $K-1$টি $1$। এবং দ্বিতীয় অর্ধের প্রথম মাস্ক হবে $0$, তারপর $(N-K-2)$টি $0$, তারপর $K$টি $1$। তাই দুটি মাস্ক তুলনা করলে আমরা ঠিক দুটি ভিন্ন বিট পাই।
 
-The following is a naive implementation working by generating all $2^{n}$ possible subsets, and finding subsets of size
-$K$.
+নিচে একটি সহজ ইমপ্লিমেন্টেশন দেওয়া হলো যা সব $2^{n}$ সম্ভাব্য সাবসেট জেনারেট করে এবং $K$ আকারের সাবসেটগুলো খুঁজে বের করে কাজ করে।
 
 ```cpp
 int gray_code (int n) {
@@ -98,18 +90,16 @@ void all_combinations (int n, int k) {
 }
 ```
 
-It's worth mentioning that a more efficient implementation exists that only resorts to building valid combinations and thus
-works in $O\left(N \cdot \binom{N}{K}\right)$ however it is recursive in nature and for smaller values of $N$ it probably has a larger constant
-than the previous solution.
+উল্লেখ্য যে একটি আরও কার্যকর ইমপ্লিমেন্টেশন আছে যা শুধুমাত্র বৈধ কম্বিনেশন তৈরি করে এবং তাই
+$O\left(N \cdot \binom{N}{K}\right)$-এ কাজ করে, তবে এটি প্রকৃতিতে রিকার্সিভ এবং $N$-এর ছোট মানের জন্য সম্ভবত আগের সমাধানের চেয়ে বড় ধ্রুবক আছে।
 
-The implementation is derived from the formula:
+ইমপ্লিমেন্টেশনটি সূত্র থেকে প্রাপ্ত:
 
 $$G(N, K) = 0G(N-1, K) \cup 1G(N-1, K-1)^\text{R}$$
 
-This formula is obtained by modifying the general equation to determine the Gray code, and works by selecting the
-subsequence from appropriate elements.
+এই সূত্রটি সাধারণ গ্রে কোড নির্ধারণের সমীকরণ পরিবর্তন করে পাওয়া যায়, এবং উপযুক্ত উপাদান থেকে সাবসিকোয়েন্স নির্বাচন করে কাজ করে।
 
-Its implementation is as follows:
+এর ইমপ্লিমেন্টেশন নিম্নরূপ:
 
 ```cpp
 vector<int> ans;

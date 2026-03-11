@@ -1,24 +1,24 @@
 ---
-title: "Optimal schedule of jobs given their deadlines and durations"
+title: "ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল"
 tags: 
 weight: 30
 ---
-# Optimal schedule of jobs given their deadlines and durations
+# ডেডলাইন ও সময়কাল দেওয়া থাকলে কাজের সর্বোত্তম শিডিউল
 
-Suppose, we have a set of jobs, and we are aware of every job’s deadline and its duration. The execution of a job cannot be interrupted prior to its ending. It is required to create such a schedule to accomplish the biggest number of jobs.
+ধরুন, আমাদের কাছে কাজের একটি সেট আছে, এবং আমরা প্রতিটি কাজের ডেডলাইন ও সময়কাল জানি। একটি কাজ শেষ হওয়ার আগে তার সম্পাদন বাধাগ্রস্ত করা যাবে না। সর্বাধিক সংখ্যক কাজ সম্পন্ন করার জন্য এমন একটি শিডিউল তৈরি করতে হবে।
 
-## Solving
+## সমাধান
 
-The algorithm of the solving is **greedy**. Let’s sort all the jobs by their deadlines and look at them in descending order. Also, let’s create a queue $q$, in which we’ll gradually put the jobs and extract one with the least run-time (for instance, we can use set or priority_queue). Initially, $q$ is empty.
+সমাধানের অ্যালগরিদমটি **গ্রিডি**। আসুন সমস্ত কাজকে তাদের ডেডলাইন অনুসারে সাজাই এবং নিম্নক্রমে দেখি। এছাড়াও, একটি কিউ $q$ তৈরি করি, যেখানে আমরা ধীরে ধীরে কাজগুলো রাখব এবং সবচেয়ে কম চলার সময়ের কাজটি বের করব (উদাহরণস্বরূপ, আমরা set বা priority_queue ব্যবহার করতে পারি)। প্রাথমিকভাবে, $q$ খালি।
 
-Suppose, we’re looking at the $i$-th job. First of all, let’s put it into $q$. Let’s consider the period of time between the deadline of $i$-th job and the deadline of $i-1$-th job. That is the segment of some length $T$. We will extract jobs from $q$ (in their left duration ascending order) and execute them until the whole segment $T$ is filled. Important: if at any moment of time the extracted job can only be partly executed until segment $T$ is filled, then we execute this job partly just as far as possible, i.e., during the $T$-time, and we put the remaining part of a job back into $q$.
+ধরুন, আমরা $i$-তম কাজটি দেখছি। প্রথমত, এটিকে $q$-তে রাখি। $i$-তম কাজের ডেডলাইন এবং $i-1$-তম কাজের ডেডলাইনের মধ্যবর্তী সময়কাল বিবেচনা করি। এটি কিছু দৈর্ঘ্য $T$-এর একটি সেগমেন্ট। আমরা $q$ থেকে কাজ বের করব (তাদের অবশিষ্ট সময়কালের ঊর্ধ্বক্রমে) এবং সম্পাদন করব যতক্ষণ না সম্পূর্ণ সেগমেন্ট $T$ পূর্ণ হয়। গুরুত্বপূর্ণ: যদি কোনো সময়ে বের করা কাজটি সেগমেন্ট $T$ পূর্ণ হওয়া পর্যন্ত কেবল আংশিকভাবে সম্পাদন করা যায়, তাহলে আমরা সেই কাজটি যতটা সম্ভব আংশিকভাবে সম্পাদন করি, অর্থাৎ $T$-সময়কাল ধরে, এবং কাজের বাকি অংশ $q$-তে ফেরত রাখি।
 
-On the algorithm’s completion we’ll choose the optimal solution (or, at least, one of several solutions). The running time of algorithm is $O(n \log n)$.
+অ্যালগরিদম সম্পন্ন হলে আমরা সর্বোত্তম সমাধান (বা, কয়েকটি সমাধানের মধ্যে অন্তত একটি) পাব। অ্যালগরিদমের রানিং টাইম হলো $O(n \log n)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The following function takes a vector of jobs (consisting of a deadline, a duration, and the job's index) and computes a vector containing all indices of the used jobs in the optimal schedule.
-Notice that you still need to sort these jobs by their deadline, if you want to write down the plan explicitly.
+নিচের ফাংশনটি কাজের একটি ভেক্টর (ডেডলাইন, সময়কাল এবং কাজের ইনডেক্স সমন্বিত) নেয় এবং সর্বোত্তম শিডিউলে ব্যবহৃত সমস্ত কাজের ইনডেক্স সম্বলিত একটি ভেক্টর গণনা করে।
+লক্ষ্য করুন যে আপনি যদি স্পষ্টভাবে পরিকল্পনা লিখতে চান তাহলে এই কাজগুলোকে এখনও তাদের ডেডলাইন অনুসারে সাজাতে হবে।
 
 ```cpp
 struct Job {

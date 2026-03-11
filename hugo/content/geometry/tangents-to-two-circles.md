@@ -1,40 +1,40 @@
 ---
-title: "Finding common tangents to two circles"
+title: "দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়"
 tags: 
 weight: 80
 ---
-# Finding common tangents to two circles
+# দুটি বৃত্তের সাধারণ স্পর্শক নির্ণয়
 
-Given two circles. It is required to find all their common tangents, i.e. all such lines that touch both circles simultaneously.
+দুটি বৃত্ত দেওয়া আছে। এদের সকল সাধারণ স্পর্শক বের করতে হবে, অর্থাৎ এমন সকল সরলরেখা যেগুলো একই সাথে উভয় বৃত্তকে স্পর্শ করে।
 
-The described algorithm will also work in the case when one (or both) circles degenerate into points. Thus, this algorithm can also be used to find tangents to a circle passing through a given point.
+বর্ণিত অ্যালগরিদমটি সেই ক্ষেত্রেও কাজ করবে যেখানে একটি (বা উভয়) বৃত্ত বিন্দুতে পরিণত হয়। অর্থাৎ, একটি প্রদত্ত বিন্দু দিয়ে একটি বৃত্তের স্পর্শক নির্ণয় করতেও এই অ্যালগরিদম ব্যবহার করা যায়।
 
 
-## The number of common tangents
-The number of common tangents to two circles can be **0,1,2,3,4** and **infinite**.
-Look at the images for different cases.
+## সাধারণ স্পর্শকের সংখ্যা
+দুটি বৃত্তের সাধারণ স্পর্শকের সংখ্যা **০, ১, ২, ৩, ৪** এবং **অসীম** হতে পারে।
+বিভিন্ন ক্ষেত্রের জন্য নিচের ছবিগুলো দেখুন।
 <div style="text-align: center;">
   <img src="/images/geometry/tangents-to-two-circles.png" alt=""Different cases of tangents common to two circles"">
 </div>
 
-Here, we won't be considering **degenerate** cases, i.e *when the circles coincide (in this case they have infinitely many common tangents), or one circle lies inside the other (in this case they have no common tangents, or if the circles are tangent, there is one common tangent).*
+এখানে আমরা **অধঃপতিত** ক্ষেত্রগুলো বিবেচনা করব না, অর্থাৎ *যখন বৃত্ত দুটি সমপাতিত (এক্ষেত্রে অসীম সংখ্যক সাধারণ স্পর্শক থাকে), অথবা একটি বৃত্ত অন্যটির ভেতরে থাকে (এক্ষেত্রে কোনো সাধারণ স্পর্শক নেই, অথবা বৃত্ত দুটি স্পর্শক হলে একটি সাধারণ স্পর্শক আছে)।*
 
-In most cases, two circles have **four** common tangents.
+বেশিরভাগ ক্ষেত্রে দুটি বৃত্তের **চারটি** সাধারণ স্পর্শক থাকে।
 
-If the circles **are tangent** , then they will have three common tangents, but this can be understood as a degenerate case: as if the two tangents coincided.
+বৃত্ত দুটি যদি **পরস্পর স্পর্শক** হয়, তাহলে তাদের তিনটি সাধারণ স্পর্শক থাকবে, তবে এটি একটি অধঃপতিত ক্ষেত্র হিসেবে বোঝা যায়: যেন দুটি স্পর্শক একত্রিত হয়ে গেছে।
 
-Moreover, the algorithm described below will work in the case when one or both circles have zero radius: in this case there will be, respectively, two or one common tangent.
+এছাড়াও, নিচে বর্ণিত অ্যালগরিদমটি সেই ক্ষেত্রেও কাজ করবে যখন একটি বা উভয় বৃত্তের ব্যাসার্ধ শূন্য: এক্ষেত্রে যথাক্রমে দুটি বা একটি সাধারণ স্পর্শক থাকবে।
 
-Summing up, we will always look for **four tangents** for all cases except infinite tangents case (The infinite tangents case needs to be handled separately and it is not discussed here). In degenerate cases, some of tangents will coincide, but nevertheless, these cases will also fit into the big picture.
+সংক্ষেপে, অসীম স্পর্শকের ক্ষেত্র ব্যতীত সকল ক্ষেত্রে আমরা সর্বদা **চারটি স্পর্শক** খুঁজব (অসীম স্পর্শকের ক্ষেত্রটি আলাদাভাবে সামলাতে হবে এবং এখানে আলোচনা করা হয়নি)। অধঃপতিত ক্ষেত্রে কিছু স্পর্শক সমপাতিত হবে, তবুও এই ক্ষেত্রগুলো সামগ্রিক চিত্রে মানানসই হবে।
 
 
 
-## Algorithm
-For the sake of simplicity of the algorithm, we will assume, without losing generality, that the center of the first circle has coordinates $(0, 0)$. (If this is not the case, then this can be achieved by simply shifting the whole picture, and after finding a solution, by shifting the obtained straight lines back.)
+## অ্যালগরিদম
+অ্যালগরিদমের সরলতার জন্য, সাধারণতা না হারিয়ে আমরা ধরে নেব যে প্রথম বৃত্তের কেন্দ্র $(0, 0)$ স্থানাঙ্কে। (যদি এমন না হয়, তাহলে পুরো চিত্রকে সরিয়ে এটি অর্জন করা যায়, এবং সমাধান পাওয়ার পর প্রাপ্ত সরলরেখাগুলো আবার পেছনে সরানো যায়।)
 
-Denote $r_1$ and $r_2$ the radii of the first and second circles, and by $(v_x,v_y)$ the coordinates of the center of the second circle and point $v$ different from origin. (Note: we are not considering the case in which both the circles are same).
+$r_1$ এবং $r_2$ দ্বারা প্রথম ও দ্বিতীয় বৃত্তের ব্যাসার্ধ এবং $(v_x,v_y)$ দ্বারা দ্বিতীয় বৃত্তের কেন্দ্র ও মূলবিন্দু থেকে ভিন্ন বিন্দু $v$-এর স্থানাঙ্ক বোঝানো হচ্ছে। (দ্রষ্টব্য: আমরা সেই ক্ষেত্র বিবেচনা করছি না যেখানে উভয় বৃত্ত একই।)
 
-To solve the problem, we approach it purely **algebraically** . We need to find all the lines of the form $ax + by + c = 0$ that lie at a distance $r_1$ from the origin of coordinates, and at a distance $r_2$ from a point $v$. In addition, we impose the condition of normalization of the straight line: the sum of the squares of the coefficients and must be equal to one (this is necessary, otherwise the same straight line will correspond to infinitely many representations of the form $ax + by + c = 0$). Total we get such a system of equations for the desired $a, b, c$:
+সমস্যাটি সমাধানের জন্য আমরা সম্পূর্ণ **বীজগাণিতিক** পদ্ধতি অনুসরণ করব। আমাদের $ax + by + c = 0$ আকারের সকল সরলরেখা বের করতে হবে যেগুলো মূলবিন্দু থেকে $r_1$ দূরত্বে এবং বিন্দু $v$ থেকে $r_2$ দূরত্বে অবস্থিত। এছাড়াও আমরা সরলরেখার নরমালাইজেশন শর্ত আরোপ করি: সহগের বর্গের যোগফল একের সমান হতে হবে (এটি প্রয়োজন, অন্যথায় একই সরলরেখার জন্য $ax + by + c = 0$ আকারে অসীম সংখ্যক উপস্থাপনা থাকবে)। মোট আমরা কাঙ্ক্ষিত $a, b, c$-এর জন্য এই সমীকরণ ব্যবস্থা পাই:
 
 $$\begin{align}
 a^2 + b^2 &= 1 \\
@@ -42,7 +42,7 @@ a^2 + b^2 &= 1 \\
 \mid a \cdot v_x + b \cdot v_y + c \mid &= r_2
 \end{align}$$
 
-To get rid of the modulus, note that there are only four ways to open the modulus in this system. All these methods can be considered by the general case, if we understand the opening of the modulus as the fact that the coefficient on the right-hand side may be multiplied by -1. In other words, we turn to this system:
+পরমান মান থেকে মুক্তি পেতে লক্ষ্য করুন যে এই ব্যবস্থায় পরমান মান খোলার মাত্র চারটি উপায় আছে। সকল উপায় একটি সাধারণ ক্ষেত্র দ্বারা বিবেচনা করা যায়, যদি আমরা পরমান মান খোলাকে এভাবে বুঝি যে ডানপক্ষের সহগকে -১ দ্বারা গুণ করা যেতে পারে। অন্যভাবে বলতে গেলে, আমরা এই ব্যবস্থায় আসি:
 
 $$\begin{align}
 a^2 + b^2 &= 1 \\
@@ -51,7 +51,7 @@ a \cdot v_x + b \cdot v_y + c &= \pm r_2
 \end{align}$$
 
 
-Entering the notation $d_1 = \pm r_1$ and $d_2 = \pm r_2$ , we come to the conclusion that the system must have four solutions:
+$d_1 = \pm r_1$ এবং $d_2 = \pm r_2$ সংকেত ব্যবহার করে, আমরা এই সিদ্ধান্তে আসি যে ব্যবস্থাটির চারটি সমাধান থাকবে:
 
 $$\begin{align}
 a^2 + b^2 &= 1 \\
@@ -59,7 +59,7 @@ c &= d_1 \\
 a \cdot v_x + b \cdot v_y + c &= d_2
 \end{align}$$
 
-The solution of this system is reduced to solving a quadratic equation. We will omit all the cumbersome calculations, and immediately give a ready answer:
+এই ব্যবস্থার সমাধান একটি দ্বিঘাত সমীকরণ সমাধানে নেমে আসে। আমরা সকল জটিল হিসাব বাদ দিয়ে সরাসরি প্রস্তুত উত্তর দিচ্ছি:
 
 $$\begin{align}
 a &= {( d_2 - d_1 ) v_x \pm v_y \sqrt{v_x^2 + v_y^2-(d_2-d_1)^2} \over {v_x^2 + v_y^2} } \\
@@ -67,12 +67,12 @@ b &= {( d_2 - d_1 ) v_y \pm v_x \sqrt{v_x^2 + v_y^2-(d_2-d_1)^2} \over {v_x^2 + 
 c &= d_1
 \end{align}$$
 
-Total we got eight solutions instead four. However, it is easy to understand where superfluous decisions arise: in fact, in the latter system, it is enough to take only one solution (for example, the first). In fact, the geometric meaning of what we take $\pm r_1$ and $\pm r_2$ is clear: we are actually sorting out which side of each circle there is a straight line. Therefore, the two methods that arise when solving the latter system are redundant: it is enough to choose one of the two solutions (only, of course, in all four cases, you must choose the same family of solutions).
+মোট আমরা চারের বদলে আটটি সমাধান পেলাম। তবে অতিরিক্ত সমাধানগুলো কোথা থেকে আসে তা বুঝতে সহজ: আসলে শেষ ব্যবস্থায় শুধুমাত্র একটি সমাধান নেওয়াই যথেষ্ট (যেমন, প্রথমটি)। কারণ, $\pm r_1$ এবং $\pm r_2$ নেওয়ার জ্যামিতিক অর্থ হলো: আমরা আসলে প্রতিটি বৃত্তের কোন পাশে সরলরেখা আছে তা বাছাই করছি। তাই শেষ ব্যবস্থা সমাধান করতে যে দুটি পদ্ধতি আসে তা অপ্রয়োজনীয়: দুটি সমাধানের একটি বেছে নিলেই যথেষ্ট (শুধু অবশ্যই চারটি ক্ষেত্রেই একই পরিবারের সমাধান বাছাই করতে হবে)।
 
-The last thing that we have not yet considered is **how to shift the straight lines** in the case when the first circle was not originally located at the origin. However, everything is simple here: it follows from the linearity of the equation of a straight line that the value $a \cdot x_0 + b \cdot y_0$ (where $x_0$ and $y_0$ are the coordinates of the original center of the first circle) must be subtracted from the coefficient $c$.
+শেষ যে বিষয়টি আমরা এখনও বিবেচনা করিনি তা হলো, প্রথম বৃত্ত মূলত মূলবিন্দুতে না থাকলে **সরলরেখাগুলো কীভাবে সরাতে হবে**। তবে এটি সরল: সরলরেখার সমীকরণের রৈখিকতা থেকে বোঝা যায় যে $a \cdot x_0 + b \cdot y_0$ মান (যেখানে $x_0$ ও $y_0$ প্রথম বৃত্তের মূল কেন্দ্রের স্থানাঙ্ক) সহগ $c$ থেকে বিয়োগ করতে হবে।
 
-##Implementation
-We first describe all the necessary data structures and other auxiliary definitions:
+## ইমপ্লিমেন্টেশন
+প্রথমে আমরা সকল প্রয়োজনীয় ডাটা স্ট্রাকচার এবং অন্যান্য সহায়ক সংজ্ঞা বর্ণনা করি:
 
 ```point-line-circle-struct
 struct pt {
@@ -98,7 +98,7 @@ double sqr (double a) {
     return a * a;
 }
 ```
-Then the solution itself can be written this way (where the main function for the call is the second; and the first function is an auxiliary):
+তারপর সমাধানটি এভাবে লেখা যায় (যেখানে কল করার জন্য মূল ফাংশন হলো দ্বিতীয়টি; এবং প্রথম ফাংশনটি একটি সহায়ক):
 
 ```find-tangents-to-two-circles
 void tangents (pt c, double r1, double r2, vector<line> & ans) {
@@ -125,6 +125,6 @@ vector<line> tangents (circle a, circle b) {
 }
 ```
 
-## Problems
+## অনুশীলন সমস্যা
 
 [TIMUS 1163 Chapaev](https://acm.timus.ru/problem.aspx?space=1&num=1163)

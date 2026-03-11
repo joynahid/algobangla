@@ -1,74 +1,74 @@
 ---
-title: "Lattice points inside non-lattice polygon"
+title: "অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট"
 tags: 
 weight: 60
 ---
-# Lattice points inside non-lattice polygon
+# অ-ল্যাটিস পলিগনের ভেতরে ল্যাটিস পয়েন্ট
 
-For lattice polygons there is Pick's formula to enumerate the lattice points inside the polygon.
-What about polygons with arbitrary vertices?
+ল্যাটিস পলিগনের জন্য পলিগনের ভেতরে ল্যাটিস পয়েন্ট গণনা করতে পিকের সূত্র আছে।
+যদি পলিগনের শীর্ষবিন্দু যেকোনো স্থানে হয় তখন কী হবে?
 
-Let's process each of the polygon's edges individually, and after that we may sum up the amounts of lattice points under each edge considering its orientations to choose a sign (like in calculating the area of a polygon using trapezoids).
+চলুন পলিগনের প্রতিটি বাহু আলাদাভাবে প্রসেস করি, এবং এরপর প্রতিটি বাহুর নিচে ল্যাটিস পয়েন্টের পরিমাণ যোগ করতে পারি, এর ওরিয়েন্টেশন বিবেচনা করে চিহ্ন নির্বাচন করে (ট্র্যাপিজয়েড ব্যবহার করে পলিগনের ক্ষেত্রফল গণনা করার মতো)।
 
-First of all we should note that if current edge has endpoints in $A=(x_1;y_1)$ and $B=(x_2;y_2)$ then it can be represented as a linear function:
+প্রথমত আমাদের লক্ষ্য করা উচিত যে বর্তমান বাহুর প্রান্তবিন্দু $A=(x_1;y_1)$ এবং $B=(x_2;y_2)$ হলে এটিকে একটি রৈখিক ফাংশন হিসেবে উপস্থাপন করা যায়:
 
 $$y=y_1+(y_2-y_1) \cdot \dfrac{x-x_1}{x_2-x_1}=\left(\dfrac{y_2-y_1}{x_2-x_1}\right)\cdot x + \left(\dfrac{y_1x_2-x_1y_2}{x_2-x_1}\right)$$
 
 $$y = k \cdot x + b,~k = \dfrac{y_2-y_1}{x_2-x_1},~b = \dfrac{y_1x_2-x_1y_2}{x_2-x_1}$$
 
-Now we will perform a substitution $x=x'+\lceil x_1 \rceil$ so that $b' = b + k \cdot \lceil x_1 \rceil$.
-This allows us to work with $x_1'=0$ and $x_2'=x_2 - \lceil x_1 \rceil$.
-Let's denote $n = \lfloor x_2' \rfloor$.
+এখন আমরা $x=x'+\lceil x_1 \rceil$ প্রতিস্থাপন করব যাতে $b' = b + k \cdot \lceil x_1 \rceil$ হয়।
+এটি আমাদের $x_1'=0$ এবং $x_2'=x_2 - \lceil x_1 \rceil$ নিয়ে কাজ করতে দেয়।
+ধরি $n = \lfloor x_2' \rfloor$।
 
-We will not sum up points at $x = n$ and on $y = 0$ for the integrity of the algorithm.
-They may be added manually afterwards.
-Thus we have to sum up $\sum\limits_{x'=0}^{n - 1} \lfloor k' \cdot x' + b'\rfloor$. We also assume that $k' \geq 0$ and $b'\geq 0$.
-Otherwise one should substitute $x'=-t$ and add $\lceil|b'|\rceil$ to $b'$.
+অ্যালগরিদমের সামঞ্জস্যের জন্য আমরা $x = n$ এবং $y = 0$-তে বিন্দুগুলো যোগ করব না।
+সেগুলো পরবর্তীতে ম্যানুয়ালি যোগ করা যেতে পারে।
+এইভাবে আমাদের $\sum\limits_{x'=0}^{n - 1} \lfloor k' \cdot x' + b'\rfloor$ যোগ করতে হবে। আমরা এটাও ধরে নিই যে $k' \geq 0$ এবং $b'\geq 0$।
+অন্যথায় $x'=-t$ প্রতিস্থাপন করতে হবে এবং $b'$-তে $\lceil|b'|\rceil$ যোগ করতে হবে।
 
-Let's discuss how we can evaluate a sum $\sum\limits_{x=0}^{n - 1} \lfloor k \cdot x + b\rfloor$.
-We have two cases:
+চলুন আলোচনা করি কীভাবে $\sum\limits_{x=0}^{n - 1} \lfloor k \cdot x + b\rfloor$ যোগফল মূল্যায়ন করা যায়।
+আমাদের দুটি ক্ষেত্র আছে:
 
-  - $k \geq 1$ or $b \geq 1$.
-  
-    Then we should start with summing up points below $y=\lfloor k \rfloor \cdot x + \lfloor b \rfloor$. Their amount equals to
-    
+  - $k \geq 1$ অথবা $b \geq 1$।
+
+    তাহলে আমাদের $y=\lfloor k \rfloor \cdot x + \lfloor b \rfloor$-এর নিচে বিন্দু যোগ করে শুরু করা উচিত। তাদের সংখ্যা সমান
+
     \[ \sum\limits_{x=0}^{n - 1} \lfloor k \rfloor \cdot x + \lfloor b \rfloor=\dfrac{(\lfloor k \rfloor(n-1)+2\lfloor b \rfloor) n}{2}. \]
-    
-    Now we are interested only in points $(x;y)$ such that $\lfloor k \rfloor \cdot x + \lfloor b \rfloor < y \leq k\cdot x + b$.
-    This amount is the same as the number of points such that $0 < y \leq (k - \lfloor k \rfloor) \cdot x + (b - \lfloor b \rfloor)$.
-    So we reduced our problem to $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$ and both $k'$ and $b'$ less than $1$ now.
-    Here is a picture, we just summed up blue points and subtracted the blue linear function from the black one to reduce problem to smaller values for $k$ and $b$:
+
+    এখন আমরা শুধুমাত্র সেই $(x;y)$ বিন্দুতে আগ্রহী যেখানে $\lfloor k \rfloor \cdot x + \lfloor b \rfloor < y \leq k\cdot x + b$।
+    এই সংখ্যা সেই বিন্দুর সংখ্যার সমান যেখানে $0 < y \leq (k - \lfloor k \rfloor) \cdot x + (b - \lfloor b \rfloor)$।
+    তাই আমরা আমাদের সমস্যাকে $k'= k - \lfloor k \rfloor$, $b' = b - \lfloor b \rfloor$-তে রিডিউস করেছি এবং $k'$ ও $b'$ উভয়ই এখন ১-এর কম।
+    এখানে একটি ছবি আছে, আমরা শুধু নীল বিন্দু যোগ করেছি এবং $k$ ও $b$-এর ছোট মানে সমস্যা রিডিউস করতে কালো ফাংশন থেকে নীল রৈখিক ফাংশন বিয়োগ করেছি:
     <div style="text-align: center;">
   <img src="/images/geometry/lattice.png" alt="Subtracting floored linear function">
 </div>
 
-  - $k < 1$ and $b < 1$.
+  - $k < 1$ এবং $b < 1$।
 
-    If $\lfloor k \cdot n + b\rfloor$ equals $0$, we can safely return $0$.
-    If this is not the case, we can say that there are no lattice points such that $x < 0$ and $0 < y \leq k \cdot x + b$.
-    That means that we will have the same answer if we consider new reference system in which $O'=(n;\lfloor k\cdot n + b\rfloor)$, axis $x'$ is directed down and axis $y'$ is directed to the left.
-    For this reference system we are interested in lattice points on the set
-    
+    যদি $\lfloor k \cdot n + b\rfloor$ সমান $0$ হয়, আমরা নিরাপদে $0$ রিটার্ন করতে পারি।
+    যদি এটি না হয়, আমরা বলতে পারি যে $x < 0$ এবং $0 < y \leq k \cdot x + b$ এমন কোনো ল্যাটিস পয়েন্ট নেই।
+    এর মানে হলো যে আমরা একই উত্তর পাব যদি নতুন রেফারেন্স সিস্টেম বিবেচনা করি যেখানে $O'=(n;\lfloor k\cdot n + b\rfloor)$, অক্ষ $x'$ নিচের দিকে নির্দেশিত এবং অক্ষ $y'$ বামে নির্দেশিত।
+    এই রেফারেন্স সিস্টেমের জন্য আমরা সেটের ল্যাটিস পয়েন্টে আগ্রহী
+
     \[ \left\{(x;y)~\bigg|~0 \leq x < \lfloor k \cdot n + b\rfloor,~ 0 < y \leq \dfrac{x+(k\cdot n+b)-\lfloor k\cdot n + b \rfloor}{k}\right\} \]
-    
-    which returns us back to the case $k>1$.
-    You can see new reference point $O'$ and axes $X'$ and $Y'$ in the picture below:
+
+    যা আমাদের $k>1$ ক্ষেত্রে ফিরিয়ে নিয়ে যায়।
+    আপনি নতুন রেফারেন্স পয়েন্ট $O'$ এবং অক্ষ $X'$ ও $Y'$ নিচের ছবিতে দেখতে পারেন:
     <div style="text-align: center;">
   <img src="/images/geometry/mirror.png" alt="New reference and axes">
 </div>
-    As you see, in new reference system linear function will have coefficient $\tfrac 1 k$ and its zero will be in the point $\lfloor k\cdot n + b \rfloor-(k\cdot n+b)$ which makes formula above correct.
+    আপনি দেখতে পাচ্ছেন, নতুন রেফারেন্স সিস্টেমে রৈখিক ফাংশনের সহগ $\tfrac 1 k$ হবে এবং এর শূন্যবিন্দু হবে $\lfloor k\cdot n + b \rfloor-(k\cdot n+b)$ বিন্দুতে যা উপরের সূত্রটিকে সঠিক করে।
 
-## Complexity analysis
+## কমপ্লেক্সিটি বিশ্লেষণ
 
-We have to count at most $\dfrac{(k(n-1)+2b)n}{2}$ points.
-Among them we will count $\dfrac{\lfloor k \rfloor (n-1)+2\lfloor b \rfloor}{2}$ on the very first step.
-We may consider that $b$ is negligibly small because we can start with making it less than $1$.
-In that case we cay say that we count about $\dfrac{\lfloor k \rfloor}{k} \geq \dfrac 1 2$  of all points.
-Thus we will finish in $O(\log n)$ steps.
+আমাদের সর্বাধিক $\dfrac{(k(n-1)+2b)n}{2}$টি বিন্দু গণনা করতে হবে।
+এদের মধ্যে আমরা প্রথম ধাপেই $\dfrac{\lfloor k \rfloor (n-1)+2\lfloor b \rfloor}{2}$টি গণনা করব।
+আমরা ধরে নিতে পারি যে $b$ নগণ্যভাবে ছোট কারণ আমরা এটিকে ১-এর কম করে শুরু করতে পারি।
+সেক্ষেত্রে আমরা বলতে পারি যে আমরা সব বিন্দুর প্রায় $\dfrac{\lfloor k \rfloor}{k} \geq \dfrac 1 2$ অংশ গণনা করি।
+এইভাবে আমরা $O(\log n)$ ধাপে শেষ করব।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is simple function which calculates number of integer points $(x;y)$ such for $0 \leq x < n$ and $0 < y \leq \lfloor k x+b\rfloor$:
+এখানে একটি সরল ফাংশন দেওয়া হলো যা পূর্ণসংখ্যা বিন্দু $(x;y)$-এর সংখ্যা গণনা করে যেখানে $0 \leq x < n$ এবং $0 < y \leq \lfloor k x+b\rfloor$:
 
 ```cpp
 int count_lattices(Fraction k, Fraction b, long long n) {
@@ -89,7 +89,7 @@ int count_lattices(Fraction k, Fraction b, long long n) {
 }
 ```
 
-Here `Fraction` is some class handling rational numbers.
-On practice it seems that if all denominators and numerators are at most $C$ by absolute value then in the recursive calls they will be at most $C^2$ if you keep dividing numerators and denominators by their greatest common divisor.
-Given this assumption we can say that one may use doubles and require accuracy of $\varepsilon^2$ where $\varepsilon$ is accuracy with which $k$ and $b$ are given.
-That means that in floor one should consider numbers as integer if they differs at most by $\varepsilon^2$ from an integer.
+এখানে `Fraction` হলো মূলদ সংখ্যা হ্যান্ডেল করা কোনো ক্লাস।
+ব্যবহারিক ক্ষেত্রে মনে হয় যে যদি সব লব এবং হর পরম মানে সর্বাধিক $C$ হয় তাহলে রিকার্সিভ কলগুলোতে তারা সর্বাধিক $C^2$ হবে যদি আপনি লব ও হরকে তাদের গসাগু দিয়ে ভাগ করতে থাকেন।
+এই অনুমানে আমরা বলতে পারি যে ডাবল ব্যবহার করা যায় এবং $\varepsilon^2$ নির্ভুলতা প্রয়োজন যেখানে $\varepsilon$ হলো যে নির্ভুলতায় $k$ ও $b$ দেওয়া আছে।
+এর মানে হলো floor-এ সংখ্যাগুলোকে পূর্ণসংখ্যা হিসেবে বিবেচনা করা উচিত যদি তারা একটি পূর্ণসংখ্যা থেকে সর্বাধিক $\varepsilon^2$ পার্থক্য রাখে।

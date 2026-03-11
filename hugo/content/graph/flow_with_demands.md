@@ -1,58 +1,36 @@
 ---
-title: "Flows with demands"
+title: "ডিমান্ডসহ ফ্লো"
 tags: 
 weight: 60
 ---
-# Flows with demands
+# ডিমান্ডসহ ফ্লো
 
-In a normal flow network the flow of an edge is only limited by the capacity $c(e)$ from above and by 0 from below.
-In this article we will discuss flow networks, where we additionally require the flow of each edge to have a certain amount, i.e. we bound the flow from below by a **demand** function $d(e)$:
+একটি সাধারণ ফ্লো নেটওয়ার্কে একটি এজের ফ্লো শুধুমাত্র উপর থেকে ক্যাপাসিটি $c(e)$ দ্বারা এবং নিচ থেকে ০ দ্বারা সীমাবদ্ধ। এই আর্টিকেলে আমরা এমন ফ্লো নেটওয়ার্ক আলোচনা করব, যেখানে আমরা অতিরিক্তভাবে প্রতিটি এজের ফ্লোর একটি নির্দিষ্ট পরিমাণ থাকা প্রয়োজন, অর্থাৎ আমরা ফ্লোকে নিচ থেকে একটি **ডিমান্ড** ফাংশন $d(e)$ দ্বারা সীমাবদ্ধ করি:
 
 $$ d(e) \le f(e) \le c(e)$$
 
-So next each edge has a minimal flow value, that we have to pass along the edge.
+তাই প্রতিটি এজের একটি ন্যূনতম ফ্লো মান আছে, যা আমাদের এজ বরাবর পাঠাতে হবে।
 
-This is a generalization of the normal flow problem, since setting $d(e) = 0$ for all edges $e$ gives a normal flow network.
-Notice, that in the normal flow network it is extremely trivial to find a valid flow, just setting $f(e) = 0$ is already a valid one.
-However if the flow of each edge has to satisfy a demand, than suddenly finding a valid flow is already pretty complicated.
+এটি সাধারণ ফ্লো সমস্যার একটি সাধারণীকরণ, কারণ সমস্ত এজ $e$-এর জন্য $d(e) = 0$ সেট করলে একটি সাধারণ ফ্লো নেটওয়ার্ক পাওয়া যায়। লক্ষ্য করুন যে, সাধারণ ফ্লো নেটওয়ার্কে একটি বৈধ ফ্লো খুঁজে পাওয়া অত্যন্ত সহজ, শুধু $f(e) = 0$ সেট করলেই একটি বৈধ ফ্লো হয়। তবে প্রতিটি এজের ফ্লো যদি একটি ডিমান্ড পূরণ করতে হয়, তাহলে হঠাৎ করেই একটি বৈধ ফ্লো খুঁজে পাওয়া বেশ জটিল হয়ে পড়ে।
 
-We will consider two problems:
+আমরা দুটি সমস্যা বিবেচনা করব:
 
-1. finding an arbitrary flow that satisfies all constraints
-2. finding a minimal flow that satisfies all constraints
+১. সমস্ত শর্ত পূরণকারী একটি ইচ্ছামতো ফ্লো খুঁজে বের করা
+২. সমস্ত শর্ত পূরণকারী একটি ন্যূনতম ফ্লো খুঁজে বের করা
 
-## Finding an arbitrary flow
+## একটি ইচ্ছামতো ফ্লো খুঁজে বের করা
 
-We make the following changes in the network.
-We add a new source $s'$ and a new sink $t'$, a new edge from the source $s'$ to every other vertex, a new edge for every vertex to the sink $t'$, and one edge from $t$ to $s$.
-Additionally we define the new capacity function $c'$ as:
+আমরা নেটওয়ার্কে নিম্নলিখিত পরিবর্তন করি। একটি নতুন সোর্স $s'$ এবং একটি নতুন সিংক $t'$, সোর্স $s'$ থেকে প্রতিটি অন্য ভার্টেক্সে একটি নতুন এজ, প্রতিটি ভার্টেক্স থেকে সিংক $t'$-এ একটি নতুন এজ, এবং $t$ থেকে $s$-তে একটি এজ যোগ করি। এছাড়াও আমরা নতুন ক্যাপাসিটি ফাংশন $c'$ নিম্নরূপ সংজ্ঞায়িত করি:
 
-- $c'((s', v)) = \sum_{u \in V} d((u, v))$ for each edge $(s', v)$.
-- $c'((v, t')) = \sum_{w \in V} d((v, w))$ for each edge $(v, t')$.
-- $c'((u, v)) = c((u, v)) - d((u, v))$ for each edge $(u, v)$ in the old network.
+- $c'((s', v)) = \sum_{u \in V} d((u, v))$ প্রতিটি এজ $(s', v)$-এর জন্য।
+- $c'((v, t')) = \sum_{w \in V} d((v, w))$ প্রতিটি এজ $(v, t')$-এর জন্য।
+- $c'((u, v)) = c((u, v)) - d((u, v))$ পুরনো নেটওয়ার্কের প্রতিটি এজ $(u, v)$-এর জন্য।
 - $c'((t, s)) = \infty$
 
-If the new network has a saturating flow (a flow where each edge outgoing from $s'$ is completely filled, which is equivalent to every edge incoming to $t'$ is completely filled), then the network with demands has a valid flow, and the actual flow can be easily reconstructed from the new network.
-Otherwise there doesn't exist a flow that satisfies all conditions.
-Since a saturating flow has to be a maximum flow, it can be found by any maximum flow algorithm, like the [Edmonds-Karp algorithm](edmonds_karp.md) or the [Push-relabel algorithm](push-relabel.md).
+নতুন নেটওয়ার্কে স্যাচুরেটিং ফ্লো থাকলে (একটি ফ্লো যেখানে $s'$ থেকে বের হওয়া প্রতিটি এজ সম্পূর্ণ পূর্ণ, যা $t'$-এ আসা প্রতিটি এজ সম্পূর্ণ পূর্ণ হওয়ার সমতুল্য), তাহলে ডিমান্ডসহ নেটওয়ার্কের একটি বৈধ ফ্লো আছে, এবং প্রকৃত ফ্লো নতুন নেটওয়ার্ক থেকে সহজেই পুনর্গঠন করা যায়। অন্যথায় সমস্ত শর্ত পূরণকারী কোনো ফ্লো বিদ্যমান নেই। যেহেতু স্যাচুরেটিং ফ্লো অবশ্যই ম্যাক্সিমাম ফ্লো হতে হবে, এটি যেকোনো ম্যাক্সিমাম ফ্লো অ্যালগরিদম দিয়ে পাওয়া যায়, যেমন [এডমন্ডস-কার্প অ্যালগরিদম](edmonds_karp.md) বা [পুশ-রিলেবেল অ্যালগরিদম](push-relabel.md)।
 
-The correctness of these transformations is more difficult to understand.
-We can think of it in the following way:
-Each edge $e = (u, v)$ with $d(e) > 0$ is originally replaced by two edges: one with the capacity $d(i)$ , and the other with $c(i) - d(i)$.
-We want to find a flow that saturates the first edge (i.e. the flow along this edge must be equal to its capacity).
-The second edge is less important - the flow along it can be anything, assuming that it doesn't exceed its capacity.
-Consider each edge that has to be saturated, and we perform the following operation:
-we draw the edge from the new source $s'$ to its end $v$, draw the edge from its start $u$ to the new sink $t'$, remove the edge itself, and from the old sink $t$ to the old source $s$ we draw an edge of infinite capacity.
-By these actions we simulate the fact that this edge is saturated - from $v$ there will be an additionally $d(e)$ flow outgoing (we simulate it with a new source that feeds the right amount of flow to $v$), and $u$ will also push $d(e)$ additional flow (but instead along the old edge, this flow will go directly to the new sink $t'$).
-A flow with the value $d(e)$, that originally flowed along the path $s - \dots - u - v - \dots t$ can now take the new path $s' - v - \dots - t - s - \dots - u - t'$.
-The only thing that got simplified in the definition of the new network, is that if procedure created multiple edges between the same pair of vertices, then they are combined to one single edge with the summed capacity.
+এই রূপান্তরগুলোর সঠিকতা বোঝা আরও কঠিন। আমরা এটি নিম্নলিখিতভাবে ভাবতে পারি: $d(e) > 0$ সহ প্রতিটি এজ $e = (u, v)$ মূলত দুটি এজ দিয়ে প্রতিস্থাপিত হয়: একটি $d(i)$ ক্যাপাসিটির, এবং অন্যটি $c(i) - d(i)$ ক্যাপাসিটির। আমরা প্রথম এজটি স্যাচুরেট করতে চাই (অর্থাৎ এই এজ বরাবর ফ্লো তার ক্যাপাসিটির সমান হতে হবে)। দ্বিতীয় এজটি কম গুরুত্বপূর্ণ - এটি বরাবর ফ্লো যেকোনো কিছু হতে পারে, যদি এটি তার ক্যাপাসিটি অতিক্রম না করে। যে প্রতিটি এজ স্যাচুরেট করতে হবে সেগুলো বিবেচনা করি, এবং আমরা নিম্নলিখিত অপারেশন করি: নতুন সোর্স $s'$ থেকে এর শেষ $v$-তে এজ আঁকি, এর শুরু $u$ থেকে নতুন সিংক $t'$-এ এজ আঁকি, এজটি নিজে সরিয়ে দিই, এবং পুরনো সিংক $t$ থেকে পুরনো সোর্স $s$-তে অসীম ক্যাপাসিটির এজ আঁকি। এই কাজগুলো দিয়ে আমরা এই সত্যটি সিমুলেট করি যে এজটি স্যাচুরেটেড - $v$ থেকে অতিরিক্ত $d(e)$ ফ্লো বের হবে (আমরা একটি নতুন সোর্স দিয়ে সিমুলেট করি যা $v$-তে সঠিক পরিমাণ ফ্লো সরবরাহ করে), এবং $u$-ও $d(e)$ অতিরিক্ত ফ্লো পুশ করবে (কিন্তু পুরনো এজ বরাবর না গিয়ে, এই ফ্লো সরাসরি নতুন সিংক $t'$-এ যাবে)। $d(e)$ মানের একটি ফ্লো, যা মূলত $s - \dots - u - v - \dots t$ পাথ বরাবর প্রবাহিত হতো, এখন $s' - v - \dots - t - s - \dots - u - t'$ নতুন পাথ নিতে পারে। নতুন নেটওয়ার্কের সংজ্ঞায় একমাত্র যে জিনিসটি সরলীকৃত হয়েছে তা হল, প্রক্রিয়াটি একই ভার্টেক্স জোড়ার মধ্যে একাধিক এজ তৈরি করলে, সেগুলো যোগকৃত ক্যাপাসিটি সহ একটি একক এজে একত্রিত হয়।
 
-## Minimal flow
+## ন্যূনতম ফ্লো
 
-Note that along the edge $(t, s)$ (from the old sink to the old source) with the capacity $\infty$ flows the entire flow of the corresponding old network.
-I.e. the capacity of this edge effects the flow value of the old network.
-By giving this edge a sufficient large capacity (i.e. $\infty$), the flow of the old network is unlimited.
-By limiting this edge by smaller capacities, the flow value will decrease.
-However if we limit this edge by a too small value, than the network will not have a saturated solution, e.g. the corresponding solution for the original network will not satisfy the demand of the edges.
-Obviously here can use a binary search to find the lowest value with which all constraints are still satisfied.
-This gives the minimal flow of the original network.
+লক্ষ্য করুন যে $(t, s)$ এজ বরাবর (পুরনো সিংক থেকে পুরনো সোর্সে) $\infty$ ক্যাপাসিটিসহ সংশ্লিষ্ট পুরনো নেটওয়ার্কের সম্পূর্ণ ফ্লো প্রবাহিত হয়। অর্থাৎ এই এজের ক্যাপাসিটি পুরনো নেটওয়ার্কের ফ্লো মানকে প্রভাবিত করে। এই এজকে যথেষ্ট বড় ক্যাপাসিটি (অর্থাৎ $\infty$) দিলে, পুরনো নেটওয়ার্কের ফ্লো সীমাহীন। এই এজকে ছোট ক্যাপাসিটি দিয়ে সীমাবদ্ধ করলে, ফ্লো মান কমবে। তবে এই এজকে খুব ছোট মান দিয়ে সীমাবদ্ধ করলে, নেটওয়ার্কের স্যাচুরেটেড সমাধান থাকবে না, অর্থাৎ মূল নেটওয়ার্কের সংশ্লিষ্ট সমাধান এজের ডিমান্ড পূরণ করবে না। স্পষ্টতই এখানে আমরা বাইনারি সার্চ ব্যবহার করে সবচেয়ে কম মান খুঁজে বের করতে পারি যেখানে সমস্ত শর্ত এখনও পূরণ হয়। এটি মূল নেটওয়ার্কের ন্যূনতম ফ্লো দেয়।

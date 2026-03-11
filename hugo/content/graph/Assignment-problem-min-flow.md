@@ -1,29 +1,29 @@
 ---
-title: "Solving assignment problem using min-cost-flow"
+title: "মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান"
 tags: 
 weight: 80
 ---
-# Solving assignment problem using min-cost-flow
+# মিন-কস্ট-ফ্লো ব্যবহার করে অ্যাসাইনমেন্ট প্রবলেম সমাধান
 
-The **assignment problem** has two equivalent statements:
+**অ্যাসাইনমেন্ট প্রবলেমের** দুটি সমতুল্য বিবৃতি আছে:
 
-   - Given a square matrix $A[1..N, 1..N]$, you need to select $N$ elements in it so that exactly one element is selected in each row and column, and the sum of the values of these elements is the smallest.
-   - There are $N$ orders and $N$ machines. The cost of manufacturing on each machine is known for each order.  Only one order can be performed on each machine. It is required to assign all orders to the machines so that the total cost is minimized.
+   - একটি বর্গ ম্যাট্রিক্স $A[1..N, 1..N]$ দেওয়া আছে, এতে $N$ টি উপাদান নির্বাচন করতে হবে যেন প্রতিটি সারি ও কলামে ঠিক একটি উপাদান নির্বাচিত হয় এবং এই উপাদানগুলোর মানের যোগফল সর্বনিম্ন হয়।
+   - $N$ টি অর্ডার এবং $N$ টি মেশিন আছে। প্রতিটি অর্ডারের জন্য প্রতিটি মেশিনে তৈরির খরচ জানা আছে। প্রতিটি মেশিনে শুধুমাত্র একটি অর্ডার সম্পাদন করা যায়। সকল অর্ডার মেশিনগুলোতে এমনভাবে অ্যাসাইন করতে হবে যেন মোট খরচ সর্বনিম্ন হয়।
 
-Here we will consider the solution of the problem based on the algorithm for finding the [minimum cost flow (min-cost-flow)](min_cost_flow.md), solving the assignment problem in $\mathcal{O}(N^3)$.
+এখানে আমরা [মিনিমাম কস্ট ফ্লো (মিন-কস্ট-ফ্লো)](min_cost_flow.md) নির্ণয়ের অ্যালগরিদমের উপর ভিত্তি করে সমস্যার সমাধান বিবেচনা করব, যা $\mathcal{O}(N^3)$ সময়ে অ্যাসাইনমেন্ট প্রবলেম সমাধান করে।
 
-## Description
+## বর্ণনা
 
-Let's build a bipartite network: there is a source $S$, a drain $T$, in the first part there are $N$ vertices (corresponding to rows of the matrix, or orders), in the second there are also $N$ vertices (corresponding to the columns of the matrix, or machines). Between each vertex $i$ of the first set and each vertex $j$ of the second set, we draw an edge with bandwidth 1 and cost $A_{ij}$. From the source $S$ we draw edges to all vertices $i$ of the first set with bandwidth 1 and cost 0. We draw an edge with bandwidth 1 and cost 0 from each vertex of the second set $j$ to the drain $T$.
+আসুন একটি বাইপার্টাইট নেটওয়ার্ক তৈরি করি: একটি সোর্স $S$, একটি সিংক $T$, প্রথম অংশে $N$ টি ভার্টেক্স (ম্যাট্রিক্সের সারি বা অর্ডারের সাথে সঙ্গতিপূর্ণ), দ্বিতীয় অংশেও $N$ টি ভার্টেক্স (ম্যাট্রিক্সের কলাম বা মেশিনের সাথে সঙ্গতিপূর্ণ)। প্রথম সেটের প্রতিটি ভার্টেক্স $i$ এবং দ্বিতীয় সেটের প্রতিটি ভার্টেক্স $j$-এর মধ্যে ব্যান্ডউইথ ১ এবং কস্ট $A_{ij}$ সহ একটি এজ আঁকি। সোর্স $S$ থেকে প্রথম সেটের সকল ভার্টেক্স $i$-তে ব্যান্ডউইথ ১ এবং কস্ট ০ সহ এজ আঁকি। দ্বিতীয় সেটের প্রতিটি ভার্টেক্স $j$ থেকে সিংক $T$-তে ব্যান্ডউইথ ১ এবং কস্ট ০ সহ একটি এজ আঁকি।
 
-We find in the resulting network the maximum flow of the minimum cost. Obviously, the value of the flow will be $N$. Further, for each vertex $i$ of the first segment there is exactly one vertex $j$ of the second segment, such that the flow $F_{ij}$ = 1. Finally, this is a one-to-one correspondence between the vertices of the first segment and the vertices of the second part, which is the solution to the problem (since the found flow has a minimal cost, then the sum of the costs of the selected edges will be the lowest possible, which is the optimality criterion).
+প্রাপ্ত নেটওয়ার্কে মিনিমাম কস্টের ম্যাক্সিমাম ফ্লো খুঁজি। স্পষ্টতই, ফ্লো-এর মান $N$ হবে। এছাড়াও, প্রথম সেগমেন্টের প্রতিটি ভার্টেক্স $i$-এর জন্য দ্বিতীয় সেগমেন্টের ঠিক একটি ভার্টেক্স $j$ আছে, যেখানে ফ্লো $F_{ij}$ = ১। পরিশেষে, এটি প্রথম সেগমেন্ট ও দ্বিতীয় অংশের ভার্টেক্সগুলোর মধ্যে একটি এক-এক সঙ্গতি, যা সমস্যার সমাধান (যেহেতু প্রাপ্ত ফ্লো-এর কস্ট সর্বনিম্ন, তাই নির্বাচিত এজগুলোর কস্টের যোগফল সম্ভাব্য সর্বনিম্ন হবে, যা অপটিমালিটির মানদণ্ড)।
 
-The complexity of this solution of the assignment problem depends on the algorithm by which the search for the maximum flow of the minimum cost is performed. The complexity will be $\mathcal{O}(N^3)$ using [Dijkstra](dijkstra.md) or $\mathcal{O}(N^4)$ using [Bellman-Ford](bellman_ford.md). This is due to the fact that the flow is of size $O(N)$ and each iteration of Dijkstra algorithm can be performed in $O(N^2)$, while it is $O(N^3)$ for Bellman-Ford.
+এই সমাধানের কমপ্লেক্সিটি নির্ভর করে মিনিমাম কস্টের ম্যাক্সিমাম ফ্লো খোঁজার জন্য কোন অ্যালগরিদম ব্যবহৃত হচ্ছে তার উপর। [ডায়াক্সট্রা](dijkstra.md) ব্যবহার করলে কমপ্লেক্সিটি হবে $\mathcal{O}(N^3)$ অথবা [বেলম্যান-ফোর্ড](bellman_ford.md) ব্যবহার করলে $\mathcal{O}(N^4)$। এর কারণ হলো ফ্লো-এর আকার $O(N)$ এবং ডায়াক্সট্রা অ্যালগরিদমের প্রতিটি ইটারেশন $O(N^2)$ সময়ে সম্পন্ন করা যায়, যেখানে বেলম্যান-ফোর্ডের জন্য এটি $O(N^3)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The implementation given here is long, it can probably be significantly reduced.
-It uses the [SPFA algorithm](bellman_ford.md) for finding shortest paths.
+এখানে দেওয়া ইমপ্লিমেন্টেশনটি দীর্ঘ, এটি সম্ভবত উল্লেখযোগ্যভাবে সংক্ষিপ্ত করা যায়।
+এটি শর্টেস্ট পাথ নির্ণয়ের জন্য [SPFA অ্যালগরিদম](bellman_ford.md) ব্যবহার করে।
 
 ```cpp
 const int INF = 1000 * 1000 * 1000;

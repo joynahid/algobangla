@@ -1,23 +1,23 @@
 ---
-title: "Calculating the determinant of a matrix by Gauss"
+title: "গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়"
 tags: 
 weight: 20
 ---
-# Calculating the determinant of a matrix by Gauss
+# গাউস পদ্ধতিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়
 
-Problem: Given a matrix $A$ of size $N \times N$. Compute its determinant.
+সমস্যা: $N \times N$ আকারের একটি ম্যাট্রিক্স $A$ দেওয়া আছে। এর নির্ণায়ক নির্ণয় করতে হবে।
 
-## Algorithm
+## অ্যালগরিদম
 
-We use the ideas of [Gauss method for solving systems of linear equations](linear-system-gauss.md)
+আমরা [রৈখিক সমীকরণ ব্যবস্থা সমাধানের জন্য গাউস পদ্ধতি](linear-system-gauss.md)-এর ধারণা ব্যবহার করব।
 
-We will perform the same steps as in the solution of systems of linear equations, excluding only the division of the current line to $a_{ij}$. These operations will not change the absolute value of the determinant of the matrix. When we exchange two lines of the matrix, however, the sign of the determinant can change.
+আমরা রৈখিক সমীকরণ ব্যবস্থা সমাধানের মতোই একই ধাপগুলো অনুসরণ করব, শুধু বর্তমান সারিকে $a_{ij}$ দিয়ে ভাগ করা বাদ দিয়ে। এই অপারেশনগুলো ম্যাট্রিক্সের নির্ণায়কের পরম মান পরিবর্তন করবে না। তবে, যখন আমরা ম্যাট্রিক্সের দুটি সারি বিনিময় করি, তখন নির্ণায়কের চিহ্ন পরিবর্তন হতে পারে।
 
-After applying Gauss on the matrix, we receive a diagonal matrix, whose determinant is just the product of the elements on the diagonal. The sign, as previously mentioned, can be determined by the number of exchanged rows (if odd, then the sign of the determinant should be reversed). Thus, we can use the Gauss algorithm to compute the determinant of the matrix in complexity $O(N^3)$.
+ম্যাট্রিক্সে গাউস পদ্ধতি প্রয়োগ করার পর, আমরা একটি কর্ণ ম্যাট্রিক্স পাই, যার নির্ণায়ক হলো কর্ণের উপাদানগুলোর গুণফল। পূর্বে উল্লেখিত চিহ্নটি সারি বিনিময়ের সংখ্যা দ্বারা নির্ধারিত হতে পারে (যদি বিজোড় হয়, তাহলে নির্ণায়কের চিহ্ন উল্টাতে হবে)। এভাবে, আমরা $O(N^3)$ কমপ্লেক্সিটিতে ম্যাট্রিক্সের নির্ণায়ক নির্ণয়ের জন্য গাউস অ্যালগরিদম ব্যবহার করতে পারি।
 
-It should be noted that if at some point, we do not find non-zero cell in current column, the algorithm should stop and returns 0.
+লক্ষণীয় যে, কোনো এক পর্যায়ে যদি বর্তমান কলামে অশূন্য ঘর খুঁজে না পাওয়া যায়, তাহলে অ্যালগরিদমটি থামবে এবং ০ রিটার্ন করবে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 const double EPS = 1E-9;
@@ -49,5 +49,5 @@ for (int i=0; i<n; ++i) {
 cout << det;
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Codeforces - Wizards and Bets](http://codeforces.com/contest/167/problem/E)

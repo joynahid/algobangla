@@ -1,32 +1,32 @@
 ---
-title: "Finding Power of Factorial Divisor"
+title: "ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়"
 tags: 
 weight: 10
 ---
-# Finding Power of Factorial Divisor
+# ফ্যাক্টোরিয়াল ভাজকের ঘাত নির্ণয়
 
-You are given two numbers $n$ and $k$. Find the largest integer $x$ such that $k^x$ divides $n!$.
+আপনাকে দুটি সংখ্যা $n$ ও $k$ দেওয়া আছে। এমন সর্ববৃহৎ পূর্ণসংখ্যা $x$ খুঁজুন যেন $k^x$ $n!$-কে ভাগ করে।
 
-## Prime $k$ {data-toc-label="Prime k"}
+## মৌলিক $k$ {data-toc-label="Prime k"}
 
-Let's first consider the case of prime $k$. The explicit expression for factorial
+প্রথমে মৌলিক $k$-এর ক্ষেত্রটি বিবেচনা করি। ফ্যাক্টোরিয়ালের সুস্পষ্ট রাশি
 
 $$n! = 1 \cdot 2 \cdot 3 \ldots (n-1) \cdot n$$
 
-Note that every $k$-th element of the product is divisible by $k$, i.e. adds $+1$ to the answer; the number of such elements is $\Bigl\lfloor\dfrac{n}{k}\Bigr\rfloor$.
+লক্ষ্য করুন যে গুণফলের প্রতি $k$-তম উপাদান $k$ দ্বারা বিভাজ্য, অর্থাৎ উত্তরে $+1$ যোগ করে; এই ধরনের উপাদানের সংখ্যা $\Bigl\lfloor\dfrac{n}{k}\Bigr\rfloor$।
 
-Next, every $k^2$-th element is divisible by $k^2$, i.e. adds another $+1$ to the answer (the first power of $k$ has already been counted in the previous paragraph). The number of such elements is $\Bigl\lfloor\dfrac{n}{k^2}\Bigr\rfloor$.
+এরপর, প্রতি $k^2$-তম উপাদান $k^2$ দ্বারা বিভাজ্য, অর্থাৎ উত্তরে আরেকটি $+1$ যোগ করে (আগের অনুচ্ছেদে $k$-এর প্রথম ঘাত ইতিমধ্যে গণনা করা হয়েছে)। এই ধরনের উপাদানের সংখ্যা $\Bigl\lfloor\dfrac{n}{k^2}\Bigr\rfloor$।
 
-And so on, for every $i$ each $k^i$-th element adds another $+1$ to the answer, and there are $\Bigl\lfloor\dfrac{n}{k^i}\Bigr\rfloor$ such elements.
+এবং এভাবে চলতে থাকে, প্রতি $i$-এর জন্য প্রতিটি $k^i$-তম উপাদান উত্তরে আরেকটি $+1$ যোগ করে, এবং এরকম $\Bigl\lfloor\dfrac{n}{k^i}\Bigr\rfloor$ টি উপাদান আছে।
 
-The final answer is
+চূড়ান্ত উত্তর হলো
 
 $$\Bigl\lfloor\dfrac{n}{k}\Bigr\rfloor + \Bigl\lfloor\dfrac{n}{k^2}\Bigr\rfloor + \ldots + \Bigl\lfloor\dfrac{n}{k^i}\Bigr\rfloor + \ldots$$
 
-This result is also known as [Legendre's formula](https://en.wikipedia.org/wiki/Legendre%27s_formula).
-The sum is of course finite, since only approximately the first $\log_k n$ elements are not zeros. Thus, the runtime of this algorithm is $O(\log_k n)$.
+এই ফলাফলটি [লেজান্দ্রের সূত্র](https://en.wikipedia.org/wiki/Legendre%27s_formula) নামেও পরিচিত।
+যোগফলটি অবশ্যই সসীম, কারণ আনুমানিকভাবে প্রথম $\log_k n$ টি উপাদানই শূন্য নয়। সুতরাং, এই অ্যালগরিদমের রানটাইম $O(\log_k n)$।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```cpp
 
@@ -41,8 +41,8 @@ int fact_pow (int n, int k) {
 
 ```
 
-## Composite $k$ {data-toc-label="Composite k"}
+## যৌগিক $k$ {data-toc-label="Composite k"}
 
-The same idea can't be applied directly. Instead we can factor $k$, representing it as $k = k_1^{p_1} \cdot \ldots \cdot k_m^{p_m}$. For each $k_i$, we find the number of times it is present in $n!$ using the algorithm described above - let's call this value $a_i$. The answer for composite $k$ will be
+একই ধারণা সরাসরি প্রয়োগ করা যায় না। পরিবর্তে আমরা $k$-কে ফ্যাক্টরাইজ করতে পারি, এটিকে $k = k_1^{p_1} \cdot \ldots \cdot k_m^{p_m}$ হিসেবে উপস্থাপন করে। প্রতিটি $k_i$-এর জন্য, উপরে বর্ণিত অ্যালগরিদম ব্যবহার করে $n!$-এ এটি কতবার উপস্থিত তা খুঁজে বের করি - একে $a_i$ বলি। যৌগিক $k$-এর জন্য উত্তর হবে
 
 $$\min_ {i=1 \ldots m} \dfrac{a_i}{p_i}$$

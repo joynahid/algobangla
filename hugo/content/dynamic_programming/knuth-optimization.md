@@ -1,38 +1,37 @@
 ---
-title: "Knuth's Optimization"
+title: "নুথের অপটিমাইজেশন"
 tags: 
 weight: 20
 ---
-# Knuth's Optimization
+# নুথের অপটিমাইজেশন
 
-Knuth's optimization, also known as the Knuth-Yao Speedup, is a special case of dynamic programming on ranges, that can optimize the time complexity of solutions by a linear factor, from $O(n^3)$ for standard range DP to $O(n^2)$.
+নুথের অপটিমাইজেশন, যা নুথ-ইয়াও স্পিডআপ নামেও পরিচিত, রেঞ্জ ডায়নামিক প্রোগ্রামিংয়ের একটি বিশেষ ক্ষেত্র, যা সমাধানের টাইম কমপ্লেক্সিটি একটি লিনিয়ার ফ্যাক্টর দ্বারা কমাতে পারে — স্ট্যান্ডার্ড রেঞ্জ ডিপি-র $O(n^3)$ থেকে $O(n^2)$-এ।
 
-## Conditions
+## শর্তসমূহ
 
-The Speedup is applied for transitions of the form
+এই স্পিডআপটি নিম্নলিখিত আকারের ট্রানজিশনের ক্ষেত্রে প্রয়োগ করা হয়
 
 $$dp(i, j) = \min_{i \leq k < j} [ dp(i, k) + dp(k+1, j) + C(i, j) ].$$
 
-Similar to [divide and conquer DP](./divide-and-conquer-dp.md), let $opt(i, j)$ be the maximum value of $k$ that minimizes the expression in the transition ($opt$ is referred to as the "optimal splitting point" further in this article). The optimization requires that the following holds:
+[ডিভাইড অ্যান্ড কনকার ডিপি](./divide-and-conquer-dp.md)-র মতোই, ধরি $opt(i, j)$ হলো $k$-র সেই সর্বোচ্চ মান যা ট্রানজিশনের রাশিটিকে মিনিমাইজ করে (এই আর্টিকেলে $opt$-কে "অপটিমাল স্প্লিটিং পয়েন্ট" বলা হয়েছে)। অপটিমাইজেশনটির জন্য নিম্নলিখিত শর্তটি সত্য হতে হবে:
 
 $$opt(i, j-1) \leq opt(i, j) \leq opt(i+1, j).$$
 
-We can show that it is true when the cost function $C$ satisfies the following conditions for $a \leq b \leq c \leq d$:
+আমরা দেখাতে পারি যে এটি সত্য হয় যখন কস্ট ফাংশন $C$ নিম্নলিখিত শর্তগুলো পূরণ করে, যেখানে $a \leq b \leq c \leq d$:
 
-1. $C(b, c) \leq C(a, d)$;
+১. $C(b, c) \leq C(a, d)$;
 
-2. $C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$ (the quadrangle inequality [QI]).
+২. $C(a, c) + C(b, d) \leq C(a, d) + C(b, c)$ (চতুর্ভুজ অসমতা [QI])।
 
-This result is proved further below.
+এই ফলাফলটি নিচে প্রমাণ করা হয়েছে।
 
-## Algorithm
+## অ্যালগরিদম
 
-Let's process the dp states in such a way that we calculate $dp(i, j-1)$ and $dp(i+1, j)$ before $dp(i, j)$, and in doing so we also calculate $opt(i, j-1)$ and $opt(i+1, j)$. Then for calculating $opt(i, j)$, instead of testing values of $k$ from $i$ to $j-1$, we only need to test from $opt(i, j-1)$ to $opt(i+1, j)$. To process $(i,j)$ pairs in this order it is sufficient to use nested for loops in which $i$ goes from the maximum value to the minimum one and $j$ goes from $i+1$ to the maximum value.
+আসুন ডিপি স্টেটগুলো এমনভাবে প্রসেস করি যাতে আমরা $dp(i, j)$-র আগে $dp(i, j-1)$ এবং $dp(i+1, j)$ হিসাব করি, এবং একইসাথে $opt(i, j-1)$ এবং $opt(i+1, j)$-ও হিসাব করি। তাহলে $opt(i, j)$ হিসাব করতে, $k$-র মান $i$ থেকে $j-1$ পর্যন্ত পরীক্ষা করার বদলে, আমাদের শুধু $opt(i, j-1)$ থেকে $opt(i+1, j)$ পর্যন্ত পরীক্ষা করতে হবে। $(i,j)$ জোড়াগুলো এই ক্রমে প্রসেস করতে নেস্টেড ফর লুপ ব্যবহার করাই যথেষ্ট, যেখানে $i$ সর্বোচ্চ মান থেকে সর্বনিম্ন মানে যায় এবং $j$ যায় $i+1$ থেকে সর্বোচ্চ মানে।
 
-### Generic implementation
+### সাধারণ ইমপ্লিমেন্টেশন
 
-Though implementation varies, here's a fairly generic
-example. The structure of the code is almost identical to that of Range DP.
+ইমপ্লিমেন্টেশন ভিন্ন হতে পারে, তবে এখানে একটি মোটামুটি সাধারণ উদাহরণ দেওয়া হলো। কোডের গঠন রেঞ্জ ডিপি-র সাথে প্রায় অভিন্ন।
 
 ```cpp
 
@@ -56,11 +55,11 @@ int solve() {
             int cost = C(i, j);
             for (int k = opt[i][j-1]; k <= min(j-1, opt[i+1][j]); k++) {
                 if (mn >= dp[i][k] + dp[k+1][j] + cost) {
-                    opt[i][j] = k; 
-                    mn = dp[i][k] + dp[k+1][j] + cost; 
+                    opt[i][j] = k;
+                    mn = dp[i][k] + dp[k+1][j] + cost;
                 }
             }
-            dp[i][j] = mn; 
+            dp[i][j] = mn;
         }
     }
 
@@ -68,130 +67,129 @@ int solve() {
 }
 ```
 
-### Complexity
+### কমপ্লেক্সিটি
 
-A complexity of the algorithm can be estimated as the following sum:
+অ্যালগরিদমের কমপ্লেক্সিটি নিম্নলিখিত যোগফল দ্বারা অনুমান করা যায়:
 
 $$
 \sum\limits_{i=1}^N \sum\limits_{j=i+1}^N [opt(i+1,j)-opt(i,j-1)] =
 \sum\limits_{i=1}^N \sum\limits_{j=i}^{N-1} [opt(i+1,j+1)-opt(i,j)].
 $$
 
-As you see, most of the terms in this expression cancel each other out, except for positive terms with $j=N-1$ and negative terms with $i=1$. Thus, the whole sum can be estimated as
+দেখা যায়, এই রাশির বেশিরভাগ পদ একে অপরকে বাতিল করে দেয়, শুধু $j=N-1$ সহ ধনাত্মক পদ এবং $i=1$ সহ ঋণাত্মক পদ ছাড়া। সুতরাং, পুরো যোগফলকে এভাবে অনুমান করা যায়
 
 $$
 \sum\limits_{k=1}^N[opt(k,N)-opt(1,k)] = O(n^2),
 $$
 
-rather than $O(n^3)$ as it would be if we were using a regular range DP.
+যা রেগুলার রেঞ্জ ডিপি ব্যবহার করলে $O(n^3)$ হতো তার বদলে।
 
-### On practice
+### বাস্তবে প্রয়োগ
 
-The most common application of Knuth's optimization is in Range DP, with the given transition. The only difficulty is in proving that the cost function satisfies the given conditions. The simplest case is when the cost function $C(i, j)$ is simply the sum of the elements of the subarray $S[i, i+1, ..., j]$ for some array (depending on the question). However, they can be more complicated at times. 
+নুথের অপটিমাইজেশনের সবচেয়ে সাধারণ প্রয়োগ হলো রেঞ্জ ডিপি-তে, প্রদত্ত ট্রানজিশন সহ। একমাত্র কঠিন বিষয় হলো প্রমাণ করা যে কস্ট ফাংশনটি প্রদত্ত শর্তগুলো পূরণ করে। সবচেয়ে সরল ক্ষেত্র হলো যখন কস্ট ফাংশন $C(i, j)$ কেবল কোনো অ্যারে (প্রশ্নের উপর নির্ভর করে) $S[i, i+1, ..., j]$ সাবঅ্যারের উপাদানগুলোর যোগফল। তবে, কখনো কখনো এগুলো আরো জটিল হতে পারে।
 
-Note that more than the conditions on the dp transition and the cost function, the key to this optimization is the inequality on the optimum splitting point. In some problems, such as the optimal binary search tree problem (which is, incidentally, the original problem for which this optimization was developed), the transitions and cost functions will be less obvious, however, one can still prove that $opt(i, j-1) \leq opt(i, j) \leq opt(i+1, j)$, and thus, use this optimization.
+লক্ষ্য করুন যে ডিপি ট্রানজিশন এবং কস্ট ফাংশনের শর্তগুলোর চেয়েও গুরুত্বপূর্ণ হলো অপটিমাম স্প্লিটিং পয়েন্টের অসমতাটি। কিছু সমস্যায়, যেমন অপটিমাল বাইনারি সার্চ ট্রি সমস্যায় (যেটি আসলে এই অপটিমাইজেশনটি প্রথম যে সমস্যার জন্য তৈরি হয়েছিল), ট্রানজিশন এবং কস্ট ফাংশন কম স্পষ্ট হতে পারে, তবুও এটি প্রমাণ করা যায় যে $opt(i, j-1) \leq opt(i, j) \leq opt(i+1, j)$, এবং তাই এই অপটিমাইজেশন ব্যবহার করা সম্ভব।
 
 
-### Proof of correctness
+### সঠিকতার প্রমাণ
 
-To prove the correctness of this algorithm in terms of $C(i,j)$ conditions, it suffices to prove that
+এই অ্যালগরিদমের সঠিকতা প্রমাণ করতে $C(i,j)$-র শর্তের ভিত্তিতে, এটি প্রমাণ করাই যথেষ্ট যে
 
 $$
 opt(i, j-1) \leq opt(i, j) \leq opt(i+1, j)
 $$
 
-assuming the given conditions are satisfied. 
+ধরে নিচ্ছি প্রদত্ত শর্তগুলো সত্য।
 
 {{< hint info >}}
-**Lemma**
+**লেমা**
 
-$dp(i, j)$ also satisfies the quadrangle inequality, given the conditions of the problem are satisfied.
+$dp(i, j)$-ও চতুর্ভুজ অসমতা পূরণ করে, যদি সমস্যার শর্তগুলো সত্য হয়।
 {{< /hint >}}
-{{< details "Proof" >}}
-The proof for this lemma uses strong induction. It has been taken from the paper <a href="https://dl.acm.org/doi/pdf/10.1145/800141.804691">Efficient Dynamic Programming Using Quadrangle Inequalities</a>, authored by F. Frances Yao, which introduced the Knuth-Yao Speedup (this particular statement is Lemma 2.1 in the paper). The idea is to induct on the length $l = d - a$. The case where $l = 1$ is trivial. For $l > 1$ consider 2 cases:  
+{{< details "প্রমাণ" >}}
+এই লেমার প্রমাণে স্ট্রং ইন্ডাকশন ব্যবহার করা হয়েছে। এটি F. Frances Yao রচিত <a href="https://dl.acm.org/doi/pdf/10.1145/800141.804691">Efficient Dynamic Programming Using Quadrangle Inequalities</a> পেপার থেকে নেওয়া হয়েছে, যেটি নুথ-ইয়াও স্পিডআপ প্রবর্তন করেছিল (এই বিশেষ স্টেটমেন্টটি পেপারের লেমা ২.১)। ধারণাটি হলো দৈর্ঘ্য $l = d - a$ এর উপর ইন্ডাকশন করা। $l = 1$ এর ক্ষেত্রটি তুচ্ছ। $l > 1$ এর জন্য ২টি কেস বিবেচনা করি:
 
-1. $b = c$  
-The inequality reduces to $dp(a, b) + dp(b, d) \leq dp(a, d)$ (This assumes that $dp(i, i) = 0$ for all $i$, which is the case for all problems using this optimization). Let $opt(a,d) = z$. 
+১. $b = c$
+অসমতাটি $dp(a, b) + dp(b, d) \leq dp(a, d)$-তে সরল হয় (এটি ধরে নেয় যে সব $i$ এর জন্য $dp(i, i) = 0$, যা এই অপটিমাইজেশন ব্যবহারকারী সব সমস্যায় সত্য)। ধরি $opt(a,d) = z$।
 
-    - If $z < j$,  
-    Note that
-    
+    - যদি $z < j$ হয়,
+    লক্ষ্য করুন যে
+
         $$
         dp(a, b) \leq dp_{z}(a, b) = dp(a, z) + dp(z+1, b) + C(a, b).
         $$
-        
-        Therefore,  
-        
+
+        সুতরাং,
+
         $$
         dp(a, b) + dp(b, d) \leq dp(a, z) + dp(z+1, b) + dp(b, d) + C(a, b)
         $$
 
-        From the induction hypothesis, $dp(z+1, b) + dp(b, d) \leq dp(z+1, d)$. Also, it is given that $C(a, b) \leq C(a, d)$. Combining these 2 facts with above inequality yields the desired result.
+        ইন্ডাকশন হাইপোথিসিস থেকে, $dp(z+1, b) + dp(b, d) \leq dp(z+1, d)$। এছাড়াও, দেওয়া আছে যে $C(a, b) \leq C(a, d)$। এই ২টি তথ্য উপরের অসমতার সাথে মিলিয়ে কাঙ্ক্ষিত ফলাফল পাওয়া যায়।
 
-    - If $z \geq j$, the proof of this case is symmetric to the previous case.
+    - যদি $z \geq j$ হয়, এই কেসের প্রমাণ পূর্ববর্তী কেসের সাথে সিমেট্রিক।
 
-2. $b < c$  
-Let $opt(b, c) = z$ and $opt(a, d) = y$. 
-    
-    - If $z \leq y$,  
-    
+২. $b < c$
+ধরি $opt(b, c) = z$ এবং $opt(a, d) = y$।
+
+    - যদি $z \leq y$ হয়,
+
         $$
         dp(a, c) + dp(b, d) \leq dp_{z}(a, c) + dp_{y}(b, d)
         $$
 
-        where
+        যেখানে
 
         $$
         dp_{z}(a, c) + dp_{y}(b, d) = C(a, c) + C(b, d) + dp(a, z) + dp(z+1, c) + dp(b, y) + dp(y+1, d).
         $$
 
-        Using the QI on $C$ and on the dp state for the indices $z+1 \leq y+1 \leq c \leq d$ (from the induction hypothesis) yields the desired result.
-    
-    - If $z > y$, the proof of this case is symmetric to the previous case.
+        $C$-তে QI ব্যবহার করে এবং $z+1 \leq y+1 \leq c \leq d$ ইনডেক্সের জন্য ডিপি স্টেটে (ইন্ডাকশন হাইপোথিসিস থেকে) কাঙ্ক্ষিত ফলাফল পাওয়া যায়।
 
-This completes the proof of the lemma.
+    - যদি $z > y$ হয়, এই কেসের প্রমাণ পূর্ববর্তী কেসের সাথে সিমেট্রিক।
+
+এটি লেমার প্রমাণ সম্পন্ন করে।
 {{< /details >}}
-Now, consider the following setup. We have 2 indices $i \leq p \leq q < j$. Set $dp_{k} = C(i, j) + dp(i, k) + dp(k+1, j)$.
+এখন, নিম্নলিখিত সেটআপ বিবেচনা করুন। আমাদের ২টি ইনডেক্স $i \leq p \leq q < j$ আছে। ধরি $dp_{k} = C(i, j) + dp(i, k) + dp(k+1, j)$।
 
-Suppose we show that
+মনে করি আমরা দেখাতে পারি যে
 
 $$
 dp_{p}(i, j-1) \geq dp_{q}(i, j-1) \implies dp_{p}(i, j) \geq dp_{q}(i, j).
 $$
 
-Setting $q = opt(i, j-1)$, by definition, $dp_{p}(i, j-1) \geq dp_{q}(i, j-1)$. Therefore, applying the inequality to all $i \leq p \leq q$, we can infer that $opt(i, j)$ is at least as much as $opt(i, j-1)$, proving the first half of the inequality.
+$q = opt(i, j-1)$ রাখলে, সংজ্ঞানুসারে, $dp_{p}(i, j-1) \geq dp_{q}(i, j-1)$। সুতরাং, সব $i \leq p \leq q$-তে এই অসমতা প্রয়োগ করে, আমরা অনুমান করতে পারি যে $opt(i, j)$ কমপক্ষে $opt(i, j-1)$-র সমান, যা অসমতার প্রথম অংশ প্রমাণ করে।
 
-Now, using the QI on some indices $p+1 \leq q+1 \leq j-1 \leq j$, we get
+এখন, কিছু ইনডেক্স $p+1 \leq q+1 \leq j-1 \leq j$-তে QI ব্যবহার করে, আমরা পাই
 
 $$\begin{align}
 &dp(p+1, j-1) + dp(q+1, j) ≤ dp(q+1, j-1) + dp(p+1, j) \\
-\implies& (dp(i, p) + dp(p+1, j-1) + C(i, j-1)) + (dp(i, q) + dp(q+1, j) + C(i, j)) \\  
-\leq& (dp(i, q) + dp(q+1, j-1) + C(i, j-1)) + (dp(i, p) + dp(p+1, j) + C(i, j)) \\  
+\implies& (dp(i, p) + dp(p+1, j-1) + C(i, j-1)) + (dp(i, q) + dp(q+1, j) + C(i, j)) \\
+\leq& (dp(i, q) + dp(q+1, j-1) + C(i, j-1)) + (dp(i, p) + dp(p+1, j) + C(i, j)) \\
 \implies& dp_{p}(i, j-1) + dp_{q}(i, j) ≤ dp_{p}(i, j) + dp_{q}(i, j-1) \\
 \implies& dp_{p}(i, j-1) - dp_{q}(i, j-1) ≤ dp_{p}(i, j) - dp_{q}(i, j) \\
 \end{align}$$
 
-Finally,
+সবশেষে,
 
 $$\begin{align}
 &dp_{p}(i, j-1) \geq dp_{q}(i, j-1) \\
 &\implies 0 \leq dp_{p}(i, j-1) - dp_{q}(i, j-1) \leq dp_{p}(i, j) - dp_{q}(i, j) \\
 &\implies dp_{p}(i, j) \geq dp_{q}(i, j)
-\end{align}$$  
+\end{align}$$
 
-This proves the first part of the inequality, i.e., $opt(i, j-1) \leq opt(i, j)$. The second part $opt(i, j) \leq opt(i+1, j)$ can be shown with the same idea, starting with the inequality 
-$dp(i, p) + dp(i+1, q) ≤ dp(i+1, p) + dp(i, q)$.
+এটি অসমতার প্রথম অংশ প্রমাণ করে, অর্থাৎ $opt(i, j-1) \leq opt(i, j)$। দ্বিতীয় অংশ $opt(i, j) \leq opt(i+1, j)$ একই ধারণায় দেখানো যায়, অসমতা $dp(i, p) + dp(i+1, q) ≤ dp(i+1, p) + dp(i, q)$ দিয়ে শুরু করে।
 
-This completes the proof.
+এটি প্রমাণ সম্পন্ন করে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [UVA - Cutting Sticks](https://onlinejudge.org/external/100/10003.pdf)
 - [UVA - Prefix Codes](https://onlinejudge.org/external/120/12057.pdf)
 - [SPOJ - Breaking String](https://www.spoj.com/problems/BRKSTRNG/)
 - [UVA - Optimal Binary Search Tree](https://onlinejudge.org/external/103/10304.pdf)
 
 
-## References
+## রেফারেন্স
 - [Geeksforgeeks Article](https://www.geeksforgeeks.org/knuths-optimization-in-dynamic-programming/)
 - [Doc on DP Speedups](https://home.cse.ust.hk/~golin/COMP572/Notes/DP_speedup.pdf)
 - [Efficient Dynamic Programming Using Quadrangle Inequalities](https://dl.acm.org/doi/pdf/10.1145/800141.804691)

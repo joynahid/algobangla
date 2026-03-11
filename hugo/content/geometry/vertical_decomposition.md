@@ -1,86 +1,80 @@
 ---
-title: "Vertical decomposition"
+title: "ভার্টিক্যাল ডিকম্পোজিশন"
 tags: 
 weight: 30
 ---
-# Vertical decomposition
+# ভার্টিক্যাল ডিকম্পোজিশন
 
-## Overview
-Vertical decomposition is a powerful technique used in various geometry problems. The general idea is to cut the plane into several vertical stripes
-with some "good" properties and solve the problem for these stripes independently. We will illustrate the idea on some examples.
+## সারসংক্ষেপ
+ভার্টিক্যাল ডিকম্পোজিশন হলো একটি শক্তিশালী কৌশল যা বিভিন্ন জ্যামিতিক সমস্যায় ব্যবহৃত হয়। মূল ধারণা হলো সমতলকে কিছু "ভালো" বৈশিষ্ট্যসম্পন্ন উল্লম্ব ফিতায় কাটা এবং এই ফিতাগুলোর জন্য স্বাধীনভাবে সমস্যা সমাধান করা। আমরা কিছু উদাহরণের মাধ্যমে এই ধারণাটি ব্যাখ্যা করব।
 
-## Area of the union of triangles
-Suppose that there are $n$ triangles on a plane and we are to find the area of their union. The problem would be easy if the triangles didn't intersect, so
-let's get rid of these intersections by dividing the plane into vertical stripes by drawing vertical lines through all vertices and all points of intersection of
-sides of different triangles. There may be $O(n^2)$ such lines so we obtained $O(n^2)$ stripes. Now consider some vertical stripe. Each non-vertical segment either crosses it from left to right or doesn't cross at all.
-Also, no two segments intersect strictly inside the stripe. It means that the part of the union of triangles that lies inside this stripe is composed of disjoint trapezoids with bases lying on the sides of the stripe.
-This property allows us to compute the area inside each stripe with a following scanline algorithm. Each segment crossing the stripe is either upper or lower, depending on whether the interior of the corresponding triangle
-is above or below the segment. We can visualize each upper segment as an opening bracket and each lower segment as a closing bracket and decompose the stripe into trapezoids by decomposing the bracket sequence into smaller correct bracket sequences. This algorithm requires $O(n^3\log n)$ time and $O(n^2)$ memory.
-### Optimization 1
-Firstly we will reduce the runtime to $O(n^2\log n)$. Instead of generating trapezoids for each stripe let's fix some triangle side (segment $s = (s_0, s_1)$) and find the set of stripes where this segment is a side of some trapezoid. Note that in this case we only have to find the stripes where the balance of brackets below (or above, in case of a lower segment) $s$ is zero. It means that instead of running vertical scanline for each stripe we can run a horizontal scanline for all parts of other segments which affect the balance of brackets with respect to $s$.
-For simplicity we will show how to do this for an upper segment, the algorithm for lower segments is similar. Consider some other non-vertical segment $t = (t_0, t_1)$ and find the intersection $[x_1, x_2]$ of projections of $s$ and $t$ on $Ox$. If this intersection is empty or consists of one point, $t$ can be discarded since $s$ and $t$ do not intersect the interior of the same stripe. Otherwise consider the intersection $I$ of $s$ and $t$. There are three cases.
+## ত্রিভুজসমূহের ইউনিয়নের ক্ষেত্রফল
+ধরুন, একটি সমতলে $n$ টি ত্রিভুজ আছে এবং আমাদের তাদের ইউনিয়নের ক্ষেত্রফল বের করতে হবে। ত্রিভুজগুলো যদি পরস্পরকে ছেদ না করত তাহলে সমস্যাটি সহজ হতো, তাই আসুন এই ছেদগুলো থেকে মুক্তি পাই — সমতলকে উল্লম্ব ফিতায় ভাগ করি: সকল শীর্ষবিন্দু এবং বিভিন্ন ত্রিভুজের বাহুগুলোর সকল ছেদবিন্দু দিয়ে উল্লম্ব রেখা আঁকি। এরকম $O(n^2)$ টি রেখা থাকতে পারে তাই আমরা $O(n^2)$ টি ফিতা পাই। এখন একটি উল্লম্ব ফিতা বিবেচনা করুন। প্রতিটি অ-উল্লম্ব রেখাংশ হয় এটিকে বাম থেকে ডানে অতিক্রম করে অথবা মোটেও অতিক্রম করে না।
+এছাড়াও, ফিতার ভিতরে কোনো দুটি রেখাংশ কঠোরভাবে ছেদ করে না। এর মানে ত্রিভুজসমূহের ইউনিয়নের যে অংশ এই ফিতার ভিতরে পড়ে তা বিচ্ছিন্ন ট্রাপিজিয়ামগুলো দিয়ে গঠিত যাদের ভূমি ফিতার পাশে অবস্থিত।
+এই বৈশিষ্ট্য আমাদের নিম্নলিখিত স্ক্যানলাইন অ্যালগরিদম দিয়ে প্রতিটি ফিতার ভিতরের ক্ষেত্রফল গণনা করতে দেয়। ফিতাকে অতিক্রমকারী প্রতিটি রেখাংশ হয় ঊর্ধ্ব বা নিম্ন, সংশ্লিষ্ট ত্রিভুজের অভ্যন্তর রেখাংশের উপরে না নিচে তার উপর নির্ভর করে। আমরা প্রতিটি ঊর্ধ্ব রেখাংশকে একটি উদ্বোধনী বন্ধনী এবং প্রতিটি নিম্ন রেখাংশকে একটি সমাপনী বন্ধনী হিসেবে কল্পনা করতে পারি এবং বন্ধনী ক্রমকে ছোট সঠিক বন্ধনী ক্রমে ভেঙে ফিতাকে ট্রাপিজিয়ামে বিভক্ত করতে পারি। এই অ্যালগরিদমে $O(n^3\log n)$ সময় এবং $O(n^2)$ মেমোরি লাগে।
+### অপটিমাইজেশন ১
+প্রথমে আমরা রানটাইম $O(n^2\log n)$-এ কমাব। প্রতিটি ফিতার জন্য ট্রাপিজিয়াম তৈরি করার বদলে আমরা একটি ত্রিভুজের বাহু (রেখাংশ $s = (s_0, s_1)$) নির্দিষ্ট করি এবং সেই ফিতাগুলোর সেট খুঁজি যেখানে এই রেখাংশটি কোনো ট্রাপিজিয়ামের একটি বাহু। লক্ষ্য করি এক্ষেত্রে আমাদের শুধু সেই ফিতাগুলো খুঁজতে হবে যেখানে $s$-এর নিচে (বা উপরে, নিম্ন রেখাংশের ক্ষেত্রে) বন্ধনীর ব্যালেন্স শূন্য। এর মানে প্রতিটি ফিতার জন্য উল্লম্ব স্ক্যানলাইন চালানোর বদলে আমরা অন্যান্য রেখাংশের সেই অংশগুলোর জন্য একটি অনুভূমিক স্ক্যানলাইন চালাতে পারি যেগুলো $s$-এর সাপেক্ষে বন্ধনী ব্যালেন্সকে প্রভাবিত করে।
+সরলতার জন্য আমরা দেখাব কীভাবে একটি ঊর্ধ্ব রেখাংশের জন্য এটি করা যায়, নিম্ন রেখাংশের জন্য অ্যালগরিদম অনুরূপ। অন্য একটি অ-উল্লম্ব রেখাংশ $t = (t_0, t_1)$ বিবেচনা করি এবং $s$ ও $t$-এর $Ox$-এর উপর অভিক্ষেপের ছেদ $[x_1, x_2]$ নির্ণয় করি। যদি এই ছেদ শূন্য হয় বা একটি বিন্দু নিয়ে গঠিত হয়, $t$-কে বাদ দেওয়া যায় কারণ $s$ ও $t$ একই ফিতার অভ্যন্তরে ছেদ করে না। অন্যথায় $s$ ও $t$-এর ছেদ $I$ বিবেচনা করি। তিনটি ক্ষেত্র আছে।
 
-1.  $I = \varnothing$
+১.  $I = \varnothing$
 
-    In this case $t$ is either above or below $s$ on $[x_1, x_2]$. If $t$ is above, it doesn't affect whether $s$ is a side of some trapezoid or not.
-    If $t$ is below $s$, we should add $1$ or $-1$ to the balance of bracket sequences for all stripes in $[x_1, x_2]$, depending on whether $t$ is upper or lower.
+    এক্ষেত্রে $t$, $[x_1, x_2]$-এ $s$-এর উপরে বা নিচে। যদি $t$, $s$-এর উপরে হয়, তাহলে $s$ কোনো ট্রাপিজিয়ামের বাহু কিনা তা $t$ প্রভাবিত করে না।
+    যদি $t$, $s$-এর নিচে হয়, তাহলে $[x_1, x_2]$-এর সকল ফিতার বন্ধনী ক্রমের ব্যালেন্সে $1$ বা $-1$ যোগ করতে হবে, $t$ ঊর্ধ্ব না নিম্ন তার উপর নির্ভর করে।
 
-2.  $I$ consists of a single point $p$
+২.  $I$ একটি মাত্র বিন্দু $p$ নিয়ে গঠিত
 
-    This case can be reduced to the previous one by splitting $[x_1, x_2]$ into $[x_1, p_x]$ and $[p_x, x_2]$.
+    এই ক্ষেত্রটি $[x_1, x_2]$-কে $[x_1, p_x]$ ও $[p_x, x_2]$-এ ভাগ করে আগের ক্ষেত্রে নিয়ে আসা যায়।
 
-3.  $I$ is some segment $l$
+৩.  $I$ একটি রেখাংশ $l$
 
-    This case means that the parts of $s$ and $t$ for $x\in[x_1, x_2]$ coincide. If $t$ is lower, $s$ is clearly not a side of a trapezoid.
-    Otherwise, it could happen that both $s$ and $t$ can be considered as a side of some trapezoid. In order to resolve this ambiguity, we can
-    decide that only the segment with the lowest index should be considered as a side (here we suppose that triangle sides are enumerated in some way). So, if $index(s) < index(t)$, we should ignore this case,
-    otherwise we should mark that $s$ can never be a side on $[x_1, x_2]$ (for example, by adding a corresponding event with balance $-2$).
+    এই ক্ষেত্রের মানে $x\in[x_1, x_2]$-এর জন্য $s$ ও $t$-এর অংশ সমপাতিত। যদি $t$ নিম্ন হয়, $s$ স্পষ্টতই ট্রাপিজিয়ামের বাহু নয়।
+    অন্যথায়, এমন হতে পারে যে $s$ ও $t$ উভয়ই কোনো ট্রাপিজিয়ামের বাহু হিসেবে বিবেচিত হতে পারে। এই দ্ব্যর্থতা সমাধানের জন্য আমরা সিদ্ধান্ত নিতে পারি যে শুধুমাত্র সবচেয়ে কম ইনডেক্সের রেখাংশটিই বাহু হিসেবে বিবেচিত হবে (এখানে আমরা ধরে নিচ্ছি ত্রিভুজের বাহুগুলো কোনো একটি উপায়ে সংখ্যায়িত)। সুতরাং, যদি $index(s) < index(t)$ হয়, আমরা এই ক্ষেত্রটি উপেক্ষা করব,
+    অন্যথায় আমরা চিহ্নিত করব যে $s$ কখনোই $[x_1, x_2]$-এ বাহু হতে পারে না (উদাহরণস্বরূপ, ব্যালেন্স $-2$ সহ একটি সংশ্লিষ্ট ইভেন্ট যোগ করে)।
 
-Here is a graphic representation of the three cases.
+এখানে তিনটি ক্ষেত্রের একটি চিত্রিত উপস্থাপনা দেওয়া হলো।
 
 <div style="text-align: center;">
   <img src="/images/geometry/triangle_union.png" alt="Visual">
 </div>
 
-Finally we should remark on processing all the additions of $1$ or $-1$ on all stripes in $[x_1, x_2]$. For each addition of $w$ on $[x_1, x_2]$ we can create events $(x_1, w),\ (x_2, -w)$
-and process all these events with a sweep line.
+পরিশেষে, $[x_1, x_2]$-এর সকল ফিতায় $1$ বা $-1$ এর সকল যোজন প্রক্রিয়াকরণ সম্পর্কে মন্তব্য করা উচিত। $[x_1, x_2]$-এ $w$-এর প্রতিটি যোজনের জন্য আমরা $(x_1, w),\ (x_2, -w)$ ইভেন্ট তৈরি করতে পারি
+এবং একটি সুইপ লাইন দিয়ে সকল ইভেন্ট প্রক্রিয়া করতে পারি।
 
-### Optimization 2
-Note that if we apply the previous optimization, we no longer have to find all stripes explicitly. This reduces the memory consumption to $O(n)$.
+### অপটিমাইজেশন ২
+লক্ষ্য করুন, আগের অপটিমাইজেশন প্রয়োগ করলে আমাদের আর সকল ফিতা স্পষ্টভাবে খুঁজতে হয় না। এতে মেমোরি খরচ $O(n)$-এ কমে যায়।
 
-## Intersection of convex polygons
-Another usage of vertical decomposition is to compute the intersection of two convex polygons in linear time. Suppose the plane is split into vertical stripes by vertical lines passing through each
-vertex of each polygon. Then if we consider one of the input polygons and some stripe, their intersection is either a trapezoid, a triangle or a point. Therefore we can simply intersect these shapes for each vertical stripe and merge these intersections into a single polygon.
+## কনভেক্স পলিগনের ছেদ
+ভার্টিক্যাল ডিকম্পোজিশনের আরেকটি ব্যবহার হলো দুটি কনভেক্স পলিগনের ছেদ রৈখিক সময়ে গণনা করা। ধরুন প্রতিটি পলিগনের প্রতিটি শীর্ষবিন্দু দিয়ে উল্লম্ব রেখা টেনে সমতলকে উল্লম্ব ফিতায় ভাগ করা হয়েছে। তাহলে কোনো ইনপুট পলিগন এবং কোনো ফিতার ছেদ হয় একটি ট্রাপিজিয়াম, একটি ত্রিভুজ অথবা একটি বিন্দু। সুতরাং আমরা প্রতিটি উল্লম্ব ফিতার জন্য এই আকৃতিগুলোকে সরলভাবে ছেদ করতে এবং এই ছেদগুলোকে একটি একক পলিগনে মার্জ করতে পারি।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Below is the code that calculates area of the union of a set of triangles in $O(n^2\log n)$ time and $O(n)$ memory.
+নিচে এমন কোড দেওয়া হলো যা $O(n^2\log n)$ সময়ে এবং $O(n)$ মেমোরিতে ত্রিভুজসমূহের একটি সেটের ইউনিয়নের ক্ষেত্রফল গণনা করে।
 
 ```cpp
 typedef double dbl;
 
 const dbl eps = 1e-9;
- 
+
 inline bool eq(dbl x, dbl y){
     return fabs(x - y) < eps;
 }
- 
+
 inline bool lt(dbl x, dbl y){
     return x < y - eps;
 }
- 
+
 inline bool gt(dbl x, dbl y){
     return x > y + eps;
 }
- 
+
 inline bool le(dbl x, dbl y){
     return x < y + eps;
 }
- 
+
 inline bool ge(dbl x, dbl y){
     return x > y - eps;
 }
- 
+
 struct pt{
     dbl x, y;
     inline pt operator - (const pt & p)const{
@@ -102,7 +96,7 @@ struct pt{
         return eq(x, p.x) && eq(y, p.y);
     }
 };
- 
+
 struct Line{
     pt p[2];
     Line(){}
@@ -114,14 +108,14 @@ struct Line{
         return p[i];
     }
 };
- 
+
 inline bool lexComp(const pt & l, const pt & r){
 	if(fabs(l.x - r.x) > eps){
 		return l.x < r.x;
 	}
 	else return l.y < r.y;
 }
- 
+
 vector<pt> interSegSeg(Line l1, Line l2){
     if(eq(l1.vec().cross(l2.vec()), 0)){
         if(!eq(l1.vec().cross(l2[0] - l1[0]), 0))
@@ -152,7 +146,7 @@ inline char get_segtype(Line segment, pt other_point){
         swap(segment[0], segment[1]);
     return (segment[1] - segment[0]).cross(other_point - segment[0]) > 0 ? 1 : -1;
 }
- 
+
 dbl union_area(vector<tuple<pt, pt, pt> > triangles){
     vector<Line> segments(3 * triangles.size());
     vector<char> segtype(segments.size());
@@ -238,6 +232,6 @@ dbl union_area(vector<tuple<pt, pt, pt> > triangles){
 
 ```
 
-## Problems
+## অনুশীলন সমস্যা
  * [Codeforces 62C Inquisition](https://codeforces.com/contest/62/problem/C)
  * [Codeforces 107E Darts](https://codeforces.com/contest/107/problem/E)

@@ -1,67 +1,67 @@
 ---
-title: "Delaunay triangulation and Voronoi diagram"
+title: "ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম"
 tags: 
 weight: 20
 ---
-# Delaunay triangulation and Voronoi diagram
+# ডেলোনে ট্রায়াঙ্গুলেশন এবং ভরোনয় ডায়াগ্রাম
 
-Consider a set $\{p_i\}$ of points on the plane.
-A **Voronoi diagram** $V(\{p_i\})$ of $\{p_i\}$ is a partition of the plane into $n$ regions $V_i$, where $V_i = \{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\}$.
-The cells of the Voronoi diagram are polygons (possibly infinite).
-A **Delaunay triangulation** $D(\{p_i\})$ of $\{p_i\}$ is a triangulation where every point $p_i$ is outside or on the boundary of the circumcircle of each triangle $T \in D(\{p_i\})$.
+সমতলে বিন্দুর একটি সেট $\{p_i\}$ বিবেচনা করুন।
+$\{p_i\}$-র একটি **ভরোনয় ডায়াগ্রাম** $V(\{p_i\})$ হলো সমতলের $n$ টি অঞ্চল $V_i$-তে বিভাজন, যেখানে $V_i = \{p\in\mathbb{R}^2;\ \rho(p, p_i) = \min\ \rho(p, p_k)\}$।
+ভরোনয় ডায়াগ্রামের ঘরগুলো পলিগন (সম্ভবত অসীম)।
+$\{p_i\}$-র একটি **ডেলোনে ট্রায়াঙ্গুলেশন** $D(\{p_i\})$ হলো এমন একটি ট্রায়াঙ্গুলেশন যেখানে প্রতিটি বিন্দু $p_i$ প্রতিটি ত্রিভুজ $T \in D(\{p_i\})$-র পরিবৃত্তের বাইরে বা সীমানায় থাকে।
 
-There is a nasty degenerated case when the Voronoi diagram isn't connected and Delaunay triangulation doesn't exist. This case is when all points are collinear.
+একটি বিরক্তিকর অবক্ষয়িত ক্ষেত্র আছে যখন ভরোনয় ডায়াগ্রাম সংযুক্ত নয় এবং ডেলোনে ট্রায়াঙ্গুলেশন বিদ্যমান নেই। এই ক্ষেত্রটি হলো যখন সব বিন্দু সমরেখ।
 
-## Properties
+## ধর্মসমূহ
 
-The Delaunay triangulation maximizes the minimum angle among all possible triangulations.
+ডেলোনে ট্রায়াঙ্গুলেশন সব সম্ভাব্য ট্রায়াঙ্গুলেশনের মধ্যে ন্যূনতম কোণকে সর্বাধিক করে।
 
-The Minimum Euclidean spanning tree of a point set is a subset of edges of its' Delaunay triangulation.
+একটি বিন্দু সেটের মিনিমাম ইউক্লিডীয় স্প্যানিং ট্রি এর ডেলোনে ট্রায়াঙ্গুলেশনের এজের একটি সাবসেট।
 
-## Duality
+## দ্বৈততা
 
-Suppose that $\{p_i\}$ is not collinear and among $\{p_i\}$ no four points lie on one circle. Then $V(\{p_i\})$ and $D(\{p_i\})$ are dual, so if we obtain one of them, we may obtain the other in $O(n)$. What to do if it's not the case? The collinear case may be processed easily. Otherwise, $V$ and $D'$ are dual, where $D'$ is obtained from $D$ by removing all the edges such that two triangles on this edge share the circumcircle.
+ধরুন $\{p_i\}$ সমরেখ নয় এবং $\{p_i\}$-র মধ্যে কোনো চারটি বিন্দু একটি বৃত্তে নেই। তাহলে $V(\{p_i\})$ ও $D(\{p_i\})$ দ্বৈত, তাই যদি আমরা একটি পাই, অন্যটি $O(n)$-এ পেতে পারি। এমন না হলে কী করতে হবে? সমরেখ ক্ষেত্র সহজেই প্রসেস করা যায়। অন্যথায়, $V$ ও $D'$ দ্বৈত, যেখানে $D'$ হলো $D$ থেকে সেই সব এজ সরিয়ে পাওয়া যায় যেখানে এজের দুই পাশের ত্রিভুজ পরিবৃত্ত ভাগ করে।
 
-## Building Delaunay and Voronoi
+## ডেলোনে ও ভরোনয় নির্মাণ
 
-Because of the duality, we only need a fast algorithm to compute only one of $V$ and $D$. We will describe how to build $D(\{p_i\})$ in $O(n\log n)$. The triangulation will be built via divide-and-conquer algorithm due to Guibas and Stolfi.
+দ্বৈততার কারণে, আমাদের কেবল $V$ ও $D$-র একটি দ্রুত হিসাব করার অ্যালগরিদম প্রয়োজন। আমরা বর্ণনা করব কীভাবে $D(\{p_i\})$ $O(n\log n)$-এ তৈরি করা যায়। ট্রায়াঙ্গুলেশন Guibas ও Stolfi-র ডিভাইড অ্যান্ড কনকার অ্যালগরিদম দিয়ে তৈরি হবে।
 
-## Quad-edge data structure
+## কোয়াড-এজ ডেটা স্ট্রাকচার
 
-During the algorithm $D$ will be stored inside the quad-edge data structure. This structure is described in the picture:
+অ্যালগরিদম চলাকালীন $D$ কোয়াড-এজ ডেটা স্ট্রাকচারে সংরক্ষিত থাকবে। এই স্ট্রাকচার চিত্রে বর্ণিত:
 <div style="text-align: center;">
   <img src="/images/geometry/quad-edge.png" alt="Quad-Edge">
 </div>
 
-In the algorithm we will use the following functions on edges:
+অ্যালগরিদমে আমরা এজের উপর নিম্নলিখিত ফাংশনগুলো ব্যবহার করব:
 
-  1. `make_edge(a, b)`<br>
-    This function creates an isolated edge from point `a` to point `b` together with its' reverse edge and both dual edges.
-  2. `splice(a, b)`<br>
-    This is a key function of the algorithm. It swaps `a->Onext` with `b->Onext` and `a->Onext->Rot->Onext` with `b->Onext->Rot->Onext`.
-  3. `delete_edge(e)`<br>
-    This function deletes e from the triangulation. To delete `e`, we may simply call `splice(e, e->Oprev)` and `splice(e->Rev, e->Rev->Oprev)`.
-  4. `connect(a, b)`<br>
-    This function creates a new edge `e` from `a->Dest` to `b->Org` in such a way that `a`, `b`, `e` all have the same left face. To do this, we call `e = make_edge(a->Dest, b->Org)`, `splice(e, a->Lnext)` and `splice(e->Rev, b)`.
+  ১. `make_edge(a, b)`<br>
+    এই ফাংশনটি বিন্দু `a` থেকে বিন্দু `b`-তে একটি বিচ্ছিন্ন এজ তৈরি করে এর বিপরীত এজ এবং উভয় ডুয়াল এজসহ।
+  ২. `splice(a, b)`<br>
+    এটি অ্যালগরিদমের একটি মূল ফাংশন। এটি `a->Onext`-কে `b->Onext` এবং `a->Onext->Rot->Onext`-কে `b->Onext->Rot->Onext`-এর সাথে অদলবদল করে।
+  ৩. `delete_edge(e)`<br>
+    এই ফাংশনটি ট্রায়াঙ্গুলেশন থেকে e মুছে দেয়। `e` মুছতে, আমরা কেবল `splice(e, e->Oprev)` এবং `splice(e->Rev, e->Rev->Oprev)` কল করি।
+  ৪. `connect(a, b)`<br>
+    এই ফাংশনটি `a->Dest` থেকে `b->Org`-তে একটি নতুন এজ `e` তৈরি করে এমনভাবে যে `a`, `b`, `e` সবার একই বাম ফেস থাকে। এটি করতে, আমরা `e = make_edge(a->Dest, b->Org)`, `splice(e, a->Lnext)` এবং `splice(e->Rev, b)` কল করি।
 
-## Algorithm
+## অ্যালগরিদম
 
-The algorithm will compute the triangulation and return two quad-edges: the counterclockwise convex hull edge out of the leftmost vertex and the clockwise convex hull edge out of the rightmost vertex.
+অ্যালগরিদমটি ট্রায়াঙ্গুলেশন হিসাব করবে এবং দুটি কোয়াড-এজ রিটার্ন করবে: সবচেয়ে বামের ভার্টেক্স থেকে ঘড়ির কাঁটার বিপরীত কনভেক্স হাল এজ এবং সবচেয়ে ডানের ভার্টেক্স থেকে ঘড়ির কাঁটার দিকে কনভেক্স হাল এজ।
 
-Let's sort all points by x, and if $x_1 = x_2$ then by y. Let's solve the problem for some segment $(l, r)$ (initially $(l, r) = (0, n - 1)$). If $r - l + 1 = 2$, we will add an edge $(p[l], p[r])$ and return. If $r - l + 1 = 3$, we will firstly add the edges $(p[l], p[l + 1])$ and $(p[l + 1], p[r])$. We must also connect them using `splice(a->Rev, b)`. Now we must close the triangle. Our next action will depend on the orientation of $p[l], p[l + 1], p[r]$. If they are collinear, we can't make a triangle, so we simply return `(a, b->Rev)`. Otherwise, we create a new edge `c` by calling `connect(b, a)`. If the points are oriented counter-clockwise, we return `(a, b->Rev)`. Otherwise we return `(c->Rev, c)`.
+আসুন সব বিন্দু x অনুসারে সাজাই, এবং যদি $x_1 = x_2$ তাহলে y অনুসারে। আসুন কোনো সেগমেন্ট $(l, r)$-র জন্য সমস্যা সমাধান করি (প্রাথমিকভাবে $(l, r) = (0, n - 1)$)। যদি $r - l + 1 = 2$ হয়, আমরা একটি এজ $(p[l], p[r])$ যোগ করব এবং রিটার্ন করব। যদি $r - l + 1 = 3$ হয়, আমরা প্রথমে এজ $(p[l], p[l + 1])$ এবং $(p[l + 1], p[r])$ যোগ করব। এগুলো `splice(a->Rev, b)` ব্যবহার করে সংযুক্ত করতে হবে। এখন আমাদের ত্রিভুজ বন্ধ করতে হবে। পরবর্তী ক্রিয়া $p[l], p[l + 1], p[r]$-র অরিয়েন্টেশনের উপর নির্ভর করবে। সমরেখ হলে ত্রিভুজ তৈরি করা যায় না, তাই কেবল `(a, b->Rev)` রিটার্ন করি। অন্যথায়, `connect(b, a)` কল করে একটি নতুন এজ `c` তৈরি করি। বিন্দুগুলো ঘড়ির কাঁটার বিপরীতে থাকলে, `(a, b->Rev)` রিটার্ন করি। অন্যথায় `(c->Rev, c)` রিটার্ন করি।
 
-Now suppose that $r - l + 1 \ge 4$. Firstly, let's solve $L = (l, \frac{l + r}{2})$ and $R = (\frac{l + r}{2} + 1, r)$ recursively. Now we have to merge these triangulations into one triangulation. Note that our points are sorted, so while merging we will add edges from L to R (so-called _cross_ edges) and remove some edges from L to L and from R to R.
-What is the structure of the cross edges? All these edges must cross a line parallel to the y-axis and placed at the splitting x value. This establishes a linear ordering of the cross edges, so we can talk about successive cross edges, the bottom-most cross edge, etc. The algorithm will add the cross edges in ascending order. Note that any two adjacent cross edges will have a common endpoint, and the third side of the triangle they define goes from L to L or from R to R. Let's call the current cross edge the base. The successor of the base will either go from the left endpoint of the base to one of the R-neighbors of the right endpoint or vice versa.
-Consider the circumcircle of base and the previous cross edge.
-Suppose this circle is transformed into other circles having base as a chord but lying further into the Oy direction.
-Our circle will go up for a while, but unless base is an upper tangent of L and R we will encounter a point belonging either to L or to R giving rise to a new triangle without any points in the circumcircle.
-The new L-R edge of this triangle is the next cross edge added.
-To do this efficiently, we compute two edges `lcand` and `rcand` so that `lcand` points to the first L point encountered in this process, and `rcand` points to the first R point.
-Then we choose the one that would be encountered first. Initially base points to the lower tangent of L and R.
+এখন ধরি $r - l + 1 \ge 4$। প্রথমে, আসুন $L = (l, \frac{l + r}{2})$ এবং $R = (\frac{l + r}{2} + 1, r)$ রিকার্সিভভাবে সমাধান করি। এখন আমাদের এই ট্রায়াঙ্গুলেশনগুলো একটিতে মার্জ করতে হবে। লক্ষ্য করুন আমাদের বিন্দুগুলো সাজানো, তাই মার্জ করার সময় আমরা L থেকে R-তে এজ যোগ করব (তথাকথিত _ক্রস_ এজ) এবং L থেকে L এবং R থেকে R-তে কিছু এজ সরাব।
+ক্রস এজের গঠন কেমন? এই সব এজকে y-অক্ষের সমান্তরাল একটি রেখা অতিক্রম করতে হবে যা স্প্লিটিং x মানে স্থাপিত। এটি ক্রস এজগুলোর একটি লিনিয়ার ক্রম স্থাপন করে, তাই আমরা পরপর ক্রস এজ, সবচেয়ে নিচের ক্রস এজ ইত্যাদি নিয়ে কথা বলতে পারি। অ্যালগরিদম ক্রস এজগুলো ক্রমবর্ধমান ক্রমে যোগ করবে। লক্ষ্য করুন যেকোনো দুটি সংলগ্ন ক্রস এজের একটি সাধারণ প্রান্তবিন্দু থাকবে, এবং তাদের সংজ্ঞায়িত ত্রিভুজের তৃতীয় বাহু L থেকে L-তে বা R থেকে R-তে যায়। আসুন বর্তমান ক্রস এজকে বেস বলি। বেসের পরবর্তী হবে হয় বেসের বাম প্রান্তবিন্দু থেকে ডান প্রান্তবিন্দুর R-প্রতিবেশীদের একটিতে অথবা বিপরীতভাবে।
+বেস এবং পূর্ববর্তী ক্রস এজের পরিবৃত্ত বিবেচনা করুন।
+ধরুন এই বৃত্তটি অন্য বৃত্তে রূপান্তরিত হয় যার বেস একটি জ্যা কিন্তু Oy দিকে আরো দূরে থাকে।
+আমাদের বৃত্ত কিছুক্ষণ উপরে উঠবে, কিন্তু বেস L ও R-এর উপরের স্পর্শক না হলে আমরা L বা R-এর একটি বিন্দু পাব যা পরিবৃত্তে কোনো বিন্দু ছাড়া একটি নতুন ত্রিভুজ দেয়।
+এই ত্রিভুজের নতুন L-R এজ হলো পরবর্তী যোগ করা ক্রস এজ।
+এটি দক্ষতার সাথে করতে, আমরা দুটি এজ `lcand` ও `rcand` হিসাব করি যেন `lcand` এই প্রক্রিয়ায় পাওয়া প্রথম L বিন্দুতে নির্দেশ করে, এবং `rcand` প্রথম R বিন্দুতে নির্দেশ করে।
+তারপর আমরা সেটি বেছে নিই যেটি আগে পাওয়া যাবে। প্রাথমিকভাবে বেস L ও R-এর নিচের স্পর্শকে নির্দেশ করে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Note that the implementation of the in_circle function is GCC-specific.
+লক্ষ্য করুন in_circle ফাংশনের ইমপ্লিমেন্টেশন GCC-নির্দিষ্ট।
 
 ```cpp
 typedef long long ll;
@@ -305,7 +305,7 @@ vector<tuple<pt, pt, pt>> delaunay(vector<pt> p) {
 }
 ```
 
-## Problems
+## সমস্যাসমূহ
  * [TIMUS 1504 Good Manners](http://acm.timus.ru/problem.aspx?space=1&num=1504)
  * [TIMUS 1520 Empire Strikes Back](http://acm.timus.ru/problem.aspx?space=1&num=1520)
  * [SGU 383 Caravans](https://codeforces.com/problemsets/acmsguru/problem/99999/383)

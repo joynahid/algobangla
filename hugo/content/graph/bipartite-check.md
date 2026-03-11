@@ -1,21 +1,21 @@
 ---
-title: "Check whether a graph is bipartite"
+title: "একটি গ্রাফ বাইপার্টাইট কিনা যাচাই"
 tags: 
 weight: 10
 ---
-# Check whether a graph is bipartite
+# একটি গ্রাফ বাইপার্টাইট কিনা যাচাই
 
-A bipartite graph is a graph whose vertices can be divided into two disjoint sets so that every edge connects two vertices from different sets (i.e. there are no edges which connect vertices from the same set). These sets are usually called sides.
+একটি বাইপার্টাইট গ্রাফ হলো এমন একটি গ্রাফ যার ভার্টেক্সগুলোকে দুটি ডিসজয়েন্ট সেটে ভাগ করা যায় যাতে প্রতিটি এজ দুটি ভিন্ন সেটের দুটি ভার্টেক্সকে সংযুক্ত করে (অর্থাৎ একই সেটের ভার্টেক্সগুলোকে সংযুক্ত করে এমন কোনো এজ নেই)। এই সেটগুলোকে সাধারণত পার্শ্ব (side) বলা হয়।
 
-You are given an undirected graph. Check whether it is bipartite, and if it is, output its sides.
+আপনাকে একটি অনির্দেশিত গ্রাফ দেওয়া হয়েছে। এটি বাইপার্টাইট কিনা যাচাই করুন, এবং যদি হয়, তার পার্শ্বগুলো আউটপুট করুন।
 
-## Algorithm
+## অ্যালগরিদম
 
-There exists a theorem which claims that a graph is bipartite if and only if all its cycles have even length. However, in practice it's more convenient to use a different formulation of the definition: a graph is bipartite if and only if it is two-colorable.
+একটি উপপাদ্য আছে যেটি দাবি করে যে একটি গ্রাফ বাইপার্টাইট হয় যদি এবং কেবল যদি এর সমস্ত সাইকেলের দৈর্ঘ্য জোড় হয়। তবে, বাস্তবে সংজ্ঞার একটি ভিন্ন রূপ ব্যবহার করা বেশি সুবিধাজনক: একটি গ্রাফ বাইপার্টাইট হয় যদি এবং কেবল যদি এটি দুই-রঙে রঙ করা যায়।
 
-Let's use a series of [breadth-first searches](breadth-first-search.md), starting from each vertex which hasn't been visited yet. In each search, assign the vertex from which we start to side 1. Each time we visit a yet unvisited neighbor of a vertex assigned to one side, we assign it to the other side. When we try to go to a neighbor of a vertex assigned to one side which has already been visited, we check that it has been assigned to the other side; if it has been assigned to the same side, we conclude that the graph is not bipartite. Once we've visited all vertices and successfully assigned them to sides, we know that the graph is bipartite and we have constructed its partitioning.
+আসুন একটি ধারাবাহিক [ব্রেডথ-ফার্স্ট সার্চ](breadth-first-search.md) ব্যবহার করি, এখনো পরিদর্শন করা হয়নি এমন প্রতিটি ভার্টেক্স থেকে শুরু করে। প্রতিটি সার্চে, যে ভার্টেক্স থেকে শুরু করি তাকে পার্শ্ব ১-এ নির্ধারণ করি। যতবার আমরা এক পার্শ্বে নির্ধারিত একটি ভার্টেক্সের এখনো অপরিদর্শিত প্রতিবেশীতে যাই, আমরা তাকে অন্য পার্শ্বে নির্ধারণ করি। যখন আমরা এক পার্শ্বে নির্ধারিত একটি ভার্টেক্সের প্রতিবেশীতে যাওয়ার চেষ্টা করি যেটি ইতিমধ্যে পরিদর্শিত, তখন আমরা পরীক্ষা করি যে এটি অন্য পার্শ্বে নির্ধারিত হয়েছে কিনা; যদি এটি একই পার্শ্বে নির্ধারিত হয়ে থাকে, আমরা সিদ্ধান্তে আসি যে গ্রাফটি বাইপার্টাইট নয়। একবার আমরা সমস্ত ভার্টেক্স পরিদর্শন করে সফলভাবে তাদের পার্শ্বে নির্ধারণ করলে, আমরা জানি যে গ্রাফটি বাইপার্টাইট এবং আমরা এর বিভাজন তৈরি করেছি।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int n;
@@ -46,7 +46,7 @@ for (int st = 0; st < n; ++st) {
 cout << (is_bipartite ? "YES" : "NO") << endl;
 ```
 
-### Practice problems:
+### অনুশীলন সমস্যা:
 
 - [SPOJ - BUGLIFE](http://www.spoj.com/problems/BUGLIFE/)
 - [Codeforces - Graph Without Long Directed Paths](https://codeforces.com/contest/1144/problem/F)

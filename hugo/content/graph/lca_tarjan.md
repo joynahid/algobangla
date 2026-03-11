@@ -1,59 +1,59 @@
 ---
-title: "Lowest Common Ancestor - Tarjan's off-line algorithm"
+title: "লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম"
 tags: 
 weight: 50
 ---
-# Lowest Common Ancestor - Tarjan's off-line algorithm
+# লোয়েস্ট কমন অ্যানসেস্টর - টারজানের অফ-লাইন অ্যালগরিদম
 
-We have a tree $G$ with $n$ nodes and we have $m$ queries of the form $(u, v)$.
-For each query $(u, v)$ we want to find the lowest common ancestor of the vertices $u$ and $v$, i.e. the node that is an ancestor of both $u$ and $v$ and has the greatest depth in the tree.
-The node $v$ is also an ancestor of $v$, so the LCA can also be one of the two nodes.
+আমাদের কাছে $n$ নোড বিশিষ্ট একটি ট্রি $G$ আছে এবং $(u, v)$ আকারের $m$ টি কুয়েরি আছে।
+প্রতিটি কুয়েরি $(u, v)$-র জন্য আমরা $u$ ও $v$ ভার্টেক্সের লোয়েস্ট কমন অ্যানসেস্টর বের করতে চাই, অর্থাৎ সেই নোড যেটি $u$ এবং $v$ উভয়ের অ্যানসেস্টর এবং ট্রি-তে সবচেয়ে বেশি গভীরতায় অবস্থিত।
+নোড $v$ নিজেও $v$-এর অ্যানসেস্টর, তাই এলসিএ দুটি নোডের একটিও হতে পারে।
 
-In this article we will solve the problem off-line, i.e. we assume that all queries are known in advance, and we therefore answer the queries in any order we like.
-The following algorithm allows to answer all $m$ queries in $O(n + m)$ total time, i.e. for sufficiently large $m$ in $O(1)$ for each query.
+এই নিবন্ধে আমরা সমস্যাটি অফ-লাইনে সমাধান করব, অর্থাৎ আমরা ধরে নিচ্ছি যে সব কুয়েরি আগে থেকে জানা, এবং তাই আমরা যেকোনো ক্রমে কুয়েরিগুলোর উত্তর দিতে পারি।
+নিম্নলিখিত অ্যালগরিদম সব $m$ টি কুয়েরির উত্তর মোট $O(n + m)$ সময়ে দিতে পারে, অর্থাৎ যথেষ্ট বড় $m$-এর জন্য প্রতিটি কুয়েরিতে $O(1)$।
 
-## Algorithm
+## অ্যালগরিদম
 
-The algorithm is named after Robert Tarjan, who discovered it in 1979 and also made many other contributions to the [Disjoint Set Union](../data_structures/disjoint_set_union.md) data structure, which will be heavily used in this algorithm.
+অ্যালগরিদমটির নাম রবার্ট টারজানের নামানুসারে, যিনি ১৯৭৯ সালে এটি আবিষ্কার করেছিলেন এবং [ডিসজয়েন্ট সেট ইউনিয়ন](../data_structures/disjoint_set_union.md) ডেটা স্ট্রাকচারেও অনেক অবদান রেখেছিলেন, যেটি এই অ্যালগরিদমে ব্যাপকভাবে ব্যবহৃত হবে।
 
-The algorithm answers all queries with one [DFS](depth-first-search.md) traversal of the tree.
-Namely a query $(u, v)$ is answered at node $u$, if node $v$ has already been visited previously, or vice versa.
+অ্যালগরিদমটি ট্রি-র একটি [DFS](depth-first-search.md) ট্রাভার্সাল দিয়ে সব কুয়েরির উত্তর দেয়।
+একটি কুয়েরি $(u, v)$-র উত্তর দেওয়া হয় $u$ নোডে, যদি $v$ নোড ইতোমধ্যে আগে ভিজিট করা হয়ে থাকে, অথবা উল্টো।
 
-So let's assume we are currently at node $v$, we have already made recursive DFS calls, and also already visited the second node $u$ from the query $(u, v)$.
-Let's learn how to find the LCA of these two nodes.
+তাহলে ধরি আমরা বর্তমানে $v$ নোডে আছি, আমরা ইতোমধ্যে রিকার্সিভ DFS কল করেছি, এবং কুয়েরি $(u, v)$-র দ্বিতীয় নোড $u$-ও ইতোমধ্যে ভিজিট করেছি।
+আসুন শিখি কীভাবে এই দুটি নোডের এলসিএ বের করা যায়।
 
-Note that $\text{LCA}(u, v)$ is either the node $v$ or one of its ancestors.
-So we need to find the lowest node among the ancestors of $v$ (including $v$), for which the node $u$ is a descendant. 
-Also note that for a fixed $v$ the visited nodes of the tree split into a set of disjoint sets. 
-Each ancestor $p$ of node $v$ has his own set containing this node and all subtrees with roots in those of its children who are not part of the path from $v$ to the root of the tree.
-The set which contains the node $u$ determines the $\text{LCA}(u, v)$:
-the LCA is the representative of the set, namely the node on lies on the path between $v$ and the root of the tree.
+লক্ষ্য করুন যে $\text{LCA}(u, v)$ হয় $v$ নোড নিজে অথবা তার কোনো অ্যানসেস্টর।
+তাই আমাদের $v$-এর অ্যানসেস্টরদের মধ্যে ($v$ সহ) সবচেয়ে নিচের নোড খুঁজতে হবে যার জন্য $u$ নোড একটি ডিসেন্ডেন্ট।
+এছাড়াও লক্ষ্য করুন যে একটি নির্দিষ্ট $v$-এর জন্য ট্রি-র ভিজিট করা নোডগুলো একাধিক ডিসজয়েন্ট সেটে বিভক্ত হয়।
+$v$ নোডের প্রতিটি অ্যানসেস্টর $p$-এর নিজস্ব সেট আছে যেটিতে এই নোড এবং তার চিলড্রেনদের মধ্যে যারা $v$ থেকে ট্রি-র রুট পর্যন্ত পাথের অংশ নয় তাদের রুটযুক্ত সাবট্রিগুলো থাকে।
+$u$ নোড যে সেটে থাকে সেটি $\text{LCA}(u, v)$ নির্ধারণ করে:
+এলসিএ হলো সেটের প্রতিনিধি, অর্থাৎ $v$ এবং ট্রি-র রুটের মধ্যকার পাথে অবস্থিত নোড।
 
-We only need to learn to efficiently maintain all these sets.
-For this purpose we apply the data structure DSU.
-To be able to apply Union by rank, we store the real representative (the value on the path between $v$ and the root of the tree) of each set in the array `ancestor`.
+আমাদের শুধু দক্ষতার সাথে এই সব সেট বজায় রাখতে শিখতে হবে।
+এজন্য আমরা DSU ডেটা স্ট্রাকচার প্রয়োগ করি।
+ইউনিয়ন বাই র‍্যাংক প্রয়োগ করতে, আমরা প্রতিটি সেটের প্রকৃত প্রতিনিধি ($v$ এবং ট্রি-র রুটের মধ্যকার পাথের মান) `ancestor` অ্যারেতে সংরক্ষণ করি।
 
-Let's discuss the implementation of the DFS.
-Let's assume we are currently visiting the node $v$.
-We place the node in a new set in the DSU, `ancestor[v] = v`.
-As usual we process all children of $v$.
-For this we must first recursively call DFS from that node, and then add this node with all its subtree to the set of $v$.
-This can be done with the function `union_sets` and the following assignment `ancestor[find_set(v)] = v` (this is necessary, because `union_sets` might change the representative of the set).
+আসুন DFS-এর ইমপ্লিমেন্টেশন আলোচনা করি।
+ধরি আমরা বর্তমানে $v$ নোড ভিজিট করছি।
+আমরা DSU-তে নোডটিকে একটি নতুন সেটে রাখি, `ancestor[v] = v`।
+যথারীতি আমরা $v$-এর সব চিলড্রেন প্রসেস করি।
+এজন্য আমাদের প্রথমে সেই নোড থেকে রিকার্সিভলি DFS কল করতে হবে, এবং তারপর এই নোডটিকে তার সব সাবট্রিসহ $v$-এর সেটে যোগ করতে হবে।
+এটি `union_sets` ফাংশন এবং পরবর্তী অ্যাসাইনমেন্ট `ancestor[find_set(v)] = v` দিয়ে করা যায় (এটি প্রয়োজনীয়, কারণ `union_sets` সেটের প্রতিনিধি পরিবর্তন করতে পারে)।
 
-Finally after processing all children we can answer all queries of the form $(u, v)$ for which $u$ has been already visited.
-The answer to the query, i.e. the LCA of $u$ and $v$, will be the node `ancestor[find_set(u)]`.
-It is easy to see that a query will only be answered once.
+সবশেষে সব চিলড্রেন প্রসেস করার পর আমরা $(u, v)$ আকারের সব কুয়েরির উত্তর দিতে পারি যেখানে $u$ ইতোমধ্যে ভিজিট করা হয়েছে।
+কুয়েরির উত্তর, অর্থাৎ $u$ এবং $v$-এর এলসিএ, হবে `ancestor[find_set(u)]` নোড।
+সহজেই দেখা যায় যে একটি কুয়েরির উত্তর শুধু একবারই দেওয়া হবে।
 
-Let's us determine the time complexity of this algorithm. 
-Firstly we have $O(n)$ because of the DFS.
-Secondly  we have the function calls of `union_sets` which happen $n$ times, resulting also in $O(n)$.
-And thirdly we have the calls of `find_set` for every query, which gives $O(m)$.
-So in total the time complexity is $O(n + m)$, which means that for sufficiently large $m$ this corresponds to $O(1)$ for answering one query.
+আসুন এই অ্যালগরিদমের টাইম কমপ্লেক্সিটি নির্ধারণ করি।
+প্রথমত, DFS-এর জন্য $O(n)$।
+দ্বিতীয়ত, `union_sets` ফাংশন কল যা $n$ বার হয়, ফলে সেটিও $O(n)$।
+এবং তৃতীয়ত, প্রতিটি কুয়েরির জন্য `find_set` কল, যা $O(m)$ দেয়।
+সুতরাং মোট টাইম কমপ্লেক্সিটি $O(n + m)$, অর্থাৎ যথেষ্ট বড় $m$-এর জন্য এটি প্রতিটি কুয়েরিতে $O(1)$-এর সমতুল্য।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is an implementation of this algorithm.
-The implementation of DSU has been not included, as it can be used without any modifications.
+এখানে এই অ্যালগরিদমের একটি ইমপ্লিমেন্টেশন দেওয়া হলো।
+DSU-এর ইমপ্লিমেন্টেশন অন্তর্ভুক্ত করা হয়নি, কারণ এটি কোনো পরিবর্তন ছাড়াই ব্যবহার করা যায়।
 
 ```cpp
 vector<vector<int>> adj;

@@ -1,40 +1,38 @@
 ---
-title: "Aho-Corasick algorithm"
+title: "আহো-কোরাসিক অ্যালগরিদম"
 tags: 
 weight: 60
 ---
-# Aho-Corasick algorithm
+# আহো-কোরাসিক অ্যালগরিদম
 
-The Aho-Corasick algorithm allows us to quickly search for multiple patterns in a text.
-The set of pattern strings is also called a _dictionary_.
-We will denote the total length of its constituent strings by $m$ and the size of the alphabet by $k$.
-The algorithm constructs a finite state automaton based on a trie in $O(m k)$ time and then uses it to process the text.
+আহো-কোরাসিক অ্যালগরিদম আমাদের একটি টেক্সটে দ্রুত একাধিক প্যাটার্ন সার্চ করতে দেয়।
+প্যাটার্ন স্ট্রিং-এর সেটকে _ডিকশনারি_ ও বলা হয়।
+আমরা এর উপাদান স্ট্রিংগুলোর মোট দৈর্ঘ্যকে $m$ এবং বর্ণমালার আকারকে $k$ দিয়ে চিহ্নিত করব।
+অ্যালগরিদমটি $O(m k)$ সময়ে একটি ট্রাই-ভিত্তিক ফিনাইট স্টেট অটোমেটন তৈরি করে এবং তারপর টেক্সট প্রক্রিয়া করতে এটি ব্যবহার করে।
 
-The algorithm was proposed by Alfred Aho and Margaret Corasick in 1975.
+অ্যালগরিদমটি ১৯৭৫ সালে আলফ্রেড আহো এবং মার্গারেট কোরাসিক প্রস্তাব করেন।
 
-## Construction of the trie
+## ট্রাই তৈরি
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Trie.svg" width="400px">
 <br>
-<i>A trie based on words "Java", "Rad", "Rand", "Rau", "Raum" and "Rose".</i>
+<i>"Java", "Rad", "Rand", "Rau", "Raum" এবং "Rose" শব্দের উপর ভিত্তি করে একটি ট্রাই।</i>
 <br>
 <i>The <a href="https://commons.wikimedia.org/wiki/File:Trie.svg">image</a> by [nd](https://de.wikipedia.org/wiki/Benutzer:Nd) is distributed under <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.en">CC BY-SA 3.0</a> license.</i>
 </center>
 
-Formally, a trie is a rooted tree, where each edge of the tree is labeled with some letter
-and outgoing edges of a vertex have distinct labels.
+আনুষ্ঠানিকভাবে, একটি ট্রাই হলো একটি রুটেড ট্রি, যেখানে ট্রির প্রতিটি এজ কোনো অক্ষর দ্বারা লেবেলযুক্ত এবং একটি ভার্টেক্স থেকে বের হওয়া এজগুলোর লেবেল ভিন্ন।
 
-We will identify each vertex in the trie with the string formed by the labels on the path from the root to that vertex.
+আমরা ট্রাইয়ের প্রতিটি ভার্টেক্সকে রুট থেকে সেই ভার্টেক্স পর্যন্ত পথের লেবেল দিয়ে গঠিত স্ট্রিং দ্বারা চিহ্নিত করব।
 
-Each vertex will also have a flag $\text{output}$ which will be set
-if the vertex corresponds to a pattern in the dictionary.
+প্রতিটি ভার্টেক্সে একটি ফ্ল্যাগ $\text{output}$ ও থাকবে যা সেট করা হবে যদি ভার্টেক্সটি ডিকশনারির একটি প্যাটার্নের সাথে সম্পর্কিত হয়।
 
-Accordingly, a trie for a set of strings is a trie such that each $\text{output}$ vertex corresponds to one string from the set, and conversely, each string of the set corresponds to one $\text{output}$ vertex.
+তদনুযায়ী, স্ট্রিং-এর একটি সেটের জন্য একটি ট্রাই হলো এমন ট্রাই যেন প্রতিটি $\text{output}$ ভার্টেক্স সেটের একটি স্ট্রিং-এর সাথে এবং বিপরীতভাবে সেটের প্রতিটি স্ট্রিং একটি $\text{output}$ ভার্টেক্সের সাথে সম্পর্কিত।
 
-We now describe how to construct a trie for a given set of strings in linear time with respect to their total length.
+আমরা এখন বর্ণনা করি কিভাবে প্রদত্ত স্ট্রিং-এর সেটের জন্য তাদের মোট দৈর্ঘ্যের সাপেক্ষে লিনিয়ার সময়ে একটি ট্রাই তৈরি করতে হয়।
 
-We introduce a structure for the vertices of the tree:
+আমরা ট্রির ভার্টেক্সের জন্য একটি স্ট্রাকচার পরিচয় করাই:
 ```cpp
 const int K = 26;
 
@@ -50,15 +48,15 @@ struct Vertex {
 vector<Vertex> trie(1);
 ```
 
-Here, we store the trie as an array of $\text{Vertex}$.
-Each $\text{Vertex}$ contains the flag $\text{output}$ and the edges in the form of an array $\text{next}[]$, where $\text{next}[i]$ is the index of the vertex that we reach by following the character $i$, or $-1$ if there is no such edge.
-Initially, the trie consists of only one vertex - the root - with the index $0$.
+এখানে, আমরা ট্রাইকে $\text{Vertex}$-এর একটি অ্যারে হিসেবে সংরক্ষণ করি।
+প্রতিটি $\text{Vertex}$-এ ফ্ল্যাগ $\text{output}$ এবং $\text{next}[]$ অ্যারে আকারে এজ আছে, যেখানে $\text{next}[i]$ হলো সেই ভার্টেক্সের ইনডেক্স যেখানে $i$ অক্ষর অনুসরণ করে পৌঁছানো যায়, অথবা $-1$ যদি এরকম কোনো এজ না থাকে।
+প্রাথমিকভাবে, ট্রাই শুধু একটি ভার্টেক্স নিয়ে গঠিত - রুট - যার ইনডেক্স $0$।
 
-Now we implement a function that will add a string $s$ to the trie.
-The implementation is simple:
-we start at the root node, and as long as there are edges corresponding to the characters of $s$ we follow them.
-If there is no edge for one character, we generate a new vertex and connect it with an edge.
-At the end of the process we mark the last vertex with the flag $\text{output}$.
+এখন আমরা একটি ফাংশন ইমপ্লিমেন্ট করি যা ট্রাইয়ে একটি স্ট্রিং $s$ যোগ করবে।
+ইমপ্লিমেন্টেশন সরল:
+আমরা রুট নোড থেকে শুরু করি, এবং যতক্ষণ $s$-এর অক্ষরের সাথে সম্পর্কিত এজ আছে ততক্ষণ সেগুলো অনুসরণ করি।
+যদি কোনো অক্ষরের জন্য এজ না থাকে, আমরা একটি নতুন ভার্টেক্স তৈরি করি এবং একটি এজ দিয়ে সংযুক্ত করি।
+প্রক্রিয়ার শেষে আমরা শেষ ভার্টেক্সটিকে ফ্ল্যাগ $\text{output}$ দিয়ে চিহ্নিত করি।
 
 ```cpp
 void add_string(string const& s) {
@@ -75,62 +73,60 @@ void add_string(string const& s) {
 }
 ```
 
-This implementation obviously runs in linear time,
-and since every vertex stores $k$ links, it will use $O(m k)$ memory.
+এই ইমপ্লিমেন্টেশন স্পষ্টতই লিনিয়ার সময়ে চলে, এবং যেহেতু প্রতিটি ভার্টেক্স $k$ লিংক সংরক্ষণ করে, এটি $O(m k)$ মেমোরি ব্যবহার করবে।
 
-It is possible to decrease the memory consumption to $O(m)$ by using a map instead of an array in each vertex.
-However, this will increase the time complexity to $O(m \log k)$.
+প্রতিটি ভার্টেক্সে অ্যারের পরিবর্তে ম্যাপ ব্যবহার করে মেমোরি খরচ $O(m)$-এ কমানো সম্ভব।
+তবে, এতে টাইম কমপ্লেক্সিটি $O(m \log k)$-এ বাড়বে।
 
-## Construction of an automaton
+## একটি অটোমেটন তৈরি
 
-Suppose we have built a trie for the given set of strings.
-Now let's look at it from a different side.
-If we look at any vertex,
-the string that corresponds to it is a prefix of one or more strings in the set, thus each vertex of the trie can be interpreted as a position in one or more strings from the set.
+ধরুন আমরা প্রদত্ত স্ট্রিং-এর সেটের জন্য একটি ট্রাই তৈরি করেছি।
+এখন এটিকে ভিন্ন দৃষ্টিকোণ থেকে দেখি।
+যদি আমরা যেকোনো ভার্টেক্স দেখি, এর সাথে সম্পর্কিত স্ট্রিংটি সেটের এক বা একাধিক স্ট্রিং-এর একটি প্রিফিক্স, তাই ট্রাইয়ের প্রতিটি ভার্টেক্সকে সেটের এক বা একাধিক স্ট্রিং-এ একটি অবস্থান হিসেবে ব্যাখ্যা করা যায়।
 
-In fact, the trie vertices can be interpreted as states in a **finite deterministic automaton**.
-From any state we can transition - using some input letter - to other states, i.e., to another position in the set of strings.
-For example, if there is only one string $abc$ in the dictionary, and we are standing at vertex $ab$, then using the letter $c$ we can go to the vertex $abc$.
+আসলে, ট্রাই ভার্টেক্সগুলোকে একটি **ফিনাইট ডিটারমিনিস্টিক অটোমেটনের** স্টেট হিসেবে ব্যাখ্যা করা যায়।
+যেকোনো স্টেট থেকে আমরা ট্রানজিশন করতে পারি - কোনো ইনপুট অক্ষর ব্যবহার করে - অন্য স্টেটে, অর্থাৎ স্ট্রিং-এর সেটে অন্য অবস্থানে।
+উদাহরণস্বরূপ, যদি ডিকশনারিতে শুধু একটি স্ট্রিং $abc$ থাকে, এবং আমরা ভার্টেক্স $ab$-তে দাঁড়িয়ে আছি, তাহলে অক্ষর $c$ ব্যবহার করে আমরা ভার্টেক্স $abc$-তে যেতে পারি।
 
-Thus we can understand the edges of the trie as transitions in an automaton according to the corresponding letter.
-However, in an automaton we need to have transitions for each combination of a state and a letter.
-If we try to perform a transition using a letter, and there is no corresponding edge in the trie, then we nevertheless must go into some state.
+তাই আমরা ট্রাইয়ের এজগুলোকে সংশ্লিষ্ট অক্ষর অনুযায়ী অটোমেটনে ট্রানজিশন হিসেবে বুঝতে পারি।
+তবে, একটি অটোমেটনে প্রতিটি স্টেট এবং অক্ষরের সমন্বয়ের জন্য ট্রানজিশন থাকতে হবে।
+যদি আমরা কোনো অক্ষর দিয়ে ট্রানজিশন করতে চাই, এবং ট্রাইয়ে সংশ্লিষ্ট এজ না থাকে, তাহলেও আমাদের কোনো স্টেটে যেতে হবে।
 
-More precisely, suppose we are in a state corresponding to a string $t$, and we want to transition to a different state using the character $c$.
-If there is an edge labeled with this letter $c$, then we can simply go over this edge, and get the vertex corresponding to $t + c$.
-If there is no such edge, since we want to maintain the invariant that the current state is the longest partial match in the processed string, we must find the longest string in the trie that's a proper suffix of the string $t$, and try to perform a transition from there.
+আরও সুনির্দিষ্টভাবে, ধরুন আমরা একটি স্ট্রিং $t$-এর সাথে সম্পর্কিত স্টেটে আছি, এবং আমরা $c$ অক্ষর ব্যবহার করে ভিন্ন স্টেটে ট্রানজিশন করতে চাই।
+যদি এই অক্ষর $c$ দিয়ে লেবেলযুক্ত এজ থাকে, তাহলে আমরা সরাসরি এই এজ ধরে $t + c$-এর সাথে সম্পর্কিত ভার্টেক্সে যেতে পারি।
+যদি এরকম কোনো এজ না থাকে, যেহেতু আমরা এই ইনভ্যারিয়েন্ট বজায় রাখতে চাই যে বর্তমান স্টেট হলো প্রক্রিয়াকৃত স্ট্রিং-এ দীর্ঘতম আংশিক মিল, আমাদের ট্রাইয়ে স্ট্রিং $t$-এর প্রকৃত সাফিক্স যেটি দীর্ঘতম সেটি খুঁজতে হবে, এবং সেখান থেকে ট্রানজিশনের চেষ্টা করতে হবে।
 
-For example, let the trie be constructed by the strings $ab$ and $bc$, and we are currently at the vertex corresponding to $ab$, which is also an $\text{output}$ vertex.
-To transition with the letter $c$, we are forced to go to the state corresponding to the string $b$, and from there follow the edge with the letter $c$.
+উদাহরণস্বরূপ, ট্রাই $ab$ এবং $bc$ স্ট্রিং দিয়ে তৈরি, এবং আমরা বর্তমানে $ab$-এর সাথে সম্পর্কিত ভার্টেক্সে আছি, যেটি একটি $\text{output}$ ভার্টেক্সও।
+$c$ অক্ষর দিয়ে ট্রানজিশন করতে, আমরা $b$ স্ট্রিং-এর সাথে সম্পর্কিত স্টেটে যেতে বাধ্য, এবং সেখান থেকে $c$ অক্ষরের এজ অনুসরণ করতে বাধ্য।
 
 <center>
 <img src="https://upload.wikimedia.org/wikipedia/commons/9/90/A_diagram_of_the_Aho-Corasick_string_search_algorithm.svg" width="300px">
 <br>
-<i>An Aho-Corasick automaton based on words "a", "ab", "bc", "bca", "c" and "caa".</i>
+<i>"a", "ab", "bc", "bca", "c" এবং "caa" শব্দের উপর ভিত্তি করে একটি আহো-কোরাসিক অটোমেটন।</i>
 <br>
-<i>Blue arrows are suffix links, green arrows are terminal links.</i>
+<i>নীল তীরগুলো সাফিক্স লিংক, সবুজ তীরগুলো টার্মিনাল লিংক।</i>
 </center>
 
-A **suffix link** for a vertex $p$ is an edge that points to the longest proper suffix of the string corresponding to the vertex $p$.
-The only special case is the root of the trie, whose suffix link will point to itself.
-Now we can reformulate the statement about the transitions in the automaton like this:
-while there is no transition from the current vertex of the trie using the current letter (or until we reach the root), we follow the suffix link.
+একটি ভার্টেক্স $p$-এর জন্য **সাফিক্স লিংক** হলো একটি এজ যা ভার্টেক্স $p$-এর সাথে সম্পর্কিত স্ট্রিং-এর দীর্ঘতম প্রকৃত সাফিক্সের দিকে নির্দেশ করে।
+একমাত্র বিশেষ ক্ষেত্র হলো ট্রাইয়ের রুট, যার সাফিক্স লিংক নিজের দিকেই নির্দেশ করবে।
+এখন আমরা অটোমেটনের ট্রানজিশন সম্পর্কিত বিবৃতিটি এভাবে পুনর্গঠন করতে পারি:
+যতক্ষণ ট্রাইয়ের বর্তমান ভার্টেক্স থেকে বর্তমান অক্ষর দিয়ে কোনো ট্রানজিশন নেই (অথবা রুটে না পৌঁছানো পর্যন্ত), আমরা সাফিক্স লিংক অনুসরণ করি।
 
-Thus we reduced the problem of constructing an automaton to the problem of finding suffix links for all vertices of the trie.
-However, we will build these suffix links, oddly enough, using the transitions constructed in the automaton.
+তাই আমরা অটোমেটন তৈরির সমস্যাটিকে ট্রাইয়ের সকল ভার্টেক্সের জন্য সাফিক্স লিংক খোঁজার সমস্যায় রিডিউস করেছি।
+তবে, আমরা এই সাফিক্স লিংকগুলো, আশ্চর্যজনকভাবে, অটোমেটনে তৈরি ট্রানজিশন ব্যবহার করে তৈরি করব।
 
-The suffix links of the root vertex and all its immediate children point to the root vertex.
-For any vertex $v$ deeper in the tree, we can calculate the suffix link as follows:
-if $p$ is the ancestor of $v$ with $c$ being the letter labeling the edge from $p$ to $v$,
-go to $p$,
-then follow its suffix link, and perform the transition with the letter $c$ from there.
+রুট ভার্টেক্স এবং এর সকল তাৎক্ষণিক চিলড্রেনের সাফিক্স লিংক রুট ভার্টেক্সের দিকে নির্দেশ করে।
+ট্রিতে আরও গভীরে যেকোনো ভার্টেক্স $v$-এর জন্য, সাফিক্স লিংক নিম্নরূপে গণনা করা যায়:
+যদি $p$ হলো $v$-এর পূর্বসূরি এবং $c$ হলো $p$ থেকে $v$-তে যাওয়ার এজের অক্ষর,
+$p$-তে যান,
+তারপর এর সাফিক্স লিংক অনুসরণ করুন, এবং সেখান থেকে $c$ অক্ষর দিয়ে ট্রানজিশন করুন।
 
-Thus, the problem of finding the transitions has been reduced to the problem of finding suffix links, and the problem of finding suffix links has been reduced to the problem of finding a suffix link and a transition, except for vertices closer to the root.
-So we have a recursive dependence that we can resolve in linear time.
+তাই, ট্রানজিশন খোঁজার সমস্যা সাফিক্স লিংক খোঁজার সমস্যায় রিডিউস হয়েছে, এবং সাফিক্স লিংক খোঁজার সমস্যা একটি সাফিক্স লিংক এবং একটি ট্রানজিশন খোঁজার সমস্যায় রিডিউস হয়েছে, রুটের কাছের ভার্টেক্স ছাড়া।
+তাই আমাদের একটি রিকার্সিভ নির্ভরশীলতা আছে যা লিনিয়ার সময়ে সমাধান করা যায়।
 
-Let's move to the implementation.
-Note that we now will store the ancestor $p$ and the character $pch$ of the edge from $p$ to $v$ for each vertex $v$.
-Also, at each vertex we will store the suffix link $\text{link}$ (or $-1$ if it hasn't been calculated yet), and in the array $\text{go}[k]$ the transitions in the machine for each symbol (again $-1$ if it hasn't been calculated yet).
+আসুন ইমপ্লিমেন্টেশনে যাই।
+লক্ষ্য করুন এখন আমরা প্রতিটি ভার্টেক্স $v$-এর জন্য পূর্বসূরি $p$ এবং $p$ থেকে $v$-তে এজের অক্ষর $pch$ সংরক্ষণ করব।
+এছাড়া প্রতিটি ভার্টেক্সে সাফিক্স লিংক $\text{link}$ (বা $-1$ যদি এখনো গণনা না হয়ে থাকে), এবং $\text{go}[k]$ অ্যারেতে প্রতিটি প্রতীকের জন্য মেশিনে ট্রানজিশন (আবার $-1$ যদি এখনো গণনা না হয়ে থাকে) সংরক্ষণ করব।
 
 ```cpp
 const int K = 26;
@@ -185,88 +181,86 @@ int go(int v, char ch) {
             t[v].go[c] = v == 0 ? 0 : go(get_link(v), ch);
     }
     return t[v].go[c];
-} 
+}
 ```
 
-It is easy to see that thanks to memoization of the suffix links and transitions,
-the total time for finding all suffix links and transitions will be linear.
+সাফিক্স লিংক এবং ট্রানজিশনের মেমোয়াইজেশনের কারণে, সকল সাফিক্স লিংক এবং ট্রানজিশন খোঁজার মোট সময় লিনিয়ার হবে।
 
-For an illustration of the concept refer to slide number 103 of the [Stanford slides](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Slides02.pdf).
+ধারণাটির চিত্রণের জন্য [স্ট্যানফোর্ড স্লাইডের](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Slides02.pdf) ১০৩ নম্বর স্লাইড দেখুন।
 
-### BFS-based construction
+### BFS-ভিত্তিক নির্মাণ
 
-Instead of computing transitions and suffix links with recursive calls to `go` and `get_link`, it is possible to compute them bottom-up starting from the root.
-(In fact, when the dictionary consists of only one string, we obtain the familiar Knuth-Morris-Pratt algorithm.)
+`go` এবং `get_link`-এ রিকার্সিভ কল দিয়ে ট্রানজিশন এবং সাফিক্স লিংক গণনার পরিবর্তে, রুট থেকে শুরু করে বটম-আপ গণনা করা সম্ভব।
+(আসলে, যখন ডিকশনারিতে শুধু একটি স্ট্রিং থাকে, তখন আমরা পরিচিত নুথ-মরিস-প্র্যাট অ্যালগরিদম পাই।)
 
-This approach will have some advantages over the one described above as, instead of the total length $m$, its running time depends only on the number of vertices $n$ in the trie. Moreover, it is possible to adapt it for large alphabets using a persistent array data structure, thus making the construction time $O(n \log k)$ instead of $O(mk)$, which is a significant improvement granted that $m$ may go up to $n^2$.
+এই পদ্ধতির উপরে বর্ণিতটির তুলনায় কিছু সুবিধা আছে কারণ, মোট দৈর্ঘ্য $m$-এর পরিবর্তে, এর রানিং টাইম শুধু ট্রাইয়ের ভার্টেক্স সংখ্যা $n$-এর উপর নির্ভর করে। তাছাড়া, একটি পার্সিস্টেন্ট অ্যারে ডেটা স্ট্রাকচার ব্যবহার করে বড় বর্ণমালার জন্য এটি অভিযোজিত করা সম্ভব, ফলে নির্মাণ সময় $O(mk)$-এর পরিবর্তে $O(n \log k)$ হয়, যা উল্লেখযোগ্য উন্নতি কারণ $m$, $n^2$ পর্যন্ত হতে পারে।
 
-We can reason inductively using the fact that BFS from the root traverses vertices in order of increasing length.
-We may assume that when we're in a vertex $v$, its suffix link $u = link[v]$ is already successfully computed, and for all vertices with shorter length transitions from them are also fully computed.
+আমরা ইনডাক্টিভভাবে যুক্তি দিতে পারি কারণ রুট থেকে BFS বর্ধমান দৈর্ঘ্যের ক্রমে ভার্টেক্সগুলো ট্র্যাভার্স করে।
+আমরা ধরে নিতে পারি যখন আমরা একটি ভার্টেক্স $v$-তে আছি, এর সাফিক্স লিংক $u = link[v]$ ইতিমধ্যে সফলভাবে গণনা করা হয়েছে, এবং ছোট দৈর্ঘ্যের সকল ভার্টেক্সের ট্রানজিশনও সম্পূর্ণরূপে গণনা করা হয়েছে।
 
-Assume that at the moment we stand in a vertex $v$ and consider a character $c$. We essentially have two cases:
+ধরুন এই মুহূর্তে আমরা একটি ভার্টেক্স $v$-তে দাঁড়িয়ে আছি এবং একটি অক্ষর $c$ বিবেচনা করছি। মূলত আমাদের দুটি ক্ষেত্র আছে:
 
-1. $go[v][c] = -1$. In this case, we may assign $go[v][c] = go[u][c]$, which is already known by the induction hypothesis;
-2. $go[v][c] = w \neq -1$. In this case, we may assign $link[w] = go[u][c]$.
+১. $go[v][c] = -1$। এই ক্ষেত্রে, আমরা $go[v][c] = go[u][c]$ অ্যাসাইন করতে পারি, যা ইনডাকশন হাইপোথিসিস অনুযায়ী ইতিমধ্যে জানা;
+২. $go[v][c] = w \neq -1$। এই ক্ষেত্রে, আমরা $link[w] = go[u][c]$ অ্যাসাইন করতে পারি।
 
-In this way, we spend $O(1)$ time per each pair of a vertex and a character, making the running time $O(nk)$. The major overhead here is that we copy a lot of transitions from $u$ in the first case, while the transitions of the second case form the trie and sum up to $n$ over all vertices. To avoid the copying of $go[u][c]$, we may use a persistent array data structure, using which we initially copy $go[u]$ into $go[v]$ and then only update values for characters in which the transition would differ. This leads to the $O(n \log k)$ algorithm.
+এভাবে, আমরা প্রতিটি ভার্টেক্স-অক্ষর জোড়ায় $O(1)$ সময় ব্যয় করি, ফলে রানিং টাইম $O(nk)$ হয়। এখানে প্রধান ওভারহেড হলো প্রথম ক্ষেত্রে $u$ থেকে অনেক ট্রানজিশন কপি করা, যখন দ্বিতীয় ক্ষেত্রের ট্রানজিশনগুলো ট্রাই গঠন করে এবং সকল ভার্টেক্সে মিলিয়ে $n$ হয়। $go[u][c]$ কপি এড়াতে, আমরা একটি পার্সিস্টেন্ট অ্যারে ডেটা স্ট্রাকচার ব্যবহার করতে পারি, যেটি দিয়ে আমরা প্রথমে $go[u]$-কে $go[v]$-তে কপি করি এবং তারপর শুধু সেই অক্ষরগুলোর জন্য মান আপডেট করি যেখানে ট্রানজিশন ভিন্ন হবে। এটি $O(n \log k)$ অ্যালগরিদম দেয়।
 
-## Applications
+## অ্যাপ্লিকেশন
 
-### Find all strings from a given set in a text
+### একটি টেক্সটে প্রদত্ত সেটের সকল স্ট্রিং খোঁজা
 
-We are given a set of strings and a text.
-We have to print all occurrences of all strings from the set in the given text in $O(\text{len} + \text{ans})$, where $\text{len}$ is the length of the text and $\text{ans}$ is the size of the answer.
+আমাদের একটি স্ট্রিং-এর সেট এবং একটি টেক্সট দেওয়া আছে।
+আমাদের $O(\text{len} + \text{ans})$ সময়ে প্রদত্ত টেক্সটে সেটের সকল স্ট্রিং-এর সকল উপস্থিতি প্রিন্ট করতে হবে, যেখানে $\text{len}$ হলো টেক্সটের দৈর্ঘ্য এবং $\text{ans}$ হলো উত্তরের আকার।
 
-We construct an automaton for this set of strings.
-We will now process the text letter by letter using the automaton,
-starting at the root of the trie.
-If we are at any time at state $v$, and the next letter is $c$, then we transition to the next state with $\text{go}(v, c)$, thereby either increasing the length of the current match substring by $1$, or decreasing it by following a suffix link.
+আমরা এই স্ট্রিং-এর সেটের জন্য অটোমেটন তৈরি করি।
+এখন আমরা অটোমেটন ব্যবহার করে টেক্সট অক্ষরে অক্ষরে প্রক্রিয়া করব, ট্রাইয়ের রুট থেকে শুরু করে।
+যদি আমরা যেকোনো সময়ে $v$ স্টেটে থাকি, এবং পরবর্তী অক্ষর $c$ হয়, তাহলে আমরা $\text{go}(v, c)$ দিয়ে পরবর্তী স্টেটে ট্রানজিশন করি, যার ফলে বর্তমান মিলিত সাবস্ট্রিং-এর দৈর্ঘ্য হয় $1$ বাড়ে, অথবা সাফিক্স লিংক অনুসরণ করে কমে।
 
-How can we find out for a state $v$, if there are any matches with strings for the set?
-First, it is clear that if we stand on a $\text{output}$ vertex, then the string corresponding to the vertex ends at this position in the text.
-However this is by no means the only possible case of achieving a match:
-if we can reach one or more  $\text{output}$ vertices by moving along the suffix links, then there will be also a match corresponding to each found $\text{output}$ vertex.
-A simple example demonstrating this situation can be created using the set of strings $\{dabce, abc, bc\}$ and the text $dabc$.
+$v$ স্টেটে কোনো মিল আছে কিনা কিভাবে জানব?
+প্রথমত, আমরা যদি একটি $\text{output}$ ভার্টেক্সে দাঁড়িয়ে থাকি, তাহলে ভার্টেক্সের সাথে সম্পর্কিত স্ট্রিং টেক্সটে এই অবস্থানে শেষ হয়।
+তবে এটি কোনোমতেই মিল অর্জনের একমাত্র সম্ভাব্য ক্ষেত্র নয়:
+যদি সাফিক্স লিংক ধরে এক বা একাধিক $\text{output}$ ভার্টেক্সে পৌঁছানো যায়, তাহলে প্রতিটি পাওয়া $\text{output}$ ভার্টেক্সের জন্যও একটি মিল থাকবে।
+$\{dabce, abc, bc\}$ স্ট্রিং-এর সেট এবং $dabc$ টেক্সট দিয়ে এই পরিস্থিতি প্রদর্শনকারী একটি সরল উদাহরণ তৈরি করা যায়।
 
-Thus if we store in each $\text{output}$ vertex the index of the string corresponding to it (or the list of indices if duplicate strings appear in the set), then we can find in $O(n)$ time the indices of all strings which match the current state, by simply following the suffix links from the current vertex to the root.
-This is not the most efficient solution, since this results in $O(n ~ \text{len})$ complexity overall.
-However, this can be optimized by computing and storing the nearest $\text{output}$ vertex that is reachable using suffix links (this is sometimes called the **exit link**).
-This value we can compute lazily in linear time.
-Thus for each vertex we can advance in $O(1)$ time to the next marked vertex in the suffix link path, i.e. to the next match.
-Thus for each match we spend $O(1)$ time, and therefore we reach the complexity $O(\text{len} + \text{ans})$.
+তাই যদি আমরা প্রতিটি $\text{output}$ ভার্টেক্সে সম্পর্কিত স্ট্রিং-এর ইনডেক্স (বা ডুপ্লিকেট থাকলে ইনডেক্সের তালিকা) সংরক্ষণ করি, তাহলে আমরা $O(n)$ সময়ে বর্তমান স্টেটে মিলিত সকল স্ট্রিং-এর ইনডেক্স খুঁজতে পারি, কেবল বর্তমান ভার্টেক্স থেকে রুট পর্যন্ত সাফিক্স লিংক অনুসরণ করে।
+এটি সবচেয়ে দক্ষ সমাধান নয়, কারণ এতে সামগ্রিকভাবে $O(n ~ \text{len})$ কমপ্লেক্সিটি হয়।
+তবে, সাফিক্স লিংক দিয়ে পৌঁছানো নিকটতম $\text{output}$ ভার্টেক্স গণনা ও সংরক্ষণ করে এটি অপটিমাইজ করা যায় (এটিকে কখনো কখনো **এক্সিট লিংক** বলা হয়)।
+এই মান আমরা লেজিলি লিনিয়ার সময়ে গণনা করতে পারি।
+তাই প্রতিটি ভার্টেক্সের জন্য আমরা $O(1)$ সময়ে সাফিক্স লিংক পথে পরবর্তী চিহ্নিত ভার্টেক্সে, অর্থাৎ পরবর্তী মিলে অগ্রসর হতে পারি।
+তাই প্রতিটি মিলের জন্য আমরা $O(1)$ সময় ব্যয় করি, এবং তাই কমপ্লেক্সিটি $O(\text{len} + \text{ans})$-এ পৌঁছাই।
 
-If you only want to count the occurrences and not find the indices themselves, you can calculate the number of marked vertices in the suffix link path for each vertex $v$.
-This can be calculated in $O(n)$ time in total.
-Thus we can sum up all matches in $O(\text{len})$.
+আপনি যদি শুধু উপস্থিতির সংখ্যা গণনা করতে চান এবং ইনডেক্স নিজে না চান, তাহলে প্রতিটি ভার্টেক্স $v$-এর জন্য সাফিক্স লিংক পথে চিহ্নিত ভার্টেক্সের সংখ্যা গণনা করতে পারেন।
+এটি মোট $O(n)$ সময়ে গণনা করা যায়।
+তাই সকল মিল $O(\text{len})$-এ যোগ করা যায়।
 
-### Finding the lexicographically smallest string of a given length that doesn't match any given strings
+### প্রদত্ত দৈর্ঘ্যের লেক্সিকোগ্রাফিক্যালি ক্ষুদ্রতম স্ট্রিং খোঁজা যা কোনো প্রদত্ত স্ট্রিং-এর সাথে মেলে না
 
-A set of strings and a length $L$ is given.
-We have to find a string of length $L$, which does not contain any of the strings, and derive the lexicographically smallest of such strings.
+স্ট্রিং-এর একটি সেট এবং একটি দৈর্ঘ্য $L$ দেওয়া আছে।
+আমাদের $L$ দৈর্ঘ্যের এমন একটি স্ট্রিং খুঁজতে হবে, যাতে কোনো স্ট্রিং নেই, এবং এরকম স্ট্রিংগুলোর মধ্যে লেক্সিকোগ্রাফিক্যালি ক্ষুদ্রতমটি বের করতে হবে।
 
-We can construct the automaton for the set of strings.
-Recall that $\text{output}$ vertices are the states where we have a match with a string from the set.
-Since in this task we have to avoid matches, we are not allowed to enter such states.
-On the other hand we can enter all other vertices.
-Thus we delete all "bad" vertices from the machine, and in the remaining graph of the automaton we find the lexicographically smallest path of length $L$.
-This task can be solved in $O(L)$ for example by [depth first search](../graph/depth-first-search.md).
+আমরা স্ট্রিং-এর সেটের জন্য অটোমেটন তৈরি করতে পারি।
+মনে রাখুন $\text{output}$ ভার্টেক্সগুলো হলো সেই স্টেট যেখানে সেটের কোনো স্ট্রিং-এর সাথে মিল আছে।
+যেহেতু এই কাজে আমাদের মিল এড়াতে হবে, আমরা এরকম স্টেটে প্রবেশ করতে পারি না।
+অন্যদিকে অন্য সকল ভার্টেক্সে প্রবেশ করা যায়।
+তাই আমরা মেশিন থেকে সকল "খারাপ" ভার্টেক্স মুছে দিই, এবং অটোমেটনের অবশিষ্ট গ্রাফে $L$ দৈর্ঘ্যের লেক্সিকোগ্রাফিক্যালি ক্ষুদ্রতম পথ খুঁজি।
+এই কাজটি $O(L)$-এ সমাধান করা যায় উদাহরণস্বরূপ [ডেপথ ফার্স্ট সার্চ](../graph/depth-first-search.md) দিয়ে।
 
-### Finding the shortest string containing all given strings
+### সকল প্রদত্ত স্ট্রিং ধারণকারী সংক্ষিপ্ততম স্ট্রিং খোঁজা
 
-Here we use the same ideas.
-For each vertex we store a mask that denotes the strings which match at this state.
-Then the problem can be reformulated as follows:
-initially being in the state $(v = \text{root},~ \text{mask} = 0)$, we want to reach the state $(v,~ \text{mask} = 2^n - 1)$, where $n$ is the number of strings in the set.
-When we transition from one state to another using a letter, we update the mask accordingly.
-By running a [breadth first search](../graph/breadth-first-search.md) we can find a path to the state $(v,~ \text{mask} = 2^n - 1)$ with the smallest length.
+এখানে আমরা একই ধারণা ব্যবহার করি।
+প্রতিটি ভার্টেক্সের জন্য আমরা একটি মাস্ক সংরক্ষণ করি যা নির্দেশ করে এই স্টেটে কোন স্ট্রিংগুলো মেলে।
+তাহলে সমস্যাটি নিম্নরূপে পুনর্গঠন করা যায়:
+প্রাথমিকভাবে $(v = \text{root},~ \text{mask} = 0)$ স্টেটে থেকে, আমরা $(v,~ \text{mask} = 2^n - 1)$ স্টেটে পৌঁছাতে চাই, যেখানে $n$ হলো সেটে স্ট্রিং-এর সংখ্যা।
+যখন আমরা একটি অক্ষর ব্যবহার করে এক স্টেট থেকে অন্য স্টেটে ট্রানজিশন করি, আমরা সেই অনুযায়ী মাস্ক আপডেট করি।
+[ব্রেডথ ফার্স্ট সার্চ](../graph/breadth-first-search.md) চালিয়ে আমরা ক্ষুদ্রতম দৈর্ঘ্যের $(v,~ \text{mask} = 2^n - 1)$ স্টেটে পৌঁছানোর পথ খুঁজতে পারি।
 
-### Finding the lexicographically smallest string of length $L$ containing $k$ strings {data-toc-label="Finding the lexicographically smallest string of length L containing k strings"}
+### $L$ দৈর্ঘ্যের লেক্সিকোগ্রাফিক্যালি ক্ষুদ্রতম স্ট্রিং খোঁজা যাতে $k$ স্ট্রিং আছে {data-toc-label="Finding the lexicographically smallest string of length L containing k strings"}
 
-As in the previous problem, we calculate for each vertex the number of matches that correspond to it (that is the number of marked vertices reachable using suffix links).
-We reformulate the problem: the current state is determined by a triple of numbers $(v,~ \text{len},~ \text{cnt})$, and we want to reach from the state $(\text{root},~ 0,~ 0)$ the state $(v,~ L,~ k)$, where $v$ can be any vertex.
-Thus we can find such a path  using depth first search (and if the search looks at the edges in their natural order, then the found path will automatically be the lexicographically smallest).
+পূর্ববর্তী সমস্যার মতো, আমরা প্রতিটি ভার্টেক্সের জন্য এর সাথে সম্পর্কিত মিলের সংখ্যা গণনা করি (অর্থাৎ সাফিক্স লিংক ব্যবহার করে পৌঁছানো চিহ্নিত ভার্টেক্সের সংখ্যা)।
+আমরা সমস্যাটি পুনর্গঠন করি: বর্তমান স্টেট তিনটি সংখ্যার ট্রিপল $(v,~ \text{len},~ \text{cnt})$ দ্বারা নির্ধারিত, এবং আমরা $(\text{root},~ 0,~ 0)$ স্টেট থেকে $(v,~ L,~ k)$ স্টেটে পৌঁছাতে চাই, যেখানে $v$ যেকোনো ভার্টেক্স হতে পারে।
+তাই আমরা ডেপথ ফার্স্ট সার্চ দিয়ে এরকম পথ খুঁজতে পারি (এবং যদি সার্চ এজগুলো তাদের স্বাভাবিক ক্রমে দেখে, তাহলে পাওয়া পথ স্বয়ংক্রিয়ভাবে লেক্সিকোগ্রাফিক্যালি ক্ষুদ্রতম হবে)।
 
-## Problems
+## সমস্যা
 
 - [UVA #11590 - Prefix Lookup](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2637)
 - [UVA #11171 - SMS](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2112)
@@ -275,5 +269,5 @@ Thus we can find such a path  using depth first search (and if the search looks 
 - [Codeforces - Frequency of String](http://codeforces.com/problemset/problem/963/D)
 - [CodeChef - TWOSTRS](https://www.codechef.com/MAY20A/problems/TWOSTRS)
 
-## References
+## রেফারেন্স
 - [Stanford's CS166 - Aho-Corasick Automata](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Slides02.pdf) ([Condensed](http://web.stanford.edu/class/archive/cs/cs166/cs166.1166/lectures/02/Small02.pdf))

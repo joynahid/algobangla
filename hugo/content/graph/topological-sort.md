@@ -1,59 +1,59 @@
 ---
-title: "Topological Sorting"
+title: "টপোলজিক্যাল সর্টিং"
 tags: 
 weight: 10
 ---
-# Topological Sorting
+# টপোলজিক্যাল সর্টিং
 
-You are given a directed graph with $n$ vertices and $m$ edges.
-You have to find an **order of the vertices**, so that every edge leads from the vertex with a smaller index to a vertex with a larger one.
+আপনাকে $n$ টি ভার্টেক্স এবং $m$ টি এজবিশিষ্ট একটি ডিরেক্টেড গ্রাফ দেওয়া হয়েছে।
+আপনাকে **ভার্টেক্সগুলোর এমন একটি ক্রম** বের করতে হবে, যেন প্রতিটি এজ ছোট ইনডেক্সবিশিষ্ট ভার্টেক্স থেকে বড় ইনডেক্সবিশিষ্ট ভার্টেক্সের দিকে যায়।
 
-In other words, you want to find a permutation of the vertices (**topological order**) which corresponds to the order defined by all edges of the graph.
+অন্যভাবে বলতে গেলে, আপনি ভার্টেক্সগুলোর এমন একটি পারমুটেশন (**টপোলজিক্যাল অর্ডার**) খুঁজে বের করতে চান যা গ্রাফের সমস্ত এজ দ্বারা নির্ধারিত ক্রমের সাথে সামঞ্জস্যপূর্ণ।
 
-Here is one given graph together with its topological order:
+নিচে একটি গ্রাফ এবং তার টপোলজিক্যাল অর্ডার দেখানো হলো:
 
 <div style="text-align: center;">
   <img src="/images/graph/topological_1.png" alt="example directed graph">
   <img src="/images/graph/topological_2.png" alt="one topological order">
 </div>
 
-Topological order can be **non-unique** (for example, if there exist three vertices $a$, $b$, $c$ for which there exist paths from $a$ to $b$ and from $a$ to $c$ but not paths from $b$ to $c$ or from $c$ to $b$).
-The example graph also has multiple topological orders, a second topological order is the following:
+টপোলজিক্যাল অর্ডার **অনন্য নাও হতে পারে** (উদাহরণস্বরূপ, যদি তিনটি ভার্টেক্স $a$, $b$, $c$ থাকে যেখানে $a$ থেকে $b$ তে এবং $a$ থেকে $c$ তে পাথ আছে কিন্তু $b$ থেকে $c$ তে বা $c$ থেকে $b$ তে কোনো পাথ নেই)।
+উদাহরণের গ্রাফটিরও একাধিক টপোলজিক্যাল অর্ডার রয়েছে, দ্বিতীয় একটি টপোলজিক্যাল অর্ডার হলো নিম্নরূপ:
 <div style="text-align: center;">
   <img src="/images/graph/topological_3.png" alt="second topological order">
 </div>
 
-A Topological order may **not exist** at all.
-It only exists, if the directed graph contains no cycles.
-Otherwise, there is a contradiction: if there is a cycle containing the vertices $a$ and $b$, then $a$ needs to have a smaller index than $b$ (since you can reach $b$ from $a$) and also a bigger one (as you can reach $a$ from $b$).
-The algorithm described in this article also shows by construction, that every acyclic directed graph contains at least one topological order.
+টপোলজিক্যাল অর্ডার **একেবারেই নাও থাকতে পারে**।
+এটি কেবল তখনই বিদ্যমান থাকে যখন ডিরেক্টেড গ্রাফে কোনো সাইকেল না থাকে।
+অন্যথায় একটি স্ববিরোধিতা তৈরি হয়: যদি ভার্টেক্স $a$ এবং $b$ সম্বলিত কোনো সাইকেল থাকে, তাহলে $a$-এর ইনডেক্স $b$-এর চেয়ে ছোট হওয়া দরকার (যেহেতু $a$ থেকে $b$ তে পৌঁছানো যায়) এবং একই সাথে বড়ও হওয়া দরকার (যেহেতু $b$ থেকে $a$ তে পৌঁছানো যায়)।
+এই আর্টিকেলে বর্ণিত অ্যালগরিদমটি কনস্ট্রাকশনের মাধ্যমে এটিও দেখায় যে, প্রতিটি অ্যাসাইক্লিক ডিরেক্টেড গ্রাফে অন্তত একটি টপোলজিক্যাল অর্ডার বিদ্যমান।
 
-A common problem in which topological sorting occurs is the following. There are $n$ variables with unknown values. For some variables, we know that one of them is less than the other. You have to check whether these constraints are contradictory, and if not, output the variables in ascending order (if several answers are possible, output any of them). It is easy to notice that this is exactly the problem of finding the topological order of a graph with $n$ vertices.
+একটি সাধারণ সমস্যা যেখানে টপোলজিক্যাল সর্টিং ব্যবহৃত হয় তা হলো নিম্নরূপ। $n$ টি চলক আছে যাদের মান অজানা। কিছু চলকের জন্য আমরা জানি যে একটি অপরটির চেয়ে ছোট। আপনাকে যাচাই করতে হবে এই শর্তগুলো পরস্পরবিরোধী কিনা, এবং যদি না হয়, তাহলে চলকগুলোকে ঊর্ধ্বক্রমে সাজিয়ে আউটপুট দিতে হবে (একাধিক উত্তর সম্ভব হলে যেকোনো একটি আউটপুট দিন)। লক্ষ্য করুন, এটি আসলে $n$ টি ভার্টেক্সবিশিষ্ট একটি গ্রাফের টপোলজিক্যাল অর্ডার বের করার সমস্যা।
 
-## The Algorithm
+## অ্যালগরিদম
 
-To solve this problem, we will use [depth-first search](depth-first-search.md).
+এই সমস্যাটি সমাধানের জন্য আমরা [ডেপথ-ফার্স্ট সার্চ](depth-first-search.md) ব্যবহার করব।
 
-Let's assume that the graph is acyclic. What does the depth-first search do?
+ধরে নিই গ্রাফটি অ্যাসাইক্লিক। ডেপথ-ফার্স্ট সার্চ কী করে?
 
-When starting from some vertex $v$, DFS tries to traverse along all edges outgoing from $v$.
-It stops at the edges for which the ends have been already been visited previously, and traverses along the rest of the edges and continues recursively at their ends.
+কোনো ভার্টেক্স $v$ থেকে শুরু করলে, ডিএফএস $v$ থেকে বের হওয়া সমস্ত এজ ধরে ট্রাভার্স করার চেষ্টা করে।
+যেসব এজের শেষ প্রান্তের ভার্টেক্স ইতিমধ্যে পরিদর্শিত হয়েছে সেগুলোতে এটি থামে, এবং বাকি এজগুলো ধরে এগিয়ে যায় ও তাদের শেষ প্রান্তে রিকার্সিভভাবে অনুসন্ধান চালিয়ে যায়।
 
-Thus, by the time of the function call $\text{dfs}(v)$ has finished, all vertices that are reachable from $v$ have been either directly (via one edge) or indirectly visited by the search.
+সুতরাং, $\text{dfs}(v)$ ফাংশন কলটি শেষ হওয়ার সময়ের মধ্যে, $v$ থেকে রিচেবল সমস্ত ভার্টেক্স হয় সরাসরি (একটি এজের মাধ্যমে) অথবা পরোক্ষভাবে সার্চ দ্বারা পরিদর্শিত হয়ে যায়।
 
-Let's append the vertex $v$ to a list, when we finish $\text{dfs}(v)$. Since all reachable vertices have already been visited, they will already be in the list when we append $v$.
-Let's do this for every vertex in the graph, with one or multiple depth-first search runs.
-For every directed edge $v \rightarrow u$ in the graph, $u$ will appear earlier in this list than $v$, because $u$ is reachable from $v$.
-So if we just label the vertices in this list with $n-1, n-2, \dots, 1, 0$, we have found a topological order of the graph.
-In other words, the list represents the reversed topological order.
+আমরা $\text{dfs}(v)$ শেষ হওয়ার সময় ভার্টেক্স $v$-কে একটি লিস্টে যোগ করি। যেহেতু সমস্ত রিচেবল ভার্টেক্স ইতিমধ্যে পরিদর্শিত হয়ে গেছে, $v$-কে যোগ করার সময় তারা আগে থেকেই লিস্টে থাকবে।
+গ্রাফের প্রতিটি ভার্টেক্সের জন্য এক বা একাধিক ডেপথ-ফার্স্ট সার্চ চালিয়ে এটি করি।
+গ্রাফের প্রতিটি ডিরেক্টেড এজ $v \rightarrow u$-এর জন্য, $u$ এই লিস্টে $v$-এর আগে আসবে, কারণ $u$ হলো $v$ থেকে রিচেবল।
+তাই যদি আমরা এই লিস্টের ভার্টেক্সগুলোকে $n-1, n-2, \dots, 1, 0$ দিয়ে লেবেল করি, তাহলে আমরা গ্রাফের একটি টপোলজিক্যাল অর্ডার পেয়ে যাব।
+অন্যভাবে বলতে গেলে, লিস্টটি বিপরীত টপোলজিক্যাল অর্ডার উপস্থাপন করে।
 
-These explanations can also be presented in terms of exit times of the DFS algorithm.
-The exit time for vertex $v$ is the time at which the function call $\text{dfs}(v)$ finished (the times can be numbered from $0$ to $n-1$).
-It is easy to understand that exit time of any vertex $v$ is always greater than the exit time of any vertex reachable from it (since they were visited either before the call $\text{dfs}(v)$ or during it). Thus, the desired topological ordering are the vertices in descending order of their exit times.
+এই ব্যাখ্যাগুলো ডিএফএস অ্যালগরিদমের এক্সিট টাইমের পরিপ্রেক্ষিতেও উপস্থাপন করা যায়।
+ভার্টেক্স $v$-এর এক্সিট টাইম হলো সেই সময় যখন $\text{dfs}(v)$ ফাংশন কলটি শেষ হয় (সময়গুলো $0$ থেকে $n-1$ পর্যন্ত সংখ্যায়িত করা যায়)।
+সহজেই বোঝা যায় যে যেকোনো ভার্টেক্স $v$-এর এক্সিট টাইম সর্বদা তার থেকে রিচেবল যেকোনো ভার্টেক্সের এক্সিট টাইমের চেয়ে বেশি হবে (যেহেতু তারা $\text{dfs}(v)$ কলের আগে বা কলের সময় পরিদর্শিত হয়)। সুতরাং, কাঙ্ক্ষিত টপোলজিক্যাল অর্ডারিং হলো ভার্টেক্সগুলোকে তাদের এক্সিট টাইমের উতরক্রমে সাজানো।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is an implementation which assumes that the graph is acyclic, i.e. the desired topological ordering exists. If necessary, you can easily check that the graph is acyclic, as described in the article on [depth-first search](depth-first-search.md).
+এখানে একটি ইমপ্লিমেন্টেশন দেওয়া হলো যেখানে ধরে নেওয়া হয়েছে যে গ্রাফটি অ্যাসাইক্লিক, অর্থাৎ কাঙ্ক্ষিত টপোলজিক্যাল অর্ডারিং বিদ্যমান। প্রয়োজন হলে, আপনি সহজেই যাচাই করতে পারেন গ্রাফটি অ্যাসাইক্লিক কিনা, যেমনটি [ডেপথ-ফার্স্ট সার্চ](depth-first-search.md) আর্টিকেলে বর্ণিত হয়েছে।
 
 ```cpp
 int n; // number of vertices
@@ -83,9 +83,9 @@ void topological_sort() {
 }
 ```
 
-The main function of the solution is `topological_sort`, which initializes DFS variables, launches DFS and receives the answer in the vector `ans`. It is worth noting that when the graph is not acyclic, `topological_sort` result would still be somewhat meaningful in a sense that if a vertex $u$ is reachable from vertex $v$, but not vice versa, the vertex $v$ will always come first in the resulting array. This property of the provided implementation is used in [Kosaraju's algorithm](./strongly-connected-components.md) to extract strongly connected components and their topological sorting in a directed graph with cycles.
+সমাধানের মূল ফাংশন হলো `topological_sort`, যেটি ডিএফএস ভেরিয়েবলগুলো ইনিশিয়ালাইজ করে, ডিএফএস চালায় এবং `ans` ভেক্টরে উত্তর পায়। লক্ষণীয় যে, গ্রাফটি অ্যাসাইক্লিক না হলেও `topological_sort`-এর ফলাফল কিছুটা অর্থবহ থাকে এই অর্থে যে, যদি ভার্টেক্স $v$ থেকে ভার্টেক্স $u$ রিচেবল হয় কিন্তু উল্টোটা না হয়, তাহলে ফলাফলের অ্যারেতে ভার্টেক্স $v$ সর্বদা $u$-এর আগে আসবে। এই ইমপ্লিমেন্টেশনের এই বৈশিষ্ট্যটি [কোসারাজুর অ্যালগরিদমে](./strongly-connected-components.md) ব্যবহৃত হয় সাইকেলযুক্ত ডিরেক্টেড গ্রাফে স্ট্রংলি কানেক্টেড কম্পোনেন্ট এবং তাদের টপোলজিক্যাল সর্টিং বের করতে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [SPOJ TOPOSORT - Topological Sorting [difficulty: easy]](http://www.spoj.com/problems/TOPOSORT/)
 - [UVA 10305 - Ordering Tasks [difficulty: easy]](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1246)

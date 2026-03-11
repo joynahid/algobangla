@@ -1,52 +1,52 @@
 ---
-title: "Garner's algorithm"
+title: "গার্নারের অ্যালগরিদম"
 weight: 40
 ---
-# Garner's algorithm
+# গার্নারের অ্যালগরিদম
 
-A consequence of the [Chinese Remainder Theorem](chinese-remainder-theorem.md) is, that we can represent big numbers using an array of small integers.
-For example, let $p$ be the product of the first $1000$ primes. $p$ has around $3000$ digits.
+[চাইনিজ রিমেইন্ডার থিওরেম](chinese-remainder-theorem.md)-এর একটি ফলাফল হলো, আমরা বড় সংখ্যাগুলোকে ছোট পূর্ণসংখ্যার একটি অ্যারে ব্যবহার করে উপস্থাপন করতে পারি।
+উদাহরণস্বরূপ, মনে করি $p$ হলো প্রথম $1000$টি মৌলিক সংখ্যার গুণফল। $p$-তে প্রায় $3000$টি অঙ্ক আছে।
 
-Any number $a$ less than $p$ can be represented as an array  $a_1, \ldots, a_k$, where $a_i \equiv a \pmod{p_i}$.
-But to do this we obviously need to know how to get back the number $a$ from its representation.
-One way is discussed in the article about the Chinese Remainder Theorem.
+$p$-এর চেয়ে ছোট যেকোনো সংখ্যা $a$-কে একটি অ্যারে $a_1, \ldots, a_k$ আকারে উপস্থাপন করা যায়, যেখানে $a_i \equiv a \pmod{p_i}$।
+তবে এটি করতে হলে আমাদের স্পষ্টতই জানতে হবে কিভাবে সংখ্যা $a$-কে তার উপস্থাপনা থেকে ফিরে পাওয়া যায়।
+একটি পদ্ধতি চাইনিজ রিমেইন্ডার থিওরেম সম্পর্কিত নিবন্ধে আলোচনা করা হয়েছে।
 
-In this article we discuss an alternative, Garner's Algorithm, which can also be used for this purpose.
+এই নিবন্ধে আমরা একটি বিকল্প পদ্ধতি আলোচনা করব, গার্নারের অ্যালগরিদম, যা এই কাজের জন্যও ব্যবহার করা যায়।
 
-## Mixed Radix Representation
+## মিক্সড র‍্যাডিক্স রিপ্রেজেন্টেশন
 
-We can represent the number $a$ in the **mixed radix** representation:
+আমরা সংখ্যা $a$-কে **মিক্সড র‍্যাডিক্স** উপস্থাপনায় প্রকাশ করতে পারি:
 
 $$a = x_1 + x_2 p_1 + x_3 p_1 p_2 + \ldots + x_k p_1 \cdots p_{k-1} \text{ with }x_i \in [0, p_i)$$
 
-A mixed radix representation is a positional numeral system, that's a generalization of the typical number systems, like the binary numeral system or the decimal numeral system.
-For instance, the decimal numeral system is a positional numeral system with the radix (or base) 10.
-Every number is represented as a string of digits $d_1 d_2 d_3 \dots d_n$ between $0$ and $9$. For example, the string $415$ represents the number $4 \cdot 10^2 + 1 \cdot 10^1 + 5 \cdot 10^0$.
-In general the string of digits $d_1 d_2 d_3 \dots d_n$ represents the number $d_1 b^{n-1} + d_2 b^{n-2} + \cdots + d_n b^0$ in the positional numeral system with radix $b$.
+মিক্সড র‍্যাডিক্স রিপ্রেজেন্টেশন হলো একটি পজিশনাল সংখ্যা পদ্ধতি, যা সাধারণ সংখ্যা পদ্ধতিগুলোর একটি সাধারণীকরণ, যেমন বাইনারি সংখ্যা পদ্ধতি বা দশমিক সংখ্যা পদ্ধতি।
+উদাহরণস্বরূপ, দশমিক সংখ্যা পদ্ধতি হলো ১০ ভিত্তি (বা র‍্যাডিক্স) বিশিষ্ট একটি পজিশনাল সংখ্যা পদ্ধতি।
+প্রতিটি সংখ্যা $0$ থেকে $9$-এর মধ্যে অঙ্কের একটি স্ট্রিং $d_1 d_2 d_3 \dots d_n$ আকারে প্রকাশ করা হয়। উদাহরণস্বরূপ, স্ট্রিং $415$ সংখ্যা $4 \cdot 10^2 + 1 \cdot 10^1 + 5 \cdot 10^0$-কে নির্দেশ করে।
+সাধারণভাবে, $b$ ভিত্তির পজিশনাল সংখ্যা পদ্ধতিতে অঙ্কের স্ট্রিং $d_1 d_2 d_3 \dots d_n$ সংখ্যা $d_1 b^{n-1} + d_2 b^{n-2} + \cdots + d_n b^0$-কে নির্দেশ করে।
 
-In a mixed radix system, we don't have one radix any more. The base varies from position to position.
+মিক্সড র‍্যাডিক্স পদ্ধতিতে, আমাদের আর একটি মাত্র র‍্যাডিক্স থাকে না। ভিত্তি অবস্থান থেকে অবস্থানে পরিবর্তিত হয়।
 
-## Garner's algorithm
+## গার্নারের অ্যালগরিদম
 
-Garner's algorithm computes the digits $x_1, \ldots, x_k$.
-Notice, that the digits are relatively small.
-The digit $x_i$ is an integer between $0$ and $p_i - 1$.
+গার্নারের অ্যালগরিদম অঙ্কগুলো $x_1, \ldots, x_k$ গণনা করে।
+লক্ষ্য করুন, অঙ্কগুলো তুলনামূলকভাবে ছোট।
+অঙ্ক $x_i$ হলো $0$ এবং $p_i - 1$-এর মধ্যে একটি পূর্ণসংখ্যা।
 
-Let $r_{ij}$ denote the inverse of $p_i$ modulo $p_j$
+$r_{ij}$ দ্বারা $p_j$ মডুলোতে $p_i$-এর ইনভার্স বোঝানো হোক
 
 $$r_{ij} = (p_i)^{-1} \pmod{p_j}$$
 
-which can be found using the algorithm described in [Modular Inverse](module-inverse.md).
+যা [মডুলার ইনভার্স](module-inverse.md)-এ বর্ণিত অ্যালগরিদম ব্যবহার করে বের করা যায়।
 
-Substituting $a$ from the mixed radix representation into the first congruence equation we obtain
+মিক্সড র‍্যাডিক্স রিপ্রেজেন্টেশন থেকে $a$-কে প্রথম সর্বসমতা সমীকরণে প্রতিস্থাপন করলে আমরা পাই
 
 $$a_1 \equiv x_1 \pmod{p_1}.$$
 
-Substituting into the second equation yields
+দ্বিতীয় সমীকরণে প্রতিস্থাপন করলে পাওয়া যায়
 
 $$a_2 \equiv x_1 + x_2 p_1 \pmod{p_2},$$
 
-which can be rewritten by subtracting $x_1$ and dividing by $p_1$ to get
+যেটিকে $x_1$ বিয়োগ করে এবং $p_1$ দিয়ে ভাগ করে পুনর্লিখন করা যায়
 
 $$\begin{array}{rclr}
     a_2 - x_1 &\equiv& x_2 p_1 &\pmod{p_2} \\
@@ -54,11 +54,11 @@ $$\begin{array}{rclr}
     x_2 &\equiv& (a_2 - x_1) r_{12} &\pmod{p_2}
 \end{array}$$
 
-Similarly we get that
+একইভাবে আমরা পাই
 
 $$x_3 \equiv ((a_3 - x_1) r_{13} - x_2) r_{23} \pmod{p_3}.$$
 
-Now, we can clearly see an emerging pattern, which can be expressed by the following code:
+এখন আমরা স্পষ্টভাবে একটি প্যাটার্ন দেখতে পাচ্ছি, যা নিম্নলিখিত কোডে প্রকাশ করা যায়:
 
 ```cpp
 for (int i = 0; i < k; ++i) {
@@ -73,20 +73,20 @@ for (int i = 0; i < k; ++i) {
 }
 ```
 
-So we learned how to calculate digits $x_i$ in $O(k^2)$ time. The number $a$ can now be calculated using the previously mentioned formula
+তাহলে আমরা শিখলাম কিভাবে $O(k^2)$ সময়ে অঙ্ক $x_i$ গণনা করা যায়। সংখ্যা $a$ এখন পূর্বে উল্লিখিত সূত্র ব্যবহার করে গণনা করা যায়
 
 $$a = x_1 + x_2 \cdot p_1 + x_3 \cdot p_1 \cdot p_2 + \ldots + x_k \cdot p_1 \cdots p_{k-1}$$
 
-It is worth noting that in practice, we almost probably need to compute the answer $a$ using [Arbitrary-Precision Arithmetic](big-integer.md), but the digits $x_i$ (because they are small) can usually be calculated using built-in types, and therefore Garner's algorithm is very efficient.
+উল্লেখযোগ্য যে, বাস্তবে আমাদের প্রায় নিশ্চিতভাবেই [আরবিট্রারি-প্রিসিশন অ্যারিথমেটিক](big-integer.md) ব্যবহার করে উত্তর $a$ গণনা করতে হবে, তবে অঙ্কগুলো $x_i$ (যেহেতু এগুলো ছোট) সাধারণত বিল্ট-ইন টাইপ ব্যবহার করে গণনা করা যায়, এবং তাই গার্নারের অ্যালগরিদম অত্যন্ত দক্ষ।
 
-## Implementation of Garner's Algorithm
+## গার্নারের অ্যালগরিদমের ইমপ্লিমেন্টেশন
 
-It is convenient to implement this algorithm using Java, because it has built-in support for large numbers through the `BigInteger` class.
+Java ব্যবহার করে এই অ্যালগরিদম ইমপ্লিমেন্ট করা সুবিধাজনক, কারণ এতে `BigInteger` ক্লাসের মাধ্যমে বড় সংখ্যার বিল্ট-ইন সাপোর্ট আছে।
 
-Here we show an implementation that can store big numbers in the form of a set of congruence equations.
-It supports addition, subtraction and multiplication.
-And with Garner's algorithm we can convert the set of equations into the unique integer.
-In this code, we take 100 prime numbers greater than $10^9$, which allows representing numbers as large as $10^{900}$.
+এখানে আমরা এমন একটি ইমপ্লিমেন্টেশন দেখাচ্ছি যা বড় সংখ্যাগুলোকে সর্বসমতা সমীকরণের একটি সেট আকারে সংরক্ষণ করতে পারে।
+এটি যোগ, বিয়োগ এবং গুণ সমর্থন করে।
+এবং গার্নারের অ্যালগরিদম দিয়ে আমরা সমীকরণের সেটটিকে অনন্য পূর্ণসংখ্যায় রূপান্তর করতে পারি।
+এই কোডে, আমরা $10^9$-এর চেয়ে বড় ১০০টি মৌলিক সংখ্যা নিই, যা $10^{900}$-এর মতো বড় সংখ্যা উপস্থাপন করতে দেয়।
 
 ```java
 final int SZ = 100;

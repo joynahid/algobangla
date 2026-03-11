@@ -1,29 +1,29 @@
 ---
-title: "Circle-Circle Intersection"
+title: "বৃত্ত-বৃত্ত ছেদবিন্দু"
 tags: 
 weight: 70
 ---
-# Circle-Circle Intersection
+# বৃত্ত-বৃত্ত ছেদবিন্দু
 
-You are given two circles on a 2D plane, each one described as coordinates of its center and its radius. Find the points of their intersection (possible cases: one or two points, no intersection or circles coincide).
+আপনাকে ২D সমতলে দুটি বৃত্ত দেওয়া আছে, প্রতিটি তার কেন্দ্রের স্থানাঙ্ক ও ব্যাসার্ধ দ্বারা বর্ণিত। তাদের ছেদবিন্দু খুঁজুন (সম্ভাব্য ক্ষেত্র: এক বা দুটি বিন্দু, কোনো ছেদ নেই বা বৃত্তগুলো অভিন্ন)।
 
-## Solution
+## সমাধান
 
-Let's reduce this problem to the [circle-line intersection problem](circle-line-intersection.md).
+আসুন এই সমস্যাটিকে [বৃত্ত-রেখা ছেদবিন্দু সমস্যায়](circle-line-intersection.md) সরলীকৃত করি।
 
-Assume without loss of generality that the first circle is centered at the origin (if this is not true, we can move the origin to the center of the first circle and adjust the coordinates of intersection points accordingly at output time). We have a system of two equations:
+সাধারণতা না হারিয়ে ধরে নিই প্রথম বৃত্তের কেন্দ্র মূলবিন্দুতে (যদি না হয়, আমরা মূলবিন্দু প্রথম বৃত্তের কেন্দ্রে সরাতে পারি এবং আউটপুটের সময় ছেদবিন্দুর স্থানাঙ্ক সেই অনুযায়ী সমন্বয় করতে পারি)। আমাদের দুটি সমীকরণের ব্যবস্থা আছে:
 
 $$x^2+y^2=r_1^2$$
 
 $$(x - x_2)^2 + (y - y_2)^2 = r_2^2$$
 
-Subtract the first equation from the second one to get rid of the second powers of variables:
+চলকের দ্বিঘাত পদ থেকে মুক্তি পেতে দ্বিতীয় সমীকরণ থেকে প্রথমটি বিয়োগ করি:
 
 $$x^2+y^2=r_1^2$$
 
 $$x \cdot (-2x_2) + y \cdot (-2y_2) + (x_2^2+y_2^2+r_1^2-r_2^2) = 0$$
 
-Thus, we've reduced the original problem to the problem of finding intersections of the first circle and a line:
+সুতরাং, আমরা মূল সমস্যাটিকে প্রথম বৃত্ত ও একটি রেখার ছেদবিন্দু খোঁজার সমস্যায় সরলীকৃত করেছি:
 
 $$Ax + By + C = 0$$
 
@@ -33,11 +33,11 @@ B &= -2y_2 \\
 C &= x_2^2+y_2^2+r_1^2-r_2^2
 \end{align}$$
 
-And this problem can be solved as described in the [corresponding article](circle-line-intersection.md).
+এবং এই সমস্যাটি [সংশ্লিষ্ট আর্টিকেলে](circle-line-intersection.md) বর্ণিত পদ্ধতিতে সমাধান করা যায়।
 
-The only degenerate case we need to consider separately is when the centers of the circles coincide. In this case $x_2=y_2=0$, and the line equation will be $C = r_1^2-r_2^2 = 0$. If the radii of the circles are the same, there are infinitely many intersection points, if they differ, there are no intersections.
+একমাত্র অবক্ষয়িত ক্ষেত্র যা আমাদের আলাদাভাবে বিবেচনা করতে হবে তা হলো যখন বৃত্তগুলোর কেন্দ্র মিলে যায়। এই ক্ষেত্রে $x_2=y_2=0$, এবং রেখার সমীকরণ হবে $C = r_1^2-r_2^2 = 0$। যদি বৃত্তগুলোর ব্যাসার্ধ একই হয়, অসীম সংখ্যক ছেদবিন্দু আছে, যদি ভিন্ন হয়, কোনো ছেদ নেই।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [RadarFinder](https://community.topcoder.com/stat?c=problem_statement&pm=7766)
 - [Runaway to a shadow - Codeforces Round #357](http://codeforces.com/problemset/problem/681/E)

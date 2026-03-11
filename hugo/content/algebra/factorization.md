@@ -1,27 +1,27 @@
 ---
-title: "Integer factorization"
+title: "পূর্ণসংখ্যা ফ্যাক্টরাইজেশন"
 tags: 
 weight: 40
 ---
-# Integer factorization
+# পূর্ণসংখ্যা ফ্যাক্টরাইজেশন
 
-In this article we list several algorithms for the factorization of integers, each of which can be either fast or varying levels of slow depending on their input.
+এই আর্টিকেলে আমরা পূর্ণসংখ্যার ফ্যাক্টরাইজেশনের কয়েকটি অ্যালগরিদম তালিকাভুক্ত করব, যেগুলোর প্রতিটি ইনপুটের উপর নির্ভর করে দ্রুত অথবা বিভিন্ন স্তরে ধীর হতে পারে।
 
-Notice, if the number that you want to factorize is actually a prime number, most of the algorithms will run very slowly. This is especially true for Fermat's, Pollard's p-1 and Pollard's rho factorization algorithms.
-Therefore, it makes the most sense to perform a probabilistic (or a fast deterministic) [primality test](primality_tests.md) before trying to factorize the number.
+লক্ষ্য করুন, আপনি যে সংখ্যাটি ফ্যাক্টরাইজ করতে চান সেটি আসলে একটি মৌলিক সংখ্যা হলে, বেশিরভাগ অ্যালগরিদম অত্যন্ত ধীরে চলবে। এটি বিশেষ করে ফের্মার, পোলার্ডের p-1 এবং পোলার্ডের রো ফ্যাক্টরাইজেশন অ্যালগরিদমের জন্য সত্য।
+তাই, সংখ্যাটি ফ্যাক্টরাইজ করার চেষ্টা করার আগে একটি প্রোবাবিলিস্টিক (অথবা দ্রুত ডিটারমিনিস্টিক) [প্রাইমালিটি টেস্ট](primality_tests.md) সম্পাদন করা সবচেয়ে যুক্তিসঙ্গত।
 
-## Trial division
+## ট্রায়াল ডিভিশন
 
-This is the most basic algorithm to find a prime factorization.
+এটি মৌলিক উৎপাদক বিভাজন খুঁজে বের করার সবচেয়ে মৌলিক অ্যালগরিদম।
 
-We divide by each possible divisor $d$.
-It can be observed that it is impossible for all prime factors of a composite number $n$ to be bigger than $\sqrt{n}$.
-Therefore, we only need to test the divisors $2 \le d \le \sqrt{n}$, which gives us the prime factorization in $O(\sqrt{n})$.
-(This is [pseudo-polynomial time](https://en.wikipedia.org/wiki/Pseudo-polynomial_time), i.e. polynomial in the value of the input but exponential in the number of bits of the input.)
+আমরা প্রতিটি সম্ভাব্য ভাজক $d$ দ্বারা ভাগ করি।
+লক্ষ্য করা যায় যে একটি যৌগিক সংখ্যা $n$-এর সকল মৌলিক গুণনীয়ক $\sqrt{n}$-এর চেয়ে বড় হওয়া অসম্ভব।
+তাই, আমাদের শুধু $2 \le d \le \sqrt{n}$ ভাজকগুলো পরীক্ষা করতে হবে, যা $O(\sqrt{n})$-এ মৌলিক উৎপাদক বিভাজন দেয়।
+(এটি [সিউডো-পলিনোমিয়াল টাইম](https://en.wikipedia.org/wiki/Pseudo-polynomial_time), অর্থাৎ ইনপুটের মানের পলিনোমিয়াল কিন্তু ইনপুটের বিটের সংখ্যার এক্সপোনেনশিয়াল।)
 
-The smallest divisor must be a prime number.
-We remove the factored number, and continue the process.
-If we cannot find any divisor in the range $[2; \sqrt{n}]$, then the number itself has to be prime.
+ক্ষুদ্রতম ভাজকটি অবশ্যই একটি মৌলিক সংখ্যা।
+আমরা ফ্যাক্টর করা সংখ্যাটি সরিয়ে ফেলি, এবং প্রক্রিয়া চালিয়ে যাই।
+$[2; \sqrt{n}]$ রেঞ্জে কোনো ভাজক খুঁজে পাওয়া না গেলে, সংখ্যাটি নিজেই মৌলিক।
 
 ```cpp
 vector<long long> trial_division1(long long n) {
@@ -38,12 +38,12 @@ vector<long long> trial_division1(long long n) {
 }
 ```
 
-### Wheel factorization
+### হুইল ফ্যাক্টরাইজেশন
 
-This is an optimization of the trial division.
-Once we know that the number is not divisible by 2, we don't need to check other even numbers.
-This leaves us with only $50\%$ of the numbers to check.
-After factoring out 2, and getting an odd number, we can simply start with 3 and only count other odd numbers.
+এটি ট্রায়াল ডিভিশনের একটি অপটিমাইজেশন।
+একবার জানা গেলে যে সংখ্যাটি ২ দ্বারা বিভাজ্য নয়, আমাদের অন্য জোড় সংখ্যা পরীক্ষা করার দরকার নেই।
+এতে পরীক্ষা করার সংখ্যা $50\%$ থাকে।
+২ ফ্যাক্টর করে বের করার পর, একটি বিজোড় সংখ্যা পেয়ে, আমরা কেবল ৩ থেকে শুরু করতে পারি এবং শুধু বিজোড় সংখ্যাগুলো গণনা করতে পারি।
 
 ```cpp
 vector<long long> trial_division2(long long n) {
@@ -64,16 +64,16 @@ vector<long long> trial_division2(long long n) {
 }
 ```
 
-This method can be extended further.
-If the number is not divisible by 3, we can also ignore all other multiples of 3 in the future computations.
-So we only need to check the numbers $5, 7, 11, 13, 17, 19, 23, \dots$.
-We can observe a pattern of these remaining numbers.
-We need to check all numbers with $d \bmod 6 = 1$ and $d \bmod 6 = 5$.
-So this leaves us with only $33.3\%$ percent of the numbers to check.
-We can implement this by factoring out the primes 2 and 3 first, after which we start with 5 and only count remainders $1$ and $5$ modulo $6$.
+এই পদ্ধতিটি আরও সম্প্রসারিত করা যায়।
+সংখ্যাটি ৩ দ্বারা বিভাজ্য না হলে, ভবিষ্যতের গণনায় ৩-এর সকল গুণিতকও উপেক্ষা করা যায়।
+তাই আমাদের শুধু $5, 7, 11, 13, 17, 19, 23, \dots$ সংখ্যাগুলো পরীক্ষা করতে হবে।
+আমরা এই অবশিষ্ট সংখ্যাগুলোর একটি প্যাটার্ন দেখতে পাই।
+আমাদের $d \bmod 6 = 1$ এবং $d \bmod 6 = 5$ সহ সকল সংখ্যা পরীক্ষা করতে হবে।
+তাই এতে পরীক্ষা করার সংখ্যা $33.3\%$ থাকে।
+আমরা প্রথমে ২ এবং ৩ মৌলিক সংখ্যাগুলো ফ্যাক্টর করে বের করে এটি ইমপ্লিমেন্ট করতে পারি, তারপর ৫ থেকে শুরু করে ৬ মডুলোতে ভাগশেষ $1$ এবং $5$ গণনা করতে পারি।
 
-Here is an implementation for the prime number 2, 3 and 5.
-It is convenient to store the skipping strides in an array.
+এখানে মৌলিক সংখ্যা ২, ৩ এবং ৫-এর জন্য একটি ইমপ্লিমেন্টেশন দেওয়া হলো।
+স্কিপিং স্ট্রাইডগুলো একটি অ্যারেতে সংরক্ষণ করা সুবিধাজনক।
 
 ```cpp
 vector<long long> trial_division3(long long n) {
@@ -100,12 +100,12 @@ vector<long long> trial_division3(long long n) {
 }
 ```
 
-If we continue exending this method to include even more primes, better percentages can be reached, but the skip lists will become larger. 
+আমরা যদি এই পদ্ধতিটি আরও মৌলিক সংখ্যা অন্তর্ভুক্ত করতে সম্প্রসারিত করতে থাকি, আরও ভালো শতাংশ অর্জন করা যায়, তবে স্কিপ লিস্ট বড় হয়ে যাবে।
 
-### Precomputed primes
+### প্রিকম্পিউটেড প্রাইম
 
-Extending the wheel factorization method indefinitely, we will only be left with prime numbers to check. 
-A good way of checking this is to precompute all prime numbers with the [Sieve of Eratosthenes](sieve-of-eratosthenes.md) until $\sqrt{n}$, and test them individually.
+হুইল ফ্যাক্টরাইজেশন পদ্ধতিটি অনির্দিষ্টভাবে সম্প্রসারিত করলে, পরীক্ষা করার জন্য শুধু মৌলিক সংখ্যাগুলোই থাকবে।
+এটি পরীক্ষা করার একটি ভালো উপায় হলো $\sqrt{n}$ পর্যন্ত সকল মৌলিক সংখ্যা [ইরাতোস্থেনিসের চালুনি](sieve-of-eratosthenes.md) দিয়ে প্রিকম্পিউট করা, এবং সেগুলো পৃথকভাবে পরীক্ষা করা।
 
 ```cpp
 vector<long long> primes;
@@ -126,14 +126,14 @@ vector<long long> trial_division4(long long n) {
 }
 ```
 
-## Fermat's factorization method
+## ফের্মার ফ্যাক্টরাইজেশন পদ্ধতি
 
-We can write an odd composite number $n = p \cdot q$ as the difference of two squares $n = a^2 - b^2$:
+আমরা একটি বিজোড় যৌগিক সংখ্যা $n = p \cdot q$ কে দুটি বর্গের পার্থক্য হিসেবে লিখতে পারি $n = a^2 - b^2$:
 
 $$n = \left(\frac{p + q}{2}\right)^2 - \left(\frac{p - q}{2}\right)^2$$
 
-Fermat's factorization method tries to exploit this fact by guessing the first square $a^2$, and checking if the remaining part, $b^2 = a^2 - n$, is also a square number.
-If it is, then we have found the factors $a - b$ and $a + b$ of $n$.
+ফের্মার ফ্যাক্টরাইজেশন পদ্ধতি এই তথ্যটি কাজে লাগানোর চেষ্টা করে প্রথম বর্গ $a^2$ অনুমান করে, এবং অবশিষ্ট অংশ $b^2 = a^2 - n$ একটি পূর্ণবর্গ সংখ্যা কিনা পরীক্ষা করে।
+যদি হয়, তাহলে আমরা $n$-এর গুণনীয়ক $a - b$ এবং $a + b$ খুঁজে পেয়েছি।
 
 ```cpp
 int fermat(int n) {
@@ -149,50 +149,50 @@ int fermat(int n) {
 }
 ```
 
-This factorization method can be very fast if the difference between the two factors $p$ and $q$ is small.
-The algorithm runs in $O(|p - q|)$ time.
-In practice though, this method is rarely used. Once factors become further apart, it is extremely slow. 
+দুটি গুণনীয়ক $p$ এবং $q$-এর পার্থক্য ছোট হলে এই ফ্যাক্টরাইজেশন পদ্ধতি অত্যন্ত দ্রুত হতে পারে।
+অ্যালগরিদমটি $O(|p - q|)$ সময়ে চলে।
+তবে প্র্যাকটিসে, এই পদ্ধতি খুব কমই ব্যবহৃত হয়। গুণনীয়কগুলো দূরে সরে গেলে, এটি অত্যন্ত ধীর।
 
-However, there are still a large number of optimization options regarding this approach.
-By looking at the squares $a^2$ modulo a fixed small number, it can be observed that certain values $a$ don't have to be viewed, since they cannot produce a square number $a^2 - n$.
+তবে, এই পদ্ধতি সংক্রান্ত এখনও বিপুল সংখ্যক অপটিমাইজেশন বিকল্প আছে।
+একটি নির্দিষ্ট ছোট সংখ্যা মডুলোতে $a^2$ বর্গগুলো দেখলে, লক্ষ্য করা যায় যে কিছু নির্দিষ্ট মান $a$ দেখার দরকার নেই, কারণ তারা $a^2 - n$ পূর্ণবর্গ সংখ্যা তৈরি করতে পারে না।
 
 
-## Pollard's $p - 1$ method { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
+## পোলার্ডের $p - 1$ পদ্ধতি { data-toc-label="Pollard's <script type='math/tex'>p - 1</script> method" }
 
-It is very likely that a number $n$ has at least one prime factor $p$ such that $p - 1$ is $\mathrm{B}$**-powersmooth** for small $\mathrm{B}$. An integer $m$ is said to be $\mathrm{B}$-powersmooth if every prime power dividing $m$ is at most $\mathrm{B}$. Formally, let $\mathrm{B} \geqslant 1$ and let $m$ be any positive integer. Suppose the prime factorization of $m$ is $m = \prod {q_i}^{e_i}$, where each $q_i$ is a prime and $e_i \geqslant 1$. Then $m$ is $\mathrm{B}$-powersmooth if, for all $i$, ${q_i}^{e_i} \leqslant \mathrm{B}$. 
-E.g. the prime factorization of $4817191$ is $1303 \cdot 3697$.
-And the values, $1303 - 1$ and $3697 - 1$, are $31$-powersmooth and $16$-powersmooth respectively, because $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ and $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$.
-In 1974 John Pollard invented a method to extract factors $p$, s.t. $p-1$ is $\mathrm{B}$-powersmooth, from a composite number.
+এটি অত্যন্ত সম্ভাবনাময় যে একটি সংখ্যা $n$-এর অন্তত একটি মৌলিক গুণনীয়ক $p$ আছে যেন $p - 1$ ছোট $\mathrm{B}$-এর জন্য $\mathrm{B}$**-পাওয়ারস্মুথ**। একটি পূর্ণসংখ্যা $m$-কে $\mathrm{B}$-পাওয়ারস্মুথ বলা হয় যদি $m$-কে ভাগ করে এমন প্রতিটি মৌলিক ঘাত সর্বাধিক $\mathrm{B}$ হয়। আনুষ্ঠানিকভাবে, ধরি $\mathrm{B} \geqslant 1$ এবং $m$ যেকোনো ধনাত্মক পূর্ণসংখ্যা। ধরুন $m$-এর মৌলিক উৎপাদক বিভাজন $m = \prod {q_i}^{e_i}$, যেখানে প্রতিটি $q_i$ মৌলিক এবং $e_i \geqslant 1$। তাহলে $m$ $\mathrm{B}$-পাওয়ারস্মুথ যদি, সকল $i$-এর জন্য, ${q_i}^{e_i} \leqslant \mathrm{B}$।
+যেমন $4817191$-এর মৌলিক উৎপাদক বিভাজন $1303 \cdot 3697$।
+এবং $1303 - 1$ ও $3697 - 1$-এর মানগুলো যথাক্রমে $31$-পাওয়ারস্মুথ এবং $16$-পাওয়ারস্মুথ, কারণ $1303 - 1 = 2 \cdot 3 \cdot 7 \cdot 31$ এবং $3697 - 1 = 2^4 \cdot 3 \cdot 7 \cdot 11$।
+১৯৭৪ সালে জন পোলার্ড একটি যৌগিক সংখ্যা থেকে এমন গুণনীয়ক $p$ বের করার একটি পদ্ধতি আবিষ্কার করেন, যেখানে $p-1$ হলো $\mathrm{B}$-পাওয়ারস্মুথ।
 
-The idea comes from [Fermat's little theorem](phi-function.md#application).
-Let a factorization of $n$ be $n = p \cdot q$.
-It says that if $a$ is coprime to $p$, the following statement holds:
+ধারণাটি আসে [ফের্মার ক্ষুদ্র উপপাদ্য](phi-function.md#application) থেকে।
+ধরি $n$-এর ফ্যাক্টরাইজেশন $n = p \cdot q$।
+এটি বলে যে $a$ যদি $p$-এর সহমৌলিক হয়, তাহলে নিম্নলিখিত উক্তি ধরে:
 
 $$a^{p - 1} \equiv 1 \pmod{p}$$
 
-This also means that
+এটি এও মানে
 
 $${\left(a^{(p - 1)}\right)}^k \equiv a^{k \cdot (p - 1)} \equiv 1 \pmod{p}.$$
 
-So for any $M$ with $p - 1 ~|~ M$ we know that $a^M \equiv 1$.
-This means that $a^M - 1 = p \cdot r$, and because of that also $p ~|~ \gcd(a^M - 1, n)$.
+তাই $p - 1 ~|~ M$ হলে যেকোনো $M$-এর জন্য আমরা জানি $a^M \equiv 1$।
+এর মানে $a^M - 1 = p \cdot r$, এবং সেই কারণে $p ~|~ \gcd(a^M - 1, n)$।
 
-Therefore, if $p - 1$ for a factor $p$ of $n$ divides $M$, we can extract a factor using [Euclid's algorithm](euclid-algorithm.md).
+তাই, যদি $n$-এর কোনো গুণনীয়ক $p$-এর জন্য $p - 1$ $M$-কে ভাগ করে, আমরা [ইউক্লিডের অ্যালগরিদম](euclid-algorithm.md) ব্যবহার করে একটি গুণনীয়ক বের করতে পারি।
 
-It is clear, that the smallest $M$ that is a multiple of every $\mathrm{B}$-powersmooth number is $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$.
-Or alternatively:
+এটি স্পষ্ট যে, প্রতিটি $\mathrm{B}$-পাওয়ারস্মুথ সংখ্যার গুণিতক সর্বনিম্ন $M$ হলো $\text{lcm}(1,~2~,3~,4~,~\dots,~B)$।
+বিকল্পভাবে:
 
 $$M = \prod_{\text{prime } q \le B} q^{\lfloor \log_q B \rfloor}$$
 
-Notice, if $p-1$ divides $M$ for all prime factors $p$ of $n$, then $\gcd(a^M - 1, n)$ will just be $n$.
-In this case we don't receive a factor.
-Therefore, we will try to perform the $\gcd$ multiple times, while we compute $M$.
+লক্ষ্য করুন, $n$-এর সকল মৌলিক গুণনীয়ক $p$-এর জন্য $p-1$ যদি $M$-কে ভাগ করে, তাহলে $\gcd(a^M - 1, n)$ কেবল $n$ হবে।
+এই ক্ষেত্রে আমরা কোনো গুণনীয়ক পাই না।
+তাই, আমরা $M$ গণনা করার সময় একাধিকবার $\gcd$ সম্পাদন করার চেষ্টা করব।
 
-Some composite numbers don't have factors $p$ s.t. $p-1$ is $\mathrm{B}$-powersmooth for small $\mathrm{B}$.
-For example, for the composite number $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$, values $p-1$ are $190~753$-powersmooth and $1~092~161~383$-powersmooth correspondingly.
-We will have to choose $B \geq 190~753$ to factorize the number.
+কিছু যৌগিক সংখ্যার এমন কোনো গুণনীয়ক $p$ নেই যেন $p-1$ ছোট $\mathrm{B}$-এর জন্য $\mathrm{B}$-পাওয়ারস্মুথ।
+উদাহরণস্বরূপ, যৌগিক সংখ্যা $100~000~000~000~000~493 = 763~013 \cdot 131~059~365~961$-এর জন্য, $p-1$ এর মানগুলো যথাক্রমে $190~753$-পাওয়ারস্মুথ এবং $1~092~161~383$-পাওয়ারস্মুথ।
+সংখ্যাটি ফ্যাক্টরাইজ করতে আমাদের $B \geq 190~753$ বেছে নিতে হবে।
 
-In the following implementation we start with $\mathrm{B} = 10$ and increase $\mathrm{B}$ after each each iteration.
+নিম্নলিখিত ইমপ্লিমেন্টেশনে আমরা $\mathrm{B} = 10$ দিয়ে শুরু করি এবং প্রতিটি ইটারেশনের পরে $\mathrm{B}$ বৃদ্ধি করি।
 
 ```cpp
 long long pollards_p_minus_1(long long n) {
@@ -224,57 +224,57 @@ long long pollards_p_minus_1(long long n) {
 
 ```
 
-Observe that this is a probabilistic algorithm.
-A consequence of this is that there is a possibility of the algorithm being unable to find a factor at all. 
+লক্ষ্য করুন যে এটি একটি প্রোবাবিলিস্টিক অ্যালগরিদম।
+এর একটি পরিণতি হলো অ্যালগরিদম কোনো গুণনীয়ক খুঁজে পাওয়ার ব্যর্থ হওয়ার সম্ভাবনা আছে।
 
-The complexity is $O(B \log B \log^2 n)$ per iteration.
+কমপ্লেক্সিটি প্রতি ইটারেশনে $O(B \log B \log^2 n)$।
 
-## Pollard's rho algorithm
+## পোলার্ডের রো অ্যালগরিদম
 
-Pollard's Rho Algorithm is yet another factorization algorithm from John Pollard.
+পোলার্ডের রো অ্যালগরিদম জন পোলার্ডের আরেকটি ফ্যাক্টরাইজেশন অ্যালগরিদম।
 
-Let the prime factorization of a number be $n = p q$.
-The algorithm looks at a pseudo-random sequence $\{x_i\} = \{x_0,~f(x_0),~f(f(x_0)),~\dots\}$ where $f$ is a polynomial function, usually $f(x) = (x^2 + c) \bmod n$ is chosen with $c = 1$.
+ধরি একটি সংখ্যার মৌলিক উৎপাদক বিভাজন $n = p q$।
+অ্যালগরিদমটি একটি সিউডো-র‍্যান্ডম সিকোয়েন্স $\{x_i\} = \{x_0,~f(x_0),~f(f(x_0)),~\dots\}$ দেখে যেখানে $f$ একটি পলিনোমিয়াল ফাংশন, সাধারণত $f(x) = (x^2 + c) \bmod n$ বেছে নেওয়া হয় $c = 1$ সহ।
 
-In this instance, we are not interested in the sequence $\{x_i\}$. 
-We are more interested in the sequence $\{x_i \bmod p\}$.
-Since $f$ is a polynomial function, and all the values are in the range $[0;~p)$, this sequence will eventually converge into a loop.
-The **birthday paradox** actually suggests that the expected number of elements is $O(\sqrt{p})$ until the repetition starts.
-If $p$ is smaller than $\sqrt{n}$, the repetition will likely start in $O(\sqrt[4]{n})$.
+এই ক্ষেত্রে, আমরা সিকোয়েন্স $\{x_i\}$-এ আগ্রহী নই।
+আমরা সিকোয়েন্স $\{x_i \bmod p\}$-এ বেশি আগ্রহী।
+যেহেতু $f$ একটি পলিনোমিয়াল ফাংশন, এবং সকল মান $[0;~p)$ রেঞ্জে, এই সিকোয়েন্স অবশেষে একটি লুপে রূপান্তরিত হবে।
+**বার্থডে প্যারাডক্স** আসলে বলে যে পুনরাবৃত্তি শুরু হওয়ার আগে প্রত্যাশিত উপাদানের সংখ্যা $O(\sqrt{p})$।
+যদি $p$ $\sqrt{n}$-এর চেয়ে ছোট হয়, পুনরাবৃত্তি সম্ভবত $O(\sqrt[4]{n})$-এ শুরু হবে।
 
-Here is a visualization of such a sequence $\{x_i \bmod p\}$ with $n = 2206637$, $p = 317$, $x_0 = 2$ and $f(x) = x^2 + 1$.
-From the form of the sequence you can see very clearly why the algorithm is called Pollard's $\rho$ algorithm.
+এখানে $n = 2206637$, $p = 317$, $x_0 = 2$ এবং $f(x) = x^2 + 1$ সহ এমন একটি সিকোয়েন্স $\{x_i \bmod p\}$-এর ভিজুয়ালাইজেশন দেওয়া হলো।
+সিকোয়েন্সের আকৃতি থেকে আপনি স্পষ্টভাবে দেখতে পারেন কেন অ্যালগরিদমটিকে পোলার্ডের $\rho$ অ্যালগরিদম বলা হয়।
 
 <div style="text-align: center;">
   <img src="/images/algebra/pollard_rho.png" alt="Pollard's rho visualization">
 </div>
 
-Yet, there is still an open question.
-How can we exploit the properties of the sequence $\{x_i \bmod p\}$ to our advantage without even knowing the number $p$ itself?
+তবুও, একটি খোলা প্রশ্ন আছে।
+$p$ সংখ্যাটি না জেনেই কীভাবে আমরা সিকোয়েন্স $\{x_i \bmod p\}$-এর বৈশিষ্ট্যগুলো আমাদের সুবিধায় কাজে লাগাতে পারি?
 
-It's actually quite easy.
-There is a cycle in the sequence $\{x_i \bmod p\}_{i \le j}$ if and only if there are two indices $s, t \le j$ such that $x_s \equiv x_t \bmod p$.
-This equation can be rewritten as $x_s - x_t \equiv 0 \bmod p$ which is the same as $p ~|~ \gcd(x_s - x_t, n)$.
+এটি আসলে বেশ সহজ।
+সিকোয়েন্স $\{x_i \bmod p\}_{i \le j}$-এ একটি সাইকেল আছে যদি এবং কেবল যদি দুটি ইনডেক্স $s, t \le j$ থাকে যেন $x_s \equiv x_t \bmod p$।
+এই সমীকরণটি $x_s - x_t \equiv 0 \bmod p$ হিসেবে পুনরায় লেখা যায় যা $p ~|~ \gcd(x_s - x_t, n)$-এর সমান।
 
-Therefore, if we find two indices $s$ and $t$ with $g = \gcd(x_s - x_t, n) > 1$, we have found a cycle and also a factor $g$ of $n$.
-It is possible that $g = n$.
-In this case we haven't found a proper factor, so we must repeat the algorithm with a different parameter (different starting value $x_0$, different constant $c$ in the polynomial function $f$).
+তাই, যদি আমরা $g = \gcd(x_s - x_t, n) > 1$ সহ দুটি ইনডেক্স $s$ ও $t$ খুঁজে পাই, আমরা একটি সাইকেল এবং $n$-এর একটি গুণনীয়ক $g$ উভয়ই পেয়েছি।
+$g = n$ হওয়া সম্ভব।
+সেক্ষেত্রে আমরা কোনো সঠিক গুণনীয়ক পাইনি, তাই ভিন্ন প্যারামিটার দিয়ে (ভিন্ন শুরুর মান $x_0$, পলিনোমিয়াল ফাংশন $f$-এ ভিন্ন ধ্রুবক $c$) প্রক্রিয়াটি পুনরাবৃত্তি করতে হবে।
 
-To find the cycle, we can use any common cycle detection algorithm.
+সাইকেল খুঁজে পেতে, আমরা যেকোনো সাধারণ সাইকেল ডিটেকশন অ্যালগরিদম ব্যবহার করতে পারি।
 
-### Floyd's cycle-finding algorithm
+### ফ্লয়ডের সাইকেল-ফাইন্ডিং অ্যালগরিদম
 
-This algorithm finds a cycle by using two pointers moving over the sequence at differing speeds.
-During each iteration, the first pointer will advance one element over, while the second pointer advances to every other element. 
-Using this idea it is easy to observe that if there is a cycle, at some point the second pointer will come around to meet the first one during the loops. 
-If the cycle length is $\lambda$ and the $\mu$ is the first index at which the cycle starts, then the algorithm will run in $O(\lambda + \mu)$ time.
+এই অ্যালগরিদম ভিন্ন গতিতে সিকোয়েন্সের মধ্য দিয়ে চলমান দুটি পয়েন্টার ব্যবহার করে একটি সাইকেল খুঁজে বের করে।
+প্রতিটি ইটারেশনে, প্রথম পয়েন্টারটি একটি উপাদান এগিয়ে যায়, আর দ্বিতীয় পয়েন্টারটি প্রতি অন্য উপাদানে এগিয়ে যায়।
+এই ধারণা ব্যবহার করে দেখা সহজ যে সাইকেল থাকলে, কোনো একটি সময়ে দ্বিতীয় পয়েন্টারটি লুপের সময় প্রথমটির সাথে দেখা করবে।
+সাইকেলের দৈর্ঘ্য $\lambda$ এবং সাইকেল শুরু হওয়ার প্রথম ইনডেক্স $\mu$ হলে, অ্যালগরিদমটি $O(\lambda + \mu)$ সময়ে চলবে।
 
-This algorithm is also known as the [Tortoise and Hare algorithm](../others/tortoise_and_hare.md), based on the tale in which a tortoise (the slow pointer) and a hare (the faster pointer) have a race.
+এই অ্যালগরিদমটি [টরটয়েজ অ্যান্ড হেয়ার অ্যালগরিদম](../others/tortoise_and_hare.md) নামেও পরিচিত, কচ্ছপ (ধীর পয়েন্টার) এবং খরগোশের (দ্রুত পয়েন্টার) দৌড়ের গল্পের উপর ভিত্তি করে।
 
-It is actually possible to determine the parameter $\lambda$ and $\mu$ using this algorithm (also in $O(\lambda + \mu)$ time and $O(1)$ space).
-When a cycle is detected, the algorithm will return 'True'. 
-If the sequence doesn't have a cycle, then the function will loop endlessly.
-However, using Pollard's Rho Algorithm, this can be prevented. 
+এই অ্যালগরিদম ব্যবহার করে $\lambda$ এবং $\mu$ প্যারামিটার নির্ধারণ করাও সম্ভব ($O(\lambda + \mu)$ সময়ে এবং $O(1)$ স্পেসে)।
+সাইকেল সনাক্ত হলে, অ্যালগরিদম 'True' রিটার্ন করবে।
+সিকোয়েন্সে সাইকেল না থাকলে, ফাংশনটি অনির্দিষ্টকালের জন্য লুপ করবে।
+তবে, পোলার্ডের রো অ্যালগরিদম ব্যবহার করে এটি প্রতিরোধ করা যায়।
 
 ```text
 function floyd(f, x0):
@@ -286,10 +286,10 @@ function floyd(f, x0):
     return true
 ```
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-First, here is an implementation using the **Floyd's cycle-finding algorithm**.
-The algorithm generally runs in $O(\sqrt[4]{n} \log(n))$ time.
+প্রথমে, **ফ্লয়ডের সাইকেল-ফাইন্ডিং অ্যালগরিদম** ব্যবহার করে একটি ইমপ্লিমেন্টেশন দেওয়া হলো।
+অ্যালগরিদমটি সাধারণত $O(\sqrt[4]{n} \log(n))$ সময়ে চলে।
 
 ```cpp
 long long mult(long long a, long long b, long long mod) {
@@ -314,7 +314,7 @@ long long rho(long long n, long long x0=2, long long c=1) {
 }
 ```
 
-The following table shows the values of $x$ and $y$ during the algorithm for $n = 2206637$, $x_0 = 2$ and $c = 1$.
+নিম্নলিখিত টেবিলটি $n = 2206637$, $x_0 = 2$ এবং $c = 1$-এর জন্য অ্যালগরিদমের সময় $x$ ও $y$-এর মান দেখায়।
 
 $$
 \newcommand\T{\Rule{0pt}{1em}{.3em}}
@@ -333,8 +333,8 @@ i & x_i \bmod n & x_{2i} \bmod n & x_i \bmod 317 & x_{2i} \bmod 317 & \gcd(x_i -
 \hline
 \end{array}$$
 
-The implementation uses a function `mult`, that multiplies two integers $\le 10^{18}$ without overflow by using a GCC's type `__int128` for 128-bit integer.
-If GCC is not available, you can using a similar idea as [binary exponentiation](binary-exp.md).
+ইমপ্লিমেন্টেশনটি একটি `mult` ফাংশন ব্যবহার করে, যা $\le 10^{18}$ দুটি পূর্ণসংখ্যা ওভারফ্লো ছাড়াই গুণ করে GCC-এর ১২৮-বিট ইন্টিজারের জন্য `__int128` টাইপ ব্যবহার করে।
+GCC পাওয়া না গেলে, আপনি [বাইনারি এক্সপোনেনশিয়েশনের](binary-exp.md) অনুরূপ একটি ধারণা ব্যবহার করতে পারেন।
 
 ```cpp
 long long mult(long long a, long long b, long long mod) {
@@ -349,18 +349,18 @@ long long mult(long long a, long long b, long long mod) {
 }
 ```
 
-Alternatively you can also implement the [Montgomery multiplication](montgomery_multiplication.md).
+বিকল্পভাবে আপনি [মন্টগোমারি মাল্টিপ্লিকেশন](montgomery_multiplication.md)ও ইমপ্লিমেন্ট করতে পারেন।
 
-As stated previously, if $n$ is composite and the algorithm returns $n$ as factor, you have to repeat the procedure with different parameters $x_0$ and $c$.
-E.g. the choice $x_0 = c = 1$ will not factor $25 = 5 \cdot 5$.
-The algorithm will return $25$.
-However, the choice $x_0 = 1$, $c = 2$ will factor it.
+পূর্বে বলা হয়েছে, $n$ যৌগিক হলে এবং অ্যালগরিদম $n$-কে গুণনীয়ক হিসেবে রিটার্ন করলে, আপনাকে ভিন্ন প্যারামিটার $x_0$ ও $c$ দিয়ে প্রক্রিয়াটি পুনরাবৃত্তি করতে হবে।
+যেমন $x_0 = c = 1$ বেছে নিলে $25 = 5 \cdot 5$ ফ্যাক্টরাইজ করবে না।
+অ্যালগরিদম $25$ রিটার্ন করবে।
+তবে, $x_0 = 1$, $c = 2$ বেছে নিলে এটি ফ্যাক্টরাইজ করবে।
 
-### Brent's algorithm
+### ব্রেন্টের অ্যালগরিদম
 
-Brent implements a similar method to Floyd, using two pointers.
-The difference being that instead of advancing the pointers by one and two places respectively, they are advanced by powers of two. 
-As soon as $2^i$ is greater than $\lambda$ and $\mu$, we will find the cycle.
+ব্রেন্ট ফ্লয়ডের অনুরূপ একটি পদ্ধতি ইমপ্লিমেন্ট করেন, দুটি পয়েন্টার ব্যবহার করে।
+পার্থক্য হলো পয়েন্টারগুলো যথাক্রমে এক ও দুই স্থান এগিয়ে যাওয়ার পরিবর্তে, ২-এর ঘাত দ্বারা এগিয়ে যায়।
+$2^i$ $\lambda$ এবং $\mu$-এর চেয়ে বড় হলেই, আমরা সাইকেল খুঁজে পাব।
 
 ```text
 function floyd(f, x0):
@@ -377,12 +377,12 @@ function floyd(f, x0):
     return true
 ```
 
-Brent's algorithm also runs in linear time, but is generally faster than Floyd's, since it uses less evaluations of the function $f$.
+ব্রেন্টের অ্যালগরিদমও রৈখিক সময়ে চলে, তবে সাধারণত ফ্লয়ডের চেয়ে দ্রুত, কারণ এটি ফাংশন $f$-এর কম ইভ্যালুয়েশন ব্যবহার করে।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The straightforward implementation of Brent's algorithm can be sped up by omitting the terms $x_l - x_k$ if $k < \frac{3 \cdot l}{2}$.
-In addition, instead of performing the $\gcd$ computation at every step, we multiply the terms and only actually check $\gcd$ every few steps and backtrack if overshot.
+ব্রেন্টের অ্যালগরিদমের সোজাসুজি ইমপ্লিমেন্টেশন $x_l - x_k$ পদগুলো $k < \frac{3 \cdot l}{2}$ হলে বাদ দিয়ে দ্রুত করা যায়।
+এছাড়াও, প্রতি ধাপে $\gcd$ গণনা করার পরিবর্তে, আমরা পদগুলো গুণ করি এবং আসলে কয়েক ধাপ পরপর $\gcd$ পরীক্ষা করি এবং অতিক্রম করলে পেছনে ফিরে যাই।
 
 ```cpp
 long long brent(long long n, long long x0=2, long long c=1) {
@@ -419,9 +419,9 @@ long long brent(long long n, long long x0=2, long long c=1) {
 }
 ```
 
-The combination of a trial division for small prime numbers together with Brent's version of Pollard's rho algorithm makes a very powerful factorization algorithm.
+ছোট মৌলিক সংখ্যাগুলোর জন্য ট্রায়াল ডিভিশনের সাথে পোলার্ডের রো অ্যালগরিদমের ব্রেন্ট ভার্সনের সমন্বয় একটি অত্যন্ত শক্তিশালী ফ্যাক্টরাইজেশন অ্যালগরিদম তৈরি করে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [SPOJ - FACT0](https://www.spoj.com/problems/FACT0/)
 - [SPOJ - FACT1](https://www.spoj.com/problems/FACT1/)

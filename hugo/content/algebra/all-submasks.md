@@ -1,15 +1,15 @@
 ---
-title: "Submask Enumeration"
+title: "সাবমাস্ক ইনিউমারেশন"
 tags: 
 weight: 20
 ---
-# Submask Enumeration
+# সাবমাস্ক ইনিউমারেশন
 
-## Enumerating all submasks of a given mask
+## একটি প্রদত্ত মাস্কের সকল সাবমাস্ক ইনিউমারেট করা
 
-Given a bitmask $m$, you want to efficiently iterate through all of its submasks, that is, masks $s$ in which only bits that were included in mask $m$ are set.
+একটি বিটমাস্ক $m$ দেওয়া আছে, আপনি দক্ষতার সাথে এর সকল সাবমাস্কের মধ্য দিয়ে ইটারেট করতে চান, অর্থাৎ এমন মাস্ক $s$ যেখানে শুধুমাত্র সেই বিটগুলো সেট আছে যেগুলো মাস্ক $m$-এ অন্তর্ভুক্ত ছিল।
 
-Consider the implementation of this algorithm, based on tricks with bit operations:
+বিট অপারেশনের কৌশলের উপর ভিত্তি করে এই অ্যালগরিদমের ইমপ্লিমেন্টেশন বিবেচনা করুন:
 
 ```cpp
 int s = m;
@@ -19,14 +19,14 @@ while (s > 0) {
 }
 ```
 
-or, using a more compact `for` statement:
+অথবা, আরও সংক্ষিপ্ত `for` স্টেটমেন্ট ব্যবহার করে:
 
 ```cpp
 for (int s=m; s; s=(s-1)&m)
  ... you can use s ...
 ```
 
-In both variants of the code, the submask equal to zero will not be processed. We can either process it outside the loop, or use a less elegant design, for example:
+কোডের উভয় ভেরিয়েন্টেই, শূন্যের সমান সাবমাস্কটি প্রসেস হবে না। আমরা হয় এটিকে লুপের বাইরে প্রসেস করতে পারি, অথবা একটু কম মার্জিত ডিজাইন ব্যবহার করতে পারি, যেমন:
 
 ```cpp
 for (int s=m; ; s=(s-1)&m) {
@@ -35,17 +35,17 @@ for (int s=m; ; s=(s-1)&m) {
 }
 ```
 
-Let us examine why the above code visits all submasks of $m$, without repetition, and in descending order.
+আসুন পরীক্ষা করি কেন উপরের কোড $m$-এর সকল সাবমাস্ক পুনরাবৃত্তি ছাড়াই এবং অবরোহী ক্রমে ভিজিট করে।
 
-Suppose we have a current bitmask $s$, and we want to move on to the next bitmask. By subtracting from the mask $s$ one unit, we will remove the rightmost set bit and all bits to the right of it will become 1. Then we remove all the "extra" one bits that are not included in the mask $m$ and therefore can't be a part of a submask. We do this removal by using the bitwise operation `(s-1) & m`. As a result, we "cut" mask $s-1$ to determine the highest value that it can take, that is, the next submask after $s$ in descending order.
+ধরুন আমাদের কাছে একটি বর্তমান বিটমাস্ক $s$ আছে, এবং আমরা পরবর্তী বিটমাস্কে যেতে চাই। মাস্ক $s$ থেকে এক বিয়োগ করলে, সবচেয়ে ডানদিকের সেট বিটটি সরিয়ে ফেলা হবে এবং এর ডানদিকের সকল বিট ১ হয়ে যাবে। তারপর আমরা সেই সব "অতিরিক্ত" ওয়ান বিট সরিয়ে ফেলি যেগুলো মাস্ক $m$-এ অন্তর্ভুক্ত নয় এবং তাই একটি সাবমাস্কের অংশ হতে পারে না। আমরা এই অপসারণটি বিটওয়াইজ অপারেশন `(s-1) & m` ব্যবহার করে করি। ফলস্বরূপ, আমরা মাস্ক $s-1$ কে "কেটে" ফেলি যাতে এটি সর্বোচ্চ যে মান নিতে পারে তা নির্ধারণ করা যায়, অর্থাৎ অবরোহী ক্রমে $s$-এর পরের সাবমাস্ক।
 
-Thus, this algorithm generates all submasks of this mask in descending order, performing only two operations per iteration.
+এইভাবে, এই অ্যালগরিদম অবরোহী ক্রমে এই মাস্কের সকল সাবমাস্ক তৈরি করে, প্রতি ইটারেশনে মাত্র দুটি অপারেশন সম্পাদন করে।
 
-A special case is when $s = 0$. After executing $s-1$ we get a mask where all bits are set (bit representation of -1), and after `(s-1) & m` we will have that $s$ will be equal to $m$. Therefore, with the mask $s = 0$ be careful — if the loop does not end at zero, the algorithm may enter an infinite loop.
+একটি বিশেষ ক্ষেত্র হলো যখন $s = 0$। $s-1$ এক্সিকিউট করার পর আমরা একটি মাস্ক পাই যেখানে সকল বিট সেট (-1-এর বিট রিপ্রেজেন্টেশন), এবং `(s-1) & m`-এর পর $s$-এর মান $m$-এর সমান হবে। তাই মাস্ক $s = 0$-এর ক্ষেত্রে সতর্ক থাকুন — যদি লুপ শূন্যে শেষ না হয়, তাহলে অ্যালগরিদম একটি অসীম লুপে প্রবেশ করতে পারে।
 
-## Iterating through all masks with their submasks. Complexity $O(3^n)$
+## সকল মাস্কের সাথে তাদের সাবমাস্কগুলোর মধ্য দিয়ে ইটারেশন। কমপ্লেক্সিটি $O(3^n)$
 
-In many problems, especially those that use bitmask dynamic programming, you want to iterate through all bitmasks and for each mask, iterate through all of its submasks:
+অনেক সমস্যায়, বিশেষ করে যেগুলো বিটমাস্ক ডায়নামিক প্রোগ্রামিং ব্যবহার করে, আপনি সকল বিটমাস্কের মধ্য দিয়ে ইটারেট করতে চান এবং প্রতিটি মাস্কের জন্য, এর সকল সাবমাস্কের মধ্য দিয়ে ইটারেট করতে চান:
 
 ```cpp
 for (int m=0; m<(1<<n); ++m)
@@ -53,23 +53,23 @@ for (int m=0; m<(1<<n); ++m)
  ... s and m ...
 ```
 
-Let's prove that the inner loop will execute a total of $O(3^n)$ iterations.
+আসুন প্রমাণ করি যে ভেতরের লুপটি মোট $O(3^n)$ বার ইটারেশন করবে।
 
-**First proof**: Consider the $i$-th bit. There are exactly three options for it:
+**প্রথম প্রমাণ**: $i$-তম বিট বিবেচনা করুন। এর জন্য ঠিক তিনটি সম্ভাবনা আছে:
 
-1. it is not included in the mask $m$ (and therefore not included in submask $s$),
-2. it is included in $m$, but not included in $s$, or
-3. it is included in both $m$ and $s$.
+১. এটি মাস্ক $m$-এ অন্তর্ভুক্ত নয় (এবং তাই সাবমাস্ক $s$-এও অন্তর্ভুক্ত নয়),
+২. এটি $m$-এ অন্তর্ভুক্ত, কিন্তু $s$-এ অন্তর্ভুক্ত নয়, অথবা
+৩. এটি $m$ এবং $s$ উভয়তেই অন্তর্ভুক্ত।
 
-As there are a total of $n$ bits, there will be $3^n$ different combinations.
+মোট $n$ টি বিট থাকায়, $3^n$ টি ভিন্ন কম্বিনেশন হবে।
 
-**Second proof**: Note that if mask $m$ has $k$ enabled bits, then it will have $2^k$ submasks. As we have a total of $\binom{n}{k}$ masks with $k$ enabled bits (see [binomial coefficients](../combinatorics/binomial-coefficients.md)), then the total number of combinations for all masks will be:
+**দ্বিতীয় প্রমাণ**: লক্ষ্য করুন যে মাস্ক $m$-এ $k$ টি সক্রিয় বিট থাকলে, এর $2^k$ টি সাবমাস্ক থাকবে। যেহেতু $k$ টি সক্রিয় বিটসহ মোট $\binom{n}{k}$ টি মাস্ক আছে ([বাইনোমিয়াল কোএফিশিয়েন্ট](../combinatorics/binomial-coefficients.md) দেখুন), তাহলে সকল মাস্কের জন্য মোট কম্বিনেশন সংখ্যা হবে:
 
 $$\sum_{k=0}^n \binom{n}{k} \cdot 2^k$$
 
-To calculate this number, note that the sum above is equal to the expansion of $(1+2)^n$ using the binomial theorem. Therefore, we have $3^n$ combinations, as we wanted to prove.
+এই সংখ্যা গণনা করতে, লক্ষ্য করুন যে উপরের যোগফলটি বাইনোমিয়াল উপপাদ্য ব্যবহার করে $(1+2)^n$-এর বিস্তৃতির সমান। তাই, আমরা যেমন প্রমাণ করতে চেয়েছিলাম, $3^n$ টি কম্বিনেশন পাই।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Atcoder - Close Group](https://atcoder.jp/contests/abc187/tasks/abc187_f)
 * [Codeforces - Nuclear Fusion](http://codeforces.com/problemset/problem/71/E)

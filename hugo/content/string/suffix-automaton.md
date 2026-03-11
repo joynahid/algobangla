@@ -1,34 +1,34 @@
 ---
-title: "Suffix Automaton"
+title: "সাফিক্স অটোমেটন"
 tags: 
 weight: 20
 ---
-# Suffix Automaton
+# সাফিক্স অটোমেটন
 
-A **suffix automaton** is a powerful data structure that allows solving many string-related problems. 
+একটি **সাফিক্স অটোমেটন** একটি শক্তিশালী ডেটা স্ট্রাকচার যা অনেক স্ট্রিং-সম্পর্কিত সমস্যা সমাধান করতে দেয়।
 
-For example, you can search for all occurrences of one string in another, or count the amount of different substrings of a given string.
-Both tasks can be solved in linear time with the help of a suffix automaton.
+উদাহরণস্বরূপ, আপনি একটি স্ট্রিং-এ অন্য একটি স্ট্রিং-এর সমস্ত ঘটনা খুঁজে পেতে পারেন, বা প্রদত্ত স্ট্রিং-এর বিভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা করতে পারেন।
+উভয় কাজই একটি সাফিক্স অটোমেটন-এর সাহায্যে লিনিয়ার সময়ে সমাধান করা যায়।
 
-Intuitively a suffix automaton can be understood as a compressed form of **all substrings** of a given string.
-An impressive fact is, that the suffix automaton contains all this information in a highly compressed form.
-For a string of length $n$ it only requires $O(n)$ memory.
-Moreover, it can also be built in $O(n)$ time (if we consider the size $k$ of the alphabet as a constant), otherwise both the memory and the time complexity will be $O(n \log k)$.
+স্বজ্ঞাগতভাবে একটি সাফিক্স অটোমেটন প্রদত্ত স্ট্রিং-এর **সমস্ত সাবস্ট্রিং**-এর একটি সংকুচিত ফর্ম হিসাবে বোঝা যায়।
+একটি চিত্তাকর্ষক সত্য হল যে সাফিক্স অটোমেটন এই সমস্ত তথ্য অত্যন্ত সংকুচিত আকারে রয়েছে।
+দৈর্ঘ্য $n$ এর একটি স্ট্রিং-এর জন্য এটি শুধুমাত্র $O(n)$ মেমরি প্রয়োজন।
+অধিকন্তু, এটি $O(n)$ সময়ে নির্মিত হতে পারে (যদি আমরা বর্ণমালার আকার $k$ একটি ধ্রুবক হিসাবে বিবেচনা করি), অন্যথায় মেমরি এবং সময় উভয় কমপ্লেক্সিটি $O(n \log k)$ হবে।
 
-The linearity of the size of the suffix automaton was first discovered in 1983 by Blumer et al., and in 1985 the first linear algorithms for the construction was presented by Crochemore and Blumer.
+সাফিক্স অটোমেটনের আকারের লিনিয়ারিটি প্রথম ১৯৮৩ সালে ব্লুমার এট অ্যাল দ্বারা আবিষ্কৃত হয়েছিল, এবং ১৯৮৫ সালে নির্মাণের প্রথম লিনিয়ার অ্যালগরিদম ক্রোচেমোর এবং ব্লুমার দ্বারা উপস্থাপিত হয়েছিল।
 
-## Definition of a suffix automaton
+## একটি সাফিক্স অটোমেটনের সংজ্ঞা
 
-A suffix automaton for a given string $s$ is a minimal **DFA** (deterministic finite automaton / deterministic finite state machine) that accepts all the suffixes of the string $s$.
+প্রদত্ত স্ট্রিং $s$ এর জন্য একটি সাফিক্স অটোমেটন একটি ন্যূনতম **DFA** (নির্ধারক সীমিত অটোমেটন / নির্ধারক সীমিত স্টেট মেশিন) যা স্ট্রিং $s$ এর সমস্ত সাফিক্স গ্রহণ করে।
 
-In other words:
+অন্য কথায়:
 
- -  A suffix automaton is an oriented acyclic graph.
-    The vertices are called **states**, and the edges are called **transitions** between states.
- -  One of the states $t_0$ is the **initial state**, and it must be the source of the graph (all other states are reachable from $t_0$).
- -  Each **transition** is labeled with some character.
-    All transitions originating from a state must have **different** labels.
- -  One or multiple states are marked as **terminal states**.
+ -  একটি সাফিক্স অটোমেটন একটি ভিত্তিক অ্যাসাইক্লিক গ্রাফ।
+    শীর্ষবিন্দুগুলিকে **স্টেট** বলা হয়, এবং এজগুলিকে স্টেট-এর মধ্যে **ট্রানজিশন** বলা হয়।
+ -  একটি অবস্থা $t_0$ হল **প্রাথমিক স্টেট**, এবং এটি অবশ্যই গ্রাফের উৎস হতে হবে (অন্যান্য সমস্ত স্টেট $t_0$ থেকে পৌঁছানো যায়)।
+ -  প্রতিটি **ট্রানজিশন** কিছু অক্ষর সহ লেবেল করা হয়।
+    একটি স্টেট থেকে উদ্ভূত সমস্ত ট্রানজিশন অবশ্যই **ভিন্ন** লেবেল রাখে।
+ -  এক বা একাধিক স্টেট **টার্মিনাল স্টেট** হিসাবে চিহ্নিত করা হয়।
     If we start from the initial state $t_0$ and move along transitions to a terminal state, then the labels of the passed transitions must spell one of the suffixes of the string $s$.
     Each of the suffixes of $s$ must be spellable using a path from $t_0$ to a terminal state.
  -  The suffix automaton contains the minimum number of vertices among all automata satisfying the conditions described above.

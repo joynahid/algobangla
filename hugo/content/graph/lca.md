@@ -3,58 +3,58 @@ title: Lowest Common Ancestor - O(sqrt(N)) and O(log N) with O(N) preprocessing
 tags: 
 weight: 10
 ---
-# Lowest Common Ancestor - $O(\sqrt{N})$ and $O(\log N)$ with $O(N)$ preprocessing
+# লোয়েস্ট কমন অ্যানসেস্টর (এলসিএ) - $O(\sqrt{N})$ এবং $O(\log N)$, $O(N)$ প্রিপ্রসেসিং সহ
 
-Given a tree $G$. Given queries of the form $(v_1, v_2)$, for each query you need to find the lowest common ancestor (or least common ancestor), i.e. a vertex $v$ that lies on the path from the root to $v_1$ and the path from the root to $v_2$, and the vertex should be the lowest. In other words, the desired vertex $v$ is the most bottom ancestor of $v_1$ and $v_2$. It is obvious that their lowest common ancestor lies on a shortest path from $v_1$ and $v_2$. Also, if $v_1$ is the ancestor of $v_2$, $v_1$ is their lowest common ancestor.
+একটি ট্রি $G$ দেওয়া আছে। $(v_1, v_2)$ আকারের কুয়েরি দেওয়া আছে, প্রতিটি কুয়েরির জন্য লোয়েস্ট কমন অ্যানসেস্টর (বা লিস্ট কমন অ্যানসেস্টর) বের করতে হবে, অর্থাৎ এমন একটি ভার্টেক্স $v$ বের করতে হবে যেটি রুট থেকে $v_1$ পর্যন্ত পাথে এবং রুট থেকে $v_2$ পর্যন্ত পাথে অবস্থিত, এবং ভার্টেক্সটি সবচেয়ে নিচে হতে হবে। অন্যভাবে বলতে গেলে, কাঙ্ক্ষিত ভার্টেক্স $v$ হলো $v_1$ এবং $v_2$-এর সবচেয়ে নিচের অ্যানসেস্টর। এটা স্পষ্ট যে তাদের লোয়েস্ট কমন অ্যানসেস্টর $v_1$ এবং $v_2$-এর মধ্যকার শর্টেস্ট পাথে অবস্থিত। এছাড়াও, যদি $v_1$ হয় $v_2$-এর অ্যানসেস্টর, তাহলে $v_1$ হলো তাদের লোয়েস্ট কমন অ্যানসেস্টর।
 
-### The Idea of the Algorithm
+### অ্যালগরিদমের মূল ধারণা
 
-Before answering the queries, we need to **preprocess** the tree.
-We make a [DFS](depth-first-search.md) traversal starting at the root and we build a list $\text{euler}$ which stores the order of the vertices that we visit (a vertex is added to the list when we first visit it, and after the return of the DFS traversals to its children).
-This is also called an Euler tour of the tree.
-It is clear that the size of this list will be $O(N)$.
-We also need to build an array $\text{first}[0..N-1]$ which stores for each vertex $i$ its first occurrence in $\text{euler}$.
-That is, the first position in $\text{euler}$ such that $\text{euler}[\text{first}[i]] = i$.
-Also by using the DFS we can find the height of each node (distance from root to it) and store it in the array $\text{height}[0..N-1]$.
+কুয়েরির উত্তর দেওয়ার আগে, আমাদের ট্রিটি **প্রিপ্রসেস** করতে হবে।
+আমরা রুট থেকে শুরু করে একটি [DFS](depth-first-search.md) ট্রাভার্সাল চালাই এবং $\text{euler}$ নামে একটি লিস্ট তৈরি করি যেটি ভার্টেক্সগুলোর ভিজিটের ক্রম সংরক্ষণ করে (একটি ভার্টেক্স প্রথম ভিজিটের সময় লিস্টে যোগ হয়, এবং তার চিলড্রেনদের DFS ট্রাভার্সাল থেকে ফেরত আসার পরও যোগ হয়)।
+একে ট্রি-র অয়লার ট্যুরও বলা হয়।
+এটা স্পষ্ট যে এই লিস্টের আকার হবে $O(N)$।
+আমাদের আরো একটি অ্যারে $\text{first}[0..N-1]$ তৈরি করতে হবে যেটি প্রতিটি ভার্টেক্স $i$-এর $\text{euler}$-এ প্রথম উপস্থিতির অবস্থান সংরক্ষণ করে।
+অর্থাৎ, $\text{euler}$-এ প্রথম অবস্থান যেখানে $\text{euler}[\text{first}[i]] = i$।
+এছাড়াও DFS ব্যবহার করে আমরা প্রতিটি নোডের উচ্চতা (রুট থেকে দূরত্ব) বের করে $\text{height}[0..N-1]$ অ্যারেতে সংরক্ষণ করতে পারি।
 
-So how can we answer queries using the Euler tour and the additional two arrays?
-Suppose the query is a pair of $v_1$ and $v_2$.
-Consider the vertices that we visit in the Euler tour between the first visit of $v_1$ and the first visit of $v_2$.
-It is easy to see, that the $\text{LCA}(v_1, v_2)$ is the vertex with the lowest height on this path.
-We already noticed, that the LCA has to be part of the shortest path between $v_1$ and $v_2$.
-Clearly it also has to be the vertex with the smallest height.
-And in the Euler tour we essentially use the shortest path, except that we additionally visit all subtrees that we find on the path.
-But all vertices in these subtrees are lower in the tree than the LCA and therefore have a larger height.
-So the $\text{LCA}(v_1, v_2)$ can be uniquely determined by finding the vertex with the smallest height in the Euler tour between $\text{first}(v_1)$ and $\text{first}(v_2)$.
+তাহলে অয়লার ট্যুর এবং অতিরিক্ত দুটি অ্যারে ব্যবহার করে কীভাবে কুয়েরির উত্তর দেওয়া যায়?
+ধরি কুয়েরিটি হলো $v_1$ এবং $v_2$-এর একটি জোড়া।
+অয়লার ট্যুরে $v_1$-এর প্রথম ভিজিট এবং $v_2$-এর প্রথম ভিজিটের মধ্যে যে ভার্টেক্সগুলো আমরা ভিজিট করি তাদের বিবেচনা করি।
+সহজেই দেখা যায় যে, $\text{LCA}(v_1, v_2)$ হলো এই পাথে সবচেয়ে কম উচ্চতার ভার্টেক্স।
+আমরা ইতোমধ্যে লক্ষ্য করেছি যে, এলসিএ অবশ্যই $v_1$ এবং $v_2$-এর মধ্যকার শর্টেস্ট পাথের অংশ হবে।
+স্পষ্টতই এটি সবচেয়ে কম উচ্চতার ভার্টেক্সও হবে।
+এবং অয়লার ট্যুরে আমরা মূলত শর্টেস্ট পাথটিই ব্যবহার করি, তবে অতিরিক্তভাবে পাথের মধ্যে পাওয়া সব সাবট্রিও ভিজিট করি।
+কিন্তু এই সাবট্রিগুলোর সব ভার্টেক্স এলসিএ-র চেয়ে নিচে অবস্থিত এবং তাই তাদের উচ্চতা বেশি।
+সুতরাং $\text{LCA}(v_1, v_2)$ অনন্যভাবে নির্ধারণ করা যায় অয়লার ট্যুরে $\text{first}(v_1)$ এবং $\text{first}(v_2)$-এর মধ্যে সবচেয়ে কম উচ্চতার ভার্টেক্স খুঁজে।
 
-Let's illustrate this idea.
-Consider the following graph and the Euler tour with the corresponding heights:
+আসুন এই ধারণাটি চিত্রিত করি।
+নিচের গ্রাফ এবং সংশ্লিষ্ট উচ্চতাসহ অয়লার ট্যুর বিবেচনা করুন:
 <div style="text-align: center;">
   <img src="/images/graph/LCA_Euler.png" alt="LCA_Euler_Tour">
 </div>
 
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\text{Vertices:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\ \hline
-\text{Heights:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\ \hline
+\text{ভার্টেক্স:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\ \hline
+\text{উচ্চতা:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\ \hline
 \end{array}$$
 
-The tour starting at vertex $6$ and ending at $4$ we visit the vertices $[6, 2, 1, 3, 1, 4]$.
-Among those vertices the vertex $1$ has the lowest height, therefore $\text{LCA(6, 4) = 1}$.
+ভার্টেক্স $6$ থেকে শুরু হয়ে $4$-এ শেষ হওয়া ট্যুরে আমরা ভার্টেক্স $[6, 2, 1, 3, 1, 4]$ ভিজিট করি।
+এই ভার্টেক্সগুলোর মধ্যে ভার্টেক্স $1$-এর উচ্চতা সবচেয়ে কম, তাই $\text{LCA(6, 4) = 1}$।
 
-To recap:
-to answer a query we just need **to find the vertex with smallest height** in the array $\text{euler}$ in the range from $\text{first}[v_1]$ to $\text{first}[v_2]$.
-Thus, **the LCA problem is reduced to the RMQ problem** (finding the minimum in an range problem).
+সংক্ষেপে:
+একটি কুয়েরির উত্তর দিতে আমাদের শুধু $\text{euler}$ অ্যারেতে $\text{first}[v_1]$ থেকে $\text{first}[v_2]$ রেঞ্জে **সবচেয়ে কম উচ্চতার ভার্টেক্স খুঁজতে** হবে।
+এভাবে, **এলসিএ সমস্যাটি আরএমকিউ সমস্যায় রিডিউস হয়ে যায়** (একটি রেঞ্জে মিনিমাম বের করার সমস্যা)।
 
-Using [Sqrt-Decomposition](../data_structures/sqrt_decomposition.md), it is possible to obtain a solution answering each query in $O(\sqrt{N})$ with preprocessing in $O(N)$ time.
+[Sqrt-ডিকম্পোজিশন](../data_structures/sqrt_decomposition.md) ব্যবহার করে, প্রতিটি কুয়েরির উত্তর $O(\sqrt{N})$-এ এবং প্রিপ্রসেসিং $O(N)$ সময়ে পাওয়া সম্ভব।
 
-Using a [Segment Tree](../data_structures/segment_tree.md) you can answer each query in $O(\log N)$ with preprocessing in $O(N)$ time.
+একটি [সেগমেন্ট ট্রি](../data_structures/segment_tree.md) ব্যবহার করে প্রতিটি কুয়েরির উত্তর $O(\log N)$-এ এবং প্রিপ্রসেসিং $O(N)$ সময়ে দেওয়া যায়।
 
-Since there will almost never be any update to the stored values, a [Sparse Table](../data_structures/sparse-table.md) might be a better choice, allowing $O(1)$ query answering with $O(N\log N)$ build time.
+যেহেতু সংরক্ষিত মানগুলোতে আপডেট প্রায় কখনোই হবে না, তাই [স্পার্স টেবিল](../data_structures/sparse-table.md) একটি ভালো পছন্দ হতে পারে, যেটি $O(N\log N)$ বিল্ড সময়ে $O(1)$ কুয়েরি উত্তর দিতে পারে।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-In the following implementation of the LCA algorithm a Segment Tree is used.
+এলসিএ অ্যালগরিদমের নিম্নলিখিত ইমপ্লিমেন্টেশনে একটি সেগমেন্ট ট্রি ব্যবহার করা হয়েছে।
 
 ```cpp
 struct LCA {
@@ -123,7 +123,7 @@ struct LCA {
 
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
  - [SPOJ: LCA](http://www.spoj.com/problems/LCA/)
  - [SPOJ: DISQUERY](http://www.spoj.com/problems/DISQUERY/)
  - [TIMUS: 1471. Distance in the Tree](http://acm.timus.ru/problem.aspx?space=1&num=1471)

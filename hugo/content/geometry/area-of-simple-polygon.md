@@ -1,19 +1,19 @@
 ---
-title: Finding area of simple polygon in O(N)
+title: সরল পলিগনের ক্ষেত্রফল O(N)-এ নির্ণয়
 tags: 
 weight: 20
 ---
-# Finding area of simple polygon in $O(N)$
+# সরল পলিগনের ক্ষেত্রফল $O(N)$-এ নির্ণয়
 
-Let a simple polygon (i.e. without self intersection, not necessarily convex) be given. It is required to calculate its area given its vertices.
+একটি সরল পলিগন (অর্থাৎ স্ব-ছেদবিহীন, অগত্যা কনভেক্স নয়) দেওয়া আছে। এর শীর্ষবিন্দু দেওয়া থাকলে ক্ষেত্রফল নির্ণয় করতে হবে।
 
-## Method 1
+## পদ্ধতি ১
 
-This is easy to do if we go through all edges and add trapezoid areas bounded by each edge and x-axis. The area needs to be taken with sign so that the extra area will be reduced. Hence, the formula is as follows:
+প্রতিটি বাহু ধরে সামনে এগিয়ে প্রতিটি বাহু ও x-অক্ষ দ্বারা আবদ্ধ ট্র্যাপিজয়েডের ক্ষেত্রফল যোগ করলেই এটি সহজে করা যায়। ক্ষেত্রফল চিহ্নসহ নিতে হবে যাতে অতিরিক্ত ক্ষেত্রফল কমে যায়। তাই, সূত্রটি নিম্নরূপ:
 
 $$A = \sum_{(p,q)\in \text{edges}} \frac{(p_x - q_x) \cdot (p_y + q_y)}{2}$$
 
-Code:
+কোড:
 
 ```cpp
 double area(const vector<point>& fig) {
@@ -27,7 +27,7 @@ double area(const vector<point>& fig) {
 }
 ```
 
-## Method 2
-We can choose a point $O$ arbitrarily, iterate over all edges adding the oriented area of the triangle formed by the edge and point $O$. Again, due to the sign of area, extra area will be reduced.
+## পদ্ধতি ২
+আমরা যেকোনোভাবে একটি বিন্দু $O$ বেছে নিতে পারি, সব বাহুর উপর ইটারেট করে বাহু ও বিন্দু $O$ দ্বারা গঠিত ত্রিভুজের চিহ্নিত ক্ষেত্রফল যোগ করতে পারি। আবারও, ক্ষেত্রফলের চিহ্নের কারণে, অতিরিক্ত ক্ষেত্রফল কমে যাবে।
 
-This method is better as it can be generalized to more complex cases (such as when some sides are arcs instead of straight lines)
+এই পদ্ধতিটি ভালো কারণ এটি আরো জটিল ক্ষেত্রে সাধারণীকৃত করা যায় (যেমন যখন কিছু বাহু সরলরেখার পরিবর্তে বক্ররেখা হয়)।

@@ -1,53 +1,53 @@
 ---
-title: "Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)"
+title: "এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান"
 tags: 
 weight: 40
 ---
-# Solve RMQ (Range Minimum Query) by finding LCA (Lowest Common Ancestor)
+# এলসিএ (লোয়েস্ট কমন অ্যানসেস্টর) বের করে আরএমকিউ (রেঞ্জ মিনিমাম কুয়েরি) সমাধান
 
-Given an array `A[0..N-1]`.
-For each query of the form `[L, R]` we want to find the minimum in the array `A` starting from position `L` and ending with position `R`.
-We will assume that the array `A` doesn't change in the process, i.e. this article describes a solution to the static RMQ problem
+একটি অ্যারে `A[0..N-1]` দেওয়া আছে।
+প্রতিটি `[L, R]` আকারের কুয়েরির জন্য আমরা `A` অ্যারেতে `L` অবস্থান থেকে শুরু করে `R` অবস্থানে শেষ হওয়া রেঞ্জে মিনিমাম বের করতে চাই।
+আমরা ধরে নিচ্ছি যে `A` অ্যারে প্রক্রিয়ার মধ্যে পরিবর্তন হয় না, অর্থাৎ এই নিবন্ধটি স্ট্যাটিক আরএমকিউ সমস্যার সমাধান বর্ণনা করে।
 
-Here is a description of an asymptotically optimal solution.
-It stands apart from other solutions for the RMQ problem, since it is very different from them:
-it reduces the RMQ problem to the LCA problem, and then uses the [Farach-Colton and Bender algorithm](lca_farachcoltonbender.md), which reduces the LCA problem back to a specialized RMQ problem and solves that.
+এখানে একটি অ্যাসিম্পটটিক্যালি অপটিমাল সমাধানের বর্ণনা দেওয়া হলো।
+এটি আরএমকিউ সমস্যার অন্যান্য সমাধান থেকে আলাদা, কারণ এটি তাদের থেকে খুবই ভিন্ন:
+এটি আরএমকিউ সমস্যাকে এলসিএ সমস্যায় রিডিউস করে, এবং তারপর [ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম](lca_farachcoltonbender.md) ব্যবহার করে, যেটি এলসিএ সমস্যাকে আবার একটি বিশেষায়িত আরএমকিউ সমস্যায় রিডিউস করে এবং সেটি সমাধান করে।
 
-## Algorithm
+## অ্যালগরিদম
 
-We construct a **Cartesian tree** from the array `A`.
-A Cartesian tree of an array `A` is a binary tree with the min-heap property (the value of parent node has to be smaller or equal than the value of its children) such that the in-order traversal of the tree visits the nodes in the same order as they are in the array `A`.
+আমরা `A` অ্যারে থেকে একটি **কার্তেসিয়ান ট্রি** তৈরি করি।
+`A` অ্যারের কার্তেসিয়ান ট্রি হলো মিন-হিপ বৈশিষ্ট্যযুক্ত (প্যারেন্ট নোডের মান তার চিলড্রেনের মানের চেয়ে ছোট বা সমান হতে হবে) একটি বাইনারি ট্রি, যেখানে ট্রি-র ইন-অর্ডার ট্রাভার্সাল `A` অ্যারের নোডগুলোকে একই ক্রমে ভিজিট করে।
 
-In other words, a Cartesian tree is a recursive data structure.
-The array `A` will be partitioned into 3 parts: the prefix of the array up to the minimum, the minimum, and the remaining suffix.
-The root of the tree will be a node corresponding to the minimum element of the array `A`, the left subtree will be the Cartesian tree of the prefix, and the right subtree will be a Cartesian tree of the suffix.
+অন্যভাবে বলতে গেলে, কার্তেসিয়ান ট্রি হলো একটি রিকার্সিভ ডেটা স্ট্রাকচার।
+`A` অ্যারেকে ৩ ভাগে ভাগ করা হবে: মিনিমাম পর্যন্ত অ্যারের প্রিফিক্স, মিনিমাম, এবং অবশিষ্ট সাফিক্স।
+ট্রি-র রুট হবে `A` অ্যারের মিনিমাম উপাদানের সাথে সংশ্লিষ্ট নোড, বাম সাবট্রি হবে প্রিফিক্সের কার্তেসিয়ান ট্রি, এবং ডান সাবট্রি হবে সাফিক্সের কার্তেসিয়ান ট্রি।
 
-In the following image you can see one array of length 10 and the corresponding Cartesian tree.
+নিচের ছবিতে আপনি ১০ দৈর্ঘ্যের একটি অ্যারে এবং তার সংশ্লিষ্ট কার্তেসিয়ান ট্রি দেখতে পারবেন।
 <div style="text-align: center;">
   <img src="/images/graph/CartesianTree.png" alt="Image of Cartesian Tree">
 </div>
 
-The range minimum query `[l, r]` is equivalent to the lowest common ancestor query `[l', r']`, where `l'` is the node corresponding to the element `A[l]` and `r'` the node corresponding to the element `A[r]`.
-Indeed the node corresponding to the smallest element in the range has to be an ancestor of all nodes in the range, therefor also from `l'` and `r'`.
-This automatically follows from the min-heap property.
-And is also has to be the lowest ancestor, because otherwise `l'` and `r'` would be both in the left or in the right subtree, which generates a contradiction since in such a case the minimum wouldn't even be in the range.
+রেঞ্জ মিনিমাম কুয়েরি `[l, r]` হলো লোয়েস্ট কমন অ্যানসেস্টর কুয়েরি `[l', r']`-এর সমতুল্য, যেখানে `l'` হলো `A[l]` উপাদানের সাথে সংশ্লিষ্ট নোড এবং `r'` হলো `A[r]` উপাদানের সাথে সংশ্লিষ্ট নোড।
+প্রকৃতপক্ষে, রেঞ্জে সবচেয়ে ছোট উপাদানের সাথে সংশ্লিষ্ট নোডটি অবশ্যই রেঞ্জের সব নোডের অ্যানসেস্টর হবে, তাই `l'` এবং `r'`-এরও।
+এটি মিন-হিপ বৈশিষ্ট্য থেকে স্বয়ংক্রিয়ভাবে আসে।
+এবং এটিকে সবচেয়ে নিচের অ্যানসেস্টরও হতে হবে, কারণ অন্যথায় `l'` এবং `r'` উভয়ই বাম বা ডান সাবট্রিতে থাকত, যা একটি বিরোধ তৈরি করে কারণ সেক্ষেত্রে মিনিমাম রেঞ্জে থাকতই না।
 
-In the following image you can see the LCA queries for the RMQ queries `[1, 3]` and `[5, 9]`.
-In the first query the LCA of the nodes `A[1]` and `A[3]` is the node corresponding to `A[2]` which has the value 2, and in the second query the LCA of `A[5]` and `A[9]` is the node corresponding to `A[8]` which has the value 3.
+নিচের ছবিতে আপনি আরএমকিউ কুয়েরি `[1, 3]` এবং `[5, 9]`-এর জন্য এলসিএ কুয়েরি দেখতে পারবেন।
+প্রথম কুয়েরিতে `A[1]` এবং `A[3]` নোডের এলসিএ হলো `A[2]`-এর সাথে সংশ্লিষ্ট নোড যার মান ২, এবং দ্বিতীয় কুয়েরিতে `A[5]` এবং `A[9]`-এর এলসিএ হলো `A[8]`-এর সাথে সংশ্লিষ্ট নোড যার মান ৩।
 <div style="text-align: center;">
   <img src="/images/graph/CartesianTreeLCA.png" alt="LCA queries in the Cartesian Tree">
 </div>
 
-Such a tree can be built in $O(N)$ time and the Farach-Colton and Benders algorithm can preprocess the tree in $O(N)$ and find the LCA in $O(1)$.
+এরকম ট্রি $O(N)$ সময়ে তৈরি করা যায় এবং ফারাক-কোল্টন ও বেন্ডারের অ্যালগরিদম $O(N)$-এ ট্রি প্রিপ্রসেস করে $O(1)$-এ এলসিএ বের করতে পারে।
 
-## Construction of a Cartesian tree
+## কার্তেসিয়ান ট্রি নির্মাণ
 
-We will build the Cartesian tree by adding the elements one after another.
-In each step we maintain a valid Cartesian tree of all the processed elements.
-It is easy to see, that adding an element `s[i]` can only change the nodes in the most right path - starting at the root and repeatedly taking the right child - of the tree.
-The subtree of the node with the smallest, but greater or equal than `s[i]`, value becomes the left subtree of `s[i]`, and the tree with root `s[i]` will become the new right subtree of the node with the biggest, but smaller than `s[i]` value.
+আমরা উপাদানগুলো একটির পর একটি যোগ করে কার্তেসিয়ান ট্রি তৈরি করব।
+প্রতিটি ধাপে আমরা ইতোমধ্যে প্রসেস করা সব উপাদানের একটি ভ্যালিড কার্তেসিয়ান ট্রি বজায় রাখি।
+সহজেই দেখা যায় যে, `s[i]` উপাদান যোগ করলে শুধু ট্রি-র সবচেয়ে ডান পাথের (রুট থেকে শুরু করে বারবার ডান চাইল্ড নিয়ে) নোডগুলো পরিবর্তিত হতে পারে।
+সবচেয়ে ছোট কিন্তু `s[i]`-এর চেয়ে বড় বা সমান মানের নোডের সাবট্রি `s[i]`-এর বাম সাবট্রি হয়ে যাবে, এবং `s[i]` রুটযুক্ত ট্রি সবচেয়ে বড় কিন্তু `s[i]`-এর চেয়ে ছোট মানের নোডের নতুন ডান সাবট্রি হবে।
 
-This can be implemented by using a stack to store the indices of the most right nodes.
+এটি একটি স্ট্যাক ব্যবহার করে ইমপ্লিমেন্ট করা যায় যেটি সবচেয়ে ডান নোডগুলোর ইনডেক্স সংরক্ষণ করে।
 
 ```cpp
 vector<int> parent(n, -1);

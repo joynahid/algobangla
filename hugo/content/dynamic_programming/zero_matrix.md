@@ -1,20 +1,20 @@
 ---
-title: "Finding the largest zero submatrix"
+title: "সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা"
 tags: 
 weight: 20
 ---
-# Finding the largest zero submatrix
+# সর্ববৃহৎ শূন্য সাবম্যাট্রিক্স খোঁজা
 
-You are given a matrix with `n` rows and `m` columns. Find the largest submatrix consisting of only zeros (a submatrix is a rectangular area of the matrix).
+আপনাকে `n` সারি ও `m` কলামবিশিষ্ট একটি ম্যাট্রিক্স দেওয়া আছে। শুধুমাত্র শূন্য দিয়ে গঠিত সর্ববৃহৎ সাবম্যাট্রিক্স খুঁজুন (সাবম্যাট্রিক্স হলো ম্যাট্রিক্সের একটি আয়তক্ষেত্রাকার অংশ)।
 
-## Algorithm
+## অ্যালগরিদম
 
-Elements of the matrix will be `a[i][j]`, where `i = 0...n - 1`, `j = 0... m - 1`. For simplicity, we will consider all non-zero elements equal to 1.
+ম্যাট্রিক্সের উপাদানগুলো হবে `a[i][j]`, যেখানে `i = 0...n - 1`, `j = 0... m - 1`। সরলতার জন্য, আমরা সব অশূন্য উপাদানকে ১ হিসেবে বিবেচনা করব।
 
-### Step 1: Auxiliary dynamic
+### ধাপ ১: সহায়ক ডায়নামিক
 
-First, we calculate the following auxiliary matrix: `d[i][j]`, nearest row that has a 1 above `a[i][j]`. Formally speaking, `d[i][j]` is the largest row number (from `0` to `i - 1`), in which there is a element equal to `1` in the `j`-th column. 
-While iterating from top-left to bottom-right, when we stand in row `i`, we know the values from the previous row, so, it is enough to update just the elements with value `1`. We can save the values in a simple array `d[i]`, `i = 1...m - 1`, because in the further algorithm we will process the matrix one row at a time and only need the values of the current row.
+প্রথমে, আমরা নিম্নলিখিত সহায়ক ম্যাট্রিক্স হিসাব করি: `d[i][j]`, `a[i][j]`-র উপরে নিকটতম সেই সারি যেখানে ১ আছে। আনুষ্ঠানিকভাবে বলতে গেলে, `d[i][j]` হলো সর্ববৃহৎ সারি নম্বর (`0` থেকে `i - 1` পর্যন্ত), যেখানে `j`-তম কলামে ১ সমান কোনো উপাদান আছে।
+উপরে-বাম থেকে নিচে-ডানে ইটারেট করার সময়, যখন আমরা `i` সারিতে থাকি, আমরা পূর্ববর্তী সারির মানগুলো জানি, তাই শুধু ১ মানবিশিষ্ট উপাদানগুলো আপডেট করাই যথেষ্ট। আমরা মানগুলো একটি সাধারণ অ্যারে `d[i]`, `i = 1...m - 1`-এ সংরক্ষণ করতে পারি, কারণ পরবর্তী অ্যালগরিদমে আমরা ম্যাট্রিক্স একবারে একটি সারি করে প্রসেস করব এবং শুধু বর্তমান সারির মান প্রয়োজন।
 
 ```cpp
 vector<int> d(m, -1);
@@ -27,31 +27,31 @@ for (int i = 0; i < n; ++i) {
 }
 ```
 
-### Step 2: Problem solving
+### ধাপ ২: সমস্যার সমাধান
 
-We can solve the problem in $O(n m^2)$ iterating through rows, considering every possible left and right columns for a submatrix. The bottom of the rectangle will be the current row, and using `d[i][j]` we can find the top row. However, it is possible to go further and significantly improve the complexity of the solution.
+আমরা সারিগুলোর মধ্য দিয়ে ইটারেট করে, সাবম্যাট্রিক্সের সম্ভাব্য প্রতিটি বাম ও ডান কলাম বিবেচনা করে $O(n m^2)$-এ সমস্যাটি সমাধান করতে পারি। আয়তক্ষেত্রের নিচের দিক হবে বর্তমান সারি, এবং `d[i][j]` ব্যবহার করে আমরা উপরের সারি খুঁজতে পারি। তবে, আরো এগিয়ে গিয়ে সমাধানের কমপ্লেক্সিটি উল্লেখযোগ্যভাবে উন্নত করা সম্ভব।
 
-It is clear that the desired zero submatrix is bounded on all four sides by some ones, which prevent it from increasing in size and improving the answer. Therefore,  we will not miss the answer if we act as follows: for every cell `j` in row `i` (the bottom row of a potential zero submatrix) we will have `d[i][j]` as the top row of the current zero submatrix. It now remains to determine the optimal left and right boundaries of the zero submatrix, i.e. maximally push this submatrix to the left and right of the `j`-th column. 
+এটা স্পষ্ট যে কাঙ্ক্ষিত শূন্য সাবম্যাট্রিক্স চারদিক থেকে কিছু ১ দ্বারা আবদ্ধ, যা এটিকে আকারে বাড়তে এবং উত্তর উন্নত করতে বাধা দেয়। সুতরাং, আমরা নিম্নলিখিতভাবে কাজ করলে উত্তর মিস করব না: `i` সারির প্রতিটি ঘর `j`-র জন্য (সম্ভাব্য শূন্য সাবম্যাট্রিক্সের নিচের সারি) আমরা `d[i][j]`-কে বর্তমান শূন্য সাবম্যাট্রিক্সের উপরের সারি হিসেবে নেব। এখন শূন্য সাবম্যাট্রিক্সের সর্বোত্তম বাম ও ডান সীমানা নির্ধারণ করা বাকি, অর্থাৎ `j`-তম কলাম থেকে এই সাবম্যাট্রিক্সকে সর্বাধিক বাম ও ডানে প্রসারিত করা।
 
-What does it mean to push the maximum to the left? It means to find an index `k1` for which `d[i][k1] > d[i][j]`, and at the same time `k1` - the closest one to the left of the index `j`. It is clear that then `k1 + 1` gives the number of the left column of the required zero submatrix. If there is no such index at all, then put `k1` = `-1`(this means that we were able to extend the current zero submatrix to the left all the way to the border of matrix `a`).
+সর্বাধিক বামে প্রসারিত করার অর্থ কী? এর অর্থ হলো এমন একটি ইনডেক্স `k1` খুঁজে বের করা যার জন্য `d[i][k1] > d[i][j]`, এবং একই সাথে `k1` ইনডেক্স `j`-র বামে সবচেয়ে কাছে। এটা স্পষ্ট যে তাহলে `k1 + 1` হবে প্রয়োজনীয় শূন্য সাবম্যাট্রিক্সের বাম কলাম নম্বর। যদি এমন কোনো ইনডেক্স না থাকে, তাহলে `k1` = `-1` রাখুন (এর অর্থ আমরা বর্তমান শূন্য সাবম্যাট্রিক্সকে ম্যাট্রিক্স `a`-র বাম সীমানা পর্যন্ত প্রসারিত করতে পেরেছি)।
 
-Symmetrically, you can define an index `k2` for the right border: this is the closest index to the right of `j` such that `d[i][k2] > d[i][j]` (or `m`, if there is no such index).
+একইভাবে, ডান সীমানার জন্য একটি ইনডেক্স `k2` নির্ধারণ করা যায়: এটি `j`-র ডানে সবচেয়ে কাছের ইনডেক্স যেখানে `d[i][k2] > d[i][j]` (অথবা `m`, যদি এমন কোনো ইনডেক্স না থাকে)।
 
-So, the indices `k1` and `k2`, if we learn to search for them effectively, will give us all the necessary information about the current zero submatrix. In particular, its area will be equal to `(i - d[i][j]) * (k2 - k1 - 1)`.
+সুতরাং, ইনডেক্স `k1` এবং `k2`, যদি আমরা এগুলো কার্যকরভাবে খুঁজতে শিখি, বর্তমান শূন্য সাবম্যাট্রিক্স সম্পর্কে সমস্ত প্রয়োজনীয় তথ্য দেবে। বিশেষ করে, এর ক্ষেত্রফল হবে `(i - d[i][j]) * (k2 - k1 - 1)`।
 
-How to look for these indexes `k1` and `k2` effectively with fixed `i` and `j`? We can do that in $O(1)$ on average.
+নির্দিষ্ট `i` এবং `j`-র জন্য এই ইনডেক্সগুলো কীভাবে কার্যকরভাবে খুঁজবেন? আমরা গড়ে $O(1)$-এ এটি করতে পারি।
 
-To achieve such complexity, you can use the stack as follows. Let's first learn how to search for an index `k1`, and save its value for each index `j` within the current row `i` in matrix `d1[i][j]`. To do this, we will look through all the columns `j` from left to right, and we will store in the stack only those columns that have `d[][]` strictly greater than `d[i][j]`. It is clear that when moving from a column `j` to the next column, it is necessary to update the content of the stack. When there is an inappropriate element at the top of the stack (i.e. `d[][] <= d[i][j]`) pop it. It is easy to understand that it is enough to remove from the stack only from its top, and from none of its other places (because the stack will contain an increasing `d` sequence of columns).
+এই কমপ্লেক্সিটি অর্জন করতে, নিম্নলিখিতভাবে স্ট্যাক ব্যবহার করা যায়। প্রথমে ইনডেক্স `k1` কীভাবে খুঁজতে হয় শিখি, এবং বর্তমান সারি `i`-তে ম্যাট্রিক্স `d`-তে প্রতিটি ইনডেক্স `j`-র জন্য এর মান `d1[i][j]`-এ সংরক্ষণ করি। এটি করতে, আমরা বাম থেকে ডানে সব কলাম `j` দেখব, এবং স্ট্যাকে শুধু সেই কলামগুলো রাখব যাদের `d[][]` কঠোরভাবে `d[i][j]`-র চেয়ে বেশি। স্পষ্টতই কলাম `j` থেকে পরবর্তী কলামে যাওয়ার সময়, স্ট্যাকের বিষয়বস্তু আপডেট করা প্রয়োজন। যখন স্ট্যাকের শীর্ষে অনুপযুক্ত উপাদান থাকে (অর্থাৎ `d[][] <= d[i][j]`) তখন এটি পপ করুন। বোঝা সহজ যে স্ট্যাক থেকে শুধু এর শীর্ষ থেকে অপসারণ করাই যথেষ্ট, অন্য কোনো স্থান থেকে নয় (কারণ স্ট্যাকে কলামগুলোর একটি ক্রমবর্ধমান `d` ক্রম থাকবে)।
 
-The value `d1[i][j]` for each `j` will be equal to the value lying at that moment on top of the stack.
+প্রতিটি `j`-র জন্য `d1[i][j]`-র মান হবে সেই মুহূর্তে স্ট্যাকের শীর্ষে থাকা মান।
 
-The dynamics `d2[i][j]` for finding the indices `k2` is considered similar, only you need to view the columns from right to left.
+ইনডেক্স `k2` খোঁজার জন্য ডায়নামিক্স `d2[i][j]` একইভাবে বিবেচনা করা হয়, শুধু কলামগুলো ডান থেকে বামে দেখতে হবে।
 
-It is clear that since there are exactly `m` pieces added to the stack on each line, there could not be more deletions either, the sum of complexities will be linear, so the final complexity of the algorithm is $O(nm)$.
+এটা স্পষ্ট যে প্রতিটি সারিতে স্ট্যাকে ঠিক `m`টি উপাদান যোগ হয়, তাই মোছাও এর বেশি হতে পারে না, কমপ্লেক্সিটির যোগফল লিনিয়ার হবে, তাই অ্যালগরিদমের চূড়ান্ত কমপ্লেক্সিটি $O(nm)$।
 
-It should also be noted that this algorithm consumes $O(m)$ memory (not counting the input data - the matrix `a[][]`).
+এটাও উল্লেখ করা উচিত যে এই অ্যালগরিদম $O(m)$ মেমোরি ব্যবহার করে (ইনপুট ডেটা — ম্যাট্রিক্স `a[][]` — বাদ দিয়ে)।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```cpp
 int zero_matrix(vector<vector<int>> a) {

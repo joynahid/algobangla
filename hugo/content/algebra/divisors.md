@@ -1,32 +1,32 @@
 ---
-title: "Number of divisors / sum of divisors"
+title: "ভাজকের সংখ্যা / ভাজকের যোগফল"
 tags: 
 weight: 20
 ---
-# Number of divisors / sum of divisors
+# ভাজকের সংখ্যা / ভাজকের যোগফল
 
-In this article we discuss how to compute the number of divisors $d(n)$ and the sum of divisors $\sigma(n)$ of a given number $n$.
+এই আর্টিকেলে আমরা আলোচনা করব কীভাবে একটি প্রদত্ত সংখ্যা $n$-এর ভাজকের সংখ্যা $d(n)$ এবং ভাজকের যোগফল $\sigma(n)$ গণনা করতে হয়।
 
-## Number of divisors
+## ভাজকের সংখ্যা
 
-It should be obvious that the prime factorization of a divisor $d$ has to be a subset of the prime factorization of $n$, e.g. $6 = 2 \cdot 3$ is a divisor of $60 = 2^2 \cdot 3 \cdot 5$.
-So we only need to find all different subsets of the prime factorization of $n$.
+এটি স্পষ্ট হওয়া উচিত যে একটি ভাজক $d$-এর মৌলিক উৎপাদক বিভাজন $n$-এর মৌলিক উৎপাদক বিভাজনের একটি উপসেট হতে হবে, যেমন $6 = 2 \cdot 3$ হলো $60 = 2^2 \cdot 3 \cdot 5$-এর একটি ভাজক।
+তাই আমাদের শুধু $n$-এর মৌলিক উৎপাদক বিভাজনের সকল ভিন্ন উপসেট খুঁজতে হবে।
 
-Usually the number of subsets is $2^x$ for a set with $x$ elements.
-However this is no longer true, if there are repeated elements in the set. In our case some prime factors may appear multiple times in the prime factorization of $n$.
+সাধারণত $x$ টি উপাদানবিশিষ্ট সেটের উপসেটের সংখ্যা $2^x$।
+তবে সেটে পুনরাবৃত্ত উপাদান থাকলে এটি আর সত্য নয়। আমাদের ক্ষেত্রে $n$-এর মৌলিক উৎপাদক বিভাজনে কিছু মৌলিক গুণনীয়ক একাধিকবার আসতে পারে।
 
-If a prime factor $p$ appears $e$ times in the prime factorization of $n$, then we can use the factor $p$ up to $e$ times in the subset.
-Which means we have $e+1$ choices.
+যদি একটি মৌলিক গুণনীয়ক $p$ $n$-এর মৌলিক উৎপাদক বিভাজনে $e$ বার আসে, তাহলে আমরা উপসেটে $p$ গুণনীয়কটি $e$ বার পর্যন্ত ব্যবহার করতে পারি।
+যার মানে আমাদের $e+1$ টি পছন্দ আছে।
 
-Therefore if the prime factorization of $n$ is $p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$, where $p_i$ are distinct prime numbers, then the number of divisors is:
+তাই যদি $n$-এর মৌলিক উৎপাদক বিভাজন $p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$ হয়, যেখানে $p_i$ স্বতন্ত্র মৌলিক সংখ্যা, তাহলে ভাজকের সংখ্যা হলো:
 
 $$d(n) = (e_1 + 1) \cdot (e_2 + 1) \cdots (e_k + 1)$$
 
-A way of thinking about it is the following:
+এটি নিম্নরূপে ভাবা যায়:
 
-* If there is only one distinct prime divisor $n = p_1^{e_1}$, then there are obviously $e_1 + 1$ divisors ($1, p_1, p_1^2, \dots, p_1^{e_1}$).
+* যদি শুধু একটি স্বতন্ত্র মৌলিক ভাজক থাকে $n = p_1^{e_1}$, তাহলে স্পষ্টতই $e_1 + 1$ টি ভাজক আছে ($1, p_1, p_1^2, \dots, p_1^{e_1}$)।
 
-* If there are two distinct prime divisors $n = p_1^{e_1} \cdot p_2^{e_2}$, then you can arrange all divisors in form of a tabular.
+* যদি দুটি স্বতন্ত্র মৌলিক ভাজক থাকে $n = p_1^{e_1} \cdot p_2^{e_2}$, তাহলে আপনি সকল ভাজক একটি টেবিলের আকারে সাজাতে পারেন।
 
 $$\begin{array}{c|ccccc}
 & 1 & p_2 & p_2^2 & \dots & p_2^{e_2} \\\\\hline
@@ -37,9 +37,9 @@ p_1^2 & p_1^2 & p_1^2 \cdot p_2 & p_1^2 \cdot p_2^2 & \dots & p_1^2 \cdot p_2^{e
 p_1^{e_1} & p_1^{e_1} & p_1^{e_1} \cdot p_2 & p_1^{e_1} \cdot p_2^2 & \dots & p_1^{e_1} \cdot p_2^{e_2} \\\\
 \end{array}$$
 
-So the number of divisors is trivially $(e_1 + 1) \cdot (e_2 + 1)$.
+তাই ভাজকের সংখ্যা সহজেই $(e_1 + 1) \cdot (e_2 + 1)$।
 
-* A similar argument can be made if there are more then two distinct prime factors.
+* দুইয়ের বেশি স্বতন্ত্র মৌলিক গুণনীয়ক থাকলেও একই যুক্তি দেওয়া যায়।
 
 
 ```cpp
@@ -62,23 +62,23 @@ long long numberOfDivisors(long long num) {
 }
 ```
 
-## Sum of divisors
+## ভাজকের যোগফল
 
-We can use the same argument of the previous section.
+আমরা আগের অনুচ্ছেদের একই যুক্তি ব্যবহার করতে পারি।
 
-* If there is only one distinct prime divisor $n = p_1^{e_1}$, then the sum is:
+* যদি শুধু একটি স্বতন্ত্র মৌলিক ভাজক থাকে $n = p_1^{e_1}$, তাহলে যোগফল:
 
 $$1 + p_1 + p_1^2 + \dots + p_1^{e_1} = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1}$$
 
-* If there are two distinct prime divisors $n = p_1^{e_1} \cdot p_2^{e_2}$, then we can make the same table as before.
-  The only difference is that now we now want to compute the sum instead of counting the elements.
-  It is easy to see, that the sum of each combination can be expressed as:
+* যদি দুটি স্বতন্ত্র মৌলিক ভাজক থাকে $n = p_1^{e_1} \cdot p_2^{e_2}$, তাহলে আমরা আগের মতোই টেবিল তৈরি করতে পারি।
+  পার্থক্য শুধু এই যে এখন আমরা উপাদান গণনার বদলে যোগফল গণনা করতে চাই।
+  দেখা সহজ যে প্রতিটি কম্বিনেশনের যোগফল এভাবে প্রকাশ করা যায়:
 
 $$\left(1 + p_1 + p_1^2 + \dots + p_1^{e_1}\right) \cdot \left(1 + p_2 + p_2^2 + \dots + p_2^{e_2}\right)$$
 
 $$ = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1}$$
 
-* In general, for $n = p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$ we receive the formula:
+* সাধারণভাবে, $n = p_1^{e_1} \cdot p_2^{e_2} \cdots p_k^{e_k}$-এর জন্য আমরা সূত্র পাই:
 
 $$\sigma(n) = \frac{p_1^{e_1 + 1} - 1}{p_1 - 1} \cdot \frac{p_2^{e_2 + 1} - 1}{p_2 - 1} \cdots \frac{p_k^{e_k + 1} - 1}{p_k - 1}$$
 
@@ -109,20 +109,20 @@ long long SumOfDivisors(long long num) {
 }
 ```
 
-## Multiplicative functions
+## গুণনমূলক ফাংশন
 
-A multiplicative function is a function $f(x)$ which satisfies
+একটি গুণনমূলক ফাংশন হলো এমন একটি ফাংশন $f(x)$ যা পূরণ করে
 
 $$f(a \cdot b) = f(a) \cdot f(b)$$
 
-if $a$ and $b$ are coprime.
+যদি $a$ এবং $b$ সহমৌলিক হয়।
 
-Both $d(n)$ and $\sigma(n)$ are multiplicative functions.
+$d(n)$ এবং $\sigma(n)$ উভয়ই গুণনমূলক ফাংশন।
 
-Multiplicative functions have a huge variety of interesting properties, which can be very useful in number theory problems.
-For instance the Dirichlet convolution of two multiplicative functions is also multiplicative.
+গুণনমূলক ফাংশনের বিভিন্ন আকর্ষণীয় বৈশিষ্ট্য আছে, যা সংখ্যাতত্ত্বের সমস্যায় অত্যন্ত উপকারী হতে পারে।
+উদাহরণস্বরূপ, দুটি গুণনমূলক ফাংশনের ডিরিশলে কনভলিউশনও গুণনমূলক।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
   - [SPOJ - COMDIV](https://www.spoj.com/problems/COMDIV/)
   - [SPOJ - DIVSUM](https://www.spoj.com/problems/DIVSUM/)

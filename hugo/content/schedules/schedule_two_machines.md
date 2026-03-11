@@ -1,85 +1,85 @@
 ---
-title: "Scheduling jobs on two machines"
+title: "দুটি মেশিনে কাজ শিডিউলিং"
 tags: 
 weight: 20
 ---
-# Scheduling jobs on two machines
+# দুটি মেশিনে কাজ শিডিউলিং
 
-This task is about finding an optimal schedule for $n$ jobs on two machines.
-Every item must first be processed on the first machine, and afterwards on the second one.
-The $i$-th job takes $a_i$ time on the first machine, and $b_i$ time on the second machine.
-Each machine can only process one job at a time.
+এই সমস্যাটি হলো দুটি মেশিনে $n$ টি কাজের জন্য সর্বোত্তম শিডিউল খুঁজে বের করা।
+প্রতিটি আইটেমকে প্রথমে প্রথম মেশিনে এবং তারপর দ্বিতীয় মেশিনে প্রসেস করতে হবে।
+$i$-তম কাজ প্রথম মেশিনে $a_i$ সময় এবং দ্বিতীয় মেশিনে $b_i$ সময় নেয়।
+প্রতিটি মেশিন একবারে কেবল একটি কাজ প্রসেস করতে পারে।
 
-We want to find the optimal order of the jobs, so that the final processing time is the minimum possible.
+আমরা কাজগুলোর সর্বোত্তম ক্রম খুঁজতে চাই, যাতে চূড়ান্ত প্রসেসিং সময় সর্বনিম্ন সম্ভব হয়।
 
-This solution that is discussed here is called Johnson's rule (named after S. M. Johnson).
+এখানে আলোচিত সমাধানটিকে জনসনের নিয়ম বলা হয় (S. M. Johnson-এর নামে নামকরণ)।
 
-It is worth noting, that the task becomes NP-complete, if we have more than two machines.
+লক্ষণীয় যে, দুটির বেশি মেশিন থাকলে সমস্যাটি NP-complete হয়ে যায়।
 
-## Construction of the algorithm
+## অ্যালগরিদমের গঠন
 
-Note first, that we can assume that the order of jobs for the first and the second machine have to coincide.
-In fact, since the jobs for the second machine become available after processing them at the first, and if there are several jobs available for the second machine, than the processing time will be equal to the sum of their $b_i$, regardless of their order.
-Therefore it is only advantageous to send the jobs to the second machine in the same order as we sent them to the first machine.
+প্রথমে লক্ষ্য করুন, আমরা ধরে নিতে পারি যে প্রথম এবং দ্বিতীয় মেশিনের জন্য কাজের ক্রম একই হতে হবে।
+প্রকৃতপক্ষে, যেহেতু দ্বিতীয় মেশিনের জন্য কাজগুলো প্রথম মেশিনে প্রসেস করার পরই উপলব্ধ হয়, এবং যদি দ্বিতীয় মেশিনে একাধিক কাজ উপলব্ধ থাকে, তাহলে প্রসেসিং সময় তাদের $b_i$-এর যোগফলের সমান হবে, তাদের ক্রম যাই হোক না কেন।
+তাই কাজগুলো দ্বিতীয় মেশিনে প্রথম মেশিনে পাঠানোর একই ক্রমে পাঠানোই সুবিধাজনক।
 
-Consider the order of the jobs, which coincides with their input order $1, 2, \dots, n$.
+কাজগুলোর ক্রম বিবেচনা করুন, যা তাদের ইনপুট ক্রম $1, 2, \dots, n$-এর সাথে মিলে যায়।
 
-We denote by $x_i$ the **idle time** of the second machine immediately before processing $i$.
-Our goal is to **minimize the total idle time**:
+$x_i$ দ্বারা $i$ প্রসেস করার ঠিক আগে দ্বিতীয় মেশিনের **অলস সময়** চিহ্নিত করি।
+আমাদের লক্ষ্য **মোট অলস সময় ন্যূনতম** করা:
 
 $$F(x) = \sum x_i ~ \rightarrow \min$$
 
-For the first job we have $x_1 = a_1$.
-For the second job, since it gets sent to the machine at the time $a_1 + a_2$, and the second machine gets free at $x_1 + b_1$, we have $x_2 = \max\left((a_1 + a_2) - (x_1 + b_1), 0\right)$.
-In general we get the equation:
+প্রথম কাজের জন্য $x_1 = a_1$।
+দ্বিতীয় কাজের জন্য, যেহেতু এটি $a_1 + a_2$ সময়ে মেশিনে পাঠানো হয়, এবং দ্বিতীয় মেশিন $x_1 + b_1$ সময়ে মুক্ত হয়, আমরা পাই $x_2 = \max\left((a_1 + a_2) - (x_1 + b_1), 0\right)$।
+সাধারণভাবে আমরা সমীকরণ পাই:
 
 $$x_k = \max\left(\sum_{i=1}^k a_i - \sum_{i=1}^{k-1} b_i - \sum_{i=1}^{k-1} x_i, 0 \right)$$
 
-We can now calculate the **total idle time** $F(x)$.
-It is claimed that it has the form
+এখন আমরা **মোট অলস সময়** $F(x)$ গণনা করতে পারি।
+দাবি করা হয় যে এটি নিচের আকারের
 
 $$F(x) = \max_{k=1 \dots n} K_i,$$
 
-where
+যেখানে
 
 $$K_i = \sum_{i=1}^k a_i - \sum_{i=1}^{k-1} b_i.$$
 
-This can be easily verified using induction.
+এটি ইন্ডাকশন দিয়ে সহজেই যাচাই করা যায়।
 
-We now use the **permutation method**:
-we will exchange two neighboring jobs $j$ and $j+1$ and see how this will change the total idle time.
+এখন আমরা **পারমুটেশন পদ্ধতি** ব্যবহার করি:
+আমরা দুটি প্রতিবেশী কাজ $j$ এবং $j+1$ বিনিময় করব এবং দেখব এটি কিভাবে মোট অলস সময় পরিবর্তন করে।
 
-By the form of the expression of $K_i$, it is clear that only $K_j$ and $K_{j+1}$ change, we denote their new values with $K_j'$ and $K_{j+1}'$.
+$K_i$-এর রাশির আকার থেকে স্পষ্ট যে কেবল $K_j$ এবং $K_{j+1}$ পরিবর্তন হয়, আমরা তাদের নতুন মানকে $K_j'$ এবং $K_{j+1}'$ দিয়ে চিহ্নিত করি।
 
-If this change from of the jobs $j$ and $j+1$ increased the total idle time, it has to be the case that:
+যদি $j$ এবং $j+1$ কাজের এই পরিবর্তন মোট অলস সময় বাড়ায়, তাহলে নিশ্চয়ই:
 
 $$\max(K_j, K_{j+1}) \le \max(K_j', K_{j+1}')$$
 
-(Switching two jobs might also have no impact at all.
-The above condition is only a sufficient one, but not a necessary one.)
+(দুটি কাজ বিনিময়ের কোনো প্রভাব নাও থাকতে পারে।
+উপরের শর্তটি কেবল একটি যথেষ্ট শর্ত, প্রয়োজনীয় শর্ত নয়।)
 
-After removing $\sum_{i=1}^{j+1} a_i - \sum_{i=1}^{j-1} b_i$ from both sides of the inequality, we get:
+অসমতার উভয় পক্ষ থেকে $\sum_{i=1}^{j+1} a_i - \sum_{i=1}^{j-1} b_i$ বাদ দিলে পাই:
 
 $$\max(-a_{j+1}, -b_j) \le \max(-b_{j+1}, -a_j)$$
 
-And after getting rid of the negative signs:
+এবং ঋণাত্মক চিহ্ন দূর করলে:
 
 $$\min(a_j, b_{j+1}) \le \min(b_j, a_{j+1})$$
 
-Thus we obtained a **comparator**:
-by sorting the jobs on it, we obtain an optimal order of the jobs, in which no two jobs can be switched with an improvement of the final time.
+এভাবে আমরা একটি **কম্প্যারেটর** পেলাম:
+এই কম্প্যারেটর অনুসারে কাজগুলো সাজালে, আমরা কাজগুলোর সর্বোত্তম ক্রম পাই, যেখানে চূড়ান্ত সময়ের উন্নতি করে কোনো দুটি কাজ বিনিময় করা যায় না।
 
-However you can further **simplify** the sorting, if you look at the comparator from a different angle.
-The comparator can be interpreted in the following way:
-If we have the four times $(a_j, a_{j+1}, b_j, b_{j+1})$, and the minimum of them is a time corresponding to the first machine, then the corresponding job should be done first.
-If the minimum time is a time from the second machine, then it should go later.
-Thus we can sort the jobs by $\min(a_i, b_i)$, and if the processing time of the current job on the first machine is less then the processing time on the second machine, then this job must be done before all the remaining jobs, and otherwise after all remaining tasks.
+তবে আপনি কম্প্যারেটরকে ভিন্ন দৃষ্টিকোণ থেকে দেখলে সাজানো আরও **সরলীকরণ** করতে পারেন।
+কম্প্যারেটরটি নিম্নভাবে ব্যাখ্যা করা যায়:
+যদি আমাদের চারটি সময় $(a_j, a_{j+1}, b_j, b_{j+1})$ থাকে, এবং তাদের মধ্যে সর্বনিম্নটি প্রথম মেশিনের সাথে সম্পর্কিত একটি সময় হয়, তাহলে সংশ্লিষ্ট কাজটি প্রথমে করা উচিত।
+যদি সর্বনিম্ন সময় দ্বিতীয় মেশিনের হয়, তাহলে এটি পরে করা উচিত।
+এভাবে আমরা কাজগুলোকে $\min(a_i, b_i)$ অনুসারে সাজাতে পারি, এবং যদি বর্তমান কাজের প্রথম মেশিনে প্রসেসিং সময় দ্বিতীয় মেশিনে প্রসেসিং সময়ের চেয়ে কম হয়, তাহলে এই কাজটি অবশিষ্ট সমস্ত কাজের আগে করতে হবে, অন্যথায় সমস্ত অবশিষ্ট কাজের পরে।
 
-One way or another, it turns out that by Johnson's rule we can solve the problem by sorting the jobs, and thus receive a time complexity of $O(n \log n)$.
+যেভাবেই হোক, দেখা যায় যে জনসনের নিয়ম অনুযায়ী আমরা সাজানোর মাধ্যমে সমস্যা সমাধান করতে পারি, এবং ফলে সময় কমপ্লেক্সিটি হয় $O(n \log n)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here we implement the second variation of the described algorithm.
+এখানে আমরা বর্ণিত অ্যালগরিদমের দ্বিতীয় ভিন্নরূপটি ইমপ্লিমেন্ট করি।
 
 ```cpp
 struct Job {
@@ -113,6 +113,6 @@ pair<int, int> finish_times(vector<Job> const& jobs) {
 }
 ```
 
-All the information about each job is store in struct.
-The first function sorts all jobs and computes the optimal schedule.
-The second function computes the finish times of both machines given a schedule.
+প্রতিটি কাজের সমস্ত তথ্য struct-এ সংরক্ষিত।
+প্রথম ফাংশনটি সমস্ত কাজ সাজায় এবং সর্বোত্তম শিডিউল গণনা করে।
+দ্বিতীয় ফাংশনটি একটি শিডিউল দেওয়া থাকলে উভয় মেশিনের শেষ হওয়ার সময় গণনা করে।

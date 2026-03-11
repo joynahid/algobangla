@@ -1,46 +1,46 @@
 ---
-title: "Lowest Common Ancestor - Binary Lifting"
+title: "লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং"
 tags: 
 weight: 20
 ---
-# Lowest Common Ancestor - Binary Lifting
+# লোয়েস্ট কমন অ্যানসেস্টর - বাইনারি লিফটিং
 
-Let $G$ be a tree.
-For every query of the form `(u, v)` we want to find the lowest common ancestor of the nodes `u` and `v`, i.e. we want to find a node `w` that lies on the path from `u` to the root node, that lies on the path from `v` to the root node, and if there are multiple nodes we pick the one that is farthest away from the root node.
-In other words the desired node `w` is the lowest ancestor of `u` and `v`.
-In particular if `u` is an ancestor of `v`, then `u` is their lowest common ancestor.
+ধরি $G$ একটি ট্রি।
+প্রতিটি `(u, v)` আকারের কুয়েরির জন্য আমরা `u` এবং `v` নোডের লোয়েস্ট কমন অ্যানসেস্টর বের করতে চাই, অর্থাৎ আমরা এমন একটি নোড `w` খুঁজতে চাই যেটি `u` থেকে রুট নোড পর্যন্ত পাথে অবস্থিত, `v` থেকে রুট নোড পর্যন্ত পাথেও অবস্থিত, এবং একাধিক এরকম নোড থাকলে আমরা রুট নোড থেকে সবচেয়ে দূরেরটি বেছে নিই।
+অন্যভাবে বলতে গেলে, কাঙ্ক্ষিত নোড `w` হলো `u` এবং `v`-এর সবচেয়ে নিচের অ্যানসেস্টর।
+বিশেষত, যদি `u` হয় `v`-এর অ্যানসেস্টর, তাহলে `u` হলো তাদের লোয়েস্ট কমন অ্যানসেস্টর।
 
-The algorithm described in this article will need $O(N \log N)$ for preprocessing the tree, and then $O(\log N)$ for each LCA query.
+এই নিবন্ধে বর্ণিত অ্যালগরিদমের ট্রি প্রিপ্রসেসিং-এর জন্য $O(N \log N)$ এবং প্রতিটি এলসিএ কুয়েরির জন্য $O(\log N)$ সময় লাগবে।
 
-## Algorithm
+## অ্যালগরিদম
 
-For each node we will precompute its ancestor above him, its ancestor two nodes above, its ancestor four above, etc.
-Let's store them in the array `up`, i.e. `up[i][j]` is the `2^j`-th ancestor above the node `i` with `i=1...N`, `j=0...ceil(log(N))`.
-These information allow us to jump from any node to any ancestor above it in $O(\log N)$ time.
-We can compute this array using a [DFS](depth-first-search.md) traversal of the tree.
+প্রতিটি নোডের জন্য আমরা প্রিকম্পিউট করব তার ঠিক উপরের অ্যানসেস্টর, দুই নোড উপরের অ্যানসেস্টর, চার নোড উপরের অ্যানসেস্টর ইত্যাদি।
+এগুলো `up` অ্যারেতে সংরক্ষণ করা যাক, অর্থাৎ `up[i][j]` হলো `i` নোডের `2^j`-তম উপরের অ্যানসেস্টর, যেখানে `i=1...N`, `j=0...ceil(log(N))`।
+এই তথ্য ব্যবহার করে যেকোনো নোড থেকে তার উপরের যেকোনো অ্যানসেস্টরে $O(\log N)$ সময়ে যাওয়া যায়।
+আমরা ট্রি-র একটি [DFS](depth-first-search.md) ট্রাভার্সাল ব্যবহার করে এই অ্যারে গণনা করতে পারি।
 
-For each node we will also remember the time of the first visit of this node (i.e. the time when the DFS discovers the node), and the time when we left it (i.e. after we visited all children and exit the DFS function).
-We can use this information to determine in constant time if a node is an ancestor of another node.
+প্রতিটি নোডের জন্য আমরা এই নোডে প্রথম ভিজিটের সময়ও মনে রাখব (অর্থাৎ DFS যখন নোডটি আবিষ্কার করে সেই সময়), এবং যখন আমরা এটি ছেড়ে যাই সেই সময়ও (অর্থাৎ সব চিলড্রেন ভিজিট করে DFS ফাংশন থেকে বের হওয়ার পর)।
+এই তথ্য ব্যবহার করে আমরা ধ্রুব সময়ে নির্ধারণ করতে পারি একটি নোড অন্য একটি নোডের অ্যানসেস্টর কি না।
 
-Suppose now we received a query `(u, v)`.
-We can immediately check whether one node is the ancestor of the other.
-In this case this node is already the LCA.
-If `u` is not the ancestor of `v`, and `v` not the ancestor of `u`, we climb the ancestors of `u` until we find the highest (i.e. closest to the root) node, which is not an ancestor of `v` (i.e. a node `x`, such that `x` is not an ancestor of `v`, but `up[x][0]` is).
-We can find this node `x` in $O(\log N)$ time using the array `up`.
+এখন ধরি আমরা একটি কুয়েরি `(u, v)` পেয়েছি।
+আমরা তৎক্ষণাৎ পরীক্ষা করতে পারি একটি নোড অন্যটির অ্যানসেস্টর কি না।
+সেক্ষেত্রে সেই নোডটিই এলসিএ।
+যদি `u` হয় `v`-এর অ্যানসেস্টর নয়, এবং `v`-ও `u`-এর অ্যানসেস্টর নয়, তাহলে আমরা `u`-এর অ্যানসেস্টরদের মধ্যে উপরে উঠতে থাকি যতক্ষণ না সবচেয়ে উঁচু (অর্থাৎ রুটের সবচেয়ে কাছের) নোডটি পাই যেটি `v`-এর অ্যানসেস্টর নয় (অর্থাৎ একটি নোড `x`, যেখানে `x` হলো `v`-এর অ্যানসেস্টর নয়, কিন্তু `up[x][0]` হলো)।
+আমরা `up` অ্যারে ব্যবহার করে $O(\log N)$ সময়ে এই নোড `x` খুঁজে পেতে পারি।
 
-We will describe this process in more detail.
-Let `L = ceil(log(N))`.
-Suppose first that `i = L`.
-If `up[u][i]` is not an ancestor of `v`, then we can assign `u = up[u][i]` and decrement `i`.
-If `up[u][i]` is an ancestor, then we just decrement `i`.
-Clearly after doing this for all non-negative `i` the node `u` will be the desired node - i.e. `u` is still not an ancestor of `v`, but `up[u][0]` is.
+আসুন এই প্রক্রিয়াটি আরো বিস্তারিতভাবে বর্ণনা করি।
+ধরি `L = ceil(log(N))`।
+প্রথমে ধরি `i = L`।
+যদি `up[u][i]` হয় `v`-এর অ্যানসেস্টর না, তাহলে আমরা `u = up[u][i]` সেট করতে পারি এবং `i` কমাতে পারি।
+যদি `up[u][i]` অ্যানসেস্টর হয়, তাহলে আমরা শুধু `i` কমাই।
+স্পষ্টতই সব অ-ঋণাত্মক `i`-র জন্য এটি করার পর `u` নোডটি হবে কাঙ্ক্ষিত নোড - অর্থাৎ `u` এখনো `v`-এর অ্যানসেস্টর নয়, কিন্তু `up[u][0]` হলো।
 
-Now, obviously, the answer to LCA will be `up[u][0]` - i.e., the smallest node among the ancestors of the node `u`, which is also an ancestor of `v`.
+এখন, স্পষ্টতই, এলসিএ-র উত্তর হবে `up[u][0]` - অর্থাৎ, `u` নোডের অ্যানসেস্টরদের মধ্যে সবচেয়ে ছোট নোড, যেটি `v`-এরও অ্যানসেস্টর।
 
-So answering a LCA query will iterate `i` from `ceil(log(N))` to `0` and checks in each iteration if one node is the ancestor of the other.
-Consequently each query can be answered in $O(\log N)$.
+সুতরাং একটি এলসিএ কুয়েরির উত্তর দিতে `i` কে `ceil(log(N))` থেকে `0` পর্যন্ত ইটারেট করতে হবে এবং প্রতিটি ইটারেশনে পরীক্ষা করতে হবে একটি নোড অন্যটির অ্যানসেস্টর কি না।
+ফলস্বরূপ প্রতিটি কুয়েরি $O(\log N)$-এ উত্তর দেওয়া যায়।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int n, l;
@@ -92,7 +92,7 @@ void preprocess(int root) {
     dfs(root, root);
 }
 ```
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [LeetCode -  Kth Ancestor of a Tree Node](https://leetcode.com/problems/kth-ancestor-of-a-tree-node)
 * [Codechef - Longest Good Segment](https://www.codechef.com/problems/LGSEG)

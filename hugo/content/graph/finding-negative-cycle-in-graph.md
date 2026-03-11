@@ -1,44 +1,42 @@
 ---
-title: "Finding a negative cycle in the graph"
+title: "গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা"
 tags: 
 weight: 20
 ---
-# Finding a negative cycle in the graph
+# গ্রাফে নেগেটিভ সাইকেল খুঁজে বের করা
 
-You are given a directed weighted graph $G$ with $N$ vertices and $M$ edges. Find any cycle of negative weight in it, if such a cycle exists.
+আপনাকে $N$টি ভার্টেক্স এবং $M$টি এজবিশিষ্ট একটি ডিরেক্টেড ওয়েটেড গ্রাফ $G$ দেওয়া হয়েছে। এতে নেগেটিভ ওয়েটের যেকোনো সাইকেল খুঁজে বের করুন, যদি এই ধরনের সাইকেল বিদ্যমান থাকে।
 
-In another formulation of the problem you have to find all pairs of vertices which have a path of arbitrarily small weight between them.
+সমস্যাটির আরেকটি রূপে আপনাকে এমন সমস্ত ভার্টেক্স জোড়া খুঁজে বের করতে হবে যাদের মধ্যে ইচ্ছামতো ছোট ওয়েটের পাথ আছে।
 
-It is convenient to use different algorithms to solve these two variations of the problem, so we'll discuss both of them here.
+এই সমস্যার দুটি প্রকরণ সমাধানের জন্য ভিন্ন ভিন্ন অ্যালগরিদম ব্যবহার করা সুবিধাজনক, তাই আমরা এখানে উভয়ই আলোচনা করব।
 
-## Using Bellman-Ford algorithm
+## বেলম্যান-ফোর্ড অ্যালগরিদম ব্যবহার
 
-Bellman-Ford algorithm allows you to check whether there exists a cycle of negative weight in the graph, and if it does, find one of these cycles.
+বেলম্যান-ফোর্ড অ্যালগরিদম আপনাকে গ্রাফে নেগেটিভ ওয়েটের সাইকেল আছে কি না পরীক্ষা করতে দেয়, এবং থাকলে এই ধরনের একটি সাইকেল খুঁজে বের করতে দেয়।
 
-The details of the algorithm are described in the article on the [Bellman-Ford](bellman_ford.md) algorithm.
-Here we'll describe only its application to this problem.
+অ্যালগরিদমের বিস্তারিত [বেলম্যান-ফোর্ড](bellman_ford.md) অ্যালগরিদমের আর্টিকেলে বর্ণিত আছে। এখানে আমরা শুধু এই সমস্যায় এর প্রয়োগ বর্ণনা করব।
 
-The standard implementation of Bellman-Ford looks for a negative cycle reachable from some starting vertex $v$ ; however, the algorithm can be modified to just look for any negative cycle in the graph. 
-For this we need to put all the distance  $d[i]$  to zero and not infinity — as if we are looking for the shortest path from all vertices simultaneously; the validity of the detection of a negative cycle is not affected.
+বেলম্যান-ফোর্ডের স্ট্যান্ডার্ড ইমপ্লিমেন্টেশন কোনো শুরুর ভার্টেক্স $v$ থেকে পৌঁছানো যায় এমন নেগেটিভ সাইকেল খোঁজে; তবে, অ্যালগরিদমটি পরিবর্তন করা যায় যাতে গ্রাফে যেকোনো নেগেটিভ সাইকেল খুঁজে পায়। এর জন্য আমাদের সমস্ত দূরত্ব $d[i]$ শূন্যে সেট করতে হবে, অসীমে নয় — যেন আমরা সমস্ত ভার্টেক্স থেকে একসাথে শর্টেস্ট পাথ খুঁজছি; নেগেটিভ সাইকেল সনাক্তকরণের বৈধতা এতে প্রভাবিত হয় না।
 
-Do $N$ iterations of Bellman-Ford algorithm. If there were no changes on the last iteration, there is no cycle of negative weight in the graph. Otherwise take a vertex the distance to which has changed, and go from it via its ancestors until a cycle is found. This cycle will be the desired cycle of negative weight.
+বেলম্যান-ফোর্ড অ্যালগরিদমের $N$টি ইটারেশন করুন। শেষ ইটারেশনে কোনো পরিবর্তন না হলে, গ্রাফে নেগেটিভ ওয়েটের সাইকেল নেই। অন্যথায় যে ভার্টেক্সের দূরত্ব পরিবর্তন হয়েছে সেটি নিন, এবং এটি থেকে তার পূর্বপুরুষদের মধ্য দিয়ে যান যতক্ষণ না একটি সাইকেল পাওয়া যায়। এই সাইকেলটিই কাঙ্ক্ষিত নেগেটিভ ওয়েটের সাইকেল হবে।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```cpp
 struct Edge {
     int a, b, cost;
 };
- 
+
 int n;
 vector<Edge> edges;
 const int INF = 1000000000;
- 
+
 void solve() {
     vector<int> d(n, 0);
     vector<int> p(n, -1);
     int x;
- 
+
     for (int i = 0; i < n; ++i) {
         x = -1;
         for (Edge e : edges) {
@@ -49,13 +47,13 @@ void solve() {
             }
         }
     }
- 
+
     if (x == -1) {
         cout << "No negative cycle found.";
     } else {
         for (int i = 0; i < n; ++i)
             x = p[x];
- 
+
         vector<int> cycle;
         for (int v = x;; v = p[v]) {
             cycle.push_back(v);
@@ -63,7 +61,7 @@ void solve() {
                 break;
         }
         reverse(cycle.begin(), cycle.end());
- 
+
         cout << "Negative cycle: ";
         for (int v : cycle)
             cout << v << ' ';
@@ -72,36 +70,28 @@ void solve() {
 }
 ```
 
-## Using Floyd-Warshall algorithm
+## ফ্লয়েড-ওয়ারশাল অ্যালগরিদম ব্যবহার
 
-The Floyd-Warshall algorithm allows to solve the second variation of the problem - finding all pairs of vertices $(i, j)$ which don't have a shortest path between them (i.e. a path of arbitrarily small weight exists).
+ফ্লয়েড-ওয়ারশাল অ্যালগরিদম সমস্যার দ্বিতীয় প্রকরণ সমাধান করতে দেয় - এমন সমস্ত ভার্টেক্স জোড়া $(i, j)$ খুঁজে বের করা যাদের মধ্যে শর্টেস্ট পাথ নেই (অর্থাৎ ইচ্ছামতো ছোট ওয়েটের পাথ বিদ্যমান)।
 
-Again, the details can be found in the [Floyd-Warshall](all-pair-shortest-path-floyd-warshall.md) article, and here we describe only its application.
+বিস্তারিত আবারও [ফ্লয়েড-ওয়ারশাল](all-pair-shortest-path-floyd-warshall.md) আর্টিকেলে পাওয়া যাবে, এবং এখানে আমরা শুধু এই সমস্যায় এর প্রয়োগ বর্ণনা করি।
 
-Run Floyd-Warshall algorithm on the graph.
-Initially $d[v][v] = 0$ for each $v$.
-But after running the algorithm $d[v][v]$ will be smaller than $0$ if there exists a negative length path from $v$ to $v$.
-We can use this to also find all pairs of vertices that don't have a shortest path between them.
-We iterate over all pairs of vertices $(i, j)$ and for each pair we check whether they have a shortest path between them.
-To do this try all possibilities for an intermediate vertex $t$.
-$(i, j)$ doesn't have a shortest path, if one of the intermediate vertices $t$ has $d[t][t] < 0$ (i.e. $t$ is part of a cycle of negative weight), $t$ can be reached from $i$ and $j$ can be reached from $t$.
-Then the path from $i$ to $j$ can have arbitrarily small weight.
-We will denote this with `-INF`.
+গ্রাফে ফ্লয়েড-ওয়ারশাল অ্যালগরিদম চালান। প্রাথমিকভাবে প্রতিটি $v$-এর জন্য $d[v][v] = 0$। কিন্তু অ্যালগরিদম চালানোর পরে $d[v][v]$ $0$-এর চেয়ে ছোট হবে যদি $v$ থেকে $v$-তে নেগেটিভ দৈর্ঘ্যের পাথ থাকে। আমরা এটি ব্যবহার করে এমন সমস্ত ভার্টেক্স জোড়াও খুঁজে বের করতে পারি যাদের মধ্যে শর্টেস্ট পাথ নেই। আমরা সমস্ত ভার্টেক্স জোড়া $(i, j)$-এর উপর ইটারেট করি এবং প্রতিটি জোড়ার জন্য পরীক্ষা করি তাদের মধ্যে শর্টেস্ট পাথ আছে কি না। এটি করতে একটি মধ্যবর্তী ভার্টেক্স $t$-এর সমস্ত সম্ভাবনা চেষ্টা করি। $(i, j)$-এর মধ্যে শর্টেস্ট পাথ নেই, যদি মধ্যবর্তী ভার্টেক্সগুলোর কোনো একটি $t$-এর জন্য $d[t][t] < 0$ হয় (অর্থাৎ $t$ নেগেটিভ ওয়েটের সাইকেলের অংশ), $i$ থেকে $t$-এ পৌঁছানো যায় এবং $t$ থেকে $j$-এ পৌঁছানো যায়। তাহলে $i$ থেকে $j$-এর পাথ ইচ্ছামতো ছোট ওয়েটের হতে পারে। আমরা এটিকে `-INF` দিয়ে চিহ্নিত করব।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
 ```cpp
 for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
         for (int t = 0; t < n; ++t) {
             if (d[i][t] < INF && d[t][t] < 0 && d[t][j] < INF)
-                d[i][j] = - INF; 
+                d[i][j] = - INF;
         }
     }
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [UVA: Wormholes](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=499)
 - [SPOJ: Alice in Amsterdam, I mean Wonderland](http://www.spoj.com/problems/UCV2013B/)

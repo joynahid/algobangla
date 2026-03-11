@@ -1,25 +1,25 @@
 ---
-title: "Minimum spanning tree - Kruskal with Disjoint Set Union"
+title: "মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল"
 tags: 
 weight: 30
 ---
-# Minimum spanning tree - Kruskal with Disjoint Set Union
+# মিনিমাম স্প্যানিং ট্রি - ডিসজয়েন্ট সেট ইউনিয়নসহ ক্রুস্কাল
 
-For an explanation of the MST problem and the Kruskal algorithm, first see the [main article on Kruskal's algorithm](mst_kruskal.md).
+এমএসটি সমস্যা ও ক্রুস্কাল অ্যালগরিদমের ব্যাখ্যার জন্য, প্রথমে [ক্রুস্কালের অ্যালগরিদমের মূল নিবন্ধ](mst_kruskal.md) দেখুন।
 
-In this article we will consider the data structure ["Disjoint Set Union"](../data_structures/disjoint_set_union.md) for implementing Kruskal's algorithm, which will allow the algorithm to achieve the time complexity of $O(M \log N)$.
+এই নিবন্ধে আমরা ক্রুস্কালের অ্যালগরিদম ইমপ্লিমেন্ট করার জন্য ["ডিসজয়েন্ট সেট ইউনিয়ন"](../data_structures/disjoint_set_union.md) ডেটা স্ট্রাকচার বিবেচনা করব, যা অ্যালগরিদমটিকে $O(M \log N)$ টাইম কমপ্লেক্সিটি অর্জন করতে দেবে।
 
-## Description
+## বর্ণনা
 
-Just as in the simple version of the Kruskal algorithm, we sort all the edges of the graph in non-decreasing order of weights.
-Then put each vertex in its own tree (i.e. its set) via calls to the `make_set` function - it will take a total of $O(N)$.
-We iterate through all the edges (in sorted order) and for each edge determine whether the ends belong to different trees (with two `find_set` calls in $O(1)$ each).
-Finally, we need to perform the union of the two trees (sets), for which the DSU `union_sets` function will be called - also in $O(1)$.
-So we get the total time complexity of $O(M \log N + N + M)$ = $O(M \log N)$.
+ক্রুস্কাল অ্যালগরিদমের সরল ভার্সনের মতোই, আমরা গ্রাফের সকল এজ ওয়েটের অ-হ্রাসমান ক্রমে সর্ট করি।
+তারপর প্রতিটি ভার্টেক্সকে `make_set` ফাংশনের কল দ্বারা তার নিজস্ব ট্রিতে (অর্থাৎ তার সেটে) রাখি - এতে মোট $O(N)$ সময় লাগবে।
+আমরা সকল এজ (সর্টেড ক্রমে) ইটারেট করি এবং প্রতিটি এজের জন্য নির্ধারণ করি প্রান্তগুলো ভিন্ন ট্রিতে আছে কিনা (দুটি `find_set` কল দিয়ে, প্রতিটি $O(1)$-এ)।
+সবশেষে, আমাদের দুটি ট্রির (সেটের) ইউনিয়ন করতে হবে, যার জন্য ডিএসইউ-এর `union_sets` ফাংশন কল করা হবে - এটিও $O(1)$-এ।
+সুতরাং আমরা মোট টাইম কমপ্লেক্সিটি পাই $O(M \log N + N + M)$ = $O(M \log N)$।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is an implementation of Kruskal's algorithm with Union by Rank.
+এখানে ইউনিয়ন বাই র‍্যাংকসহ ক্রুস্কালের অ্যালগরিদমের একটি ইমপ্লিমেন্টেশন দেওয়া হলো।
 
 ```cpp
 vector<int> parent, rank;
@@ -75,8 +75,8 @@ for (Edge e : edges) {
 }
 ```
 
-Notice: since the MST will contain exactly $N-1$ edges, we can stop the for loop once we found that many.
+লক্ষ্য করুন: যেহেতু এমএসটি-তে ঠিক $N-1$টি এজ থাকবে, আমরা সেই সংখ্যক এজ পেলে for লুপ বন্ধ করতে পারি।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
-See [main article on Kruskal's algorithm](mst_kruskal.md) for the list of practice problems on this topic.
+এই বিষয়ে অনুশীলন সমস্যার তালিকার জন্য [ক্রুস্কালের অ্যালগরিদমের মূল নিবন্ধ](mst_kruskal.md) দেখুন।

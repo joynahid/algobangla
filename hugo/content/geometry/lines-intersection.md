@@ -1,41 +1,41 @@
 ---
-title: "Intersection Point of Lines"
+title: "সরলরেখার ছেদবিন্দু"
 tags: 
 weight: 30
 ---
-# Intersection Point of Lines
+# সরলরেখার ছেদবিন্দু
 
-You are given two lines, described via the equations $a_1 x + b_1 y + c_1 = 0$ and  $a_2 x + b_2 y + c_2 = 0$.
-We have to find the intersection point of the lines, or determine that the lines are parallel.
+দুটি সরলরেখা দেওয়া আছে, $a_1 x + b_1 y + c_1 = 0$ এবং $a_2 x + b_2 y + c_2 = 0$ সমীকরণ দ্বারা বর্ণিত।
+আমাদের সরলরেখাদ্বয়ের ছেদবিন্দু খুঁজতে হবে, অথবা নির্ধারণ করতে হবে যে সরলরেখা দুটি সমান্তরাল।
 
-## Solution
+## সমাধান
 
-If two lines are not parallel, they intersect.
-To find their intersection point, we need to solve the following system of linear equations:
+দুটি সরলরেখা সমান্তরাল না হলে, তারা ছেদ করে।
+তাদের ছেদবিন্দু খুঁজতে, আমাদের নিম্নলিখিত রৈখিক সমীকরণ ব্যবস্থা সমাধান করতে হবে:
 
 $$\begin{cases} a_1 x + b_1 y + c_1 = 0 \\
 a_2 x + b_2 y + c_2 = 0
 \end{cases}$$
 
-Using Cramer's rule, we can immediately write down the solution for the system, which will give us the required intersection point of the lines:
+ক্র্যামারের নিয়ম ব্যবহার করে, আমরা সরাসরি ব্যবস্থার সমাধান লিখতে পারি, যা আমাদের সরলরেখাদ্বয়ের প্রয়োজনীয় ছেদবিন্দু দেবে:
 
 $$x = - \frac{\begin{vmatrix}c_1 & b_1 \cr c_2 & b_2\end{vmatrix}}{\begin{vmatrix}a_1 & b_1 \cr a_2 & b_2\end{vmatrix} } = - \frac{c_1 b_2 - c_2 b_1}{a_1 b_2 - a_2 b_1},$$
 
 $$y = - \frac{\begin{vmatrix}a_1 & c_1 \cr a_2 & c_2\end{vmatrix}}{\begin{vmatrix}a_1 & b_1 \cr a_2 & b_2\end{vmatrix}} = - \frac{a_1 c_2 - a_2 c_1}{a_1 b_2 - a_2 b_1}.$$
 
-If the denominator equals $0$, i.e.
+যদি হর $0$ হয়, অর্থাৎ
 
 $$\begin{vmatrix}a_1 & b_1 \cr a_2 & b_2\end{vmatrix} = a_1 b_2 - a_2 b_1 = 0 $$
 
-then either the system has no solutions (the lines are parallel and distinct) or there are infinitely many solutions (the lines overlap).
-If we need to distinguish these two cases, we have to check if coefficients $c$ are proportional with the same ratio as the coefficients $a$ and $b$.
-To do that we only have calculate the following determinants, and if they both equal $0$, the lines overlap:
+তাহলে হয় ব্যবস্থার কোনো সমাধান নেই (সরলরেখাগুলো সমান্তরাল এবং ভিন্ন) অথবা অসীম সংখ্যক সমাধান আছে (সরলরেখাগুলো একই)।
+যদি এই দুটি ক্ষেত্র আলাদা করতে হয়, তাহলে সহগ $c$ গুলো $a$ এবং $b$ সহগের সাথে একই অনুপাতে সমানুপাতিক কি না তা পরীক্ষা করতে হবে।
+এটি করতে শুধু নিম্নলিখিত নির্ণায়কগুলো গণনা করতে হবে, এবং যদি দুটোই $0$ হয়, তাহলে সরলরেখাগুলো একই:
 
 $$\begin{vmatrix}a_1 & c_1 \cr a_2 & c_2\end{vmatrix}, \begin{vmatrix}b_1 & c_1 \cr b_2 & c_2\end{vmatrix} $$
 
-Notice, a different approach for computing the intersection point is explained in the article [Basic Geometry](basic-geometry.md).
+লক্ষ্য করুন, ছেদবিন্দু গণনার একটি ভিন্ন পদ্ধতি [বেসিক জিওমেট্রি](basic-geometry.md) আর্টিকেলে ব্যাখ্যা করা আছে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 struct pt {

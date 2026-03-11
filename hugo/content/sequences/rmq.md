@@ -1,41 +1,41 @@
 ---
-title: "Range Minimum Query"
+title: "রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)"
 tags: 
 weight: 10
 ---
-# Range Minimum Query
+# রেঞ্জ মিনিমাম কুয়েরি (আরএমকিউ)
 
-You are given an array $A[1..N]$.
-You have to answer incoming queries of the form $(L, R)$, which ask to find the minimum element in array $A$ between positions $L$ and $R$ inclusive.
+আপনাকে একটি অ্যারে $A[1..N]$ দেওয়া আছে।
+আপনাকে $(L, R)$ আকারের আগত কুয়েরিগুলোর উত্তর দিতে হবে, যেগুলো অ্যারে $A$-তে $L$ এবং $R$ অবস্থানের মধ্যে (সহ) ন্যূনতম উপাদান খুঁজতে বলে।
 
-RMQ can appear in problems directly or can be applied in some other tasks, e.g. the [Lowest Common Ancestor](../graph/lca.md) problem.
+আরএমকিউ সরাসরি সমস্যায় আসতে পারে অথবা অন্য কোনো কাজে প্রয়োগ করা যেতে পারে, যেমন [লোয়েস্ট কমন অ্যানসেস্টর](../graph/lca.md) সমস্যা।
 
-## Solution
+## সমাধান
 
-There are lots of possible approaches and data structures that you can use to solve the RMQ task.
+আরএমকিউ কাজ সমাধানের জন্য অনেক সম্ভাব্য পদ্ধতি এবং ডেটা স্ট্রাকচার আছে।
 
-The ones that are explained on this site are listed below.
+এই সাইটে যেগুলো ব্যাখ্যা করা হয়েছে সেগুলো নিচে তালিকাভুক্ত করা হলো।
 
-First the approaches that allow modifications to the array between answering queries.
+প্রথমে সেই পদ্ধতিগুলো যেগুলো কুয়েরির উত্তর দেওয়ার মাঝে অ্যারেতে পরিবর্তনের অনুমতি দেয়।
 
-- [Sqrt-decomposition](../data_structures/sqrt_decomposition.md) - answers each query in $O(\sqrt{N})$, preprocessing done in $O(N)$.
-  Pros: a very simple data structure. Cons: worse complexity.
-- [Segment tree](../data_structures/segment_tree.md) - answers each query in $O(\log N)$, preprocessing done in $O(N)$.
-  Pros: good time complexity. Cons: larger amount of code compared to the other data structures.
-- [Fenwick tree](../data_structures/fenwick.md) - answers each query in $O(\log N)$, preprocessing done in $O(N \log N)$.
-  Pros: the shortest code, good time complexity. Cons: Fenwick tree can only be used for queries with $L = 1$, so it is not applicable to many problems.
+- [Sqrt-ডিকম্পোজিশন](../data_structures/sqrt_decomposition.md) - প্রতিটি কুয়েরির উত্তর $O(\sqrt{N})$-এ, প্রিপ্রসেসিং $O(N)$-এ।
+  সুবিধা: খুব সহজ ডেটা স্ট্রাকচার। অসুবিধা: দুর্বল কমপ্লেক্সিটি।
+- [সেগমেন্ট ট্রি](../data_structures/segment_tree.md) - প্রতিটি কুয়েরির উত্তর $O(\log N)$-এ, প্রিপ্রসেসিং $O(N)$-এ।
+  সুবিধা: ভালো টাইম কমপ্লেক্সিটি। অসুবিধা: অন্যান্য ডেটা স্ট্রাকচারের তুলনায় বেশি কোড।
+- [ফেনউইক ট্রি](../data_structures/fenwick.md) - প্রতিটি কুয়েরির উত্তর $O(\log N)$-এ, প্রিপ্রসেসিং $O(N \log N)$-এ।
+  সুবিধা: সবচেয়ে সংক্ষিপ্ত কোড, ভালো টাইম কমপ্লেক্সিটি। অসুবিধা: ফেনউইক ট্রি শুধুমাত্র $L = 1$ যুক্ত কুয়েরির জন্য ব্যবহার করা যায়, তাই এটি অনেক সমস্যায় প্রযোজ্য নয়।
 
-And here are the approaches that only work on static arrays, i.e. it is not possible to change a value in the array without recomputing the complete data structure.
+এবং এখানে সেই পদ্ধতিগুলো যেগুলো শুধুমাত্র স্ট্যাটিক অ্যারেতে কাজ করে, অর্থাৎ সম্পূর্ণ ডেটা স্ট্রাকচার পুনর্গণনা না করে অ্যারের কোনো মান পরিবর্তন করা সম্ভব নয়।
 
-- [Sparse Table](../data_structures/sparse-table.md) - answers each query in $O(1)$, preprocessing done in $O(N \log N)$.
-  Pros: simple data structure, excellent time complexity.
-- [Sqrt Tree](../data_structures/sqrt-tree.md) - answers queries in $O(1)$, preprocessing done in $O(N \log \log N)$. Pros: fast. Cons: Complicated to implement.
-- [Disjoint Set Union / Arpa's Trick](../data_structures/disjoint_set_union.md#arpa) - answers queries in $O(1)$, preprocessing in $O(n)$. Pros: short, fast. Cons: only works if all queries are known in advance, i.e. only supports off-line processing of the queries.
-- [Cartesian Tree](../graph/rmq_linear.md) and [Farach-Colton and Bender algorithm](../graph/lca_farachcoltonbender.md) - answers queries in $O(1)$, preprocessing in $O(n)$. Pros: optimal complexity. Cons: large amount of code.
+- [স্পার্স টেবিল](../data_structures/sparse-table.md) - প্রতিটি কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(N \log N)$-এ।
+  সুবিধা: সহজ ডেটা স্ট্রাকচার, চমৎকার টাইম কমপ্লেক্সিটি।
+- [Sqrt ট্রি](../data_structures/sqrt-tree.md) - কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(N \log \log N)$-এ। সুবিধা: দ্রুত। অসুবিধা: ইমপ্লিমেন্ট করা জটিল।
+- [ডিসজয়েন্ট সেট ইউনিয়ন / আরপার ট্রিক](../data_structures/disjoint_set_union.md#arpa) - কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(n)$-এ। সুবিধা: সংক্ষিপ্ত, দ্রুত। অসুবিধা: শুধুমাত্র তখনই কাজ করে যখন সব কুয়েরি আগে থেকে জানা থাকে, অর্থাৎ শুধুমাত্র অফ-লাইন প্রসেসিং সাপোর্ট করে।
+- [কার্তেসিয়ান ট্রি](../graph/rmq_linear.md) এবং [ফারাচ-কোল্টন ও বেন্ডার অ্যালগরিদম](../graph/lca_farachcoltonbender.md) - কুয়েরির উত্তর $O(1)$-এ, প্রিপ্রসেসিং $O(n)$-এ। সুবিধা: অপটিমাল কমপ্লেক্সিটি। অসুবিধা: অনেক বেশি কোড।
 
-Note: Preprocessing is the preliminary processing of the given array by building the corresponding data structure for it.
+দ্রষ্টব্য: প্রিপ্রসেসিং হলো দেওয়া অ্যারের প্রাথমিক প্রক্রিয়াকরণ, এর জন্য সংশ্লিষ্ট ডেটা স্ট্রাকচার তৈরি করা।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [SPOJ: Range Minimum Query](http://www.spoj.com/problems/RMQSQ/)
 - [CODECHEF: Chef And Array](https://www.codechef.com/problems/FRMQ)
 - [Codeforces:  Array Partition](https://codeforces.com/contest/1454/problem/F)

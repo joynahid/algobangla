@@ -1,51 +1,51 @@
 ---
-title: "D´Esopo-Pape algorithm"
+title: "ডি'এসোপো-পেপ অ্যালগরিদম"
 tags: 
 weight: 50
 ---
-# D´Esopo-Pape algorithm
+# ডি'এসোপো-পেপ অ্যালগরিদম
 
-Given a graph with $n$ vertices and $m$ edges with weights $w_i$ and a starting vertex $v_0$.
-The task is to find the shortest path from the vertex $v_0$ to every other vertex.
+$n$ টি ভার্টেক্স এবং $w_i$ ওয়েট বিশিষ্ট $m$ টি এজের একটি গ্রাফ এবং একটি শুরুর ভার্টেক্স $v_0$ দেওয়া আছে।
+কাজ হলো ভার্টেক্স $v_0$ থেকে অন্য প্রতিটি ভার্টেক্সে শর্টেস্ট পাথ খুঁজে বের করা।
 
-The algorithm from D´Esopo-Pape will work faster than [Dijkstra's algorithm](dijkstra.md) and the [Bellman-Ford algorithm](bellman_ford.md) in most cases, and will also work for negative edges.
-However not for negative cycles.
+ডি'এসোপো-পেপ অ্যালগরিদম বেশিরভাগ ক্ষেত্রে [ডায়াক্সট্রা অ্যালগরিদম](dijkstra.md) এবং [বেলম্যান-ফোর্ড অ্যালগরিদম](bellman_ford.md) এর চেয়ে দ্রুত কাজ করবে, এবং নেগেটিভ এজের জন্যও কাজ করবে।
+তবে নেগেটিভ সাইকেলের জন্য নয়।
 
-## Description
+## বর্ণনা
 
-Let the array $d$ contain the shortest path lengths, i.e. $d_i$ is the current length of the shortest path from the vertex $v_0$ to the vertex $i$.
-Initially this array is filled with infinity for every vertex, except $d_{v_0} = 0$.
-After the algorithm finishes, this array will contain the shortest distances.
+$d$ অ্যারেটি শর্টেস্ট পাথের দৈর্ঘ্য ধারণ করুক, অর্থাৎ $d_i$ হলো ভার্টেক্স $v_0$ থেকে ভার্টেক্স $i$ পর্যন্ত শর্টেস্ট পাথের বর্তমান দৈর্ঘ্য।
+প্রাথমিকভাবে এই অ্যারে প্রতিটি ভার্টেক্সের জন্য অসীম দিয়ে পূর্ণ, $d_{v_0} = 0$ ব্যতীত।
+অ্যালগরিদম শেষ হওয়ার পর, এই অ্যারে শর্টেস্ট দূরত্ব ধারণ করবে।
 
-Let the array $p$ contain the current ancestors, i.e. $p_i$ is the direct ancestor of the vertex $i$ on the current shortest path from $v_0$ to $i$.
-Just like the array $d$, the array $p$ changes gradually during the algorithm and at the end takes its final values.
+$p$ অ্যারেটি বর্তমান পূর্বসূরি ধারণ করুক, অর্থাৎ $p_i$ হলো $v_0$ থেকে $i$ পর্যন্ত বর্তমান শর্টেস্ট পাথে ভার্টেক্স $i$ এর সরাসরি পূর্বসূরি।
+$d$ অ্যারের মতো, $p$ অ্যারেও অ্যালগরিদম চলাকালীন ক্রমশ পরিবর্তিত হয় এবং শেষে তার চূড়ান্ত মান গ্রহণ করে।
 
-Now to the algorithm.
-At each step three sets of vertices are maintained:
+এখন অ্যালগরিদম সম্পর্কে বলা যাক।
+প্রতিটি ধাপে তিনটি ভার্টেক্স সেট বজায় রাখা হয়:
 
-- $M_0$ - vertices, for which the distance has already been calculated (although it might not be the final distance)
-- $M_1$ - vertices, for which the distance currently is calculated
-- $M_2$ - vertices, for which the distance has not yet been calculated
+- $M_0$ - যেসব ভার্টেক্সের দূরত্ব ইতিমধ্যে গণনা করা হয়েছে (যদিও এটি চূড়ান্ত দূরত্ব নাও হতে পারে)
+- $M_1$ - যেসব ভার্টেক্সের দূরত্ব বর্তমানে গণনা করা হচ্ছে
+- $M_2$ - যেসব ভার্টেক্সের দূরত্ব এখনো গণনা করা হয়নি
 
-The vertices in the set $M_1$ are stored in a bidirectional queue (deque).
+$M_1$ সেটের ভার্টেক্সগুলো একটি দ্বিমুখী কিউতে (ডেক) সংরক্ষিত হয়।
 
-At each step of the algorithm we take a vertex from the set $M_1$ (from the front of the queue).
-Let $u$ be the selected vertex.
-We put this vertex $u$ into the set $M_0$.
-Then we iterate over all edges coming out of this vertex.
-Let $v$ be the second end of the current edge, and $w$ its weight.
+অ্যালগরিদমের প্রতিটি ধাপে আমরা $M_1$ সেট থেকে (কিউ-র সামনে থেকে) একটি ভার্টেক্স নিই।
+ধরা যাক $u$ নির্বাচিত ভার্টেক্স।
+আমরা এই ভার্টেক্স $u$ কে $M_0$ সেটে রাখি।
+তারপর আমরা এই ভার্টেক্স থেকে বের হওয়া সমস্ত এজ দিয়ে ইটারেট করি।
+ধরা যাক $v$ হলো বর্তমান এজের অপর প্রান্ত, এবং $w$ এর ওয়েট।
 
-- If $v$ belongs to $M_2$, then $v$ is inserted into the set $M_1$ by inserting it at the back of the queue.
-$d_v$ is set to $d_u + w$.
-- If $v$ belongs to $M_1$, then we try to improve the value of $d_v$: $d_v = \min(d_v, d_u + w)$.
-Since $v$ is already in $M_1$, we don't need to insert it into $M_1$ and the queue.
-- If $v$ belongs to $M_0$, and if $d_v$ can be improved $d_v > d_u + w$, then we improve $d_v$ and insert the vertex $v$ back to the set $M_1$, placing it at the beginning of the queue.
+- যদি $v$ $M_2$ তে থাকে, তাহলে $v$ কে কিউ-র পেছনে ঢুকিয়ে $M_1$ সেটে রাখা হয়।
+$d_v$ কে $d_u + w$ সেট করা হয়।
+- যদি $v$ $M_1$ তে থাকে, তাহলে আমরা $d_v$ এর মান উন্নত করার চেষ্টা করি: $d_v = \min(d_v, d_u + w)$।
+যেহেতু $v$ ইতিমধ্যে $M_1$ তে আছে, আমাদের এটিকে $M_1$ এবং কিউতে আবার ঢোকানোর প্রয়োজন নেই।
+- যদি $v$ $M_0$ তে থাকে, এবং যদি $d_v$ উন্নত করা যায় $d_v > d_u + w$, তাহলে আমরা $d_v$ উন্নত করি এবং ভার্টেক্স $v$ কে কিউ-র শুরুতে রেখে $M_1$ সেটে ফিরিয়ে দিই।
 
-And of course, with each update in the array $d$ we also have to update the corresponding element in the array $p$.
+এবং অবশ্যই, $d$ অ্যারেতে প্রতিটি আপডেটের সাথে আমাদের $p$ অ্যারেতে সংশ্লিষ্ট উপাদানও আপডেট করতে হবে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-We will use an array $m$ to store in which set each vertex is currently.
+প্রতিটি ভার্টেক্স বর্তমানে কোন সেটে আছে তা সংরক্ষণ করতে আমরা একটি অ্যারে $m$ ব্যবহার করব।
 
 ```cpp
 struct Edge {
@@ -86,7 +86,7 @@ void shortest_paths(int v0, vector<int>& d, vector<int>& p) {
 }
 ```
 
-## Complexity
+## কমপ্লেক্সিটি
 
-The algorithm usually performs quite fast - in most cases, even faster than Dijkstra's algorithm.
-However there exist cases for which the algorithm takes exponential time, making it unsuitable in the worst-case. See discussions on [Stack Overflow](https://stackoverflow.com/a/67642821) and [Codeforces](https://codeforces.com/blog/entry/3793) for reference.
+অ্যালগরিদমটি সাধারণত বেশ দ্রুত কাজ করে - বেশিরভাগ ক্ষেত্রে ডায়াক্সট্রা অ্যালগরিদমের চেয়েও দ্রুত।
+তবে এমন ক্ষেত্র রয়েছে যেখানে অ্যালগরিদম এক্সপোনেনশিয়াল সময় নেয়, যা এটিকে ওয়ার্স্ট কেসে অনুপযুক্ত করে তোলে। রেফারেন্সের জন্য [Stack Overflow](https://stackoverflow.com/a/67642821) এবং [Codeforces](https://codeforces.com/blog/entry/3793) এর আলোচনা দেখুন।

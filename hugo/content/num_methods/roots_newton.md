@@ -1,55 +1,55 @@
 ---
-title: "Newton's method for finding roots"
+title: "মূল নির্ণয়ে নিউটনের মেথড"
 tags: 
 weight: 30
 ---
-# Newton's method for finding roots 
+# মূল নির্ণয়ে নিউটনের মেথড
 
-This is an iterative method invented by Isaac Newton around 1664. However, this method is also sometimes called the Raphson method, since Raphson invented the same algorithm a few years after Newton, but his article was published much earlier.
+এটি একটি ইটারেটিভ মেথড যা আইজ্যাক নিউটন ১৬৬৪ সালের দিকে আবিষ্কার করেছিলেন। তবে, এই মেথডটিকে কখনো কখনো র‍্যাফসন মেথডও বলা হয়, যেহেতু র‍্যাফসন নিউটনের কয়েক বছর পর একই অ্যালগরিদম আবিষ্কার করেছিলেন, কিন্তু তাঁর নিবন্ধটি অনেক আগে প্রকাশিত হয়েছিল।
 
-The task is as follows. Given the following equation:
+সমস্যাটি নিম্নরূপ। নিম্নলিখিত সমীকরণটি দেওয়া আছে:
 
 $$f(x) = 0$$
 
-We want to solve the equation. More precisely, we want to find one of its roots (it is assumed that the root exists). It is assumed that $f(x)$ is continuous and differentiable on an interval $[a, b]$.
+আমরা সমীকরণটি সমাধান করতে চাই। আরও সুনির্দিষ্টভাবে, আমরা এর একটি মূল খুঁজতে চাই (ধরে নেওয়া হচ্ছে মূলটি বিদ্যমান)। ধরে নেওয়া হচ্ছে $f(x)$ একটি ব্যবধান $[a, b]$ এ অবিচ্ছিন্ন এবং অন্তরণযোগ্য।
 
-## Algorithm
+## অ্যালগরিদম
 
-The input parameters of the algorithm consist of not only the function $f(x)$ but also the initial approximation - some $x_0$, with which the algorithm starts.
+অ্যালগরিদমের ইনপুট প্যারামিটারগুলো শুধু ফাংশন $f(x)$ নয়, প্রাথমিক আনুমানিক মানও - কোনো $x_0$, যা দিয়ে অ্যালগরিদম শুরু হয়।
 
 <p align="center">
 	<img src="/images/num_methods/roots_newton.png" alt="plot_f(x)">
 </p>
 
-Suppose we have already calculated $x_i$, calculate $x_{i+1}$ as follows. Draw the tangent to the graph of the function $f(x)$ at the point $x = x_i$, and find the point of intersection of this tangent with the $x$-axis. $x_{i+1}$ is set equal to the $x$-coordinate of the point found, and we repeat the whole process from the beginning.
+ধরি আমরা ইতিমধ্যে $x_i$ গণনা করেছি, $x_{i+1}$ নিম্নরূপে গণনা করি। $x = x_i$ বিন্দুতে $f(x)$ ফাংশনের গ্রাফে স্পর্শক আঁকি, এবং এই স্পর্শকের $x$-অক্ষের সাথে ছেদবিন্দু খুঁজি। $x_{i+1}$ কে প্রাপ্ত বিন্দুর $x$-স্থানাঙ্কের সমান ধরা হয়, এবং আমরা পুরো প্রক্রিয়াটি শুরু থেকে পুনরাবৃত্তি করি।
 
-It is not difficult to obtain the following formula,
+নিম্নলিখিত সূত্রটি বের করা কঠিন নয়,
 
 $$ x_{i+1} = x_i - \frac{f(x_i)}{f^\prime(x_i)} $$
 
-First, we calculate the slope $f'(x)$, derivative of $f(x)$, and then determine the equation of the tangent which is,
+প্রথমে, আমরা ঢাল $f'(x)$, অর্থাৎ $f(x)$ এর অন্তরক গণনা করি, এবং তারপর স্পর্শকের সমীকরণ নির্ণয় করি যা হলো,
 
-$$ y - f(x_i) = f'(x_i)(x - x_i) $$ 
+$$ y - f(x_i) = f'(x_i)(x - x_i) $$
 
-The tangent intersects with the x-axis at cordinate, $y = 0$ and $x = x_{i+1}$,
+স্পর্শকটি x-অক্ষকে $y = 0$ এবং $x = x_{i+1}$ স্থানাঙ্কে ছেদ করে,
 
-$$ - f(x_i) = f'(x_i)(x_{i+1} - x_i) $$ 
+$$ - f(x_i) = f'(x_i)(x_{i+1} - x_i) $$
 
-Now, solving the equation we get the value of $x_{i+1}$.
+এখন, সমীকরণটি সমাধান করে আমরা $x_{i+1}$ এর মান পাই।
 
-It is intuitively clear that if the function $f(x)$ is "good" (smooth), and $x_i$ is close enough to the root, then $x_{i+1}$ will be even closer to the desired root.
+এটি স্বজ্ঞাতভাবে স্পষ্ট যে ফাংশন $f(x)$ যদি "ভালো" (মসৃণ) হয়, এবং $x_i$ মূলের যথেষ্ট কাছাকাছি হয়, তাহলে $x_{i+1}$ কাঙ্ক্ষিত মূলের আরও কাছে হবে।
 
-The rate of convergence is quadratic, which, conditionally speaking, means that the number of exact digits in the approximate value $x_i$ doubles with each iteration.
+অভিসারের হার দ্বিঘাত, যা শর্তসাপেক্ষে বলতে গেলে, আনুমানিক মান $x_i$ এর সঠিক সংখ্যা অঙ্কের সংখ্যা প্রতিটি ইটারেশনে দ্বিগুণ হয়।
 
-## Application for calculating the square root
+## বর্গমূল গণনায় প্রয়োগ
 
-Let's use the calculation of square root as an example of Newton's method.
+নিউটনের মেথডের উদাহরণ হিসেবে বর্গমূল গণনা ব্যবহার করা যাক।
 
-If we substitute $f(x) = x^2 - n$, then after simplifying the expression, we get:
+যদি আমরা $f(x) = x^2 - n$ বসাই, তাহলে রাশিটি সরলীকরণের পর পাই:
 
 $$ x_{i+1} = \frac{x_i + \frac{n}{x_i}}{2} $$
 
-The first typical variant of the problem is when a rational number $n$ is given, and its root must be calculated with some accuracy `eps`:
+সমস্যার প্রথম সাধারণ রূপটি হলো যখন একটি মূলদ সংখ্যা $n$ দেওয়া আছে, এবং এর মূল কিছু নির্ভুলতা `eps` সহ গণনা করতে হবে:
 
 ```cpp
 double sqrt_newton(double n) {
@@ -65,7 +65,7 @@ double sqrt_newton(double n) {
 }
 ```
 
-Another common variant of the problem is when we need to calculate the integer root (for the given $n$ find the largest $x$ such that $x^2 \le n$). Here it is necessary to slightly change the termination condition of the algorithm, since it may happen that $x$ will start to "jump" near the answer. Therefore, we add a condition that if the value $x$ has decreased in the previous step, and it tries to increase at the current step, then the algorithm must be stopped.
+সমস্যার আরেকটি সাধারণ রূপ হলো যখন আমাদের পূর্ণসংখ্যা মূল গণনা করতে হয় (প্রদত্ত $n$ এর জন্য সবচেয়ে বড় $x$ খুঁজতে হবে যেন $x^2 \le n$)। এখানে অ্যালগরিদমের সমাপ্তি শর্ত কিছুটা পরিবর্তন করতে হবে, কারণ এমন হতে পারে যে $x$ উত্তরের কাছে "লাফাতে" শুরু করবে। অতএব, আমরা একটি শর্ত যোগ করি যে যদি পূর্ববর্তী ধাপে $x$ এর মান কমে থাকে, এবং বর্তমান ধাপে এটি বাড়ানোর চেষ্টা করে, তাহলে অ্যালগরিদম থামাতে হবে।
 
 ```cpp
 int isqrt_newton(int n) {
@@ -82,7 +82,7 @@ int isqrt_newton(int n) {
 }
 ```
 
-Finally, we are given the third variant - for the case of bignum arithmetic. Since the number $n$ can be large enough, it makes sense to pay attention to the initial approximation. Obviously, the closer it is to the root, the faster the result will be achieved. It is simple enough and effective to take the initial approximation as the number $2^{\textrm{bits}/2}$, where $\textrm{bits}$ is the number of bits in the number $n$. Here is the Java code that demonstrates this variant:
+সবশেষে, আমাদের কাছে তৃতীয় রূপটি দেওয়া হলো - bignum অ্যারিথমেটিকের ক্ষেত্রে। যেহেতু সংখ্যা $n$ যথেষ্ট বড় হতে পারে, প্রাথমিক আনুমানিক মানের দিকে মনোযোগ দেওয়া অর্থবহ। স্পষ্টতই, এটি মূলের যত কাছে হবে, তত দ্রুত ফলাফল পাওয়া যাবে। $2^{\textrm{bits}/2}$ সংখ্যাটিকে প্রাথমিক আনুমানিক মান হিসেবে নেওয়া যথেষ্ট সহজ এবং কার্যকর, যেখানে $\textrm{bits}$ হলো সংখ্যা $n$ এর বিটের সংখ্যা। এখানে এই রূপটি প্রদর্শনকারী Java কোড দেওয়া হলো:
 
 ```java
 public static BigInteger isqrtNewton(BigInteger n) {
@@ -99,7 +99,7 @@ public static BigInteger isqrtNewton(BigInteger n) {
 }
 ```
 
-For example, this code is executed in $60$ milliseconds for $n = 10^{1000}$, and if we remove the improved selection of the initial approximation (just starting with $1$), then it will be executed in about $120$ milliseconds.
+উদাহরণস্বরূপ, $n = 10^{1000}$ এর জন্য এই কোড $60$ মিলিসেকেন্ডে সম্পাদিত হয়, এবং যদি আমরা উন্নত প্রাথমিক আনুমানিক মান নির্বাচন সরিয়ে দিই ($1$ থেকে শুরু করি), তাহলে এটি প্রায় $120$ মিলিসেকেন্ড সময় নেবে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [UVa 10428 - The Roots](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=16&page=show_problem&problem=1369)

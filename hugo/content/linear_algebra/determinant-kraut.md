@@ -1,29 +1,29 @@
 ---
-title: Calculating the determinant using Kraut method
+title: ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়
 tags: 
 weight: 30
 ---
-# Calculating the determinant using Kraut method in $O(N^3)$
+# $O(N^3)$-এ ক্রাউট পদ্ধতিতে নির্ণায়ক নির্ণয়
 
-In this article, we'll describe how to find the determinant of the matrix using Kraut method, which works in $O(N^3)$.
+এই নিবন্ধে, আমরা বর্ণনা করব কিভাবে ক্রাউট পদ্ধতি ব্যবহার করে ম্যাট্রিক্সের নির্ণায়ক নির্ণয় করা যায়, যা $O(N^3)$-এ কাজ করে।
 
-The Kraut algorithm finds decomposition of matrix $A$ as $A = L U$ where $L$ is lower triangular and $U$ is upper triangular matrix. Without loss of generality, we can assume that all the diagonal elements of $L$ are equal to 1. Once we know these matrices, it is easy to calculate the determinant of $A$: it is equal to the product of all the elements on the main diagonal of the matrix $U$.
+ক্রাউট অ্যালগরিদম ম্যাট্রিক্স $A$-কে $A = L U$ আকারে ডিকম্পোজিশন করে, যেখানে $L$ হলো নিম্ন ত্রিভুজাকার এবং $U$ হলো ঊর্ধ্ব ত্রিভুজাকার ম্যাট্রিক্স। সাধারণতা না হারিয়ে, আমরা ধরে নিতে পারি যে $L$-এর সমস্ত কর্ণ উপাদান ১-এর সমান। একবার আমরা এই ম্যাট্রিক্সগুলো জানলে, $A$-এর নির্ণায়ক নির্ণয় করা সহজ: এটি ম্যাট্রিক্স $U$-এর মূল কর্ণের সমস্ত উপাদানের গুণফলের সমান।
 
-There is a theorem stating that any invertible matrix has a LU-decomposition, and it is unique, if and only if all its principle minors are non-zero. We consider only such decomposition in which the diagonal of matrix $L$ consists of ones.
+একটি উপপাদ্য রয়েছে যা বলে যে যেকোনো ইনভার্টিবল ম্যাট্রিক্সের একটি LU-ডিকম্পোজিশন আছে, এবং এটি অনন্য, যদি এবং কেবল যদি এর সমস্ত প্রিন্সিপাল মাইনর অশূন্য হয়। আমরা কেবল সেই ডিকম্পোজিশন বিবেচনা করি যেখানে ম্যাট্রিক্স $L$-এর কর্ণ এক দিয়ে গঠিত।
 
-Let $A$ be the matrix and $N$ - its size. We will find the elements of the matrices $L$ and $U$ using the following steps:
+ধরি $A$ হলো ম্যাট্রিক্স এবং $N$ হলো এর আকার। আমরা নিচের ধাপগুলো ব্যবহার করে ম্যাট্রিক্স $L$ এবং $U$-এর উপাদানগুলো বের করব:
 
- 1. Let $L_{i i} = 1$ for $i = 1, 2, ..., N$.
- 2. For each $j = 1, 2, ..., N$ perform:
-      - For $i = 1, 2, ..., j$ find values 
-        
+ ১. $i = 1, 2, ..., N$-এর জন্য $L_{i i} = 1$ ধরি।
+ ২. প্রতিটি $j = 1, 2, ..., N$-এর জন্য নিচের কাজগুলো করি:
+      - $i = 1, 2, ..., j$-এর জন্য মান নির্ণয় করি
+
         \[U_{ij} = A_{ij} - \sum_{k=1}^{i-1} L_{ik} \cdot U_{kj}\]
- 
-      - Next, for $i = j+1, j+2, ..., N$ find values
- 
+
+      - এরপর, $i = j+1, j+2, ..., N$-এর জন্য মান নির্ণয় করি
+
         \[L_{ij} = \frac{1}{U_{jj}} \left(A_{ij} - \sum_{k=1}^{j-1} L_{ik} \cdot U_{kj} \right).\]
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```java
 static BigInteger det (BigDecimal a [][], int n) {

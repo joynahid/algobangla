@@ -557,7 +557,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--nav",
-        default=str(Path(__file__).parent.parent.parent / "cp-algorithms" / "src" / "navigation.md"),
+        default=str(Path(__file__).parent.parent / "src" / "navigation.md"),
         help="Path to navigation.md"
     )
     parser.add_argument(

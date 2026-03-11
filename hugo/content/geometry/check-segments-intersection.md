@@ -1,25 +1,25 @@
 ---
-title: "Check if two segments intersect"
+title: "দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা"
 tags: 
 weight: 40
 ---
-# Check if two segments intersect
+# দুটি সেগমেন্ট ছেদ করে কিনা পরীক্ষা
 
-You are given two segments $(a, b)$ and $(c, d)$.
-You have to check if they intersect.
-Of course, you may find their intersection and check if it isn't empty, but this can't be done in integers for segments with integer coordinates.
-The approach described here can work in integers.
+আপনাকে দুটি সেগমেন্ট $(a, b)$ এবং $(c, d)$ দেওয়া আছে।
+আপনাকে পরীক্ষা করতে হবে এরা ছেদ করে কিনা।
+অবশ্যই, আপনি তাদের ছেদবিন্দু খুঁজে পরীক্ষা করতে পারেন এটি খালি কিনা, কিন্তু পূর্ণ সংখ্যা স্থানাঙ্কবিশিষ্ট সেগমেন্টের জন্য পূর্ণ সংখ্যায় এটি করা সম্ভব নয়।
+এখানে বর্ণিত পদ্ধতিটি পূর্ণ সংখ্যায় কাজ করতে পারে।
 
-## Algorithm
+## অ্যালগরিদম
 
-Firstly, consider the case when the segments are part of the same line.
-In this case it is sufficient to check if their projections on $Ox$ and $Oy$ intersect.
-In the other case $a$ and $b$ must not lie on the same side of line $(c, d)$, and $c$ and $d$ must not lie on the same side of line $(a, b)$.
-It can be checked with a couple of cross products.
+প্রথমে, সেই ক্ষেত্রটি বিবেচনা করি যখন সেগমেন্টগুলো একই রেখার অংশ।
+এই ক্ষেত্রে $Ox$ ও $Oy$-তে তাদের অভিক্ষেপ ছেদ করে কিনা পরীক্ষা করাই যথেষ্ট।
+অন্য ক্ষেত্রে $a$ ও $b$ রেখা $(c, d)$-র একই পাশে থাকা উচিত নয়, এবং $c$ ও $d$ রেখা $(a, b)$-র একই পাশে থাকা উচিত নয়।
+এটি কয়েকটি ক্রস প্রোডাক্ট দিয়ে পরীক্ষা করা যায়।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The given algorithm is implemented for integer points. Of course, it can be easily modified to work with doubles.
+প্রদত্ত অ্যালগরিদমটি পূর্ণ সংখ্যা বিন্দুর জন্য ইমপ্লিমেন্ট করা হয়েছে। অবশ্যই, এটি সহজেই ডাবলের সাথে কাজ করতে পরিবর্তন করা যায়।
 
 ```cpp
 struct pt {

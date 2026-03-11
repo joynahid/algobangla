@@ -1,187 +1,187 @@
 ---
-title: "Segment Tree"
+title: "সেগমেন্ট ট্রি"
 tags: 
 weight: 40
 ---
-# Segment Tree
+# সেগমেন্ট ট্রি
 
-A Segment Tree is a data structure that stores information about array intervals as a tree. This allows answering range queries over an array efficiently, while still being flexible enough to allow quick modification of the array.
-This includes finding the sum of consecutive array elements $a[l \dots r]$, or finding the minimum element in a such a range in $O(\log n)$ time. 
-Between answering such queries, the Segment Tree allows modifying the array by replacing one element, or even changing the elements of a whole subsegment (e.g. assigning all elements $a[l \dots r]$ to any value, or adding a value to all element in the subsegment). 
+সেগমেন্ট ট্রি হল একটি ডেটা স্ট্রাকচার যা অ্যারে ইন্টারভালের তথ্য একটি ট্রির আকারে সংরক্ষণ করে। এটি একটি অ্যারের উপর রেঞ্জ কোয়েরিতে দক্ষভাবে উত্তর দিতে দেয়, এবং একই সাথে অ্যারে দ্রুত পরিবর্তনের জন্য যথেষ্ট নমনীয়।
+এতে $a[l \dots r]$ ক্রমাগত অ্যারে উপাদানের যোগফল খুঁজে পাওয়া বা এই ধরনের একটি রেঞ্জে ন্যূনতম উপাদান $O(\log n)$ সময়ে খুঁজে পাওয়া অন্তর্ভুক্ত।
+এই ধরনের কোয়েরিতে উত্তর দেওয়ার মধ্যে, সেগমেন্ট ট্রি একটি উপাদান প্রতিস্থাপন করে অথবা সম্পূর্ণ সাবসেগমেন্টের উপাদান পরিবর্তন করে (যেমন সমস্ত উপাদান $a[l \dots r]$ যেকোনো মান নির্ধারণ করা, বা সাবসেগমেন্টের সমস্ত উপাদানে একটি মান যোগ করা) অ্যারে পরিবর্তন করতে দেয়।
 
-In general, a Segment Tree is a very flexible data structure, and a huge number of problems can be solved with it. 
-Additionally, it is also possible to apply more complex operations and answer more complex queries (see [Advanced versions of Segment Trees](segment_tree.md#advanced-versions-of-segment-trees)).
-In particular the Segment Tree can be easily generalized to larger dimensions. 
-For instance, with a two-dimensional Segment Tree you can answer sum or minimum queries over some subrectangle of a given matrix in only $O(\log^2 n)$ time. 
+সাধারণভাবে, সেগমেন্ট ট্রি একটি অত্যন্ত নমনীয় ডেটা স্ট্রাকচার, এবং এটির সাথে বিশাল সংখ্যক সমস্যা সমাধান করা যায়।
+অতিরিক্তভাবে, আরও জটিল অপারেশন প্রয়োগ এবং আরও জটিল কোয়েরির উত্তর দেওয়াও সম্ভব (দেখুন [সেগমেন্ট ট্রির উন্নত সংস্করণ](segment_tree.md#advanced-versions-of-segment-trees))।
+বিশেষত সেগমেন্ট ট্রি সহজেই বৃহত্তর মাত্রায় সাধারণীকৃত করা যায়।
+উদাহরণস্বরূপ, একটি দ্বি-মাত্রিক সেগমেন্ট ট্রির সাথে আপনি একটি প্রদত্ত ম্যাট্রিক্সের কিছু সাবরেক্ট্যাঙ্গেলের উপর সাম বা ন্যূনতম কোয়েরিতে $O(\log^2 n)$ সময়ে উত্তর দিতে পারেন।
 
-One important property of Segment Trees is that they require only a linear amount of memory.
-The standard Segment Tree requires $4n$ vertices for working on an array of size $n$. 
+সেগমেন্ট ট্রির একটি গুরুত্বপূর্ণ বৈশিষ্ট্য হল তাদের কেবল রৈখিক পরিমাণ মেমোরি প্রয়োজন।
+স্ট্যান্ডার্ড সেগমেন্ট ট্রি আকার $n$ এর একটি অ্যারেতে কাজ করার জন্য $4n$ ভার্টেক্স প্রয়োজন। 
 
-## Simplest form of a Segment Tree
+## সেগমেন্ট ট্রির সহজতম রূপ
 
-To start easy, we consider the simplest form of a Segment Tree. 
-We want to answer sum queries efficiently. 
-The formal definition of our task is:
-Given an array $a[0 \dots n-1]$, the Segment Tree must be able to find the sum of elements between the indices $l$ and $r$ (i.e. computing the sum $\sum_{i=l}^r a[i]$), and also handle changing values of the elements in the array (i.e. perform assignments of the form $a[i] = x$).
-The Segment Tree should be able to process **both** queries in $O(\log n)$ time.
+সহজভাবে শুরু করতে, আমরা সেগমেন্ট ট্রির সহজতম রূপ বিবেচনা করি।
+আমরা সাম কোয়েরিতে দক্ষভাবে উত্তর দিতে চাই।
+আমাদের কাজের আনুষ্ঠানিক সংজ্ঞা হল:
+একটি অ্যারে $a[0 \dots n-1]$ দেওয়া হলে, সেগমেন্ট ট্রি অবশ্যই সূচক $l$ এবং $r$ এর মধ্যে উপাদানের যোগফল খুঁজে পেতে সক্ষম হতে হবে (অর্থাৎ যোগফল $\sum_{i=l}^r a[i]$ গণনা করা), এবং অ্যারেতে উপাদানের মান পরিবর্তন করতে সামলাতে হবে (অর্থাৎ $a[i] = x$ ফর্মের অ্যাসাইনমেন্ট সম্পাদন করা)।
+সেগমেন্ট ট্রি **উভয়** কোয়েরি $O(\log n)$ সময়ে প্রক্রিয়া করতে সক্ষম হতে হবে।
 
-This is an improvement over the simpler approaches.
-A naive array implementation - just using a simple array - can update elements in $O(1)$, but requires $O(n)$ to compute each sum query.
-And precomputed prefix sums can compute sum queries in $O(1)$, but updating an array element requires $O(n)$ changes to the prefix sums.
+এটি সরল পদ্ধতির একটি উন্নতি।
+একটি সরল অ্যারে ইমপ্লিমেন্টেশন - শুধুমাত্র একটি সাধারণ অ্যারে ব্যবহার করা - উপাদান $O(1)$ এ আপডেট করতে পারে, কিন্তু প্রতিটি সাম কোয়েরি গণনা করতে $O(n)$ প্রয়োজন।
+এবং পূর্বনির্ধারিত প্রিফিক্স সাম সাম কোয়েরি $O(1)$ এ গণনা করতে পারে, কিন্তু একটি অ্যারে উপাদান আপডেট করতে প্রিফিক্স সামের $O(n)$ পরিবর্তন প্রয়োজন।
 
-### Structure of the Segment Tree
+### সেগমেন্ট ট্রির কাঠামো
 
-We can take a divide-and-conquer approach when it comes to array segments. 
-We compute and store the sum of the elements of the whole array, i.e. the sum of the segment $a[0 \dots n-1]$. 
-We then split the array into two halves $a[0 \dots (n-1)/2]$ and $a[(n+1)/2 \dots n-1]$ and compute the sum of each halve and store them. 
-Each of these two halves in turn are split in half, and so on until all segments reach size $1$. 
+অ্যারে সেগমেন্টের ক্ষেত্রে আমরা একটি ডিভাইড অ্যান্ড কনকার পদ্ধতি অনুসরণ করতে পারি।
+আমরা সম্পূর্ণ অ্যারের উপাদানের যোগফল গণনা এবং সংরক্ষণ করি, অর্থাৎ সেগমেন্ট $a[0 \dots n-1]$ এর যোগফল।
+তারপর আমরা অ্যারেকে দুটি অংশে ভাগ করি $a[0 \dots (n-1)/2]$ এবং $a[(n+1)/2 \dots n-1]$ এবং প্রতিটি অর্ধ অংশের যোগফল গণনা এবং সংরক্ষণ করি।
+এই দুটি অর্ধ অংশের প্রত্যেকটি ক্রমে অর্ধেক করা হয়, এবং এভাবে চলে যতক্ষণ না সমস্ত সেগমেন্ট আকার $১$ এ পৌঁছায়।
 
-We can view these segments as forming a binary tree: 
-the root of this tree is the segment $a[0 \dots n-1]$, and each vertex (except leaf vertices) has exactly two child vertices. 
-This is why the data structure is called "Segment Tree", even though in most implementations the tree is not constructed explicitly (see [Implementation](segment_tree.md#implementation)).
+আমরা এই সেগমেন্টগুলিকে একটি বাইনারি ট্রি তৈরি করার দৃষ্টিভঙ্গি থেকে দেখতে পারি:
+এই ট্রির রুট হল সেগমেন্ট $a[0 \dots n-1]$, এবং প্রতিটি ভার্টেক্স (লিফ ভার্টেক্স ছাড়া) ঠিক দুটি চাইল্ড ভার্টেক্স রয়েছে।
+এজন্যই ডেটা স্ট্রাকচারকে "সেগমেন্ট ট্রি" বলা হয়, যদিও বেশিরভাগ ইমপ্লিমেন্টেশনে ট্রিটি স্পষ্টভাবে নির্মিত হয় না (দেখুন [ইমপ্লিমেন্টেশন](segment_tree.md#implementation))।
 
-Here is a visual representation of such a Segment Tree over the array $a = [1, 3, -2, 8, -7]$:
+$a = [1, 3, -2, 8, -7]$ অ্যারের উপর এই ধরনের সেগমেন্ট ট্রির একটি ভিজ্যুয়াল উপস্থাপনা এখানে রয়েছে:
 
-!["Sum Segment Tree"](/images/data_structures/sum-segment-tree.png)
+!["সাম সেগমেন্ট ট্রি"](/images/data_structures/sum-segment-tree.png)
 
-From this short description of the data structure, we can already conclude that a Segment Tree only requires a linear number of vertices. 
-The first level of the tree contains a single node (the root), the second level will contain two vertices, in the third it will contain four vertices, until the number of vertices reaches $n$. 
-Thus the number of vertices in the worst case can be estimated by the sum $1 + 2 + 4 + \dots + 2^{\lceil\log_2 n\rceil} \lt 2^{\lceil\log_2 n\rceil + 1} \lt 4n$.
+ডেটা স্ট্রাকচারের এই সংক্ষিপ্ত বর্ণনা থেকে, আমরা ইতিমধ্যে উপসংহার করতে পারি যে একটি সেগমেন্ট ট্রি শুধুমাত্র রৈখিক সংখ্যক ভার্টেক্স প্রয়োজন।
+ট্রির প্রথম স্তরে একটি একক নোড (রুট) রয়েছে, দ্বিতীয় স্তরে দুটি ভার্টেক্স থাকবে, তৃতীয় স্তরে চারটি ভার্টেক্স থাকবে, যতক্ষণ না ভার্টেক্সের সংখ্যা $n$ এ পৌঁছায়।
+এইভাবে সর্বোচ্চ ক্ষেত্রে ভার্টেক্সের সংখ্যা যোগফল $1 + 2 + 4 + \dots + 2^{\lceil\log_2 n\rceil} \lt 2^{\lceil\log_2 n\rceil + 1} \lt 4n$ দ্বারা অনুমান করা যায়।
 
-It is worth noting that whenever $n$ is not a power of two, not all levels of the Segment Tree will be completely filled. 
-We can see that behavior in the image.
-For now we can forget about this fact, but it will become important later during the implementation.
+এটি লক্ষ্য করার মতো যে যখনই $n$ দুইয়ের শক্তি নয়, সেগমেন্ট ট্রির সমস্ত স্তর সম্পূর্ণভাবে পূর্ণ হবে না।
+আমরা ছবিতে সেই আচরণ দেখতে পারি।
+আপাতত আমরা এই তথ্য ভুলতে পারি, কিন্তু এটি পরবর্তীতে ইমপ্লিমেন্টেশনের সময় গুরুত্বপূর্ণ হয়ে উঠবে।
 
-The height of the Segment Tree is $O(\log n)$, because when going down from the root to the leaves the size of the segments decreases approximately by half. 
+সেগমেন্ট ট্রির উচ্চতা $O(\log n)$, কারণ রুট থেকে পাতার দিকে নেমে যাওয়ার সময় সেগমেন্টের আকার প্রায় অর্ধেক হ্রাস পায়। 
 
-### Construction
+### নির্মাণ
 
-Before constructing the segment tree, we need to decide:
+সেগমেন্ট ট্রি নির্মাণের আগে, আমাদের সিদ্ধান্ত নিতে হবে:
 
-1. the *value* that gets stored at each node of the segment tree.
-   For example, in a sum segment tree, a node would store the sum of the elements in its range $[l, r]$.
-2. the *merge* operation that merges two siblings in a segment tree.
-   For example, in a sum segment tree, the two nodes corresponding to the ranges $a[l_1 \dots r_1]$ and $a[l_2 \dots r_2]$ would be merged into a node corresponding to the range $a[l_1 \dots r_2]$ by adding the values of the two nodes.
+১. সেগমেন্ট ট্রির প্রতিটি নোডে যা *মান* সংরক্ষিত হয়।
+   উদাহরণস্বরূপ, একটি সাম সেগমেন্ট ট্রিতে, একটি নোড তার রেঞ্জ $[l, r]$ এ উপাদানগুলির যোগফল সংরক্ষণ করবে।
+২. সেগমেন্ট ট্রিতে দুটি ভাইবোনকে মার্জ করে এমন *মার্জ* অপারেশন।
+   উদাহরণস্বরূপ, একটি সাম সেগমেন্ট ট্রিতে, রেঞ্জ $a[l_1 \dots r_1]$ এবং $a[l_2 \dots r_2]$ এর সাথে সম্পর্কিত দুটি নোড রেঞ্জ $a[l_1 \dots r_2]$ এর সাথে সম্পর্কিত একটি নোডে দুটি নোডের মানগুলি যোগ করে মার্জ করা হবে।
 
-Note that a vertex is a "leaf vertex", if its corresponding segment covers only one value in the original array. It is present at the lowermost level of a segment tree. Its value would be equal to the (corresponding) element $a[i]$. 
+মনে রাখবেন যে একটি ভার্টেক্স একটি "লিফ ভার্টেক্স", যদি এর সম্পর্কিত সেগমেন্ট মূল অ্যারেতে শুধুমাত্র একটি মান কভার করে। এটি সেগমেন্ট ট্রির সর্বনিম্ন স্তরে উপস্থিত। এর মান (সম্পর্কিত) উপাদান $a[i]$ এর সমান হবে।
 
-Now, for construction of the segment tree, we start at the bottom level (the leaf vertices) and assign them their respective values. On the basis of these values, we can compute the values of the previous level, using the `merge` function.
-And on the basis of those, we can compute the values of the previous, and repeat the procedure until we reach the root vertex. 
+এখন, সেগমেন্ট ট্রির নির্মাণের জন্য, আমরা নীচের স্তরে (লিফ ভার্টেক্স) শুরু করি এবং তাদের যথাযথ মানগুলি নির্ধারণ করি। এই মানগুলির ভিত্তিতে, আমরা `মার্জ` ফাংশন ব্যবহার করে পূর্ববর্তী স্তরের মানগুলি গণনা করতে পারি।
+এবং সেগুলির ভিত্তিতে, আমরা পূর্ববর্তী স্তরের মানগুলি গণনা করতে পারি, এবং যতক্ষণ না আমরা রুট ভার্টেক্সে পৌঁছাই ততক্ষণ প্রক্রিয়াটি পুনরাবৃত্তি করি।
 
-It is convenient to describe this operation recursively in the other direction, i.e., from the root vertex to the leaf vertices. The construction procedure, if called on a non-leaf vertex, does the following:
+এই অপারেশনটি অন্য দিকে, অর্থাৎ রুট ভার্টেক্স থেকে লিফ ভার্টেক্স পর্যন্ত রিকার্সিভভাবে বর্ণনা করা সুবিধাজনক। নির্মাণ প্রক্রিয়া, যদি একটি নন-লিফ ভার্টেক্সে বলা হয়, তবে নিম্নোক্তটি করে:
 
-1. recursively construct the values of the two child vertices
-2. merge the computed values of these children.
+१. দুটি চাইল্ড ভার্টেক্সের মানগুলি রিকার্সিভভাবে নির্মাণ করুন
+२. এই চাইল্ডগুলির গণনা করা মানগুলি মার্জ করুন।
 
-We start the construction at the root vertex, and hence, we are able to compute the entire segment tree.
+আমরা রুট ভার্টেক্সে নির্মাণ শুরু করি, এবং সুতরাং, আমরা সম্পূর্ণ সেগমেন্ট ট্রি গণনা করতে সক্ষম।
 
-The time complexity of this construction is $O(n)$, assuming that the merge operation is constant time (the merge operation gets called $n$ times, which is equal to the number of internal nodes in the segment tree).
+এই নির্মাণের সময় কমপ্লেক্সিটি $O(n)$, ধরে নিয়ে যে মার্জ অপারেশন ধ্রুবক সময় (মার্জ অপারেশন $n$ বার বলা হয়, যা সেগমেন্ট ট্রিতে অভ্যন্তরীণ নোডের সংখ্যার সমান)।
 
-### Sum queries
+### সাম কোয়েরি
 
-For now we are going to answer sum queries. As an input we receive two integers $l$ and $r$, and we have to compute the sum of the segment $a[l \dots r]$ in $O(\log n)$ time. 
+এখন আমরা সাম কোয়েরির উত্তর দিতে যাচ্ছি। ইনপুট হিসাবে আমরা দুটি পূর্ণসংখ্যা $l$ এবং $r$ পাই, এবং আমাদের সেগমেন্ট $a[l \dots r]$ এর যোগফল $O(\log n)$ সময়ে গণনা করতে হবে।
 
-To do this, we will traverse the Segment Tree and use the precomputed sums of the segments.
-Let's assume that we are currently at the vertex that covers the segment $a[tl \dots tr]$.
-There are three possible cases. 
+এটি করতে, আমরা সেগমেন্ট ট্রি অতিক্রম করব এবং সেগমেন্টগুলির পূর্বনির্ধারিত যোগফল ব্যবহার করব।
+ধরুন আমরা বর্তমানে সেগমেন্ট $a[tl \dots tr]$ কভার করে এমন ভার্টেক্সে আছি।
+তিনটি সম্ভাব্য ক্ষেত্র রয়েছে।
 
-The easiest case is when the segment $a[l \dots r]$ is equal to the corresponding segment of the current vertex (i.e. $a[l \dots r] = a[tl \dots tr]$), then we are finished and can return the precomputed sum that is stored in the vertex.
+সবচেয়ে সহজ ক্ষেত্র হল যখন সেগমেন্ট $a[l \dots r]$ বর্তমান ভার্টেক্সের সম্পর্কিত সেগমেন্টের সমান (অর্থাৎ $a[l \dots r] = a[tl \dots tr]$), তখন আমরা শেষ এবং ভার্টেক্সে সংরক্ষিত পূর্বনির্ধারিত যোগফল ফেরত দিতে পারি।
 
-Alternatively the segment of the query can fall completely into the domain of either the left or the right child.
-Recall that the left child covers the segment $a[tl \dots tm]$ and the right vertex covers the segment $a[tm + 1 \dots tr]$ with $tm = (tl + tr) / 2$. 
-In this case we can simply go to the child vertex, which corresponding segment covers the query segment, and execute the algorithm described here with that vertex. 
+বিকল্পভাবে কোয়েরির সেগমেন্ট বাম বা ডান চাইল্ডের ডোমেইনে সম্পূর্ণভাবে পড়তে পারে।
+মনে রাখবেন যে বাম চাইল্ড সেগমেন্ট $a[tl \dots tm]$ কভার করে এবং ডান ভার্টেক্স সেগমেন্ট $a[tm + 1 \dots tr]$ কভার করে $tm = (tl + tr) / 2$ সহ।
+এই ক্ষেত্রে আমরা সহজেই চাইল্ড ভার্টেক্সে যেতে পারি, যার সম্পর্কিত সেগমেন্ট কোয়েরি সেগমেন্ট কভার করে, এবং সেই ভার্টেক্সের সাথে এখানে বর্ণিত অ্যালগরিদম সম্পাদন করি।
 
-And then there is the last case, the query segment intersects with both children. 
-In this case we have no other option as to make two recursive calls, one for each child.
-First we go to the left child, compute a partial answer for this vertex (i.e. the sum of values of the intersection between the segment of the query and the segment of the left child), then go to the right child, compute the partial answer using that vertex, and then combine the answers by adding them. 
-In other words, since the left child represents the segment $a[tl \dots tm]$ and the right child the segment $a[tm+1 \dots tr]$, we compute the sum query $a[l \dots tm]$ using the left child, and the sum query $a[tm+1 \dots r]$ using the right child. 
+এবং তারপর শেষ ক্ষেত্র আছে, কোয়েরি সেগমেন্ট উভয় চাইল্ডের সাথে ছেদ করে।
+এই ক্ষেত্রে আমাদের কাছে দুটি রিকার্সিভ কল করার ছাড়া অন্য কোনো বিকল্প নেই, একটি প্রতিটি চাইল্ডের জন্য।
+প্রথমে আমরা বাম চাইল্ডে যাই, এই ভার্টেক্সের জন্য একটি আংশিক উত্তর গণনা করি (অর্থাৎ কোয়েরির সেগমেন্ট এবং বাম চাইল্ডের সেগমেন্টের মধ্যে ছেদের মানগুলির যোগফল), তারপর ডান চাইল্ডে যাই, সেই ভার্টেক্স ব্যবহার করে আংশিক উত্তর গণনা করি, এবং তারপর উত্তরগুলি একসাথে যোগ করে সমন্বয় করি।
+অন্য কথায়, বাম চাইল্ড সেগমেন্ট $a[tl \dots tm]$ এবং ডান চাইল্ড সেগমেন্ট $a[tm+1 \dots tr]$ প্রতিনিধিত্ব করে, আমরা বাম চাইল্ড ব্যবহার করে সাম কোয়েরি $a[l \dots tm]$ গণনা করি, এবং ডান চাইল্ড ব্যবহার করে সাম কোয়েরি $a[tm+1 \dots r]$ গণনা করি।
 
-So processing a sum query is a function that recursively calls itself once with either the left or the right child (without changing the query boundaries), or twice, once for the left and once for the right child (by splitting the query into two subqueries). 
-And the recursion ends, whenever the boundaries of the current query segment coincides with the boundaries of the segment of the current vertex. 
-In that case the answer will be the precomputed value of the sum of this segment, which is stored in the tree.
+তাই একটি সাম কোয়েরি প্রক্রিয়া করা একটি ফাংশন যা বাম বা ডান চাইল্ডের একটি বা অন্যটির সাথে নিজেকে একবার রিকার্সিভভাবে কল করে (কোয়েরি সীমানা পরিবর্তন না করে), বা দুবার, একবার বাম এবং একবার ডান চাইল্ডের সাথে (কোয়েরিকে দুটি সাবকোয়েরিতে বিভাজন করে)। 
+এবং রিকার্সন শেষ হয়, যখনই বর্তমান কোয়েরি সেগমেন্টের সীমানা বর্তমান ভার্টেক্সের সেগমেন্টের সীমানার সাথে মিলে যায়।
+সেই ক্ষেত্রে উত্তর হবে এই সেগমেন্টের যোগফলের পূর্বনির্ধারিত মান, যা ট্রিতে সংরক্ষিত।
 
-In other words, the calculation of the query is a traversal of the tree, which spreads through all necessary branches of the tree, and uses the precomputed sum values of the segments in the tree. 
+অন্য কথায়, কোয়েরির গণনা একটি ট্রি অতিক্রম, যা ট্রির সমস্ত প্রয়োজনীয় শাখা জুড়ে ছড়িয়ে পড়ে, এবং ট্রিতে সেগমেন্টগুলির পূর্বনির্ধারিত যোগফল মানগুলি ব্যবহার করে।
 
-Obviously we will start the traversal from the root vertex of the Segment Tree.
+স্পষ্টতার জন্য আমরা সেগমেন্ট ট্রির রুট ভার্টেক্স থেকে অতিক্রম শুরু করব।
 
-The procedure is illustrated in the following image.
-Again the array $a = [1, 3, -2, 8, -7]$ is used, and here we want to compute the sum $\sum_{i=2}^4 a[i]$.
-The colored vertices will be visited, and we will use the precomputed values of the green vertices.
-This gives us the result $-2 + 1 = -1$.
+পদ্ধতিটি নিম্নলিখিত চিত্রে চিত্রিত হয়েছে।
+আবার অ্যারে $a = [1, 3, -2, 8, -7]$ ব্যবহার করা হয়, এবং এখানে আমরা যোগফল $\sum_{i=2}^4 a[i]$ গণনা করতে চাই।
+রঙিন ভার্টেক্সগুলি পরিদর্শন করা হবে, এবং আমরা সবুজ ভার্টেক্সগুলির পূর্বনির্ধারিত মানগুলি ব্যবহার করব।
+এটি আমাদের ফলাফল $-2 + 1 = -1$ দেয়।
 
-!["Sum Segment Tree Query"](/images/data_structures/sum-segment-tree-query.png)
+!["সাম সেগমেন্ট ট্রি কোয়েরি"](/images/data_structures/sum-segment-tree-query.png)
 
-Why is the complexity of this algorithm $O(\log n)$?
-To show this complexity we look at each level of the tree. 
-It turns out, that for each level we only visit not more than four vertices. 
-And since the height of the tree is $O(\log n)$, we receive the desired running time. 
+কেন এই অ্যালগরিদমের কমপ্লেক্সিটি $O(\log n)$?
+এই কমপ্লেক্সিটি প্রদর্শন করতে আমরা ট্রির প্রতিটি স্তর দেখি।
+দেখা যায় যে প্রতিটি স্তরের জন্য আমরা চারটিরও বেশি ভার্টেক্স পরিদর্শন করি না।
+এবং যেহেতু ট্রির উচ্চতা $O(\log n)$, আমরা পছন্দসই চলমান সময় পাই।
 
-We can show that this proposition (at most four vertices each level) is true by induction.
-At the first level, we only visit one vertex, the root vertex, so here we visit less than four vertices. 
-Now let's look at an arbitrary level.
-By induction hypothesis, we visit at most four vertices. 
-If we only visit at most two vertices, the next level has at most four vertices. That is trivial, because each vertex can only cause at most two recursive calls. 
-So let's assume that we visit three or four vertices in the current level. 
-From those vertices, we will analyze the vertices in the middle more carefully. 
-Since the sum query asks for the sum of a continuous subarray, we know that segments corresponding to the visited vertices in the middle will be completely covered by the segment of the sum query. 
-Therefore these vertices will not make any recursive calls. 
-So only the most left, and the most right vertex will have the potential to make recursive calls. 
-And those will only create at most four recursive calls, so also the next level will satisfy the assertion.
-We can say that one branch approaches the left boundary of the query, and the second branch approaches the right one. 
+আমরা এই প্রস্তাব (প্রতিটি স্তরে সর্বাধিক চারটি ভার্টেক্স) প্রমাণ করতে পারি ইন্ডাকশন দ্বারা।
+প্রথম স্তরে, আমরা শুধুমাত্র একটি ভার্টেক্স, রুট ভার্টেক্স পরিদর্শন করি, তাই এখানে আমরা চারটিরও কম ভার্টেক্স পরিদর্শন করি।
+এখন একটি স্বেচ্ছাচারী স্তর দেখি।
+ইন্ডাকশন হাইপোথিসিস দ্বারা, আমরা সর্বাধিক চারটি ভার্টেক্স পরিদর্শন করি।
+যদি আমরা সর্বাধিক দুটি ভার্টেক্স পরিদর্শন করি, পরবর্তী স্তরে সর্বাধিক চারটি ভার্টেক্স রয়েছে। এটি তুচ্ছ, কারণ প্রতিটি ভার্টেক্স সর্বাধিক দুটি রিকার্সিভ কল সৃষ্টি করতে পারে।
+তাই আসুন ধরুন যে আমরা বর্তমান স্তরে তিন বা চারটি ভার্টেক্স পরিদর্শন করি।
+সেই ভার্টেক্সগুলি থেকে, আমরা মধ্যের ভার্টেক্সগুলি আরও সাবধানে বিশ্লেষণ করব।
+যেহেতু সাম কোয়েরি একটি ক্রমাগত সাবঅ্যারের যোগফল জিজ্ঞাসা করে, আমরা জানি যে মধ্যের পরিদর্শিত ভার্টেক্সগুলির সাথে সম্পর্কিত সেগমেন্টগুলি সাম কোয়েরির সেগমেন্ট দ্বারা সম্পূর্ণভাবে কভার করা হবে।
+অতএব এই ভার্টেক্সগুলি কোনো রিকার্সিভ কল করবে না।
+তাই শুধুমাত্র সবচেয়ে বাম এবং সবচেয়ে ডান ভার্টেক্সের রিকার্সিভ কল করার সম্ভাবনা থাকবে।
+এবং সেগুলি শুধুমাত্র সর্বাধিক চারটি রিকার্সিভ কল সৃষ্টি করবে, তাই পরবর্তী স্তরও প্রস্তাব সন্তুষ্ট করবে।
+আমরা বলতে পারি যে একটি শাখা কোয়েরির বাম সীমানার কাছে পৌঁছায়, এবং দ্বিতীয় শাখা ডানটির কাছে পৌঁছায়।
 
-Therefore we visit at most $4 \log n$ vertices in total, and that is equal to a running time of $O(\log n)$. 
+অতএব আমরা মোট সর্বাধিক $4 \log n$ ভার্টেক্স পরিদর্শন করি, এবং এটি $O(\log n)$ এর একটি চলমান সময়ের সমান।
 
-In conclusion the query works by dividing the input segment into several sub-segments for which all the sums are already precomputed and stored in the tree. 
-And if we stop partitioning whenever the query segment coincides with the vertex segment, then we only need $O(\log n)$ such segments, which gives the effectiveness of the Segment Tree. 
+উপসংহারে কোয়েরিটি ইনপুট সেগমেন্টকে বেশ কয়েকটি সাব-সেগমেন্টে বিভক্ত করে কাজ করে যার জন্য সমস্ত যোগফল ইতিমধ্যে প্রি-কম্পিউটেড এবং ট্রিতে সংরক্ষিত।
+এবং যখনই কোয়েরি সেগমেন্ট ভার্টেক্স সেগমেন্টের সাথে মিলে যায় তখন যদি আমরা বিভাজন থামাই, তবে আমাদের শুধুমাত্র $O(\log n)$ এই ধরনের সেগমেন্ট প্রয়োজন, যা সেগমেন্ট ট্রির কার্যকারিতা দেয়। 
 
-### Update queries
+### আপডেট কোয়েরি
 
-Now we want to modify a specific element in the array, let's say we want to do the assignment $a[i] = x$. 
-And we have to rebuild the Segment Tree, such that it corresponds to the new, modified array. 
+এখন আমরা অ্যারেতে একটি নির্দিষ্ট উপাদান পরিবর্তন করতে চাই, ধরুন আমরা অ্যাসাইনমেন্ট $a[i] = x$ করতে চাই।
+এবং আমাদের সেগমেন্ট ট্রি পুনর্নির্মাণ করতে হবে, যাতে এটি নতুন, পরিবর্তিত অ্যারের সাথে মিল খায়।
 
-This query is easier than the sum query. 
-Each level of a Segment Tree forms a partition of the array. 
-Therefore an element $a[i]$ only contributes to one segment from each level. 
-Thus only $O(\log n)$ vertices need to be updated. 
+এই কোয়েরি সাম কোয়েরির চেয়ে সহজ।
+সেগমেন্ট ট্রির প্রতিটি স্তর অ্যারের একটি বিভাজন গঠন করে।
+অতএব একটি উপাদান $a[i]$ প্রতিটি স্তর থেকে শুধুমাত্র একটি সেগমেন্টে অবদান রাখে।
+এইভাবে শুধুমাত্র $O(\log n)$ ভার্টেক্স আপডেট করা প্রয়োজন।
 
-It is easy to see, that the update request can be implemented using a recursive function. 
-The function gets passed the current tree vertex, and it recursively calls itself with one of the two child vertices (the one that contains $a[i]$ in its segment), and after that recomputes its sum value, similar how it is done in the build method (that is as the sum of its two children). 
+এটি সহজে দেখা যায় যে আপডেট অনুরোধটি একটি রিকার্সিভ ফাংশন ব্যবহার করে প্রয়োগ করা যেতে পারে।
+ফাংশনটি বর্তমান ট্রি ভার্টেক্স পাস করা হয়, এবং এটি দুটি চাইল্ড ভার্টেক্সের একটির সাথে নিজেকে রিকার্সিভভাবে কল করে (যেটি তার সেগমেন্টে $a[i]$ ধারণ করে), এবং এর পরে এর যোগফল মান পুনরায় গণনা করে, যেভাবে বিল্ড পদ্ধতিতে করা হয় (অর্থাৎ এর দুটি চাইল্ডের যোগফল হিসাবে)।
 
-Again here is a visualization using the same array.
-Here we perform the update $a[2] = 3$.
-The green vertices are the vertices that we visit and update.
+আবার এখানে একই অ্যারে ব্যবহার করে একটি ভিজ্যুয়ালাইজেশন রয়েছে।
+এখানে আমরা আপডেট $a[2] = 3$ সম্পাদন করি।
+সবুজ ভার্টেক্সগুলি হল সেই ভার্টেক্স যা আমরা পরিদর্শন এবং আপডেট করি।
 
-!["Sum Segment Tree Update"](/images/data_structures/sum-segment-tree-update.png)
+!["সাম সেগমেন্ট ট্রি আপডেট"](/images/data_structures/sum-segment-tree-update.png)
 
-### Implementation ### { #implementation}
+### ইমপ্লিমেন্টেশন ### { #implementation}
 
-The main consideration is how to store the Segment Tree.
-Of course we can define a $\text{Vertex}$ struct and create objects, that store the boundaries of the segment, its sum and additionally also pointers to its child vertices.
-However, this requires storing a lot of redundant information in the form of pointers.
-We will use a simple trick to make this a lot more efficient by using an _implicit data structure_: Only storing the sums in an array.
-(A similar method is used for binary heaps).
-The sum of the root vertex at index 1, the sums of its two child vertices at indices 2 and 3, the sums of the children of those two vertices at indices 4 to 7, and so on. 
-With 1-indexing, conveniently the left child of a vertex at index $i$ is stored at index $2i$, and the right one at index $2i + 1$. 
-Equivalently, the parent of a vertex at index $i$ is stored at $i/2$ (integer division).
+প্রধান বিবেচনা হল সেগমেন্ট ট্রি কীভাবে সংরক্ষণ করা যায়।
+অবশ্যই আমরা একটি $\text{ভার্টেক্স}$ স্ট্রাক্ট সংজ্ঞায়িত করতে পারি এবং বস্তু তৈরি করতে পারি, যা সেগমেন্টের সীমানা, এর যোগফল এবং অতিরিক্তভাবে এর চাইল্ড ভার্টেক্সের পয়েন্টার সংরক্ষণ করে।
+তবে, এটি পয়েন্টার আকারে অনেক রিডানড্যান্ট তথ্য সংরক্ষণ করতে প্রয়োজন।
+আমরা একটি সরল কৌশল ব্যবহার করব এটি আরও দক্ষ করতে একটি _ইমপ্লিসিট ডেটা স্ট্রাকচার_ ব্যবহার করে: শুধুমাত্র একটি অ্যারেতে যোগফল সংরক্ষণ করা।
+(একটি অনুরূপ পদ্ধতি বাইনারি হিপের জন্য ব্যবহার করা হয়)।
+সূচক १ এ রুট ভার্টেক্সের যোগফল, সূচক २ এবং ३ এ এর দুটি চাইল্ড ভার্টেক্সের যোগফল, সূচক ४ থেকে ७ এ সেই দুটি ভার্টেক্সের চাইল্ডদের যোগফল, এবং এভাবে চলে।
+१-ইন্ডেক্সিং সহ, সুবিধামত সূচক $i$ এ একটি ভার্টেক্সের বাম চাইল্ড সূচক $२i$ তে সংরক্ষিত হয়, এবং ডানটি সূচক $२i + १$ তে।
+সমানভাবে, সূচক $i$ এ একটি ভার্টেক্সের পিতামাতা $i/२$ তে সংরক্ষিত হয় (পূর্ণসংখ্যা বিভাগ)।
 
-This simplifies the implementation a lot. 
-We don't need to store the structure of the tree in memory. 
-It is defined implicitly. 
-We only need one array which contains the sums of all segments. 
+এটি ইমপ্লিমেন্টেশনকে অনেক সহজ করে।
+আমাদের স্মৃতিতে ট্রির কাঠামো সংরক্ষণ করতে হবে না।
+এটি অন্তর্নিহিতভাবে সংজ্ঞায়িত।
+আমাদের শুধুমাত্র একটি অ্যারে প্রয়োজন যা সমস্ত সেগমেন্টের যোগফল ধারণ করে।
 
-As noted before, we need to store at most $4n$ vertices.
-It might be less, but for convenience we always allocate an array of size $4n$.
-There will be some elements in the sum array, that will not correspond to any vertices in the actual tree, but this doesn't complicate the implementation.
+আগে উল্লেখ করা হয়েছে, আমাদের সর্বাধিক $4n$ ভার্টেক্স সংরক্ষণ করতে হবে।
+এটি কম হতে পারে, তবে সুবিধার জন্য আমরা সর্বদা আকার $4n$ এর একটি অ্যারে বরাদ্দ করি।
+যোগফল অ্যারেতে এমন কিছু উপাদান থাকবে যা প্রকৃত ট্রিতে কোনো ভার্টেক্সের সাথে সম্পর্কিত নয়, তবে এটি ইমপ্লিমেন্টেশনকে জটিল করে না।
 
-So, we store the Segment Tree simply as an array $t[]$ with a size of four times the input size $n$:
+তাই আমরা সেগমেন্ট ট্রি সহজভাবে একটি অ্যারে $t[]$ হিসাবে ইনপুট আকার $n$ এর চারগুণ আকার সহ সংরক্ষণ করি:
 
 ```cpp
 int n, t[4*MAXN];
 ```
 
-The procedure for constructing the Segment Tree from a given array $a[]$ looks like this: 
-it is a recursive function with the parameters $a[]$ (the input array), $v$ (the index of the current vertex), and the boundaries $tl$ and $tr$ of the current segment. 
-In the main program this function will be called with the parameters of the root vertex: $v = 1$, $tl = 0$, and $tr = n - 1$. 
+একটি প্রদত্ত অ্যারে $a[]$ থেকে সেগমেন্ট ট্রি নির্মাণের পদ্ধতি এইরকম দেখায়:
+এটি প্যারামিটার $a[]$ (ইনপুট অ্যারে), $v$ (বর্তমান ভার্টেক্সের সূচক), এবং বর্তমান সেগমেন্টের সীমানা $tl$ এবং $tr$ সহ একটি রিকার্সিভ ফাংশন।
+প্রধান প্রোগ্রামে এই ফাংশনটি রুট ভার্টেক্সের প্যারামিটার সহ বলা হবে: $v = १$, $tl = ०$, এবং $tr = n - १$।
 
 ```cpp
 void build(int a[], int v, int tl, int tr) {
@@ -196,12 +196,12 @@ void build(int a[], int v, int tl, int tr) {
 }
 ```
 
-Further the function for answering sum queries is also a recursive function, which receives as parameters information about the current vertex/segment (i.e. the index $v$ and the boundaries $tl$ and $tr$) and also the information about the boundaries of the query, $l$ and $r$. 
-In order to simplify the code, this function always does two recursive calls, even if only one is necessary - in that case the superfluous recursive call will have $l > r$, and this can easily be caught using an additional check at the beginning of the function.
+এর বাইরে সাম কোয়েরিতে উত্তর দেওয়ার ফাংশনটিও একটি রিকার্সিভ ফাংশন, যা বর্তমান ভার্টেক্স/সেগমেন্ট সম্পর্কিত তথ্য (অর্থাৎ সূচক $v$ এবং সীমানা $tl$ এবং $tr$) এবং কোয়েরির সীমানা সম্পর্কিত তথ্য $l$ এবং $r$ প্যারামিটার হিসাবে পায়।
+কোড সরল করার জন্য, এই ফাংশনটি সর্বদা দুটি রিকার্সিভ কল সম্পাদন করে, এমনকি যদি শুধুমাত্র একটি প্রয়োজন হয় - সেই ক্ষেত্রে অতিরিক্ত রিকার্সিভ কলটি $l > r$ হবে, এবং এটি ফাংশনের শুরুতে একটি অতিরিক্ত চেক ব্যবহার করে সহজেই ধরা যেতে পারে।
 
 ```cpp
 int sum(int v, int tl, int tr, int l, int r) {
-    if (l > r) 
+    if (l > r)
         return 0;
     if (l == tl && r == tr) {
         return t[v];
@@ -212,7 +212,7 @@ int sum(int v, int tl, int tr, int l, int r) {
 }
 ```
 
-Finally the update query. The function will also receive information about the current vertex/segment, and additionally also the parameter of the update query (i.e. the position of the element and its new value).
+অবশেষে আপডেট কোয়েরি। ফাংশনটি বর্তমান ভার্টেক্স/সেগমেন্ট সম্পর্কিত তথ্যও পাবে, এবং অতিরিক্তভাবে আপডেট কোয়েরির প্যারামিটার (অর্থাৎ উপাদানের অবস্থান এবং এর নতুন মান)।
 
 ```cpp
 void update(int v, int tl, int tr, int pos, int new_val) {
@@ -229,54 +229,54 @@ void update(int v, int tl, int tr, int pos, int new_val) {
 }
 ```
 
-### Memory efficient implementation
+### মেমোরি সাশ্রয়ী ইমপ্লিমেন্টেশন
 
-Most people use the implementation from the previous section. If you look at the array `t` you can see that it follows the numbering of the tree nodes in the order of a BFS traversal (level-order traversal). 
-Using this traversal the children of vertex $v$ are $2v$ and $2v + 1$ respectively.
-However if $n$ is not a power of two, this method will skip some indices and leave some parts of the array `t` unused.
-The memory consumption is limited by $4n$, even though a Segment Tree of an array of $n$ elements requires only $2n - 1$ vertices.
+বেশিরভাগ মানুষ পূর্ববর্তী বিভাগ থেকে ইমপ্লিমেন্টেশন ব্যবহার করে। যদি আপনি অ্যারে `t` তাকান আপনি দেখতে পারবেন যে এটি একটি BFS ট্রাভার্সাল (স্তর-অর্ডার ট্রাভার্সাল) এর ক্রমে ট্রি নোডের নাম্বারিং অনুসরণ করে।
+এই ট্রাভার্সাল ব্যবহার করে ভার্টেক্স $v$ এর চাইল্ডগুলি যথাক্রমে $२v$ এবং $२v + १$ হয়।
+তবে যদি $n$ দুইয়ের শক্তি না হয়, এই পদ্ধতিটি কিছু সূচক এড়িয়ে যাবে এবং অ্যারে `t` এর কিছু অংশ অব্যবহৃত রেখে যাবে।
+মেমোরি খরচ $4n$ দ্বারা সীমিত, যদিও $n$ উপাদানের একটি অ্যারের সেগমেন্ট ট্রির জন্য শুধুমাত্র $२n - १$ ভার্টেক্স প্রয়োজন।
 
-However it can be reduced. 
-We renumber the vertices of the tree in the order of an Euler tour traversal (pre-order traversal), and we write all these vertices next to each other.
+তবে এটি হ্রাস করা যায়।
+আমরা একটি Euler ট্যুর ট্রাভার্সাল (প্রি-অর্ডার ট্রাভার্সাল) এর ক্রমে ট্রির ভার্টেক্সগুলির নাম্বার পুনর্নির্ধারণ করি, এবং আমরা এই সমস্ত ভার্টেক্সগুলি একসাথে লিখি।
 
-Let's look at a vertex at index $v$, and let it be responsible for the segment $[l, r]$, and let $mid = \dfrac{l + r}{2}$.
-It is obvious that the left child will have the index $v + 1$.
-The left child is responsible for the segment $[l, mid]$, i.e. in total there will be $2 * (mid - l + 1) - 1$ vertices in the left child's subtree.
-Thus we can compute the index of the right child of $v$. The index will be $v + 2 * (mid - l + 1)$.
-By this numbering we achieve a reduction of the necessary memory to $2n$.
+সূচক $v$ তে একটি ভার্টেক্স বিবেচনা করি, এবং এটি সেগমেন্ট $[l, r]$ এর জন্য দায়বদ্ধ, এবং $mid = \dfrac{l + r}{२}$।
+এটি স্পষ্ট যে বাম চাইল্ড সূচক $v + १$ থাকবে।
+বাম চাইল্ড সেগমেন্ট $[l, mid]$ এর জন্য দায়বদ্ধ, অর্থাৎ মোট বাম চাইল্ডের সাবট্রিতে $२ * (mid - l + १) - १$ ভার্টেক্স থাকবে।
+এইভাবে আমরা $v$ এর ডান চাইল্ডের সূচক গণনা করতে পারি। সূচকটি হবে $v + २ * (mid - l + १)$।
+এই নাম্বারিং দ্বারা আমরা প্রয়োজনীয় মেমোরি $२n$ এ হ্রাস অর্জন করি।
 
-## <a name="advanced-versions-of-segment-trees"></a>Advanced versions of Segment Trees
+## <a name="advanced-versions-of-segment-trees"></a>সেগমেন্ট ট্রির উন্নত সংস্করণ
 
 
-A Segment Tree is a very flexible data structure, and allows variations and extensions in many different directions. 
-Let's try to categorize them below. 
+একটি সেগমেন্ট ট্রি একটি অত্যন্ত নমনীয় ডেটা স্ট্রাকচার, এবং অনেক বিভিন্ন দিক থেকে ভেরিয়েশন এবং এক্সটেনশন অনুমোদন করে।
+আসুন নীচের তাদের শ্রেণীবদ্ধ করার চেষ্টা করি।
 
-### More complex queries
+### আরও জটিল কোয়েরি
 
-It can be quite easy to change the Segment Tree in a direction, such that it computes different queries (e.g. computing the minimum / maximum instead of the sum), but it also can be very nontrivial. 
+সেগমেন্ট ট্রিকে একটি দিকে পরিবর্তন করা বেশ সহজ হতে পারে, যাতে এটি বিভিন্ন কোয়েরি গণনা করে (উদাহরণস্বরূপ সাম না করে ন্যূনতম / সর্বাধিক গণনা করা), তবে এটিও অত্যন্ত তুচ্ছ হতে পারে।
 
-#### Finding the maximum
+#### সর্বাধিক খুঁজে পাওয়া
 
-Let us slightly change the condition of the problem described above: instead of querying the sum, we will now make maximum queries.
+আমরা উপরে বর্ণিত সমস্যার অবস্থা সামান্য পরিবর্তন করি: যোগফল কোয়েরি করার পরিবর্তে, আমরা এখন সর্বাধিক কোয়েরি করব।
 
-The tree will have exactly the same structure as the tree described above. 
-We only need to change the way $t[v]$ is computed in the $\text{build}$ and $\text{update}$ functions.
-$t[v]$ will now store the maximum of the corresponding segment. 
-And we also need to change the calculation of the returned value of the $\text{sum}$ function (replacing the summation by the maximum).
+ট্রিটি উপরে বর্ণিত ট্রির সঠিক একই কাঠামো থাকবে।
+আমাদের শুধুমাত্র $\text{বিল্ড}$ এবং $\text{আপডেট}$ ফাংশনে $t[v]$ কীভাবে গণনা করা হয় তা পরিবর্তন করতে হবে।
+$t[v]$ এখন সম্পর্কিত সেগমেন্টের সর্বাধিক সংরক্ষণ করবে।
+এবং আমাদের $\text{সাম}$ ফাংশনের রিটার্ন মানের গণনাও পরিবর্তন করতে হবে (সর্বাধিক দ্বারা যোগফল প্রতিস্থাপন করা)।
 
-Of course this problem can be easily changed into computing the minimum instead of the maximum.
+অবশ্যই এই সমস্যাটি সর্বাধিক না করে ন্যূনতম গণনা করার জন্য সহজেই পরিবর্তন করা যেতে পারে।
 
-Instead of showing an implementation to this problem, the implementation will be given to a more complex version of this problem in the next section.
+এই সমস্যার একটি ইমপ্লিমেন্টেশন দেখানোর পরিবর্তে, পরবর্তী বিভাগে এই সমস্যার একটি আরও জটিল সংস্করণের জন্য ইমপ্লিমেন্টেশন দেওয়া হবে।
 
-#### Finding the maximum and the number of times it appears 
+#### সর্বাধিক এবং এটি যতবার প্রদর্শিত হয় তার সংখ্যা খুঁজে পাওয়া
 
-This task is very similar to the previous one.
-In addition of finding the maximum, we also have to find the number of occurrences of the maximum. 
+এই কাজটি পূর্ববর্তী একটির সাথে অনুরূপ।
+সর্বাধিক খুঁজে পাওয়া ছাড়াও, আমাদের সর্বাধিকের সংখ্যাও খুঁজে পেতে হবে।
 
-To solve this problem, we store a pair of numbers at each vertex in the tree: 
-In addition to the maximum we also store the number of occurrences of it in the corresponding segment. 
-Determining the correct pair to store at $t[v]$ can still be done in constant time using the information of the pairs stored at the child vertices. 
-Combining two such pairs should be done in a separate function, since this will be an operation that we will do while building the tree, while answering maximum queries and while performing modifications.
+এই সমস্যা সমাধানের জন্য, আমরা ট্রিতে প্রতিটি ভার্টেক্সে একটি সংখ্যার জোড়া সংরক্ষণ করি:
+সর্বাধিক ছাড়াও আমরা সম্পর্কিত সেগমেন্টে এটির সংখ্যাও সংরক্ষণ করি।
+$t[v]$ তে সংরক্ষণ করার জন্য সঠিক জোড়া নির্ধারণ করা এখনও চাইল্ড ভার্টেক্সে সংরক্ষিত জোড়ার তথ্য ব্যবহার করে ধ্রুবক সময়ে করা যায়।
+এই ধরনের দুটি জোড়া একটি আলাদা ফাংশনে একত্রিত করা উচিত, কারণ এটি এমন একটি অপারেশন যা আমরা ট্রি তৈরি করার সময়, সর্বাধিক কোয়েরিতে উত্তর দেওয়ার সময় এবং পরিবর্তন সম্পাদনের সময় করব।
 
 ```cpp
 pair<int, int> t[4*MAXN];
@@ -323,30 +323,30 @@ void update(int v, int tl, int tr, int pos, int new_val) {
     }
 }
 ```
-#### Compute the greatest common divisor / least common multiple
+#### সর্বশ্রেষ্ঠ সাধারণ ভাজক / ন্যূনতম সাধারণ গুণিতক গণনা করা
 
-In this problem we want to compute the GCD / LCM of all numbers of given ranges of the array. 
+এই সমস্যায় আমরা অ্যারের প্রদত্ত রেঞ্জের সমস্ত সংখ্যার GCD / LCM গণনা করতে চাই।
 
-This interesting variation of the Segment Tree can be solved in exactly the same way as the Segment Trees we derived for sum / minimum / maximum queries:
-it is enough to store the GCD / LCM of the corresponding vertex in each vertex of the tree. 
-Combining two vertices can be done by computing the GCD / LCM of both vertices.
+সেগমেন্ট ট্রির এই আকর্ষণীয় ভেরিয়েশনটি ঠিক একইভাবে সমাধান করা যায় যেমনিতে আমরা সাম / ন্যূনতম / সর্বাধিক কোয়েরির জন্য সেগমেন্ট ট্রি তৈরি করেছি:
+ট্রির প্রতিটি ভার্টেক্সে সম্পর্কিত ভার্টেক্সের GCD / LCM সংরক্ষণ করা যথেষ্ট।
+দুটি ভার্টেক্স একত্রিত করা উভয় ভার্টেক্সের GCD / LCM গণনা করে করা যেতে পারে।
 
-#### Counting the number of zeros, searching for the $k$-th zero { #counting-zero-search-kth data-toc-label="Counting the number of zeros, searching for the k-th zero"}
+#### শূন্যের সংখ্যা গণনা করা, $k$-তম শূন্য অনুসন্ধান করা { #counting-zero-search-kth data-toc-label="শূন্যের সংখ্যা গণনা করা, k-তম শূন্য অনুসন্ধান করা"}
 
-In this problem we want to find the number of zeros in a given range, and additionally find the index of the $k$-th zero using a second function.
+এই সমস্যায় আমরা একটি প্রদত্ত রেঞ্জে শূন্যের সংখ্যা খুঁজে পেতে চাই, এবং অতিরিক্তভাবে একটি দ্বিতীয় ফাংশন ব্যবহার করে $k$-তম শূন্যের সূচক খুঁজে পেতে চাই।
 
-Again we have to change the store values of the tree a bit:
-This time we will store the number of zeros in each segment in $t[]$. 
-It is pretty clear, how to implement the $\text{build}$, $\text{update}$ and $\text{count_zero}$ functions, we can simply use the ideas from the sum query problem.
-Thus we solved the first part of the problem.
+আবার আমাদের ট্রির সংরক্ষিত মানগুলি কিছুটা পরিবর্তন করতে হবে:
+এবার আমরা $t[]$ তে প্রতিটি সেগমেন্টে শূন্যের সংখ্যা সংরক্ষণ করব।
+এটি পরিষ্কার যে $\text{বিল্ড}$, $\text{আপডেট}$ এবং $\text{কাউন্ট_জেরো}$ ফাংশন কীভাবে প্রয়োগ করতে হয়, আমরা সরলভাবে সাম কোয়েরি সমস্যা থেকে ধারণা ব্যবহার করতে পারি।
+এইভাবে আমরা সমস্যার প্রথম অংশ সমাধান করেছি।
 
-Now we learn how to solve the problem of finding the $k$-th zero in the array $a[]$. 
-To do this task, we will descend the Segment Tree, starting at the root vertex, and moving each time to either the left or the right child, depending on which segment contains the $k$-th zero.
-In order to decide to which child we need to go, it is enough to look at the number of zeros appearing in the segment corresponding to the left vertex.
-If this precomputed count is greater or equal to $k$, it is necessary to descend to the left child, and otherwise descent to the right child.
-Notice, if we chose the right child, we have to subtract the number of zeros of the left child from $k$.
+এখন আমরা অ্যারে $a[]$ তে $k$-তম শূন্য খুঁজে পাওয়ার সমস্যা সমাধান করতে শিখি।
+এই কাজ করার জন্য, আমরা সেগমেন্ট ট্রি নেমে আসব, রুট ভার্টেক্স থেকে শুরু করে, এবং প্রতিবার বাম বা ডান চাইল্ডে যাই, কোন সেগমেন্টে $k$-তম শূন্য আছে তার উপর নির্ভর করে।
+কোন চাইল্ডে যেতে হবে তা সিদ্ধান্ত নিতে, বাম ভার্টেক্সের সাথে সম্পর্কিত সেগমেন্টে প্রদর্শিত শূন্যের সংখ্যা দেখা যথেষ্ট।
+যদি এই পূর্বনির্ধারিত গণনা $k$ এর চেয়ে বড় বা সমান হয়, তবে বাম চাইল্ডে নেমে যাওয়া প্রয়োজন, অন্যথায় ডান চাইল্ডে নেমে যান।
+লক্ষ্য করুন, যদি আমরা ডান চাইল্ড বেছে নিই, আমাদের $k$ থেকে বাম চাইল্ডের শূন্যের সংখ্যা বিয়োগ করতে হবে।
 
-In the implementation we can handle the special case, $a[]$ containing less than $k$ zeros, by returning -1.
+ইমপ্লিমেন্টেশনে আমরা বিশেষ ক্ষেত্র হ্যান্ডল করতে পারি, $a[]$ -১ ফেরত দিয়ে $k$ এর চেয়ে কম শূন্য থাকলে।
 
 ```cpp
 int find_kth(int v, int tl, int tr, int k) {
@@ -362,29 +362,29 @@ int find_kth(int v, int tl, int tr, int k) {
 }
 ```
 
-#### Searching for an array prefix with a given amount
+#### দেওয়া পরিমাণ সহ অ্যারে প্রিফিক্স অনুসন্ধান করা
 
-The task is as follows: 
-for a given value $x$ we have to quickly find smallest index $i$ such that the sum of the first $i$ elements of the array $a[]$ is greater or equal to $x$ (assuming that the array $a[]$ only contains non-negative values).
+কাজটি নিম্নরূপ:
+একটি প্রদত্ত মান $x$ এর জন্য আমাদের দ্রুত সবচেয়ে ছোট সূচক $i$ খুঁজে পেতে হবে যাতে অ্যারে $a[]$ এর প্রথম $i$ উপাদানের যোগফল $x$ এর চেয়ে বড় বা সমান হয় (ধরে নিয়ে যে অ্যারে $a[]$ শুধুমাত্র অ-নেতিবাচক মান ধারণ করে)।
 
-This task can be solved using binary search, computing the sum of the prefixes with the Segment Tree.
-However this will lead to a $O(\log^2 n)$ solution.
+এই কাজটি সেগমেন্ট ট্রির সাথে প্রিফিক্সের যোগফল গণনা করে বাইনারি অনুসন্ধান ব্যবহার করে সমাধান করা যায়।
+তবে এটি $O(\log^2 n)$ সমাধানে নিয়ে যাবে।
 
-Instead we can use the same idea as in the previous section, and find the position by descending the tree:
-by moving each time to the left or the right, depending on the sum of the left child.
-Thus finding the answer in $O(\log n)$ time.
+পরিবর্তে আমরা পূর্ববর্তী বিভাগের একই ধারণা ব্যবহার করতে পারি, এবং ট্রি নেমে আসার মাধ্যমে অবস্থান খুঁজে পেতে পারি:
+বাম চাইল্ডের যোগফলের উপর নির্ভর করে প্রতিবার বাম বা ডানে যাই।
+এইভাবে $O(\log n)$ সময়ে উত্তর খুঁজে পাই।
 
-#### Searching for the first element greater than a given amount
+#### একটি প্রদত্ত পরিমাণের চেয়ে বড় প্রথম উপাদান অনুসন্ধান করা
 
-The task is as follows: 
-for a given value $x$ and a range $a[l \dots r]$ find the smallest $i$  in the range $a[l \dots r]$, such that $a[i]$ is greater than $x$.
+কাজটি নিম্নরূপ:
+একটি প্রদত্ত মান $x$ এবং রেঞ্জ $a[l \dots r]$ এর জন্য রেঞ্জ $a[l \dots r]$ তে সবচেয়ে ছোট $i$ খুঁজে পাই, যাতে $a[i]$ $x$ এর চেয়ে বড় হয়।
 
-This task can be solved using binary search over max prefix queries with the Segment Tree.
-However, this will lead to a $O(\log^2 n)$ solution.
+এই কাজটি সেগমেন্ট ট্রির সাথে সর্বাধিক প্রিফিক্স কোয়েরির উপর বাইনারি অনুসন্ধান ব্যবহার করে সমাধান করা যায়।
+তবে, এটি $O(\log^2 n)$ সমাধানে নিয়ে যাবে।
 
-Instead, we can use the same idea as in the previous sections, and find the position by descending the tree:
-by moving each time to the left or the right, depending on the maximum value of the left child.
-Thus finding the answer in $O(\log n)$ time. 
+পরিবর্তে, আমরা পূর্ববর্তী বিভাগের একই ধারণা ব্যবহার করতে পারি, এবং ট্রি নেমে আসার মাধ্যমে অবস্থান খুঁজে পেতে পারি:
+বাম চাইল্ডের সর্বাধিক মানের উপর নির্ভর করে প্রতিবার বাম বা ডানে যাই।
+এইভাবে $O(\log n)$ সময়ে উত্তর খুঁজে পাই। 
 
 ```cpp
 int get_first(int v, int tl, int tr, int l, int r, int x) {
@@ -400,29 +400,29 @@ int get_first(int v, int tl, int tr, int l, int r, int x) {
 }
 ```
 
-#### Finding subsegments with the maximal sum
+#### সর্বাধিক যোগফল সহ সাবসেগমেন্ট খুঁজে পাওয়া
 
-Here again we receive a range $a[l \dots r]$ for each query, this time we have to find a subsegment $a[l^\prime \dots r^\prime]$ such that $l \le l^\prime$ and $r^\prime \le r$ and the sum of the elements of this segment is maximal. 
-As before we also want to be able to modify individual elements of the array. 
-The elements of the array can be negative, and the optimal subsegment can be empty (e.g. if all elements are negative).
+এখানে আবার প্রতিটি কোয়েরির জন্য একটি রেঞ্জ $a[l \dots r]$ পাই, এবার আমাদের একটি সাবসেগমেন্ট $a[l^\prime \dots r^\prime]$ খুঁজে পেতে হবে যাতে $l \le l^\prime$ এবং $r^\prime \le r$ এবং এই সেগমেন্টের উপাদানগুলির যোগফল সর্বাধিক হয়।
+আগে যেমন আমরা অ্যারের স্বতন্ত্র উপাদান পরিবর্তন করতে চাই।
+অ্যারের উপাদানগুলি ঋণাত্মক হতে পারে, এবং সর্বোত্তম সাবসেগমেন্ট খালি হতে পারে (উদাহরণস্বরূপ যদি সমস্ত উপাদান ঋণাত্মক হয়)।
 
-This problem is a non-trivial usage of a Segment Tree.
-This time we will store four values for each vertex: 
-the sum of the segment, the maximum prefix sum, the maximum suffix sum, and the sum of the maximal subsegment in it.
-In other words for each segment of the Segment Tree the answer is already precomputed as well as the answers for segments touching the left and the right boundaries of the segment.
+এই সমস্যাটি সেগমেন্ট ট্রির একটি অ-তুচ্ছ ব্যবহার।
+এবার আমরা প্রতিটি ভার্টেক্সের জন্য চারটি মান সংরক্ষণ করব:
+সেগমেন্টের যোগফল, সর্বাধিক প্রিফিক্স যোগফল, সর্বাধিক সাফিক্স যোগফল, এবং এটিতে সর্বাধিক সাবসেগমেন্টের যোগফল।
+অন্য কথায় সেগমেন্ট ট্রির প্রতিটি সেগমেন্টের জন্য উত্তর ইতিমধ্যে পূর্বনির্ধারিত যেমন সেগমেন্টের বাম এবং ডান সীমানা স্পর্শকারী সেগমেন্টের উত্তরগুলি।
 
-How to build a tree with such data?
-Again we compute it in a recursive fashion: 
-we first compute all four values for the left and the right child, and then combine those to archive the four values for the current vertex.
-Note the answer for the current vertex is either:
+এই ধরনের ডেটা সহ একটি ট্রি তৈরি করতে কীভাবে?
+আবার আমরা এটি একটি রিকার্সিভ উপায়ে গণনা করি:
+আমরা প্রথমে বাম এবং ডান চাইল্ডের জন্য সমস্ত চারটি মান গণনা করি, এবং তারপর বর্তমান ভার্টেক্সের চারটি মান সংরক্ষণ করতে সেগুলি একত্রিত করি।
+বর্তমান ভার্টেক্সের উত্তর নিম্নোক্তগুলির মধ্যে যেকোনো একটি:
 
- * the answer of the left child, which means that the optimal subsegment is entirely placed in the segment of the left child
- * the answer of the right child, which means that the optimal subsegment is entirely placed in the segment of the right child
- * the sum of the maximum suffix sum of the left child and the maximum prefix sum of the right child, which means that the optimal subsegment intersects with both children.
+ * বাম চাইল্ডের উত্তর, যার অর্থ সর্বোত্তম সাবসেগমেন্ট সম্পূর্ণভাবে বাম চাইল্ডের সেগমেন্টে রাখা
+ * ডান চাইল্ডের উত্তর, যার অর্থ সর্বোত্তম সাবসেগমেন্ট সম্পূর্ণভাবে ডান চাইল্ডের সেগমেন্টে রাখা
+ * বাম চাইল্ডের সর্বাধিক সাফিক্স যোগফল এবং ডান চাইল্ডের সর্বাধিক প্রিফিক্স যোগফলের যোগফল, যার অর্থ সর্বোত্তম সাবসেগমেন্ট উভয় চাইল্ডের সাথে ছেদ করে।
 
-Hence the answer to the current vertex is the maximum of these three values. 
-Computing the maximum prefix / suffix sum is even easier. 
-Here is the implementation of the $\text{combine}$ function, which receives only data from the left and right child, and returns the data of the current vertex. 
+সুতরাং বর্তমান ভার্টেক্সের উত্তর এই তিনটি মানের সর্বাধিক।
+সর্বাধিক প্রিফিক্স / সাফিক্স যোগফল গণনা আরও সহজ।
+এখানে $\text{মার্জ}$ ফাংশনের ইমপ্লিমেন্টেশন রয়েছে, যা শুধুমাত্র বাম এবং ডান চাইল্ড থেকে ডেটা পায়, এবং বর্তমান ভার্টেক্সের ডেটা রিটার্ন করে। 
 
 ```cpp
 struct data {
@@ -439,9 +439,9 @@ data combine(data l, data r) {
 }
 ```
 
-Using the $\text{combine}$ function it is easy to build the Segment Tree. 
-We can implement it in exactly the same way as in the previous implementations.
-To initialize the leaf vertices, we additionally create the auxiliary function $\text{make_data}$, which will return a $\text{data}$ object holding the information of a single value.
+$\text{মার্জ}$ ফাংশন ব্যবহার করে সেগমেন্ট ট্রি তৈরি করা সহজ।
+আমরা এটি পূর্ববর্তী ইমপ্লিমেন্টেশনের মতোই প্রয়োগ করতে পারি।
+লিফ ভার্টেক্স শুরু করতে, আমরা অতিরিক্তভাবে সহায়ক ফাংশন $\text{মেক_ডেটা}$ তৈরি করি, যা একটি একক মান সম্পর্কিত তথ্য ধারণ করে এমন একটি $\text{ডেটা}$ অবজেক্ট রিটার্ন করবে।
 
 ```cpp
 data make_data(int val) {
@@ -476,9 +476,9 @@ void update(int v, int tl, int tr, int pos, int new_val) {
 }
 ```
 
-It only remains, how to compute the answer to a query. 
-To answer it, we go down the tree as before, breaking the query into several subsegments that coincide with the segments of the Segment Tree, and combine the answers in them into a single answer for the query.
-Then it should be clear, that the work is exactly the same as in the simple Segment Tree, but instead of summing / minimizing / maximizing the values, we use the $\text{combine}$ function.
+কোয়েরির উত্তর কিভাবে গণনা করতে হয় তা অবশেষ।
+এর উত্তর দিতে, আমরা আগের মতো ট্রি নেমে যাই, কোয়েরিকে বেশ কয়েকটি সাবসেগমেন্টে বিভক্ত করি যা সেগমেন্ট ট্রির সেগমেন্টের সাথে মিল খায়, এবং তাদের উত্তরগুলি একটি একক উত্তরে একত্রিত করি কোয়েরির জন্য।
+তারপর এটি স্পষ্ট হওয়া উচিত যে কাজটি সাধারণ সেগমেন্ট ট্রির মতোই, তবে মানগুলি যোগ করা / ন্যূনতম / সর্বাধিক করার পরিবর্তে, আমরা $\text{মার্জ}$ ফাংশন ব্যবহার করি।
 
 ```cpp
 data query(int v, int tl, int tr, int l, int r) {
@@ -492,39 +492,39 @@ data query(int v, int tl, int tr, int l, int r) {
 }
 ```
 
-### <a name="saving-the-entire-subarrays-in-each-vertex"></a>Saving the entire subarrays in each vertex
+### <a name="saving-the-entire-subarrays-in-each-vertex"></a>প্রতিটি ভার্টেক্সে সম্পূর্ণ সাবঅ্যারে সংরক্ষণ করা
 
-This is a separate subsection that stands apart from the others, because at each vertex of the Segment Tree we don't store information about the corresponding segment in compressed form (sum, minimum, maximum, ...), but store all elements of the segment.
-Thus the root of the Segment Tree will store all elements of the array, the left child vertex will store the first half of the array, the right vertex the second half, and so on.
+এটি একটি আলাদা সাবসেকশন যা অন্যদের থেকে আলাদা হয়ে দাঁড়িয়ে আছে, কারণ সেগমেন্ট ট্রির প্রতিটি ভার্টেক্সে আমরা সম্পর্কিত সেগমেন্ট সম্পর্কিত তথ্য সংক্ষিপ্ত ফর্মে (যোগফল, ন্যূনতম, সর্বাধিক, ...) সংরক্ষণ করি না, বরং সেগমেন্টের সমস্ত উপাদান সংরক্ষণ করি।
+এইভাবে সেগমেন্ট ট্রির মূল অ্যারের সমস্ত উপাদান সংরক্ষণ করবে, বাম চাইল্ড ভার্টেক্স অ্যারের প্রথম অর্ধ সংরক্ষণ করবে, ডান ভার্টেক্স দ্বিতীয় অর্ধ, এবং এভাবে চলে।
 
-In its simplest application of this technique we store the elements in sorted order.
-In more complex versions the elements are not stored in lists, but more advanced data structures (sets, maps, ...). 
-But all these methods have the common factor, that each vertex requires linear memory (i.e. proportional to the length of the corresponding segment).
+এই প্রযুক্তির সবচেয়ে সাধারণ প্রয়োগে আমরা উপাদানগুলি সাজানো ক্রমে সংরক্ষণ করি।
+আরও জটিল সংস্করণে উপাদানগুলি তালিকায় সংরক্ষিত হয় না, বরং আরও উন্নত ডেটা স্ট্রাকচার (সেট, ম্যাপ, ...)।
+তবে এই সমস্ত পদ্ধতির সাধারণ ফ্যাক্টর রয়েছে যে প্রতিটি ভার্টেক্স রৈখিক মেমোরি প্রয়োজন (অর্থাৎ সম্পর্কিত সেগমেন্টের দৈর্ঘ্যের সাথে সমানুপাতিক)।
 
-The first natural question, when considering these Segment Trees, is about memory consumption.
-Intuitively this might look like $O(n^2)$ memory, but it turns out that the complete tree will only need $O(n \log n)$ memory.
-Why is this so?
-Quite simply, because each element of the array falls into $O(\log n)$ segments (remember the height of the tree is $O(\log n)$). 
+এই সেগমেন্ট ট্রি বিবেচনার সময় প্রথম প্রাকৃতিক প্রশ্ন হল মেমোরি খরচ সম্পর্কে।
+স্বজ্ঞাতভাবে এটি $O(n^२)$ মেমোরির মতো দেখতে পারে, তবে দেখা যায় যে সম্পূর্ণ ট্রি শুধুমাত্র $O(n \log n)$ মেমোরির প্রয়োজন।
+কেন এটি এমন?
+অত্যন্ত সহজভাবে, কারণ অ্যারের প্রতিটি উপাদান $O(\log n)$ সেগমেন্টে পড়ে (মনে রাখবেন ট্রির উচ্চতা $O(\log n)$)।
 
-So in spite of the apparent extravagance of such a Segment Tree, it consumes only slightly more memory than the usual Segment Tree. 
+তাই এই ধরনের সেগমেন্ট ট্রির স্পষ্ট বিলাসিতা সত্ত্বেও, এটি সাধারণ সেগমেন্ট ট্রির চেয়ে সামান্য বেশি মেমোরি ব্যবহার করে।
 
-Several typical applications of this data structure are described below.
-It is worth noting the similarity of these Segment Trees with 2D data structures (in fact this is a 2D data structure, but with rather limited capabilities).
+এই ডেটা স্ট্রাকচারের বেশ কয়েকটি সাধারণ অ্যাপ্লিকেশন নিচে বর্ণিত।
+এই সেগমেন্ট ট্রিগুলির २D ডেটা স্ট্রাকচারের সাথে সাদৃশ্য লক্ষ্য করা মূল্যবান (প্রকৃতপক্ষে এটি একটি २D ডেটা স্ট্রাকচার, তবে বরং সীমিত ক্ষমতা সহ)।
 
-#### Find the smallest number greater or equal to a specified number. No modification queries.
+#### নির্দিষ্ট সংখ্যার চেয়ে বড় বা সমান ক্ষুদ্রতম সংখ্যা খুঁজুন। কোনো পরিবর্তন কোয়েরি নেই।
 
-We want to answer queries of the following form: 
-for three given numbers $(l, r, x)$ we have to find the minimal number in the segment $a[l \dots r]$ which is greater than or equal to $x$.
+আমরা নিম্নোক্ত ফর্মের কোয়েরির উত্তর দিতে চাই:
+তিনটি প্রদত্ত সংখ্যার জন্য $(l, r, x)$ আমাদের সেগমেন্ট $a[l \dots r]$ তে ন্যূনতম সংখ্যা খুঁজে পেতে হবে যা $x$ এর চেয়ে বড় বা সমান।
 
-We construct a Segment Tree. 
-In each vertex we store a sorted list of all numbers occurring in the corresponding segment, like described above. 
-How to build such a Segment Tree as effectively as possible?
-As always we approach this problem recursively: let the lists of the left and right children already be constructed, and we want to build the list for the current vertex.
-From this view the operation is now trivial and can be accomplished in linear time:
-We only need to combine the two sorted lists into one, which can be done by iterating over them using two pointers. 
-The C++ STL already has an implementation of this algorithm.
+আমরা একটি সেগমেন্ট ট्रি তৈরি করি।
+প্রতিটি ভার্টেক্সে আমরা সম্পর্কিত সেগমেন্টে ঘটে এমন সমস্ত সংখ্যার একটি সাজানো তালিকা সংরক্ষণ করি, উপরে বর্ণিত হিসাবে।
+এই ধরনের সেগমেন্ট ট्रি যতটা সম্ভব কার্যকরভাবে তৈরি করতে কীভাবে?
+সর্বদার মতো আমরা এই সমস্যাটি রিকার্সিভভাবে পদ্ধতি করি: বাম এবং ডান চাইল্ডের তালিকাগুলি ইতিমধ্যে নির্মিত, এবং আমরা বর্তমান ভার্টেক্সের জন্য তালিকা তৈরি করতে চাই।
+এই দৃষ্টিকোণ থেকে অপারেশন এখন তুচ্ছ এবং রৈখিক সময়ে সম্পাদিত হতে পারে:
+আমাদের শুধুমাত্র দুটি সাজানো তালিকা একটিতে একত্রিত করতে হবে, যা দুটি পয়েন্টার ব্যবহার করে তাদের উপর পুনরাবৃত্তি করে করা যায়।
+C++ STL ইতিমধ্যে এই অ্যালগরিদমের একটি ইমপ্লিমেন্টেশন রয়েছে।
 
-Because this structure of the Segment Tree and the similarities to the merge sort algorithm, the data structure is also often called "Merge Sort Tree".
+সেগমেন্ট ট्রির এই কাঠামো এবং মার্জ সর্ট অ্যালগরিদমের সাথে সাদৃশ্যের কারণে, ডেটা স্ট্রাকচারকে প্রায়ই "মার্জ সর্ট ট्রি" বলা হয়।
 
 ```cpp
 vector<int> t[4*MAXN];
@@ -542,18 +542,18 @@ void build(int a[], int v, int tl, int tr) {
 }
 ```
 
-We already know that the Segment Tree constructed in this way will require $O(n \log n)$ memory.
-And thanks to this implementation its construction also takes $O(n \log n)$ time, after all each list is constructed in linear time in respect to its size. 
+আমরা ইতিমধ্যে জানি যে এইভাবে নির্মিত সেগমেন্ট ট्রি $O(n \log n)$ মেমোরির প্রয়োজন।
+এবং এই ইমপ্লিমেন্টেশনের জন্য ধন্যবাদ এর নির্মাণও $O(n \log n)$ সময় নেয়, সর্বশেষ প্রতিটি তালিকা এর আকারের সাপেক্ষে রৈখিক সময়ে নির্মিত হয়।
 
-Now consider the answer to the query. 
-We will go down the tree, like in the regular Segment Tree, breaking our segment $a[l \dots r]$ into several subsegments (into at most $O(\log n)$ pieces). 
-It is clear that the answer of the whole answer is the minimum of each of the subqueries.
-So now we only need to understand, how to respond to a query on one such subsegment that corresponds with some vertex of the tree.
+এখন কোয়েরির উত্তর বিবেচনা করুন।
+আমরা ট্রি নেমে যাব, সাধারণ সেগমেন্ট ট्রির মতো, আমাদের সেগমেন্ট $a[l \dots r]$ কে বেশ কয়েকটি সাবসেগমেন্টে বিভক্ত করি (সর্বাধিক $O(\log n)$ টুকরায়)।
+এটি স্পষ্ট যে সম্পূর্ণ উত্তর প্রতিটি সাবকোয়েরির ন্যূনতম।
+তাই এখন আমাদের শুধুমাত্র বুঝতে হবে, ট্রির কিছু ভার্টেক্সের সাথে সামঞ্জস্যপূর্ণ এই ধরনের একটি সাবসেগমেন্টে কোয়েরির উত্তর কীভাবে দেওয়া যায়।
 
-We are at some vertex of the Segment Tree and we want to compute the answer to the query, i.e. find the minimum number greater that or equal to a given number $x$. 
-Since the vertex contains the list of elements in sorted order, we can simply perform a binary search on this list and return the first number, greater than or equal to $x$.
+আমরা সেগমেন্ট ট्রির কোনো ভার্টেক্সে রয়েছি এবং কোয়েরির উত্তর গণনা করতে চাই, অর্থাৎ একটি প্রদত্ত সংখ্যা $x$ এর চেয়ে বড় বা সমান ন্যূনতম সংখ্যা খুঁজুন।
+যেহেতু ভার্টেক্সে উপাদানের তালিকা সাজানো ক্রমে রয়েছে, আমরা সহজভাবে এই তালিকায় একটি বাইনারি অনুসন্ধান সম্পাদন করতে এবং $x$ এর চেয়ে বড় বা সমান প্রথম সংখ্যা রিটার্ন করতে পারি।
 
-Thus the answer to the query in one segment of the tree takes $O(\log n)$ time, and the entire query is processed in $O(\log^2 n)$.
+এইভাবে ট্রির একটি সেগমেন্টে কোয়েরির উত্তর $O(\log n)$ সময় নেয়, এবং সম্পূর্ণ কোয়েরি $O(\log^२ n)$ এ প্রক্রিয়া করা হয়।
 
 ```cpp
 int query(int v, int tl, int tr, int l, int r, int x) {
@@ -571,9 +571,9 @@ int query(int v, int tl, int tr, int l, int r, int x) {
 }
 ```
 
-The constant $\text{INF}$ is equal to some large number that is bigger than all numbers in the array. 
-Its usage means, that there is no number greater than or equal to $x$ in the segment. 
-It has the meaning of "there is no answer in the given interval".
+ধ্রুবক $\text{INF}$ অ্যারেতে সমস্ত সংখ্যার চেয়ে বড় কিছু বড় সংখ্যার সমান।
+এর ব্যবহার মানে সেগমেন্টে $x$ এর চেয়ে বড় বা সমান কোনো সংখ্যা নেই।
+এটির অর্থ "প্রদত্ত ইন্টারভালে কোনো উত্তর নেই"।
 
 #### Find the smallest number greater or equal to a specified number. With modification queries.
 

@@ -1,13 +1,13 @@
 ---
-title: "Gauss method for solving system of linear equations"
+title: "লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড"
 tags: 
 weight: 10
 ---
-# Gauss method for solving system of linear equations
+# লিনিয়ার সমীকরণ সিস্টেম সমাধানের গাউস মেথড
 
-Given a system of $n$ linear algebraic equations (SLAE) with $m$ unknowns. You are asked to solve the system: to determine if it has no solution, exactly one solution or infinite number of solutions. And in case it has at least one solution, find any of them.
+$m$ টি অজানা রাশি বিশিষ্ট $n$ টি লিনিয়ার বীজগাণিতিক সমীকরণের একটি সিস্টেম (SLAE) দেওয়া আছে। আপনাকে সিস্টেমটি সমাধান করতে হবে: এর কোনো সমাধান নেই, ঠিক একটি সমাধান আছে, নাকি অসীম সংখ্যক সমাধান আছে তা নির্ণয় করতে হবে। এবং যদি কমপক্ষে একটি সমাধান থাকে, তাহলে যেকোনো একটি বের করতে হবে।
 
-Formally, the problem is formulated as follows: solve the system:
+আনুষ্ঠানিকভাবে, সমস্যাটি নিম্নরূপ: সিস্টেমটি সমাধান করুন:
 
 $$\begin{align}
 a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m = b_1 \\
@@ -16,15 +16,15 @@ a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m = b_2\\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m = b_n
 \end{align}$$
 
-where the coefficients $a_{ij}$ (for $i$ from 1 to $n$, $j$ from 1 to $m$) and $b_i$ ($i$ from 1 to $n$) are known and variables $x_i$ ($i$ from 1 to $m$) are unknowns.
+যেখানে সহগ $a_{ij}$ ($i$ এর মান ১ থেকে $n$, $j$ এর মান ১ থেকে $m$) এবং $b_i$ ($i$ এর মান ১ থেকে $n$) জানা আছে এবং চলক $x_i$ ($i$ এর মান ১ থেকে $m$) অজানা।
 
-This problem also has a simple matrix representation:
+এই সমস্যাটির একটি সহজ ম্যাট্রিক্স উপস্থাপনাও আছে:
 
 $$Ax = b,$$
 
-where $A$ is a matrix of size $n \times m$ of coefficients $a_{ij}$ and $b$ is the column vector of size $n$.
+যেখানে $A$ হলো $n \times m$ আকারের সহগ $a_{ij}$ এর ম্যাট্রিক্স এবং $b$ হলো $n$ আকারের কলাম ভেক্টর।
 
-It is worth noting that the method presented in this article can also be used to solve the equation modulo any number p, i.e.:
+উল্লেখযোগ্য যে এই নিবন্ধে বর্ণিত মেথডটি যেকোনো সংখ্যা p মডুলোতে সমীকরণ সমাধানেও ব্যবহার করা যায়, অর্থাৎ:
 
 $$\begin{align}
 a_{11} x_1 + a_{12} x_2 + &\dots + a_{1m} x_m \equiv b_1 \pmod p \\
@@ -33,52 +33,52 @@ a_{21} x_1 + a_{22} x_2 + &\dots + a_{2m} x_m \equiv b_2 \pmod p \\
 a_{n1} x_1 + a_{n2} x_2 + &\dots + a_{nm} x_m \equiv b_n \pmod p
 \end{align}$$
 
-## Gauss
+## গাউস
 
-Strictly speaking, the method described below should be called "Gauss-Jordan", or Gauss-Jordan elimination, because it is a variation of the Gauss method, described by Jordan in 1887.
+কড়াভাবে বলতে গেলে, নিচে বর্ণিত মেথডটিকে "গাউস-জর্ডান" বা গাউস-জর্ডান এলিমিনেশন বলা উচিত, কারণ এটি গাউস মেথডের একটি ভ্যারিয়েশন, যা জর্ডান ১৮৮৭ সালে বর্ণনা করেছিলেন।
 
-## Overview
+## সংক্ষিপ্ত বিবরণ
 
-The algorithm is a `sequential elimination` of the variables in each equation, until each equation will have only one remaining variable. If $n = m$, you can think of it as transforming the matrix $A$ to identity matrix, and solve the equation in this obvious case, where solution is unique and is equal to coefficient $b_i$.
+অ্যালগরিদমটি হলো প্রতিটি সমীকরণে চলকগুলোর `ধারাবাহিক এলিমিনেশন`, যতক্ষণ না প্রতিটি সমীকরণে শুধুমাত্র একটি চলক অবশিষ্ট থাকে। যদি $n = m$ হয়, তাহলে আপনি এটিকে ম্যাট্রিক্স $A$ কে আইডেন্টিটি ম্যাট্রিক্সে রূপান্তরিত করা হিসেবে ভাবতে পারেন, এবং এই সুস্পষ্ট ক্ষেত্রে সমীকরণটি সমাধান করতে পারেন, যেখানে সমাধানটি অনন্য এবং সহগ $b_i$ এর সমান।
 
-Gaussian elimination is based on two simple transformations:   
+গাউসীয় এলিমিনেশন দুটি সরল রূপান্তরের উপর ভিত্তি করে:
 
-* It is possible to exchange two equations
-* Any equation can be replaced by a linear combination of that row (with non-zero coefficient), and some other rows (with arbitrary coefficients).
+* দুটি সমীকরণ পরস্পর বিনিময় করা সম্ভব
+* যেকোনো সমীকরণকে সেই সারির (অশূন্য সহগ সহ) এবং অন্য কিছু সারির (যথেচ্ছ সহগ সহ) একটি লিনিয়ার কম্বিনেশন দ্বারা প্রতিস্থাপন করা যায়।
 
-In the first step, Gauss-Jordan algorithm divides the first row by $a_{11}$. Then, the algorithm adds the first row to the remaining rows such that the coefficients in the first column becomes all zeros. To achieve this, on the i-th row, we must add the first row multiplied by $- a_{i1}$. Note that, this operation must also be performed on vector $b$. In a sense, it behaves as if vector $b$ was the $m+1$-th column of matrix $A$.
+প্রথম ধাপে, গাউস-জর্ডান অ্যালগরিদম প্রথম সারিকে $a_{11}$ দ্বারা ভাগ করে। তারপর, অ্যালগরিদম প্রথম সারিটি অবশিষ্ট সারিগুলোতে এমনভাবে যোগ করে যাতে প্রথম কলামের সকল সহগ শূন্য হয়ে যায়। এটি অর্জন করতে, i-তম সারিতে, আমাদের $- a_{i1}$ দ্বারা গুণিত প্রথম সারি যোগ করতে হবে। লক্ষ্য করুন যে, এই অপারেশনটি ভেক্টর $b$-তেও করতে হবে। একটি অর্থে, এটি এমনভাবে আচরণ করে যেন ভেক্টর $b$ হলো ম্যাট্রিক্স $A$ এর $m+1$-তম কলাম।
 
-As a result, after the first step, the first column of matrix $A$ will consists of $1$ on the first row, and $0$ in other rows.
+ফলস্বরূপ, প্রথম ধাপের পরে, ম্যাট্রিক্স $A$ এর প্রথম কলামে প্রথম সারিতে $1$ এবং অন্যান্য সারিতে $0$ থাকবে।
 
-Similarly, we perform the second step of the algorithm, where we consider the second column of second row. First, the row is divided by $a_{22}$, then it is subtracted from other rows so that all the second column becomes $0$ (except for the second row).
+একইভাবে, আমরা অ্যালগরিদমের দ্বিতীয় ধাপ সম্পাদন করি, যেখানে আমরা দ্বিতীয় সারির দ্বিতীয় কলাম বিবেচনা করি। প্রথমে, সারিটিকে $a_{22}$ দ্বারা ভাগ করা হয়, তারপর অন্যান্য সারি থেকে এটি বিয়োগ করা হয় যাতে সমস্ত দ্বিতীয় কলাম $0$ হয়ে যায় (দ্বিতীয় সারি ব্যতীত)।
 
-We continue this process for all columns of matrix $A$. If $n = m$, then $A$ will become identity matrix.
+আমরা ম্যাট্রিক্স $A$ এর সকল কলামের জন্য এই প্রক্রিয়া চালিয়ে যাই। যদি $n = m$ হয়, তাহলে $A$ আইডেন্টিটি ম্যাট্রিক্সে পরিণত হবে।
 
-## Search for the pivoting element
+## পিভটিং এলিমেন্ট অনুসন্ধান
 
-The described scheme left out many details. At the $i$th step, if $a_{ii}$ is zero, we cannot apply directly the described method. Instead, we must first `select a pivoting row`: find one row of the matrix where the $i$th column is non-zero, and then swap the two rows.
+বর্ণিত স্কিমটি অনেক বিশদ বিবরণ বাদ দিয়েছে। $i$-তম ধাপে, যদি $a_{ii}$ শূন্য হয়, তাহলে আমরা সরাসরি বর্ণিত মেথড প্রয়োগ করতে পারি না। পরিবর্তে, আমাদের প্রথমে একটি `পিভটিং সারি নির্বাচন` করতে হবে: ম্যাট্রিক্সের এমন একটি সারি খুঁজে বের করতে হবে যেখানে $i$-তম কলাম অশূন্য, এবং তারপর দুটি সারি অদলবদল করতে হবে।
 
-Note that, here we swap rows but not columns. This is because if you swap columns, then when you find a solution, you must remember to swap back to correct places. Thus, swapping rows is much easier to do.
+লক্ষ্য করুন যে, এখানে আমরা সারি অদলবদল করি কিন্তু কলাম নয়। কারণ আপনি যদি কলাম অদলবদল করেন, তাহলে সমাধান পাওয়ার পর আপনাকে সঠিক স্থানে ফিরিয়ে আনার কথা মনে রাখতে হবে। তাই সারি অদলবদল করা অনেক সহজ।
 
-In many implementations, when $a_{ii} \neq 0$, you can see people still swap the $i$th row with some pivoting row, using some heuristics such as choosing the pivoting row with maximum absolute value of $a_{ji}$. This heuristic is used to reduce the value range of the matrix in later steps. Without this heuristic, even for matrices of size about $20$, the error will be too big and can cause overflow for floating points data types of C++.
+অনেক ইমপ্লিমেন্টেশনে, যখন $a_{ii} \neq 0$, তখনও $i$-তম সারিকে কোনো পিভটিং সারির সাথে অদলবদল করা হয়, কিছু হিউরিস্টিক ব্যবহার করে যেমন $a_{ji}$ এর সর্বোচ্চ পরম মান বিশিষ্ট পিভটিং সারি বেছে নেওয়া। এই হিউরিস্টিকটি পরবর্তী ধাপগুলোতে ম্যাট্রিক্সের মানের পরিসর কমাতে ব্যবহৃত হয়। এই হিউরিস্টিক ছাড়া, প্রায় $20$ আকারের ম্যাট্রিক্সের জন্যও ত্রুটি অনেক বেশি হবে এবং C++ এর ফ্লোটিং পয়েন্ট ডেটা টাইপে ওভারফ্লো হতে পারে।
 
-## Degenerate cases
+## ডিজেনারেট কেস
 
-In the case where $m = n$ and the system is non-degenerate (i.e. it has non-zero determinant, and has unique solution), the algorithm described above will transform $A$ into identity matrix.
+যে ক্ষেত্রে $m = n$ এবং সিস্টেমটি নন-ডিজেনারেট (অর্থাৎ এর অশূন্য ডিটারমিন্যান্ট আছে, এবং অনন্য সমাধান আছে), উপরে বর্ণিত অ্যালগরিদম $A$ কে আইডেন্টিটি ম্যাট্রিক্সে রূপান্তর করবে।
 
-Now we consider the `general case`, where $n$ and $m$ are not necessarily equal, and the system can be degenerate. In these cases, the pivoting element in $i$th step may not be found. This means that on the $i$th column, starting from the current line, all contains zeros. In this case, either there is no possible value of variable $x_i$ (meaning the SLAE has no solution), or $x_i$ is an independent variable and can take arbitrary value. When implementing Gauss-Jordan, you should continue the work for subsequent variables and just skip the $i$th column (this is equivalent to removing the $i$th column of the matrix).
+এখন আমরা `সাধারণ ক্ষেত্র` বিবেচনা করি, যেখানে $n$ এবং $m$ অগত্যা সমান নয়, এবং সিস্টেমটি ডিজেনারেট হতে পারে। এই ক্ষেত্রগুলোতে, $i$-তম ধাপে পিভটিং এলিমেন্ট পাওয়া নাও যেতে পারে। এর মানে হলো $i$-তম কলামে, বর্তমান সারি থেকে শুরু করে, সবগুলোতে শূন্য আছে। এই ক্ষেত্রে, হয় চলক $x_i$ এর কোনো সম্ভাব্য মান নেই (অর্থাৎ SLAE এর কোনো সমাধান নেই), অথবা $x_i$ একটি স্বাধীন চলক এবং যথেচ্ছ মান নিতে পারে। গাউস-জর্ডান ইমপ্লিমেন্ট করার সময়, আপনার পরবর্তী চলকগুলোর জন্য কাজ চালিয়ে যাওয়া উচিত এবং $i$-তম কলাম এড়িয়ে যাওয়া উচিত (এটি ম্যাট্রিক্সের $i$-তম কলাম অপসারণের সমতুল্য)।
 
-So, some of the variables in the process can be found to be independent. When the number of variables, $m$ is greater than the number of equations, $n$, then at least $m - n$ independent variables will be found.
+সুতরাং, প্রক্রিয়ায় কিছু চলক স্বাধীন হিসেবে পাওয়া যেতে পারে। যখন চলকের সংখ্যা $m$, সমীকরণের সংখ্যা $n$ এর চেয়ে বেশি, তখন কমপক্ষে $m - n$ টি স্বাধীন চলক পাওয়া যাবে।
 
-In general, if you find at least one independent variable, it can take any arbitrary value, while the other (dependent) variables are expressed through it.  This means that when we work in the field of real numbers, the system potentially has infinitely many solutions. But you should remember that when there are independent variables, SLAE can have no solution at all. This happens when the remaining untreated equations have at least one non-zero constant term. You can check this by assigning zeros to all independent variables, calculate other variables, and then plug in to the original SLAE to check if they satisfy it.
+সাধারণত, যদি আপনি কমপক্ষে একটি স্বাধীন চলক পান, এটি যেকোনো যথেচ্ছ মান নিতে পারে, যেখানে অন্যান্য (পরাশ্রিত) চলকগুলো এর মাধ্যমে প্রকাশিত হয়। এর মানে হলো যখন আমরা বাস্তব সংখ্যার ক্ষেত্রে কাজ করি, সিস্টেমের সম্ভাব্যভাবে অসীম সংখ্যক সমাধান থাকতে পারে। কিন্তু মনে রাখতে হবে যে স্বাধীন চলক থাকলেও SLAE এর কোনো সমাধান না-ও থাকতে পারে। এটি ঘটে যখন অবশিষ্ট অপ্রক্রিয়াজাত সমীকরণে কমপক্ষে একটি অশূন্য ধ্রুবক পদ থাকে। আপনি সকল স্বাধীন চলকে শূন্য বসিয়ে, অন্যান্য চলক গণনা করে, এবং তারপর মূল SLAE-তে বসিয়ে যাচাই করতে পারেন।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Following is an implementation of Gauss-Jordan. Choosing the pivot row is done with heuristic: choosing maximum value in the current column.
+নিচে গাউস-জর্ডানের একটি ইমপ্লিমেন্টেশন দেওয়া হলো। পিভট সারি নির্বাচন হিউরিস্টিক দিয়ে করা হয়: বর্তমান কলামে সর্বোচ্চ মান নির্বাচন।
 
-The input to the function `gauss` is the system matrix $a$. The last column of this matrix is vector $b$.
+ফাংশন `gauss` এর ইনপুট হলো সিস্টেমের ম্যাট্রিক্স $a$। এই ম্যাট্রিক্সের শেষ কলামটি হলো ভেক্টর $b$।
 
-The function returns the number of solutions of the system $(0, 1,\textrm{or } \infty)$. If at least one solution exists, then it is returned in the vector $ans$.
+ফাংশনটি সিস্টেমের সমাধানের সংখ্যা $(0, 1,\textrm{or } \infty)$ রিটার্ন করে। যদি কমপক্ষে একটি সমাধান থাকে, তাহলে এটি ভেক্টর $ans$ এ রিটার্ন করা হয়।
 
 ```cpp
 const double EPS = 1e-9;
@@ -128,37 +128,37 @@ int gauss (vector < vector<double> > a, vector<double> & ans) {
 }
 ```
 
-Implementation notes:
+ইমপ্লিমেন্টেশন নোট:
 
-* The function uses two pointers - the current column $col$ and the current row $row$.
-* For each variable $x_i$, the value $where(i)$ is the line where this column is not zero. This vector is needed because some variables can be independent.
-* In this implementation, the current $i$th line is not divided by $a_{ii}$ as described above, so in the end the matrix is not identity matrix (though apparently dividing the $i$th line can help reducing errors).
-* After finding a solution, it is inserted back into the matrix - to check whether the system has at least one solution or not. If the test solution is successful, then the function returns 1 or $\inf$, depending on whether there is at least one independent variable.
+* ফাংশনটি দুটি পয়েন্টার ব্যবহার করে - বর্তমান কলাম $col$ এবং বর্তমান সারি $row$।
+* প্রতিটি চলক $x_i$ এর জন্য, $where(i)$ এর মান হলো সেই লাইন যেখানে এই কলাম অশূন্য। এই ভেক্টরটি প্রয়োজন কারণ কিছু চলক স্বাধীন হতে পারে।
+* এই ইমপ্লিমেন্টেশনে, বর্তমান $i$-তম লাইনকে উপরে বর্ণিত অনুযায়ী $a_{ii}$ দ্বারা ভাগ করা হয় না, তাই শেষে ম্যাট্রিক্সটি আইডেন্টিটি ম্যাট্রিক্স নয় (যদিও আপাতদৃষ্টিতে $i$-তম লাইন ভাগ করলে ত্রুটি কমতে সাহায্য করতে পারে)।
+* একটি সমাধান পাওয়ার পর, এটি ম্যাট্রিক্সে ফিরিয়ে বসানো হয় - সিস্টেমের কমপক্ষে একটি সমাধান আছে কি না তা যাচাই করতে। যদি পরীক্ষামূলক সমাধান সফল হয়, তাহলে ফাংশনটি ১ বা $\inf$ রিটার্ন করে, কমপক্ষে একটি স্বাধীন চলক আছে কি না তার উপর নির্ভর করে।
 
-## Complexity
+## কমপ্লেক্সিটি
 
-Now we should estimate the complexity of this algorithm. The algorithm consists of $m$ phases, in each phase:
+এখন আমাদের এই অ্যালগরিদমের কমপ্লেক্সিটি অনুমান করা উচিত। অ্যালগরিদমটি $m$ টি ফেজ নিয়ে গঠিত, প্রতিটি ফেজে:
 
-* Search and reshuffle the pivoting row. This takes $O(n + m)$ when using heuristic mentioned above.
-* If the pivot element in the current column is found - then we must add this equation to all other equations, which takes time $O(nm)$.
+* পিভটিং সারি অনুসন্ধান এবং পুনর্বিন্যাস। উপরে উল্লিখিত হিউরিস্টিক ব্যবহার করলে এটি $O(n + m)$ সময় নেয়।
+* যদি বর্তমান কলামে পিভট এলিমেন্ট পাওয়া যায় - তাহলে আমাদের এই সমীকরণটি অন্য সকল সমীকরণে যোগ করতে হবে, যা $O(nm)$ সময় নেয়।
 
-So, the final complexity of the algorithm is $O(\min (n, m) . nm)$.
-In case $n = m$, the complexity is simply $O(n^3)$.
+সুতরাং, অ্যালগরিদমের চূড়ান্ত কমপ্লেক্সিটি হলো $O(\min (n, m) . nm)$।
+$n = m$ এর ক্ষেত্রে, কমপ্লেক্সিটি সরলভাবে $O(n^3)$।
 
-Note that when the SLAE is not on real numbers, but is in the modulo two, then the system can be solved much faster, which is described below.
+লক্ষ্য করুন যে যখন SLAE বাস্তব সংখ্যায় নয়, বরং মডুলো ২-তে হয়, তখন সিস্টেমটি অনেক দ্রুত সমাধান করা যায়, যা নিচে বর্ণনা করা হয়েছে।
 
-## Acceleration of the algorithm
+## অ্যালগরিদমের ত্বরণ
 
-The previous implementation can be sped up by two times, by dividing the algorithm into two phases: forward and reverse:
+পূর্ববর্তী ইমপ্লিমেন্টেশনকে দুই গুণ দ্রুত করা যায়, অ্যালগরিদমকে দুটি ফেজে ভাগ করে: ফরওয়ার্ড এবং রিভার্স:
 
-* Forward phase: Similar to the previous implementation, but the current row is only added to the rows after it. As a result, we obtain a triangular matrix instead of diagonal.
-* Reverse phase: When the matrix is triangular, we first calculate the value of the last variable. Then plug this value to find the value of next variable. Then plug these two values to find the next variables...
+* ফরওয়ার্ড ফেজ: পূর্ববর্তী ইমপ্লিমেন্টেশনের অনুরূপ, কিন্তু বর্তমান সারি শুধুমাত্র এর পরের সারিগুলোতে যোগ করা হয়। ফলস্বরূপ, আমরা ডায়াগোনালের পরিবর্তে একটি ত্রিভুজাকার ম্যাট্রিক্স পাই।
+* রিভার্স ফেজ: যখন ম্যাট্রিক্স ত্রিভুজাকার, আমরা প্রথমে শেষ চলকের মান গণনা করি। তারপর পরবর্তী চলকের মান বের করতে এই মান বসাই। তারপর এই দুটি মান বসিয়ে পরবর্তী চলক বের করি...
 
-Reverse phase only takes $O(nm)$, which is much faster than forward phase. In forward phase, we reduce the number of operations by half, thus reducing the running time of the implementation.
+রিভার্স ফেজে শুধু $O(nm)$ সময় লাগে, যা ফরওয়ার্ড ফেজের চেয়ে অনেক দ্রুত। ফরওয়ার্ড ফেজে, আমরা অপারেশনের সংখ্যা অর্ধেক করি, ফলে ইমপ্লিমেন্টেশনের রানিং টাইম কমে।
 
-## Solving modular SLAE
+## মডুলার SLAE সমাধান
 
-For solving SLAE in some modulus, we can still use the described algorithm. However, in case the modulus is equal to 2, we can perform Gauss-Jordan elimination much more effectively using bitwise operations and C++ bitset data types:
+কোনো মডুলাসে SLAE সমাধানের জন্য, আমরা এখনও বর্ণিত অ্যালগরিদম ব্যবহার করতে পারি। তবে, যদি মডুলাস ২ এর সমান হয়, আমরা বিটওয়াইজ অপারেশন এবং C++ bitset ডেটা টাইপ ব্যবহার করে গাউস-জর্ডান এলিমিনেশন অনেক বেশি কার্যকরভাবে করতে পারি:
 
 ```cpp
 int gauss (vector < bitset<N> > a, int n, int m, bitset<N> & ans) {
@@ -182,27 +182,27 @@ int gauss (vector < bitset<N> > a, int n, int m, bitset<N> & ans) {
 }
 ```
 
-Since we use bit compress, the implementation is not only shorter, but also 32 times faster.
+যেহেতু আমরা বিট কম্প্রেস ব্যবহার করি, ইমপ্লিমেন্টেশন শুধু ছোটই নয়, ৩২ গুণ দ্রুতও।
 
-## A little note about different heuristics of choosing pivoting row
+## পিভটিং সারি নির্বাচনের বিভিন্ন হিউরিস্টিক সম্পর্কে একটি ছোট নোট
 
-There is no general rule for what heuristics to use.
+কোন হিউরিস্টিক ব্যবহার করতে হবে তার কোনো সাধারণ নিয়ম নেই।
 
-The heuristics used in previous implementation works quite well in practice. It also turns out to give almost the same answers as "full pivoting" - where the pivoting row is search amongst all elements of the whose submatrix (from the current row and current column).
+পূর্ববর্তী ইমপ্লিমেন্টেশনে ব্যবহৃত হিউরিস্টিকটি বাস্তবে বেশ ভালো কাজ করে। এটি "ফুল পিভটিং"-এর প্রায় একই উত্তর দেয় - যেখানে সম্পূর্ণ সাবম্যাট্রিক্সের (বর্তমান সারি এবং বর্তমান কলাম থেকে) সকল উপাদানের মধ্যে পিভটিং সারি অনুসন্ধান করা হয়।
 
-Though, you should note that both heuristics is dependent on how much the original equations was scaled. For example, if one of the equation was multiplied by $10^6$, then this equation is almost certain to be chosen as pivot in first step. This seems rather strange, so it seems logical to change to a more complicated heuristics, called `implicit pivoting`.
+তবে, আপনার লক্ষ্য করা উচিত যে উভয় হিউরিস্টিকই মূল সমীকরণগুলো কতটুকু স্কেল করা হয়েছে তার উপর নির্ভরশীল। উদাহরণস্বরূপ, যদি একটি সমীকরণকে $10^6$ দ্বারা গুণ করা হয়, তাহলে এই সমীকরণটি প্রথম ধাপে পিভট হিসেবে নির্বাচিত হওয়া প্রায় নিশ্চিত। এটি বেশ অদ্ভুত মনে হয়, তাই `ইমপ্লিসিট পিভটিং` নামক আরও জটিল হিউরিস্টিকে পরিবর্তন করা যুক্তিসঙ্গত মনে হয়।
 
-Implicit pivoting compares elements as if both lines were normalized, so that the maximum element would be unity. To implement this technique, one need to maintain maximum in each row (or maintain each line so that maximum is unity, but this can lead to increase in the accumulated error).
+ইমপ্লিসিট পিভটিং উপাদানগুলোকে এমনভাবে তুলনা করে যেন উভয় লাইন নরমালাইজড, যাতে সর্বোচ্চ উপাদান একক হয়। এই কৌশল ইমপ্লিমেন্ট করতে, প্রতিটি সারিতে সর্বোচ্চ বজায় রাখতে হবে (অথবা প্রতিটি লাইন এমনভাবে বজায় রাখতে হবে যাতে সর্বোচ্চ একক হয়, কিন্তু এটি সঞ্চিত ত্রুটি বাড়াতে পারে)।
 
-## Improve the solution
+## সমাধানের উন্নতি
 
-Despite various heuristics, Gauss-Jordan algorithm can still lead to large errors in special matrices even of size $50 - 100$.
+বিভিন্ন হিউরিস্টিক থাকা সত্ত্বেও, গাউস-জর্ডান অ্যালগরিদম $50 - 100$ আকারের বিশেষ ম্যাট্রিক্সেও বড় ত্রুটি তৈরি করতে পারে।
 
-Therefore, the resulting Gauss-Jordan solution must sometimes be improved by applying a simple numerical method - for example, the method of simple iteration.
+অতএব, গাউস-জর্ডান থেকে প্রাপ্ত সমাধানকে কখনো কখনো একটি সরল সংখ্যাসূচক মেথড প্রয়োগ করে উন্নত করতে হয় - উদাহরণস্বরূপ, সিম্পল ইটারেশন মেথড।
 
-Thus, the solution turns into two-step: First, Gauss-Jordan algorithm is applied, and then a numerical method taking initial solution as solution in the first step.
+এইভাবে, সমাধানটি দুই-ধাপের হয়ে যায়: প্রথমে, গাউস-জর্ডান অ্যালগরিদম প্রয়োগ করা হয়, এবং তারপর একটি সংখ্যাসূচক মেথড প্রথম ধাপের সমাধানকে প্রাথমিক সমাধান হিসেবে নেয়।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Spoj - Xor Maximization](http://www.spoj.com/problems/XMAX/)
 * [Codechef - Knight Moving](https://www.codechef.com/SEP12/problems/KNGHTMOV)
 * [Lightoj - Graph Coloring](http://lightoj.com/volume_showproblem.php?problem=1279)

@@ -1,35 +1,35 @@
 ---
-title: "Binary Exponentiation by Factoring"
+title: "ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন"
 tags: 
 weight: 70
 ---
-# Binary Exponentiation by Factoring
+# ফ্যাক্টরাইজেশনের মাধ্যমে বাইনারি এক্সপোনেনশিয়েশন
 
-Consider a problem of computing $ax^y \pmod{2^d}$, given integers $a$, $x$, $y$ and $d \geq 3$, where $x$ is odd.
+$ax^y \pmod{2^d}$ গণনার একটি সমস্যা বিবেচনা করুন, যেখানে পূর্ণসংখ্যা $a$, $x$, $y$ এবং $d \geq 3$ দেওয়া আছে, এবং $x$ বিজোড়।
 
-The algorithm below allows to solve this problem with $O(d)$ additions and binary operations and a single multiplication by $y$.
+নিচের অ্যালগরিদমটি $O(d)$ যোগ এবং বাইনারি অপারেশন এবং $y$ দ্বারা একটি একক গুণের মাধ্যমে এই সমস্যা সমাধান করতে দেয়।
 
-Due to the structure of the multiplicative group modulo $2^d$, any number $x$ such that $x \equiv 1 \pmod 4$ can be represented as
+$2^d$ মডুলোতে গুণনমূলক গ্রুপের গঠনের কারণে, $x \equiv 1 \pmod 4$ হলে যেকোনো সংখ্যা $x$ কে এভাবে উপস্থাপন করা যায়
 
 $$
 x \equiv b^{L(x)} \pmod{2^d},
 $$
 
-where $b \equiv 5 \pmod 8$. Without loss of generality we assume that $x \equiv 1 \pmod 4$, as we can reduce $x \equiv 3 \pmod 4$ to $x \equiv 1 \pmod 4$ by substituting $x \mapsto -x$ and $a \mapsto (-1)^{y} a$. In this notion, $ax^y$ is represented as
+যেখানে $b \equiv 5 \pmod 8$। সাধারণতা না হারিয়ে আমরা ধরে নিই $x \equiv 1 \pmod 4$, কারণ $x \equiv 3 \pmod 4$ কে $x \mapsto -x$ এবং $a \mapsto (-1)^{y} a$ প্রতিস্থাপনের মাধ্যমে $x \equiv 1 \pmod 4$ এ রিডিউস করা যায়। এই নোটেশনে, $ax^y$ এভাবে উপস্থাপিত হয়
 
 $$
 a x^y \equiv a b^{yL(x)} \pmod{2^d}.
 $$
 
-The core idea of the algorithm is to simplify the computation of $L(x)$ and $b^{y L(x)}$ using the fact that we're working modulo $2^d$. For reasons that will be apparent later on, we'll be working with $4L(x)$ rather than $L(x)$, but taken modulo $2^d$ instead of $2^{d-2}$.
+অ্যালগরিদমের মূল ধারণা হলো $L(x)$ এবং $b^{y L(x)}$-এর গণনাকে সরলীকৃত করা এই তথ্য ব্যবহার করে যে আমরা $2^d$ মডুলোতে কাজ করছি। পরবর্তীতে স্পষ্ট হবে এমন কারণে, আমরা $L(x)$-এর পরিবর্তে $4L(x)$ নিয়ে কাজ করব, তবে $2^{d-2}$-এর পরিবর্তে $2^d$ মডুলোতে নেওয়া হবে।
 
-In this article, we will cover the implementation for $32$-bit integers. Let
+এই আর্টিকেলে, আমরা $32$-বিট ইন্টিজারের জন্য ইমপ্লিমেন্টেশন কভার করব। ধরি
 
-* `mbin_log_32(r, x)` be a function that computes $r+4L(x) \pmod{2^d}$;
-* `mbin_exp_32(r, x)` be a function that computes $r b^{\frac{x}{4}} \pmod{2^d}$;
-* `mbin_power_odd_32(a, x, y)` be a function that computes $ax^y \pmod{2^d}$.
+* `mbin_log_32(r, x)` একটি ফাংশন যা $r+4L(x) \pmod{2^d}$ গণনা করে;
+* `mbin_exp_32(r, x)` একটি ফাংশন যা $r b^{\frac{x}{4}} \pmod{2^d}$ গণনা করে;
+* `mbin_power_odd_32(a, x, y)` একটি ফাংশন যা $ax^y \pmod{2^d}$ গণনা করে।
 
-Then `mbin_power_odd_32` is implemented as follows:
+তাহলে `mbin_power_odd_32` নিম্নরূপে ইমপ্লিমেন্ট করা হয়:
 
 ```cpp
 uint32_t mbin_power_odd_32(uint32_t rem, uint32_t base, uint32_t exp) {
@@ -45,23 +45,23 @@ uint32_t mbin_power_odd_32(uint32_t rem, uint32_t base, uint32_t exp) {
 }
 ```
 
-## Computing 4L(x) from x
+## x থেকে 4L(x) গণনা
 
-Let $x$ be an odd number such that $x \equiv 1 \pmod 4$. It can be represented as 
+ধরি $x$ একটি বিজোড় সংখ্যা যেন $x \equiv 1 \pmod 4$। এটিকে এভাবে উপস্থাপন করা যায়
 
 $$
 x \equiv (2^{a_1}+1)\dots(2^{a_k}+1) \pmod{2^d},
 $$
 
-where $1 < a_1 < \dots < a_k < d$. Here $L(\cdot)$ is well-defined for each multiplier, as they're equal to $1$ modulo $4$. Hence,
+যেখানে $1 < a_1 < \dots < a_k < d$। এখানে $L(\cdot)$ প্রতিটি গুণনীয়কের জন্য সুসংজ্ঞায়িত, কারণ তারা $4$ মডুলোতে $1$-এর সমান। তাই,
 
 $$
 4L(x) \equiv 4L(2^{a_1}+1)+\dots+4L(2^{a_k}+1) \pmod{2^{d}}.
 $$
 
-So, if we precompute $t_k = 4L(2^n+1)$ for all $1 < k < d$, we will be able to compute $4L(x)$ for any number $x$.
+তাই, আমরা যদি সকল $1 < k < d$-এর জন্য $t_k = 4L(2^n+1)$ প্রিকম্পিউট করি, আমরা যেকোনো সংখ্যা $x$-এর জন্য $4L(x)$ গণনা করতে পারব।
 
-For 32-bit integers, we can use the following table:
+৩২-বিট ইন্টিজারের জন্য, আমরা নিম্নলিখিত টেবিল ব্যবহার করতে পারি:
 
 ```cpp
 const uint32_t mbin_log_32_table[32] = {
@@ -76,15 +76,15 @@ const uint32_t mbin_log_32_table[32] = {
 };
 ```
 
-On practice, a slightly different approach is used than described above. Rather than finding the factorization for $x$, we will consequently multiply $x$ with $2^n+1$ until we turn it into $1$ modulo $2^d$. In this way, we will find the representation of $x^{-1}$, that is
+প্র্যাকটিসে, উপরে বর্ণিতটির চেয়ে একটু ভিন্ন পদ্ধতি ব্যবহৃত হয়। $x$-এর ফ্যাক্টরাইজেশন খোঁজার পরিবর্তে, আমরা ক্রমাগত $x$-কে $2^n+1$ দিয়ে গুণ করব যতক্ষণ না এটি $2^d$ মডুলোতে $1$-এ পরিণত হয়। এইভাবে, আমরা $x^{-1}$-এর রিপ্রেজেন্টেশন পাব, অর্থাৎ
 
 $$
 x (2^{a_1}+1)\dots(2^{a_k}+1) \equiv 1 \pmod {2^d}.
 $$
 
-To do this, we iterate over $n$ such that $1 < n < d$. If the current $x$ has $n$-th bit set, we multiply $x$ with $2^n+1$, which is conveniently done in C++ as `x = x + (x << n)`. This won't change bits lower than $n$, but will turn the $n$-th bit to zero, because $x$ is odd.
+এটি করতে, আমরা $1 < n < d$ এমন $n$-এর উপর ইটারেট করি। বর্তমান $x$-এর $n$-তম বিট সেট থাকলে, আমরা $x$-কে $2^n+1$ দিয়ে গুণ করি, যা C++-এ সুবিধাজনকভাবে `x = x + (x << n)` হিসেবে করা যায়। এটি $n$-এর চেয়ে নিচের বিটগুলো পরিবর্তন করবে না, তবে $n$-তম বিটকে শূন্যে পরিণত করবে, কারণ $x$ বিজোড়।
 
-With all this in mind, the function `mbin_log_32(r, x)` is implemented as follows:
+এই সব মাথায় রেখে, `mbin_log_32(r, x)` ফাংশনটি নিম্নরূপে ইমপ্লিমেন্ট করা হয়:
 
 ```cpp
 uint32_t mbin_log_32(uint32_t r, uint32_t x) {
@@ -101,33 +101,33 @@ uint32_t mbin_log_32(uint32_t r, uint32_t x) {
 }
 ```
 
-Note that $4L(x) = -4L(x^{-1})$, so instead of adding $4L(2^n+1)$, we subtract it from $r$, which initially equates to $0$.
+লক্ষ্য করুন $4L(x) = -4L(x^{-1})$, তাই $4L(2^n+1)$ যোগ করার পরিবর্তে, আমরা এটি $r$ থেকে বিয়োগ করি, যা প্রাথমিকভাবে $0$-এর সমান।
 
-## Computing x from 4L(x)
+## 4L(x) থেকে x গণনা
 
-Note that for $k \geq 1$ it holds that
+লক্ষ্য করুন $k \geq 1$-এর জন্য এটি ধরে রাখে যে
 
 $$
 (a 2^{k}+1)^2 = a^2 2^{2k} +a 2^{k+1}+1 = b2^{k+1}+1,
 $$
 
-from which (by repeated squaring) we can deduce that
+যা থেকে (বারবার স্কোয়ারিংয়ের মাধ্যমে) আমরা অনুমান করতে পারি যে
 
 $$
 (2^a+1)^{2^b} \equiv 1 \pmod{2^{a+b}}.
 $$
 
-Applying this result to $a=2^n+1$ and $b=d-k$ we deduce that the multiplicative order of $2^n+1$ is a divisor of $2^{d-n}$.
+এই ফলাফলটি $a=2^n+1$ এবং $b=d-k$-এ প্রয়োগ করলে আমরা অনুমান করি যে $2^n+1$-এর গুণনমূলক অর্ডার $2^{d-n}$-এর একটি ভাজক।
 
-This, in turn, means that $L(2^n+1)$ must be divisible by $2^{n}$, as the order of $b$ is $2^{d-2}$ and the order of $b^y$ is $2^{d-2-v}$, where $2^v$ is the highest power of $2$ that divides $y$, so we need
+এটি, আবার, মানে হলো $L(2^n+1)$ অবশ্যই $2^{n}$ দ্বারা বিভাজ্য, কারণ $b$-এর অর্ডার $2^{d-2}$ এবং $b^y$-এর অর্ডার $2^{d-2-v}$, যেখানে $2^v$ হলো $y$-কে ভাগ করে এমন $2$-এর সর্বোচ্চ ঘাত, তাই আমাদের প্রয়োজন
 
 $$
 2^{d-k} \equiv 0 \pmod{2^{d-2-v}},
 $$
 
-thus $v$ must be greater or equal than $k-2$. This is a bit ugly and to mitigate this we said in the beginning that we multiply $L(x)$ by $4$. Now if we know $4L(x)$, we can uniquely decomposing it into a sum of $4L(2^n+1)$ by consequentially checking bits in $4L(x)$. If the $n$-th bit is set to $1$, we will multiply the result with $2^n+1$ and reduce the current $4L(x)$ by $4L(2^n+1)$.
+সুতরাং $v$ অবশ্যই $k-2$-এর চেয়ে বড় বা সমান হতে হবে। এটি একটু অগোছালো এবং এটি প্রশমিত করতে আমরা শুরুতে বলেছিলাম যে আমরা $L(x)$-কে $4$ দ্বারা গুণ করি। এখন যদি আমরা $4L(x)$ জানি, আমরা $4L(x)$-এর বিটগুলো ক্রমাগত পরীক্ষা করে এটিকে $4L(2^n+1)$-এর যোগফলে স্বতন্ত্রভাবে ডিকম্পোজ করতে পারি। যদি $n$-তম বিট $1$-এ সেট থাকে, আমরা ফলাফলকে $2^n+1$ দিয়ে গুণ করব এবং বর্তমান $4L(x)$ থেকে $4L(2^n+1)$ রিডিউস করব।
 
-Thus, `mbin_exp_32` is implemented as follows:
+সুতরাং, `mbin_exp_32` নিম্নরূপে ইমপ্লিমেন্ট করা হয়:
 
 ```cpp
 uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
@@ -144,15 +144,15 @@ uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
 }
 ```
 
-## Further optimizations
+## আরও অপটিমাইজেশন
 
-It is possible to halve the number of iterations if you note that $4L(2^{d-1}+1)=2^{d-1}$ and that for $2k \geq d$ it holds that
+আপনি যদি লক্ষ্য করেন যে $4L(2^{d-1}+1)=2^{d-1}$ এবং $2k \geq d$-এর জন্য
 
 $$
 (2^n+1)^2 \equiv 2^{2n} + 2^{n+1}+1 \equiv 2^{n+1}+1 \pmod{2^d},
 $$
 
-which allows to deduce that $4L(2^n+1)=2^n$ for $2n \geq d$. So, you could simplify the algorithm by only going up to $\frac{d}{2}$ and then use the fact above to compute the remaining part with bitwise operations:
+তাহলে ইটারেশনের সংখ্যা অর্ধেক করা সম্ভব, যা থেকে অনুমান করা যায় $2n \geq d$ হলে $4L(2^n+1)=2^n$। তাই, আপনি শুধু $\frac{d}{2}$ পর্যন্ত গিয়ে অ্যালগরিদমটি সরলীকৃত করতে পারেন এবং তারপর উপরের তথ্য ব্যবহার করে বিটওয়াইজ অপারেশন দিয়ে বাকি অংশ গণনা করতে পারেন:
 
 ```cpp
 uint32_t mbin_log_32(uint32_t r, uint32_t x) {
@@ -186,32 +186,32 @@ uint32_t mbin_exp_32(uint32_t r, uint32_t x) {
 }
 ```
 
-## Computing logarithm table
+## লগারিদম টেবিল গণনা
 
-To compute log-table, one could modify the [Pohlig–Hellman algorithm](https://en.wikipedia.org/wiki/Pohlig–Hellman_algorithm) for the case when modulo is a power of $2$.
+লগ-টেবিল গণনা করতে, মডুলো $2$-এর ঘাত হলে [পহলিগ-হেলম্যান অ্যালগরিদম](https://en.wikipedia.org/wiki/Pohlig–Hellman_algorithm) পরিবর্তন করা যেতে পারে।
 
-Our main task here is to compute $x$ such that $g^x \equiv y \pmod{2^d}$, where $g=5$ and $y$ is a number of kind $2^n+1$. 
+আমাদের মূল কাজ হলো $x$ গণনা করা যেন $g^x \equiv y \pmod{2^d}$, যেখানে $g=5$ এবং $y$ হলো $2^n+1$ ধরনের একটি সংখ্যা।
 
-Squaring both parts $k$ times we arrive to
+উভয় পক্ষকে $k$ বার স্কোয়ার করলে আমরা পাই
 
 $$
 g^{2^k x} \equiv y^{2^k} \pmod{2^d}.
 $$
 
-Note that the order of $g$ is not greater than $2^{d}$ (in fact, than $2^{d-2}$, but we will stick to $2^d$ for convenience), hence using $k=d-1$ we will have either $g^1$ or $g^0$ on the left hand side which allows us to determine the smallest bit of $x$ by comparing $y^{2^k}$ to $g$. Now assume that $x=x_0 + 2^k x_1$, where $x_0$ is a known part and $x_1$ is not yet known. Then
+লক্ষ্য করুন $g$-এর অর্ডার $2^{d}$-এর বেশি নয় (আসলে $2^{d-2}$-এর বেশি নয়, তবে সুবিধার জন্য আমরা $2^d$ নিয়ে কাজ করব), তাই $k=d-1$ ব্যবহার করলে বাম পক্ষে হয় $g^1$ অথবা $g^0$ থাকবে যা $y^{2^k}$-কে $g$-এর সাথে তুলনা করে $x$-এর ক্ষুদ্রতম বিট নির্ধারণ করতে দেয়। এখন ধরুন $x=x_0 + 2^k x_1$, যেখানে $x_0$ জানা অংশ এবং $x_1$ এখনও অজানা। তাহলে
 
 $$
 g^{x_0+2^k x_1} \equiv y \pmod{2^d}.
 $$
 
-Multiplying both parts with $g^{-x_0}$, we get
+উভয় পক্ষকে $g^{-x_0}$ দিয়ে গুণ করলে পাই
 
 $$
 g^{2^k x_1} \equiv (g^{-x_0} y) \pmod{2^d}.
 $$
 
-Now, squaring both sides $d-k-1$ times we can obtain the next bit of $x$, eventually recovering all its bits.
+এখন, উভয় পক্ষকে $d-k-1$ বার স্কোয়ার করলে আমরা $x$-এর পরবর্তী বিট পেতে পারি, অবশেষে এর সকল বিট উদ্ধার করতে পারি।
 
-## References
+## রেফারেন্স
 
 * [M30, Hans Petter Selasky, 2009](https://ia601602.us.archive.org/29/items/B-001-001-251/B-001-001-251.pdf#page=640)

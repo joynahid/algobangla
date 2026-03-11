@@ -1,97 +1,97 @@
 ---
-title: "Minimum stack / Minimum queue"
+title: "মিনিমাম স্ট্যাক / মিনিমাম কিউ"
 tags: 
 weight: 10
 ---
-# Minimum stack / Minimum queue
+# মিনিমাম স্ট্যাক / মিনিমাম কিউ
 
-In this article we will consider three problems: 
-first we will modify a stack in a way that allows us to find the smallest element of the stack in $O(1)$, then we will do the same thing with a queue, and finally we will use these data structures to find the minimum in all subarrays of a fixed length in an array in $O(n)$
+এই নিবন্ধে আমরা তিনটি সমস্যা বিবেচনা করব:
+প্রথমে আমরা একটি স্ট্যাক এমনভাবে পরিবর্তন করব যা $O(1)$-এ স্ট্যাকের ক্ষুদ্রতম উপাদান খুঁজতে দেয়, তারপর কিউ-র সাথে একই কাজ করব, এবং অবশেষে এই ডেটা স্ট্রাকচারগুলো ব্যবহার করে একটি অ্যারের নির্দিষ্ট দৈর্ঘ্যের সব সাবঅ্যারেতে সর্বনিম্ন $O(n)$-এ খুঁজব।
 
-## Stack modification
+## স্ট্যাক পরিবর্তন
 
-We want to modify the stack data structure in such a way, that it is possible to find the smallest element in the stack in $O(1)$ time, while maintaining the same asymptotic behavior for adding and removing elements from the stack.
-Quick reminder, on a stack we only add and remove elements on one end.
+আমরা স্ট্যাক ডেটা স্ট্রাকচারটি এমনভাবে পরিবর্তন করতে চাই, যেন স্ট্যাকে উপাদান যোগ ও সরানোর জন্য একই অ্যাসিম্পটোটিক আচরণ বজায় রেখে $O(1)$ সময়ে স্ট্যাকের ক্ষুদ্রতম উপাদান খুঁজে পাওয়া সম্ভব হয়।
+দ্রুত স্মরণ, একটি স্ট্যাকে আমরা শুধু এক প্রান্তে উপাদান যোগ এবং সরাই।
 
-To do this, we will not only store the elements in the stack, but we will store them in pairs: the element itself and the minimum in the stack starting from this element and below.
+এর জন্য, আমরা শুধু উপাদানগুলো সংরক্ষণ করব না, বরং জোড়ায় সংরক্ষণ করব: উপাদানটি নিজে এবং এই উপাদান ও নিচের সব উপাদান থেকে শুরু করে স্ট্যাকের সর্বনিম্ন।
 
 ```cpp
 stack<pair<int, int>> st;
 ```
 
-It is clear that finding the minimum in the whole stack consists only of looking at the value `stack.top().second`.
+স্পষ্ট যে পুরো স্ট্যাকে সর্বনিম্ন খুঁজতে শুধু `stack.top().second` মানটি দেখলেই হবে।
 
-It is also obvious that adding or removing a new element to the stack can be done in constant time.
+এটাও স্পষ্ট যে স্ট্যাকে একটি নতুন উপাদান যোগ বা সরানো ধ্রুব সময়ে করা যায়।
 
-Implementation:
+ইমপ্লিমেন্টেশন:
 
-* Adding an element:
+* একটি উপাদান যোগ করা:
 ```cpp
 int new_min = st.empty() ? new_elem : min(new_elem, st.top().second);
 st.push({new_elem, new_min});
 ```
 
-* Removing an element:
+* একটি উপাদান সরানো:
 ```cpp
 int removed_element = st.top().first;
 st.pop();
 ```
 
-* Finding the minimum:
+* সর্বনিম্ন খোঁজা:
 ```cpp
 int minimum = st.top().second;
 ```
 
-## Queue modification (method 1)
+## কিউ পরিবর্তন (পদ্ধতি ১)
 
-Now we want to achieve the same operations with a queue, i.e. we want to add elements at the end and remove them from the front.
+এখন আমরা কিউ-র সাথে একই অপারেশন করতে চাই, অর্থাৎ আমরা শেষে উপাদান যোগ এবং সামনে থেকে সরাতে চাই।
 
-Here we consider a simple method for modifying a queue.
-It has a big disadvantage though, because the modified queue will actually not store all elements.
+এখানে আমরা কিউ পরিবর্তনের একটি সরল পদ্ধতি বিবেচনা করি।
+তবে এর একটি বড় অসুবিধা আছে, কারণ পরিবর্তিত কিউ আসলে সব উপাদান সংরক্ষণ করবে না।
 
-The key idea is to only store the items in the queue that are needed to determine the minimum.
-Namely we will keep the queue in nondecreasing order (i.e. the smallest value will be stored in the head), and of course not in any arbitrary way, the actual minimum has to be always contained in the queue.
-This way the smallest element will always be in the head of the queue.
-Before adding a new element to the queue, it is enough to make a "cut":
-we will remove all trailing elements of the queue that are larger than the new element, and afterwards add the new element to the queue. 
-This way we don't break the order of the queue, and we will also not loose the current element if it is at any subsequent step the minimum. 
-All the elements that we removed can never be a minimum itself, so this operation is allowed.
-When we want to extract an element from the head, it actually might not be there (because we removed it previously while adding a smaller element). 
-Therefore when deleting an element from a queue we need to know the value of the element.
-If the head of the queue has the same value, we can safely remove it, otherwise we do nothing.
+মূল ধারণা হলো কিউ-তে শুধু সেই আইটেমগুলো সংরক্ষণ করা যেগুলো সর্বনিম্ন নির্ধারণে প্রয়োজন।
+বিশেষত আমরা কিউ-কে অবক্রমহীন (অর্থাৎ ক্ষুদ্রতম মান হেডে থাকবে) ক্রমে রাখব, এবং অবশ্যই যেকোনো ইচ্ছামতো উপায়ে নয়, প্রকৃত সর্বনিম্ন সবসময় কিউ-তে থাকতে হবে।
+এভাবে ক্ষুদ্রতম উপাদান সবসময় কিউ-র হেডে থাকবে।
+কিউ-তে একটি নতুন উপাদান যোগ করার আগে, একটি "কাটছাঁট" করাই যথেষ্ট:
+আমরা কিউ-র শেষের সব উপাদান সরিয়ে দেব যেগুলো নতুন উপাদানের চেয়ে বড়, এবং তারপর নতুন উপাদানটি কিউ-তে যোগ করব।
+এভাবে আমরা কিউ-র ক্রম ভাঙি না, এবং বর্তমান উপাদানটিও হারাই না যদি পরবর্তী কোনো ধাপে এটি সর্বনিম্ন হয়।
+যে সব উপাদান আমরা সরিয়েছি তারা কখনো নিজেরা সর্বনিম্ন হতে পারে না, তাই এই অপারেশন অনুমোদিত।
+যখন আমরা হেড থেকে একটি উপাদান বের করতে চাই, সেটি আসলে সেখানে নাও থাকতে পারে (কারণ একটি ছোট উপাদান যোগ করার সময় আমরা এটি আগেই সরিয়ে দিয়েছিলাম)।
+তাই কিউ থেকে একটি উপাদান মুছতে গেলে উপাদানের মান জানতে হবে।
+যদি কিউ-র হেডের মান একই হয়, আমরা নিরাপদে এটি সরাতে পারি, অন্যথায় কিছুই করি না।
 
-Consider the implementations of the above operations:
+উপরের অপারেশনগুলোর ইমপ্লিমেন্টেশন বিবেচনা করুন:
 
 ```cpp
 deque<int> q;
 ```
 
-* Finding the minimum:
+* সর্বনিম্ন খোঁজা:
 ```cpp
 int minimum = q.front();
 ```
 
-* Adding an element:
+* একটি উপাদান যোগ করা:
 ```cpp
 while (!q.empty() && q.back() > new_element)
     q.pop_back();
 q.push_back(new_element);
 ```
 
-* Removing an element:
+* একটি উপাদান সরানো:
 ```cpp
 if (!q.empty() && q.front() == remove_element)
     q.pop_front();
 ```
 
-It is clear that on average all these operation only take $O(1)$ time (because every element can only be pushed and popped once).
+স্পষ্ট যে গড়ে এই সব অপারেশন শুধু $O(1)$ সময় নেয় (কারণ প্রতিটি উপাদান শুধু একবার পুশ এবং পপ করা যায়)।
 
-## Queue modification (method 2)
+## কিউ পরিবর্তন (পদ্ধতি ২)
 
-This is a modification of method 1.
-We want to be able to remove elements without knowing which element we have to remove.
-We can accomplish that by storing the index for each element in the queue.
-And we also remember how many elements we already have added and removed.
+এটি পদ্ধতি ১-এর একটি পরিবর্তন।
+আমরা কোন উপাদান সরাতে হবে না জেনেও উপাদান সরাতে চাই।
+আমরা কিউ-র প্রতিটি উপাদানের জন্য ইনডেক্স সংরক্ষণ করে এটি করতে পারি।
+এবং আমরা কতগুলো উপাদান যোগ এবং সরিয়েছি তাও মনে রাখি।
 
 ```cpp
 deque<pair<int, int>> q;
@@ -99,12 +99,12 @@ int cnt_added = 0;
 int cnt_removed = 0;
 ```
 
-* Finding the minimum:
+* সর্বনিম্ন খোঁজা:
 ```cpp
 int minimum = q.front().first;
 ```
 
-* Adding an element:
+* একটি উপাদান যোগ করা:
 ```cpp
 while (!q.empty() && q.back().first > new_element)
     q.pop_back();
@@ -112,51 +112,51 @@ q.push_back({new_element, cnt_added});
 cnt_added++;
 ```
 
-* Removing an element:
+* একটি উপাদান সরানো:
 ```cpp
-if (!q.empty() && q.front().second == cnt_removed) 
+if (!q.empty() && q.front().second == cnt_removed)
     q.pop_front();
 cnt_removed++;
 ```
 
-## Queue modification (method 3)
+## কিউ পরিবর্তন (পদ্ধতি ৩)
 
-Here we consider another way of modifying a queue to find the minimum in $O(1)$.
-This way is somewhat more complicated to implement, but this time we actually store all elements.
-And we also can remove an element from the front without knowing its value.
+এখানে আমরা $O(1)$-এ সর্বনিম্ন খুঁজতে কিউ পরিবর্তনের আরেকটি উপায় বিবেচনা করি।
+এই উপায়টি ইমপ্লিমেন্ট করতে কিছুটা জটিল, কিন্তু এবার আমরা আসলে সব উপাদান সংরক্ষণ করি।
+এবং আমরা সামনে থেকে একটি উপাদানের মান না জেনেও সরাতে পারি।
 
-The idea is to reduce the problem to the problem of stacks, which was already solved by us.
-So we only need to learn how to simulate a queue using two stacks.
+ধারণাটি হলো সমস্যাটিকে স্ট্যাকের সমস্যায় নামিয়ে আনা, যেটি আমরা ইতিমধ্যে সমাধান করেছি।
+তাই আমাদের শুধু শিখতে হবে কীভাবে দুটি স্ট্যাক ব্যবহার করে একটি কিউ সিমুলেট করা যায়।
 
-We make two stacks, `s1` and `s2`. 
-Of course these stack will be of the modified form, so that we can find the minimum in $O(1)$. 
-We will add new elements to the stack `s1`, and remove elements from the stack `s2`.
-If at any time the stack `s2` is empty, we move all elements from `s1` to `s2` (which essentially reverses the order of those elements).
-Finally finding the minimum in a queue involves just finding the minimum of both stacks.
+আমরা দুটি স্ট্যাক তৈরি করি, `s1` এবং `s2`।
+অবশ্যই এই স্ট্যাকগুলো পরিবর্তিত ফর্মের হবে, যেন $O(1)$-এ সর্বনিম্ন খুঁজতে পারি।
+আমরা নতুন উপাদান `s1` স্ট্যাকে যোগ করব, এবং `s2` স্ট্যাক থেকে উপাদান সরাব।
+যদি কোনো সময় `s2` স্ট্যাক খালি থাকে, আমরা `s1` থেকে সব উপাদান `s2`-তে স্থানান্তর করি (যা মূলত সেই উপাদানগুলোর ক্রম উল্টে দেয়)।
+অবশেষে কিউ-তে সর্বনিম্ন খুঁজতে শুধু দুটি স্ট্যাকের সর্বনিম্ন বের করতে হবে।
 
-Thus we perform all operations in $O(1)$ on average (each element will be once added to stack `s1`, once transferred to `s2`, and once popped from `s2`)
+তাই আমরা গড়ে $O(1)$-এ সব অপারেশন সম্পাদন করি (প্রতিটি উপাদান একবার `s1` স্ট্যাকে যোগ হবে, একবার `s2`-তে স্থানান্তরিত হবে, এবং একবার `s2` থেকে পপ হবে)।
 
-Implementation:
+ইমপ্লিমেন্টেশন:
 
 ```cpp
 stack<pair<int, int>> s1, s2;
 ```
 
-* Finding the minimum:
+* সর্বনিম্ন খোঁজা:
 ```cpp
-if (s1.empty() || s2.empty()) 
+if (s1.empty() || s2.empty())
     minimum = s1.empty() ? s2.top().second : s1.top().second;
 else
     minimum = min(s1.top().second, s2.top().second);
 ```
 
-* Add element:
+* উপাদান যোগ করা:
 ```cpp
 int minimum = s1.empty() ? new_element : min(new_element, s1.top().second);
 s1.push({new_element, minimum});
 ```
 
-* Removing an element:
+* একটি উপাদান সরানো:
 ```cpp
 if (s2.empty()) {
     while (!s1.empty()) {
@@ -170,22 +170,21 @@ int remove_element = s2.top().first;
 s2.pop();
 ```
 
-## Finding the minimum for all subarrays of fixed length
+## নির্দিষ্ট দৈর্ঘ্যের সব সাবঅ্যারেতে সর্বনিম্ন খোঁজা
 
-Suppose we are given an array $A$ of length $N$ and a given $M \le N$.
-We have to find the minimum of each subarray of length $M$ in this array, i.e. we have to find:
+ধরুন দৈর্ঘ্য $N$-এর একটি অ্যারে $A$ এবং একটি প্রদত্ত $M \le N$ দেওয়া আছে।
+আমাদের এই অ্যারেতে $M$ দৈর্ঘ্যের প্রতিটি সাবঅ্যারের সর্বনিম্ন খুঁজতে হবে, অর্থাৎ আমাদের খুঁজতে হবে:
 
 $$\min_{0 \le i \le M-1} A[i], \min_{1 \le i \le M} A[i], \min_{2 \le i \le M+1} A[i],~\dots~, \min_{N-M \le i \le N-1} A[i]$$
 
-We have to solve this problem in linear time, i.e. $O(n)$.
+আমাদের এই সমস্যা লিনিয়ার সময়ে, অর্থাৎ $O(n)$-এ সমাধান করতে হবে।
 
-We can use any of the three modified queues to solve the problem.
-The solutions should be clear:
-we add the first $M$ element of the array, find and output its minimum, then add the next element to the queue and remove the first element of the array, find and output its minimum, etc. 
-Since all operations with the queue are performed in constant time on average, the complexity of the whole algorithm will be $O(n)$.
+আমরা তিনটি পরিবর্তিত কিউ-র যেকোনোটি ব্যবহার করে সমস্যাটি সমাধান করতে পারি।
+সমাধান স্পষ্ট হওয়া উচিত:
+আমরা অ্যারের প্রথম $M$ উপাদান যোগ করি, এর সর্বনিম্ন খুঁজে আউটপুট দিই, তারপর কিউ-তে পরবর্তী উপাদান যোগ করি এবং অ্যারের প্রথম উপাদান সরাই, সর্বনিম্ন খুঁজে আউটপুট দিই, ইত্যাদি।
+যেহেতু কিউ-র সব অপারেশন গড়ে ধ্রুব সময়ে সম্পাদিত হয়, পুরো অ্যালগরিদমের কমপ্লেক্সিটি হবে $O(n)$।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Queries with Fixed Length](https://www.hackerrank.com/challenges/queries-with-fixed-length/problem)
 * [Sliding Window Minimum](https://cses.fi/problemset/task/3221)
 * [Binary Land](https://www.codechef.com/MAY20A/problems/BINLAND)
-

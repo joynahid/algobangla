@@ -1,91 +1,91 @@
 ---
-title: "Half-plane intersection"
+title: "হাফ-প্লেন ইন্টারসেকশন"
 tags: 
 weight: 40
 ---
-# Half-plane intersection
+# হাফ-প্লেন ইন্টারসেকশন
 
-In this article we will discuss the problem of computing the intersection of a set of half-planes. Such an intersection can be conveniently represented as a convex region/polygon, where every point inside of it is also inside all of the half-planes, and it is this polygon that we're trying to find or construct. We give some initial intuition for the problem, describe a $O(N \log N)$ approach known as the Sort-and-Incremental algorithm and give some sample applications of this technique.
+এই আর্টিকেলে আমরা হাফ-প্লেনগুলোর একটি সেটের ছেদ (intersection) নির্ণয়ের সমস্যা নিয়ে আলোচনা করব। এই ধরনের ছেদকে সুবিধাজনকভাবে একটি উত্তল (convex) অঞ্চল/পলিগন হিসেবে উপস্থাপন করা যায়, যেখানে এর ভেতরের প্রতিটি বিন্দু সব হাফ-প্লেনের ভেতরেও অবস্থান করে, এবং এই পলিগনটিই আমরা খুঁজে বের করতে বা নির্মাণ করতে চাই। আমরা সমস্যাটির কিছু প্রাথমিক ধারণা দেব, সর্ট-অ্যান্ড-ইনক্রিমেন্টাল অ্যালগরিদম নামে পরিচিত একটি $O(N \log N)$ পদ্ধতি বর্ণনা করব এবং এই টেকনিকের কিছু নমুনা প্রয়োগ দেখাব।
 
-It is strongly recommended for the reader to be familiar with basic geometrical primitives and operations (points, vectors, intersection of lines). Additionally, knowledge about [Convex Hulls](../geometry/convex-hull.md) or the [Convex Hull Trick](../geometry/convex_hull_trick.md) may help to better understand the concepts in this article, but they are not a prerequisite by any means.
+পাঠকের জন্য মৌলিক জ্যামিতিক আদিম (primitives) এবং অপারেশন (বিন্দু, ভেক্টর, সরলরেখার ছেদ) সম্পর্কে পরিচিত হওয়া দৃঢ়ভাবে সুপারিশ করা হচ্ছে। এছাড়াও, [কনভেক্স হাল](../geometry/convex-hull.md) বা [কনভেক্স হাল ট্রিক](../geometry/convex_hull_trick.md) সম্পর্কে জ্ঞান থাকলে এই আর্টিকেলের ধারণাগুলো আরও ভালোভাবে বুঝতে সাহায্য করতে পারে, তবে এগুলো কোনোভাবেই পূর্বশর্ত নয়।
 
-## Initial clarifications and definitions
+## প্রাথমিক ব্যাখ্যা ও সংজ্ঞা
 
-For the entire article, we will make some assumptions (unless specified otherwise):
+পুরো আর্টিকেল জুড়ে, আমরা কিছু অনুমান করব (অন্যথায় উল্লেখ না করা হলে):
 
-1. We define $N$ to be the quantity of half-planes in the given set.
-2. We will represent lines and half-planes by one point and one vector (any point that lies on the given line, and the direction vector of the line). In the case of half-planes, we assume that every half-plane allows the region to the left side of its direction vector. Additionally, we define the angle of a half-plane to be the polar angle of its direction vector. See image below for example.
-3. We will assume that the resulting intersection is always either bounded or empty. If we need to handle the unbounded case, we can simply add 4 half-planes that define a large-enough bounding box. 
-4. We will assume, for simplicity, that there are no parallel half-planes in the given set. Towards the end of the article we will discuss how to deal with such cases.
+১. আমরা প্রদত্ত সেটে হাফ-প্লেনের সংখ্যাকে $N$ দ্বারা সংজ্ঞায়িত করব।
+২. আমরা সরলরেখা এবং হাফ-প্লেনকে একটি বিন্দু এবং একটি ভেক্টর দিয়ে উপস্থাপন করব (প্রদত্ত সরলরেখার উপর অবস্থিত যেকোনো বিন্দু, এবং সরলরেখার দিক ভেক্টর)। হাফ-প্লেনের ক্ষেত্রে, আমরা ধরে নিই যে প্রতিটি হাফ-প্লেন তার দিক ভেক্টরের বাম দিকের অঞ্চল অনুমোদন করে। এছাড়াও, আমরা একটি হাফ-প্লেনের কোণকে তার দিক ভেক্টরের পোলার কোণ হিসেবে সংজ্ঞায়িত করি। উদাহরণের জন্য নিচের ছবিটি দেখুন।
+৩. আমরা ধরে নেব যে ফলস্বরূপ ছেদ সবসময় হয় সীমাবদ্ধ (bounded) অথবা শূন্য (empty)। যদি আমাদের অসীমাবদ্ধ ক্ষেত্র সামলাতে হয়, তাহলে আমরা সহজেই ৪টি হাফ-প্লেন যোগ করতে পারি যা একটি যথেষ্ট বড় বাউন্ডিং বক্স সংজ্ঞায়িত করে।
+৪. সরলতার জন্য আমরা ধরে নেব যে প্রদত্ত সেটে কোনো সমান্তরাল হাফ-প্লেন নেই। আর্টিকেলের শেষের দিকে আমরা এই ধরনের ক্ষেত্র কীভাবে সামলাতে হয় তা আলোচনা করব।
 
-![](/images/geometry/halfplanes_rep.png) 
+![](/images/geometry/halfplanes_rep.png)
 
-The half-plane $y \geq 2x - 2$ can be represented as the point $P = (1, 0)$ with direction vector $PQ = Q - P = (1, 2)$
+হাফ-প্লেন $y \geq 2x - 2$ কে বিন্দু $P = (1, 0)$ এবং দিক ভেক্টর $PQ = Q - P = (1, 2)$ দিয়ে উপস্থাপন করা যায়
 
-## Brute force approach - $O(N^3)$ {data-toc-label="Brute force approach - O(N^3)"}
+## ব্রুট ফোর্স পদ্ধতি - $O(N^3)$ {data-toc-label="Brute force approach - O(N^3)"}
 
-One of the most straightforward and obvious solutions would be to compute the intersection point of the lines of all pairs of half-planes and, for each point, check if it is inside all of the other half-planes. Since there are $O(N^2)$ intersection points, and for each of them we have to check $O(N)$ half-planes, the total time complexity is $O(N^3)$. The actual region of the intersection can then be reconstructed using, for example, a Convex Hull algorithm on the set of intersection points that were included in all the half-planes. 
+সবচেয়ে সরল এবং স্পষ্ট সমাধানগুলোর একটি হলো সব জোড়া হাফ-প্লেনের সরলরেখার ছেদবিন্দু গণনা করা এবং প্রতিটি বিন্দুর জন্য পরীক্ষা করা যে এটি অন্য সব হাফ-প্লেনের ভেতরে আছে কি না। যেহেতু $O(N^2)$টি ছেদবিন্দু আছে, এবং প্রতিটির জন্য আমাদের $O(N)$টি হাফ-প্লেন পরীক্ষা করতে হয়, মোট টাইম কমপ্লেক্সিটি হলো $O(N^3)$। ছেদের প্রকৃত অঞ্চলটি তখন পুনর্গঠন করা যায়, উদাহরণস্বরূপ, সব হাফ-প্লেনের মধ্যে অন্তর্ভুক্ত ছেদবিন্দুগুলোর সেটের উপর একটি কনভেক্স হাল অ্যালগরিদম ব্যবহার করে।
 
-It is fairly easy to see why this works: the vertices of the resulting convex polygon are all intersection points of the half-plane lines, and each of those vertices is obviously part of all the half-planes. The main advantage of this method is that its easy to understand, remember and code on-the-fly if you just need to check if the intersection is empty or not. However, it is awfully slow and unfit for most problems, so we need something faster.
+এটি কেন কাজ করে তা দেখা বেশ সহজ: ফলস্বরূপ উত্তল পলিগনের শীর্ষবিন্দুগুলো সব হাফ-প্লেন সরলরেখার ছেদবিন্দু, এবং সেই শীর্ষবিন্দুগুলোর প্রতিটি স্পষ্টতই সব হাফ-প্লেনের অংশ। এই পদ্ধতির প্রধান সুবিধা হলো এটি বোঝা, মনে রাখা এবং তাৎক্ষণিকভাবে কোড করা সহজ যদি আপনি শুধু ছেদ শূন্য কি না তা পরীক্ষা করতে চান। তবে, এটি ভয়ানক ধীর এবং বেশিরভাগ সমস্যার জন্য অনুপযুক্ত, তাই আমাদের আরও দ্রুত কিছু দরকার।
 
-## Incremental approach - $O(N^2)$ {data-toc-label="Incremental approach - O(N^2)"}
+## ইনক্রিমেন্টাল পদ্ধতি - $O(N^2)$ {data-toc-label="Incremental approach - O(N^2)"}
 
-Another fairly straightforward approach is to incrementally construct the intersection of the half-planes, one at a time. This method is basically equivalent to cutting a convex polygon by a line $N$ times, and removing the redundant half-planes at every step. To do this, we can represent the convex polygon as a list of line segments, and to cut it with a half-plane we simply find the intersection points of the segments with the half-plane line (there will only be two intersection points if the line properly intersects the polygon), and replace all the line segments in-between with the new segment corresponding to the half-plane. Since such procedure can be implemented in linear time, we can simply start with a big bounding box and cut it down with each one of the half-planes, obtaining a total time complexity of $O(N^2)$.
+আরেকটি মোটামুটি সরল পদ্ধতি হলো হাফ-প্লেনগুলোর ছেদ একটি একটি করে ধাপে ধাপে নির্মাণ করা। এই পদ্ধতিটি মূলত একটি উত্তল পলিগনকে একটি সরলরেখা দিয়ে $N$ বার কাটা এবং প্রতিটি ধাপে অপ্রয়োজনীয় হাফ-প্লেনগুলো সরিয়ে ফেলার সমতুল্য। এটি করতে, আমরা উত্তল পলিগনটিকে রেখাংশের একটি তালিকা হিসেবে উপস্থাপন করতে পারি, এবং একটি হাফ-প্লেন দিয়ে কাটতে আমরা সহজেই রেখাংশগুলোর সাথে হাফ-প্লেন সরলরেখার ছেদবিন্দু খুঁজি (সরলরেখাটি যদি পলিগনটিকে সঠিকভাবে ছেদ করে তবে মাত্র দুটি ছেদবিন্দু থাকবে), এবং মাঝখানের সব রেখাংশকে হাফ-প্লেনের সাথে সম্পর্কিত নতুন রেখাংশ দিয়ে প্রতিস্থাপন করি। যেহেতু এই প্রক্রিয়াটি রৈখিক সময়ে ইমপ্লিমেন্ট করা যায়, আমরা সহজেই একটি বড় বাউন্ডিং বক্স দিয়ে শুরু করতে পারি এবং প্রতিটি হাফ-প্লেন দিয়ে কেটে নিতে পারি, ফলে মোট টাইম কমপ্লেক্সিটি হয় $O(N^2)$।
 
-This method is a big step in the right direction, but it does feel wasteful to have to iterate over $O(N)$ half-planes at every step. We will see next that, by making some clever observations, the ideas behind this incremental approach can be recycled to create a $O(N \log N)$ algorithm.
+এই পদ্ধতিটি সঠিক দিকে একটি বড় পদক্ষেপ, কিন্তু প্রতিটি ধাপে $O(N)$ হাফ-প্লেনের উপর ইটারেট করা অপচয়মূলক মনে হয়। আমরা পরবর্তীতে দেখব যে, কিছু চতুর পর্যবেক্ষণ করে, এই ইনক্রিমেন্টাল পদ্ধতির পেছনের ধারণাগুলো পুনর্ব্যবহার করে একটি $O(N \log N)$ অ্যালগরিদম তৈরি করা যায়।
 
-## Sort-and-Incremental algorithm - $O(N \log N)$ {data-toc-label="Sort-and-Incremental algorithm - O(N log N)"}
+## সর্ট-অ্যান্ড-ইনক্রিমেন্টাল অ্যালগরিদম - $O(N \log N)$ {data-toc-label="Sort-and-Incremental algorithm - O(N log N)"}
 
-The first properly-documented source of this algorithm we could find was Zeyuan Zhu's thesis for Chinese Team Selecting Contest titled [New Algorithm for Half-plane Intersection and its Practical Value](http://people.csail.mit.edu/zeyuan/publications.htm), from the year 2006. The approach we'll describe next is based on this same algorithm, but instead of computing two separate intersections for the lower and upper halves of the intersections, we'll construct it all at once in one pass with a deque (double-ended queue).
+এই অ্যালগরিদমের প্রথম সঠিকভাবে নথিভুক্ত উৎস যা আমরা খুঁজে পেয়েছি তা হলো চাইনিজ টিম সিলেক্টিং কন্টেস্টের জন্য Zeyuan Zhu-র থিসিস [New Algorithm for Half-plane Intersection and its Practical Value](http://people.csail.mit.edu/zeyuan/publications.htm), যা ২০০৬ সালে প্রকাশিত। আমরা পরবর্তীতে যে পদ্ধতি বর্ণনা করব তা এই একই অ্যালগরিদমের উপর ভিত্তি করে, কিন্তু ছেদের নিম্ন ও উপরের অর্ধাংশের জন্য দুটি পৃথক ছেদ গণনা করার পরিবর্তে, আমরা একটি ডেক (ডাবল-এন্ডেড কিউ) দিয়ে একবারেই সব নির্মাণ করব।
 
-The algorithm itself, as the name may spoil, takes advantage of the fact that the resulting region from the intersection of half-planes is convex, and thus it will consist of some segments of half-planes in order sorted by their angles. This leads to a crucial observation: if we incrementally intersect the half-planes in their order sorted by angle (as they would appear in the final, resulting shape of the intersection) and store them in a double-ended queue, then we will only ever need to remove half-planes from the front and the back of the deque.
+অ্যালগরিদমটি নিজেই, নাম থেকে যেমন অনুমান করা যায়, এই সত্যের সুবিধা নেয় যে হাফ-প্লেনের ছেদ থেকে ফলস্বরূপ অঞ্চলটি উত্তল, এবং তাই এটি তাদের কোণ অনুসারে সর্ট করা ক্রমে হাফ-প্লেনের কিছু সেগমেন্ট নিয়ে গঠিত হবে। এটি একটি গুরুত্বপূর্ণ পর্যবেক্ষণের দিকে নিয়ে যায়: যদি আমরা হাফ-প্লেনগুলোকে তাদের কোণ অনুসারে সর্ট করা ক্রমে (যেভাবে তারা ছেদের চূড়ান্ত আকৃতিতে দেখা যাবে) ক্রমান্বয়ে ছেদ করি এবং একটি ডাবল-এন্ডেড কিউতে সংরক্ষণ করি, তাহলে আমাদের শুধুমাত্র ডেকের সামনে এবং পেছন থেকে হাফ-প্লেন সরাতে হবে।
 
-To better visualize this fact, suppose we're performing the incremental approach described previously on a set of half-planes that is sorted by angle (in this case, we'll assume they're sorted from $-\pi$ to $\pi$), and suppose that we're about to start some arbitrary $k$'th step. This means we have already constructed the intersection of the first $k-1$ half-planes. Now, because the half-planes are sorted by angle, whatever the $k$'th half-plane is, we can be sure that it will form a convex turn with the $(K-1)$'th half-plane. For that reason, a few things may happen:
+এই সত্যটি আরও ভালোভাবে কল্পনা করতে, ধরুন আমরা পূর্বে বর্ণিত ইনক্রিমেন্টাল পদ্ধতিটি কোণ অনুসারে সর্ট করা হাফ-প্লেনের একটি সেটের উপর প্রয়োগ করছি (এই ক্ষেত্রে, আমরা ধরে নেব এগুলো $-\pi$ থেকে $\pi$ পর্যন্ত সর্ট করা), এবং ধরুন আমরা কোনো একটি $k$-তম ধাপ শুরু করতে যাচ্ছি। এর মানে আমরা ইতিমধ্যে প্রথম $k-1$ হাফ-প্লেনের ছেদ নির্মাণ করেছি। এখন, যেহেতু হাফ-প্লেনগুলো কোণ অনুসারে সর্ট করা, $k$-তম হাফ-প্লেন যাই হোক না কেন, আমরা নিশ্চিত হতে পারি যে এটি $(K-1)$-তম হাফ-প্লেনের সাথে একটি উত্তল বাঁক তৈরি করবে। এই কারণে, কয়েকটি জিনিস ঘটতে পারে:
 
-1. Some (possibly none) of the half-planes in the back of the intersection may become *redundant*. In this case, we need to pop these now-useless half-planes from the back of the deque. 
-2. Some (possibly none) of the half-planes at the front may become *redundant*. Analogous to case 1, we just pop them from the front of the deque.
-3. The intersection may become empty (after handling cases 1 and/or 2). In this case, we just report the intersection is empty and terminate the algorithm.
+১. ছেদের পেছনের কিছু (সম্ভবত শূন্য) হাফ-প্লেন *অপ্রয়োজনীয়* হয়ে যেতে পারে। এই ক্ষেত্রে, আমাদের এই এখন-অকেজো হাফ-প্লেনগুলো ডেকের পেছন থেকে পপ করতে হবে।
+২. সামনের কিছু (সম্ভবত শূন্য) হাফ-প্লেন *অপ্রয়োজনীয়* হয়ে যেতে পারে। কেস ১-এর অনুরূপ, আমরা সেগুলো ডেকের সামনে থেকে পপ করি।
+৩. ছেদ শূন্য হয়ে যেতে পারে (কেস ১ এবং/অথবা ২ সামলানোর পরে)। এই ক্ষেত্রে, আমরা শুধু রিপোর্ট করি যে ছেদ শূন্য এবং অ্যালগরিদম সমাপ্ত করি।
 
-*We say a half-plane is "redundant" if it does not contribute anything to the intersection. Such a half-plane could be removed and the resulting intersection would not change at all.*
+*আমরা বলি একটি হাফ-প্লেন "অপ্রয়োজনীয়" যদি এটি ছেদে কিছুই অবদান না রাখে। এরকম একটি হাফ-প্লেন সরিয়ে ফেললেও ফলস্বরূপ ছেদ মোটেই পরিবর্তন হবে না।*
 
-Here's a small example with an illustration:
+এখানে একটি ছোট উদাহরণ সচিত্রে দেওয়া হলো:
 
-Let $H = \{ A, B, C, D, E \}$ be the set of half-planes currently present in the intersection. Additionally, let $P = \{ p, q, r, s \}$ be the set of intersection points of adjacent half-planes in H. Now, suppose we wish to intersect it with the half-plane $F$, as seen in the illustration below:
+ধরি $H = \{ A, B, C, D, E \}$ হলো বর্তমানে ছেদে উপস্থিত হাফ-প্লেনের সেট। এছাড়াও, ধরি $P = \{ p, q, r, s \}$ হলো H-তে পাশাপাশি হাফ-প্লেনগুলোর ছেদবিন্দুর সেট। এখন, ধরুন আমরা এটিকে হাফ-প্লেন $F$ দিয়ে ছেদ করতে চাই, যেমনটি নিচের চিত্রে দেখানো হয়েছে:
 
 ![](/images/geometry/halfplanes_hp1.png)
 
-Notice the half-plane $F$ makes $A$ and $E$ redundant in the intersection. So we remove both $A$ and $E$ from the front and back of the intersection, respectively, and add $F$ at the end. And we finally obtain the new intersection $H = \{ B, C, D, F\}$ with $P = \{ q, r, t, u \}$.
+লক্ষ্য করুন হাফ-প্লেন $F$ ছেদে $A$ এবং $E$-কে অপ্রয়োজনীয় করে তোলে। তাই আমরা ছেদের সামনে এবং পেছন থেকে যথাক্রমে $A$ এবং $E$ সরিয়ে ফেলি, এবং শেষে $F$ যোগ করি। এবং আমরা অবশেষে নতুন ছেদ $H = \{ B, C, D, F\}$ পাই যেখানে $P = \{ q, r, t, u \}$।
 
 ![](/images/geometry/halfplanes_hp2.png)
 
-With all of this in mind, we have almost everything we need to actually implement the algorithm, but we still need to talk about some special cases. At the beginning of the article we said we would add a bounding box to take care of the cases where the intersection could be unbounded, so the only tricky case we actually need to handle is parallel half-planes. We can have two sub-cases: two half-planes can be parallel with the same direction or with opposite direction. The reason this case needs to be handled separately is because we will need to compute intersection points of half-plane lines to be able to check if a half-plane is redundant or not, and two parallel lines have no intersection point, so we need a special way to deal with them.
+এই সব মাথায় রেখে, অ্যালগরিদমটি আসলে ইমপ্লিমেন্ট করতে আমাদের প্রায় সবকিছুই আছে, কিন্তু আমাদের এখনও কিছু বিশেষ ক্ষেত্র নিয়ে কথা বলতে হবে। আর্টিকেলের শুরুতে আমরা বলেছিলাম যে ছেদ অসীমাবদ্ধ হতে পারে এমন ক্ষেত্রগুলো সামলাতে আমরা একটি বাউন্ডিং বক্স যোগ করব, তাই আমাদের আসলে একমাত্র কঠিন ক্ষেত্র হলো সমান্তরাল হাফ-প্লেন। আমাদের দুটি উপ-ক্ষেত্র থাকতে পারে: দুটি হাফ-প্লেন একই দিকে সমান্তরাল হতে পারে অথবা বিপরীত দিকে। এই ক্ষেত্রটি আলাদাভাবে সামলাতে হওয়ার কারণ হলো একটি হাফ-প্লেন অপ্রয়োজনীয় কি না তা পরীক্ষা করতে আমাদের হাফ-প্লেন সরলরেখার ছেদবিন্দু গণনা করতে হবে, এবং দুটি সমান্তরাল সরলরেখার কোনো ছেদবিন্দু নেই, তাই আমাদের এগুলো সামলানোর জন্য একটি বিশেষ উপায় দরকার।
 
-For the case of parallel half-planes of opposite orientation: Notice that, because we're adding the bounding box to deal with the unbounded case, this also deals with the case where we have two adjacent parallel half-planes with opposite directions after sorting, since there will have to be at least one of the bounding-box half-planes in between these two (remember they are sorted by angle). 
+বিপরীত দিকের সমান্তরাল হাফ-প্লেনের ক্ষেত্রে: লক্ষ্য করুন যে, যেহেতু আমরা অসীমাবদ্ধ ক্ষেত্র সামলাতে বাউন্ডিং বক্স যোগ করছি, এটি সেই ক্ষেত্রটিও সামলায় যেখানে সর্ট করার পরে বিপরীত দিকের দুটি পাশাপাশি সমান্তরাল হাফ-প্লেন থাকে, কারণ এই দুটির মধ্যে বাউন্ডিং-বক্সের অন্তত একটি হাফ-প্লেন থাকতে হবে (মনে রাখবেন এগুলো কোণ অনুসারে সর্ট করা)।
 
- * However, it is possible that, after removing some half-planes from the back of the deque, two parallel half-planes of opposite direction end up together. This case only happens, specifically, when these two half-planes form an empty intersection, as this last half-plane will cause everything to be removed from the deque. To avoid this problem, we have to manually check for parallel half-planes, and if they have opposite direction, we just instantly stop the algorithm and return an empty intersection.
+ * তবে, ডেকের পেছন থেকে কিছু হাফ-প্লেন সরানোর পরে, বিপরীত দিকের দুটি সমান্তরাল হাফ-প্লেন একসাথে এসে যাওয়া সম্ভব। এই ক্ষেত্রটি কেবল তখনই ঘটে, বিশেষভাবে, যখন এই দুটি হাফ-প্লেন একটি শূন্য ছেদ গঠন করে, কারণ এই শেষ হাফ-প্লেনটি ডেক থেকে সবকিছু সরিয়ে ফেলবে। এই সমস্যা এড়াতে, আমাদের ম্যানুয়ালি সমান্তরাল হাফ-প্লেন পরীক্ষা করতে হবে, এবং যদি তাদের বিপরীত দিক থাকে, আমরা তাৎক্ষণিকভাবে অ্যালগরিদম বন্ধ করি এবং একটি শূন্য ছেদ রিটার্ন করি।
 
 
-Thus the only case we actually need to handle is having multiple half-planes with the same angle, and it turns out this case is fairly easy to handle: we only have keep the leftmost half-plane and erase the rest, since they will be completely redundant anyways.
-To sum up, the full algorithm will roughly look as follows:
+এইভাবে আমাদের আসলে যে একমাত্র ক্ষেত্রটি সামলাতে হবে তা হলো একই কোণের একাধিক হাফ-প্লেন থাকা, এবং দেখা যাচ্ছে এই ক্ষেত্রটি সামলানো বেশ সহজ: আমাদের শুধু সবচেয়ে বামের হাফ-প্লেনটি রাখতে হবে এবং বাকিগুলো মুছে ফেলতে হবে, কারণ সেগুলো যাই হোক সম্পূর্ণ অপ্রয়োজনীয় হবে।
+সংক্ষেপে, পূর্ণ অ্যালগরিদমটি মোটামুটি নিম্নরূপ হবে:
 
-1. We begin by sorting the set of half-planes by angle, which takes $O(N \log N)$ time.
-2. We will iterate over the set of half-planes, and for each one, we will perform the incremental procedure, popping from the front and the back of the double-ended queue as necessary. This will take linear time in total, as every half-plane can only be added or removed once.
-3. At the end, the convex polygon resulting from the intersection can be simply obtained by computing the intersection points of adjacent half-planes in the deque at the end of the procedure. This will take linear time as well. It is also possible to store such points during step 2 and skip this step entirely, but we believe it is slightly easier (in terms of implementation) to compute them on-the-fly.
+১. আমরা হাফ-প্লেনের সেটকে কোণ অনুসারে সর্ট করে শুরু করি, যাতে $O(N \log N)$ সময় লাগে।
+২. আমরা হাফ-প্লেনের সেটের উপর ইটারেট করব, এবং প্রতিটির জন্য, আমরা ইনক্রিমেন্টাল প্রক্রিয়া সম্পাদন করব, প্রয়োজনমতো ডাবল-এন্ডেড কিউয়ের সামনে এবং পেছন থেকে পপ করব। এটি মোট রৈখিক সময় নেবে, কারণ প্রতিটি হাফ-প্লেন মাত্র একবার যোগ বা সরানো যেতে পারে।
+৩. শেষে, ছেদ থেকে ফলস্বরূপ উত্তল পলিগনটি সহজেই পাওয়া যায় প্রক্রিয়ার শেষে ডেকের পাশাপাশি হাফ-প্লেনগুলোর ছেদবিন্দু গণনা করে। এটিও রৈখিক সময় নেবে। ধাপ ২-এর সময় এই বিন্দুগুলো সংরক্ষণ করা এবং এই ধাপটি সম্পূর্ণ এড়িয়ে যাওয়াও সম্ভব, কিন্তু আমরা মনে করি (ইমপ্লিমেন্টেশনের দিক থেকে) সেগুলো তাৎক্ষণিকভাবে গণনা করা কিছুটা সহজ।
 
-In total, we have achieved a time complexity of $O(N \log N)$. Since sorting is clearly the bottleneck, the algorithm can be made to run in linear time in the special case where we are given half-planes sorted in advance by their angles (an example of such a case would be obtaining the half-planes that define a convex polygon). 
+মোটের উপর, আমরা $O(N \log N)$ টাইম কমপ্লেক্সিটি অর্জন করেছি। যেহেতু সর্টিং স্পষ্টতই বটলনেক, অ্যালগরিদমটি রৈখিক সময়ে চালানো যায় সেই বিশেষ ক্ষেত্রে যেখানে আমাদের কোণ অনুসারে আগে থেকেই সর্ট করা হাফ-প্লেন দেওয়া হয় (এই ধরনের ক্ষেত্রের একটি উদাহরণ হলো একটি উত্তল পলিগন সংজ্ঞায়িত করা হাফ-প্লেনগুলো পাওয়া)।
 
-### Direct implementation
+### সরাসরি ইমপ্লিমেন্টেশন
 
-Here is a sample, direct implementation of the algorithm, with comments explaining most parts: 
+এখানে অ্যালগরিদমের একটি নমুনা, সরাসরি ইমপ্লিমেন্টেশন দেওয়া হলো, বেশিরভাগ অংশ ব্যাখ্যা করা কমেন্টসহ:
 
-Simple point/vector and half-plane structs:
+সরল পয়েন্ট/ভেক্টর এবং হাফ-প্লেন স্ট্রাক্ট:
 
 ```cpp
 // Redefine epsilon and infinity as necessary. Be mindful of precision errors.
-const long double eps = 1e-9, inf = 1e9; 
+const long double eps = 1e-9, inf = 1e9;
 
 // Basic point/vector struct.
-struct Point { 
+struct Point {
 
     long double x, y;
     explicit Point(long double x = 0, long double y = 0) : x(x), y(y) {}
@@ -93,48 +93,48 @@ struct Point {
     // Addition, substraction, multiply by constant, dot product, cross product.
 
     friend Point operator + (const Point& p, const Point& q) {
-        return Point(p.x + q.x, p.y + q.y); 
+        return Point(p.x + q.x, p.y + q.y);
     }
 
-    friend Point operator - (const Point& p, const Point& q) { 
-        return Point(p.x - q.x, p.y - q.y); 
+    friend Point operator - (const Point& p, const Point& q) {
+        return Point(p.x - q.x, p.y - q.y);
     }
 
-    friend Point operator * (const Point& p, const long double& k) { 
-        return Point(p.x * k, p.y * k); 
-    } 
-    
+    friend Point operator * (const Point& p, const long double& k) {
+        return Point(p.x * k, p.y * k);
+    }
+
     friend long double dot(const Point& p, const Point& q) {
     	return p.x * q.x + p.y * q.y;
     }
 
-    friend long double cross(const Point& p, const Point& q) { 
-        return p.x * q.y - p.y * q.x; 
+    friend long double cross(const Point& p, const Point& q) {
+        return p.x * q.y - p.y * q.x;
     }
 };
 
 // Basic half-plane struct.
-struct Halfplane { 
+struct Halfplane {
 
     // 'p' is a passing point of the line and 'pq' is the direction vector of the line.
-    Point p, pq; 
+    Point p, pq;
     long double angle;
 
     Halfplane() {}
     Halfplane(const Point& a, const Point& b) : p(a), pq(b - a) {
-        angle = atan2l(pq.y, pq.x);    
+        angle = atan2l(pq.y, pq.x);
     }
 
-    // Check if point 'r' is outside this half-plane. 
+    // Check if point 'r' is outside this half-plane.
     // Every half-plane allows the region to the LEFT of its line.
-    bool out(const Point& r) { 
-        return cross(pq, r - p) < -eps; 
+    bool out(const Point& r) {
+        return cross(pq, r - p) < -eps;
     }
 
-    // Comparator for sorting. 
-    bool operator < (const Halfplane& e) const { 
+    // Comparator for sorting.
+    bool operator < (const Halfplane& e) const {
         return angle < e.angle;
-    } 
+    }
 
     // Intersection point of the lines of two half-planes. It is assumed they're never parallel.
     friend Point inter(const Halfplane& s, const Halfplane& t) {
@@ -144,17 +144,17 @@ struct Halfplane {
 };
 ```
 
-Algorithm: 
+অ্যালগরিদম:
 
 ```cpp
 // Actual algorithm
-vector<Point> hp_intersect(vector<Halfplane>& H) { 
+vector<Point> hp_intersect(vector<Halfplane>& H) {
 
     Point box[4] = {  // Bounding box in CCW order
-        Point(inf, inf), 
-        Point(-inf, inf), 
-        Point(-inf, -inf), 
-        Point(inf, -inf) 
+        Point(inf, inf),
+        Point(-inf, inf),
+        Point(-inf, -inf),
+        Point(inf, -inf)
     };
 
     for(int i = 0; i<4; i++) { // Add bounding box half-planes.
@@ -179,13 +179,13 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
             dq.pop_front();
             --len;
         }
-        
+
         // Special case check: Parallel half-planes
         if (len > 0 && fabsl(cross(H[i].pq, dq[len-1].pq)) < eps) {
         	// Opposite parallel half-planes that ended up checked against each other.
         	if (dot(H[i].pq, dq[len-1].pq) < 0.0)
         		return vector<Point>();
-        	
+
         	// Same direction half-plane: keep only the leftmost half-plane.
         	if (H[i].out(dq[len-1].p)) {
         		dq.pop_back();
@@ -193,7 +193,7 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
         	}
         	else continue;
         }
-        
+
         // Add new half-plane
         dq.push_back(H[i]);
         ++len;
@@ -224,48 +224,48 @@ vector<Point> hp_intersect(vector<Halfplane>& H) {
 ```
 
 
-### Implementation discussion
+### ইমপ্লিমেন্টেশন আলোচনা
 
-A special thing to note is that, in case there multiple half-planes that intersect at the same point, then this algorithm could return repeated adjacent points in the final polygon. However, this should not have any impact on judging correctly whether the intersection is empty or not, and it does not affect the polygon area at all either. You may want to remove these duplicates depending on what tasks you need to do after. You can do this very easily with std::unique. We want to keep the repeat points during the execution of the algorithm so that the intersections with area equal to zero can be computed correctly (for example, intersections that consist of a single point, line or line-segment). I encourage the reader to test some small hand-made cases where the intersection results in a single point or line.
+একটি বিশেষ বিষয় লক্ষণীয় যে, যদি একাধিক হাফ-প্লেন একই বিন্দুতে ছেদ করে, তাহলে এই অ্যালগরিদম চূড়ান্ত পলিগনে পুনরাবৃত্ত পাশাপাশি বিন্দু রিটার্ন করতে পারে। তবে, ছেদ শূন্য কি না তা সঠিকভাবে বিচার করার উপর এর কোনো প্রভাব থাকা উচিত নয়, এবং এটি পলিগনের ক্ষেত্রফলকেও মোটেই প্রভাবিত করে না। পরবর্তীতে কী কাজ করতে হবে তার উপর নির্ভর করে আপনি এই ডুপ্লিকেটগুলো সরাতে চাইতে পারেন। আপনি std::unique দিয়ে খুব সহজেই এটি করতে পারেন। আমরা অ্যালগরিদমের এক্সিকিউশনের সময় পুনরাবৃত্ত বিন্দুগুলো রাখতে চাই যাতে শূন্য ক্ষেত্রফলের ছেদগুলো সঠিকভাবে গণনা করা যায় (উদাহরণস্বরূপ, যে ছেদগুলো একটি একক বিন্দু, সরলরেখা বা রেখাংশ নিয়ে গঠিত)। আমি পাঠককে কিছু ছোট হাতে তৈরি কেস পরীক্ষা করতে উৎসাহিত করি যেখানে ছেদ একটি একক বিন্দু বা সরলরেখায় পরিণত হয়।
 
-One more thing that should be talked about is what to do if we are given half-planes in the form of a linear constraint (for example, $ax + by + c \leq 0$). In such case, there are two options. You can either implement the algorithm with the corresponding modifications to work with such representation (essentially create your own half-plane struct, should be fairly straightforward if you're familiar with the convex hull trick), or you can transform the lines into the representation we used in this article by taking any 2 points of each line. In general, it is recommended to work with the representation that you're given in the problem to avoid additional precision issues.
+আরও একটি বিষয় যা বলা উচিত তা হলো যদি আমাদের রৈখিক সীমাবদ্ধতার আকারে হাফ-প্লেন দেওয়া হয় (উদাহরণস্বরূপ, $ax + by + c \leq 0$) তাহলে কী করতে হবে। এই ক্ষেত্রে, দুটি বিকল্প আছে। আপনি হয় এই ধরনের উপস্থাপনার সাথে কাজ করার জন্য প্রয়োজনীয় পরিবর্তনসহ অ্যালগরিদমটি ইমপ্লিমেন্ট করতে পারেন (মূলত আপনার নিজের হাফ-প্লেন স্ট্রাক্ট তৈরি করুন, কনভেক্স হাল ট্রিকের সাথে পরিচিত থাকলে এটি মোটামুটি সরল হওয়া উচিত), অথবা আপনি প্রতিটি সরলরেখার যেকোনো ২টি বিন্দু নিয়ে এই আর্টিকেলে ব্যবহৃত উপস্থাপনায় সরলরেখাগুলো রূপান্তর করতে পারেন। সাধারণত, অতিরিক্ত নির্ভুলতার সমস্যা এড়াতে সমস্যায় যে উপস্থাপনা দেওয়া আছে তা দিয়েই কাজ করা সুপারিশ করা হয়।
 
-## Problems, tasks and applications
+## সমস্যা, কাজ এবং প্রয়োগ
 
-Many problems that can be solved with half-plane intersection can also be solved without it, but with (usually) more complicated or uncommon approaches. Generally, half-plane intersection can appear when dealing with problems related to polygons (mostly convex), visibility in the plane and two-dimensional linear programming. Here are some sample tasks that can be solved with this technique: 
+হাফ-প্লেন ইন্টারসেকশন দিয়ে সমাধান করা যায় এমন অনেক সমস্যা এটি ছাড়াও সমাধান করা যায়, কিন্তু (সাধারণত) আরও জটিল বা অসাধারণ পদ্ধতিতে। সাধারণত, পলিগন (বেশিরভাগ উত্তল), সমতলে দৃশ্যমানতা এবং দ্বি-মাত্রিক লিনিয়ার প্রোগ্রামিং সম্পর্কিত সমস্যাগুলোতে হাফ-প্লেন ইন্টারসেকশন দেখা দিতে পারে। এখানে এই টেকনিক দিয়ে সমাধান করা যায় এমন কিছু নমুনা কাজ দেওয়া হলো:
 
-### Convex polygon intersection 
+### কনভেক্স পলিগন ইন্টারসেকশন
 
-One of the classical applications of half-plane intersection: Given $N$ polygons, compute the region that is included inside all of the polygons. 
+হাফ-প্লেন ইন্টারসেকশনের একটি ক্লাসিক্যাল প্রয়োগ: $N$টি পলিগন দেওয়া আছে, সব পলিগনের ভেতরে অন্তর্ভুক্ত অঞ্চল গণনা করুন।
 
-Since the intersection of a set of half-planes is a convex polygon, we can also represent a convex polygon as a set of half-planes (every edge of the polygon is a segment of a half-plane). Generate these half-planes for every polygon and compute the intersection of the whole set. The total time complexity is $O(S \log S)$, where S is the total number of sides of all the polygons. The problem can also theoretically be solved in $O(S \log N)$ by merging the $N$ sets of half-planes using a heap and then running the algorithm without the sorting step, but such solution has much worse constant factor than straightforward sorting and only provides minor speed gains for very small $N$.
+যেহেতু হাফ-প্লেনের একটি সেটের ছেদ একটি উত্তল পলিগন, আমরা একটি উত্তল পলিগনকেও হাফ-প্লেনের একটি সেট হিসেবে উপস্থাপন করতে পারি (পলিগনের প্রতিটি বাহু একটি হাফ-প্লেনের একটি সেগমেন্ট)। প্রতিটি পলিগনের জন্য এই হাফ-প্লেনগুলো তৈরি করুন এবং পুরো সেটের ছেদ গণনা করুন। মোট টাইম কমপ্লেক্সিটি হলো $O(S \log S)$, যেখানে S হলো সব পলিগনের মোট বাহুর সংখ্যা। সমস্যাটি তত্ত্বগতভাবে $O(S \log N)$-তেও সমাধান করা যায় একটি হিপ ব্যবহার করে $N$টি হাফ-প্লেন সেট মার্জ করে এবং তারপর সর্টিং ধাপ ছাড়া অ্যালগরিদম চালিয়ে, কিন্তু এই ধরনের সমাধানের ধ্রুবক ফ্যাক্টর সরলভাবে সর্ট করার চেয়ে অনেক খারাপ এবং খুব ছোট $N$-এর জন্যই সামান্য গতি লাভ প্রদান করে।
 
-### Visibility in the plane
+### সমতলে দৃশ্যমানতা
 
-Problems that require something among the lines of "determine if some line segments are visible from some point(s) in the plane" can usually be formulated as half-plane intersection problems. Take, for example, the following task: Given some simple polygon (not necessarily convex), determine if there's any point inside the polygon such that the whole boundary of the polygon can be observed from that point. This is also known as finding the [kernel of a polygon](https://en.wikipedia.org/wiki/Star-shaped_polygon) and can be solved by simple half-plane intersection, taking each edge of the polygon as a half-plane and then computing its intersection.
+যে সমস্যাগুলোতে "সমতলের কোনো বিন্দু(গুলো) থেকে কিছু রেখাংশ দৃশ্যমান কি না নির্ধারণ করুন" ধরনের কিছু প্রয়োজন, সেগুলো সাধারণত হাফ-প্লেন ইন্টারসেকশন সমস্যা হিসেবে প্রণয়ন করা যায়। উদাহরণস্বরূপ, নিম্নলিখিত কাজটি ধরুন: একটি সরল পলিগন (অগত্যা উত্তল নয়) দেওয়া আছে, নির্ধারণ করুন যে পলিগনের ভেতরে এমন কোনো বিন্দু আছে কি না যেখান থেকে পলিগনের সম্পূর্ণ সীমানা পর্যবেক্ষণ করা যায়। এটি [পলিগনের কার্নেল](https://en.wikipedia.org/wiki/Star-shaped_polygon) খুঁজে বের করা হিসেবেও পরিচিত এবং সরল হাফ-প্লেন ইন্টারসেকশন দিয়ে সমাধান করা যায়, পলিগনের প্রতিটি বাহুকে একটি হাফ-প্লেন হিসেবে নিয়ে এবং তারপর এর ছেদ গণনা করে।
 
-Here's a related, more interesting problem that was presented by Artem Vasilyev in one of his [Brazilian ICPC Summer School lectures](https://youtu.be/WKyZSitpm6M?t=6463): 
-Given a set $p$ of points $p_1, p_2\ \dots \ p_n$ in the plane, determine if there's any point $q$ you can stand at such that you can see all the points of $p$ from left to right in increasing order of their index.
+এখানে একটি সম্পর্কিত, আরও আকর্ষণীয় সমস্যা যা Artem Vasilyev তার একটি [Brazilian ICPC Summer School লেকচারে](https://youtu.be/WKyZSitpm6M?t=6463) উপস্থাপন করেছিলেন:
+সমতলে বিন্দুগুলোর একটি সেট $p$ ($p_1, p_2\ \dots \ p_n$) দেওয়া আছে, নির্ধারণ করুন যে এমন কোনো বিন্দু $q$ আছে কি না যেখানে দাঁড়িয়ে আপনি $p$-এর সব বিন্দুকে তাদের ইনডেক্সের ক্রমবর্ধমান ক্রমে বাম থেকে ডানে দেখতে পারেন।
 
-Such problem can be solved by noticing that being able to see some point $p_i$ to the left of $p_j$ is the same as being able to see the right side of the line segment from $p_i$ to $p_j$ (or equivalently, being able to see the left side of the segment from $p_j$ to $p_i$). With that in mind, we can simply create a half-plane for every line segment $p_i p_{i+1}$ (or $p_{i+1} p_i$ depending on the orientation you choose) and check if the intersection of the whole set is empty or not.
+এই সমস্যাটি লক্ষ্য করে সমাধান করা যায় যে কোনো বিন্দু $p_i$-কে $p_j$-এর বামে দেখতে পাওয়া মানে $p_i$ থেকে $p_j$ পর্যন্ত রেখাংশের ডান দিক দেখতে পাওয়া (বা সমতুল্যভাবে, $p_j$ থেকে $p_i$ পর্যন্ত সেগমেন্টের বাম দিক দেখতে পাওয়া)। এটি মাথায় রেখে, আমরা সহজেই প্রতিটি রেখাংশ $p_i p_{i+1}$ (বা $p_{i+1} p_i$, আপনি কোন ওরিয়েন্টেশন বেছে নেন তার উপর নির্ভর করে) এর জন্য একটি হাফ-প্লেন তৈরি করতে পারি এবং পুরো সেটের ছেদ শূন্য কি না তা পরীক্ষা করতে পারি।
 
-### Half-plane intersection with binary search
+### বাইনারি সার্চের সাথে হাফ-প্লেন ইন্টারসেকশন
 
-Another common application is utilizing half-plane intersection as a tool to validate the predicate of a binary search procedure. Here's an example of such a problem, also presented by Artem Vasilyev in the same lecture that was previously mentioned: Given a **convex** polygon $P$, find the biggest circumference that can be inscribed inside of it.
+আরেকটি সাধারণ প্রয়োগ হলো একটি বাইনারি সার্চ প্রক্রিয়ার প্রেডিকেট যাচাই করার জন্য টুল হিসেবে হাফ-প্লেন ইন্টারসেকশন ব্যবহার করা। এখানে এই ধরনের একটি সমস্যার উদাহরণ দেওয়া হলো, যা পূর্বে উল্লেখিত একই লেকচারে Artem Vasilyev উপস্থাপন করেছিলেন: একটি **উত্তল** পলিগন $P$ দেওয়া আছে, এর ভেতরে অন্তর্লিখিত করা যায় এমন সবচেয়ে বড় পরিধি খুঁজুন।
 
-Instead of looking for some sort of closed-form solution, annoying formulas or obscure algorithmic solutions, lets instead try to binary search on the answer. Notice that, for some fixed $r$, a circle with radius $r$ can be inscribed inside $P$ only if there exists some point inside $P$ that has distance greater or equal than $r$ to all the points of the boundary of $P$. This condition can be validated by "shrinking" the polygon inwards by a distance of $r$ and checking that the polygon remains non-degenerate (or is a point/segment itself). Such procedure can be simulated by taking the half-planes of the polygon sides in counter-clockwise order, translating each of them by a distance of $r$ in the direction of the region they allow (that is, orthogonal to the direction vector of the half-plane), and checking if the intersection is not empty.
+কোনো ক্লোজড-ফর্ম সমাধান, বিরক্তিকর সূত্র বা অস্পষ্ট অ্যালগরিদমিক সমাধান খোঁজার পরিবর্তে, আসুন উত্তরের উপর বাইনারি সার্চ করার চেষ্টা করি। লক্ষ্য করুন যে, কোনো নির্দিষ্ট $r$-এর জন্য, ব্যাসার্ধ $r$-এর একটি বৃত্ত $P$-এর ভেতরে অন্তর্লিখিত করা যায় শুধু তখনই যদি $P$-এর ভেতরে এমন কোনো বিন্দু থাকে যার $P$-এর সীমানার সব বিন্দু থেকে দূরত্ব $r$ বা তার বেশি। এই শর্তটি যাচাই করা যায় পলিগনটিকে $r$ দূরত্ব ভেতরের দিকে "সংকুচিত" করে এবং পলিগনটি অ-অধঃপতিত (non-degenerate) থেকে যায় কি না (অথবা একটি বিন্দু/সেগমেন্ট নিজেই কি না) তা পরীক্ষা করে। এই প্রক্রিয়াটি পলিগনের বাহুগুলোর হাফ-প্লেনগুলোকে ঘড়ির কাঁটার বিপরীত ক্রমে নিয়ে, প্রতিটিকে $r$ দূরত্ব তাদের অনুমোদিত অঞ্চলের দিকে (অর্থাৎ, হাফ-প্লেনের দিক ভেক্টরের লম্ব) স্থানান্তর করে, এবং ছেদ শূন্য নয় কি না পরীক্ষা করে অনুকরণ করা যায়।
 
-Clearly, if we can inscribe a circle of radius $r$, we can also inscribe any other circle of radius smaller than $r$. So we can perform a binary search on the radius $r$ and validate every step using half-plane intersection. Also, note that the half-planes of a convex polygon are already sorted by angle, so the sorting step can be skipped in the algorithm. Thus we obtain a total time complexity of $O(NK)$, where $N$ is the number of polygon vertices and $K$ is the number of iterations of the binary search (the actual value will depend on the range of possible answers and the desired precision).
+স্পষ্টতই, যদি আমরা ব্যাসার্ধ $r$-এর একটি বৃত্ত অন্তর্লিখিত করতে পারি, তাহলে $r$-এর চেয়ে ছোট ব্যাসার্ধের যেকোনো বৃত্তও অন্তর্লিখিত করতে পারি। তাই আমরা ব্যাসার্ধ $r$-এর উপর বাইনারি সার্চ করতে পারি এবং হাফ-প্লেন ইন্টারসেকশন ব্যবহার করে প্রতিটি ধাপ যাচাই করতে পারি। এছাড়াও, লক্ষ্য করুন যে একটি উত্তল পলিগনের হাফ-প্লেনগুলো ইতিমধ্যে কোণ অনুসারে সর্ট করা, তাই অ্যালগরিদমে সর্টিং ধাপটি বাদ দেওয়া যায়। এভাবে আমরা মোট $O(NK)$ টাইম কমপ্লেক্সিটি পাই, যেখানে $N$ হলো পলিগনের শীর্ষবিন্দুর সংখ্যা এবং $K$ হলো বাইনারি সার্চের ইটারেশন সংখ্যা (প্রকৃত মান সম্ভাব্য উত্তরের পরিসীমা এবং কাঙ্ক্ষিত নির্ভুলতার উপর নির্ভর করবে)।
 
-### Two-dimensional linear programming
+### দ্বি-মাত্রিক লিনিয়ার প্রোগ্রামিং
 
-One more application of half-plane intersection is linear programming in two variables. All linear constraints for two variables can be expressed in the form of $Ax + By + C \leq 0$ (inequality comparator may vary). Clearly, these are just half-planes, so checking if a feasible solution exists for a set of linear constraints can be done with half-plane intersection. Additionally, for a given set of linear constraints, it is possible to compute the region of feasible solutions (i.e. the intersection of the half-planes) and then answer multiple queries of maximizing/minimizing some linear function $f(x, y)$ subject to the constraints in $O(\log N)$ per query using binary search (very similar to the convex hull trick).
+হাফ-প্লেন ইন্টারসেকশনের আরেকটি প্রয়োগ হলো দুটি চলকের লিনিয়ার প্রোগ্রামিং। দুটি চলকের জন্য সব রৈখিক সীমাবদ্ধতা $Ax + By + C \leq 0$ আকারে প্রকাশ করা যায় (অসমতা তুলনাকারী পরিবর্তিত হতে পারে)। স্পষ্টতই, এগুলো শুধু হাফ-প্লেন, তাই রৈখিক সীমাবদ্ধতার একটি সেটের জন্য একটি সম্ভাব্য সমাধান আছে কি না তা হাফ-প্লেন ইন্টারসেকশন দিয়ে পরীক্ষা করা যায়। এছাড়াও, রৈখিক সীমাবদ্ধতার একটি প্রদত্ত সেটের জন্য, সম্ভাব্য সমাধানের অঞ্চল (অর্থাৎ হাফ-প্লেনের ছেদ) গণনা করা সম্ভব এবং তারপর বাইনারি সার্চ ব্যবহার করে কুয়েরি প্রতি $O(\log N)$-তে কোনো রৈখিক ফাংশন $f(x, y)$-কে সীমাবদ্ধতার অধীনে সর্বাধিক/সর্বনিম্ন করার একাধিক কুয়েরির উত্তর দেওয়া যায় (কনভেক্স হাল ট্রিকের অনুরূপ)।
 
-It is worth mentioning that there also exists a fairly simple randomized algorithm that can check whether a set of linear constraints has a feasible solution or not, and maximize/minimize some linear function subject to the given constraints. This randomized algorithm was also explained nicely by Artem Vasilyev in the lecture mentioned earlier. Here are some additional resources on it, should the reader be interested: [CG - Lecture 4, parts 4 and 5](https://youtu.be/5dfc355t2y4) and [Petr Mitrichev's blog (which includes the solution to the hardest problem in the practice problems list below)](https://petr-mitrichev.blogspot.com/2016/07/a-half-plane-week.html).
+উল্লেখ করা যোগ্য যে একটি মোটামুটি সরল র‍্যান্ডমাইজড অ্যালগরিদমও আছে যা পরীক্ষা করতে পারে রৈখিক সীমাবদ্ধতার একটি সেটের কোনো সম্ভাব্য সমাধান আছে কি না, এবং প্রদত্ত সীমাবদ্ধতার অধীনে কোনো রৈখিক ফাংশন সর্বাধিক/সর্বনিম্ন করতে পারে। এই র‍্যান্ডমাইজড অ্যালগরিদমটি পূর্বে উল্লেখিত লেকচারে Artem Vasilyev-ও সুন্দরভাবে ব্যাখ্যা করেছিলেন। পাঠক আগ্রহী হলে এখানে কিছু অতিরিক্ত রিসোর্স দেওয়া হলো: [CG - Lecture 4, parts 4 and 5](https://youtu.be/5dfc355t2y4) এবং [Petr Mitrichev-এর ব্লগ (যাতে নিচের অনুশীলন সমস্যা তালিকার সবচেয়ে কঠিন সমস্যার সমাধান রয়েছে)](https://petr-mitrichev.blogspot.com/2016/07/a-half-plane-week.html)।
 
-## Practice problems
+## অনুশীলন সমস্যা
 
-### Classic problems, direct application
+### ক্লাসিক সমস্যা, সরাসরি প্রয়োগ
 
 * [Codechef - Animesh decides to settle down](https://www.codechef.com/problems/CHN02)
 * [POJ - How I mathematician Wonder What You Are!](http://poj.org/problem?id=3130)
@@ -274,7 +274,7 @@ It is worth mentioning that there also exists a fairly simple randomized algorit
 * [POJ - Art Gallery](http://poj.org/problem?id=1279)
 * [POJ - Uyuw's Concert](http://poj.org/problem?id=2451)
 
-### Harder problems
+### কঠিন সমস্যা
 
 * [POJ - Most Distant Point from the Sea - Medium](http://poj.org/problem?id=3525)
 * [Baekjoon - Jeju's Island - Same as above but seemingly stronger test cases](https://www.acmicpc.net/problem/3903)
@@ -282,28 +282,28 @@ It is worth mentioning that there also exists a fairly simple randomized algorit
 * [POJ - Triathlon - Medium/hard](http://poj.org/problem?id=1755)
 * [DMOJ - Arrow - Medium/hard](https://dmoj.ca/problem/ccoprep3p3)
 * [POJ - Jungle Outpost - Hard](http://poj.org/problem?id=3968)
-* [Codeforces - Jungle Outpost (alternative link, problem J) - Hard](https://codeforces.com/gym/101309/attachments?mobile=false) 
+* [Codeforces - Jungle Outpost (alternative link, problem J) - Hard](https://codeforces.com/gym/101309/attachments?mobile=false)
 * [Yandex - Asymmetry Value (need virtual contest to see, problem F) - Very Hard](https://contest.yandex.com/contest/2540/enter/)
 
-### Additional problems
+### অতিরিক্ত সমস্যা
 
-* 40th Petrozavodsk Programming Camp, Winter 2021 - Day 1: Jagiellonian U Contest, Grand Prix of Krakow - Problem B: (Almost) Fair Cake-Cutting. At the time of writing the article, this problem was private and only accessible by participants of the Programming Camp.
+* 40th Petrozavodsk Programming Camp, Winter 2021 - Day 1: Jagiellonian U Contest, Grand Prix of Krakow - Problem B: (Almost) Fair Cake-Cutting। এই আর্টিকেল লেখার সময়, এই সমস্যাটি ব্যক্তিগত ছিল এবং শুধুমাত্র প্রোগ্রামিং ক্যাম্পের অংশগ্রহণকারীদের জন্য অ্যাক্সেসযোগ্য ছিল।
 
-## References, bibliography and other sources
+## রেফারেন্স, গ্রন্থপঞ্জি এবং অন্যান্য উৎস
 
-### Main sources
+### প্রধান উৎস
 
-* [New Algorithm for Half-plane Intersection and its Practical Value.](http://people.csail.mit.edu/zeyuan/publications.htm) Original paper of the algorithm.
-* [Artem Vasilyev's Brazilian ICPC Summer School 2020 lecture.](https://youtu.be/WKyZSitpm6M?t=6463) Amazing lecture on half-plane intersection. Also covers other geometry topics.
+* [New Algorithm for Half-plane Intersection and its Practical Value.](http://people.csail.mit.edu/zeyuan/publications.htm) অ্যালগরিদমের মূল পেপার।
+* [Artem Vasilyev's Brazilian ICPC Summer School 2020 lecture.](https://youtu.be/WKyZSitpm6M?t=6463) হাফ-প্লেন ইন্টারসেকশনের উপর চমৎকার লেকচার। অন্যান্য জ্যামিতির বিষয়ও কভার করে।
 
-### Good blogs (Chinese)
+### ভালো ব্লগ (চাইনিজ)
 
 * [Fundamentals of Computational Geometry - Intersection of Half-planes.](https://zhuanlan.zhihu.com/p/83499723)
 * [Detailed introduction to the half-plane intersection algorithm.](https://blog.csdn.net/qq_40861916/article/details/83541403)
 * [Summary of Half-plane intersection problems.](https://blog.csdn.net/qq_40482358/article/details/87921815)
 * [Sorting incremental method of half-plane intersection.](https://blog.csdn.net/u012061345/article/details/23872929)
 
-### Randomized algorithm
+### র‍্যান্ডমাইজড অ্যালগরিদম
 
 * [Linear Programming and Half-Plane intersection - Parts 4 and 5.](https://youtu.be/5dfc355t2y4)
 * [Petr Mitrichev's Blog: A half-plane week.](https://petr-mitrichev.blogspot.com/2016/07/a-half-plane-week.html)

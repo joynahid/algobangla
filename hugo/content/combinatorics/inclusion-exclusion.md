@@ -1,198 +1,198 @@
 ---
-title: "The Inclusion-Exclusion Principle"
+title: "ইনক্লুশন-এক্সক্লুশন নীতি"
 tags: 
 weight: 10
 ---
-# The Inclusion-Exclusion Principle
+# ইনক্লুশন-এক্সক্লুশন নীতি
 
-The inclusion-exclusion principle is an important combinatorial way to compute the size of a set or the probability of complex events. It relates the sizes of individual sets with their union.
+ইনক্লুশন-এক্সক্লুশন নীতি হলো একটি গুরুত্বপূর্ণ কম্বিনেটরিক্স পদ্ধতি যা একটি সেটের আকার বা জটিল ঘটনার সম্ভাব্যতা গণনা করতে ব্যবহৃত হয়। এটি পৃথক সেটগুলোর আকারকে তাদের ইউনিয়নের সাথে সম্পর্কিত করে।
 
-## Statement
+## বিবৃতি
 
-### The verbal formula
+### মৌখিক সূত্র
 
-The inclusion-exclusion principle can be expressed as follows:
+ইনক্লুশন-এক্সক্লুশন নীতিটি নিম্নলিখিতভাবে প্রকাশ করা যায়:
 
-To compute the size of a union of multiple sets, it is necessary to sum the sizes of these sets **separately**, and then subtract the sizes of all **pairwise** intersections of the sets, then add back the size of the intersections of **triples** of the sets, subtract the size of **quadruples** of the sets, and so on, up to the intersection of **all** sets.
+একাধিক সেটের ইউনিয়নের আকার গণনা করতে, প্রথমে এই সেটগুলোর আকার **আলাদাভাবে** যোগ করতে হবে, তারপর সেটগুলোর সব **জোড়া** ছেদের আকার বাদ দিতে হবে, তারপর **তিনটি** সেটের ছেদের আকার যোগ করতে হবে, **চারটি** সেটের আকার বাদ দিতে হবে, এবং এভাবে **সব** সেটের ছেদ পর্যন্ত চলতে হবে।
 
-### The formulation in terms of sets
+### সেট তত্ত্বের ভাষায় সূত্রায়ণ
 
-The above definition can be expressed mathematically as follows:
+উপরের সংজ্ঞাটি গাণিতিকভাবে নিম্নলিখিতভাবে প্রকাশ করা যায়:
 
 $$\left| \bigcup_{i=1}^n A_i \right| = \sum_{i=1}^n|A_i| - \sum_{1\leq i<j\leq n} |A_i \cap A_j| + \sum _{1\leq i<j<k\leq n}|A_i \cap A_j \cap A_k| - \cdots + (-1)^{n-1} | A_1 \cap \cdots \cap A_n |$$
 
-And in a more compact way:
+এবং আরও সংক্ষিপ্তভাবে:
 
 $$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \{1,2,\ldots ,n\}} (-1)^{|J|-1}{\Biggl |}\bigcap_{j\in J}A_{j}{\Biggr |}$$
 
-### The formulation using Venn diagrams
+### ভেন ডায়াগ্রাম ব্যবহার করে সূত্রায়ণ
 
-Let the diagram show three sets $A$, $B$ and $C$:
+ধরুন ডায়াগ্রামে তিনটি সেট $A$, $B$ এবং $C$ দেখানো হয়েছে:
 
 ![Venn diagram](/images/combinatorics/venn-inclusion-exclusion.png "Venn diagram")
 
-Then the area of their union $A \cup B \cup C$ is equal to the sum of the areas $A$, $B$ and $C$ less double-covered areas $A \cap B$, $A \cap C$, $B \cap C$, but with the addition of the area covered by three sets $A \cap B \cap C$:
+তাহলে তাদের ইউনিয়ন $A \cup B \cup C$-এর ক্ষেত্রফল $A$, $B$ এবং $C$-এর ক্ষেত্রফলের যোগফলের সমান, যেখান থেকে দুইবার ঢাকা ক্ষেত্র $A \cap B$, $A \cap C$, $B \cap C$ বাদ দেওয়া হয়, কিন্তু তিনটি সেট দ্বারা ঢাকা ক্ষেত্র $A \cap B \cap C$ যোগ করা হয়:
 
 $$S(A \cup B \cup C) = S(A) + S(B) + S(C) - S(A \cap B) - S(A \cap C) - S(B \cap C) + S(A \cap B \cap C)$$
 
-It can also be generalized for an association of $n$ sets.
+এটি $n$টি সেটের সংযোগের জন্যও সাধারণীকরণ করা যায়।
 
-### The formulation in terms of probability theory
+### সম্ভাব্যতা তত্ত্বের ভাষায় সূত্রায়ণ
 
-If $A_i$ $(i = 1,2...n)$ are events and ${\cal P}(A_i)$ the probability of an event from $A_i$ to occur, then the probability of their union (i.e. the probability that at least one of the events occur) is equal to:
+যদি $A_i$ $(i = 1,2...n)$ ঘটনা হয় এবং ${\cal P}(A_i)$ $A_i$ থেকে একটি ঘটনা ঘটার সম্ভাব্যতা হয়, তাহলে তাদের ইউনিয়নের সম্ভাব্যতা (অর্থাৎ অন্তত একটি ঘটনা ঘটার সম্ভাব্যতা) সমান:
 
 $$\begin{eqnarray}
 {\cal P} \left( \bigcup_{i=1}^n A_i \right) &=& \sum_{i=1}^n{\cal P}(A_i)\ - \sum_{1\leq i<j\leq n} {\cal P}(A_i \cap A_j)\  + \\
 &+& \sum _{1\leq i<j<k\leq n}{\cal P}(A_i \cap A_j \cap A_k) - \cdots + (-1)^{n-1} {\cal P}( A_1 \cap \cdots \cap A_n )
 \end{eqnarray}$$
 
-And in a more compact way:
+এবং আরও সংক্ষিপ্তভাবে:
 
 $${\cal P} \left(\bigcup_{i=1}^n A_i \right) = \sum_{\emptyset \neq J\subseteq \{1,2,\ldots ,n\}} (-1)^{|J|-1}\ {\cal P}{\Biggl (}\bigcap_{j\in J}A_{j}{\Biggr )}$$
 
-## Proof
+## প্রমাণ
 
-For the proof it is convenient to use the mathematical formulation in terms of set theory:
+প্রমাণের জন্য সেট তত্ত্বের গাণিতিক সূত্রায়ণ ব্যবহার করা সুবিধাজনক:
 
 $$\left|\bigcup_{i=1}^n A_i \right| = \sum_{\emptyset \neq J\subseteq \{1,2,\ldots ,n\}} (-1)^{|J|-1}{\Biggl |}\bigcap_{j\in J}A_{j}{\Biggr |}$$
 
-We want to prove that any element contained in at least one of the sets $A_i$ will occur in the formula only once (note that elements which are not present in any of the sets $A_i$ will never be considered on the right part of the formula).
+আমরা প্রমাণ করতে চাই যে অন্তত একটি সেট $A_i$-তে থাকা যেকোনো উপাদান সূত্রে শুধুমাত্র একবার গণনা করা হবে (লক্ষ্য করুন যে কোনো $A_i$ সেটে নেই এমন উপাদানগুলো সূত্রের ডান পাশে কখনোই বিবেচনা করা হবে না)।
 
-Consider an element $x$ occurring in $k \geq 1$ sets $A_i$. We will show it is counted only once in the formula. Note that:
+ধরি একটি উপাদান $x$ $k \geq 1$টি সেট $A_i$-তে আছে। আমরা দেখাব এটি সূত্রে শুধুমাত্র একবার গণনা করা হয়। লক্ষ্য করুন:
 
-* in terms which $|J| = 1$, the item $x$ will be counted **$+\ k$** times;
-* in terms which $|J| = 2$, the item $x$ will be counted **$-\ \binom{k}{2}$** times - because it will be counted in those terms that include two of the $k$ sets containing $x$;
-* in terms which $|J| = 3$, the item $x$ will be counted **$+\ \binom{k}{3}$** times;
+* যেসব পদে $|J| = 1$, সেখানে $x$ **$+\ k$** বার গণনা করা হবে;
+* যেসব পদে $|J| = 2$, সেখানে $x$ **$-\ \binom{k}{2}$** বার গণনা করা হবে — কারণ $x$ ধারণকারী $k$টি সেটের মধ্যে দুটি অন্তর্ভুক্ত এমন পদগুলোতে এটি গণনা করা হবে;
+* যেসব পদে $|J| = 3$, সেখানে $x$ **$+\ \binom{k}{3}$** বার গণনা করা হবে;
 * $\cdots$
-* in terms which $|J| = k$, the item $x$ will be counted **$(-1)^{k-1}\cdot \binom{k}{k}$** times;
-* in terms which $|J| \gt k$, the item $x$ will be counted **zero** times;
+* যেসব পদে $|J| = k$, সেখানে $x$ **$(-1)^{k-1}\cdot \binom{k}{k}$** বার গণনা করা হবে;
+* যেসব পদে $|J| \gt k$, সেখানে $x$ **শূন্য** বার গণনা করা হবে;
 
-This leads us to the following sum of [binomial coefficients](binomial-coefficients.md):
+এটি আমাদের [দ্বিপদী সহগ](binomial-coefficients.md)-এর নিম্নলিখিত যোগফলে নিয়ে যায়:
 
 $$ T = \binom{k}{1} - \binom{k}{2} + \binom{k}{3} - \cdots + (-1)^{i-1}\cdot \binom{k}{i} + \cdots + (-1)^{k-1}\cdot \binom{k}{k}$$
 
-This expression is very similar to the binomial expansion of $(1 - x)^k$:
+এই রাশিটি $(1 - x)^k$-এর দ্বিপদী বিস্তারের সাথে খুব সাদৃশ্যপূর্ণ:
 
 $$ (1 - x)^k = \binom{k}{0} - \binom{k}{1} \cdot x + \binom{k}{2} \cdot x^2 - \binom{k}{3} \cdot x^3 + \cdots + (-1)^k\cdot \binom{k}{k} \cdot x^k $$
 
-When $x = 1$, $(1 - x)^k$ looks a lot like $T$. However, the expression has an additional $\binom{k}{0} = 1$, and it is multiplied by $-1$. That leads us to $(1 - 1)^k = 1 - T$. Therefore $T = 1 - (1 - 1)^k = 1$, what was required to prove. The element is counted only once.
+যখন $x = 1$, $(1 - x)^k$ দেখতে $T$-এর মতো। তবে রাশিটিতে একটি অতিরিক্ত $\binom{k}{0} = 1$ আছে এবং এটি $-1$ দ্বারা গুণিত। এতে পাওয়া যায় $(1 - 1)^k = 1 - T$। অতএব $T = 1 - (1 - 1)^k = 1$, যা প্রমাণ করতে হয়েছিল। উপাদানটি শুধুমাত্র একবার গণনা করা হয়।
 
-## Generalization for calculating number of elements in exactly $r$ sets {data-toc-label="Generalization for calculating number of elements in exactly r sets"}
+## ঠিক $r$টি সেটে উপাদানের সংখ্যা গণনার জন্য সাধারণীকরণ {data-toc-label="Generalization for calculating number of elements in exactly r sets"}
 
-Inclusion-exclusion principle can be rewritten to calculate number of elements which are present in zero sets:
+ইনক্লুশন-এক্সক্লুশন নীতি পুনরায় লেখা যায় শূন্যটি সেটে থাকা উপাদানের সংখ্যা গণনা করতে:
 
 $$\left|\bigcap_{i=1}^n \overline{A_i}\right|=\sum_{m=0}^n (-1)^m \sum_{|X|=m} \left|\bigcap_{i\in X} A_{i}\right|$$
 
-Consider its generalization to calculate number of elements which are present in exactly $r$ sets:
+এর সাধারণীকরণ বিবেচনা করুন ঠিক $r$টি সেটে থাকা উপাদানের সংখ্যা গণনা করতে:
 
 $$\left|\bigcup_{|B|=r}\left[\bigcap_{i \in B} A_i \cap \bigcap_{j \not\in B} \overline{A_j}\right]\right|=\sum_{m=r}^n (-1)^{m-r}\dbinom{m}{r} \sum_{|X|=m} \left|\bigcap_{i \in X} A_{i}\right|$$
 
-To prove this formula, consider some particular $B$. Due to basic inclusion-exclusion principle we can say about it that:
+এই সূত্রটি প্রমাণ করতে, একটি নির্দিষ্ট $B$ বিবেচনা করুন। মৌলিক ইনক্লুশন-এক্সক্লুশন নীতি অনুসারে এটি সম্পর্কে বলা যায়:
 
 $$\left|\bigcap_{i \in B} A_i \cap \bigcap_{j \not \in B} \overline{A_j}\right|=\sum_{m=r}^{n} (-1)^{m-r} \sum_{\substack{|X|=m \newline B \subset X}}\left|\bigcap_{i\in X} A_{i}\right|$$
 
-The sets on the left side do not intersect for different $B$, thus we can sum them up directly. Also one should note that any set $X$ will always have coefficient $(-1)^{m-r}$ if it occurs and it will occur for exactly $\dbinom{m}{r}$ sets $B$. 
+বাম পাশের সেটগুলো বিভিন্ন $B$-এর জন্য ছেদ করে না, তাই আমরা সরাসরি যোগ করতে পারি। এছাড়াও লক্ষ্য করুন যে যেকোনো সেট $X$ সবসময় $(-1)^{m-r}$ সহগ পাবে যদি এটি উপস্থিত হয় এবং এটি ঠিক $\dbinom{m}{r}$টি সেট $B$-এর জন্য উপস্থিত হবে।
 
-## Usage when solving problems
+## সমস্যা সমাধানে ব্যবহার
 
-The inclusion-exclusion principle is hard to understand without studying its applications.
+ইনক্লুশন-এক্সক্লুশন নীতি এর প্রয়োগ অধ্যয়ন না করে বোঝা কঠিন।
 
-First, we will look at three simplest tasks "at paper", illustrating applications of the principle, and then consider more practical problems which are difficult to solve without inclusion-exclusion principle.
+প্রথমে, আমরা নীতির প্রয়োগ চিত্রিত করে তিনটি সরলতম "কাগজে" সমস্যা দেখব, তারপর আরও ব্যবহারিক সমস্যা বিবেচনা করব যেগুলো ইনক্লুশন-এক্সক্লুশন নীতি ছাড়া সমাধান করা কঠিন।
 
-Tasks asking to "find the **number** of ways" are worth of note, as they sometimes lead to polynomial solutions, not necessarily exponential.
+"**উপায়ের সংখ্যা** বের করো" ধরনের সমস্যাগুলো উল্লেখযোগ্য, কারণ এগুলো কখনো কখনো বহুপদী সমাধানে নিয়ে যায়, অগত্যা সূচকীয় নয়।
 
-### A simple task on permutations
+### পারমুটেশনের একটি সরল সমস্যা
 
-Task: count how many permutations of numbers from $0$ to $9$ exist such that the first element is greater than $1$ and the last one is less than $8$.
+সমস্যা: $0$ থেকে $9$ পর্যন্ত সংখ্যার কতগুলো পারমুটেশন আছে যেখানে প্রথম উপাদান $1$-এর বেশি এবং শেষটি $8$-এর কম।
 
-Let's count the number of "bad" permutations, that is, permutations in which the first element is $\leq 1$ and/or the last is $\geq 8$.
+"খারাপ" পারমুটেশনের সংখ্যা গুনি, অর্থাৎ এমন পারমুটেশন যেখানে প্রথম উপাদান $\leq 1$ এবং/অথবা শেষটি $\geq 8$।
 
-We will denote by $X$ the set of permutations in which the first element is $\leq 1$ and $Y$ the set of permutations in which the last element is $\geq 8$. Then the number of "bad" permutations, as on the inclusion-exclusion formula, will be:
+$X$ দ্বারা সেই পারমুটেশনের সেট চিহ্নিত করি যেখানে প্রথম উপাদান $\leq 1$ এবং $Y$ দ্বারা সেই সেট যেখানে শেষ উপাদান $\geq 8$। তাহলে ইনক্লুশন-এক্সক্লুশন সূত্র অনুসারে "খারাপ" পারমুটেশনের সংখ্যা:
 
 $$ |X \cup Y| = |X| + |Y| - |X \cap Y| $$
 
-After a simple combinatorial calculation, we will get to:
+সরল কম্বিনেটরিক্স গণনার পর, আমরা পাই:
 
 $$ 2 \cdot 9! + 2 \cdot 9! - 2 \cdot 2 \cdot 8! $$
 
-The only thing left is to subtract this number from the total of $10!$ to get the number of "good" permutations.
+"ভালো" পারমুটেশনের সংখ্যা পেতে এই সংখ্যাটি মোট $10!$ থেকে বাদ দিতে হবে।
 
-### A simple task on (0, 1, 2) sequences
+### (০, ১, ২) সিকোয়েন্সের একটি সরল সমস্যা
 
-Task: count how many sequences of length $n$ exist consisting only of numbers $0,1,2$ such that each number occurs **at least once**.
+সমস্যা: দৈর্ঘ্য $n$-এর কতগুলো সিকোয়েন্স আছে যা শুধু $0,1,2$ সংখ্যা নিয়ে গঠিত এবং প্রতিটি সংখ্যা **অন্তত একবার** আছে।
 
-Again let us turn to the inverse problem, i.e. we calculate the number of sequences which do **not** contain **at least one** of the numbers.
+আবার বিপরীত সমস্যায় যাই, অর্থাৎ এমন সিকোয়েন্সের সংখ্যা গণনা করি যেগুলোতে **অন্তত একটি** সংখ্যা **নেই**।
 
-Let's denote by $A_i (i = 0,1,2)$ the set of sequences in which the digit $i$ does **not** occur.
-The formula of inclusion-exclusion on the number of "bad" sequences will be:
+$A_i (i = 0,1,2)$ দ্বারা সেই সিকোয়েন্সের সেট চিহ্নিত করি যেখানে অঙ্ক $i$ **নেই**।
+"খারাপ" সিকোয়েন্সের সংখ্যার জন্য ইনক্লুশন-এক্সক্লুশন সূত্র:
 
 $$ |A_0 \cup A_1 \cup A_2| = |A_0| + |A_1| + |A_2| - |A_0 \cap A_1| - |A_0 \cap A_2| - |A_1 \cap A_2| + |A_0 \cap A_1 \cap A_2| $$
 
-* The size of each $A_i$ is $2^n$, as each sequence can only contain two of the digits.
-* The size of each pairwise intersection $A_i \cap A_j$  is equal to $1$, as there will be only one digit to build the sequence.
-* The size of the intersection of all three sets is equal to $0$, as there will be no digits to build the sequence.
+* প্রতিটি $A_i$-এর আকার $2^n$, কারণ প্রতিটি সিকোয়েন্সে শুধু দুটি অঙ্ক থাকতে পারে।
+* প্রতিটি জোড়া ছেদ $A_i \cap A_j$-এর আকার $1$, কারণ সিকোয়েন্স তৈরি করতে শুধু একটি অঙ্ক থাকবে।
+* তিনটি সেটের ছেদের আকার $0$, কারণ সিকোয়েন্স তৈরি করতে কোনো অঙ্ক থাকবে না।
 
-As we solved the inverse problem, we subtract it from the total of $3^n$ sequences:
+যেহেতু আমরা বিপরীত সমস্যা সমাধান করেছি, মোট $3^n$ সিকোয়েন্স থেকে বাদ দিই:
 
 $$3^n - (3 \cdot 2^n - 3 \cdot 1 + 0)$$
 
 <div id="the-number-of-integer-solutions-to-the-equation"></div>
-### Number of upper-bound integer sums {: #number-of-upper-bound-integer-sums }
+### ঊর্ধ্ব-সীমা যুক্ত পূর্ণসংখ্যা যোগফলের সংখ্যা {: #number-of-upper-bound-integer-sums }
 
-Consider the following equation:
+নিম্নলিখিত সমীকরণ বিবেচনা করুন:
 
 $$x_1 + x_2 + x_3 + x_4 + x_5 + x_6 = 20$$
 
-where $0 \le x_i \le 8 ~ (i = 1,2,\ldots 6)$.
+যেখানে $0 \le x_i \le 8 ~ (i = 1,2,\ldots 6)$।
 
-Task: count the number of solutions to the equation.
+সমস্যা: সমীকরণের সমাধানের সংখ্যা গণনা করুন।
 
-Forget the restriction on $x_i$ for a moment and just count the number of nonnegative solutions to this equation. This is easily done using [Stars and Bars](stars_and_bars.md):
-we want to break a sequence of $20$ units into $6$ groups, which is the same as arranging $5$ _bars_ and $20$ _stars_:
+$x_i$-এর সীমাবদ্ধতা মুহূর্তের জন্য ভুলে যান এবং শুধু এই সমীকরণের অ-ঋণাত্মক সমাধানের সংখ্যা গুনুন। এটি [স্টার্স অ্যান্ড বার্স](stars_and_bars.md) ব্যবহার করে সহজেই করা যায়:
+আমরা $20$টি ইউনিটের একটি ক্রমকে $6$টি গ্রুপে ভাঙতে চাই, যা $5$টি _বার_ এবং $20$টি _স্টার_ সাজানোর সমান:
 
 $$N_0 = \binom{25}{5}$$
 
-We will now calculate the number of "bad" solutions with the inclusion-exclusion principle. The "bad" solutions will be those in which one or more $x_i$ are greater than or equal to $9$.
+এখন ইনক্লুশন-এক্সক্লুশন নীতি দিয়ে "খারাপ" সমাধানের সংখ্যা গণনা করব। "খারাপ" সমাধান হলো সেগুলো যেখানে এক বা একাধিক $x_i$ $9$-এর বেশি বা সমান।
 
-Denote by $A_k ~ (k = 1,2\ldots 6)$ the set of solutions where $x_k \ge 9$, and all other $x_i \ge 0 ~ (i \ne k)$ (they may be $\ge 9$ or not). To calculate the size of $A_k$, note that we have essentially the same combinatorial problem that was solved in the two paragraphs above, but now $9$ of the units are excluded from the slots and definitely belong to the first group. Thus:
+$A_k ~ (k = 1,2\ldots 6)$ দ্বারা সেই সমাধানের সেট চিহ্নিত করি যেখানে $x_k \ge 9$, এবং অন্য সব $x_i \ge 0 ~ (i \ne k)$ (তারা $\ge 9$ হতেও পারে বা নাও পারে)। $A_k$-এর আকার গণনা করতে লক্ষ্য করুন, মূলত আমাদের আগের দুই অনুচ্ছেদে সমাধান করা একই কম্বিনেটরিক্স সমস্যা, কিন্তু এখন $9$টি ইউনিট স্লট থেকে বাদ দেওয়া হয়েছে এবং নিশ্চিতভাবে প্রথম গ্রুপে যাবে। তাই:
 
 $$ | A_k | = \binom{16}{5} $$
 
-Similarly, the size of the intersection between two sets $A_k$ and $A_p$ (for $k \ne p$) is equal to:
+একইভাবে, দুটি সেট $A_k$ এবং $A_p$ ($k \ne p$-এর জন্য)-এর ছেদের আকার:
 
 $$ \left| A_k \cap A_p \right| = \binom{7}{5}$$
 
-The size of each intersection of three sets is zero, since $20$ units will not be enough for three or more variables greater than or equal to $9$.
+তিনটি সেটের প্রতিটি ছেদের আকার শূন্য, কারণ $20$টি ইউনিট তিন বা তার বেশি চলকের জন্য $9$-এর বেশি বা সমান হতে যথেষ্ট নয়।
 
-Combining all this into the formula of inclusions-exceptions and given that we solved the inverse problem, we finally get the answer:
+ইনক্লুশন-এক্সক্লুশনের সূত্রে সব একত্রিত করে এবং যেহেতু আমরা বিপরীত সমস্যা সমাধান করেছি, অবশেষে উত্তর পাই:
 
 $$\binom{25}{5} - \left(\binom{6}{1} \cdot \binom{16}{5} - \binom{6}{2} \cdot \binom{7}{5}\right) $$
 
-This easily generalizes to $d$ numbers that sum up to $s$ with the restriction $0 \le x_i \le b$:
+এটি সহজেই সাধারণীকরণ করা যায় $d$টি সংখ্যার জন্য যাদের যোগফল $s$ এবং সীমাবদ্ধতা $0 \le x_i \le b$:
 
 $$\sum_{i=0}^d (-1)^i \binom{d}{i} \binom{s+d-1-(b+1)i}{d-1}$$
 
-As above, we treat binomial coefficients with negative upper index as zero. 
+উপরের মতো, ঋণাত্মক উপরের ইনডেক্স বিশিষ্ট দ্বিপদী সহগকে শূন্য হিসেবে গণ্য করি।
 
-Note this problem could also be solved with dynamic programming or generating functions. The inclusion-exclusion answer is computed in $O(d)$ time (assuming math operations like binomial coefficient are constant time), while a simple DP approach would take $O(ds)$ time. 
+লক্ষ্য করুন এই সমস্যাটি ডায়নামিক প্রোগ্রামিং বা জেনারেটিং ফাংশন দিয়েও সমাধান করা যেত। ইনক্লুশন-এক্সক্লুশন উত্তর $O(d)$ সময়ে গণনা করা হয় (ধরে নিই দ্বিপদী সহগের মতো গাণিতিক অপারেশন ধ্রুব সময়ের), যেখানে একটি সরল ডিপি পদ্ধতিতে $O(ds)$ সময় লাগবে।
 
-### The number of relative primes in a given interval
+### একটি প্রদত্ত ব্যবধানে সহমৌলিক সংখ্যার পরিমাণ
 
-Task: given two numbers $n$ and $r$, count the number of integers in the interval $[1;r]$ that are relatively prime to n (their greatest common divisor is $1$).
+সমস্যা: দুটি সংখ্যা $n$ এবং $r$ দেওয়া আছে, $[1;r]$ ব্যবধানে $n$-এর সাথে সহমৌলিক (যাদের গসাগু $1$) পূর্ণসংখ্যার সংখ্যা গণনা করুন।
 
-Let's solve the inverse problem - compute the number of not mutually primes with $n$.
+বিপরীত সমস্যা সমাধান করি — $n$-এর সাথে সহমৌলিক নয় এমন সংখ্যা গণনা করি।
 
-We will denote the prime factors of $n$ as $p_i (i = 1\cdots k)$.
+$n$-এর মৌলিক গুণনীয়কগুলোকে $p_i (i = 1\cdots k)$ দ্বারা চিহ্নিত করি।
 
-How many numbers in the interval $[1;r]$ are divisible by $p_i$? The answer to this question is:
+$[1;r]$ ব্যবধানে কতগুলো সংখ্যা $p_i$ দ্বারা বিভাজ্য? এই প্রশ্নের উত্তর:
 
 $$ \left\lfloor \frac{ r }{ p_i } \right\rfloor $$
 
-However, if we simply sum these numbers, some numbers will be summarized several times (those that share multiple $p_i$ as their factors). Therefore, it is necessary to use the inclusion-exclusion principle.
+তবে, আমরা যদি এই সংখ্যাগুলো সরাসরি যোগ করি, কিছু সংখ্যা একাধিকবার গণনা করা হবে (যেগুলোর একাধিক $p_i$ গুণনীয়ক আছে)। তাই ইনক্লুশন-এক্সক্লুশন নীতি ব্যবহার করা প্রয়োজন।
 
-We will iterate over all $2^k$ subsets of $p_i$s, calculate their product and add or subtract the number of multiples of their product.
+আমরা $p_i$-দের সব $2^k$ সাবসেটের উপর ইটারেট করব, তাদের গুণফল গণনা করব এবং তাদের গুণফলের গুণিতকের সংখ্যা যোগ বা বিয়োগ করব।
 
-Here is a C++ implementation:
+এখানে একটি C++ ইমপ্লিমেন্টেশন:
 
 ```cpp
 int solve (int n, int r) {
@@ -227,140 +227,138 @@ int solve (int n, int r) {
 }
 ```
 
-Asymptotics of the solution is $O (\sqrt{n})$.
+সমাধানের কমপ্লেক্সিটি $O (\sqrt{n})$।
 
-### The number of integers in a given interval which are multiple of at least one of the given numbers
+### একটি প্রদত্ত ব্যবধানে প্রদত্ত সংখ্যাগুলোর অন্তত একটির গুণিতক পূর্ণসংখ্যার সংখ্যা
 
-Given $n$ numbers $a_i$ and number $r$. You want to count the number of integers in the interval $[1; r]$ that are multiple of at least one of the $a_i$.
+$n$টি সংখ্যা $a_i$ এবং সংখ্যা $r$ দেওয়া আছে। আপনি $[1; r]$ ব্যবধানে এমন পূর্ণসংখ্যার সংখ্যা গুনতে চান যেগুলো $a_i$-দের অন্তত একটির গুণিতক।
 
-The solution algorithm is almost identical to the one for previous task — construct the formula of inclusion-exclusion on the numbers $a_i$, i.e. each term in this formula is the number of numbers divisible by a given subset of numbers $a_i$ (in other words, divisible by their [least common multiple](../algebra/euclid-algorithm.md)).
+সমাধান অ্যালগরিদম আগের সমস্যার সাথে প্রায় অভিন্ন — $a_i$ সংখ্যাগুলোর উপর ইনক্লুশন-এক্সক্লুশনের সূত্র তৈরি করুন, অর্থাৎ এই সূত্রের প্রতিটি পদ হলো $a_i$ সংখ্যাগুলোর একটি প্রদত্ত সাবসেট দ্বারা বিভাজ্য সংখ্যার পরিমাণ (অন্যভাবে বললে, তাদের [লসাগু](../algebra/euclid-algorithm.md) দ্বারা বিভাজ্য)।
 
-So we will now iterate over all $2^n$ subsets of integers $a_i$ with $O(n \log r)$ operations to find their least common multiple, adding or subtracting the number of multiples of it in the interval. Asymptotics is $O (2^n\cdot n\cdot \log r)$.
+তাই আমরা পূর্ণসংখ্যা $a_i$-দের সব $2^n$ সাবসেটের উপর ইটারেট করব, $O(n \log r)$ অপারেশনে তাদের লসাগু বের করব এবং ব্যবধানে এর গুণিতকের সংখ্যা যোগ বা বিয়োগ করব। কমপ্লেক্সিটি $O (2^n\cdot n\cdot \log r)$।
 
-### The number of strings that satisfy a given pattern
+### একটি প্রদত্ত প্যাটার্ন মেনে চলা স্ট্রিংয়ের সংখ্যা
 
-Consider $n$ patterns of strings of the same length, consisting only of letters ($a...z$) or question marks. You're also given a number $k$. A string matches a pattern if it has the same length as the pattern, and at each position, either the corresponding characters are equal or the character in the pattern is a question mark. The task is to count the number of strings that match exactly $k$ of the patterns (first problem) and at least $k$ of the patterns (second problem).
+একই দৈর্ঘ্যের $n$টি স্ট্রিং প্যাটার্ন বিবেচনা করুন, যা শুধু অক্ষর ($a...z$) বা প্রশ্নচিহ্ন নিয়ে গঠিত। এছাড়াও একটি সংখ্যা $k$ দেওয়া আছে। একটি স্ট্রিং একটি প্যাটার্নের সাথে মেলে যদি এর দৈর্ঘ্য প্যাটার্নের সমান হয় এবং প্রতিটি অবস্থানে, হয় সংশ্লিষ্ট অক্ষরগুলো সমান অথবা প্যাটার্নের অক্ষরটি প্রশ্নচিহ্ন। কাজ হলো ঠিক $k$টি প্যাটার্নের সাথে মেলে (প্রথম সমস্যা) এবং অন্তত $k$টি প্যাটার্নের সাথে মেলে (দ্বিতীয় সমস্যা) এমন স্ট্রিংয়ের সংখ্যা গণনা করা।
 
-Notice first that we can easily count the number of strings that satisfy at once all of the specified patterns. To do this, simply "cross" patterns: iterate though the positions ("slots") and look at a position over all patterns. If all patterns have a question mark in this position, the character can be any letter from $a$ to $z$. Otherwise, the character of this position is uniquely defined by the patterns that do not contain a question mark.
+প্রথমে লক্ষ্য করুন যে আমরা সহজেই নির্দিষ্ট সব প্যাটার্ন একসাথে মানা স্ট্রিংয়ের সংখ্যা গুনতে পারি। এর জন্য, সহজভাবে প্যাটার্নগুলো "ক্রস" করুন: অবস্থানগুলো ("স্লট") দিয়ে ইটারেট করুন এবং সব প্যাটার্নের একটি অবস্থান দেখুন। যদি সব প্যাটার্নে এই অবস্থানে প্রশ্নচিহ্ন থাকে, অক্ষরটি $a$ থেকে $z$ পর্যন্ত যেকোনো হতে পারে। অন্যথায়, এই অবস্থানের অক্ষরটি প্রশ্নচিহ্ন নেই এমন প্যাটার্নগুলো দ্বারা অনন্যভাবে নির্ধারিত।
 
-Learn now to solve the first version of the problem: when the string must satisfy exactly $k$ of the patterns.
+এখন প্রথম সংস্করণের সমস্যা সমাধান করতে শিখি: যখন স্ট্রিংকে ঠিক $k$টি প্যাটার্ন মানতে হবে।
 
-To solve it, iterate and fix a specific subset $X$ from the set of patterns consisting of $k$ patterns. Then we have to count the number of strings that satisfy this set of patterns, and only matches it, that is, they don't match any other pattern. We will use the inclusion-exclusion principle in a slightly different manner: we sum on all supersets $Y$ (subsets from the original set of strings that contain $X$), and either add to the current answer or subtract it from the number of strings:
+এটি সমাধান করতে, $k$টি প্যাটার্ন নিয়ে গঠিত প্যাটার্নের সেট থেকে একটি নির্দিষ্ট সাবসেট $X$ ইটারেট এবং ফিক্স করুন। তারপর আমাদের এই প্যাটার্নের সেট মানা স্ট্রিংয়ের সংখ্যা গুনতে হবে, এবং শুধু এটিই মানবে, অর্থাৎ অন্য কোনো প্যাটার্ন মানবে না। আমরা ইনক্লুশন-এক্সক্লুশন নীতি একটু ভিন্নভাবে ব্যবহার করব: $X$ ধারণকারী সব সুপারসেট $Y$-এর (মূল স্ট্রিংয়ের সেট থেকে সাবসেট) উপর যোগ করব এবং বর্তমান উত্তরে স্ট্রিংয়ের সংখ্যা যোগ বা বিয়োগ করব:
 
 $$ ans(X) = \sum_{Y \supseteq X} (-1)^{|Y|-k} \cdot f(Y) $$
 
-Where $f(Y)$ is the number of strings that match $Y$ (at least $Y$).
+যেখানে $f(Y)$ হলো $Y$ মানা (অন্তত $Y$) স্ট্রিংয়ের সংখ্যা।
 
-(If you have a hard time figuring out this, you can try drawing Venn Diagrams.)
+(এটি বুঝতে কষ্ট হলে ভেন ডায়াগ্রাম আঁকার চেষ্টা করুন।)
 
-If we sum up on all $ans(X)$, we will get the final answer:
+সব $ans(X)$ যোগ করলে চূড়ান্ত উত্তর পাওয়া যায়:
 
 $$ ans = \sum_{X ~ : ~ |X| = k} ans(X) $$
 
-However, asymptotics of this solution is $O(3^k \cdot k)$. To improve it, notice that different $ans(X)$ computations very often share $Y$ sets.
+তবে, এই সমাধানের কমপ্লেক্সিটি $O(3^k \cdot k)$। উন্নত করতে, লক্ষ্য করুন বিভিন্ন $ans(X)$ গণনায় প্রায়ই $Y$ সেট শেয়ার হয়।
 
-We will reverse the formula of inclusion-exclusion and sum in terms of $Y$ sets. Now it becomes clear that the same set $Y$ would be taken into account in the computation of $ans(X)$ of $\binom{|Y|}{k}$ sets with the same sign $(-1)^{|Y| - k}$.
+আমরা ইনক্লুশন-এক্সক্লুশনের সূত্র উল্টাব এবং $Y$ সেটের ভিত্তিতে যোগ করব। এখন স্পষ্ট হয় যে একই সেট $Y$, $ans(X)$-এর গণনায় $\binom{|Y|}{k}$টি সেটের জন্য একই চিহ্ন $(-1)^{|Y| - k}$ সহ বিবেচিত হবে।
 
 $$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|}{k} \cdot f(Y) $$
 
-Now our solution has asymptotics $O(2^k \cdot k)$.
+এখন আমাদের সমাধানের কমপ্লেক্সিটি $O(2^k \cdot k)$।
 
-We will now solve the second version of the problem: find the number of strings that match **at least** $k$ of the patterns.
+এখন সমস্যার দ্বিতীয় সংস্করণ সমাধান করি: **অন্তত** $k$টি প্যাটার্ন মানা স্ট্রিংয়ের সংখ্যা বের করা।
 
-Of course, we can just use the solution to the first version of the problem and add the answers for sets with size greater than $k$. However, you may notice that in this problem, a set |Y| is considered in the formula for all sets with size $\ge k$ which are contained in $Y$. That said, we can write the part of the expression that is being multiplied by $f(Y)$ as:
-
+অবশ্যই, আমরা প্রথম সংস্করণের সমাধান ব্যবহার করে $k$-এর চেয়ে বড় আকারের সেটের উত্তর যোগ করতে পারি। তবে, লক্ষ্য করুন এই সমস্যায়, একটি সেট |Y| সূত্রে $\ge k$ আকারের সব সেটের জন্য বিবেচিত হয় যেগুলো $Y$-তে অন্তর্ভুক্ত। তাই, $f(Y)$ দ্বারা গুণিত রাশির অংশটি লেখা যায়:
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|}{k} + (-1)^{|Y|-k-1} \cdot \binom{|Y|}{k+1} + (-1)^{|Y|-k-2} \cdot \binom{|Y|}{k+2} + \cdots + (-1)^{|Y|-|Y|} \cdot \binom{|Y|}{|Y|} $$
 
-Looking at Graham's (Graham, Knuth, Patashnik. "Concrete mathematics" [1998] ), we see a well-known formula for [binomial coefficients](binomial-coefficients.md):
+Graham-এর (Graham, Knuth, Patashnik. "Concrete mathematics" [1998]) দিকে তাকালে, [দ্বিপদী সহগ](binomial-coefficients.md)-এর একটি সুপরিচিত সূত্র দেখি:
 
 $$ \sum_{k=0}^m (-1)^k \cdot \binom{n}{k} = (-1)^m \cdot \binom{n-1}{m} $$
 
-Applying it here, we find that the entire sum of binomial coefficients is minimized:
+এটি এখানে প্রয়োগ করলে, দ্বিপদী সহগের পুরো যোগফল সংক্ষিপ্ত হয়:
 
 $$ (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} $$
 
-Thus, for this task, we also obtained a solution with the asymptotics $O(2^k \cdot k)$:
+তাই, এই সমস্যার জন্যও আমরা $O(2^k \cdot k)$ কমপ্লেক্সিটির সমাধান পেয়েছি:
 
 $$ ans = \sum_{Y ~ : ~ |Y| \ge k} (-1)^{|Y|-k} \cdot \binom{|Y|-1}{|Y|-k} \cdot f(Y) $$
 
-### The number of ways of going from a cell to another
+### একটি ঘর থেকে অন্য ঘরে যাওয়ার উপায়ের সংখ্যা
 
-There is a field $n \times m$, and $k$ of its cells are impassable walls. A robot is initially at the cell $(1,1)$ (bottom left). The robot can only move right or up, and eventually it needs to get into the cell $(n,m)$, avoiding all obstacles. You need to count the number of ways he can do it.
+একটি $n \times m$ ফিল্ড আছে, এবং এর $k$টি ঘর অগম্য দেয়াল। একটি রোবট প্রাথমিকভাবে $(1,1)$ ঘরে (নিচে বাঁদিকে) আছে। রোবটটি শুধু ডানে বা উপরে যেতে পারে, এবং শেষ পর্যন্ত তাকে $(n,m)$ ঘরে পৌঁছাতে হবে, সব বাধা এড়িয়ে। আপনাকে এটি করার উপায়ের সংখ্যা গুনতে হবে।
 
-Assume that the sizes $n$ and $m$ are very large (say, $10^9$), and the number $k$ is small (around $100$).
+ধরুন $n$ এবং $m$-এর আকার অনেক বড় (যেমন $10^9$), এবং $k$ সংখ্যাটি ছোট (প্রায় $100$)।
 
-For now, sort the obstacles by their coordinate $x$, and in case of equality — coordinate $y$.
+এখন, বাধাগুলো তাদের $x$ স্থানাঙ্ক অনুযায়ী সাজান, এবং সমতার ক্ষেত্রে $y$ স্থানাঙ্ক অনুযায়ী।
 
-Also just learn how to solve a problem without obstacles: i.e. learn how to count the number of ways to get from one cell to another. In one axis, we need to go through $x$ cells, and on the other, $y$ cells. From simple combinatorics, we get a formula using [binomial coefficients](binomial-coefficients.md):
+এছাড়াও বাধা ছাড়া সমস্যা সমাধান করতে শিখুন: অর্থাৎ এক ঘর থেকে অন্য ঘরে যাওয়ার উপায়ের সংখ্যা গুনতে শিখুন। একটি অক্ষে $x$ ঘর এবং অন্যটিতে $y$ ঘর যেতে হবে। সরল কম্বিনেটরিক্স থেকে, [দ্বিপদী সহগ](binomial-coefficients.md) ব্যবহার করে সূত্র পাই:
 
 $$\binom{x+y}{x}$$
 
-Now to count the number of ways to get from one cell to another, avoiding all obstacles, you can use inclusion-exclusion to solve the inverse problem: count the number of ways to walk through the board stepping at a subset of obstacles (and subtract it from the total number of ways).
+এখন সব বাধা এড়িয়ে এক ঘর থেকে অন্য ঘরে যাওয়ার উপায়ের সংখ্যা গুনতে, ইনক্লুশন-এক্সক্লুশন ব্যবহার করে বিপরীত সমস্যা সমাধান করা যায়: বাধার একটি সাবসেটের উপর দিয়ে হেঁটে যাওয়ার উপায়ের সংখ্যা গুনুন (এবং মোট উপায়ের সংখ্যা থেকে বাদ দিন)।
 
-When iterating over a subset of the obstacles that we'll step, to count the number of ways to do this simply multiply the number of all paths from starting cell to the first of the selected obstacles, a first obstacle to the second, and so on, and then add or subtract this number from the answer, in accordance with the standard formula of inclusion-exclusion.
+বাধার একটি সাবসেটের উপর ইটারেট করার সময় যেগুলোতে পা রাখব, এটি করার উপায়ের সংখ্যা গণনা করতে শুরুর ঘর থেকে প্রথম নির্বাচিত বাধায়, প্রথম বাধা থেকে দ্বিতীয়তে, ইত্যাদি সব পাথের সংখ্যার গুণফল করুন, এবং তারপর ইনক্লুশন-এক্সক্লুশনের আদর্শ সূত্র অনুযায়ী এই সংখ্যা উত্তরে যোগ বা বিয়োগ করুন।
 
-However, this will again be non-polynomial in complexity $O(2^k \cdot k)$.
+তবে, এটি আবার নন-পলিনোমিয়াল কমপ্লেক্সিটি $O(2^k \cdot k)$ হবে।
 
-Here goes a polynomial solution:
+এখানে একটি পলিনোমিয়াল সমাধান:
 
-We will use dynamic programming. For convenience, push (1,1) to the beginning and (n,m) at the end of the obstacles array. Let's compute the numbers $d[i]$ — the number of ways to get from the starting point ($0-th$) to $i-th$, without stepping on any other obstacle (except for $i$, of course). We will compute this number for all the obstacle cells, and also for the ending one.
+আমরা ডায়নামিক প্রোগ্রামিং ব্যবহার করব। সুবিধার জন্য, বাধা অ্যারের শুরুতে (1,1) এবং শেষে (n,m) পুশ করুন। $d[i]$ গণনা করি — শুরুর বিন্দু ($0$-তম) থেকে $i$-তম বিন্দুতে যাওয়ার উপায়ের সংখ্যা, অন্য কোনো বাধায় পা না দিয়ে ($i$ ছাড়া, অবশ্যই)। আমরা সব বাধা ঘর এবং শেষ ঘরের জন্য এই সংখ্যা গণনা করব।
 
-Let's forget for a second the obstacles and just count the number of paths from cell $0$ to $i$. We need to consider some "bad" paths, the ones that pass through the obstacles, and subtract them from the total number of ways of going from $0$ to $i$.
+মুহূর্তের জন্য বাধা ভুলে শুধু $0$ ঘর থেকে $i$ ঘরে পাথের সংখ্যা গুনুন। আমাদের কিছু "খারাপ" পাথ বিবেচনা করতে হবে, যেগুলো বাধার মধ্য দিয়ে যায়, এবং $0$ থেকে $i$ পর্যন্ত মোট পাথের সংখ্যা থেকে বাদ দিতে হবে।
 
-When considering an obstacle $t$ between $0$ and $i$ ($0 < t < i$), on which we can step, we see that the number of paths from $0$ to $i$ that pass through $t$ which have $t$ as the **first obstacle between start and $i$**. We can compute that as: $d[t]$ multiplied by the number of arbitrary paths from $t$ to $i$. We can count the number of "bad" ways summing this for all $t$ between $0$ and $i$.
+$0$ এবং $i$-এর মধ্যে ($0 < t < i$) একটি বাধা $t$ বিবেচনা করলে যেটিতে পা দেওয়া যায়, আমরা দেখি $0$ থেকে $i$ পর্যন্ত $t$-এর মধ্য দিয়ে যাওয়া পাথের সংখ্যা যেখানে $t$ হলো **শুরু এবং $i$-এর মধ্যে প্রথম বাধা**। আমরা এটি গণনা করতে পারি: $d[t]$ গুণিত $t$ থেকে $i$ পর্যন্ত যেকোনো পাথের সংখ্যা। $0$ এবং $i$-এর মধ্যে সব $t$-এর জন্য এটি যোগ করে "খারাপ" উপায়ের সংখ্যা গুনতে পারি।
 
-We can compute $d[i]$ in $O(k)$ for $O(k)$ obstacles, so this solution has complexity $O(k^2)$.
+আমরা $O(k)$ বাধার জন্য $O(k)$-তে $d[i]$ গণনা করতে পারি, তাই এই সমাধানের কমপ্লেক্সিটি $O(k^2)$।
 
-### The number of coprime quadruples
+### সহমৌলিক চতুষ্টয়ের সংখ্যা
 
-You're given $n$ numbers: $a_1, a_2, \ldots, a_n$. You are required to count the number of ways to choose four numbers so that their combined greatest common divisor is equal to one.
+$n$টি সংখ্যা দেওয়া আছে: $a_1, a_2, \ldots, a_n$। আপনাকে চারটি সংখ্যা বাছাই করার উপায়ের সংখ্যা গুনতে হবে যেন তাদের সম্মিলিত গসাগু একের সমান হয়।
 
-We will solve the inverse problem — compute the number of "bad" quadruples, i.e. quadruples in which all numbers are divisible by a number $d > 1$.
+বিপরীত সমস্যা সমাধান করি — "খারাপ" চতুষ্টয়ের সংখ্যা গুনি, অর্থাৎ এমন চতুষ্টয় যেখানে সব সংখ্যা $d > 1$ দ্বারা বিভাজ্য।
 
-We will use the inclusion-exclusion principle while summing over all possible groups of four numbers divisible by a divisor $d$.
+আমরা ইনক্লুশন-এক্সক্লুশন নীতি ব্যবহার করব, $d$ ভাজক দ্বারা বিভাজ্য সব সম্ভাব্য চার সংখ্যার গ্রুপের উপর যোগ করে।
 
 $$ans = \sum_{d \ge 2} (-1)^{deg(d)-1} \cdot f(d)$$
 
-where $deg(d)$ is the number of primes in the factorization of the number $d$ and $f(d)$ the number of quadruples divisible by $d$.
+যেখানে $deg(d)$ হলো $d$ সংখ্যার গুণনীয়করণে মৌলিক সংখ্যার পরিমাণ এবং $f(d)$ হলো $d$ দ্বারা বিভাজ্য চতুষ্টয়ের সংখ্যা।
 
-To calculate the function $f(d)$, you just have to count the number of multiples of $d$ (as mentioned on a previous task) and use [binomial coefficients](binomial-coefficients.md) to count the number of ways to choose four of them.
+$f(d)$ ফাংশন গণনা করতে, শুধু $d$-এর গুণিতকের সংখ্যা গুনতে হবে (যেমন আগের সমস্যায় বলা হয়েছে) এবং [দ্বিপদী সহগ](binomial-coefficients.md) ব্যবহার করে তাদের মধ্য থেকে চারটি বাছাই করার উপায়ের সংখ্যা গুনতে হবে।
 
-Thus, using the formula of inclusions-exclusions we sum the number of groups of four divisible by a prime number, then subtract the number of quadruples which are divisible by the product of two primes, add quadruples divisible by three primes, etc.
+তাই, ইনক্লুশন-এক্সক্লুশনের সূত্র ব্যবহার করে আমরা একটি মৌলিক সংখ্যা দ্বারা বিভাজ্য চারটি গ্রুপের সংখ্যা যোগ করি, তারপর দুটি মৌলিকের গুণফল দ্বারা বিভাজ্য চতুষ্টয়ের সংখ্যা বাদ দিই, তিনটি মৌলিক দ্বারা বিভাজ্য চতুষ্টয় যোগ করি, ইত্যাদি।
 
+### হারমনিক ত্রয়ীর সংখ্যা
 
-### The number of harmonic triplets
+একটি সংখ্যা $n \le 10^6$ দেওয়া আছে। আপনাকে এমন ত্রয়ী $2 \le a < b < c \le n$ গুনতে হবে যা নিম্নলিখিত শর্তগুলোর একটি পূরণ করে:
 
-You are given a number $n \le 10^6$. You are required to count the number of triples $2 \le a < b < c \le n$ that satisfy one of the following conditions:
+* হয় ${\rm gcd}(a,b) = {\rm gcd}(a,c) = {\rm gcd}(b,c) = 1$,
+* অথবা ${\rm gcd}(a,b) > 1, {\rm gcd}(a,c) > 1, {\rm gcd}(b,c) > 1$।
 
-* or ${\rm gcd}(a,b) = {\rm gcd}(a,c) = {\rm gcd}(b,c) = 1$,
-* or ${\rm gcd}(a,b) > 1, {\rm gcd}(a,c) > 1, {\rm gcd}(b,c) > 1$.
+প্রথমে, সরাসরি বিপরীত সমস্যায় যাই — অর্থাৎ নন-হারমনিক ত্রয়ীর সংখ্যা গুনি।
 
-First, go straight to the inverse problem — i.e. count the number of non-harmonic triples.
+দ্বিতীয়ত, লক্ষ্য করুন যে যেকোনো নন-হারমনিক ত্রয়ী একটি সহমৌলিক জোড়া এবং একটি তৃতীয় সংখ্যা দিয়ে গঠিত যা জোড়ার অন্তত একটির সাথে সহমৌলিক নয়।
 
-Second, note that any non-harmonic triplet is made of a pair of coprimes and a third number that is not coprime with at least one from the pair.
+তাই, $i$ ধারণকারী নন-হারমনিক ত্রয়ীর সংখ্যা হলো $2$ থেকে $n$ পর্যন্ত $i$-এর সাথে সহমৌলিক পূর্ণসংখ্যার সংখ্যা, $i$-এর সাথে সহমৌলিক নয় এমন পূর্ণসংখ্যার সংখ্যা দ্বারা গুণিত।
 
-Thus, the number of non-harmonic triples that contain $i$ is equal the number of integers from $2$ to $n$ that are coprimes with $i$ multiplied by the number of integers that are not coprime with $i$.
+হয় $gcd(a,b) = 1 \wedge gcd(a,c) > 1 \wedge gcd(b,c) > 1$
 
-Either $gcd(a,b) = 1 \wedge gcd(a,c) > 1 \wedge gcd(b,c) > 1$
+অথবা $gcd(a,b) = 1 \wedge gcd(a,c) = 1 \wedge gcd(b,c) > 1$
 
-or $gcd(a,b) = 1 \wedge gcd(a,c) = 1 \wedge gcd(b,c) > 1$
+উভয় ক্ষেত্রেই, এটি দুইবার গণনা করা হবে। প্রথম ক্ষেত্রে $i = a$ এবং $i = b$ হলে গণনা করা হবে। দ্বিতীয় ক্ষেত্রে $i = b$ এবং $i = c$ হলে গণনা করা হবে। তাই, নন-হারমনিক ত্রয়ীর সংখ্যা গণনা করতে, $2$ থেকে $n$ পর্যন্ত সব $i$-এর জন্য এই গণনা যোগ করুন এবং $2$ দ্বারা ভাগ করুন।
 
-In both of these cases, it will be counted twice. The first case will be counted when $i = a$ and when $i = b$. The second case will be counted when $i = b$ and when $i = c$. Therefore, to compute the number of non-harmonic triples, we sum this calculation through all $i$ from $2$ to $n$ and divide it by $2$.
+এখন আমাদের শুধু $[2;n]$ ব্যবধানে $i$-এর সাথে সহমৌলিক সংখ্যা গুনতে শিখতে বাকি। যদিও এই সমস্যাটি আগেই উল্লেখ করা হয়েছে, উপরের সমাধান এখানে উপযুক্ত নয় — এটি $2$ থেকে $n$ পর্যন্ত প্রতিটি পূর্ণসংখ্যার গুণনীয়করণ এবং তারপর সেই মৌলিকগুলোর সব সাবসেটে ইটারেট করা প্রয়োজন করবে।
 
-Now all we have left to solve is to learn to count the number of coprimes to $i$ in the interval $[2;n]$. Although this problem has already been mentioned, the above solution is not suitable here — it would require the factorization of each of the integers from $2$ to $n$, and then iterating through all subsets of these primes.
+ইরাটোস্থিনিসের চালনির এমন পরিবর্তন দিয়ে দ্রুত সমাধান সম্ভব:
 
-A faster solution is possible with such modification of the sieve of Eratosthenes:
+1. প্রথমে, $[2;n]$ ব্যবধানে এমন সব সংখ্যা খুঁজুন যাদের সরল গুণনীয়করণে কোনো মৌলিক গুণনীয়ক দুইবার নেই। এই সংখ্যাগুলোর জন্য কতগুলো গুণনীয়ক আছে তাও জানতে হবে।
+    * এর জন্য আমরা একটি অ্যারে $deg[i]$ রাখব $i$-এর গুণনীয়করণে মৌলিকের সংখ্যা সংরক্ষণ করতে, এবং একটি অ্যারে $good[i]$ চিহ্নিত করতে যে $i$ প্রতিটি গুণনীয়ক সর্বোচ্চ একবার ধারণ করে ($good[i] = 1$) বা না ($good[i] = 0$)। $2$ থেকে $n$ পর্যন্ত ইটারেট করার সময়, যদি একটি সংখ্যায় পৌঁছাই যার $deg$ শূন্য, তাহলে এটি একটি মৌলিক এবং এর $deg$ হলো $1$।
+    * ইরাটোস্থিনিসের চালনির সময়, আমরা $2$ থেকে $n$ পর্যন্ত $i$ ইটারেট করব। একটি মৌলিক সংখ্যা প্রক্রিয়া করার সময় এর সব গুণিতকের মধ্য দিয়ে যাব এবং তাদের $deg[]$ বাড়াব। যদি এই গুণিতকগুলোর কোনোটি $i$-এর বর্গের গুণিতক হয়, তাহলে $good$ মিথ্যা করে দিতে পারি।
 
-1. First, we find all numbers in the interval $[2;n]$ such that its simple factorization does not include a prime factor twice. We will also need to know, for these numbers, how many factors it includes.
-    * To do this we will maintain an array $deg[i]$ to store the number of primes in the factorization of $i$, and an array $good[i]$, to mark either if $i$ contains each factor at most once ($good[i] = 1$) or not ($good[i] = 0$). When iterating from $2$ to $n$, if we reach a number that has $deg$ equal to $0$, then it is a prime and its $deg$ is $1$.
-    * During the sieve of Eratosthenes, we will iterate $i$ from $2$ to $n$. When processing a prime number we go through all of its multiples and increase their $deg[]$. If one of these multiples is multiple of the square of $i$, then we can put $good$ as false.
+2. দ্বিতীয়ত, $2$ থেকে $n$ পর্যন্ত সব $i$-এর জন্য উত্তর গণনা করতে হবে, অর্থাৎ অ্যারে $cnt[]$ — $i$-এর সাথে সহমৌলিক নয় এমন পূর্ণসংখ্যার সংখ্যা।
+    * এর জন্য, মনে রাখুন ইনক্লুশন-এক্সক্লুশনের সূত্র কীভাবে কাজ করে — প্রকৃতপক্ষে এখানে আমরা একই ধারণা বাস্তবায়ন করি, কিন্তু উল্টো যুক্তিতে: আমরা একটি কম্পোনেন্ট (গুণনীয়করণের মৌলিকগুলোর গুণফল) দিয়ে ইটারেট করি এবং এর প্রতিটি গুণিতকের ইনক্লুশন-এক্সক্লুশন সূত্রের পদ যোগ বা বিয়োগ করি।
+    * তাই, ধরি আমরা এমন একটি সংখ্যা $i$ প্রক্রিয়া করছি যেখানে $good[i] = true$, অর্থাৎ এটি ইনক্লুশন-এক্সক্লুশন সূত্রে জড়িত। $i$-এর গুণিতক সব সংখ্যা দিয়ে ইটারেট করুন এবং তাদের $cnt[]$-এ $\lfloor N/i \rfloor$ যোগ বা বিয়োগ করুন (চিহ্ন $deg[i]$-এর উপর নির্ভর করে: যদি $deg[i]$ বিজোড় হয় তাহলে যোগ করতে হবে, অন্যথায় বিয়োগ)।
 
-2. Second, we need to calculate the answer for all $i$ from $2$ to $n$, i.e., the array $cnt[]$ — the number of integers not coprime with $i$.
-    * To do this, remember how the formula of inclusion-exclusion works — actually here we implement the same concept, but with inverted logic: we iterate over a component (a product of primes from the factorization) and add or subtract its term on the formula of inclusion-exclusion of each of its multiples.
-    * So, let's say we are processing a number $i$ such that $good[i] = true$, i.e., it is involved in the formula of inclusion-exclusion. Iterate through all numbers that are multiples of $i$, and either add or subtract $\lfloor N/i \rfloor$ from their $cnt[]$ (the signal depends on $deg[i]$: if $deg[i]$ is odd, then we must add, otherwise subtract).
-
-Here's a C++ implementation:
+এখানে একটি C++ ইমপ্লিমেন্টেশন:
 
 ```cpp
 int n;
@@ -392,23 +390,23 @@ long long solve() {
 }
 ```
 
-The asymptotics of our solution is $O(n \log n)$, as for almost every number up to $n$ we make $n/i$ iterations on the nested loop.
+আমাদের সমাধানের কমপ্লেক্সিটি $O(n \log n)$, কারণ $n$ পর্যন্ত প্রায় প্রতিটি সংখ্যার জন্য আমরা নেস্টেড লুপে $n/i$ ইটারেশন করি।
 
-### The number of permutations without fixed points (derangements)
+### স্থির বিন্দু ছাড়া পারমুটেশনের সংখ্যা (ডিরেঞ্জমেন্ট)
 
-Prove that the number of permutations of length $n$ without fixed points (i.e. no number $i$ is in position $i$ - also called a derangement) is equal to the following number:
+প্রমাণ করুন যে স্থির বিন্দু ছাড়া দৈর্ঘ্য $n$-এর পারমুটেশনের সংখ্যা (অর্থাৎ কোনো সংখ্যা $i$ অবস্থান $i$-তে নেই — একে ডিরেঞ্জমেন্টও বলা হয়) নিম্নলিখিত সংখ্যার সমান:
 
 $$n! - \binom{n}{1} \cdot (n-1)! + \binom{n}{2} \cdot (n-2)! - \binom{n}{3} \cdot (n-3)! + \cdots \pm \binom{n}{n} \cdot (n-n)! $$
 
-and approximately equal to:
+এবং আনুমানিকভাবে:
 
 $$ \frac{ n! }{ e } $$
 
-(if you round this expression to the nearest whole number — you get exactly the number of permutations without fixed points)
+(যদি এই রাশিটি নিকটতম পূর্ণসংখ্যায় রাউন্ড করেন — আপনি ঠিক স্থির বিন্দু ছাড়া পারমুটেশনের সংখ্যা পাবেন)
 
-Denote by $A_k$ the set of permutations of length $n$ with a fixed point at position $k$ ($1 \le k \le n$) (i.e. element $k$ is at position $k$).
+$A_k$ দ্বারা দৈর্ঘ্য $n$-এর এমন পারমুটেশনের সেট চিহ্নিত করি যেখানে $k$ অবস্থানে স্থির বিন্দু আছে ($1 \le k \le n$) (অর্থাৎ $k$ উপাদান $k$ অবস্থানে আছে)।
 
-We now use the formula of inclusion-exclusion to count the number of permutations with at least one fixed point. For this we need to learn to count sizes of an intersection of sets $A_i$, as follows:
+এখন ইনক্লুশন-এক্সক্লুশন সূত্র ব্যবহার করে অন্তত একটি স্থির বিন্দু সহ পারমুটেশনের সংখ্যা গুনি। এর জন্য সেট $A_i$-এর ছেদের আকার গুনতে শিখতে হবে, নিম্নরূপ:
 
 $$\begin{eqnarray}
 \left| A_p \right| &=& (n-1)!\ , \\
@@ -417,27 +415,27 @@ $$\begin{eqnarray}
 \cdots ,
 \end{eqnarray}$$
 
-because if we know that the number of fixed points is equal $x$, then we know the position of $x$ elements of the permutation, and all other $(n-x)$ elements can be placed anywhere.
+কারণ আমরা যদি জানি স্থির বিন্দুর সংখ্যা $x$, তাহলে আমরা পারমুটেশনের $x$টি উপাদানের অবস্থান জানি, এবং বাকি $(n-x)$টি উপাদান যেকোনো জায়গায় বসতে পারে।
 
-Substituting this into the formula of inclusion-exclusion, and given that the number of ways to choose a subset of size $x$ from the set of $n$ elements is equal to $\binom{n}{x}$, we obtain a formula for the number of permutations with at least one fixed point:
+ইনক্লুশন-এক্সক্লুশন সূত্রে প্রতিস্থাপন করে, এবং যেহেতু $n$ উপাদানের সেট থেকে $x$ আকারের সাবসেট বাছাই করার উপায়ের সংখ্যা $\binom{n}{x}$, আমরা অন্তত একটি স্থির বিন্দু সহ পারমুটেশনের সংখ্যার সূত্র পাই:
 
 $$\binom{n}{1} \cdot (n-1)! - \binom{n}{2} \cdot (n-2)! + \binom{n}{3} \cdot (n-3)! - \cdots \pm \binom{n}{n} \cdot (n-n)! $$
 
-Then the number of permutations without fixed points is equal to:
+তাহলে স্থির বিন্দু ছাড়া পারমুটেশনের সংখ্যা:
 
 $$n! - \binom{n}{1} \cdot (n-1)! + \binom{n}{2} \cdot (n-2)! - \binom{n}{3} \cdot (n-3)! + \cdots \pm \binom{n}{n} \cdot (n-n)! $$
 
-Simplifying this expression, we obtain **exact and approximate expressions for the number of permutations without fixed points**:
+এই রাশি সরলীকরণ করলে, আমরা **স্থির বিন্দু ছাড়া পারমুটেশনের সংখ্যার সুনির্দিষ্ট এবং আনুমানিক রাশি** পাই:
 
 $$ n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots \pm \frac{1}{n!} \right ) \approx \frac{n!}{e} $$
 
-(because the sum in brackets are the first $n+1$ terms of the expansion in Taylor series $e^{-1}$)
+(কারণ বন্ধনীর ভেতরের যোগফল হলো $e^{-1}$-এর টেলর সিরিজ বিস্তারের প্রথম $n+1$টি পদ)
 
-It is worth noting that a similar problem can be solved this way: when you need the fixed points were not among the $m$ first elements of permutations (and not among all, as we just solved). The formula obtained is as the given above accurate formula, but it will go up to the sum of $k$, instead of $n$.
+উল্লেখ্য যে অনুরূপ সমস্যাও এভাবে সমাধান করা যায়: যখন স্থির বিন্দু পারমুটেশনের প্রথম $m$টি উপাদানের মধ্যে না থাকতে হবে (এবং সবগুলোর মধ্যে নয়, যেমন আমরা সবেমাত্র সমাধান করেছি)। প্রাপ্ত সূত্রটি উপরের সুনির্দিষ্ট সূত্রের মতো, কিন্তু $n$-এর পরিবর্তে যোগফল $k$ পর্যন্ত যাবে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
-A list of tasks that can be solved using the principle of inclusions-exclusions:
+ইনক্লুশন-এক্সক্লুশন নীতি ব্যবহার করে সমাধানযোগ্য সমস্যার একটি তালিকা:
 
 * [UVA #10325 "The Lottery" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1266)
 * [UVA #11806 "Cheerleaders" [difficulty: low]](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2906)

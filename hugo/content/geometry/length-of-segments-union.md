@@ -1,25 +1,25 @@
 ---
-title: "Length of the union of segments"
+title: "রেখাংশের ইউনিয়নের দৈর্ঘ্য"
 tags: 
 weight: 90
 ---
-# Length of the union of segments
+# রেখাংশের ইউনিয়নের দৈর্ঘ্য
 
-Given $n$ segments on a line, each described by a pair of coordinates $(a_{i1}, a_{i2})$.
-We have to find the length of their union.
+একটি সরলরেখায় $n$টি রেখাংশ দেওয়া আছে, প্রতিটি স্থানাঙ্কের একটি জোড়া $(a_{i1}, a_{i2})$ দ্বারা বর্ণিত।
+আমাদের তাদের ইউনিয়নের দৈর্ঘ্য বের করতে হবে।
 
-The following algorithm was proposed by Klee in 1977.
-It works in $O(n\log n)$ and has been proven to be the asymptotically optimal.
+নিম্নলিখিত অ্যালগরিদমটি Klee ১৯৭৭ সালে প্রস্তাব করেছিলেন।
+এটি $O(n\log n)$-তে কাজ করে এবং প্রমাণিত হয়েছে যে এটি অ্যাসিম্পটোটিকভাবে সর্বোত্তম।
 
-## Solution
+## সমাধান
 
-We store in an array $x$ the endpoints of all the segments sorted by their values.
-And additionally we store whether it is a left end or a right end of a segment.
-Now we iterate over the array, keeping a counter $c$ of currently opened segments.
-Whenever the current element is a left end, we increase this counter, and otherwise we decrease it.
-To compute the answer, we take the length between the last to $x$ values $x_i - x_{i-1}$, whenever we come to a new coordinate, and there is currently at least one segment is open.
+আমরা একটি অ্যারে $x$-তে সব রেখাংশের প্রান্তবিন্দু তাদের মান অনুসারে সর্ট করে সংরক্ষণ করি।
+এবং অতিরিক্তভাবে সংরক্ষণ করি এটি একটি রেখাংশের বাম প্রান্ত না ডান প্রান্ত।
+এখন আমরা অ্যারের উপর ইটারেট করি, বর্তমানে খোলা রেখাংশের একটি কাউন্টার $c$ বজায় রেখে।
+যখনই বর্তমান এলিমেন্ট একটি বাম প্রান্ত, আমরা এই কাউন্টার বাড়াই, অন্যথায় কমাই।
+উত্তর গণনা করতে, আমরা শেষ দুটি $x$ মানের মধ্যে দৈর্ঘ্য $x_i - x_{i-1}$ নিই, যখনই আমরা একটি নতুন স্থানাঙ্কে আসি, এবং বর্তমানে অন্তত একটি রেখাংশ খোলা থাকে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int length_union(const vector<pair<int, int>> &a) {

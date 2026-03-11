@@ -1,58 +1,57 @@
 ---
-title: "Strong Orientation"
+title: "স্ট্রং ওরিয়েন্টেশন"
 tags: 
 weight: 60
 ---
-# Strong Orientation
+# স্ট্রং ওরিয়েন্টেশন
 
-A **strong orientation** of an undirected graph is an assignment of a direction to each edge that makes it a [strongly connected graph](strongly-connected-components.md).
-That is, after the *orientation* we should be able to visit any vertex from any vertex by following the directed edges.
+একটি আনডিরেক্টেড গ্রাফের **স্ট্রং ওরিয়েন্টেশন** হলো প্রতিটি এজে এমনভাবে দিক নির্ধারণ করা যেন এটি একটি [স্ট্রংলি কানেক্টেড গ্রাফ](strongly-connected-components.md) হয়ে যায়।
+অর্থাৎ, *ওরিয়েন্টেশনের* পরে ডিরেক্টেড এজ অনুসরণ করে আমরা যেকোনো ভার্টেক্স থেকে যেকোনো ভার্টেক্সে যেতে পারব।
 
-## Solution
+## সমাধান
 
-Of course, this cannot be done to *every* graph.
-Consider a [bridge](bridge-searching.md) in a graph.
-We have to assign a direction to it and by doing so we make this bridge "crossable" in only one direction. That means we can't go from one of the bridge's ends to the other, so we can't make the graph strongly connected.
+অবশ্যই, *প্রতিটি* গ্রাফে এটি করা সম্ভব নয়।
+গ্রাফে একটি [ব্রিজ](bridge-searching.md) বিবেচনা করুন।
+আমাদের এতে একটি দিক নির্ধারণ করতে হবে এবং এতে করে এই ব্রিজ শুধুমাত্র একদিকে "পার করা" যাবে। তার মানে আমরা ব্রিজের একপ্রান্ত থেকে অন্যপ্রান্তে যেতে পারি না, তাই আমরা গ্রাফকে স্ট্রংলি কানেক্টেড করতে পারি না।
 
-Now consider a [DFS](depth-first-search.md) through a bridgeless connected graph.
-Clearly, we will visit each vertex.
-And since there are no bridges, we can remove any DFS tree edge and still be able to go
-from below the edge to above the edge by using a path that contains at least one back edge.
-From this follows that from any vertex we can go to the root of the DFS tree.
-Also, from the root of the DFS tree we can visit any vertex we choose.
-We found a strong orientation!
+এখন একটি ব্রিজমুক্ত কানেক্টেড গ্রাফে [DFS](depth-first-search.md) বিবেচনা করুন।
+স্পষ্টতই, আমরা প্রতিটি ভার্টেক্স ভিজিট করব।
+এবং যেহেতু কোনো ব্রিজ নেই, আমরা যেকোনো DFS ট্রি এজ সরিয়েও এজের নিচ থেকে উপরে যেতে পারি কমপক্ষে একটি ব্যাক এজ ব্যবহার করে।
+এ থেকে বোঝা যায় যে যেকোনো ভার্টেক্স থেকে DFS ট্রি-র রুটে যাওয়া সম্ভব।
+এছাড়াও, DFS ট্রি-র রুট থেকে আমরা যেকোনো ভার্টেক্সে যেতে পারি।
+আমরা একটি স্ট্রং ওরিয়েন্টেশন পেয়েছি!
 
-In other words, to strongly orient a bridgeless connected graph,
-run a DFS on it and let the DFS tree edges point away from the DFS root and
-all other edges from the descendant to the ancestor in the DFS tree.
+অন্যভাবে বলতে গেলে, একটি ব্রিজমুক্ত কানেক্টেড গ্রাফকে স্ট্রংলি ওরিয়েন্ট করতে,
+এতে DFS চালান এবং DFS ট্রি এজগুলোকে DFS রুট থেকে দূরে এবং
+অন্য সব এজকে DFS ট্রি-তে ডিসেন্ডেন্ট থেকে অ্যানসেস্টরের দিকে পয়েন্ট করুন।
 
-The result that bridgeless connected graphs are exactly the graphs that have strong orientations is called **Robbins' theorem**.
+ব্রিজমুক্ত কানেক্টেড গ্রাফগুলোই ঠিক সেই গ্রাফ যাদের স্ট্রং ওরিয়েন্টেশন আছে, এই ফলাফলটিকে **রবিন্সের উপপাদ্য** বলা হয়।
 
-## Problem extension
+## সমস্যার সম্প্রসারণ
 
-Let's consider the problem of finding a graph orientation so that the number of SCCs is minimal.
+আসুন এমন একটি গ্রাফ ওরিয়েন্টেশন খুঁজে বের করার সমস্যা বিবেচনা করি যেন এসসিসি-র সংখ্যা সর্বনিম্ন হয়।
 
-Of course, each graph component can be considered separately.
-Now, since only bridgeless graphs are strongly orientable, let's remove all bridges temporarily.
-We end up with some number of bridgeless components
-(exactly *how many components there were at the beginning* + *how many bridges there were*)
- and we know that we can strongly orient each of them.
+অবশ্যই, প্রতিটি গ্রাফ কম্পোনেন্ট আলাদাভাবে বিবেচনা করা যায়।
+এখন, যেহেতু শুধুমাত্র ব্রিজমুক্ত গ্রাফই স্ট্রংলি ওরিয়েন্টেবল, তাই আসুন সাময়িকভাবে সব ব্রিজ সরিয়ে ফেলি।
+আমরা কিছু সংখ্যক ব্রিজমুক্ত কম্পোনেন্ট পাব
+(ঠিক *শুরুতে কতগুলো কম্পোনেন্ট ছিল* + *কতগুলো ব্রিজ ছিল*)
+এবং আমরা জানি যে আমরা তাদের প্রতিটিকে স্ট্রংলি ওরিয়েন্ট করতে পারি।
 
-We were only allowed to orient edges, not remove them, but it turns out we can orient the bridges arbitrarily.
-Of course, the easiest way to orient them is to run the algorithm described above without modifications on each original connected component.
+আমাদের শুধু এজ ওরিয়েন্ট করার অনুমতি ছিল, সরানোর নয়, কিন্তু দেখা যায় যে ব্রিজগুলো যেকোনোভাবে ওরিয়েন্ট করা যায়।
+অবশ্যই, সবচেয়ে সহজ উপায় হলো প্রতিটি আসল কানেক্টেড কম্পোনেন্টে কোনো পরিবর্তন ছাড়াই উপরে বর্ণিত অ্যালগরিদম চালানো।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-Here, the input is *n* — the number of vertices, *m* — the number of edges, then *m* lines describing the edges.
+এখানে, ইনপুট হলো *n* — ভার্টেক্সের সংখ্যা, *m* — এজের সংখ্যা, তারপর *m* লাইনে এজের বর্ণনা।
 
-The output is the minimal number of SCCs on the first line and on the second line
-a string of *m* characters,
-either `>` — telling us that the corresponding edge from the input
-is oriented from the left to the right vertex (as in the input),
-or `<` — the opposite.
+আউটপুট হলো প্রথম লাইনে এসসিসি-র সর্বনিম্ন সংখ্যা এবং দ্বিতীয় লাইনে
+*m* টি ক্যারেক্টারের একটি স্ট্রিং,
+হয় `>` — যার মানে ইনপুটের সংশ্লিষ্ট এজটি বাম থেকে ডান ভার্টেক্সের দিকে
+(ইনপুটের মতো) ওরিয়েন্টেড,
+অথবা `<` — উল্টো।
 
-This is a bridge search algorithm modified to also orient the edges,
-you can as well orient the edges as a first step and count the SCCs on the oriented graph as a second.
+এটি একটি ব্রিজ সার্চ অ্যালগরিদম যা এজ ওরিয়েন্ট করতেও পরিবর্তিত করা হয়েছে,
+আপনি প্রথম ধাপে এজ ওরিয়েন্ট করে দ্বিতীয় ধাপে ওরিয়েন্টেড গ্রাফে এসসিসি গণনা করতেও পারেন।
 
 ```cpp
 vector<vector<pair<int, int>>> adj; // adjacency list - vertex and edge pairs
@@ -111,6 +110,6 @@ int main() {
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [26th Polish OI - Osiedla](https://szkopul.edu.pl/problemset/problem/nldsb4EW1YuZykBlf4lcZL1Y/site/)

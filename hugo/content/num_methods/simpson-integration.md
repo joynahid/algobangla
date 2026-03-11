@@ -1,50 +1,50 @@
 ---
-title: "Integration by Simpson's formula"
+title: "সিম্পসনের সূত্র দ্বারা সমাকলন"
 tags: 
 weight: 10
 ---
-# Integration by Simpson's formula
+# সিম্পসনের সূত্র দ্বারা সমাকলন
 
-We are going to calculate the value of a definite integral
+আমরা একটি নির্দিষ্ট সমাকলনের মান গণনা করতে যাচ্ছি
 
 $$\int_a ^ b f (x) dx$$
 
-The solution described here was published in one of the dissertations of **Thomas Simpson** in 1743.
+এখানে বর্ণিত সমাধানটি **থমাস সিম্পসন** তাঁর ১৭৪৩ সালের একটি অভিসন্দর্ভে প্রকাশ করেছিলেন।
 
-## Simpson's formula
+## সিম্পসনের সূত্র
 
-Let $n$ be some natural number. We divide the integration segment $[a, b]$ into $2n$ equal parts:
+ধরি $n$ কোনো স্বাভাবিক সংখ্যা। আমরা সমাকলনের ব্যবধান $[a, b]$ কে $2n$ টি সমান অংশে ভাগ করি:
 
 $$x_i = a + i h, ~~ i = 0 \ldots 2n,$$
 
 $$h = \frac {b-a} {2n}.$$
 
-Now we calculate the integral separately on each of the segments $[x_ {2i-2}, x_ {2i}]$, $i = 1 \ldots n$, and then add all the values.
+এখন আমরা প্রতিটি ব্যবধান $[x_ {2i-2}, x_ {2i}]$, $i = 1 \ldots n$ এ আলাদাভাবে সমাকলন গণনা করি, এবং তারপর সকল মান যোগ করি।
 
-So, suppose we consider the next segment $[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$. Replace the function $f(x)$ on it with a parabola $P(x)$ passing through 3 points $(x_ {2i-2}, x_ {2i-1}, x_ {2i})$. Such a parabola always exists and is unique; it can be found analytically.
-For instance we could construct it using the Lagrange polynomial interpolation.
-The only remaining thing left to do is to integrate this polynomial.
-If you do this for a general function $f$, you receive a remarkably simple expression:
+ধরি আমরা পরবর্তী ব্যবধান $[x_ {2i-2}, x_ {2i}],  i = 1 \ldots n$ বিবেচনা করছি। এতে ফাংশন $f(x)$ কে ৩টি বিন্দু $(x_ {2i-2}, x_ {2i-1}, x_ {2i})$ দিয়ে যাওয়া একটি পরাবৃত্ত $P(x)$ দ্বারা প্রতিস্থাপন করি। এরকম একটি পরাবৃত্ত সবসময় বিদ্যমান এবং অনন্য; এটি বিশ্লেষণাত্মকভাবে পাওয়া যায়।
+উদাহরণস্বরূপ আমরা ল্যাগ্রাঞ্জ বহুপদী ইন্টারপোলেশন ব্যবহার করে এটি নির্মাণ করতে পারি।
+এখন শুধু এই বহুপদীর সমাকলন করা বাকি।
+যদি আপনি একটি সাধারণ ফাংশন $f$ এর জন্য এটি করেন, তাহলে একটি অসাধারণ সরল রাশি পাওয়া যায়:
 
 $$\int_{x_ {2i-2}} ^ {x_ {2i}} f (x) ~dx \approx \int_{x_ {2i-2}} ^ {x_ {2i}} P (x) ~dx = \left(f(x_{2i-2}) + 4f(x_{2i-1})+(f(x_{2i})\right)\frac {h} {3} $$
 
-Adding these values over all segments, we obtain the final **Simpson's formula**:
+সকল ব্যবধানে এই মানগুলো যোগ করলে আমরা চূড়ান্ত **সিম্পসনের সূত্র** পাই:
 
 $$\int_a ^ b f (x) dx \approx \left(f (x_0) + 4 f (x_1) + 2 f (x_2) + 4f(x_3) + 2 f(x_4) + \ldots + 4 f(x_{2N-1}) + f(x_{2N}) \right)\frac {h} {3} $$
 
-## Error
+## ত্রুটি
 
-The error in approximating an integral by Simpson's formula is
+সিম্পসনের সূত্র দ্বারা সমাকলনের আনুমানিক মানের ত্রুটি হলো
 
 $$ -\tfrac{1}{90} \left(\tfrac{b-a}{2}\right)^5 f^{(4)}(\xi)$$
 
-where $\xi$ is some number between $a$ and $b$.
+যেখানে $\xi$ হলো $a$ এবং $b$ এর মধ্যে কোনো সংখ্যা।
 
-The error is asymptotically proportional to $(b-a)^5$. However, the above derivations suggest an error proportional to $(b-a)^4$. Simpson's rule gains an extra order because the points at which the integrand is evaluated are distributed symmetrically in the interval $[a, b]$.
+ত্রুটি অ্যাসিম্পটোটিকভাবে $(b-a)^5$ এর সমানুপাতিক। তবে, উপরের বিশ্লেষণ $(b-a)^4$ এর সমানুপাতিক ত্রুটি নির্দেশ করে। সিম্পসনের রুল একটি অতিরিক্ত অর্ডার লাভ করে কারণ যে বিন্দুগুলোতে ইন্টিগ্র্যান্ড মূল্যায়ন করা হয় সেগুলো $[a, b]$ ব্যবধানে সমানভাবে বিতরিত।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here, $f(x)$ is some user-defined function.
+এখানে, $f(x)$ একটি ইউজার-ডিফাইন্ড ফাংশন।
 
 ```cpp
 const int N = 1000 * 1000; // number of steps (already multiplied by 2)
@@ -61,6 +61,6 @@ double simpson_integration(double a, double b){
 }
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Latin American Regionals 2012 - Environment Protection](https://matcomgrader.com/problem/9335/environment-protection/)

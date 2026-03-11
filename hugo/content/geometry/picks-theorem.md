@@ -1,54 +1,54 @@
 ---
-title: "Pick's Theorem"
+title: "পিকের উপপাদ্য"
 tags: 
 weight: 50
 ---
-# Pick's Theorem
+# পিকের উপপাদ্য
 
-A polygon without self-intersections is called lattice if all its vertices have integer coordinates in some 2D grid. Pick's theorem provides a way to compute the area of this polygon through the number of vertices that are lying on the boundary and the number of vertices that lie strictly inside the polygon.
+স্ব-ছেদবিহীন একটি পলিগনকে ল্যাটিস পলিগন বলা হয় যদি এর সব শীর্ষবিন্দুর কোনো ২D গ্রিডে পূর্ণসংখ্যা স্থানাঙ্ক থাকে। পিকের উপপাদ্য এই পলিগনের ক্ষেত্রফল গণনার একটি উপায় দেয় — সীমানায় অবস্থিত শীর্ষবিন্দু সংখ্যা এবং পলিগনের সম্পূর্ণ ভেতরে অবস্থিত শীর্ষবিন্দু সংখ্যার মাধ্যমে।
 
-## Formula
+## সূত্র
 
-Given a certain lattice polygon with non-zero area.
+শূন্য-নয় ক্ষেত্রফল বিশিষ্ট একটি নির্দিষ্ট ল্যাটিস পলিগন দেওয়া আছে।
 
-We denote its area by $S$, the number of points with integer coordinates lying strictly inside the polygon by $I$ and the number of points lying on polygon sides by $B$.
+এর ক্ষেত্রফলকে $S$, পলিগনের সম্পূর্ণ ভেতরে অবস্থিত পূর্ণসংখ্যা স্থানাঙ্কের বিন্দু সংখ্যাকে $I$ এবং পলিগনের বাহুতে অবস্থিত বিন্দু সংখ্যাকে $B$ দিয়ে বোঝাই।
 
-Then, the **Pick's formula** states:
+তখন, **পিকের সূত্র** বলে:
 
 $$S=I+\frac{B}{2}-1$$
 
-In particular, if the values of $I$ and $B$ for a polygon are given, the area can be calculated in $O(1)$ without even knowing the vertices.
+বিশেষ করে, যদি একটি পলিগনের $I$ ও $B$-এর মান দেওয়া থাকে, শীর্ষবিন্দু না জেনেও $O(1)$-এ ক্ষেত্রফল গণনা করা যায়।
 
-This formula was discovered and proven by Austrian mathematician Georg Alexander Pick in 1899.
+এই সূত্রটি ১৮৯৯ সালে অস্ট্রিয়ান গণিতবিদ Georg Alexander Pick আবিষ্কার ও প্রমাণ করেছিলেন।
 
-## Proof
+## প্রমাণ
 
-The proof is carried out in many stages: from simple polygons to arbitrary ones:
+প্রমাণটি অনেক ধাপে সম্পন্ন হয়: সরল পলিগন থেকে যেকোনো পলিগনে:
 
-- A single square: $S=1, I=0, B=4$, which satisfies the formula.
+- একটি একক বর্গক্ষেত্র: $S=1, I=0, B=4$, যা সূত্রটি সন্তুষ্ট করে।
 
-- An arbitrary non-degenerate rectangle with sides parallel to coordinate axes: Assume $a$ and $b$ be the length of the sides of rectangle. Then, $S=ab, I=(a-1)(b-1), B=2(a+b)$. On substituting, we see that formula is true.
+- স্থানাঙ্ক অক্ষের সমান্তরাল বাহু বিশিষ্ট একটি যেকোনো অ-অধঃপতিত আয়তক্ষেত্র: ধরি $a$ ও $b$ আয়তক্ষেত্রের বাহুর দৈর্ঘ্য। তখন, $S=ab, I=(a-1)(b-1), B=2(a+b)$। প্রতিস্থাপন করে আমরা দেখি সূত্রটি সত্য।
 
-- A right angle with legs parallel to the axes: To prove this, note that any such triangle can be obtained by cutting off a rectangle by a diagonal. Denoting the number of integral points lying on diagonal by $c$, it can be shown that Pick's formula holds for this triangle regardless of $c$.
+- অক্ষের সমান্তরাল পা বিশিষ্ট একটি সমকোণী ত্রিভুজ: এটি প্রমাণ করতে, লক্ষ্য করুন যে এমন যেকোনো ত্রিভুজ একটি আয়তক্ষেত্র থেকে কর্ণ দিয়ে কেটে পাওয়া যায়। কর্ণের উপরে অবস্থিত পূর্ণসংখ্যা বিন্দু সংখ্যাকে $c$ দিয়ে বোঝালে, $c$ যাই হোক পিকের সূত্র এই ত্রিভুজের জন্য সত্য দেখানো যায়।
 
-- An arbitrary triangle: Note that any such triangle can be turned into a rectangle by attaching it to sides of right-angled triangles with legs parallel to the axes (you will not need more than 3 such triangles). From here, we can get correct formula for any triangle.
+- যেকোনো ত্রিভুজ: লক্ষ্য করুন যেকোনো ত্রিভুজকে অক্ষের সমান্তরাল পা বিশিষ্ট সমকোণী ত্রিভুজ যুক্ত করে একটি আয়তক্ষেত্রে পরিণত করা যায় (আপনার ৩টির বেশি এমন ত্রিভুজ লাগবে না)। এখান থেকে, আমরা যেকোনো ত্রিভুজের জন্য সঠিক সূত্র পেতে পারি।
 
-- An arbitrary polygon: To prove this, triangulate it, ie, divide into triangles with integral coordinates. Further, it is possible to prove that Pick's theorem retains its validity when a polygon is added to a triangle. Thus, we have proven Pick's formula for arbitrary polygon.
+- যেকোনো পলিগন: এটি প্রমাণ করতে, ত্রিভুজায়ন করুন, অর্থাৎ পূর্ণসংখ্যা স্থানাঙ্ক বিশিষ্ট ত্রিভুজে ভাগ করুন। এরপর, প্রমাণ করা সম্ভব যে পিকের উপপাদ্য তখনও বৈধ থাকে যখন একটি পলিগনের সাথে একটি ত্রিভুজ যোগ করা হয়। সুতরাং, আমরা যেকোনো পলিগনের জন্য পিকের সূত্র প্রমাণ করলাম।
 
-## Generalization to higher dimensions
+## উচ্চতর মাত্রায় সাধারণীকরণ
 
-Unfortunately, this simple and beautiful formula cannot be generalized to higher dimensions.
+দুর্ভাগ্যবশত, এই সরল ও সুন্দর সূত্রটি উচ্চতর মাত্রায় সাধারণীকরণ করা যায় না।
 
-John Reeve demonstrated this by proposing a tetrahedron (**Reeve tetrahedron**) with following vertices in 1957:
+John Reeve ১৯৫৭ সালে নিম্নলিখিত শীর্ষবিন্দু বিশিষ্ট একটি চতুস্তলক (**রিভ চতুস্তলক**) প্রস্তাব করে এটি দেখিয়েছিলেন:
 
 $$A=(0,0,0),
 B=(1,0,0),
 C=(0,1,0),
 D=(1,1,k),$$
 
-where $k$ can be any natural number. Then for any $k$, the tetrahedron $ABCD$ does not contain integer point inside it and has only $4$ points on its borders, $A, B, C, D$. Thus, the volume and surface area may vary in spite of unchanged number of points within and on boundary. Therefore, Pick's theorem doesn't allow generalizations.
+যেখানে $k$ যেকোনো স্বাভাবিক সংখ্যা হতে পারে। তখন যেকোনো $k$-র জন্য, $ABCD$ চতুস্তলকের ভেতরে কোনো পূর্ণসংখ্যা বিন্দু নেই এবং এর সীমানায় মাত্র $4$ টি বিন্দু আছে, $A, B, C, D$। সুতরাং, ভেতরে ও সীমানায় বিন্দু সংখ্যা অপরিবর্তিত থাকা সত্ত্বেও আয়তন ও পৃষ্ঠ ক্ষেত্রফল পরিবর্তিত হতে পারে। তাই, পিকের উপপাদ্য সাধারণীকরণের অনুমতি দেয় না।
 
-However, higher dimensions still has a generalization using **Ehrhart polynomials** but they are quite complex and depends not only on points inside but also on the boundary of polytype.
+তবে, উচ্চতর মাত্রায় এখনও **এরহার্ট বহুপদী** ব্যবহার করে একটি সাধারণীকরণ আছে কিন্তু সেগুলো বেশ জটিল এবং শুধু ভেতরের বিন্দু নয় বরং পলিটোপের সীমানার উপরও নির্ভর করে।
 
-## Extra Resources
-A few simple examples and a simple proof of Pick's theorem can be found [here](http://www.geometer.org/mathcircles/pick.pdf).
+## অতিরিক্ত সম্পদ
+পিকের উপপাদ্যের কিছু সরল উদাহরণ ও সরল প্রমাণ পাওয়া যাবে [এখানে](http://www.geometer.org/mathcircles/pick.pdf)।

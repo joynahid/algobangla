@@ -3,9 +3,9 @@ tags:
 title: MEX (minimal excluded) of a sequence
 weight: 40
 ---
-# MEX (minimal excluded) of a sequence
+# একটি সিকোয়েন্সের মেক্স (MEX - ন্যূনতম বাদ পড়া)
 
-Given an array $A$ of size $N$. You have to find the minimal non-negative element that is not present in the array. That number is commonly called the **MEX** (minimal excluded).
+$N$ আকারের একটি অ্যারে $A$ দেওয়া আছে। আপনাকে এমন ক্ষুদ্রতম অঋণাত্মক উপাদান খুঁজে বের করতে হবে যেটি অ্যারেতে নেই। এই সংখ্যাটিকে সাধারণত **মেক্স** (MEX - ন্যূনতম বাদ পড়া) বলা হয়।
 
 $$
 \begin{align}
@@ -15,14 +15,14 @@ $$
 \end{align}
 $$
 
-Notice, that the MEX of an array of size $N$ can never be bigger than $N$ itself.
+লক্ষ্য করুন, $N$ আকারের একটি অ্যারের মেক্স কখনোই $N$-এর চেয়ে বড় হতে পারে না।
 
-The easiest approach is to create a set of all elements in the array $A$, so that we can quickly check if a number is part of the array or not.
-Then we can check all numbers from $0$ to $N$, if the current number is not present in the set, return it.
+সবচেয়ে সহজ পদ্ধতি হলো অ্যারে $A$-এর সকল উপাদানের একটি সেট তৈরি করা, যাতে আমরা দ্রুত পরীক্ষা করতে পারি কোনো সংখ্যা অ্যারেতে আছে কিনা।
+এরপর আমরা $0$ থেকে $N$ পর্যন্ত সকল সংখ্যা পরীক্ষা করতে পারি, যদি বর্তমান সংখ্যাটি সেটে না থাকে, তাহলে সেটি রিটার্ন করব।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The following algorithm runs in $O(N \log N)$ time.
+নিচের অ্যালগরিদমটি $O(N \log N)$ সময়ে চলে।
 
 ```cpp
 int mex(vector<int> const& A) {
@@ -35,8 +35,8 @@ int mex(vector<int> const& A) {
 }
 ```
 
-If an algorithm requires a $O(N)$ MEX computation, it is possible by using a boolean vector instead of a set.
-Notice, that the array needs to be as big as the biggest possible array size.
+যদি কোনো অ্যালগরিদমে $O(N)$ সময়ে মেক্স গণনা করা প্রয়োজন হয়, তাহলে সেট-এর পরিবর্তে একটি বুলিয়ান ভেক্টর ব্যবহার করে এটি সম্ভব।
+লক্ষ্য করুন, অ্যারেটির আকার সম্ভাব্য সর্বোচ্চ অ্যারে আকারের সমান হতে হবে।
 
 
 ```cpp
@@ -53,7 +53,7 @@ int mex(vector<int> const& A) {
     int result = 0;
     while (used[result])
         ++result;
- 
+
     // clear the array again
     for (int x : A) {
         if (x <= MAX_N)
@@ -64,26 +64,26 @@ int mex(vector<int> const& A) {
 }
 ```
 
-This approach is fast, but only works well if you have to compute the MEX once.
-If you need to compute the MEX over and over, e.g. because your array keeps changing, then it is not effective.
-For that, we need something better.
+এই পদ্ধতিটি দ্রুত, কিন্তু শুধুমাত্র তখনই ভালো কাজ করে যখন আপনাকে একবার মেক্স গণনা করতে হয়।
+যদি আপনাকে বারবার মেক্স গণনা করতে হয়, যেমন আপনার অ্যারে ক্রমাগত পরিবর্তন হচ্ছে, তাহলে এটি কার্যকর নয়।
+এর জন্য আমাদের আরও ভালো কিছু দরকার।
 
-## MEX with array updates
+## অ্যারে আপডেটসহ মেক্স
 
-In the problem you need to change individual numbers in the array, and compute the new MEX of the array after each such update.
+এই সমস্যায় আপনাকে অ্যারের পৃথক সংখ্যা পরিবর্তন করতে হবে এবং প্রতিটি আপডেটের পরে অ্যারের নতুন মেক্স গণনা করতে হবে।
 
-There is a need for a better data structure that handles such queries efficiently.
+এমন কুয়েরিগুলো দক্ষতার সাথে পরিচালনা করার জন্য একটি উন্নত ডেটা স্ট্রাকচার প্রয়োজন।
 
-One approach would be take the frequency of each number from $0$ to $N$, and build a tree-like data structure over it.
-E.g. a segment tree or a treap.
-Each node represents a range of numbers, and together to total frequency in the range, you additionally store the amount of distinct numbers in that range.
-It's possible to update this data structure in $O(\log N)$ time, and also find the MEX in $O(\log N)$ time, by doing a binary search for the MEX.
-If the node representing the range $[0, \lfloor N/2 \rfloor)$ doesn't contain $\lfloor N/2 \rfloor$ many distinct numbers, then one is missing and the MEX is smaller than $\lfloor N/2 \rfloor$, and you can recurse in the left branch of the tree. Otherwise it is at least $\lfloor N/2 \rfloor$, and you can recurse in the right branch of the tree.
+একটি পদ্ধতি হলো $0$ থেকে $N$ পর্যন্ত প্রতিটি সংখ্যার ফ্রিকোয়েন্সি নেওয়া এবং এর উপর একটি ট্রি-সদৃশ ডেটা স্ট্রাকচার তৈরি করা।
+যেমন একটি সেগমেন্ট ট্রি বা একটি ট্রিপ।
+প্রতিটি নোড একটি সংখ্যার রেঞ্জ প্রতিনিধিত্ব করে, এবং রেঞ্জের মোট ফ্রিকোয়েন্সির পাশাপাশি আপনি সেই রেঞ্জে ভিন্ন ভিন্ন সংখ্যার পরিমাণও সংরক্ষণ করবেন।
+এই ডেটা স্ট্রাকচারটি $O(\log N)$ সময়ে আপডেট করা সম্ভব, এবং $O(\log N)$ সময়ে মেক্সও খুঁজে পাওয়া সম্ভব, মেক্সের জন্য বাইনারি সার্চ করে।
+যদি $[0, \lfloor N/2 \rfloor)$ রেঞ্জ প্রতিনিধিত্বকারী নোডে $\lfloor N/2 \rfloor$ সংখ্যক ভিন্ন সংখ্যা না থাকে, তাহলে একটি অনুপস্থিত এবং মেক্স $\lfloor N/2 \rfloor$-এর চেয়ে ছোট, এবং আপনি ট্রির বাম শাখায় রিকার্সন করতে পারেন। অন্যথায় এটি কমপক্ষে $\lfloor N/2 \rfloor$, এবং আপনি ট্রির ডান শাখায় রিকার্সন করতে পারেন।
 
-It's also possible to use the standard library data structures `map` and `set` (based on an approach explained [here](https://codeforces.com/blog/entry/81287?#comment-677837)).
-With a `map` we will remember the frequency of each number, and with the `set` we represent the numbers that are currently missing from the array.
-Since a `set` is ordered, `*set.begin()` will be the MEX.
-In total we need $O(N \log N)$ precomputation, and afterwards the MEX can be computed in $O(1)$ and an update can be performed in $O(\log N)$.
+স্ট্যান্ডার্ড লাইব্রেরি ডেটা স্ট্রাকচার `map` এবং `set` ব্যবহার করেও এটি সম্ভব ([এখানে](https://codeforces.com/blog/entry/81287?#comment-677837) ব্যাখ্যা করা একটি পদ্ধতির উপর ভিত্তি করে)।
+একটি `map` দিয়ে আমরা প্রতিটি সংখ্যার ফ্রিকোয়েন্সি মনে রাখব, এবং `set` দিয়ে আমরা অ্যারেতে বর্তমানে অনুপস্থিত সংখ্যাগুলো প্রতিনিধিত্ব করব।
+যেহেতু একটি `set` সাজানো থাকে, `*set.begin()` হবে মেক্স।
+মোট $O(N \log N)$ প্রিপ্রসেসিং প্রয়োজন, এবং এরপর মেক্স $O(1)$-এ গণনা করা যায় এবং একটি আপডেট $O(\log N)$-এ সম্পন্ন করা যায়।
 
 ```cpp
 class Mex {
@@ -117,7 +117,7 @@ public:
 };
 ```
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 - [AtCoder: Neq Min](https://atcoder.jp/contests/hhkb2020/tasks/hhkb2020_c)
 - [Codeforces: Informatics in MAC](https://codeforces.com/contest/1935/problem/B)

@@ -1,65 +1,65 @@
 ---
-title: "Discrete Root"
+title: "ডিসক্রিট রুট"
 tags: 
 weight: 80
 ---
-# Discrete Root
+# ডিসক্রিট রুট
 
-The problem of finding a discrete root is defined as follows. Given a prime $n$ and two integers $a$ and $k$, find all $x$ for which:
+ডিসক্রিট রুট খুঁজে বের করার সমস্যাটি নিম্নরূপে সংজ্ঞায়িত। একটি মৌলিক সংখ্যা $n$ এবং দুটি পূর্ণসংখ্যা $a$ ও $k$ দেওয়া আছে, সকল $x$ খুঁজুন যেন:
 
 $x^k \equiv a \pmod n$
 
-## The algorithm
+## অ্যালগরিদম
 
-We will solve this problem by reducing it to the [discrete logarithm problem](discrete-log.md).
+আমরা এই সমস্যাটি [ডিসক্রিট লগারিদম সমস্যায়](discrete-log.md) রিডিউস করে সমাধান করব।
 
-Let's apply the concept of a [primitive root](primitive-root.md) modulo $n$. Let $g$ be a primitive root modulo $n$. Note that since $n$ is prime, it must exist, and it can be found in $O(Ans \cdot \log \phi (n) \cdot \log n) = O(Ans \cdot \log^2 n)$ plus time of factoring $\phi (n)$.
+আসুন $n$ মডুলোতে [প্রিমিটিভ রুটের](primitive-root.md) ধারণা প্রয়োগ করি। ধরি $g$ হলো $n$ মডুলোতে একটি প্রিমিটিভ রুট। লক্ষ্য করুন যে $n$ মৌলিক হওয়ায়, এটি অবশ্যই বিদ্যমান, এবং $O(Ans \cdot \log \phi (n) \cdot \log n) = O(Ans \cdot \log^2 n)$-এ খুঁজে পাওয়া সম্ভব, সাথে $\phi (n)$ ফ্যাক্টরাইজেশনের সময়।
 
-We can easily discard the case where $a = 0$. In this case, obviously there is only one answer: $x = 0$.
+$a = 0$ কেসটি আমরা সহজেই বাতিল করতে পারি। এই ক্ষেত্রে, স্পষ্টতই শুধুমাত্র একটি উত্তর আছে: $x = 0$।
 
-Since we know that $n$ is a prime and any number between 1 and $n-1$ can be represented as a power of the primitive root, we can represent the discrete root problem as follows:
+যেহেতু আমরা জানি $n$ মৌলিক এবং ১ থেকে $n-1$ পর্যন্ত যেকোনো সংখ্যা প্রিমিটিভ রুটের ঘাত হিসেবে উপস্থাপন করা যায়, আমরা ডিসক্রিট রুট সমস্যাটি নিম্নরূপে উপস্থাপন করতে পারি:
 
 $(g^y)^k \equiv a \pmod n$
 
-where
+যেখানে
 
 $x \equiv g^y \pmod n$
 
-This, in turn, can be rewritten as
+এটি, আবার, নিম্নরূপে পুনরায় লেখা যায়
 
 $(g^k)^y \equiv a \pmod n$
 
-Now we have one unknown $y$, which is a discrete logarithm problem. The solution can be found using Shanks' baby-step giant-step algorithm in $O(\sqrt {n} \log n)$ (or we can verify that there are no solutions).
+এখন আমাদের একটি অজানা $y$ আছে, যা একটি ডিসক্রিট লগারিদম সমস্যা। সমাধানটি শ্যাংকসের বেবি-স্টেপ জায়ান্ট-স্টেপ অ্যালগরিদম ব্যবহার করে $O(\sqrt {n} \log n)$-এ পাওয়া যায় (অথবা আমরা যাচাই করতে পারি যে কোনো সমাধান নেই)।
 
-Having found one solution $y_0$, one of solutions of discrete root problem will be $x_0 = g^{y_0} \pmod n$.
+একটি সমাধান $y_0$ পাওয়ার পর, ডিসক্রিট রুট সমস্যার সমাধানগুলোর একটি হবে $x_0 = g^{y_0} \pmod n$।
 
-## Finding all solutions from one known solution
+## একটি জানা সমাধান থেকে সকল সমাধান খুঁজে বের করা
 
-To solve the given problem in full, we need to find all solutions knowing one of them: $x_0 = g^{y_0} \pmod n$.
+প্রদত্ত সমস্যাটি পুরোপুরি সমাধান করতে, আমাদের একটি জানা সমাধান $x_0 = g^{y_0} \pmod n$ থেকে সকল সমাধান খুঁজে বের করতে হবে।
 
-Let's recall the fact that a primitive root always has order of $\phi (n)$, i.e. the smallest power of $g$ which gives 1 is $\phi (n)$. Therefore, if we add the term $\phi (n)$ to the exponential, we still get the same value:
+আসুন স্মরণ করি যে একটি প্রিমিটিভ রুটের সর্বদা $\phi (n)$ অর্ডার থাকে, অর্থাৎ $g$-এর সর্বনিম্ন ঘাত যা ১ দেয় তা হলো $\phi (n)$। তাই, আমরা সূচকে $\phi (n)$ পদ যোগ করলেও একই মান পাই:
 
 $x^k \equiv g^{ y_0 \cdot k + l \cdot \phi (n)} \equiv a \pmod n \forall l \in Z$
 
-Hence, all the solutions are of the form:
+অতএব, সকল সমাধান নিম্নরূপ:
 
 $x = g^{y_0 + \frac {l \cdot \phi (n)}{k}} \pmod n \forall l \in Z$.
 
-where $l$ is chosen such that the fraction must be an integer. For this to be true, the numerator has to be divisible by the least common multiple of  $\phi (n)$ and $k$. Remember that least common multiple of two numbers $lcm(a, b) = \frac{a \cdot b}{gcd(a, b)}$; we'll get
+যেখানে $l$ এমনভাবে বেছে নেওয়া হয় যাতে ভগ্নাংশটি পূর্ণসংখ্যা হয়। এটি সত্য হতে হলে, লব $\phi (n)$ এবং $k$-এর ল.সা.গু দ্বারা বিভাজ্য হতে হবে। মনে রাখুন দুটি সংখ্যার ল.সা.গু $lcm(a, b) = \frac{a \cdot b}{gcd(a, b)}$; আমরা পাই
 
 $x = g^{y_0 + i \frac {\phi (n)}{gcd(k, \phi (n))}} \pmod n \forall i \in Z$.
 
-This is the final formula for all solutions of the discrete root problem.
+ডিসক্রিট রুট সমস্যার সকল সমাধানের জন্য এটি চূড়ান্ত সূত্র।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Here is a full implementation, including procedures for finding the primitive root, discrete log and finding and printing all solutions.
+এখানে একটি সম্পূর্ণ ইমপ্লিমেন্টেশন দেওয়া হলো, প্রিমিটিভ রুট, ডিসক্রিট লগ খোঁজা এবং সকল সমাধান খোঁজা ও প্রিন্ট করার প্রসিডিউরসহ।
 
 ```cpp
 int gcd(int a, int b) {
 	return a ? gcd(b % a, a) : b;
 }
- 
+
 int powmod(int a, int b, int p) {
 	int res = 1;
 	while (b > 0) {
@@ -71,7 +71,7 @@ int powmod(int a, int b, int p) {
 	}
 	return res;
 }
- 
+
 // Finds the primitive root modulo p
 int generator(int p) {
 	vector<int> fact;
@@ -85,7 +85,7 @@ int generator(int p) {
 	}
 	if (n > 1)
 		fact.push_back(n);
- 
+
 	for (int res = 2; res <= p; ++res) {
 		bool ok = true;
 		for (int factor : fact) {
@@ -98,7 +98,7 @@ int generator(int p) {
 	}
 	return -1;
 }
- 
+
 // This program finds all numbers x such that x^k = a (mod n)
 int main() {
 	int n, k, a;
@@ -107,9 +107,9 @@ int main() {
 		puts("1\n0");
 		return 0;
 	}
- 
+
 	int g = generator(n);
- 
+
 	// Baby-step giant-step discrete logarithm algorithm
 	int sq = (int) sqrt (n + .0) + 1;
 	vector<pair<int, int>> dec(sq);
@@ -129,7 +129,7 @@ int main() {
 		puts("0");
 		return 0;
 	}
- 
+
 	// Print all possible answers
 	int delta = (n-1) / gcd(k, n-1);
 	vector<int> ans;
@@ -142,6 +142,6 @@ int main() {
 }
 ```
 
-## Practice problems
+## অনুশীলন সমস্যা
 
 * [Codeforces - Lunar New Year and a Recursive Sequence](https://codeforces.com/contest/1106/problem/F)

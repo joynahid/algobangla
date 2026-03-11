@@ -1,17 +1,17 @@
 ---
-title: "Basic Geometry"
+title: "মৌলিক জ্যামিতি"
 tags: 
 weight: 10
 ---
-# Basic Geometry
+# মৌলিক জ্যামিতি
 
-In this article we will consider basic operations on points in Euclidean space which maintains the foundation of the whole analytical geometry.
-We will consider for each point $\mathbf r$ the vector $\vec{\mathbf r}$ directed from $\mathbf 0$ to $\mathbf r$.
-Later we will not distinguish between $\mathbf r$ and $\vec{\mathbf r}$ and use the term **point** as a synonym for **vector**.
+এই আর্টিকেলে আমরা ইউক্লিডীয় স্থানে বিন্দুর উপর মৌলিক অপারেশনগুলো বিবেচনা করব যা সম্পূর্ণ বিশ্লেষণাত্মক জ্যামিতির ভিত্তি গঠন করে।
+প্রতিটি বিন্দু $\mathbf r$ এর জন্য আমরা $\mathbf 0$ থেকে $\mathbf r$ এর দিকে নির্দেশিত ভেক্টর $\vec{\mathbf r}$ বিবেচনা করব।
+পরবর্তীতে আমরা $\mathbf r$ এবং $\vec{\mathbf r}$ এর মধ্যে পার্থক্য করব না এবং **বিন্দু** শব্দটি **ভেক্টর** এর সমার্থক হিসেবে ব্যবহার করব।
 
-## Linear operations
+## লিনিয়ার অপারেশন
 
-Both 2D and 3D points maintain linear space, which means that for them sum of points and multiplication of point by some number are defined. Here are those basic implementations for 2D:
+দ্বিমাত্রিক ও ত্রিমাত্রিক উভয় বিন্দুই লিনিয়ার স্পেস বজায় রাখে, অর্থাৎ এদের জন্য বিন্দুর যোগ এবং বিন্দুকে কোনো সংখ্যা দিয়ে গুণ সংজ্ঞায়িত। এখানে দ্বিমাত্রিকের জন্য সেই মৌলিক ইমপ্লিমেন্টেশনগুলো দেওয়া হলো:
 
 ```cpp
 struct point2d {
@@ -55,7 +55,7 @@ point2d operator*(ftype a, point2d b) {
     return b * a;
 }
 ```
-And 3D points:
+এবং ত্রিমাত্রিক বিন্দু:
 ```cpp
 struct point3d {
     ftype x, y, z;
@@ -103,42 +103,41 @@ point3d operator*(ftype a, point3d b) {
 }
 ```
 
-Here `ftype` is some type used for coordinates, usually `int`, `double` or `long long`.
+এখানে `ftype` হলো স্থানাঙ্কের জন্য ব্যবহৃত কোনো টাইপ, সাধারণত `int`, `double` বা `long long`।
 
-## Dot product
+## ডট প্রোডাক্ট
 
-### Definition
-The dot (or scalar) product $\mathbf a \cdot \mathbf b$ for vectors $\mathbf a$ and $\mathbf b$ can be defined in two identical ways.
-Geometrically it is product of the length of the first vector by the length of the projection of the second vector onto the first one.
-As you may see from the image below this projection is nothing but $|\mathbf a| \cos \theta$ where $\theta$ is the angle between $\mathbf a$ and $\mathbf b$. Thus $\mathbf a\cdot  \mathbf b = |\mathbf a| \cos \theta \cdot |\mathbf b|$.
+### সংজ্ঞা
+ভেক্টর $\mathbf a$ ও $\mathbf b$ এর ডট (বা স্কেলার) প্রোডাক্ট $\mathbf a \cdot \mathbf b$ দুটি অভিন্ন উপায়ে সংজ্ঞায়িত করা যায়।
+জ্যামিতিকভাবে এটি হলো প্রথম ভেক্টরের দৈর্ঘ্যের সাথে দ্বিতীয় ভেক্টরের প্রথমটির উপর অভিক্ষেপের দৈর্ঘ্যের গুণফল।
+নিচের চিত্র থেকে দেখা যায় এই অভিক্ষেপ হলো $|\mathbf a| \cos \theta$ যেখানে $\theta$ হলো $\mathbf a$ ও $\mathbf b$ এর মধ্যবর্তী কোণ। সুতরাং $\mathbf a\cdot  \mathbf b = |\mathbf a| \cos \theta \cdot |\mathbf b|$।
 
 <div style="text-align: center;">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dot_Product.svg/300px-Dot_Product.svg.png" alt="">
 </div>
 
-The dot product holds some notable properties:
+ডট প্রোডাক্টের কিছু উল্লেখযোগ্য ধর্ম:
 
-1. $\mathbf a \cdot \mathbf b = \mathbf b \cdot \mathbf a$
-2. $(\alpha \cdot \mathbf a)\cdot \mathbf b = \alpha \cdot (\mathbf a \cdot \mathbf b)$
-3. $(\mathbf a + \mathbf b)\cdot \mathbf c = \mathbf a \cdot \mathbf c + \mathbf b \cdot \mathbf c$
+১. $\mathbf a \cdot \mathbf b = \mathbf b \cdot \mathbf a$
+২. $(\alpha \cdot \mathbf a)\cdot \mathbf b = \alpha \cdot (\mathbf a \cdot \mathbf b)$
+৩. $(\mathbf a + \mathbf b)\cdot \mathbf c = \mathbf a \cdot \mathbf c + \mathbf b \cdot \mathbf c$
 
-I.e. it is a commutative function which is linear with respect to both arguments.
-Let's denote the unit vectors as
+অর্থাৎ এটি একটি বিনিময়যোগ্য ফাংশন যা উভয় আর্গুমেন্টের সাপেক্ষে লিনিয়ার।
+একক ভেক্টরগুলোকে নিম্নরূপ চিহ্নিত করি
 
 $$\mathbf e_x = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \mathbf e_y = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}, \mathbf e_z = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}.$$
 
-With this notation we can write the vector $\mathbf r = (x;y;z)$ as $r = x \cdot \mathbf e_x + y \cdot \mathbf e_y + z \cdot \mathbf e_z$.
-And since for unit vectors 
+এই চিহ্নিতকরণে আমরা ভেক্টর $\mathbf r = (x;y;z)$-কে $r = x \cdot \mathbf e_x + y \cdot \mathbf e_y + z \cdot \mathbf e_z$ হিসেবে লিখতে পারি।
+এবং যেহেতু একক ভেক্টরের জন্য
 
 $$\mathbf e_x\cdot \mathbf e_x = \mathbf e_y\cdot \mathbf e_y = \mathbf e_z\cdot \mathbf e_z = 1,\\
 \mathbf e_x\cdot \mathbf e_y = \mathbf e_y\cdot \mathbf e_z = \mathbf e_z\cdot \mathbf e_x = 0$$
 
-we can see that in terms of coordinates for $\mathbf a = (x_1;y_1;z_1)$ and $\mathbf b = (x_2;y_2;z_2)$ holds
+আমরা দেখতে পাই যে স্থানাঙ্কের ক্ষেত্রে $\mathbf a = (x_1;y_1;z_1)$ ও $\mathbf b = (x_2;y_2;z_2)$ এর জন্য
 
 $$\mathbf a\cdot \mathbf b = (x_1 \cdot \mathbf e_x + y_1 \cdot\mathbf e_y + z_1 \cdot\mathbf e_z)\cdot( x_2 \cdot\mathbf e_x + y_2 \cdot\mathbf e_y + z_2 \cdot\mathbf e_z) = x_1 x_2 + y_1 y_2 + z_1 z_2$$
 
-That is also the algebraic definition of the dot product.
-From this we can write functions which calculate it.
+এটি ডট প্রোডাক্টের বীজগণিতিক সংজ্ঞাও। এটি থেকে আমরা এটি হিসাব করার ফাংশন লিখতে পারি।
 
 ```cpp
 ftype dot(point2d a, point2d b) {
@@ -149,20 +148,20 @@ ftype dot(point3d a, point3d b) {
 }
 ```
 
-When solving problems one should use algebraic definition to calculate dot products, but keep in mind geometric definition and properties to use it.
+সমস্যা সমাধানের সময় ডট প্রোডাক্ট হিসাবের জন্য বীজগণিতিক সংজ্ঞা ব্যবহার করা উচিত, কিন্তু ব্যবহারের জন্য জ্যামিতিক সংজ্ঞা ও ধর্মগুলো মনে রাখা উচিত।
 
-### Properties
+### ধর্মসমূহ
 
-We can define many geometrical properties via the dot product.
-For example 
+আমরা ডট প্রোডাক্টের মাধ্যমে অনেক জ্যামিতিক ধর্ম সংজ্ঞায়িত করতে পারি।
+উদাহরণস্বরূপ
 
-1. Norm of $\mathbf a$ (squared length): $|\mathbf a|^2 = \mathbf a\cdot \mathbf a$
-2. Length of $\mathbf a$: $|\mathbf a| = \sqrt{\mathbf a\cdot \mathbf a}$
-3. Projection of $\mathbf a$ onto $\mathbf b$: $\dfrac{\mathbf a\cdot\mathbf b}{|\mathbf b|}$
-4. Angle between vectors: $\arccos \left(\dfrac{\mathbf a\cdot \mathbf b}{|\mathbf a| \cdot |\mathbf b|}\right)$
-5. From the previous point we may see that the dot product is positive if the angle between them is acute, negative if it is obtuse and it equals zero if they are orthogonal, i.e. they form a right angle.
+১. $\mathbf a$ এর নর্ম (বর্গ দৈর্ঘ্য): $|\mathbf a|^2 = \mathbf a\cdot \mathbf a$
+২. $\mathbf a$ এর দৈর্ঘ্য: $|\mathbf a| = \sqrt{\mathbf a\cdot \mathbf a}$
+৩. $\mathbf a$-র $\mathbf b$ এর উপর অভিক্ষেপ: $\dfrac{\mathbf a\cdot\mathbf b}{|\mathbf b|}$
+৪. ভেক্টরদ্বয়ের মধ্যবর্তী কোণ: $\arccos \left(\dfrac{\mathbf a\cdot \mathbf b}{|\mathbf a| \cdot |\mathbf b|}\right)$
+৫. পূর্ববর্তী বিন্দু থেকে আমরা দেখতে পাই যে ডট প্রোডাক্ট ধনাত্মক যদি তাদের মধ্যবর্তী কোণ সূক্ষ্ম হয়, ঋণাত্মক যদি স্থূল হয় এবং শূন্য যদি তারা লম্ব হয়, অর্থাৎ সমকোণ গঠন করে।
 
-Note that all these functions do not depend on the number of dimensions, hence they will be the same for the 2D and 3D case:
+লক্ষ্য করুন এই সব ফাংশন মাত্রা সংখ্যার উপর নির্ভর করে না, তাই দ্বিমাত্রিক ও ত্রিমাত্রিক ক্ষেত্রে একই হবে:
 
 ```cpp
 ftype norm(point2d a) {
@@ -179,80 +178,80 @@ double angle(point2d a, point2d b) {
 }
 ```
 
-To see the next important property we should take a look at the set of points $\mathbf r$ for which $\mathbf r\cdot \mathbf a = C$ for some fixed constant $C$.
-You can see that this set of points is exactly the set of points for which the projection onto $\mathbf a$ is the point $C \cdot \dfrac{\mathbf a}{|\mathbf a| ^ 2}$ and they form a hyperplane orthogonal to $\mathbf a$.
-You can see the vector $\mathbf a$ alongside with several such vectors having same dot product with it in 2D on the picture below:
+পরবর্তী গুরুত্বপূর্ণ ধর্মটি দেখতে আমাদের সেই বিন্দুগুলোর সেট $\mathbf r$ দেখতে হবে যাদের জন্য কোনো নির্দিষ্ট ধ্রুবক $C$-তে $\mathbf r\cdot \mathbf a = C$।
+দেখা যায় এই বিন্দুর সেটটি হলো ঠিক সেই বিন্দুগুলো যাদের $\mathbf a$ এর উপর অভিক্ষেপ হলো $C \cdot \dfrac{\mathbf a}{|\mathbf a| ^ 2}$ বিন্দু এবং এরা $\mathbf a$-র সাথে লম্ব একটি হাইপারপ্লেন গঠন করে।
+নিচের ২D চিত্রে আপনি $\mathbf a$ ভেক্টরটি এবং একই ডট প্রোডাক্টবিশিষ্ট কয়েকটি ভেক্টর দেখতে পাবেন:
 
 <div style="text-align: center;">
   <img src="https://i.imgur.com/eyO7St4.png" alt="Vectors having same dot product with a">
 </div>
 
-In 2D these vectors will form a line, in 3D they will form a plane.
-Note that this result allows us to define a line in 2D as $\mathbf r\cdot \mathbf n=C$ or $(\mathbf r - \mathbf r_0)\cdot \mathbf n=0$ where $\mathbf n$ is vector orthogonal to the line and $\mathbf r_0$ is any vector already present on the line and $C = \mathbf r_0\cdot \mathbf n$.
-In the same manner a plane can be defined in 3D.
+দ্বিমাত্রিকে এই ভেক্টরগুলো একটি রেখা গঠন করবে, ত্রিমাত্রিকে একটি সমতল গঠন করবে।
+লক্ষ্য করুন এই ফলাফল আমাদের দ্বিমাত্রিকে একটি রেখাকে $\mathbf r\cdot \mathbf n=C$ বা $(\mathbf r - \mathbf r_0)\cdot \mathbf n=0$ হিসেবে সংজ্ঞায়িত করতে দেয় যেখানে $\mathbf n$ হলো রেখার সাথে লম্ব ভেক্টর এবং $\mathbf r_0$ হলো রেখার উপর ইতিমধ্যে থাকা যেকোনো ভেক্টর এবং $C = \mathbf r_0\cdot \mathbf n$।
+একইভাবে ত্রিমাত্রিকে একটি সমতল সংজ্ঞায়িত করা যায়।
 
-## Cross product
+## ক্রস প্রোডাক্ট
 
-### Definition
+### সংজ্ঞা
 
-Assume you have three vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$ in 3D space joined in a parallelepiped as in the picture below:
+ধরুন ত্রিমাত্রিক স্থানে আপনার তিনটি ভেক্টর $\mathbf a$, $\mathbf b$ এবং $\mathbf c$ আছে যেগুলো নিচের চিত্রের মতো একটি সামান্তরিকে যুক্ত:
 <div style="text-align: center;">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Parallelepiped_volume.svg/240px-Parallelepiped_volume.svg.png" alt="Three vectors">
 </div>
 
-How would you calculate its volume?
-From school we know that we should multiply the area of the base with the height, which is projection of $\mathbf a$ onto direction orthogonal to base.
-That means that if we define $\mathbf b \times \mathbf c$ as the vector which is orthogonal to both $\mathbf b$ and $\mathbf c$ and which length is equal to the area of the parallelogram formed by $\mathbf b$ and $\mathbf c$ then $|\mathbf a\cdot (\mathbf b\times\mathbf c)|$ will be equal to the volume of the parallelepiped.
-For integrity we will say that $\mathbf b\times \mathbf c$ will be always directed in such way that the rotation from the vector $\mathbf b$ to the vector $\mathbf c$ from the point of $\mathbf b\times \mathbf c$ is always counter-clockwise (see the picture below).
+আপনি এর আয়তন কীভাবে হিসাব করবেন?
+স্কুল থেকে আমরা জানি যে ভূমির ক্ষেত্রফলকে উচ্চতা দিয়ে গুণ করতে হবে, যেটি হলো ভূমির সাথে লম্ব দিকে $\mathbf a$ এর অভিক্ষেপ।
+অর্থাৎ যদি আমরা $\mathbf b \times \mathbf c$-কে সেই ভেক্টর হিসেবে সংজ্ঞায়িত করি যা $\mathbf b$ ও $\mathbf c$ উভয়ের সাথে লম্ব এবং যার দৈর্ঘ্য $\mathbf b$ ও $\mathbf c$ দ্বারা গঠিত সামান্তরিকের ক্ষেত্রফলের সমান তাহলে $|\mathbf a\cdot (\mathbf b\times\mathbf c)|$ হবে সামান্তরিকের আয়তনের সমান।
+সম্পূর্ণতার জন্য বলি, $\mathbf b\times \mathbf c$ সবসময় এমনভাবে নির্দেশিত হবে যাতে $\mathbf b\times \mathbf c$ এর দৃষ্টিকোণ থেকে $\mathbf b$ ভেক্টর থেকে $\mathbf c$ ভেক্টরে ঘূর্ণন সবসময় ঘড়ির কাঁটার বিপরীতে হয় (নিচের চিত্র দেখুন)।
 
 <div style="text-align: center;">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cross_product_vector.svg/250px-Cross_product_vector.svg.png" alt="cross product">
 </div>
 
-This defines the cross (or vector) product $\mathbf b\times \mathbf c$ of the vectors $\mathbf b$ and $\mathbf c$ and the triple product $\mathbf a\cdot(\mathbf b\times \mathbf c)$ of the vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$.
+এটি ভেক্টর $\mathbf b$ ও $\mathbf c$ এর ক্রস (বা ভেক্টর) প্রোডাক্ট $\mathbf b\times \mathbf c$ এবং ভেক্টর $\mathbf a$, $\mathbf b$ ও $\mathbf c$ এর ট্রিপল প্রোডাক্ট $\mathbf a\cdot(\mathbf b\times \mathbf c)$ সংজ্ঞায়িত করে।
 
-Some notable properties of cross and triple products:
+ক্রস ও ট্রিপল প্রোডাক্টের কিছু উল্লেখযোগ্য ধর্ম:
 
-1.  $\mathbf a\times \mathbf b = -\mathbf b\times \mathbf a$
-2.  $(\alpha \cdot \mathbf a)\times \mathbf b = \alpha \cdot (\mathbf a\times \mathbf b)$
-3.  For any $\mathbf b$ and $\mathbf c$ there is exactly one vector $\mathbf r$ such that $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf a\cdot\mathbf r$ for any vector $\mathbf a$. <br>Indeed if there are two such vectors $\mathbf r_1$ and $\mathbf r_2$ then $\mathbf a\cdot (\mathbf r_1 - \mathbf r_2)=0$ for all vectors $\mathbf a$ which is possible only when $\mathbf r_1 = \mathbf r_2$.
-4.  $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf b\cdot (\mathbf c\times \mathbf a) = -\mathbf a\cdot( \mathbf c\times \mathbf b)$
-5.  $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$.
-    Indeed for all vectors $\mathbf r$ the chain of equations holds:
+১.  $\mathbf a\times \mathbf b = -\mathbf b\times \mathbf a$
+২.  $(\alpha \cdot \mathbf a)\times \mathbf b = \alpha \cdot (\mathbf a\times \mathbf b)$
+৩.  যেকোনো $\mathbf b$ ও $\mathbf c$ এর জন্য ঠিক একটি ভেক্টর $\mathbf r$ আছে যেন সব ভেক্টর $\mathbf a$ এর জন্য $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf a\cdot\mathbf r$। <br>আসলে যদি এরকম দুটি ভেক্টর $\mathbf r_1$ ও $\mathbf r_2$ থাকে তাহলে সব ভেক্টর $\mathbf a$ এর জন্য $\mathbf a\cdot (\mathbf r_1 - \mathbf r_2)=0$ যা কেবল $\mathbf r_1 = \mathbf r_2$ হলেই সম্ভব।
+৪.  $\mathbf a\cdot (\mathbf b\times \mathbf c) = \mathbf b\cdot (\mathbf c\times \mathbf a) = -\mathbf a\cdot( \mathbf c\times \mathbf b)$
+৫.  $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$।
+    আসলে সব ভেক্টর $\mathbf r$ এর জন্য সমীকরণের শৃঙ্খল প্রযোজ্য:
 
     \[\mathbf r\cdot( (\mathbf a + \mathbf b)\times \mathbf c) = (\mathbf a + \mathbf b) \cdot (\mathbf c\times \mathbf r) =  \mathbf a \cdot(\mathbf c\times \mathbf r) + \mathbf b\cdot(\mathbf c\times \mathbf r) = \mathbf r\cdot (\mathbf a\times \mathbf c) + \mathbf r\cdot(\mathbf b\times \mathbf c) = \mathbf r\cdot(\mathbf a\times \mathbf c + \mathbf b\times \mathbf c)\]
 
-    Which proves $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$ due to point 3.
+    যা বিন্দু ৩ অনুসারে $(\mathbf a + \mathbf b)\times \mathbf c = \mathbf a\times \mathbf c + \mathbf b\times \mathbf c$ প্রমাণ করে।
 
-6.  $|\mathbf a\times \mathbf b|=|\mathbf a| \cdot |\mathbf b| \sin \theta$ where $\theta$ is angle between $\mathbf a$ and $\mathbf b$, since $|\mathbf a\times \mathbf b|$ equals to the area of the parallelogram formed by $\mathbf a$ and $\mathbf b$. 
+৬.  $|\mathbf a\times \mathbf b|=|\mathbf a| \cdot |\mathbf b| \sin \theta$ যেখানে $\theta$ হলো $\mathbf a$ ও $\mathbf b$ এর মধ্যবর্তী কোণ, কারণ $|\mathbf a\times \mathbf b|$ হলো $\mathbf a$ ও $\mathbf b$ দ্বারা গঠিত সামান্তরিকের ক্ষেত্রফলের সমান।
 
-Given all this and that the following equation holds for the unit vectors
+এই সব এবং একক ভেক্টরের জন্য নিম্নলিখিত সমীকরণ প্রযোজ্য দেওয়া থাকলে
 
 $$\mathbf e_x\times \mathbf e_x = \mathbf e_y\times \mathbf e_y = \mathbf e_z\times \mathbf e_z = \mathbf 0,\\
 \mathbf e_x\times \mathbf e_y = \mathbf e_z,~\mathbf e_y\times \mathbf e_z = \mathbf e_x,~\mathbf e_z\times \mathbf e_x = \mathbf e_y$$
 
-we can calculate the cross product of $\mathbf a = (x_1;y_1;z_1)$ and $\mathbf b = (x_2;y_2;z_2)$ in coordinate form:
+আমরা $\mathbf a = (x_1;y_1;z_1)$ ও $\mathbf b = (x_2;y_2;z_2)$ এর ক্রস প্রোডাক্ট স্থানাঙ্ক আকারে হিসাব করতে পারি:
 
 $$\mathbf a\times \mathbf b = (x_1 \cdot \mathbf e_x + y_1 \cdot \mathbf e_y + z_1 \cdot \mathbf e_z)\times (x_2 \cdot \mathbf e_x + y_2 \cdot \mathbf e_y + z_2 \cdot \mathbf e_z) =$$
 
 $$(y_1 z_2 - z_1 y_2)\mathbf e_x  + (z_1 x_2 - x_1 z_2)\mathbf e_y + (x_1 y_2 - y_1 x_2)\mathbf e_z$$
 
-Which also can be written in the more elegant form:
+যা আরো মার্জিত আকারেও লেখা যায়:
 
 $$\mathbf a\times \mathbf b = \begin{vmatrix}\mathbf e_x & \mathbf e_y & \mathbf e_z \\ x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \end{vmatrix},~a\cdot(b\times c) = \begin{vmatrix} x_1 & y_1 & z_1 \\ x_2 & y_2 & z_2 \\ x_3 & y_3 & z_3 \end{vmatrix}$$
 
-Here $| \cdot |$ stands for the determinant of a matrix. 
+এখানে $| \cdot |$ হলো ম্যাট্রিক্সের নির্ণায়ক।
 
-Some kind of cross product (namely the pseudo-scalar product) can also be implemented in the 2D case.
-If we would like to calculate the area of parallelogram formed by vectors $\mathbf a$ and $\mathbf b$ we would compute $|\mathbf e_z\cdot(\mathbf a\times \mathbf b)| = |x_1 y_2 - y_1 x_2|$.
-Another way to obtain the same result is to multiply $|\mathbf a|$ (base of parallelogram) with the height, which is the projection of vector $\mathbf b$ onto vector $\mathbf a$ rotated by $90^\circ$ which in turn is $\widehat{\mathbf a}=(-y_1;x_1)$.
-That is, to calculate $|\widehat{\mathbf a}\cdot\mathbf b|=|x_1y_2 - y_1 x_2|$. 
+ক্রস প্রোডাক্টের একধরনের রূপ (যথা সুডো-স্কেলার প্রোডাক্ট) দ্বিমাত্রিক ক্ষেত্রেও বাস্তবায়ন করা যায়।
+যদি আমরা $\mathbf a$ ও $\mathbf b$ ভেক্টর দ্বারা গঠিত সামান্তরিকের ক্ষেত্রফল হিসাব করতে চাই তাহলে $|\mathbf e_z\cdot(\mathbf a\times \mathbf b)| = |x_1 y_2 - y_1 x_2|$ হিসাব করতে হবে।
+একই ফলাফল পাওয়ার আরেকটি উপায় হলো $|\mathbf a|$ (সামান্তরিকের ভূমি) কে উচ্চতা দিয়ে গুণ করা, যা $90^\circ$ ঘোরানো $\mathbf a$ ভেক্টরের উপর $\mathbf b$ ভেক্টরের অভিক্ষেপ যা হলো $\widehat{\mathbf a}=(-y_1;x_1)$।
+অর্থাৎ, $|\widehat{\mathbf a}\cdot\mathbf b|=|x_1y_2 - y_1 x_2|$ হিসাব করা।
 
-If we will take the sign into consideration then the area will be positive if the rotation from $\mathbf a$ to $\mathbf b$ (i.e. from the view of the point of $\mathbf e_z$) is performed counter-clockwise and negative otherwise.
-That defines the pseudo-scalar product.
-Note that it also equals $|\mathbf a| \cdot |\mathbf b| \sin \theta$ where $\theta$ is angle from $\mathbf a$ to $\mathbf b$ count counter-clockwise (and negative if rotation is clockwise).
+যদি আমরা চিহ্ন বিবেচনা করি তাহলে ক্ষেত্রফল ধনাত্মক হবে যদি $\mathbf a$ থেকে $\mathbf b$-তে ঘূর্ণন (অর্থাৎ $\mathbf e_z$ বিন্দুর দৃষ্টিকোণ থেকে) ঘড়ির কাঁটার বিপরীতে হয় এবং ঋণাত্মক অন্যথায়।
+এটি সুডো-স্কেলার প্রোডাক্ট সংজ্ঞায়িত করে।
+লক্ষ্য করুন এটি $|\mathbf a| \cdot |\mathbf b| \sin \theta$ এর সমানও যেখানে $\theta$ হলো $\mathbf a$ থেকে $\mathbf b$ পর্যন্ত ঘড়ির কাঁটার বিপরীতে গণনা করা কোণ (এবং ঋণাত্মক যদি ঘূর্ণন ঘড়ির কাঁটার দিকে হয়)।
 
-Let's implement all this stuff!
+আসুন এই সবকিছু ইমপ্লিমেন্ট করি!
 
 ```cpp
 point3d cross(point3d a, point3d b) {
@@ -268,32 +267,32 @@ ftype cross(point2d a, point2d b) {
 }
 ```
 
-### Properties
+### ধর্মসমূহ
 
-As for the cross product, it equals to the zero vector iff the vectors $\mathbf a$ and $\mathbf b$ are collinear (they form a common line, i.e. they are parallel).
-The same thing holds for the triple product, it is equal to zero iff the vectors $\mathbf a$, $\mathbf b$ and $\mathbf c$ are coplanar (they form a common plane).
+ক্রস প্রোডাক্টের ক্ষেত্রে, এটি শূন্য ভেক্টরের সমান হয় যদি এবং কেবল যদি ভেক্টর $\mathbf a$ ও $\mathbf b$ সমরেখ হয় (তারা একটি সাধারণ রেখা গঠন করে, অর্থাৎ সমান্তরাল)।
+একই কথা ট্রিপল প্রোডাক্টের ক্ষেত্রেও প্রযোজ্য, এটি শূন্য হয় যদি এবং কেবল যদি ভেক্টর $\mathbf a$, $\mathbf b$ ও $\mathbf c$ সমতলীয় হয় (তারা একটি সাধারণ সমতল গঠন করে)।
 
-From this we can obtain universal equations defining lines and planes.
-A line can be defined via its direction vector $\mathbf d$ and an initial point $\mathbf r_0$ or by two points $\mathbf a$ and $\mathbf b$.
-It is defined as $(\mathbf r - \mathbf r_0)\times\mathbf d=0$ or as $(\mathbf r - \mathbf a)\times (\mathbf b - \mathbf a) = 0$.
-As for planes, it can be defined by three points $\mathbf a$, $\mathbf b$ and $\mathbf c$ as $(\mathbf r - \mathbf a)\cdot((\mathbf b - \mathbf a)\times (\mathbf c - \mathbf a))=0$ or by initial point $\mathbf r_0$ and two direction vectors lying in this plane $\mathbf d_1$ and $\mathbf d_2$: $(\mathbf r - \mathbf r_0)\cdot(\mathbf d_1\times \mathbf d_2)=0$.
+এটি থেকে আমরা রেখা ও সমতল সংজ্ঞায়িত করার সার্বজনীন সমীকরণ পেতে পারি।
+একটি রেখা তার দিক ভেক্টর $\mathbf d$ ও একটি প্রারম্ভিক বিন্দু $\mathbf r_0$ দ্বারা অথবা দুটি বিন্দু $\mathbf a$ ও $\mathbf b$ দ্বারা সংজ্ঞায়িত করা যায়।
+এটি $(\mathbf r - \mathbf r_0)\times\mathbf d=0$ বা $(\mathbf r - \mathbf a)\times (\mathbf b - \mathbf a) = 0$ হিসেবে সংজ্ঞায়িত।
+সমতলের ক্ষেত্রে, এটি তিনটি বিন্দু $\mathbf a$, $\mathbf b$ ও $\mathbf c$ দ্বারা $(\mathbf r - \mathbf a)\cdot((\mathbf b - \mathbf a)\times (\mathbf c - \mathbf a))=0$ হিসেবে অথবা প্রারম্ভিক বিন্দু $\mathbf r_0$ ও এই সমতলে থাকা দুটি দিক ভেক্টর $\mathbf d_1$ ও $\mathbf d_2$ দ্বারা $(\mathbf r - \mathbf r_0)\cdot(\mathbf d_1\times \mathbf d_2)=0$ হিসেবে সংজ্ঞায়িত করা যায়।
 
-In 2D the pseudo-scalar product also may be used to check the orientation between two vectors because it is positive if the rotation from the first to the second vector is counter-clockwise and negative otherwise.
-And, of course, it can be used to calculate areas of polygons, which is described in a different article.
-A triple product can be used for the same purpose in 3D space.
+দ্বিমাত্রিকে সুডো-স্কেলার প্রোডাক্টও দুটি ভেক্টরের মধ্যে অরিয়েন্টেশন পরীক্ষা করতে ব্যবহার করা যায় কারণ প্রথম থেকে দ্বিতীয় ভেক্টরে ঘূর্ণন ঘড়ির কাঁটার বিপরীতে হলে এটি ধনাত্মক এবং অন্যথায় ঋণাত্মক।
+এবং, অবশ্যই, এটি পলিগনের ক্ষেত্রফল হিসাবেও ব্যবহার করা যায়, যা একটি ভিন্ন আর্টিকেলে বর্ণিত।
+ত্রিমাত্রিক স্থানে একই উদ্দেশ্যে ট্রিপল প্রোডাক্ট ব্যবহার করা যায়।
 
-## Exercises
+## অনুশীলনী
 
-### Line intersection
+### রেখার ছেদবিন্দু
 
-There are many possible ways to define a line in 2D and you shouldn't hesitate to combine them.
-For example we have two lines and we want to find their intersection points.
-We can say that all points from first line can be parameterized as $\mathbf r = \mathbf a_1 + t \cdot \mathbf d_1$ where $\mathbf a_1$ is initial point, $\mathbf d_1$ is direction and $t$ is some real parameter.
-As for second line all its points must satisfy $(\mathbf r - \mathbf a_2)\times \mathbf d_2=0$. From this we can easily find parameter $t$:
+দ্বিমাত্রিকে একটি রেখা সংজ্ঞায়িত করার অনেক সম্ভাব্য উপায় আছে এবং আপনার সেগুলো একত্রিত করতে দ্বিধা করা উচিত নয়।
+উদাহরণস্বরূপ আমাদের দুটি রেখা আছে এবং আমরা তাদের ছেদবিন্দু খুঁজতে চাই।
+আমরা বলতে পারি প্রথম রেখার সব বিন্দু $\mathbf r = \mathbf a_1 + t \cdot \mathbf d_1$ হিসেবে প্যারামেট্রাইজ করা যায় যেখানে $\mathbf a_1$ হলো প্রারম্ভিক বিন্দু, $\mathbf d_1$ হলো দিক এবং $t$ কোনো বাস্তব প্যারামিটার।
+দ্বিতীয় রেখার সব বিন্দুকে $(\mathbf r - \mathbf a_2)\times \mathbf d_2=0$ সন্তুষ্ট করতে হবে। এটি থেকে আমরা সহজেই প্যারামিটার $t$ খুঁজতে পারি:
 
 $$(\mathbf a_1 + t \cdot \mathbf d_1 - \mathbf a_2)\times \mathbf d_2=0 \quad\Rightarrow\quad t = \dfrac{(\mathbf a_2 - \mathbf a_1)\times\mathbf d_2}{\mathbf d_1\times \mathbf d_2}$$
 
-Let's implement function to intersect two lines.
+আসুন দুটি রেখার ছেদবিন্দু নির্ণয়ের ফাংশন ইমপ্লিমেন্ট করি।
 
 ```cpp
 point2d intersect(point2d a1, point2d d1, point2d a2, point2d d2) {
@@ -301,22 +300,22 @@ point2d intersect(point2d a1, point2d d1, point2d a2, point2d d2) {
 }
 ```
 
-### Planes intersection
+### সমতলের ছেদবিন্দু
 
-However sometimes it might be hard to use some geometric insights.
-For example, you're given three planes defined by initial points $\mathbf a_i$ and directions $\mathbf d_i$ and you want to find their intersection point.
-You may note that you just have to solve the system of equations:
+তবে কখনো কখনো কিছু জ্যামিতিক অন্তর্দৃষ্টি ব্যবহার করা কঠিন হতে পারে।
+উদাহরণস্বরূপ, আপনাকে প্রারম্ভিক বিন্দু $\mathbf a_i$ ও দিক $\mathbf d_i$ দ্বারা সংজ্ঞায়িত তিনটি সমতল দেওয়া আছে এবং আপনি তাদের ছেদবিন্দু খুঁজতে চান।
+আপনি লক্ষ্য করতে পারেন যে আপনাকে কেবল সমীকরণ ব্যবস্থাটি সমাধান করতে হবে:
 
 $$\begin{cases}\mathbf r\cdot \mathbf n_1 = \mathbf a_1\cdot \mathbf n_1, \\ \mathbf r\cdot \mathbf n_2 = \mathbf a_2\cdot \mathbf n_2, \\ \mathbf r\cdot \mathbf n_3 = \mathbf a_3\cdot \mathbf n_3\end{cases}$$
 
-Instead of thinking on geometric approach, you can work out an algebraic one which can be obtained immediately.
-For example, given that you already implemented a point class, it will be easy for you to solve this system using Cramer's rule because the triple product is simply the determinant of the matrix obtained from the vectors being its columns:
+জ্যামিতিক পদ্ধতির কথা চিন্তা করার বদলে, আপনি একটি বীজগণিতিক পদ্ধতি তৈরি করতে পারেন যা তৎক্ষণাৎ পাওয়া যায়।
+উদাহরণস্বরূপ, আপনি যদি ইতিমধ্যে একটি পয়েন্ট ক্লাস ইমপ্লিমেন্ট করে থাকেন, তাহলে ক্র্যামারের নিয়ম ব্যবহার করে এই ব্যবস্থা সমাধান করা আপনার জন্য সহজ হবে কারণ ট্রিপল প্রোডাক্ট কেবল সেই ম্যাট্রিক্সের নির্ণায়ক যা ভেক্টরগুলোকে কলাম হিসেবে নিলে পাওয়া যায়:
 
 ```cpp
 point3d intersect(point3d a1, point3d n1, point3d a2, point3d n2, point3d a3, point3d n3) {
     point3d x(n1.x, n2.x, n3.x);
     point3d y(n1.y, n2.y, n3.y);
-    point3d z(n1.z, n2.z, n3.z); 
+    point3d z(n1.z, n2.z, n3.z);
     point3d d(dot(a1, n1), dot(a2, n2), dot(a3, n3));
     return point3d(triple(d, y, z),
                    triple(x, d, z),
@@ -324,4 +323,4 @@ point3d intersect(point3d a1, point3d n1, point3d a2, point3d n2, point3d a3, po
 }
 ```
 
-Now you may try to find out approaches for common geometric operations yourself to get used to all this stuff.
+এখন আপনি নিজে সাধারণ জ্যামিতিক অপারেশনের পদ্ধতি বের করার চেষ্টা করতে পারেন এই সবকিছুতে অভ্যস্ত হতে।

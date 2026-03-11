@@ -1,54 +1,54 @@
 ---
-title: "Linear Sieve"
+title: "লিনিয়ার সিভ"
 tags: 
 weight: 20
 ---
-# Linear Sieve
+# লিনিয়ার সিভ
 
-Given a number $n$, find all prime numbers in a segment $[2;n]$.
+একটি সংখ্যা $n$ দেওয়া আছে, $[2;n]$ সেগমেন্টে সব মৌলিক সংখ্যা খুঁজে বের করুন।
 
-The standard way of solving a task is to use [the sieve of Eratosthenes](sieve-of-eratosthenes.md). This algorithm is very simple, but it has runtime $O(n \log \log n)$.
+এই কাজটি সমাধানের প্রচলিত উপায় হলো [এরাটোস্থেনিসের সিভ](sieve-of-eratosthenes.md) ব্যবহার করা। এই অ্যালগরিদমটি অত্যন্ত সরল, কিন্তু এর রানটাইম $O(n \log \log n)$।
 
-Although there are a lot of known algorithms with sublinear runtime (i.e. $o(n)$), the algorithm described below is interesting by its simplicity: it isn't any more complex than the classic sieve of Eratosthenes.
+যদিও সাবলিনিয়ার রানটাইমের (অর্থাৎ $o(n)$) অনেক পরিচিত অ্যালগরিদম আছে, নিচে বর্ণিত অ্যালগরিদমটি এর সরলতার জন্য আকর্ষণীয়: এটি ক্লাসিক এরাটোস্থেনিসের সিভের চেয়ে বেশি জটিল নয়।
 
-Besides, the algorithm given here calculates **factorizations of all numbers** in the segment $[2; n]$ as a side effect, and that can be helpful in many practical applications.
+তাছাড়া, এখানে দেওয়া অ্যালগরিদমটি একটি পার্শ্বফল হিসেবে $[2; n]$ সেগমেন্টের **সব সংখ্যার উৎপাদক বিভাজন** হিসাব করে, এবং এটি অনেক ব্যবহারিক প্রয়োগে সহায়ক হতে পারে।
 
-The weakness of the given algorithm is in using more memory than the classic sieve of Eratosthenes': it requires an array of $n$ numbers, while for the classic sieve of Eratosthenes it is enough to have $n$ bits of memory (which is 32 times less).
+এই অ্যালগরিদমের দুর্বলতা হলো এটি ক্লাসিক এরাটোস্থেনিসের সিভের চেয়ে বেশি মেমরি ব্যবহার করে: এর জন্য $n$ সংখ্যার একটি অ্যারে প্রয়োজন, যেখানে ক্লাসিক সিভের জন্য $n$ বিট মেমরিই যথেষ্ট (যা ৩২ গুণ কম)।
 
-Thus, it makes sense to use the described algorithm only until for numbers of order $10^7$ and not greater.
+সুতরাং, বর্ণিত অ্যালগরিদমটি শুধুমাত্র $10^7$ মাত্রার সংখ্যা পর্যন্ত ব্যবহার করা বুদ্ধিমানের কাজ এবং এর বেশি নয়।
 
-The algorithm is due to Paul Pritchard. It is a variant of Algorithm 3.3 in (Pritchard, 1987: see references in the end of the article).
+অ্যালগরিদমটি Paul Pritchard এর কাজ। এটি (Pritchard, ১৯৮৭: নিবন্ধের শেষে রেফারেন্স দেখুন) এ Algorithm 3.3 এর একটি ভ্যারিয়ান্ট।
 
-## Algorithm
+## অ্যালগরিদম
 
-Our goal is to calculate **minimum prime factor** $lp [i]$ for every number $i$ in the segment $[2; n]$.
+আমাদের লক্ষ্য হলো $[2; n]$ সেগমেন্টের প্রতিটি সংখ্যা $i$ এর জন্য **সবচেয়ে ছোট মৌলিক গুণনীয়ক** $lp [i]$ হিসাব করা।
 
-Besides, we need to store the list of all the found prime numbers - let's call it $pr []$.
+এছাড়াও, আমাদের সব পাওয়া মৌলিক সংখ্যার তালিকা সংরক্ষণ করতে হবে - একে $pr []$ বলি।
 
-We'll initialize the values $lp [i]$ with zeros, which means that we assume all numbers are prime. During the algorithm execution this array will be filled gradually.
+আমরা $lp [i]$ এর মানগুলো শূন্য দিয়ে ইনিশিয়ালাইজ করবো, যার মানে হলো আমরা ধরে নিচ্ছি সব সংখ্যা মৌলিক। অ্যালগরিদম চলাকালীন এই অ্যারে ধীরে ধীরে পূরণ হবে।
 
-Now we'll go through the numbers from 2 to $n$. We have two cases for the current number $i$:
+এখন আমরা ২ থেকে $n$ পর্যন্ত সংখ্যার মধ্য দিয়ে যাবো। বর্তমান সংখ্যা $i$ এর জন্য আমাদের দুটি ক্ষেত্র আছে:
 
-- $lp[i] = 0$ - that means that $i$ is prime, i.e. we haven't found any smaller factors for it.  
-  Hence, we assign $lp [i] = i$ and add $i$ to the end of the list $pr[]$.
+- $lp[i] = 0$ - এর মানে হলো $i$ মৌলিক, অর্থাৎ আমরা এর কোনো ছোট গুণনীয়ক পাইনি।
+  তাই আমরা $lp [i] = i$ নির্ধারণ করি এবং $pr[]$ তালিকার শেষে $i$ যোগ করি।
 
-- $lp[i] \neq 0$ - that means that $i$ is composite, and its minimum prime factor is $lp [i]$.
+- $lp[i] \neq 0$ - এর মানে হলো $i$ যৌগিক, এবং এর সবচেয়ে ছোট মৌলিক গুণনীয়ক হলো $lp [i]$।
 
-In both cases we update values of $lp []$ for the numbers that are divisible by $i$. However, our goal is to learn to do so as to set a value $lp []$ at most once for every number. We can do it as follows:
+উভয় ক্ষেত্রেই আমরা $i$ দ্বারা বিভাজ্য সংখ্যাগুলোর জন্য $lp []$ এর মান আপডেট করি। তবে, আমাদের লক্ষ্য হলো প্রতিটি সংখ্যার জন্য $lp []$ এর মান সর্বোচ্চ একবার সেট করা শেখা। আমরা এটি নিচের মতো করে করতে পারি:
 
-Let's consider numbers $x_j = i \cdot p_j$, where $p_j$ are all prime numbers less than or equal to $lp [i]$ (this is why we need to store the list of all prime numbers).
+ধরি $x_j = i \cdot p_j$ সংখ্যাগুলো বিবেচনা করি, যেখানে $p_j$ হলো $lp [i]$ এর সমান বা ছোট সব মৌলিক সংখ্যা (এই কারণেই আমাদের সব মৌলিক সংখ্যার তালিকা সংরক্ষণ করতে হয়)।
 
-We'll set a new value $lp [x_j] = p_j$ for all numbers of this form.
+আমরা এই আকারের সব সংখ্যার জন্য একটি নতুন মান $lp [x_j] = p_j$ সেট করবো।
 
-The proof of correctness of this algorithm and its runtime can be found after the implementation.
+এই অ্যালগরিদমের সঠিকতার প্রমাণ এবং এর রানটাইম ইমপ্লিমেন্টেশনের পরে পাওয়া যাবে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 const int N = 10000000;
 vector<int> lp(N+1);
 vector<int> pr;
- 
+
 for (int i=2; i <= N; ++i) {
 	if (lp[i] == 0) {
 		lp[i] = i;
@@ -63,35 +63,35 @@ for (int i=2; i <= N; ++i) {
 }
 ```
 
-## Correctness Proof
+## সঠিকতার প্রমাণ
 
-We need to prove that the algorithm sets all values $lp []$ correctly, and that every value will be set exactly once. Hence, the algorithm will have linear runtime, since all the remaining actions of the algorithm, obviously, work for $O (n)$.
+আমাদের প্রমাণ করতে হবে যে অ্যালগরিদম সব $lp []$ মান সঠিকভাবে সেট করে, এবং প্রতিটি মান ঠিক একবার সেট হয়। ফলে অ্যালগরিদমের রানটাইম হবে লিনিয়ার, কারণ অ্যালগরিদমের বাকি সব কাজ স্পষ্টতই $O (n)$ এ সম্পন্ন হয়।
 
-Notice that every number $i$ has exactly one representation in form:
+লক্ষ্য করুন প্রতিটি সংখ্যা $i$ এর ঠিক একটি রূপ আছে:
 
 $$i = lp [i] \cdot x,$$
 
-where $lp [i]$ is the minimal prime factor of $i$, and the number $x$ doesn't have any prime factors less than $lp [i]$, i.e.
+যেখানে $lp [i]$ হলো $i$ এর সবচেয়ে ছোট মৌলিক গুণনীয়ক, এবং সংখ্যা $x$ এর $lp [i]$ এর চেয়ে ছোট কোনো মৌলিক গুণনীয়ক নেই, অর্থাৎ
 
 $$lp [i] \le lp [x].$$
 
-Now, let's compare this with the actions of our algorithm: in fact, for every $x$ it goes through all prime numbers it could be multiplied by, i.e. all prime numbers up to $lp [x]$ inclusive, in order to get the numbers in the form given above.
+এখন, আমাদের অ্যালগরিদমের কাজের সাথে তুলনা করা যাক: প্রকৃতপক্ষে, প্রতিটি $x$ এর জন্য এটি সব মৌলিক সংখ্যার মধ্য দিয়ে যায় যেগুলো দিয়ে এটি গুণ করা যায়, অর্থাৎ $lp [x]$ পর্যন্ত সব মৌলিক সংখ্যা সহ, উপরে দেওয়া আকারের সংখ্যা পেতে।
 
-Hence, the algorithm will go through every composite number exactly once, setting the correct values $lp []$ there. Q.E.D.
+ফলে, অ্যালগরিদম প্রতিটি যৌগিক সংখ্যার মধ্য দিয়ে ঠিক একবার যাবে, সেখানে সঠিক $lp []$ মান সেট করবে। প্রমাণ সম্পন্ন।
 
-## Runtime and Memory
+## রানটাইম ও মেমরি
 
-Although the running time of $O(n)$ is better than $O(n \log \log n)$ of the classic sieve of Eratosthenes, the difference between them is not so big.
-In practice the linear sieve runs about as fast as a typical implementation of the sieve of Eratosthenes.
+যদিও $O(n)$ রানটাইম ক্লাসিক এরাটোস্থেনিসের সিভের $O(n \log \log n)$ এর চেয়ে ভালো, তাদের মধ্যে পার্থক্য এত বড় নয়।
+বাস্তবে লিনিয়ার সিভ এরাটোস্থেনিসের সিভের একটি সাধারণ ইমপ্লিমেন্টেশনের মতোই দ্রুত চলে।
 
-In comparison to optimized versions of the sieve of Erathosthenes, e.g. the segmented sieve, it is much slower.
+এরাটোস্থেনিসের সিভের অপটিমাইজড ভার্সনগুলোর তুলনায়, যেমন সেগমেন্টেড সিভ, এটি অনেক ধীর।
 
-Considering the memory requirements of this algorithm - an array $lp []$ of length $n$, and an array of $pr []$ of length  $\frac n {\ln n}$, this algorithm seems to be worse than the classic sieve in every way.
+এই অ্যালগরিদমের মেমরি প্রয়োজনীয়তা বিবেচনা করলে - দৈর্ঘ্য $n$ এর একটি $lp []$ অ্যারে, এবং দৈর্ঘ্য $\frac n {\ln n}$ এর একটি $pr []$ অ্যারে, এই অ্যালগরিদম প্রতিটি দিক থেকে ক্লাসিক সিভের চেয়ে খারাপ মনে হয়।
 
-However, its redeeming quality is that this algorithm calculates an array $lp []$, which allows us to find factorization of any number in the segment $[2; n]$ in the time of the size order of this factorization. Moreover, using just one extra array will allow us to avoid divisions when looking for factorization.
+তবে, এর মুক্তিদায়ক গুণ হলো এই অ্যালগরিদম একটি $lp []$ অ্যারে হিসাব করে, যা $[2; n]$ সেগমেন্টের যেকোনো সংখ্যার উৎপাদক বিভাজন সেই বিভাজনের আকারের সময়ে খুঁজে বের করতে দেয়। তাছাড়া, শুধুমাত্র একটি অতিরিক্ত অ্যারে ব্যবহার করলে উৎপাদক বিভাজন খোঁজার সময় ভাগ এড়ানো সম্ভব।
 
-Knowing the factorizations of all numbers is very useful for some tasks, and this algorithm is one of the few which allow to find them in linear time.
+সব সংখ্যার উৎপাদক বিভাজন জানা অনেক কাজের জন্য অত্যন্ত উপকারী, এবং এই অ্যালগরিদম সেই কয়েকটির মধ্যে একটি যা লিনিয়ার সময়ে সেগুলো খুঁজে বের করতে দেয়।
 
-## References
+## রেফারেন্স
 
 - Paul Pritchard, **Linear Prime-Number Sieves: a Family Tree**, Science of Computer Programming, vol. 9 (1987), pp.17-35.

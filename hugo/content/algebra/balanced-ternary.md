@@ -1,18 +1,18 @@
 ---
-title: "Balanced Ternary"
+title: "ব্যালেন্সড টার্নারি"
 tags: 
 weight: 10
 ---
-# Balanced Ternary
+# ব্যালেন্সড টার্নারি
 
 !["Setun computer using Balanced Ternary system"](https://earltcampbell.files.wordpress.com/2014/12/setun.jpeg?w=300)
 
-This is a non-standard but still positional **numeral system**. Its feature is that digits can have one of the values `-1`, `0` and `1`.
-Nevertheless, its base is still `3` (because there are three possible values). Since it is not convenient to write `-1` as a digit,
-we'll use letter `Z` further for this purpose. If you think it is quite a strange system - look at the picture - here is one of the
-computers utilizing it.
+এটি একটি অ-প্রমিত কিন্তু তবুও পজিশনাল **সংখ্যা পদ্ধতি**। এর বৈশিষ্ট্য হলো ডিজিটের মান `-1`, `0` এবং `1` হতে পারে।
+তবুও, এর ভিত্তি `3` (কারণ তিনটি সম্ভাব্য মান আছে)। যেহেতু ডিজিট হিসেবে `-1` লেখা সুবিধাজনক নয়,
+আমরা এই উদ্দেশ্যে `Z` অক্ষরটি ব্যবহার করব। আপনি যদি মনে করেন এটি বেশ অদ্ভুত একটি সিস্টেম - ছবিটি দেখুন - এখানে একটি
+কম্পিউটার আছে যেটি এই সিস্টেম ব্যবহার করে।
 
-So here are few first numbers written in balanced ternary:
+তাহলে ব্যালেন্সড টার্নারিতে লেখা প্রথম কয়েকটি সংখ্যা এখানে দেওয়া হলো:
 
 ```nohighlight
     0    0
@@ -27,7 +27,7 @@ So here are few first numbers written in balanced ternary:
     9    100
 ```
 
-This system allows you to write negative values without leading minus sign: you can simply invert digits in any positive number.
+এই সিস্টেম আপনাকে সামনে মাইনাস চিহ্ন ছাড়াই ঋণাত্মক মান লিখতে দেয়: আপনি যেকোনো ধনাত্মক সংখ্যার ডিজিটগুলো কেবল উল্টে দিতে পারেন।
 
 ```nohighlight
     -1   Z
@@ -37,47 +37,47 @@ This system allows you to write negative values without leading minus sign: you 
     -5   Z11
 ```
 
-Note that a negative number starts with `Z` and positive with `1`.
+লক্ষ্য করুন যে একটি ঋণাত্মক সংখ্যা `Z` দিয়ে শুরু হয় এবং ধনাত্মক সংখ্যা `1` দিয়ে।
 
-## Conversion algorithm
+## রূপান্তর অ্যালগরিদম
 
-It is easy to represent a given number in **balanced ternary** via temporary representing it in normal ternary number system. When value is
-in standard ternary, its digits are either `0` or `1` or `2`. Iterating from the lowest digit we can safely skip any `0`s and `1`s,
-however `2` should be turned into `Z` with adding `1` to the next digit. Digits `3` should be turned into `0` on the same terms -
-such digits are not present in the number initially but they can be encountered after increasing some `2`s.
+একটি প্রদত্ত সংখ্যাকে **ব্যালেন্সড টার্নারি**-তে উপস্থাপন করা সহজ, সাময়িকভাবে এটিকে স্বাভাবিক ত্রিমিক সংখ্যা পদ্ধতিতে উপস্থাপন করে। যখন মান
+স্ট্যান্ডার্ড ত্রিমিকে থাকে, এর ডিজিটগুলো হয় `0` অথবা `1` অথবা `2`। সর্বনিম্ন ডিজিট থেকে ইটারেট করতে গিয়ে আমরা নিরাপদে যেকোনো `0` এবং `1` স্কিপ করতে পারি,
+তবে `2`-কে `Z`-এ পরিবর্তন করতে হবে এবং পরবর্তী ডিজিটে `1` যোগ করতে হবে। ডিজিট `3`-কে একই শর্তে `0`-তে পরিবর্তন করতে হবে -
+এই ডিজিটগুলো সংখ্যায় প্রাথমিকভাবে উপস্থিত থাকে না তবে কিছু `2`-কে বৃদ্ধি করার পর সেগুলো দেখা দিতে পারে।
 
-**Example 1:** Let us convert `64` to balanced ternary. At first we use normal ternary to rewrite the number:
+**উদাহরণ ১:** আসুন `64`-কে ব্যালেন্সড টার্নারিতে রূপান্তর করি। প্রথমে আমরা স্বাভাবিক ত্রিমিক ব্যবহার করে সংখ্যাটি পুনরায় লিখি:
 
 $$ 64_{10} = 02101_{3} $$
 
-Let us process it from the least significant (rightmost) digit:
+আসুন সবচেয়ে কম তাৎপর্যপূর্ণ (ডানদিকের) ডিজিট থেকে প্রসেস করি:
 
-- `1`,`0` and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
-- `2` is turned into `Z` increasing the digit to its left, so we get `1Z101`.
+- `1`, `0` এবং `1` যেমন আছে তেমনই স্কিপ করা হয়।( কারণ `0` এবং `1` ব্যালেন্সড টার্নারিতে অনুমোদিত )
+- `2`-কে `Z`-এ পরিবর্তন করা হয় এবং এর বাঁদিকের ডিজিট বৃদ্ধি করা হয়, তাই আমরা পাই `1Z101`।
 
-The final result is `1Z101`.
+চূড়ান্ত ফলাফল হলো `1Z101`।
 
-Let us convert it back to the decimal system by adding the weighted positional values:
+আসুন ওজনযুক্ত পজিশনাল মান যোগ করে এটিকে দশমিক সিস্টেমে ফিরিয়ে রূপান্তর করি:
 
 $$ 1Z101 = 81 \cdot 1 + 27 \cdot (-1) + 9 \cdot 1 + 3 \cdot 0 + 1 \cdot 1 = 64_{10} $$
 
-**Example 2:** Let us convert `237` to balanced ternary. At first we use normal ternary to rewrite the number:
+**উদাহরণ ২:** আসুন `237`-কে ব্যালেন্সড টার্নারিতে রূপান্তর করি। প্রথমে আমরা স্বাভাবিক ত্রিমিক ব্যবহার করে সংখ্যাটি পুনরায় লিখি:
 
 $$ 237_{10} = 22210_{3} $$
 
-Let us process it from the least significant (rightmost) digit:
+আসুন সবচেয়ে কম তাৎপর্যপূর্ণ (ডানদিকের) ডিজিট থেকে প্রসেস করি:
 
-- `0` and `1` are skipped as it is.( Because `0` and `1` are allowed in balanced ternary )
-- `2` is turned into `Z` increasing the digit to its left, so we get `23Z10`.
-- `3` is turned into `0` increasing the digit to its left, so we get `30Z10`.
-- `3` is turned into `0` increasing the digit to its left( which is by default `0` ), and so we get `100Z10`.
+- `0` এবং `1` যেমন আছে তেমনই স্কিপ করা হয়।( কারণ `0` এবং `1` ব্যালেন্সড টার্নারিতে অনুমোদিত )
+- `2`-কে `Z`-এ পরিবর্তন করা হয় এবং এর বাঁদিকের ডিজিট বৃদ্ধি করা হয়, তাই আমরা পাই `23Z10`।
+- `3`-কে `0`-তে পরিবর্তন করা হয় এবং এর বাঁদিকের ডিজিট বৃদ্ধি করা হয়, তাই আমরা পাই `30Z10`।
+- `3`-কে `0`-তে পরিবর্তন করা হয় এবং এর বাঁদিকের ডিজিট বৃদ্ধি করা হয় (যেটি ডিফল্টভাবে `0`), এবং তাই আমরা পাই `100Z10`।
 
-The final result is `100Z10`.
+চূড়ান্ত ফলাফল হলো `100Z10`।
 
-Let us convert it back to the decimal system by adding the weighted positional values:
+আসুন ওজনযুক্ত পজিশনাল মান যোগ করে এটিকে দশমিক সিস্টেমে ফিরিয়ে রূপান্তর করি:
 
 $$ 100Z10 = 243 \cdot 1 + 81 \cdot 0 + 27 \cdot 0 + 9 \cdot (-1) + 3 \cdot 1 + 1 \cdot 0 = 237_{10} $$
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Topcoder SRM 604, Div1-250](http://community.topcoder.com/stat?c=problem_statement&pm=12917&rd=15837)

@@ -1,18 +1,18 @@
 ---
-title: "Suffix Array"
+title: "সাফিক্স অ্যারে"
 tags: 
 weight: 50
 ---
-# Suffix Array
+# সাফিক্স অ্যারে
 
-## Definition
+## সংজ্ঞা
 
-Let $s$ be a string of length $n$. The $i$-th suffix of $s$ is the substring $s[i \ldots n - 1]$.
+ধরি $s$ দৈর্ঘ্য $n$ এর একটি স্ট্রিং। $s$ এর $i$-তম প্রত্যয় হল সাবস্ট্রিং $s[i \ldots n - 1]$।
 
-A **suffix array** will contain integers that represent the **starting indexes** of the all the suffixes of a given string, after the aforementioned suffixes are sorted.
+একটি **সাফিক্স অ্যারে** পূর্ণসংখ্যা রয়েছে যা প্রদত্ত স্ট্রিং-এর সমস্ত প্রত্যয়ের **শুরুর সূচক** প্রতিনিধিত্ব করে, উপরোক্ত প্রত্যয়গুলি সাজানোর পরে।
 
-As an example look at the string $s = abaab$.
-All suffixes are as follows
+উদাহরণস্বরূপ স্ট্রিং $s = abaab$ দেখুন।
+সমস্ত প্রত্যয় নিম্নরূপ
 
 $$\begin{array}{ll}
 0. & abaab \\
@@ -22,35 +22,35 @@ $$\begin{array}{ll}
 4. & b
 \end{array}$$
 
-After sorting these strings:
+এই স্ট্রিংগুলি সাজানোর পরে:
 
 $$\begin{array}{ll}
-2. & aab \\
-3. & ab \\
-0. & abaab \\
-4. & b \\
-1. & baab
+२. & aab \\
+३. & ab \\
+०. & abaab \\
+४. & b \\
+१. & baab
 \end{array}$$
 
-Therefore the suffix array for $s$ will be $(2,~ 3,~ 0,~ 4,~ 1)$.
+অতএব $s$ এর জন্য সাফিক্স অ্যারে হবে $(२,~ ३,~ ०,~ ४,~ १)$।
 
-As a data structure it is widely used in areas such as data compression, bioinformatics and, in general, in any area that deals with strings and string matching problems.
+একটি ডেটা স্ট্রাকচার হিসাবে এটি ডেটা সংকোচন, বায়োইনফরম্যাটিক্স এবং সাধারণভাবে স্ট্রিং এবং স্ট্রিং ম্যাচিং সমস্যা সম্পর্কিত যেকোনো ক্ষেত্রে ব্যাপকভাবে ব্যবহৃত হয়।
 
-## Construction
+## নির্মাণ
 
-### $O(n^2 \log n)$ approach {data-toc-label="O(n^2 log n) approach"}
+### $O(n^2 \log n)$ পদ্ধতি {data-toc-label="O(n^2 log n) approach"}
 
-This is the most naive approach.
-Get all the suffixes and sort them using quicksort or mergesort and simultaneously retain their original indices.
-Sorting uses $O(n \log n)$ comparisons, and since comparing two strings will additionally take $O(n)$ time, we get the final complexity of $O(n^2 \log n)$.
+এটি সবচেয়ে নিষ্কলুষ পদ্ধতি।
+সমস্ত প্রত্যয় পান এবং কুইকসর্ট বা মার্জসর্ট ব্যবহার করে সেগুলি সাজান এবং একই সাথে তাদের মূল সূচক ধরে রাখুন।
+সাজানোটি $O(n \log n)$ তুলনা ব্যবহার করে, এবং যেহেতু দুটি স্ট্রিং তুলনা করতে অতিরিক্ত $O(n)$ সময় লাগবে, আমরা চূড়ান্ত কমপ্লেক্সিটি $O(n^2 \log n)$ পাই।
 
-### $O(n \log n)$ approach {data-toc-label="O(n log n) approach"}
+### $O(n \log n)$ পদ্ধতি {data-toc-label="O(n log n) approach"}
 
-Strictly speaking the following algorithm will not sort the suffixes, but rather the cyclic shifts of a string.
-However we can very easily derive an algorithm for sorting suffixes from it:
-it is enough to append an arbitrary character to the end of the string which is smaller than any character from the string.
-It is common to use the symbol \$.
-Then the order of the sorted cyclic shifts is equivalent to the order of the sorted suffixes, as demonstrated here with the string $dabbb$.
+কঠোরভাবে বলতে গেলে নিম্নোক্ত অ্যালগরিদম সাফিক্স সাজাবে না, বরং একটি স্ট্রিংয়ের চক্রীয় পরিবর্তন সাজাবে।
+তবে আমরা এটি থেকে সাফিক্স সাজানোর জন্য একটি অ্যালগরিদম সহজেই উদ্ভাবন করতে পারি:
+স্ট্রিংয়ের শেষে একটি স্বেচ্ছাচারী অক্ষর সংযুক্ত করা যথেষ্ট যা স্ট্রিংয়ের যেকোনো অক্ষরের চেয়ে ছোট।
+সাধারণত \$ চিহ্ন ব্যবহার করা হয়।
+তারপর সাজানো চক্রীয় পরিবর্তনের ক্রম সাজানো সাফিক্সের ক্রমের সমতুল্য, যেমন এখানে স্ট্রিং $dabbb$ সহ প্রদর্শিত।
 
 $$\begin{array}{lll}
 1. & abbb\$d & abbb \\
@@ -60,40 +60,40 @@ $$\begin{array}{lll}
 0. & dabbb\$ & dabbb
 \end{array}$$
 
-Since we are going to sort cyclic shifts, we will consider **cyclic substrings**.
-We will use the notation $s[i \dots j]$ for the substring of $s$ even if $i > j$.
-In this case we actually mean the string $s[i \dots n-1] + s[0 \dots j]$.
-In addition we will take all indices modulo the length of $s$, and will omit the modulo operation for simplicity.
+যেহেতু আমরা চক্রীয় পরিবর্তন সাজাতে যাচ্ছি, আমরা **চক্রীয় সাবস্ট্রিং** বিবেচনা করব।
+আমরা $s[i \dots j]$ চিহ্ন ব্যবহার করব $s$ এর সাবস্ট্রিংয়ের জন্য এমনকি $i > j$ হলেও।
+এই ক্ষেত্রে আমরা প্রকৃতপক্ষে স্ট্রিং $s[i \dots n-१] + s[० \dots j]$ অর্থ করি।
+অতিরিক্তভাবে আমরা $s$ এর দৈর্ঘ্যের মডুলো সমস্ত সূচক নেব, এবং সহজতার জন্য মডুলো অপারেশন বাদ দেব।
 
-The algorithm we discuss will perform $\lceil \log n \rceil + 1$ iterations.
-In the $k$-th iteration ($k = 0 \dots \lceil \log n \rceil$) we sort the $n$ cyclic substrings of $s$ of length $2^k$.
-After the $\lceil \log n \rceil$-th iteration the substrings of length $2^{\lceil \log n \rceil} \ge n$ will be sorted, so this is equivalent to sorting the cyclic shifts altogether.
+আমরা যে অ্যালগরিদম আলোচনা করি তা $\lceil \log n \rceil + १$ পুনরাবৃত্তি সম্পাদন করবে।
+$k$-তম পুনরাবৃত্তিতে ($k = ० \dots \lceil \log n \rceil$) আমরা $s$ এর দৈর্ঘ্য $२^k$ এর $n$ চক্রীয় সাবস্ট্রিং সাজাই।
+$\lceil \log n \rceil$-তম পুনরাবৃত্তির পরে দৈর্ঘ্য $२^{\lceil \log n \rceil} \ge n$ এর সাবস্ট্রিংগুলি সাজানো হবে, তাই এটি চক্রীয় পরিবর্তন একসাথে সাজানোর সমতুল্য।
 
-In each iteration of the algorithm, in addition to the permutation $p[0 \dots n-1]$, where $p[i]$ is the index of the $i$-th substring (starting at $i$ and with length $2^k$) in the sorted order, we will also maintain an array $c[0 \dots n-1]$, where $c[i]$ corresponds to the **equivalence class** to which the substring belongs.
-Because some of the substrings will be identical, and the algorithm needs to treat them equally.
-For convenience the classes will be labeled by numbers started from zero.
-In addition the numbers $c[i]$ will be assigned in such a way that they preserve information about the order:
-if one substring is smaller than the other, then it should also have a smaller class label.
-The number of equivalence classes will be stored in a variable $\text{classes}$.
+অ্যালগরিদমের প্রতিটি পুনরাবৃত্তিতে, পারমুটেশন $p[० \dots n-१]$ ছাড়াও, যেখানে $p[i]$ হল সাজানো ক্রমে $i$-তম সাবস্ট্রিং ($ থেকে শুরু করে এবং দৈর্ঘ্য $२^k$) এর সূচক, আমরা একটি অ্যারে $c[० \dots n-१]$ ও বজায় রাখব, যেখানে $c[i]$ **সমতুল্য শ্রেণী** এর সাথে সামঞ্জস্যপূর্ণ যাতে সাবস্ট্রিং অন্তর্গত।
+কারণ কিছু সাবস্ট্রিং সমান হবে, এবং অ্যালগরিদম তাদের সমানভাবে পরিচালনা করতে প্রয়োজন।
+সুবিধার জন্য শ্রেণীগুলি শূন্য থেকে শুরু করা সংখ্যা দ্বারা লেবেল করা হবে।
+অতিরিক্তভাবে সংখ্যা $c[i]$ এমনভাবে নির্ধারণ করা হবে যাতে তারা ক্রম সম্পর্কিত তথ্য সংরক্ষণ করে:
+যদি একটি সাবস্ট্রিং অন্যটির চেয়ে ছোট হয়, তবে এটিরও একটি ছোট শ্রেণী লেবেল থাকা উচিত।
+সমতুল্য শ্রেণীর সংখ্যা একটি পরিবর্তনশীল $\text{classes}$ তে সংরক্ষণ করা হবে।
 
-Let's look at an example.
-Consider the string $s = aaba$.
-The cyclic substrings and the corresponding arrays $p[]$ and $c[]$ are given for each iteration:
+আসুন একটি উদাহরণ দেখি।
+স্ট্রিং $s = aaba$ বিবেচনা করুন।
+প্রতিটি পুনরাবৃত্তির জন্য চক্রীয় সাবস্ট্রিং এবং সংশ্লিষ্ট অ্যারে $p[]$ এবং $c[]$ দেওয়া হয়:
 
 $$\begin{array}{cccc}
-0: & (a,~ a,~ b,~ a) & p = (0,~ 1,~ 3,~ 2) & c = (0,~ 0,~ 1,~ 0)\\
-1: & (aa,~ ab,~ ba,~ aa) & p = (0,~ 3,~ 1,~ 2) & c = (0,~ 1,~ 2,~ 0)\\
-2: & (aaba,~ abaa,~ baaa,~ aaab) & p = (3,~ 0,~ 1,~ 2) & c = (1,~ 2,~ 3,~ 0)\\
+०: & (a,~ a,~ b,~ a) & p = (०,~ १,~ ३,~ २) & c = (०,~ ०,~ १,~ ०)\\
+१: & (aa,~ ab,~ ba,~ aa) & p = (०,~ ३,~ १,~ २) & c = (०,~ १,~ २,~ ०)\\
+२: & (aaba,~ abaa,~ baaa,~ aaab) & p = (३,~ ०,~ १,~ २) & c = (१,~ २,~ ३,~ ०)\\
 \end{array}$$
 
-It is worth noting that the values of $p[]$ can be different.
-For example in the $0$-th iteration the array could also be $p = (3,~ 1,~ 0,~ 2)$ or $p = (3,~ 0,~ 1,~ 2)$.
-All these options permutation the substrings into a sorted order.
-So they are all valid.
-At the same time the array $c[]$ is fixed, there can be no ambiguities.
+এটি উল্লেখযোগ্য যে $p[]$ এর মানগুলি আলাদা হতে পারে।
+উদাহরণস্বরূপ $०$-তম পুনরাবৃত্তিতে অ্যারেটি $p = (३,~ १,~ ०,~ २)$ বা $p = (३,~ ०,~ १,~ २)$ ও হতে পারত।
+এই সমস্ত বিকল্প সাবস্ট্রিংগুলি একটি সাজানো ক্রমে পরিবর্তন করে।
+তাই সবই বৈধ।
+একই সাথে অ্যারে $c[]$ স্থির, কোনো দ্ব্যর্থতা থাকতে পারে না।
 
-Let us now focus on the implementation of the algorithm.
-We will write a function that takes a string $s$ and returns the permutations of the sorted cyclic shifts.
+এখন আসুন অ্যালগরিদমের ইমপ্লিমেন্টেশনে ফোকাস করি।
+আমরা একটি ফাংশন লেখব যা স্ট্রিং $s$ নেয় এবং সাজানো চক্রীয় পরিবর্তনের পারমুটেশন রিটার্ন করে।
 
 ```cpp
 vector<int> sort_cyclic_shifts(string const& s) {
@@ -199,13 +199,13 @@ We use temporary arrays $pn[]$ and $cn[]$ to store the permutation by the second
     return p;
 }
 ```
-The algorithm requires $O(n \log n)$ time and $O(n)$ memory. For simplicity we used the complete ASCII range as alphabet.
+অ্যালগরিদম $O(n \log n)$ সময় এবং $O(n)$ মেমোরি প্রয়োজন। সহজতার জন্য আমরা সম্পূর্ণ ASCII পরিসীমা বর্ণমালা হিসাবে ব্যবহার করেছি।
 
-If it is known that the string only contains a subset of characters, e.g. only lowercase letters, then the implementation can be optimized, but the optimization factor would likely be insignificant, as the size of the alphabet only matters on the first iteration. Every other iteration depends on the number of equivalence classes, which may quickly reach $O(n)$ even if initially it was a string over the alphabet of size $2$.
+যদি জানা যায় যে স্ট্রিং শুধুমাত্র অক্ষরের একটি উপসেট ধারণ করে, যেমন শুধুমাত্র ছোট অক্ষর, তবে ইমপ্লিমেন্টেশন অপ্টিমাইজ করা যায়, তবে অপ্টিমাইজেশন ফ্যাক্টর সম্ভবত নগণ্য হবে, কারণ বর্ণমালার আকার শুধুমাত্র প্রথম পুনরাবৃত্তিতে গুরুত্বপূর্ণ। প্রতিটি অন্য পুনরাবৃত্তি সমতুল্য শ্রেণীর সংখ্যার উপর নির্ভর করে, যা দ্রুত $O(n)$ এ পৌঁছাতে পারে এমনকি যদি প্রাথমিকভাবে এটি আকার २ এর বর্ণমালা উপর একটি স্ট্রিং ছিল।
 
-Also note, that this algorithm only sorts the cycle shifts.
-As mentioned at the beginning of this section we can generate the sorted order of the suffixes by appending a character that is smaller than all other characters of the string, and sorting this resulting string by cycle shifts, e.g. by sorting the cycle shifts of $s + \$$.
-This will obviously give the suffix array of $s$, however prepended with $|s|$.
+এছাড়াও লক্ষ্য করুন যে এই অ্যালগরিদম শুধুমাত্র চক্র পরিবর্তন সাজায়।
+এই বিভাগের শুরুতে উল্লেখ করা হয়েছে যে আমরা সাফিক্সের সাজানো ক্রম উৎপন্ন করতে পারি স্ট্রিংয়ের অন্যান্য সমস্ত অক্ষরের চেয়ে ছোট একটি অক্ষর যোগ করে, এবং এই ফলস্বরূপ স্ট্রিং সাজিয়ে চক্র পরিবর্তনের মাধ্যমে, যেমন $s + \$$ এর চক্র পরিবর্তন সাজিয়ে।
+এটি স্পষ্টতই $s$ এর সাফিক্স অ্যারে দেবে, তবে $|s|$ দিয়ে প্রিপেন্ড করা।
 
 ```cpp
 vector<int> suffix_array_construction(string s) {
@@ -216,37 +216,37 @@ vector<int> suffix_array_construction(string s) {
 }
 ```
 
-## Applications
+## অ্যাপ্লিকেশন
 
-### Finding the smallest cyclic shift
+### সবচেয়ে ছোট চক্রীয় স্থানান্তর খুঁজে পাওয়া
 
-The algorithm above sorts all cyclic shifts (without appending a character to the string), and therefore $p[0]$ gives the position of the smallest cyclic shift. 
+উপরের অ্যালগরিদম সমস্ত চক্রীয় স্থানান্তর সাজায় (স্ট্রিং-এ একটি অক্ষর যোগ না করে), এবং অতএব $p[0]$ সবচেয়ে ছোট চক্রীয় স্থানান্তরের অবস্থান দেয়।
 
-### Finding a substring in a string
+### একটি স্ট্রিং-এ একটি সাবস্ট্রিং খুঁজে পাওয়া
 
-The task is to find a string $s$ inside some text $t$ online - we know the text $t$ beforehand, but not the string $s$.
-We can create the suffix array for the text $t$ in $O(|t| \log |t|)$ time.
-Now we can look for the substring $s$ in the following way.
-The occurrence of $s$ must be a prefix of some suffix from $t$.
-Since we sorted all the suffixes we can perform a binary search for $s$ in $p$.
-Comparing the current suffix and the substring $s$ within the binary search can be done in $O(|s|)$ time, therefore the complexity for finding the substring is $O(|s| \log |t|)$.
-Also notice that if the substring occurs multiple times in $t$, then all occurrences will be next to each other in $p$.
-Therefore the number of occurrences can be found with a second binary search, and all occurrences can be printed easily.
+কাজটি হল কোনো পাঠ্য $t$ এর মধ্যে একটি স্ট্রিং $s$ খুঁজে বের করা অনলাইনে - আমরা পাঠ্য $t$ আগে থেকে জানি, কিন্তু স্ট্রিং $s$ নয়।
+আমরা পাঠ্য $t$ এর জন্য সাফিক্স অ্যারে তৈরি করতে পারি $O(|t| \log |t|)$ সময়ে।
+এখন আমরা নিম্নলিখিত উপায়ে সাবস্ট্রিং $s$ খুঁজে পেতে পারি।
+$s$ এর উপস্থিতি $t$ থেকে কোনো সাফিক্সের উপসর্গ হতে হবে।
+যেহেতু আমরা সমস্ত প্রত্যয় সাজিয়েছি আমরা $p$ তে $s$ এর জন্য একটি বাইনারি অনুসন্ধান সম্পাদন করতে পারি।
+বাইনারি অনুসন্ধানের মধ্যে বর্তমান সাফিক্স এবং সাবস্ট্রিং $s$ তুলনা করা $O(|s|)$ সময়ে করা যায়, তাই সাবস্ট্রিং খুঁজে পাওয়ার কমপ্লেক্সিটি $O(|s| \log |t|)$।
+এছাড়াও লক্ষ্য করুন যে যদি সাবস্ট্রিং $t$ তে একাধিকবার ঘটে, তাহলে সমস্ত উপস্থিতি $p$ তে একসাথে থাকবে।
+অতএব উপস্থিতির সংখ্যা একটি দ্বিতীয় বাইনারি অনুসন্ধান দিয়ে খুঁজে পাওয়া যায়, এবং সমস্ত উপস্থিতি সহজেই মুদ্রণ করা যায়।
 
-### Comparing two substrings of a string
+### একটি স্ট্রিংয়ের দুটি সাবস্ট্রিং তুলনা করা
 
-We want to be able to compare two substrings of the same length of a given string $s$ in $O(1)$ time, i.e. checking if the first substring is smaller than the second one.
+আমরা একটি প্রদত্ত স্ট্রিং $s$ এর একই দৈর্ঘ্যের দুটি সাবস্ট্রিং $O(१)$ সময়ে তুলনা করতে সক্ষম হতে চাই, অর্থাৎ প্রথম সাবস্ট্রিং দ্বিতীয়টির চেয়ে ছোট কিনা তা যাচাই করা।
 
-For this we construct the suffix array in $O(|s| \log |s|)$ time and store all the intermediate results of the equivalence classes $c[]$.
+এর জন্য আমরা সাফিক্স অ্যারে $O(|s| \log |s|)$ সময়ে নির্মাণ করি এবং সমতুল্য শ্রেণী $c[]$ এর সমস্ত মধ্যবর্তী ফলাফল সংরক্ষণ করি।
 
-Using this information we can compare any two substring whose length is equal to a power of two in O(1):
-for this it is sufficient to compare the equivalence classes of both substrings.
-Now we want to generalize this method to substrings of arbitrary length.
+এই তথ্য ব্যবহার করে আমরা যেকোনো দুটি সাবস্ট্রিং যার দৈর্ঘ্য দুইয়ের শক্তির সমান O(१) তে তুলনা করতে পারি:
+এটির জন্য উভয় সাবস্ট্রিংয়ের সমতুল্য শ্রেণী তুলনা করা যথেষ্ট।
+এখন আমরা এই পদ্ধতি স্বেচ্ছাচারী দৈর্ঘ্যের সাবস্ট্রিংয়ে সাধারণীকরণ করতে চাই।
 
-Let's compare two substrings of length $l$ with the starting indices $i$ and $j$.
-We find the largest length of a block that is placed inside a substring of this length: the greatest $k$ such that $2^k \le l$.
-Then comparing the two substrings can be replaced by comparing two overlapping blocks of length $2^k$:
-first you need to compare the two blocks starting at $i$ and $j$, and if these are equal then compare the two blocks ending in positions $i + l - 1$ and $j + l - 1$:
+দৈর্ঘ্য $l$ এর দুটি সাবস্ট্রিং তুলনা করি শুরুর সূচক $i$ এবং $j$ সহ।
+আমরা এই দৈর্ঘ্যের একটি সাবস্ট্রিংয়ের মধ্যে রাখা একটি ব্লকের বৃহত্তম দৈর্ঘ্য খুঁজি: সবচেয়ে বড় $k$ যেমন $२^k \le l$।
+তারপর দুটি সাবস্ট্রিং তুলনা করা দৈর্ঘ্য $२^k$ এর দুটি ওভারল্যাপিং ব্লক তুলনা করে প্রতিস্থাপন করা যায়:
+প্রথমে আপনাকে $i$ এবং $j$ থেকে শুরু হওয়া দুটি ব্লক তুলনা করতে হবে, এবং যদি এগুলি সমান হয় তবে অবস্থান $i + l - १$ এবং $j + l - १$ এ শেষ হওয়া দুটি ব্লক তুলনা করুন:
 
 $$\dots
 \overbrace{\underbrace{s_i \dots s_{i+l-2^k} \dots s_{i+2^k-1}}_{2^k} \dots s_{i+l-1}}^{\text{first}}
@@ -260,10 +260,10 @@ $$\dots
 \overbrace{s_j \dots \underbrace{s_{j+l-2^k} \dots s_{j+2^k-1} \dots s_{j+l-1}}_{2^k}}^{\text{second}}
 \dots$$
 
-Here is the implementation of the comparison.
-Note that it is assumed that the function gets called with the already calculated $k$.
-$k$ can be computed with $\lfloor \log l \rfloor$, but it is more efficient to precompute all $k$ values for every $l$.
-See for instance the article about the [Sparse Table](../data_structures/sparse-table.md), which uses a similar idea and computes all $\log$ values.
+এখানে তুলনার ইমপ্লিমেন্টেশন রয়েছে।
+মনে রাখবেন যে অনুমান করা হয় যে ফাংশন ইতিমধ্যে গণনা করা $k$ দিয়ে বলা হয়।
+$k$ কে $\lfloor \log l \rfloor$ দিয়ে গণনা করা যায়, তবে প্রতিটি $l$ এর জন্য সমস্ত $k$ মানগুলি পূর্বনির্ধারণ করা আরও দক্ষ।
+উদাহরণস্বরূপ [সার্স টেবিল](../data_structures/sparse-table.md) সম্পর্কে নিবন্ধ দেখুন, যা একটি অনুরূপ ধারণা ব্যবহার করে এবং সমস্ত $\log$ মানগুলি গণনা করে।
 
 ```cpp
 int compare(int i, int j, int l, int k) {
@@ -273,12 +273,12 @@ int compare(int i, int j, int l, int k) {
 }
 ```
 
-### Longest common prefix of two substrings with additional memory
+### অতিরিক্ত মেমোরি সহ দুটি সাবস্ট্রিংয়ের দীর্ঘতম সাধারণ উপসর্গ
 
-For a given string $s$ we want to compute the longest common prefix (**LCP**)  of two arbitrary suffixes with position $i$ and $j$.
+একটি প্রদত্ত স্ট্রিং $s$ এর জন্য আমরা অবস্থান $i$ এবং $j$ সহ দুটি স্বেচ্ছাচারী সাফিক্সের দীর্ঘতম সাধারণ উপসর্গ (**LCP**) গণনা করতে চাই।
 
-The method described here uses $O(|s| \log |s|)$ additional memory.
-A completely different approach that will only use a linear amount of memory is described in the next section.
+এখানে বর্ণিত পদ্ধতি $O(|s| \log |s|)$ অতিরিক্ত মেমোরি ব্যবহার করে।
+একটি সম্পূর্ণ ভিন্ন পদ্ধতি যা শুধুমাত্র রৈখিক পরিমাণ মেমোরি ব্যবহার করবে তা পরবর্তী বিভাগে বর্ণিত।
 
 We construct the suffix array in $O(|s| \log |s|)$ time, and remember the intermediate results of the arrays $c[]$ from each iteration.
 
@@ -302,14 +302,14 @@ int lcp(int i, int j) {
 
 Here `log_n` denotes a constant that is equal to the logarithm of $n$ in base $2$ rounded down.
 
-### Longest common prefix of two substrings without additional memory
+### অতিরিক্ত মেমরি ছাড়াই দুটি সাবস্ট্রিং-এর দীর্ঘতম সাধারণ প্রত্যয়
 
-We have the same task as in the previous section.
-We have compute the longest common prefix (**LCP**) for two suffixes of a string $s$.
+আমাদের কাছে পূর্ববর্তী বিভাগের মতো একই কাজ রয়েছে।
+আমরা একটি স্ট্রিং $s$ এর দুটি সাফিক্সের জন্য দীর্ঘতম সাধারণ প্রত্যয় (**LCP**) গণনা করেছি।
 
-Unlike the previous method this one will only use $O(|s|)$ memory.
-The result of the preprocessing will be an array (which itself is an important source of information about the string, and therefore also used to solve other tasks).
-LCP queries can be answered by performing RMQ queries (range minimum queries) in this array, so for different implementations it is possible to achieve logarithmic and even constant query time. 
+পূর্ববর্তী পদ্ধতির বিপরীতে এটি শুধুমাত্র $O(|s|)$ মেমরি ব্যবহার করবে।
+প্রিপ্রসেসিং-এর ফলাফল একটি অ্যারে হবে (যা নিজেই স্ট্রিং সম্পর্কে তথ্যের একটি গুরুত্বপূর্ণ উৎস, এবং তাই অন্যান্য কাজ সমাধানের জন্যও ব্যবহৃত হয়)।
+LCP কোয়েরিগুলি এই অ্যারেতে RMQ কোয়েরি (রেঞ্জ ন্যূনতম কোয়েরি) সম্পাদন করে উত্তর দেওয়া যায়, তাই বিভিন্ন ইমপ্লিমেন্টেশনের জন্য লগারিদমিক এবং এমনকি ধ্রুবক কোয়েরি সময় অর্জন করা সম্ভব। 
 
 The basis for this algorithm is the following idea:
 we will compute the longest common prefix for each **pair of adjacent suffixes in the sorted order**.
@@ -364,23 +364,23 @@ vector<int> lcp_construction(string const& s, vector<int> const& p) {
 It is easy to see, that we decrease $k$ at most $O(n)$ times (each iteration at most once, except for $\text{rank}[i] == n-1$, where we directly reset it to $0$), and the LCP between two strings is at most $n-1$, we will also increase $k$ only $O(n)$ times.
 Therefore the algorithm runs in $O(n)$ time.
 
-### Number of different substrings
+### বিভিন্ন সাবস্ট্রিং-এর সংখ্যা
 
-We preprocess the string $s$ by computing the suffix array and the LCP array.
-Using this information we can compute the number of different substrings in the string.
+আমরা সাফিক্স অ্যারে এবং LCP অ্যারে গণনা করে স্ট্রিং $s$ প্রিপ্রসেস করি।
+এই তথ্য ব্যবহার করে আমরা স্ট্রিং-এ বিভিন্ন সাবস্ট্রিং-এর সংখ্যা গণনা করতে পারি।
 
-To do this, we will think about which **new** substrings begin at position $p[0]$, then at $p[1]$, etc.
-In fact we take the suffixes in sorted order and see what prefixes give new substrings.
-Thus we will not overlook any by accident.
+এটি করতে, আমরা ভাবব কোন **নতুন** সাবস্ট্রিং অবস্থান $p[0]$ এ শুরু হয়, তারপর $p[1]$ এ, ইত্যাদি।
+প্রকৃতপক্ষে আমরা সাফিক্সগুলি সাজানো ক্রমে নিই এবং দেখি কোন উপসর্গগুলি নতুন সাবস্ট্রিং দেয়।
+এইভাবে আমরা দুর্ঘটনাক্রমে কোনটি উপেক্ষা করব না।
 
-Because the suffixes are sorted, it is clear that the current suffix $p[i]$ will give new substrings for all its prefixes, except for the prefixes that coincide with the suffix $p[i-1]$.
-Thus, all its prefixes except the first $\text{lcp}[i-1]$ one.
-Since the length of the current suffix is $n - p[i]$, $n - p[i] - \text{lcp}[i-1]$ new prefixes start at $p[i]$.
-Summing over all the suffixes, we get the final answer:
+যেহেতু সাফিক্সগুলি সাজানো আছে, এটি স্পষ্ট যে বর্তমান সাফিক্স $p[i]$ এর সমস্ত উপসর্গের জন্য নতুন সাবস্ট্রিং দেবে, প্রথম $\text{lcp}[i-1]$ উপসর্গের কাছাকাছি যে সাফিক্স $p[i-1]$ সঙ্গে মিলে।
+অতএব, এর সমস্ত উপসর্গ প্রথম $\text{lcp}[i-1]$ একটি ব্যতিক্রমী।
+বর্তমান সাফিক্সের দৈর্ঘ্য $n - p[i]$ হওয়ায়, $n - p[i] - \text{lcp}[i-1]$ নতুন উপসর্গ $p[i]$ তে শুরু হয়।
+সমস্ত সাফিক্সের উপর যোগফল, আমরা চূড়ান্ত উত্তর পাই:
 
 $$\sum_{i=0}^{n-1} (n - p[i]) - \sum_{i=0}^{n-2} \text{lcp}[i] = \frac{n^2 + n}{2} - \sum_{i=0}^{n-2} \text{lcp}[i]$$
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Uva 760 - DNA Sequencing](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=701)
 * [Uva 1223 - Editor](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=24&page=show_problem&problem=3664)

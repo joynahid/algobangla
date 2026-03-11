@@ -1,153 +1,102 @@
 ---
-title: "Maximum flow - Ford-Fulkerson and Edmonds-Karp"
+title: "ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প"
 tags: 
 weight: 10
 ---
-# Maximum flow - Ford-Fulkerson and Edmonds-Karp
+# ম্যাক্সিমাম ফ্লো - ফোর্ড-ফুলকারসন এবং এডমন্ডস-কার্প
 
-The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method for computing a maximal flow in a flow network.
+এডমন্ডস-কার্প অ্যালগরিদম হল একটি ফ্লো নেটওয়ার্কে ম্যাক্সিমাল ফ্লো গণনার জন্য ফোর্ড-ফুলকারসন মেথডের একটি ইমপ্লিমেন্টেশন।
 
-## Flow network
+## ফ্লো নেটওয়ার্ক
 
-First let's define what a **flow network**, a **flow**, and a **maximum flow** is.
+প্রথমে সংজ্ঞায়িত করি **ফ্লো নেটওয়ার্ক**, **ফ্লো**, এবং **ম্যাক্সিমাম ফ্লো** কী।
 
-A **network** is a directed graph $G$ with vertices $V$ and edges $E$ combined with a function $c$, which assigns each edge $e \in E$ a non-negative integer value, the **capacity** of $e$.
-Such a network is called a **flow network**, if we additionally label two vertices, one as **source** and one as **sink**.
+একটি **নেটওয়ার্ক** হল একটি ডিরেক্টেড গ্রাফ $G$ যেখানে ভার্টেক্স $V$ এবং এজ $E$ আছে, সাথে একটি ফাংশন $c$ যা প্রতিটি এজ $e \in E$-কে একটি অঋণাত্মক পূর্ণ সংখ্যা মান প্রদান করে, যা $e$-এর **ক্যাপাসিটি**। এই ধরনের নেটওয়ার্ককে **ফ্লো নেটওয়ার্ক** বলা হয়, যদি আমরা অতিরিক্তভাবে দুটি ভার্টেক্সকে চিহ্নিত করি, একটিকে **সোর্স** এবং একটিকে **সিংক** হিসেবে।
 
-A **flow** in a flow network is function $f$, that again assigns each edge $e$ a non-negative integer value, namely the flow.
-The function has to fulfill the following two conditions:
+একটি ফ্লো নেটওয়ার্কে **ফ্লো** হল একটি ফাংশন $f$, যা আবার প্রতিটি এজ $e$-কে একটি অঋণাত্মক পূর্ণ সংখ্যা মান প্রদান করে, অর্থাৎ ফ্লো। ফাংশনটিকে নিম্নলিখিত দুটি শর্ত পূরণ করতে হবে:
 
-The flow of an edge cannot exceed the capacity.
+একটি এজের ফ্লো ক্যাপাসিটি অতিক্রম করতে পারে না।
 
 $$f(e) \le c(e)$$
 
-And the sum of the incoming flow of a vertex $u$ has to be equal to the sum of the outgoing flow of $u$ except in the source and sink vertices.
+এবং সোর্স ও সিংক ভার্টেক্স ছাড়া, একটি ভার্টেক্স $u$-এর ইনকামিং ফ্লোর যোগফল $u$-এর আউটগোয়িং ফ্লোর যোগফলের সমান হতে হবে।
 
 $$\sum_{(v, u) \in E} f((v, u)) = \sum_{(u, v) \in E} f((u, v))$$
 
-The source vertex $s$ only has an outgoing flow, and the sink vertex $t$ has only incoming flow.
+সোর্স ভার্টেক্স $s$-এর শুধুমাত্র আউটগোয়িং ফ্লো আছে, এবং সিংক ভার্টেক্স $t$-এর শুধুমাত্র ইনকামিং ফ্লো আছে।
 
-It is easy to see that the following equation holds:
+এটি দেখা সহজ যে নিম্নলিখিত সমীকরণটি সত্য:
 
 $$\sum_{(s, u) \in E} f((s, u)) = \sum_{(u, t) \in E} f((u, t))$$
 
-A good analogy for a flow network is the following visualization:
-We represent edges as water pipes, the capacity of an edge is the maximal amount of water that can flow through the pipe per second, and the flow of an edge is the amount of water that currently flows through the pipe per second.
-This motivates the first flow condition. There cannot flow more water through a pipe than its capacity.
-The vertices act as junctions, where water comes out of some pipes, and then, these vertices distribute the water in some way to other pipes.
-This also motivates the second flow condition.
-All the incoming water has to be distributed to the other pipes in each junction.
-It cannot magically disappear or appear.
-The source $s$ is origin of all the water, and the water can only drain in the sink $t$.
+একটি ফ্লো নেটওয়ার্কের জন্য একটি ভালো উপমা হল নিম্নলিখিত ভিজ্যুয়ালাইজেশন: আমরা এজগুলোকে পানির পাইপ হিসেবে উপস্থাপন করি, একটি এজের ক্যাপাসিটি হল পাইপ দিয়ে প্রতি সেকেন্ডে সর্বোচ্চ কতটুকু পানি প্রবাহিত হতে পারে, এবং একটি এজের ফ্লো হল বর্তমানে পাইপ দিয়ে প্রতি সেকেন্ডে কতটুকু পানি প্রবাহিত হচ্ছে। এটি প্রথম ফ্লো শর্তটি ব্যাখ্যা করে। একটি পাইপের ক্যাপাসিটির চেয়ে বেশি পানি প্রবাহিত হতে পারে না। ভার্টেক্সগুলো জংশন হিসেবে কাজ করে, যেখানে কিছু পাইপ থেকে পানি বের হয়, এবং তারপর এই ভার্টেক্সগুলো পানিকে কোনোভাবে অন্য পাইপে বিতরণ করে। এটি দ্বিতীয় ফ্লো শর্তটিও ব্যাখ্যা করে। প্রতিটি জংশনে সমস্ত ইনকামিং পানি অন্য পাইপে বিতরণ করতে হবে। এটি জাদুকরীভাবে অদৃশ্য বা আবির্ভূত হতে পারে না। সোর্স $s$ হল সমস্ত পানির উৎপত্তি, এবং পানি শুধুমাত্র সিংক $t$-এ নিষ্কাশিত হতে পারে।
 
-The following image shows a flow network.
-The first value of each edge represents the flow, which is initially 0, and the second value represents the capacity.
+নিম্নলিখিত ছবিটি একটি ফ্লো নেটওয়ার্ক দেখায়। প্রতিটি এজের প্রথম মান ফ্লোকে উপস্থাপন করে, যা প্রাথমিকভাবে ০, এবং দ্বিতীয় মান ক্যাপাসিটি উপস্থাপন করে।
 <div style="text-align: center;">
   <img src="/images/graph/Flow1.png" alt="Flow network">
 </div>
 
-The value of the flow of a network is the sum of all the flows that get produced in the source $s$, or equivalently to the sum of all the flows that are consumed by the sink $t$.
-A **maximal flow** is a flow with the maximal possible value.
-Finding this maximal flow of a flow network is the problem that we want to solve.
+একটি নেটওয়ার্কের ফ্লোর মান হল সোর্স $s$-এ উৎপন্ন সমস্ত ফ্লোর যোগফল, অথবা সমতুল্যভাবে সিংক $t$ দ্বারা গ্রাস করা সমস্ত ফ্লোর যোগফল। একটি **ম্যাক্সিমাল ফ্লো** হল সর্বোচ্চ সম্ভব মানের ফ্লো। একটি ফ্লো নেটওয়ার্কের এই ম্যাক্সিমাল ফ্লো খুঁজে বের করাই আমরা যে সমস্যাটি সমাধান করতে চাই।
 
-In the visualization with water pipes, the problem can be formulated in the following way:
-how much water can we push through the pipes from the source to the sink?
+পানির পাইপের ভিজ্যুয়ালাইজেশনে, সমস্যাটি নিম্নলিখিতভাবে তৈরি করা যায়: সোর্স থেকে সিংকে পাইপ দিয়ে আমরা সর্বোচ্চ কতটুকু পানি প্রবাহিত করতে পারি?
 
-The following image shows the maximal flow in the flow network.
+নিম্নলিখিত ছবিটি ফ্লো নেটওয়ার্কে ম্যাক্সিমাল ফ্লো দেখায়।
 <div style="text-align: center;">
   <img src="/images/graph/Flow9.png" alt="Maximal flow">
 </div>
 
-## Ford-Fulkerson method
+## ফোর্ড-ফুলকারসন মেথড
 
-Let's define one more thing.
-A **residual capacity** of a directed edge is the capacity minus the flow.
-It should be noted that if there is a flow along some directed edge $(u, v)$, then the reversed edge has capacity 0 and we can define the flow of it as $f((v, u)) = -f((u, v))$.
-This also defines the residual capacity for all the reversed edges.
-We can create a **residual network** from all these edges, which is just a network with the same vertices and edges, but we use the residual capacities as capacities.
+আরও একটি জিনিস সংজ্ঞায়িত করি। একটি ডিরেক্টেড এজের **রেসিডুয়াল ক্যাপাসিটি** হল ক্যাপাসিটি বিয়োগ ফ্লো। লক্ষ্য করুন যে কোনো ডিরেক্টেড এজ $(u, v)$ বরাবর ফ্লো থাকলে, বিপরীত এজের ক্যাপাসিটি ০ এবং আমরা এর ফ্লোকে $f((v, u)) = -f((u, v))$ হিসেবে সংজ্ঞায়িত করতে পারি। এটি সমস্ত বিপরীত এজের জন্যও রেসিডুয়াল ক্যাপাসিটি সংজ্ঞায়িত করে। আমরা এই সমস্ত এজ থেকে একটি **রেসিডুয়াল নেটওয়ার্ক** তৈরি করতে পারি, যা একই ভার্টেক্স এবং এজ সহ একটি নেটওয়ার্ক, তবে আমরা ক্যাপাসিটি হিসেবে রেসিডুয়াল ক্যাপাসিটি ব্যবহার করি।
 
-The Ford-Fulkerson method works as follows.
-First, we set the flow of each edge to zero.
-Then we look for an **augmenting path** from $s$ to $t$.
-An augmenting path is a simple path in the residual graph where residual capacity is positive for all the edges along that path.
-If such a path is found, then we can increase the flow along these edges.
-We keep on searching for augmenting paths and increasing the flow.
-Once an augmenting path doesn't exist anymore, the flow is maximal.
+ফোর্ড-ফুলকারসন মেথড নিম্নলিখিতভাবে কাজ করে। প্রথমে আমরা প্রতিটি এজের ফ্লো শূন্যে সেট করি। তারপর আমরা $s$ থেকে $t$-তে একটি **অগমেন্টিং পাথ** খুঁজি। একটি অগমেন্টিং পাথ হল রেসিডুয়াল গ্রাফে একটি সিম্পল পাথ যেখানে পাথ বরাবর সমস্ত এজের রেসিডুয়াল ক্যাপাসিটি ধনাত্মক। এই ধরনের পাথ পাওয়া গেলে, আমরা এই এজগুলো বরাবর ফ্লো বাড়াতে পারি। আমরা অগমেন্টিং পাথ খোঁজা এবং ফ্লো বাড়ানো চালিয়ে যাই। যখন আর অগমেন্টিং পাথ থাকে না, তখন ফ্লো ম্যাক্সিমাল।
 
-Let us specify in more detail, what increasing the flow along an augmenting path means.
-Let $C$ be the smallest residual capacity of the edges in the path.
-Then we increase the flow in the following way:
-we update $f((u, v)) ~\text{+=}~ C$ and $f((v, u)) ~\text{-=}~ C$ for every edge $(u, v)$ in the path.
+আরও বিস্তারিতভাবে বর্ণনা করি, একটি অগমেন্টিং পাথ বরাবর ফ্লো বাড়ানো মানে কী। ধরি $C$ হল পাথের এজগুলোর মধ্যে সবচেয়ে ছোট রেসিডুয়াল ক্যাপাসিটি। তারপর আমরা নিম্নলিখিতভাবে ফ্লো বাড়াই: পাথের প্রতিটি এজ $(u, v)$-এর জন্য আমরা $f((u, v)) ~\text{+=}~ C$ এবং $f((v, u)) ~\text{-=}~ C$ আপডেট করি।
 
-Here is an example to demonstrate the method.
-We use the same flow network as above.
-Initially we start with a flow of 0.
+এখানে মেথডটি প্রদর্শনের জন্য একটি উদাহরণ। আমরা উপরের একই ফ্লো নেটওয়ার্ক ব্যবহার করি। প্রাথমিকভাবে আমরা ০ ফ্লো দিয়ে শুরু করি।
 <div style="text-align: center;">
   <img src="/images/graph/Flow1.png" alt="Flow network">
 </div>
 
-We can find the path $s - A - B - t$ with the residual capacities 7, 5, and 8.
-Their minimum is 5, therefore we can increase the flow along this path by 5.
-This gives a flow of 5 for the network.
+আমরা $s - A - B - t$ পাথ খুঁজে পাই রেসিডুয়াল ক্যাপাসিটি ৭, ৫, এবং ৮ সহ। এদের মিনিমাম ৫, তাই আমরা এই পাথ বরাবর ফ্লো ৫ বাড়াতে পারি। এটি নেটওয়ার্কের জন্য ৫ ফ্লো দেয়।
 <div style="text-align: center;">
   <img src="/images/graph/Flow2.png" alt="First path">
   <img src="/images/graph/Flow3.png" alt="Network after first path">
 </div>
 
-Again we look for an augmenting path, this time we find $s - D - A - C - t$ with the residual capacities 4, 3, 3, and 5.
-Therefore we can increase the flow by 3 and we get a flow of 8 for the network.
+আবার আমরা একটি অগমেন্টিং পাথ খুঁজি, এবার আমরা $s - D - A - C - t$ পাই রেসিডুয়াল ক্যাপাসিটি ৪, ৩, ৩, এবং ৫ সহ। তাই আমরা ফ্লো ৩ বাড়াতে পারি এবং নেটওয়ার্কের জন্য ৮ ফ্লো পাই।
 <div style="text-align: center;">
   <img src="/images/graph/Flow4.png" alt="Second path">
   <img src="/images/graph/Flow5.png" alt="Network after second path">
 </div>
 
-This time we find the path $s - D - C - B - t$ with the residual capacities 1, 2, 3, and 3, and hence, we increase the flow by 1.
+এবার আমরা $s - D - C - B - t$ পাথ পাই রেসিডুয়াল ক্যাপাসিটি ১, ২, ৩, এবং ৩ সহ, এবং তাই আমরা ফ্লো ১ বাড়াই।
 <div style="text-align: center;">
   <img src="/images/graph/Flow6.png" alt="Third path">
   <img src="/images/graph/Flow7.png" alt="Network after third path">
 </div>
 
-This time we find the augmenting path $s - A - D - C - t$ with the residual capacities 2, 3, 1, and 2.
-We can increase the flow by 1.
-But this path is very interesting.
-It includes the reversed edge $(A, D)$.
-In the original flow network, we are not allowed to send any flow from $A$ to $D$.
-But because we already have a flow of 3 from $D$ to $A$, this is possible.
-The intuition of it is the following:
-Instead of sending a flow of 3 from $D$ to $A$, we only send 2 and compensate this by sending an additional flow of 1 from $s$ to $A$, which allows us to send an additional flow of 1 along the path $D - C - t$.
+এবার আমরা অগমেন্টিং পাথ $s - A - D - C - t$ পাই রেসিডুয়াল ক্যাপাসিটি ২, ৩, ১, এবং ২ সহ। আমরা ফ্লো ১ বাড়াতে পারি। তবে এই পাথটি খুবই আকর্ষণীয়। এটি বিপরীত এজ $(A, D)$ অন্তর্ভুক্ত করে। মূল ফ্লো নেটওয়ার্কে, আমরা $A$ থেকে $D$-তে কোনো ফ্লো পাঠাতে পারি না। কিন্তু যেহেতু আমাদের ইতিমধ্যে $D$ থেকে $A$-তে ৩ ফ্লো আছে, এটি সম্ভব। এর ব্যাখ্যা নিম্নরূপ: $D$ থেকে $A$-তে ৩ ফ্লো পাঠানোর বদলে, আমরা শুধু ২ পাঠাই এবং $s$ থেকে $A$-তে অতিরিক্ত ১ ফ্লো পাঠিয়ে এর ক্ষতিপূরণ করি, যা আমাদের $D - C - t$ পাথ বরাবর অতিরিক্ত ১ ফ্লো পাঠাতে সক্ষম করে।
 <div style="text-align: center;">
   <img src="/images/graph/Flow8.png" alt="Fourth path">
   <img src="/images/graph/Flow9.png" alt="Network after fourth path">
 </div>
 
-Now, it is impossible to find an augmenting path between $s$ and $t$, therefore this flow of $10$ is the maximal possible.
-We have found the maximal flow.
+এখন, $s$ এবং $t$-এর মধ্যে একটি অগমেন্টিং পাথ খুঁজে পাওয়া অসম্ভব, তাই $10$-এর এই ফ্লোই সর্বোচ্চ সম্ভব। আমরা ম্যাক্সিমাল ফ্লো পেয়ে গেছি।
 
-It should be noted, that the Ford-Fulkerson method doesn't specify a method of finding the augmenting path.
-Possible approaches are using [DFS](depth-first-search.md) or [BFS](breadth-first-search.md) which both work in $O(E)$.
-If all the capacities of the network are integers, then for each augmenting path the flow of the network increases by at least 1 (for more details see [Integral flow theorem](#integral-theorem)).
-Therefore, the complexity of Ford-Fulkerson is $O(E F)$, where $F$ is the maximal flow of the network.
-In the case of rational capacities, the algorithm will also terminate, but the complexity is not bounded.
-In the case of irrational capacities, the algorithm might never terminate, and might not even converge to the maximal flow.
+লক্ষ্য করুন যে, ফোর্ড-ফুলকারসন মেথড অগমেন্টিং পাথ খোঁজার কোনো নির্দিষ্ট পদ্ধতি উল্লেখ করে না। সম্ভাব্য পদ্ধতিগুলো হল [DFS](depth-first-search.md) বা [BFS](breadth-first-search.md) ব্যবহার করা যা উভয়ই $O(E)$-এ কাজ করে। নেটওয়ার্কের সমস্ত ক্যাপাসিটি পূর্ণ সংখ্যা হলে, প্রতিটি অগমেন্টিং পাথের জন্য নেটওয়ার্কের ফ্লো কমপক্ষে ১ বাড়ে (আরও বিস্তারিত জানতে দেখুন [ইন্টিগ্রাল ফ্লো উপপাদ্য](#integral-theorem))। তাই ফোর্ড-ফুলকারসনের কমপ্লেক্সিটি $O(E F)$, যেখানে $F$ হল নেটওয়ার্কের ম্যাক্সিমাল ফ্লো। রেশনাল ক্যাপাসিটির ক্ষেত্রে অ্যালগরিদম সমাপ্তও হবে, কিন্তু কমপ্লেক্সিটি সীমাবদ্ধ নয়। ইররেশনাল ক্যাপাসিটির ক্ষেত্রে, অ্যালগরিদম কখনই সমাপ্ত নাও হতে পারে, এমনকি ম্যাক্সিমাল ফ্লোতে কনভার্জও নাও করতে পারে।
 
-## Edmonds-Karp algorithm
+## এডমন্ডস-কার্প অ্যালগরিদম
 
-Edmonds-Karp algorithm is just an implementation of the Ford-Fulkerson method that uses [BFS](breadth-first-search.md) for finding augmenting paths.
-The algorithm was first published by Yefim Dinitz in 1970, and later independently published by Jack Edmonds and Richard Karp in 1972.
+এডমন্ডস-কার্প অ্যালগরিদম হল ফোর্ড-ফুলকারসন মেথডের একটি ইমপ্লিমেন্টেশন যা অগমেন্টিং পাথ খোঁজার জন্য [BFS](breadth-first-search.md) ব্যবহার করে। অ্যালগরিদমটি প্রথম ১৯৭০ সালে ইয়েফিম ডিনিৎজ প্রকাশ করেন, এবং পরে ১৯৭২ সালে স্বাধীনভাবে জ্যাক এডমন্ডস এবং রিচার্ড কার্প প্রকাশ করেন।
 
-The complexity can be given independently of the maximal flow.
-The algorithm runs in $O(V E^2)$ time, even for irrational capacities.
-The intuition is, that every time we find an augmenting path one of the edges becomes saturated, and the distance from the edge to $s$ will be longer if it appears later again in an augmenting path.
-The length of the simple paths is bounded by $V$.
+কমপ্লেক্সিটি ম্যাক্সিমাল ফ্লো থেকে স্বাধীনভাবে দেওয়া যায়। অ্যালগরিদমটি $O(V E^2)$ সময়ে চলে, এমনকি ইররেশনাল ক্যাপাসিটির জন্যও। ধারণাটি হল যে প্রতিবার আমরা একটি অগমেন্টিং পাথ খুঁজি, একটি এজ স্যাচুরেটেড হয়ে যায়, এবং $s$ থেকে সেই এজের দূরত্ব দীর্ঘতর হবে যদি এটি পরবর্তীতে আবার কোনো অগমেন্টিং পাথে দেখা যায়। সিম্পল পাথের দৈর্ঘ্য $V$ দ্বারা সীমাবদ্ধ।
 
-### Implementation
+### ইমপ্লিমেন্টেশন
 
-The matrix `capacity` stores the capacity for every pair of vertices.
-`adj` is the adjacency list of the **undirected graph**, since we also have to use the reversed of directed edges when we are looking for augmenting paths.
+`capacity` ম্যাট্রিক্স প্রতিটি ভার্টেক্স জোড়ার জন্য ক্যাপাসিটি সংরক্ষণ করে। `adj` হল **আনডিরেক্টেড গ্রাফের** অ্যাডজেসেন্সি লিস্ট, কারণ অগমেন্টিং পাথ খোঁজার সময় আমাদের ডিরেক্টেড এজের বিপরীত এজও ব্যবহার করতে হবে।
 
-The function `maxflow` will return the value of the maximal flow.
-During the algorithm, the matrix `capacity` will actually store the residual capacity of the network.
-The value of the flow in each edge will actually not be stored, but it is easy to extend the implementation - by using an additional matrix - to also store the flow and return it.
+`maxflow` ফাংশনটি ম্যাক্সিমাল ফ্লোর মান রিটার্ন করবে। অ্যালগরিদমের সময়, `capacity` ম্যাট্রিক্স আসলে নেটওয়ার্কের রেসিডুয়াল ক্যাপাসিটি সংরক্ষণ করবে। প্রতিটি এজের ফ্লোর মান আলাদাভাবে সংরক্ষণ করা হবে না, তবে একটি অতিরিক্ত ম্যাট্রিক্স ব্যবহার করে ইমপ্লিমেন্টেশনটি সহজেই প্রসারিত করা যায় - ফ্লোও সংরক্ষণ এবং রিটার্ন করার জন্য।
 
 ```cpp
 int n;
@@ -199,34 +148,26 @@ int maxflow(int s, int t) {
 }
 ```
 
-## Integral flow theorem ## { #integral-theorem}
+## ইন্টিগ্রাল ফ্লো উপপাদ্য ## { #integral-theorem}
 
-The theorem says, that if every capacity in the network is an integer, then the size of the maximum flow is an integer, and there is a maximum flow such that the flow in each edge is an integer as well. In particular, Ford-Fulkerson method finds such a flow.
+উপপাদ্যটি বলে যে, নেটওয়ার্কের প্রতিটি ক্যাপাসিটি পূর্ণ সংখ্যা হলে, ম্যাক্সিমাম ফ্লোর আকার একটি পূর্ণ সংখ্যা, এবং এমন একটি ম্যাক্সিমাম ফ্লো বিদ্যমান যেখানে প্রতিটি এজের ফ্লোও একটি পূর্ণ সংখ্যা। বিশেষত, ফোর্ড-ফুলকারসন মেথড এই ধরনের ফ্লো খুঁজে পায়।
 
-## Max-flow min-cut theorem
+## ম্যাক্স-ফ্লো মিন-কাট উপপাদ্য
 
-A **$s$-$t$-cut** is a partition of the vertices of a flow network into two sets, such that a set includes the source $s$ and the other one includes the sink $t$.
-The capacity of a $s$-$t$-cut is defined as the sum of capacities of the edges from the source side to the sink side.
+একটি **$s$-$t$-কাট** হল একটি ফ্লো নেটওয়ার্কের ভার্টেক্সগুলোর দুটি সেটে বিভাজন, যেখানে একটি সেটে সোর্স $s$ এবং অন্যটিতে সিংক $t$ অন্তর্ভুক্ত। একটি $s$-$t$-কাটের ক্যাপাসিটি হল সোর্স পক্ষ থেকে সিংক পক্ষে যাওয়া এজগুলোর ক্যাপাসিটির যোগফল।
 
-Obviously, we cannot send more flow from $s$ to $t$ than the capacity of any $s$-$t$-cut.
-Therefore, the maximum flow is bounded by the minimum cut capacity.
+স্পষ্টতই, আমরা যেকোনো $s$-$t$-কাটের ক্যাপাসিটির চেয়ে বেশি ফ্লো $s$ থেকে $t$-তে পাঠাতে পারি না। তাই, ম্যাক্সিমাম ফ্লো মিনিমাম কাট ক্যাপাসিটি দ্বারা সীমাবদ্ধ।
 
-The max-flow min-cut theorem goes even further.
-It says that the capacity of the maximum flow has to be equal to the capacity of the minimum cut.
+ম্যাক্স-ফ্লো মিন-কাট উপপাদ্য আরও এগিয়ে যায়। এটি বলে যে ম্যাক্সিমাম ফ্লোর ক্যাপাসিটি মিনিমাম কাটের ক্যাপাসিটির সমান হতে হবে।
 
-In the following image, you can see the minimum cut of the flow network we used earlier.
-It shows that the capacity of the cut $\{s, A, D\}$ and $\{B, C, t\}$ is $5 + 3 + 2 = 10$, which is equal to the maximum flow that we found.
-Other cuts will have a bigger capacity, like the capacity between $\{s, A\}$ and $\{B, C, D, t\}$ is $4 + 3 + 5 = 12$.
+নিম্নলিখিত ছবিতে, আপনি আমাদের আগে ব্যবহৃত ফ্লো নেটওয়ার্কের মিনিমাম কাট দেখতে পাবেন। এটি দেখায় যে কাট $\{s, A, D\}$ এবং $\{B, C, t\}$-এর ক্যাপাসিটি $5 + 3 + 2 = 10$, যা আমাদের পাওয়া ম্যাক্সিমাম ফ্লোর সমান। অন্যান্য কাটের ক্যাপাসিটি বেশি হবে, যেমন $\{s, A\}$ এবং $\{B, C, D, t\}$-এর মধ্যে ক্যাপাসিটি $4 + 3 + 5 = 12$।
 <div style="text-align: center;">
   <img src="/images/graph/Cut.png" alt="Minimum cut">
 </div>
 
-A minimum cut can be found after performing a maximum flow computation using the Ford-Fulkerson method.
-One possible minimum cut is the following:
-the set of all the vertices that can be reached from $s$ in the residual graph (using edges with positive residual capacity), and the set of all the other vertices.
-This partition can be easily found using [DFS](depth-first-search.md) starting at $s$.
+ফোর্ড-ফুলকারসন মেথড ব্যবহার করে ম্যাক্সিমাম ফ্লো গণনার পরে একটি মিনিমাম কাট পাওয়া যায়। একটি সম্ভাব্য মিনিমাম কাট নিম্নরূপ: রেসিডুয়াল গ্রাফে $s$ থেকে পৌঁছানো যায় এমন সমস্ত ভার্টেক্সের সেট (ধনাত্মক রেসিডুয়াল ক্যাপাসিটিযুক্ত এজ ব্যবহার করে), এবং অন্য সমস্ত ভার্টেক্সের সেট। এই বিভাজন $s$ থেকে শুরু করে [DFS](depth-first-search.md) ব্যবহার করে সহজেই পাওয়া যায়।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [Codeforces - Array and Operations](https://codeforces.com/contest/498/problem/c)
 - [Codeforces - Red-Blue Graph](https://codeforces.com/contest/1288/problem/f)
 - [CSES - Download Speed](https://cses.fi/problemset/task/1694)

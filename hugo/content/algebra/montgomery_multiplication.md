@@ -1,69 +1,69 @@
 ---
-title: "Montgomery Multiplication"
+title: "মন্টগোমেরি গুণন"
 tags: 
 weight: 90
 ---
-# Montgomery Multiplication
+# মন্টগোমেরি গুণন
 
-Many algorithms in number theory, like [prime testing](primality_tests.md) or [integer factorization](factorization.md), and in cryptography, like RSA, require lots of operations modulo a large number.
-A multiplications like $x y \bmod{n}$ is quite slow to compute with the typical algorithms, since it requires a division to know how many times $n$ has to be subtracted from the product.
-And division is a really expensive operation, especially with big numbers.
+সংখ্যাতত্ত্বের অনেক অ্যালগরিদম, যেমন [মৌলিকতা টেস্ট](primality_tests.md) বা [পূর্ণসংখ্যা উৎপাদক বিশ্লেষণ](factorization.md), এবং ক্রিপ্টোগ্রাফিতে, যেমন RSA, একটি বড় সংখ্যা দিয়ে মডুলো অপারেশন অনেকবার করতে হয়।
+$x y \bmod{n}$-এর মতো একটি গুণন সাধারণ অ্যালগরিদমে গণনা করা বেশ ধীর, কারণ গুণফল থেকে $n$ কতবার বিয়োগ করতে হবে তা জানতে ভাগের প্রয়োজন।
+আর ভাগ একটি অত্যন্ত ব্যয়বহুল অপারেশন, বিশেষত বড় সংখ্যার ক্ষেত্রে।
 
-The **Montgomery (modular) multiplication** is a method that allows computing such multiplications faster.
-Instead of dividing the product and subtracting $n$ multiple times, it adds multiples of $n$ to cancel out the lower bits and then just discards the lower bits.
+**মন্টগোমেরি (মডুলার) গুণন** হলো এমন একটি পদ্ধতি যা এই ধরনের গুণন দ্রুততর করে।
+গুণফল ভাগ করে $n$ একাধিকবার বিয়োগ করার বদলে, এটি নিচের বিটগুলো বাতিল করতে $n$-এর গুণিতক যোগ করে এবং তারপর নিচের বিটগুলো বাদ দেয়।
 
-## Montgomery representation
+## মন্টগোমেরি রিপ্রেজেন্টেশন
 
-However the Montgomery multiplication doesn't come for free.
-The algorithm works only in the **Montgomery space**.
-And we need to transform our numbers into that space, before we can start multiplying.
+তবে মন্টগোমেরি গুণন বিনামূল্যে আসে না।
+অ্যালগরিদমটি কেবল **মন্টগোমেরি স্পেসে** কাজ করে।
+এবং গুণ শুরু করার আগে আমাদের সংখ্যাগুলোকে সেই স্পেসে রূপান্তর করতে হবে।
 
-For the space we need a positive integer $r \ge n$ coprime to $n$, i.e. $\gcd(n, r) = 1$.
-In practice we always choose $r$ to be $2^m$ for a positive integer $m$, since multiplications, divisions and modulo $r$ operations can then be efficiently implemented using shifts and other bit operations.
-$n$ will be an odd number in pretty much all applications, since it is not hard to factorize an even number.
-So every power of $2$ will be coprime to $n$.
+স্পেসের জন্য আমাদের একটি ধনাত্মক পূর্ণসংখ্যা $r \ge n$ প্রয়োজন যা $n$-এর সাথে সহমৌলিক, অর্থাৎ $\gcd(n, r) = 1$।
+বাস্তবে আমরা সবসময় $r$-কে একটি ধনাত্মক পূর্ণসংখ্যা $m$-এর জন্য $2^m$ নির্বাচন করি, কারণ $r$ দিয়ে গুণ, ভাগ ও মডুলো অপারেশন তখন শিফট ও অন্যান্য বিট অপারেশন ব্যবহার করে দক্ষতার সাথে ইমপ্লিমেন্ট করা যায়।
+প্রায় সকল প্রয়োগে $n$ একটি বিজোড় সংখ্যা হবে, কারণ জোড় সংখ্যার উৎপাদক বিশ্লেষণ করা কঠিন নয়।
+তাই $2$-এর প্রতিটি ঘাত $n$-এর সাথে সহমৌলিক হবে।
 
-The representative $\bar{x}$ of a number $x$ in the Montgomery space is defined as: 
+মন্টগোমেরি স্পেসে একটি সংখ্যা $x$-এর প্রতিনিধি $\bar{x}$ এভাবে সংজ্ঞায়িত:
 
 $$\bar{x} := x \cdot r \bmod n$$
 
-Notice, the transformation is actually such a multiplication that we want to optimize.
-So this is still an expensive operation.
-However you only need to transform a number once into the space.
-As soon as you are in the Montgomery space, you can perform as many operations as you want efficiently.
-And at the end you transform the final result back.
-So as long as you are doing lots of operations modulo $n$, this will be no problem.
+লক্ষ্য করুন, রূপান্তরটি আসলে সেই ধরনের গুণনই যা আমরা অপটিমাইজ করতে চাই।
+তাই এটি এখনও একটি ব্যয়বহুল অপারেশন।
+তবে আপনাকে একটি সংখ্যাকে কেবল একবার স্পেসে রূপান্তর করতে হবে।
+মন্টগোমেরি স্পেসে থাকলে, আপনি দক্ষতার সাথে যত খুশি অপারেশন করতে পারেন।
+এবং শেষে চূড়ান্ত ফলাফলটিকে আবার রূপান্তর করেন।
+তাই যতক্ষণ আপনি $n$ মডুলোতে অনেক অপারেশন করছেন, এটি কোনো সমস্যা নয়।
 
-Inside the Montgomery space you can still perform most operations as usual.
-You can add two elements ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), subtract, check for equality, and even compute the greatest common divisor of a number with $n$ (since $\gcd(n, r) = 1$).
-All with the usual algorithms.
+মন্টগোমেরি স্পেসের ভিতরে আপনি এখনও বেশিরভাগ অপারেশন স্বাভাবিকভাবে করতে পারেন।
+দুটি উপাদান যোগ ($x \cdot r + y \cdot r \equiv (x + y) \cdot r \bmod n$), বিয়োগ, সমতা পরীক্ষা, এমনকি $n$-এর সাথে একটি সংখ্যার গসাগু গণনা করতে পারেন (যেহেতু $\gcd(n, r) = 1$)।
+সবই স্বাভাবিক অ্যালগরিদমে।
 
-However this is not the case for multiplication.
+তবে গুণনের ক্ষেত্রে এটি প্রযোজ্য নয়।
 
-We expect the result to be:
+আমরা ফলাফল আশা করি:
 
 $$\bar{x} * \bar{y} = \overline{x \cdot y} = (x \cdot y) \cdot r \bmod n.$$
 
-But the normal multiplication will give us:
+কিন্তু সাধারণ গুণন দেবে:
 
 $$\bar{x} \cdot \bar{y} = (x \cdot y) \cdot r \cdot r \bmod n.$$
 
-Therefore the multiplication in the Montgomery space is defined as:
+তাই মন্টগোমেরি স্পেসে গুণন এভাবে সংজ্ঞায়িত:
 
 $$\bar{x} * \bar{y} := \bar{x} \cdot \bar{y} \cdot r^{-1} \bmod n.$$
 
-## Montgomery reduction
+## মন্টগোমেরি রিডাকশন
 
-The multiplication of two numbers in the Montgomery space requires an efficient computation of $x \cdot r^{-1} \bmod n$.
-This operation is called the **Montgomery reduction**, and is also known as the algorithm **REDC**.
+মন্টগোমেরি স্পেসে দুটি সংখ্যার গুণনের জন্য $x \cdot r^{-1} \bmod n$ দক্ষতার সাথে গণনা করা প্রয়োজন।
+এই অপারেশনকে **মন্টগোমেরি রিডাকশন** বলা হয়, এবং এটি **REDC** অ্যালগরিদম হিসেবেও পরিচিত।
 
-Because $\gcd(n, r) = 1$, we know that there are two numbers $r^{-1}$ and $n^{\prime}$ with $0 < r^{-1}, n^{\prime} < n$ with
+যেহেতু $\gcd(n, r) = 1$, আমরা জানি দুটি সংখ্যা $r^{-1}$ ও $n^{\prime}$ আছে যেখানে $0 < r^{-1}, n^{\prime} < n$ এবং
 
 $$r \cdot r^{-1} + n \cdot n^{\prime} = 1.$$
 
-Both $r^{-1}$ and $n^{\prime}$ can be computed using the [Extended Euclidean algorithm](extended-euclid-algorithm.md).
+$r^{-1}$ ও $n^{\prime}$ উভয়ই [এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম](extended-euclid-algorithm.md) ব্যবহার করে গণনা করা যায়।
 
-Using this identity we can write $x \cdot r^{-1}$ as:
+এই আইডেন্টিটি ব্যবহার করে আমরা $x \cdot r^{-1}$ লিখতে পারি:
 
 $$\begin{aligned}
 x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1) / r \\
@@ -71,10 +71,10 @@ x \cdot r^{-1} &= x \cdot r \cdot r^{-1} / r = x \cdot (-n \cdot n^{\prime} + 1)
 &\equiv ((-x \cdot n^{\prime} + l \cdot r) \cdot n + x) / r \bmod n
 \end{aligned}$$
 
-The equivalences hold for any arbitrary integer $l$.
-This means, that we can add or subtract an arbitrary multiple of $r$ to $x \cdot n^{\prime}$, or in other words, we can compute $q := x \cdot n^{\prime}$ modulo $r$.
+সমতুল্যতাগুলো যেকোনো ইচ্ছামতো পূর্ণসংখ্যা $l$-এর জন্য ধরে।
+এর মানে হলো, $x \cdot n^{\prime}$-এর সাথে আমরা $r$-এর যেকোনো গুণিতক যোগ বা বিয়োগ করতে পারি, অন্য কথায়, আমরা $q := x \cdot n^{\prime}$ মডুলো $r$ গণনা করতে পারি।
 
-This gives us the following algorithm to compute $x \cdot r^{-1} \bmod n$:
+এটি আমাদের $x \cdot r^{-1} \bmod n$ গণনার নিম্নলিখিত অ্যালগরিদম দেয়:
 
 ```text
 function reduce(x):
@@ -85,22 +85,22 @@ function reduce(x):
     return a
 ```
 
-Since $x < n \cdot n < r \cdot n$ (even if $x$ is the product of a multiplication) and $q \cdot n < r \cdot n$ we know that $-n < (x - q \cdot n) / r < n$.
-Therefore the final modulo operation is implemented using a single check and one addition.
+যেহেতু $x < n \cdot n < r \cdot n$ (এমনকি $x$ গুণনের ফলাফল হলেও) এবং $q \cdot n < r \cdot n$ আমরা জানি $-n < (x - q \cdot n) / r < n$।
+তাই চূড়ান্ত মডুলো অপারেশনটি একটি মাত্র পরীক্ষা ও একটি যোগ দিয়ে ইমপ্লিমেন্ট করা হয়।
 
-As we see, we can perform the Montgomery reduction without any heavy modulo operations.
-If we choose $r$ as a power of $2$, the modulo operations and divisions in the algorithm can be computed using bitmasking and shifting.
+দেখা যাচ্ছে, আমরা কোনো ভারী মডুলো অপারেশন ছাড়াই মন্টগোমেরি রিডাকশন করতে পারি।
+$r$-কে $2$-এর ঘাত নির্বাচন করলে, অ্যালগরিদমের মডুলো অপারেশন ও ভাগগুলো বিটমাস্কিং ও শিফটিং দিয়ে গণনা করা যায়।
 
-A second application of the Montgomery reduction is to transfer a number back from the Montgomery space into the normal space.
+মন্টগোমেরি রিডাকশনের দ্বিতীয় প্রয়োগ হলো একটি সংখ্যাকে মন্টগোমেরি স্পেস থেকে সাধারণ স্পেসে ফিরিয়ে আনা।
 
-## Fast inverse trick
+## ফাস্ট ইনভার্স ট্রিক
 
-For computing the inverse $n^{\prime} := n^{-1} \bmod r$ efficiently, we can use the following trick (which is inspired from the Newton's method):
+ইনভার্স $n^{\prime} := n^{-1} \bmod r$ দক্ষতার সাথে গণনা করতে, আমরা নিম্নলিখিত ট্রিক ব্যবহার করতে পারি (যা নিউটনের পদ্ধতি থেকে অনুপ্রাণিত):
 
 $$a \cdot x \equiv 1 \bmod 2^k \Longrightarrow a \cdot x \cdot (2 - a \cdot x) \equiv 1 \bmod 2^{2k}$$
 
-This can easily be proven.
-If we have $a \cdot x = 1 + m \cdot 2^k$, then we have:
+এটি সহজেই প্রমাণ করা যায়।
+যদি $a \cdot x = 1 + m \cdot 2^k$ হয়, তাহলে:
 
 $$\begin{aligned}
 a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\
@@ -110,18 +110,18 @@ a \cdot x \cdot (2 - a \cdot x) &= 2 \cdot a \cdot x - (a \cdot x)^2 \\
 &\equiv 1 \bmod 2^{2k}.
 \end{aligned}$$
 
-This means we can start with $x = 1$ as the inverse of $a$ modulo $2^1$, apply the trick a few times and in each iteration we double the number of correct bits of $x$.
+এর মানে আমরা $x = 1$ দিয়ে $2^1$ মডুলোতে $a$-এর ইনভার্স হিসেবে শুরু করতে পারি, ট্রিকটি কয়েকবার প্রয়োগ করতে পারি এবং প্রতিটি ইটারেশনে $x$-এর সঠিক বিটের সংখ্যা দ্বিগুণ করতে পারি।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Using the GCC compiler we can compute $x \cdot y \bmod n$ still efficiently, when all three numbers are 64 bit integer, since the compiler supports 128 bit integer with the types `__int128` and `__uint128`.
+GCC কম্পাইলার ব্যবহার করে আমরা $x \cdot y \bmod n$ তখনও দক্ষতার সাথে গণনা করতে পারি যখন তিনটি সংখ্যাই ৬৪ বিট পূর্ণসংখ্যা, কারণ কম্পাইলার `__int128` ও `__uint128` টাইপ দিয়ে ১২৮ বিট পূর্ণসংখ্যা সমর্থন করে।
 
 ```cpp
 long long result = (__int128)x * y % n;
 ```
 
-However there is no type for 256 bit integer.
-Therefore we will here show an implementation for a 128 bit multiplication.
+তবে ২৫৬ বিট পূর্ণসংখ্যার জন্য কোনো টাইপ নেই।
+তাই এখানে আমরা ১২৮ বিট গুণনের একটি ইমপ্লিমেন্টেশন দেখাব।
 
 ```cpp
 using u64 = uint64_t;
@@ -179,21 +179,21 @@ struct Montgomery {
 };
 ```
 
-## Fast transformation
+## দ্রুত রূপান্তর
 
-The current method of transforming a number into Montgomery space is pretty slow.
-There are faster ways.
+মন্টগোমেরি স্পেসে একটি সংখ্যা রূপান্তরের বর্তমান পদ্ধতিটি বেশ ধীর।
+আরো দ্রুত উপায় আছে।
 
-You can notice the following relation:
+নিম্নলিখিত সম্পর্কটি লক্ষ্য করুন:
 
 $$\bar{x} := x \cdot r \bmod n = x \cdot r^2 / r = x * r^2$$
 
-Transforming a number into the space is just a multiplication inside the space of the number with $r^2$.
-Therefore we can precompute $r^2 \bmod n$ and just perform a multiplication instead of shifting the number 128 times.
+স্পেসে একটি সংখ্যা রূপান্তর করা হলো সংখ্যাটির সাথে $r^2$-এর মন্টগোমেরি স্পেসের ভিতরে গুণন।
+তাই আমরা $r^2 \bmod n$ প্রিকম্পিউট করতে পারি এবং ১২৮ বার শিফট করার বদলে একটি গুণন করতে পারি।
 
-In the following code we initialize `r2` with `-n % n`, which is equivalent to $r - n \equiv r \bmod n$, shift it 4 times to get $r \cdot 2^4 \bmod n$.
-This number can be interpreted as $2^4$ in Montgomery space.
-If we square it $5$ times, we get $(2^4)^{2^5} = (2^4)^{32} = 2^{128} = r$ in Montgomery space, which is exactly $r^2 \bmod n$.
+নিম্নলিখিত কোডে আমরা `r2`-কে `-n % n` দিয়ে ইনিশিয়ালাইজ করি, যা $r - n \equiv r \bmod n$-এর সমতুল্য, এটিকে ৪ বার শিফট করে $r \cdot 2^4 \bmod n$ পাই।
+এই সংখ্যাটিকে মন্টগোমেরি স্পেসে $2^4$ হিসেবে ব্যাখ্যা করা যায়।
+এটিকে ৫ বার বর্গ করলে পাই $(2^4)^{2^5} = (2^4)^{32} = 2^{128} = r$ মন্টগোমেরি স্পেসে, যা ঠিক $r^2 \bmod n$।
 
 ```
 struct Montgomery {

@@ -1,93 +1,93 @@
 ---
-title: "Dijkstra Algorithm"
+title: "ডায়াক্সট্রা অ্যালগরিদম"
 tags: 
 weight: 10
 ---
-# Dijkstra Algorithm
+# ডায়াক্সট্রা অ্যালগরিদম
 
-You are given a directed or undirected weighted graph with $n$ vertices and $m$ edges. The weights of all edges are non-negative. You are also given a starting vertex $s$. This article discusses finding the lengths of the shortest paths from a starting vertex $s$ to all other vertices, and output the shortest paths themselves.
+আপনাকে $n$ টি ভার্টেক্স এবং $m$ টি এজবিশিষ্ট একটি ডিরেক্টেড বা আনডিরেক্টেড ওয়েটেড গ্রাফ দেওয়া আছে। সব এজের ওয়েট নন-নেগেটিভ। আপনাকে একটি সোর্স ভার্টেক্স $s$-ও দেওয়া আছে। এই আর্টিকেলে সোর্স ভার্টেক্স $s$ থেকে অন্য সব ভার্টেক্সে শর্টেস্ট পাথের দৈর্ঘ্য বের করা এবং শর্টেস্ট পাথগুলো নিজেই আউটপুট করা নিয়ে আলোচনা করা হয়েছে।
 
-This problem is also called **single-source shortest paths problem**.
+এই সমস্যাটিকে **সিঙ্গেল-সোর্স শর্টেস্ট পাথ** সমস্যাও বলা হয়।
 
-## Algorithm
+## অ্যালগরিদম
 
-Here is an algorithm described by the Dutch computer scientist Edsger W. Dijkstra in 1959.
+এটি ডাচ কম্পিউটার বিজ্ঞানী Edsger W. Dijkstra কর্তৃক ১৯৫৯ সালে বর্ণিত একটি অ্যালগরিদম।
 
-Let's create an array $d[]$ where for each vertex $v$ we store the current length of the shortest path from $s$ to $v$ in $d[v]$.
-Initially $d[s] = 0$, and for all other vertices this length equals infinity.
-In the implementation a sufficiently large number (which is guaranteed to be greater than any possible path length) is chosen as infinity.
+ধরি, একটি অ্যারে $d[]$ তৈরি করা হলো যেখানে প্রতিটি ভার্টেক্স $v$-এর জন্য $s$ থেকে $v$-তে বর্তমান শর্টেস্ট পাথের দৈর্ঘ্য $d[v]$-তে সংরক্ষিত থাকবে।
+প্রাথমিকভাবে $d[s] = 0$, এবং অন্য সব ভার্টেক্সের জন্য এই দৈর্ঘ্য অসীম (infinity)।
+ইমপ্লিমেন্টেশনে অসীমের পরিবর্তে যথেষ্ট বড় একটি সংখ্যা বেছে নেওয়া হয় (যা যেকোনো সম্ভাব্য পাথের দৈর্ঘ্যের চেয়ে বড় হওয়া নিশ্চিত)।
 
 $$d[v] = \infty,~ v \ne s$$
 
-In addition, we maintain a Boolean array $u[]$ which stores for each vertex $v$ whether it's marked. Initially all vertices are unmarked:
+এছাড়াও, একটি বুলিয়ান অ্যারে $u[]$ রাখা হয় যেখানে প্রতিটি ভার্টেক্স $v$-এর জন্য সংরক্ষিত থাকে যে এটি মার্কড কি না। প্রাথমিকভাবে সব ভার্টেক্স আনমার্কড:
 
 $$u[v] = {\rm false}$$
 
-The Dijkstra's algorithm runs for $n$ iterations. At each iteration a vertex $v$ is chosen as unmarked vertex which has the least value $d[v]$:
+ডায়াক্সট্রা অ্যালগরিদম $n$ টি ইটারেশনে চলে। প্রতিটি ইটারেশনে একটি ভার্টেক্স $v$ বেছে নেওয়া হয় যেটি আনমার্কড এবং যার $d[v]$-এর মান সবচেয়ে কম:
 
-Evidently, in the first iteration the starting vertex $s$ will be selected.
+স্পষ্টতই, প্রথম ইটারেশনে সোর্স ভার্টেক্স $s$ নির্বাচিত হবে।
 
-The selected vertex $v$ is marked. Next, from vertex $v$ **relaxations** are performed: all edges of the form $(v,\text{to})$ are considered, and for each vertex $\text{to}$ the algorithm tries to improve the value $d[\text{to}]$. If the length of the current edge equals $len$, the code for relaxation is:
+নির্বাচিত ভার্টেক্স $v$ কে মার্কড করা হয়। এরপর, ভার্টেক্স $v$ থেকে **রিলাক্সেশন** সম্পন্ন করা হয়: $(v,\text{to})$ আকারের সব এজ বিবেচনা করা হয়, এবং প্রতিটি ভার্টেক্স $\text{to}$-এর জন্য অ্যালগরিদম $d[\text{to}]$-এর মান উন্নত করার চেষ্টা করে। বর্তমান এজের দৈর্ঘ্য যদি $len$ হয়, তাহলে রিলাক্সেশনের কোড হলো:
 
 $$d[\text{to}] = \min (d[\text{to}], d[v] + len)$$
 
-After all such edges are considered, the current iteration ends. Finally, after $n$ iterations, all vertices will be marked, and the algorithm terminates. We claim that the found values $d[v]$ are the lengths of shortest paths from $s$ to all vertices $v$.
+এই ধরনের সব এজ বিবেচনা করার পর বর্তমান ইটারেশন শেষ হয়। অবশেষে, $n$ টি ইটারেশনের পর সব ভার্টেক্স মার্কড হয়ে যাবে এবং অ্যালগরিদম সমাপ্ত হবে। আমরা দাবি করি যে প্রাপ্ত $d[v]$ মানগুলো $s$ থেকে সব ভার্টেক্স $v$-তে শর্টেস্ট পাথের দৈর্ঘ্য।
 
-Note that if some vertices are unreachable from the starting vertex $s$, the values $d[v]$ for them will remain infinite. Obviously, the last few iterations of the algorithm will choose those vertices, but no useful work will be done for them. Therefore, the algorithm can be stopped as soon as the selected vertex has infinite distance to it.
+লক্ষ্য করুন, সোর্স ভার্টেক্স $s$ থেকে কিছু ভার্টেক্স যদি অ্যাক্সেসযোগ্য না হয়, তাহলে সেগুলোর $d[v]$ মান অসীমই থাকবে। স্পষ্টতই, অ্যালগরিদমের শেষ কয়েকটি ইটারেশন ওই ভার্টেক্সগুলো নির্বাচন করবে, কিন্তু তাদের জন্য কোনো কাজের কাজ হবে না। তাই, নির্বাচিত ভার্টেক্সের দূরত্ব অসীম হলেই অ্যালগরিদম থামিয়ে দেওয়া যেতে পারে।
 
-### Restoring Shortest Paths 
+### শর্টেস্ট পাথ পুনরুদ্ধার
 
-Usually one needs to know not only the lengths of shortest paths but also the shortest paths themselves. Let's see how to maintain sufficient information to restore the shortest path from $s$ to any vertex. We'll maintain an array of predecessors $p[]$ in which for each vertex $v \ne s$, $p[v]$ is the penultimate vertex in the shortest path from $s$ to $v$. Here we use the fact that if we take the shortest path to some vertex $v$ and remove $v$ from this path, we'll get a path ending in at vertex $p[v]$, and this path will be the shortest for the vertex $p[v]$. This array of predecessors can be used to restore the shortest path to any vertex: starting with $v$, repeatedly take the predecessor of the current vertex until we reach the starting vertex $s$ to get the required shortest path with vertices listed in reverse order. So, the shortest path $P$ to the vertex $v$ is equal to:
+সাধারণত শুধু শর্টেস্ট পাথের দৈর্ঘ্যই নয়, বরং শর্টেস্ট পাথগুলো নিজেও জানা দরকার হয়। দেখা যাক কীভাবে $s$ থেকে যেকোনো ভার্টেক্সে শর্টেস্ট পাথ পুনরুদ্ধার করার জন্য পর্যাপ্ত তথ্য সংরক্ষণ করা যায়। আমরা একটি প্রিডিসেসর অ্যারে $p[]$ রাখব যেখানে প্রতিটি ভার্টেক্স $v \ne s$-এর জন্য, $p[v]$ হলো $s$ থেকে $v$-তে শর্টেস্ট পাথের শেষ থেকে দ্বিতীয় ভার্টেক্স। এখানে আমরা এই তথ্যটি ব্যবহার করি যে, কোনো ভার্টেক্স $v$-তে শর্টেস্ট পাথ নিয়ে $v$ সরিয়ে দিলে আমরা $p[v]$-তে শেষ হওয়া একটি পাথ পাই, এবং এই পাথটি $p[v]$ ভার্টেক্সের জন্য শর্টেস্ট পাথ। এই প্রিডিসেসর অ্যারে ব্যবহার করে যেকোনো ভার্টেক্সে শর্টেস্ট পাথ পুনরুদ্ধার করা যায়: $v$ থেকে শুরু করে বারবার বর্তমান ভার্টেক্সের প্রিডিসেসর নিতে থাকুন যতক্ষণ না সোর্স ভার্টেক্স $s$-এ পৌঁছান, এতে বিপরীত ক্রমে তালিকাভুক্ত ভার্টেক্সসহ প্রয়োজনীয় শর্টেস্ট পাথ পাওয়া যাবে। সুতরাং, ভার্টেক্স $v$-তে শর্টেস্ট পাথ $P$ হলো:
 
 $$P = (s, \ldots, p[p[p[v]]], p[p[v]], p[v], v)$$
 
-Building this array of predecessors is very simple: for each successful relaxation, i.e. when for some selected vertex $v$, there is an improvement in the distance to some vertex $\text{to}$, we update the predecessor vertex for $\text{to}$ with vertex $v$:
+এই প্রিডিসেসর অ্যারে তৈরি করা খুবই সহজ: প্রতিটি সফল রিলাক্সেশনের সময়, অর্থাৎ যখন কোনো নির্বাচিত ভার্টেক্স $v$-এর জন্য কোনো ভার্টেক্স $\text{to}$-এর দূরত্বে উন্নতি হয়, তখন $\text{to}$-এর প্রিডিসেসর ভার্টেক্স $v$ দিয়ে আপডেট করি:
 
 $$p[\text{to}] = v$$
 
-## Proof
+## প্রমাণ
 
-The main assertion on which Dijkstra's algorithm correctness is based is the following:
+ডায়াক্সট্রা অ্যালগরিদমের সঠিকতা যে মূল দাবির উপর ভিত্তি করে তা হলো:
 
-**After any vertex $v$ becomes marked, the current distance to it $d[v]$ is the shortest, and will no longer change.**
+**যেকোনো ভার্টেক্স $v$ মার্কড হওয়ার পর, তার বর্তমান দূরত্ব $d[v]$ শর্টেস্ট, এবং এটি আর পরিবর্তন হবে না।**
 
-The proof is done by induction. For the first iteration this statement is obvious: the only marked vertex is $s$, and the distance to is $d[s] = 0$ is indeed the length of the shortest path to $s$. Now suppose this statement is true for all previous iterations, i.e. for all already marked vertices; let's prove that it is not violated after the current iteration completes. Let $v$ be the vertex selected in the current iteration, i.e. $v$ is the vertex that the algorithm will mark. Now we have to prove that $d[v]$ is indeed equal to the length of the shortest path to it $l[v]$.
+প্রমাণটি ইন্ডাকশনের মাধ্যমে করা হয়। প্রথম ইটারেশনের জন্য এই বিবৃতি স্পষ্ট: একমাত্র মার্কড ভার্টেক্স হলো $s$, এবং এর দূরত্ব $d[s] = 0$ যা প্রকৃতপক্ষে $s$-এর শর্টেস্ট পাথের দৈর্ঘ্য। এখন ধরি, এই বিবৃতি পূর্ববর্তী সব ইটারেশনের জন্য সত্য, অর্থাৎ ইতোমধ্যে মার্কড সব ভার্টেক্সের জন্য; প্রমাণ করা যাক যে বর্তমান ইটারেশন সম্পন্ন হলেও এটি লঙ্ঘিত হয় না। ধরি $v$ হলো বর্তমান ইটারেশনে নির্বাচিত ভার্টেক্স, অর্থাৎ $v$ হলো সেই ভার্টেক্স যাকে অ্যালগরিদম মার্ক করবে। এখন আমাদের প্রমাণ করতে হবে যে $d[v]$ প্রকৃতপক্ষে এর শর্টেস্ট পাথের দৈর্ঘ্য $l[v]$-এর সমান।
 
-Consider the shortest path $P$ to the vertex $v$. This path can be split into two parts: $P_1$ which consists of only marked nodes (at least the starting vertex $s$ is part of $P_1$), and the rest of the path $P_2$ (it may include a marked vertex, but it always starts with an unmarked vertex). Let's denote the first vertex of the path $P_2$ as $p$, and the last vertex of the path $P_1$ as $q$.
+ভার্টেক্স $v$-তে শর্টেস্ট পাথ $P$ বিবেচনা করুন। এই পাথকে দুটি অংশে ভাগ করা যায়: $P_1$ যা শুধুমাত্র মার্কড নোড নিয়ে গঠিত (অন্তত সোর্স ভার্টেক্স $s$ হলো $P_1$-এর অংশ), এবং বাকি পাথ $P_2$ (এতে একটি মার্কড ভার্টেক্স থাকতে পারে, তবে এটি সবসময় একটি আনমার্কড ভার্টেক্স দিয়ে শুরু হয়)। ধরি $P_2$ পাথের প্রথম ভার্টেক্স $p$ এবং $P_1$ পাথের শেষ ভার্টেক্স $q$।
 
-First we prove our statement for the vertex $p$, i.e. let's prove that $d[p] = l[p]$.
-This is almost obvious: on one of the previous iterations we chose the vertex $q$ and performed relaxation from it.
-Since (by virtue of the choice of vertex $p$) the shortest path to $p$ is the shortest path to $q$ plus edge $(p,q)$, the relaxation from $q$ set the value of $d[p]$ to the length of the shortest path $l[p]$.
+প্রথমে আমরা ভার্টেক্স $p$-এর জন্য আমাদের বিবৃতি প্রমাণ করি, অর্থাৎ প্রমাণ করা যাক যে $d[p] = l[p]$।
+এটি প্রায় স্পষ্ট: পূর্ববর্তী কোনো এক ইটারেশনে আমরা ভার্টেক্স $q$ নির্বাচন করেছিলাম এবং তা থেকে রিলাক্সেশন করেছিলাম।
+যেহেতু (ভার্টেক্স $p$-এর নির্বাচনের কারণে) $p$-এর শর্টেস্ট পাথ হলো $q$-এর শর্টেস্ট পাথ যোগ এজ $(p,q)$, তাই $q$ থেকে রিলাক্সেশন $d[p]$-এর মান শর্টেস্ট পাথের দৈর্ঘ্য $l[p]$-তে সেট করেছে।
 
-Since the edges' weights are non-negative, the length of the shortest path $l[p]$ (which we just proved to be equal to $d[p]$) does not exceed the length $l[v]$ of the shortest path to the vertex $v$. Given that $l[v] \le d[v]$ (because Dijkstra's algorithm could not have found a shorter way than the shortest possible one), we get the inequality:
+যেহেতু এজের ওয়েটগুলো নন-নেগেটিভ, শর্টেস্ট পাথের দৈর্ঘ্য $l[p]$ (যা আমরা এইমাত্র প্রমাণ করলাম $d[p]$-এর সমান) ভার্টেক্স $v$-তে শর্টেস্ট পাথের দৈর্ঘ্য $l[v]$-এর চেয়ে বেশি নয়। যেহেতু $l[v] \le d[v]$ (কারণ ডায়াক্সট্রা অ্যালগরিদম সম্ভাব্য সর্বনিম্নের চেয়ে ছোট পথ খুঁজে পেতে পারে না), আমরা পাই:
 
 $$d[p] = l[p] \le l[v] \le d[v]$$
 
-On the other hand, since both vertices $p$ and $v$ are unmarked, and the current iteration chose vertex $v$, not $p$, we get another inequality:
+অন্যদিকে, যেহেতু $p$ এবং $v$ উভয়ই আনমার্কড, এবং বর্তমান ইটারেশনে $p$ নয় বরং ভার্টেক্স $v$ নির্বাচিত হয়েছে, আমরা আরেকটি অসমতা পাই:
 
 $$d[p] \ge d[v]$$
 
-From these two inequalities we conclude that $d[p] = d[v]$, and then from previously found equations we get:
+এই দুটি অসমতা থেকে আমরা সিদ্ধান্তে আসি যে $d[p] = d[v]$, এবং তারপর পূর্বে প্রাপ্ত সমীকরণগুলো থেকে পাই:
 
 $$d[v] = l[v]$$
 
-Q.E.D.
+প্রমাণ সম্পন্ন।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-Dijkstra's algorithm performs $n$ iterations. On each iteration it selects an unmarked vertex $v$ with the lowest value $d[v]$, marks it and checks all the edges $(v, \text{to})$ attempting to improve the value $d[\text{to}]$.
+ডায়াক্সট্রা অ্যালগরিদম $n$ টি ইটারেশন সম্পন্ন করে। প্রতিটি ইটারেশনে এটি সবচেয়ে কম $d[v]$ মানবিশিষ্ট একটি আনমার্কড ভার্টেক্স $v$ নির্বাচন করে, একে মার্ক করে এবং সব এজ $(v, \text{to})$ পরীক্ষা করে $d[\text{to}]$-এর মান উন্নত করার চেষ্টা করে।
 
-The running time of the algorithm consists of:
+অ্যালগরিদমের রানিং টাইম নিম্নলিখিত অংশ নিয়ে গঠিত:
 
-* $n$ searches for a vertex with the smallest value $d[v]$ among $O(n)$ unmarked vertices
-* $m$ relaxation attempts
+* $O(n)$ টি আনমার্কড ভার্টেক্সের মধ্যে সবচেয়ে ছোট $d[v]$ মানের ভার্টেক্স খোঁজার জন্য $n$ বার সার্চ
+* $m$ বার রিলাক্সেশনের চেষ্টা
 
-For the simplest implementation of these operations on each iteration vertex search requires $O(n)$ operations, and each relaxation can be performed in $O(1)$. Hence, the resulting asymptotic behavior of the algorithm is:
+এই অপারেশনগুলোর সবচেয়ে সরল ইমপ্লিমেন্টেশনে প্রতিটি ইটারেশনে ভার্টেক্স সার্চে $O(n)$ অপারেশন লাগে এবং প্রতিটি রিলাক্সেশন $O(1)$-এ সম্পন্ন করা যায়। ফলে অ্যালগরিদমের অ্যাসিম্পটটিক কমপ্লেক্সিটি হলো:
 
-$$O(n^2+m)$$ 
+$$O(n^2+m)$$
 
-This complexity is optimal for dense graph, i.e. when $m \approx n^2$.
-However in sparse graphs, when $m$ is much smaller than the maximal number of edges $n^2$, the problem can be solved in $O(n \log n + m)$ complexity. The algorithm and implementation can be found on the article [Dijkstra on sparse graphs](dijkstra_sparse.md).
+ডেন্স গ্রাফের জন্য, অর্থাৎ যখন $m \approx n^2$, এই কমপ্লেক্সিটি অপটিমাল।
+তবে স্পার্স গ্রাফে, যখন $m$ সর্বোচ্চ এজ সংখ্যা $n^2$-এর তুলনায় অনেক ছোট, সমস্যাটি $O(n \log n + m)$ কমপ্লেক্সিটিতে সমাধান করা যায়। সেই অ্যালগরিদম ও ইমপ্লিমেন্টেশন [স্পার্স গ্রাফে ডায়াক্সট্রা](dijkstra_sparse.md) আর্টিকেলে পাওয়া যাবে।
 
 
 ```cpp
@@ -107,15 +107,15 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
             if (!u[j] && (v == -1 || d[j] < d[v]))
                 v = j;
         }
-        
+
         if (d[v] == INF)
             break;
-        
+
         u[v] = true;
         for (auto edge : adj[v]) {
             int to = edge.first;
             int len = edge.second;
-            
+
             if (d[v] + len < d[to]) {
                 d[to] = d[v] + len;
                 p[to] = v;
@@ -125,13 +125,13 @@ void dijkstra(int s, vector<int> & d, vector<int> & p) {
 }
 ```
 
-Here the graph $\text{adj}$ is stored as adjacency list: for each vertex $v$ $\text{adj}[v]$ contains the list of edges going from this vertex, i.e. the list of `pair<int,int>` where the first element in the pair is the vertex at the other end of the edge, and the second element is the edge weight.
+এখানে গ্রাফ $\text{adj}$ অ্যাডজেসেন্সি লিস্ট হিসেবে সংরক্ষিত: প্রতিটি ভার্টেক্স $v$-এর জন্য $\text{adj}[v]$-তে এই ভার্টেক্স থেকে বের হওয়া এজগুলোর লিস্ট রয়েছে, অর্থাৎ `pair<int,int>`-এর লিস্ট যেখানে পেয়ারের প্রথম উপাদান হলো এজের অপর প্রান্তের ভার্টেক্স এবং দ্বিতীয় উপাদান হলো এজের ওয়েট।
 
-The function takes the starting vertex $s$ and two vectors that will be used as return values.
+ফাংশনটি সোর্স ভার্টেক্স $s$ এবং দুটি ভেক্টর নেয় যা রিটার্ন ভ্যালু হিসেবে ব্যবহৃত হবে।
 
-First of all, the code initializes arrays: distances $d[]$, labels $u[]$ and predecessors $p[]$. Then it performs $n$ iterations. At each iteration the vertex $v$ is selected which has the smallest distance $d[v]$ among all the unmarked vertices. If the distance to selected vertex $v$ is equal to infinity, the algorithm stops. Otherwise the vertex is marked, and all the edges going out from this vertex are checked. If relaxation along the edge is possible (i.e. distance $d[\text{to}]$ can be improved), the distance $d[\text{to}]$ and predecessor $p[\text{to}]$ are updated.
+প্রথমে কোড অ্যারেগুলো ইনিশিয়ালাইজ করে: দূরত্ব $d[]$, লেবেল $u[]$ এবং প্রিডিসেসর $p[]$। তারপর এটি $n$ টি ইটারেশন চালায়। প্রতিটি ইটারেশনে সব আনমার্কড ভার্টেক্সের মধ্যে সবচেয়ে ছোট দূরত্ব $d[v]$ বিশিষ্ট ভার্টেক্স $v$ নির্বাচন করা হয়। নির্বাচিত ভার্টেক্স $v$-এর দূরত্ব অসীম হলে অ্যালগরিদম থেমে যায়। অন্যথায় ভার্টেক্সটি মার্ক করা হয়, এবং এই ভার্টেক্স থেকে বের হওয়া সব এজ পরীক্ষা করা হয়। এজ বরাবর রিলাক্সেশন সম্ভব হলে (অর্থাৎ দূরত্ব $d[\text{to}]$ উন্নত করা গেলে), দূরত্ব $d[\text{to}]$ এবং প্রিডিসেসর $p[\text{to}]$ আপডেট করা হয়।
 
-After performing all the iterations array $d[]$ stores the lengths of the shortest paths to all vertices, and array $p[]$ stores the predecessors of all vertices (except starting vertex $s$). The path to any vertex $t$ can be restored in the following way:
+সব ইটারেশন সম্পন্ন হওয়ার পর অ্যারে $d[]$-তে সব ভার্টেক্সে শর্টেস্ট পাথের দৈর্ঘ্য সংরক্ষিত থাকে, এবং অ্যারে $p[]$-তে সব ভার্টেক্সের প্রিডিসেসর সংরক্ষিত থাকে (সোর্স ভার্টেক্স $s$ ব্যতীত)। যেকোনো ভার্টেক্স $t$-এর পাথ নিম্নলিখিত উপায়ে পুনরুদ্ধার করা যায়:
 
 ```cpp
 vector<int> restore_path(int s, int t, vector<int> const& p) {
@@ -146,12 +146,12 @@ vector<int> restore_path(int s, int t, vector<int> const& p) {
 }
 ```
 
-## References
+## রেফারেন্স
 
 * Edsger Dijkstra. A note on two problems in connexion with graphs [1959]
 * Thomas Cormen, Charles Leiserson, Ronald Rivest, Clifford Stein. Introduction to Algorithms [2005]
 
-## Practice Problems
+## অনুশীলন সমস্যা
 * [Timus - Ivan's Car](http://acm.timus.ru/problem.aspx?space=1&num=1930) [Difficulty:Medium]
 * [Timus - Sightseeing Trip](http://acm.timus.ru/problem.aspx?space=1&num=1004)
 * [SPOJ - SHPATH](http://www.spoj.com/problems/SHPATH/) [Difficulty:Easy]
@@ -190,4 +190,3 @@ vector<int> restore_path(int s, int t, vector<int> const& p) {
 * [CSES - Shortest Routes 1](https://cses.fi/problemset/task/1671)
 * [CSES - Flight Discount](https://cses.fi/problemset/task/1195)
 * [CSES - Flight Routes](https://cses.fi/problemset/task/1196)
-

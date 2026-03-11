@@ -1,25 +1,25 @@
 ---
-title: "Maximum flow - Push-relabel method improved"
+title: "ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি"
 tags: 
 weight: 30
 ---
-# Maximum flow - Push-relabel method improved
+# ম্যাক্সিমাম ফ্লো - উন্নত পুশ-রিলেবেল পদ্ধতি
 
-We will modify the [push-relabel method](push-relabel.md) to achieve a better runtime.
+আমরা আরো ভালো রানটাইম অর্জনের জন্য [পুশ-রিলেবেল পদ্ধতি](push-relabel.md) পরিবর্তন করব।
 
-## Description
+## বর্ণনা
 
-The modification is extremely simple:
-In the previous article we chosen a vertex with excess without any particular rule.
-But it turns out, that if we always choose the vertices with the **greatest height**, and apply push and relabel operations on them, then the complexity will become better.
-Moreover, to select the vertices with the greatest height we actually don't need any data structures, we simply store the vertices with the greatest height in a list, and recalculate the list once all of them are processed (then vertices with already lower height will be added to the list), or whenever a new vertex with excess and a greater height appears (after relabeling a vertex).
+পরিবর্তনটি অত্যন্ত সরল:
+আগের নিবন্ধে আমরা কোনো বিশেষ নিয়ম ছাড়াই এক্সেসযুক্ত একটি ভার্টেক্স বেছে নিতাম।
+কিন্তু দেখা যায় যে, আমরা যদি সর্বদা **সবচেয়ে বেশি উচ্চতার** ভার্টেক্সগুলো বেছে নিই, এবং তাদের উপর পুশ ও রিলেবেল অপারেশন প্রয়োগ করি, তাহলে কমপ্লেক্সিটি আরো ভালো হবে।
+তাছাড়া, সবচেয়ে বেশি উচ্চতার ভার্টেক্স নির্বাচনের জন্য আসলে কোনো ডেটা স্ট্রাকচারের দরকার নেই, আমরা শুধু সবচেয়ে বেশি উচ্চতার ভার্টেক্সগুলো একটি লিস্টে সংরক্ষণ করি, এবং তাদের সবগুলো প্রসেস হয়ে গেলে লিস্ট পুনরায় গণনা করি (তখন ইতোমধ্যে কম উচ্চতার ভার্টেক্সগুলো লিস্টে যোগ হবে), অথবা যখনই এক্সেসযুক্ত এবং বেশি উচ্চতার একটি নতুন ভার্টেক্স দেখা দেয় (কোনো ভার্টেক্স রিলেবেল করার পর)।
 
-Despite the simplicity, this modification reduces the complexity by a lot.
-To be precise, the complexity of the resulting algorithm is $O(V E + V^2 \sqrt{E})$, which in the worst case is $O(V^3)$.
+সরলতা সত্ত্বেও, এই পরিবর্তন কমপ্লেক্সিটি অনেক কমিয়ে দেয়।
+সুনির্দিষ্টভাবে বলতে গেলে, ফলস্বরূপ অ্যালগরিদমের কমপ্লেক্সিটি $O(V E + V^2 \sqrt{E})$, যা সবচেয়ে খারাপ ক্ষেত্রে $O(V^3)$।
 
-This modification was proposed by Cheriyan and Maheshwari in 1989.
+এই পরিবর্তনটি ১৯৮৯ সালে চেরিয়ান ও মাহেশওয়ারি প্রস্তাব করেছিলেন।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 const int inf = 1000000000;

@@ -1,79 +1,79 @@
 ---
-title: "Finding the nearest pair of points"
+title: "নিকটতম বিন্দু জোড়া খুঁজে বের করা"
 tags: 
 weight: 10
 ---
-# Finding the nearest pair of points
+# নিকটতম বিন্দু জোড়া খুঁজে বের করা
 
-## Problem statement
+## সমস্যার বিবরণ
 
-Given $n$ points on the plane. Each point $p_i$ is defined by its coordinates $(x_i,y_i)$. It is required to find among them two such points, such that the distance between them is minimal:
+সমতলে $n$ টি বিন্দু দেওয়া আছে। প্রতিটি বিন্দু $p_i$ তার স্থানাঙ্ক $(x_i,y_i)$ দ্বারা সংজ্ঞায়িত। এদের মধ্যে এমন দুটি বিন্দু খুঁজে বের করতে হবে যাদের মধ্যে দূরত্ব সর্বনিম্ন:
 
 $$ \min_{\scriptstyle i, j=0 \ldots n-1,\atop \scriptstyle i \neq j } \rho (p_i, p_j). $$
 
-We take the usual Euclidean distances:
+আমরা সাধারণ ইউক্লিডীয় দূরত্ব নিই:
 
 $$ \rho (p_i,p_j) = \sqrt{(x_i-x_j)^2 + (y_i-y_j)^2} .$$
 
-The trivial algorithm - iterating over all pairs and calculating the distance for each — works in $O(n^2)$. 
+সরল অ্যালগরিদম — সব জোড়ার উপর ইটারেট করে প্রতিটির জন্য দূরত্ব গণনা — $O(n^2)$-এ কাজ করে।
 
-The algorithm running in time $O(n \log n)$ is described below. This algorithm was proposed by Shamos and Hoey in 1975. (Source: Ch. 5 Notes of _Algorithm Design_ by Kleinberg & Tardos, also see [here](https://ieeexplore.ieee.org/abstract/document/4567872)) Preparata and Shamos also showed that this algorithm is optimal in the decision tree model.
+$O(n \log n)$ সময়ে চলা অ্যালগরিদমটি নিচে বর্ণনা করা হয়েছে। এই অ্যালগরিদমটি ১৯৭৫ সালে Shamos ও Hoey প্রস্তাব করেছিলেন। (সূত্র: Kleinberg & Tardos-এর _Algorithm Design_-এর ৫ম অধ্যায়ের নোটস, আরও দেখুন [এখানে](https://ieeexplore.ieee.org/abstract/document/4567872)) Preparata ও Shamos এও দেখিয়েছিলেন যে এই অ্যালগরিদমটি ডিসিশন ট্রি মডেলে অপটিমাল।
 
-## Algorithm
-We construct an algorithm according to the general scheme of **divide-and-conquer** algorithms: the algorithm is designed as a recursive function, to which we pass a set of points; this recursive function splits this set in half, calls itself recursively on each half, and then performs some operations to combine the answers. The operation of combining consist of  detecting the cases when one point of the optimal solution fell into one half, and the other point into the other (in this case, recursive calls from each of the halves cannot detect this pair separately). The main difficulty, as always in case of divide and conquer algorithms, lies in the effective implementation of the merging stage. If a set of $n$ points is passed to the recursive function, then the merge stage should work no more than $O(n)$, then the asymptotics of the whole algorithm $T(n)$ will be found from the equation:
+## অ্যালগরিদম
+আমরা **ডিভাইড অ্যান্ড কনকার** অ্যালগরিদমের সাধারণ পরিকল্পনা অনুযায়ী একটি অ্যালগরিদম তৈরি করি: অ্যালগরিদমটি একটি রিকার্সিভ ফাংশন হিসেবে ডিজাইন করা হয়, যেখানে আমরা বিন্দুগুলোর একটি সেট পাস করি; এই রিকার্সিভ ফাংশন সেটটিকে অর্ধেক করে ভাগ করে, প্রতিটি অর্ধেকে নিজেকে রিকার্সিভভাবে কল করে, এবং তারপর উত্তরগুলো সংযুক্ত করার জন্য কিছু অপারেশন সম্পাদন করে। সংযুক্তকরণ অপারেশনে সেই ক্ষেত্রগুলো শনাক্ত করতে হয় যেখানে অপটিমাল সমাধানের একটি বিন্দু এক অর্ধেকে এবং অন্য বিন্দু অন্য অর্ধেকে পড়েছে (এই ক্ষেত্রে, প্রতিটি অর্ধেকের রিকার্সিভ কল এই জোড়া আলাদাভাবে শনাক্ত করতে পারে না)। প্রধান কঠিনতা, যেমনটা সবসময় ডিভাইড অ্যান্ড কনকার অ্যালগরিদমের ক্ষেত্রে হয়, মার্জিং পর্যায়ের দক্ষ ইমপ্লিমেন্টেশনে। যদি $n$ টি বিন্দুর একটি সেট রিকার্সিভ ফাংশনে পাস করা হয়, তাহলে মার্জ পর্যায় $O(n)$-এর বেশি কাজ করা উচিত না, তখন পুরো অ্যালগরিদমের অ্যাসিম্পটোটিকস $T(n)$ নিম্নলিখিত সমীকরণ থেকে পাওয়া যাবে:
 
-$$T(n) = 2T(n/2) + O(n).$$ 
+$$T(n) = 2T(n/2) + O(n).$$
 
-The solution to this equation, as is known, is $T(n) = O(n \log n).$
+এই সমীকরণের সমাধান, যেমনটা জানা আছে, $T(n) = O(n \log n).$
 
-So, we proceed on to the construction of the algorithm. In order to come to an effective implementation of the merge stage in the future, we will divide the set of points into two subsets, according to their $x$-coordinates: In fact, we draw some vertical line dividing the set of points into two subsets of approximately the same size. It is convenient to make such a partition as follows: We sort the points in the standard way as pairs of numbers, ie.:
+তাহলে, চলুন অ্যালগরিদম তৈরি করি। ভবিষ্যতে মার্জ পর্যায়ের দক্ষ ইমপ্লিমেন্টেশনে পৌঁছানোর জন্য, আমরা বিন্দু সেটটিকে তাদের $x$-স্থানাঙ্ক অনুযায়ী দুটি উপসেটে ভাগ করব: বস্তুত, আমরা একটি উল্লম্ব রেখা আঁকি যা বিন্দু সেটটিকে প্রায় সমান আকারের দুটি উপসেটে ভাগ করে। এমন ভাগ করা সুবিধাজনকভাবে নিম্নরূপে করা যায়: আমরা বিন্দুগুলোকে সংখ্যা জোড়া হিসেবে স্ট্যান্ডার্ড পদ্ধতিতে সাজাই, অর্থাৎ:
 
 $$p_i < p_j \Longleftrightarrow (x_i < x_j) \lor \Big(\left(x_i = x_j\right) \wedge \left(y_i < y_j \right) \Big) $$
 
-Then take the middle point after sorting $p_m (m = \lfloor n/2 \rfloor)$, and all the points before it and the $p_m$ itself are assigned to the first half, and all the points after it - to the second half:
+তারপর সাজানোর পর মধ্যবর্তী বিন্দু $p_m (m = \lfloor n/2 \rfloor)$ নিই, এবং এর আগের সব বিন্দু ও $p_m$ নিজে প্রথম অর্ধেকে যায়, এবং এর পরের সব বিন্দু দ্বিতীয় অর্ধেকে:
 
 $$A_1 = \{p_i \ | \ i = 0 \ldots m \}$$
 
-$$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$ 
+$$A_2 = \{p_i \ | \ i = m + 1 \ldots n-1 \}.$$
 
-Now, calling recursively on each of the sets $A_1$ and $A_2$, we will find the answers $h_1$ and $h_2$ for each of the halves. And take the best of them: $h = \min(h_1, h_2)$.
+এখন, $A_1$ ও $A_2$ সেটগুলোতে রিকার্সিভভাবে কল করে, আমরা প্রতিটি অর্ধেকের উত্তর $h_1$ ও $h_2$ পাব। এবং সেরাটি নিই: $h = \min(h_1, h_2)$।
 
-Now we need to make a **merge stage**, i.e. we try to find such pairs of points, for which the distance between which is less than $h$ and one point is lying in $A_1$ and the other in $A_2$.
-It is obvious that it is sufficient to consider only those points that are separated from the vertical line by a distance less than $h$, i.e. the set $B$ of the points considered at this stage is equal to:
+এখন আমাদের একটি **মার্জ পর্যায়** করতে হবে, অর্থাৎ আমরা এমন বিন্দু জোড়া খুঁজতে চেষ্টা করি যাদের দূরত্ব $h$-এর চেয়ে কম এবং একটি বিন্দু $A_1$-এ ও অন্যটি $A_2$-তে।
+স্পষ্টতই, শুধুমাত্র সেই বিন্দুগুলো বিবেচনা করাই যথেষ্ট যারা উল্লম্ব রেখা থেকে $h$-এর চেয়ে কম দূরত্বে, অর্থাৎ এই পর্যায়ে বিবেচিত বিন্দুদের সেট $B$ হলো:
 
-$$B = \{ p_i\ | \ | x_i - x_m\ | < h \}.$$ 
+$$B = \{ p_i\ | \ | x_i - x_m\ | < h \}.$$
 
-For each point in the set $B$, we try to find the points that are closer to it than $h$. For example, it is sufficient to consider only those points whose $y$-coordinate differs by no more than $h$. Moreover, it makes no sense to consider those points whose $y$-coordinate is greater than the $y$-coordinate of the current point. Thus, for each point $p_i$ we define the set of considered points $C(p_i)$ as follows:
+$B$ সেটের প্রতিটি বিন্দুর জন্য, আমরা $h$-এর চেয়ে কাছের বিন্দু খুঁজতে চেষ্টা করি। উদাহরণস্বরূপ, শুধু সেই বিন্দুগুলো বিবেচনা করাই যথেষ্ট যাদের $y$-স্থানাঙ্ক $h$-এর বেশি ভিন্ন নয়। তাছাড়া, যেসব বিন্দুর $y$-স্থানাঙ্ক বর্তমান বিন্দুর $y$-স্থানাঙ্কের চেয়ে বেশি সেগুলো বিবেচনা করার কোনো মানে নেই। সুতরাং, প্রতিটি বিন্দু $p_i$-র জন্য আমরা বিবেচিত বিন্দুদের সেট $C(p_i)$ নিম্নরূপে সংজ্ঞায়িত করি:
 
 $$C(p_i) = \{ p_j\ |\ p_j \in B,\ \ y_i - h < y_j \le y_i \}.$$
 
-If we sort the points of the set $B$ by $y$-coordinate, it will be very easy to find $C(p_i)$: these are several points in a row ahead to the point $p_i$.
+যদি আমরা $B$ সেটের বিন্দুগুলো $y$-স্থানাঙ্ক অনুযায়ী সাজাই, তাহলে $C(p_i)$ খুঁজে পাওয়া খুব সহজ হবে: এগুলো হলো বিন্দু $p_i$-এর সামনে পরপর কয়েকটি বিন্দু।
 
-So, in the new notation, the **merging stage** looks like this: build a set $B$, sort the points in it by $y$-coordinate, then for each point $p_i \in B$ consider all points $p_j \in C(p_i)$, and for each pair $(p_i,p_j)$ calculate the distance and compare with the current best distance.
+সুতরাং, নতুন স্বরলিপিতে, **মার্জিং পর্যায়** এরকম দেখায়: $B$ সেট তৈরি করুন, এর বিন্দুগুলো $y$-স্থানাঙ্ক অনুযায়ী সাজান, তারপর প্রতিটি বিন্দু $p_i \in B$-এর জন্য $C(p_i)$-র সব বিন্দু $p_j$ বিবেচনা করুন, এবং প্রতিটি জোড়া $(p_i,p_j)$-এর দূরত্ব গণনা করে বর্তমান সর্বোত্তম দূরত্বের সাথে তুলনা করুন।
 
-At first glance, this is still a non-optimal algorithm: it seems that the sizes of sets $C(p_i)$ will be of order $n$, and the required asymptotics will not work. However, surprisingly, it can be proved that the size of each of the sets $C(p_i)$ is a quantity $O(1)$, i.e. it does not exceed some small constant regardless of the points themselves. Proof of this fact is given in the next section.
+প্রথম দর্শনে, এটি এখনও একটি অ-অপটিমাল অ্যালগরিদম: মনে হয় $C(p_i)$ সেটগুলোর আকার $n$-এর ক্রমের হবে, এবং প্রয়োজনীয় অ্যাসিম্পটোটিকস কাজ করবে না। তবে, আশ্চর্যজনকভাবে, প্রমাণ করা যায় যে $C(p_i)$-র প্রতিটির আকার একটি $O(1)$ পরিমাণ, অর্থাৎ বিন্দুগুলো যাই হোক না কেন এটি কোনো ছোট ধ্রুবক অতিক্রম করে না। এই তথ্যের প্রমাণ পরবর্তী অংশে দেওয়া হয়েছে।
 
-Finally, we pay attention to the sorting, which the above algorithm contains: first,sorting by pairs $(x, y)$, and then second, sorting the elements of the set $B$ by $y$. In fact, both of these sorts inside the recursive function can be eliminated (otherwise we would not reach the $O(n)$ estimate for the **merging stage**, and the general asymptotics of the algorithm would be $O(n \log^2 n)$). It is easy to get rid of the first sort — it is enough to perform this sort before starting the recursion: after all, the elements themselves do not change inside the recursion, so there is no need to sort again. With the second sorting a little more difficult to perform, performing it previously will not work. But, remembering the merge sort, which also works on the principle of divide-and-conquer, we can simply embed this sort in our recursion. Let recursion, taking some set of points (as we remember,ordered by pairs $(x, y)$), return the same set, but sorted by the $y$-coordinate. To do this, simply merge (in $O(n)$) the two results returned by recursive calls. This will result in a set sorted by $y$-coordinate.
+অবশেষে, আমরা সাজানোর দিকে মনোযোগ দিই, যা উপরের অ্যালগরিদমে রয়েছে: প্রথমত, $(x, y)$ জোড়া অনুযায়ী সাজানো, এবং দ্বিতীয়ত, $B$ সেটের উপাদানগুলো $y$ অনুযায়ী সাজানো। বস্তুত, রিকার্সিভ ফাংশনের ভেতরে এই দুটি সাজানোই বাদ দেওয়া যায় (অন্যথায় আমরা **মার্জিং পর্যায়ের** জন্য $O(n)$ অনুমানে পৌঁছাতে পারতাম না, এবং অ্যালগরিদমের সামগ্রিক অ্যাসিম্পটোটিকস $O(n \log^2 n)$ হতো)। প্রথম সাজানো থেকে মুক্তি পাওয়া সহজ — রিকার্সন শুরু করার আগেই এই সাজানো সম্পন্ন করাই যথেষ্ট: সর্বোপরি, রিকার্সনের ভেতরে উপাদানগুলো পরিবর্তিত হয় না, তাই আবার সাজানোর প্রয়োজন নেই। দ্বিতীয় সাজানো একটু কঠিন, আগে থেকে সাজানো কাজ করবে না। তবে, মার্জ সর্ট মনে করে দেখুন, যেটিও ডিভাইড অ্যান্ড কনকার নীতিতে কাজ করে, আমরা সহজেই এই সাজানো আমাদের রিকার্সনে এম্বেড করতে পারি। ধরি রিকার্সন, বিন্দুগুলোর একটি সেট নিয়ে (যেমনটা আমরা মনে করি, $(x, y)$ জোড়া অনুযায়ী সাজানো), একই সেট ফেরত দেয় কিন্তু $y$-স্থানাঙ্ক অনুযায়ী সাজানো। এটি করতে, শুধু ($O(n)$-এ) রিকার্সিভ কলের দুটি ফলাফল মার্জ করলেই হবে। এতে $y$-স্থানাঙ্ক অনুযায়ী সাজানো সেট পাওয়া যাবে।
 
-## Evaluation of the asymptotics
+## অ্যাসিম্পটোটিকসের মূল্যায়ন
 
-To show that the above algorithm is actually executed in $O(n \log n)$, we need to prove the following fact: $|C(p_i)| = O(1)$.
+উপরের অ্যালগরিদম আসলে $O(n \log n)$-এ সম্পাদিত হয় তা দেখাতে, আমাদের নিম্নলিখিত তথ্য প্রমাণ করতে হবে: $|C(p_i)| = O(1)$।
 
-So, let us consider some point $p_i$; recall that the set $C(p_i)$ is a set of points whose $y$-coordinate lies in the segment $[y_i-h; y_i]$, and, moreover, along the $x$ coordinate, the point $p_i$ itself, and all the points of the set $C(p_i)$ lie in the band width $2h$. In other words, the points we are considering $p_i$ and $C(p_i)$ lie in a rectangle of size $2h \times h$.
+তাহলে, কোনো একটি বিন্দু $p_i$ বিবেচনা করি; স্মরণ করি যে $C(p_i)$ সেটটি হলো এমন বিন্দুদের সেট যাদের $y$-স্থানাঙ্ক $[y_i-h; y_i]$ খণ্ডে এবং তাছাড়া $x$ স্থানাঙ্ক বরাবর, বিন্দু $p_i$ নিজে ও $C(p_i)$ সেটের সব বিন্দু $2h$ প্রস্থের একটি ব্যান্ডে আছে। অন্য কথায়, আমরা যে বিন্দুগুলো বিবেচনা করছি $p_i$ ও $C(p_i)$ একটি $2h \times h$ আয়তক্ষেত্রে অবস্থিত।
 
-Our task is to estimate the maximum number of points that can lie in this rectangle $2h \times h$; thus, we estimate the maximum size of the set $C(p_i)$. At the same time, when evaluating, we must not forget that there may be repeated points.
+আমাদের কাজ হলো এই $2h \times h$ আয়তক্ষেত্রে সর্বাধিক কতগুলো বিন্দু থাকতে পারে তা অনুমান করা; এভাবে আমরা $C(p_i)$ সেটের সর্বাধিক আকার অনুমান করি। একই সাথে, মূল্যায়ন করার সময়, আমাদের ভুলে গেলে চলবে না যে বিন্দু পুনরাবৃত্ত হতে পারে।
 
-Remember that $h$ was obtained from the results of two recursive calls — on sets $A_1$ and $A_2$, and $A_1$ contains points to the left of the partition line and partially on it, $A_2$ contains the remaining points of the partition line and points to the right of it. For any pair of points from $A_1$, as well as from $A_2$, the distance can not be less than $h$ — otherwise it would mean incorrect operation of the recursive function.
+মনে রাখুন $h$ দুটি রিকার্সিভ কলের ফলাফল থেকে পাওয়া — $A_1$ ও $A_2$ সেটে, এবং $A_1$-এ বিভাজন রেখার বামের বিন্দু ও আংশিকভাবে রেখার উপরের বিন্দু রয়েছে, $A_2$-তে বিভাজন রেখার অবশিষ্ট বিন্দু ও ডানের বিন্দু রয়েছে। $A_1$-এর যেকোনো জোড়া, এবং $A_2$-এর যেকোনো জোড়ার দূরত্ব $h$-এর কম হতে পারে না — অন্যথায় এটি রিকার্সিভ ফাংশনের ভুল কাজ বোঝাত।
 
-To estimate the maximum number of points in the rectangle $2h \times h$ we divide it into two squares $h \times h$, the first square include all points $C(p_i) \cap A_1$, and the second contains all the others, i.e. $C(p_i) \cap A_2$. It follows from the above considerations that in each of these squares the distance between any two points is at least $h$.
+$2h \times h$ আয়তক্ষেত্রে সর্বাধিক বিন্দুর সংখ্যা অনুমান করতে আমরা এটিকে দুটি $h \times h$ বর্গক্ষেত্রে ভাগ করি, প্রথম বর্গক্ষেত্রে $C(p_i) \cap A_1$-এর সব বিন্দু এবং দ্বিতীয়টিতে বাকিগুলো, অর্থাৎ $C(p_i) \cap A_2$। উপরের আলোচনা থেকে জানা যায় যে এই বর্গক্ষেত্রগুলোর প্রতিটিতে যেকোনো দুটি বিন্দুর দূরত্ব কমপক্ষে $h$।
 
-We show that there are at most four points in each square. For example, this can be done as follows: divide the square into $4$ sub-squares with sides $h/2$. Then there can be no more than one point in each of these sub-squares (since even the diagonal is equal to $h / \sqrt{2}$, which is less than $h$). Therefore, there can be no more than $4$ points in the whole square.
+আমরা দেখাই যে প্রতিটি বর্গক্ষেত্রে সর্বাধিক চারটি বিন্দু থাকতে পারে। উদাহরণস্বরূপ, এটি নিম্নরূপে করা যায়: বর্গক্ষেত্রটিকে $h/2$ বাহু বিশিষ্ট $4$ টি উপ-বর্গক্ষেত্রে ভাগ করুন। তখন এই উপ-বর্গক্ষেত্রগুলোর প্রতিটিতে একটির বেশি বিন্দু থাকতে পারে না (কারণ কর্ণও $h / \sqrt{2}$, যা $h$-এর চেয়ে কম)। অতএব, পুরো বর্গক্ষেত্রে $4$ টির বেশি বিন্দু থাকতে পারে না।
 
-So, we have proved that in a rectangle $2h \times h$ can not be more than $4 \cdot 2 = 8$ points, and, therefore, the size of the set $C(p_i)$ cannot exceed $7$, as required.
+সুতরাং, আমরা প্রমাণ করলাম যে $2h \times h$ আয়তক্ষেত্রে $4 \cdot 2 = 8$ টির বেশি বিন্দু থাকতে পারে না, এবং তাই $C(p_i)$ সেটের আকার $7$ অতিক্রম করতে পারে না, যেমনটা প্রয়োজন ছিল।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-We introduce a data structure to store a point (its coordinates and a number) and comparison operators required for two types of sorting:
+আমরা একটি বিন্দু সংরক্ষণের জন্য একটি ডেটা স্ট্রাকচার (এর স্থানাঙ্ক ও একটি নম্বর) এবং দুই ধরনের সাজানোর জন্য প্রয়োজনীয় তুলনা অপারেটর প্রবর্তন করি:
 
 ```cpp
 struct pt {
@@ -85,23 +85,23 @@ struct cmp_x {
         return a.x < b.x || (a.x == b.x && a.y < b.y);
     }
 };
- 
+
 struct cmp_y {
     bool operator()(const pt & a, const pt & b) const {
         return a.y < b.y;
     }
 };
- 
+
 int n;
 vector<pt> a;
 ```
 
-For a convenient implementation of recursion, we introduce an auxiliary function upd_ans(), which will calculate the distance between two points and check whether it is better than the current answer:
+রিকার্সনের সুবিধাজনক ইমপ্লিমেন্টেশনের জন্য, আমরা একটি সহায়ক ফাংশন upd_ans() প্রবর্তন করি, যা দুটি বিন্দুর মধ্যে দূরত্ব গণনা করবে এবং এটি বর্তমান উত্তরের চেয়ে ভালো কি না পরীক্ষা করবে:
 
 ```cpp
 double mindist;
 pair<int, int> best_pair;
- 
+
 void upd_ans(const pt & a, const pt & b) {
     double dist = sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
     if (dist < mindist) {
@@ -111,11 +111,11 @@ void upd_ans(const pt & a, const pt & b) {
 }
 ```
 
-Finally, the implementation of the recursion itself. It is assumed that before calling it, the array $a[]$ is already sorted by $x$-coordinate. In recursion we pass just two pointers $l, r$, which indicate that it should look for the answer for $a[l \ldots r)$. If the distance between $r$ and $l$ is too small, the recursion must be stopped, and perform a trivial algorithm to find the nearest pair and then sort the subarray by $y$-coordinate.
+সবশেষে, রিকার্সনের ইমপ্লিমেন্টেশন। ধরে নেওয়া হচ্ছে এটি কল করার আগে $a[]$ অ্যারে ইতিমধ্যে $x$-স্থানাঙ্ক অনুযায়ী সাজানো। রিকার্সনে আমরা শুধু দুটি পয়েন্টার $l, r$ পাস করি, যা নির্দেশ করে এটি $a[l \ldots r)$-এর জন্য উত্তর খুঁজবে। $r$ ও $l$-এর মধ্যে দূরত্ব খুব ছোট হলে, রিকার্সন থামাতে হবে, এবং নিকটতম জোড়া খুঁজতে ও $y$-স্থানাঙ্ক অনুযায়ী সাবঅ্যারে সাজাতে একটি সরল অ্যালগরিদম সম্পাদন করতে হবে।
 
-To merge two sets of points received from recursive calls into one (ordered by $y$-coordinate), we use the standard STL $merge()$ function, and create an auxiliary buffer $t[]$(one for all recursive calls). (Using inplace_merge () is impractical because it generally does not work in linear time.)
+রিকার্সিভ কল থেকে প্রাপ্ত দুটি বিন্দু সেটকে একটিতে ($y$-স্থানাঙ্ক অনুযায়ী সাজানো) মার্জ করতে, আমরা স্ট্যান্ডার্ড STL $merge()$ ফাংশন ব্যবহার করি, এবং একটি সহায়ক বাফার $t[]$ তৈরি করি (সব রিকার্সিভ কলের জন্য একটি)। (inplace_merge() ব্যবহার করা ব্যবহারিক নয় কারণ এটি সাধারণত লিনিয়ার সময়ে কাজ করে না।)
 
-Finally, the set $B$ is stored in the same array $t$.
+সবশেষে, $B$ সেটটি একই $t$ অ্যারেতে সংরক্ষিত।
 
 ```cpp
 vector<pt> t;
@@ -150,9 +150,9 @@ void rec(int l, int r) {
 }
 ```
 
-By the way, if all the coordinates are integer, then at the time of the recursion you can not move to fractional values, and store in $mindist$ the square of the minimum distance.
+প্রসঙ্গত, যদি সব স্থানাঙ্ক পূর্ণসংখ্যা হয়, তাহলে রিকার্সনের সময়ে ভগ্নাংশ মানে না গিয়ে $mindist$-এ সর্বনিম্ন দূরত্বের বর্গ সংরক্ষণ করা যায়।
 
-In the main program, recursion should be called as follows:
+মূল প্রোগ্রামে, রিকার্সন নিম্নরূপে কল করতে হবে:
 
 ```cpp
 t.resize(n);
@@ -161,55 +161,55 @@ mindist = 1E20;
 rec(0, n);
 ```
 
-## Linear time randomized algorithms
+## লিনিয়ার টাইম র‍্যান্ডমাইজড অ্যালগরিদম
 
-### A randomized algorithm with linear expected time
+### লিনিয়ার প্রত্যাশিত সময়ের একটি র‍্যান্ডমাইজড অ্যালগরিদম
 
-An alternative method, originally proposed by Rabin in 1976, arises from a very simple idea to heuristically improve the runtime: We can divide the plane into a grid of $d \times d$ squares, then it is only required to test distances between same-block or adjacent-block points (unless all squares are disconnected from each other, but we will avoid this by design), since any other pair has a larger distance than the two points in the same square.
+একটি বিকল্প পদ্ধতি, মূলত ১৯৭৬ সালে Rabin প্রস্তাব করেছিলেন, একটি অত্যন্ত সরল ধারণা থেকে উদ্ভূত হয়ে হিউরিস্টিকভাবে রানটাইম উন্নত করে: আমরা সমতলকে $d \times d$ বর্গক্ষেত্রের একটি গ্রিডে ভাগ করতে পারি, তখন শুধুমাত্র একই-ব্লক বা পাশের-ব্লকের বিন্দুদের মধ্যে দূরত্ব পরীক্ষা করতে হবে (যদি না সব বর্গ একে অপর থেকে বিচ্ছিন্ন হয়, কিন্তু আমরা ডিজাইনের মাধ্যমে এটি এড়াব), কারণ অন্য যেকোনো জোড়ার দূরত্ব একই বর্গের দুটি বিন্দুর চেয়ে বেশি।
 
 <div style="text-align: center;">
     <img src="/images/geometry/nearest_points_blocks_example.png" alt="Example of the squares strategy" width="350px">
 </div>
 
 
-We will consider only the squares containing at least one point. Denote by $n_1, n_2, \dots, n_k$ the number of points in each of the $k$ remaining squares. Assuming at least two points are in the same or in adjacent squares, and that there are no duplicated points, the time complexity is $\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$. We can look for duplicated points in expected linear time using a hash table, and in the affirmative case, the answer is this pair.
+আমরা শুধুমাত্র কমপক্ষে একটি বিন্দু ধারণকারী বর্গক্ষেত্রগুলো বিবেচনা করব। $n_1, n_2, \dots, n_k$ দিয়ে $k$ টি অবশিষ্ট বর্গক্ষেত্রের প্রতিটিতে বিন্দু সংখ্যা বোঝাই। ধরে নিচ্ছি কমপক্ষে দুটি বিন্দু একই বা পাশের বর্গক্ষেত্রে আছে, এবং কোনো ডুপ্লিকেট বিন্দু নেই, টাইম কমপ্লেক্সিটি হলো $\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$। আমরা হ্যাশ টেবিল ব্যবহার করে প্রত্যাশিত লিনিয়ার সময়ে ডুপ্লিকেট বিন্দু খুঁজতে পারি, এবং হ্যাঁ হলে উত্তর হলো সেই জোড়া।
 
-{{< details "Proof" >}}
+{{< details "প্রমাণ" >}}
 {{< /details >}}
-	For the $i$-th square containing $n_i$ points, the number of pairs inside is $\Theta(n_i^2)$. If the $i$-th square is adjacent to the $j$-th square, then we also perform $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ distance comparisons. Notice that each square has at most $8$ adjacent squares, so we can bound the sum of all comparisons by $\Theta(\sum_{i=1}^{k} n_i^2)$. $\quad \blacksquare$
+	$n_i$ বিন্দু ধারণকারী $i$-তম বর্গক্ষেত্রের জন্য, ভেতরের জোড়া সংখ্যা $\Theta(n_i^2)$। যদি $i$-তম বর্গক্ষেত্র $j$-তম বর্গক্ষেত্রের পাশে থাকে, তাহলে আমরা $n_i n_j \le \max(n_i, n_j)^2 \le n_i^2 + n_j^2$ টি দূরত্ব তুলনাও করি। লক্ষ্য করুন প্রতিটি বর্গক্ষেত্রের সর্বাধিক $8$ টি পার্শ্ববর্তী বর্গক্ষেত্র আছে, তাই সব তুলনার যোগফল $\Theta(\sum_{i=1}^{k} n_i^2)$ দ্বারা সীমিত করা যায়। $\quad \blacksquare$
 
-Now we need to decide on how to set $d$ so that it minimizes $\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$.
+এখন আমাদের ঠিক করতে হবে $d$ কীভাবে সেট করলে $\Theta\!\left(\sum\limits_{i=1}^k n_i^2\right)$ সর্বনিম্ন হয়।
 
-####  Choosing d
+#### d নির্বাচন
 
-We need $d$ to be an approximation of the minimum distance $d$. Richard Lipton proposed to sample $n$ distances randomly and choose $d$ to be the smallest of these distances as an approximation for $d$. We now prove that the expected running time of the algorithm is linear.
+আমাদের $d$ কে সর্বনিম্ন দূরত্ব $d$-এর একটি আনুমানিক মান হতে হবে। Richard Lipton প্রস্তাব করেছিলেন র‍্যান্ডমভাবে $n$ টি দূরত্ব স্যাম্পল করে তাদের মধ্যে ক্ষুদ্রতমটিকে $d$-এর আনুমানিক মান হিসেবে নেওয়ার। আমরা এখন প্রমাণ করি যে অ্যালগরিদমের প্রত্যাশিত রানিং টাইম লিনিয়ার।
 
-{{< details "Proof" >}}
+{{< details "প্রমাণ" >}}
 {{< /details >}}
-	Imagine the disposition of points in squares with a particular choice of $d$, say $x$. Consider $d$ a random variable, resulting from our sampling of distances. Let's define $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ as the cost estimation for a particular disposition when we choose $d=x$. Now, let's define $\lambda(x)$ such that $C(x) = \lambda(x) \, n$. What is the probability that such choice $x$ survives the sampling of $n$ independent distances? If a single pair among the sampled ones has distance smaller than $x$, this arrangement will be replaced by the smaller $d$. Inside a square, about $1/16$ of the pairs would raise a smaller distance (imagine four subsquares in every square; using the pigeonhole principle, at least one subsquare has $n_i/4$ points), so we have about $\sum_{i=1}^{k} {n_i/4 \choose 2} \approx \sum_{i=1}^{k} \frac{1}{16} {n_i \choose 2}$ pairs which yield a smaller final $d$. This is, approximately, $\frac{1}{32} \sum_{i=1}^{k} n_i^2 = \frac{1}{32} \lambda(x) n$. On the other hand, there are about $\frac{1}{2} n^2$ pairs that can be sampled. We have that the probability of sampling a pair with distance smaller than $x$ is at least (approximately) 
-	
+	$d$-এর একটি নির্দিষ্ট মান, ধরি $x$, দিয়ে বর্গক্ষেত্রে বিন্দুদের বিন্যাস কল্পনা করুন। $d$ কে একটি র‍্যান্ডম ভ্যারিয়েবল বিবেচনা করি, আমাদের দূরত্ব স্যাম্পলিংয়ের ফলাফল। ধরি $C(x) := \sum_{i=1}^{k(x)} n_i(x)^2$ হলো $d=x$ নেওয়ার সময়ের কস্ট অনুমান। এখন, $\lambda(x)$ সংজ্ঞায়িত করি যেন $C(x) = \lambda(x) \, n$। এই মান $x$ $n$ টি স্বাধীন দূরত্ব স্যাম্পলিংয়ে টিকে থাকার সম্ভাবনা কত? স্যাম্পল করা জোড়াগুলোর মধ্যে একটিরও দূরত্ব $x$-এর চেয়ে ছোট হলে, এই বিন্যাস ছোট $d$ দ্বারা প্রতিস্থাপিত হবে। একটি বর্গক্ষেত্রের ভেতরে, প্রায় $1/16$ জোড়া ছোট দূরত্ব দেবে (প্রতিটি বর্গক্ষেত্রে চারটি উপ-বর্গক্ষেত্র কল্পনা করুন; পিজিয়নহোল নীতি অনুযায়ী, কমপক্ষে একটি উপ-বর্গক্ষেত্রে $n_i/4$ বিন্দু আছে), তাই আমাদের প্রায় $\sum_{i=1}^{k} {n_i/4 \choose 2} \approx \sum_{i=1}^{k} \frac{1}{16} {n_i \choose 2}$ জোড়া আছে যারা ছোট চূড়ান্ত $d$ দেয়। এটি আনুমানিক $\frac{1}{32} \sum_{i=1}^{k} n_i^2 = \frac{1}{32} \lambda(x) n$। অন্যদিকে, স্যাম্পল করা যায় প্রায় $\frac{1}{2} n^2$ জোড়া। $x$-এর চেয়ে ছোট দূরত্ব বিশিষ্ট একটি জোড়া স্যাম্পল করার সম্ভাবনা কমপক্ষে (আনুমানিক)
+
 	$$\frac{\lambda(x) \, n / 32}{n^2 / 2} = \frac{\lambda(x)/16}{n}$$
-	
-	so the probability of at least one such pair being chosen during the $n$ rounds (and therefore finding a smaller $d$) is 
-	
+
+	তাই $n$ রাউন্ডে কমপক্ষে একটি এমন জোড়া নির্বাচিত হওয়ার (এবং তাই ছোট $d$ পাওয়ার) সম্ভাবনা হলো
+
 	$$1 - \left(1 - \frac{\lambda(x)/16}{n}\right)^n \ge 1 - e^{-\lambda(x)/16}$$
-	
-	(we have used that $(1 + x)^n \le e^{xn}$ for any real number $x$, check [Bernoulli inequalities](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities)). <br> Notice this goes to $1$ exponentially as $\lambda(x)$ increases. This hints that $\lambda$ will be small for a poorly chosen $d$.
-	
-	
-	We have shown that $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/16}$, or equivalently, $\Pr(d \ge x) \le e^{-\lambda(x)/16}$. We need to know $\Pr(\lambda(d) \ge \text{something})$ to be able to estimate its expected value. We notice that $\lambda(d) \ge \lambda(x) \iff d \ge x$. This is because making the squares smaller only reduces the number of points in each square (splits the points into other squares), and this keeps reducing the sum of squares. Therefore,
-	
+
+	(আমরা ব্যবহার করেছি যে $(1 + x)^n \le e^{xn}$ যেকোনো বাস্তব সংখ্যা $x$-এর জন্য, দেখুন [বার্নোলি অসমতা](https://en.wikipedia.org/wiki/Bernoulli%27s_inequality#Related_inequalities))। <br> লক্ষ্য করুন $\lambda(x)$ বাড়ার সাথে সাথে এটি সূচকীয়ভাবে $1$-এর দিকে যায়। এটি ইঙ্গিত করে যে খারাপভাবে নির্বাচিত $d$-এর জন্য $\lambda$ ছোট হবে।
+
+
+	আমরা দেখিয়েছি যে $\Pr(d \le x) \ge 1 - e^{-\lambda(x)/16}$, বা সমতুল্যভাবে, $\Pr(d \ge x) \le e^{-\lambda(x)/16}$। $\Pr(\lambda(d) \ge \text{কিছু})$ জানতে হবে যাতে এর প্রত্যাশিত মান অনুমান করা যায়। আমরা লক্ষ্য করি $\lambda(d) \ge \lambda(x) \iff d \ge x$। এটি কারণ বর্গক্ষেত্র ছোট করলে শুধু প্রতিটি বর্গক্ষেত্রে বিন্দু সংখ্যা কমে (বিন্দুগুলো অন্য বর্গক্ষেত্রে ভাগ হয়ে যায়), এবং এটি বর্গের যোগফল কমাতে থাকে। অতএব,
+
 	$$\Pr(\lambda(d) \ge \lambda(x)) = \Pr(d \ge x) \le e^{-\lambda(x)/16} \implies \Pr(\lambda(d) \ge t) \le e^{-t/16} \implies \mathbb{E}[\lambda(d)] \le \int_{0}^{+\infty} e^{-t/16} \, \mathrm{d}t = 16$$
-	
-	(we have used that $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, check [Stackexchange proof](https://math.stackexchange.com/a/1690829)).
-	
-	Finally, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 16n$, and the expected running time is $O(n)$, with a reasonable constant factor. $\quad \blacksquare$
 
-#### Implementation of the algorithm
+	(আমরা ব্যবহার করেছি যে $E[X] = \int_0^{+\infty} \Pr(X \ge x) \, \mathrm{d}x$, দেখুন [Stackexchange proof](https://math.stackexchange.com/a/1690829))।
 
-The advantage of this algorithm is that it is straightforward to implement, but still has good performance in practise. We first sample $n$ distances and set $d$ as the minimum of the distances. Then we insert points into the "blocks" by using a hash table from 2D coordinates to a vector of points. Finally, just compute distances between same-block pairs and adjacent-block pairs. Hash table operations have $O(1)$ expected time cost, and therefore our algorithm retains the $O(n)$ expected time cost with an increased constant.
+	সবশেষে, $\mathbb{E}[C(d)] = \mathbb{E}[\lambda(d) \, n] \le 16n$, এবং প্রত্যাশিত রানিং টাইম $O(n)$, যুক্তিসঙ্গত কনস্ট্যান্ট ফ্যাক্টর সহ। $\quad \blacksquare$
 
-Check out [this submission](https://judge.yosupo.jp/submission/309605) to Library Checker.
+#### অ্যালগরিদমের ইমপ্লিমেন্টেশন
+
+এই অ্যালগরিদমের সুবিধা হলো এটি ইমপ্লিমেন্ট করা সরল, কিন্তু বাস্তবে ভালো পারফরম্যান্স দেয়। আমরা প্রথমে $n$ টি দূরত্ব স্যাম্পল করি এবং $d$ কে দূরত্বগুলোর সর্বনিম্ন হিসেবে সেট করি। তারপর আমরা ২D স্থানাঙ্ক থেকে বিন্দুদের ভেক্টরে একটি হ্যাশ টেবিল ব্যবহার করে বিন্দুগুলো "ব্লকে" ইনসার্ট করি। সবশেষে, একই-ব্লক ও পার্শ্ববর্তী-ব্লক জোড়াগুলোর মধ্যে দূরত্ব গণনা করি। হ্যাশ টেবিল অপারেশনের $O(1)$ প্রত্যাশিত সময় খরচ হয়, এবং তাই আমাদের অ্যালগরিদম বর্ধিত কনস্ট্যান্ট সহ $O(n)$ প্রত্যাশিত সময় খরচ বজায় রাখে।
+
+Library Checker-এ [এই সাবমিশনটি](https://judge.yosupo.jp/submission/309605) দেখুন।
 
 ```cpp
 #include <bits/stdc++.h>
@@ -302,7 +302,7 @@ pair<int,int> closest_pair_of_points(vector<pt> P) {
 			}
 		}
 	}
- 
+
 	// adjacent blocks
 	for (const auto& it : grid) {
 		auto coord = it.first;
@@ -310,7 +310,7 @@ pair<int,int> closest_pair_of_points(vector<pt> P) {
 			for (int dy = -1; dy <= 1; ++dy) {
 				if (dx == 0 and dy == 0) continue;
 				pt neighbour = pt(
-					coord.x  + dx, 
+					coord.x  + dx,
 					coord.y + dy
                 );
 				for (int i : it.second) {
@@ -328,46 +328,46 @@ pair<int,int> closest_pair_of_points(vector<pt> P) {
 ```
 
 
-### An alternative randomized linear expected time algorithm
+### একটি বিকল্প র‍্যান্ডমাইজড লিনিয়ার প্রত্যাশিত সময়ের অ্যালগরিদম
 
-Now we introduce a different randomized algorithm which is less practical but very easy to show that it runs in expected linear time.
+এখন আমরা একটি ভিন্ন র‍্যান্ডমাইজড অ্যালগরিদম পরিচয় করাই যেটি কম ব্যবহারিক কিন্তু এটি যে প্রত্যাশিত লিনিয়ার সময়ে চলে তা দেখানো খুব সহজ।
 
-- Permute the $n$ points randomly
-- Take $\delta := \operatorname{dist}(p_1, p_2)$
-- Partition the plane in squares of side $\delta/2$
-- For $i = 1,2,\dots,n$:
-	- Take the square corresponding to $p_i$
-	- Iterate over the $25$ squares within two steps to our square in the grid of squares partitioning the plane
-	- If some $p_j$ in those squares has $\operatorname{dist}(p_j, p_i) < \delta$, then
-		- Recompute the partition and squares with $\delta := \operatorname{dist}(p_j, p_i)$
-		- Store points $p_1, \dots, p_i$ in the corresponding squares
-	- else, store $p_i$ in the corresponding square
-- output $\delta$
+- $n$ টি বিন্দু র‍্যান্ডমভাবে পারমিউট করুন
+- $\delta := \operatorname{dist}(p_1, p_2)$ নিন
+- সমতলকে $\delta/2$ বাহুর বর্গক্ষেত্রে ভাগ করুন
+- $i = 1,2,\dots,n$-এর জন্য:
+	- $p_i$-এর সাথে সম্পর্কিত বর্গক্ষেত্র নিন
+	- বর্গক্ষেত্রের গ্রিডে আমাদের বর্গক্ষেত্র থেকে দুই ধাপের মধ্যে $25$ টি বর্গক্ষেত্রের উপর ইটারেট করুন
+	- যদি সেই বর্গক্ষেত্রগুলোতে কোনো $p_j$ থাকে যেন $\operatorname{dist}(p_j, p_i) < \delta$, তাহলে
+		- $\delta := \operatorname{dist}(p_j, p_i)$ দিয়ে ভাগ ও বর্গক্ষেত্র পুনর্গণনা করুন
+		- $p_1, \dots, p_i$ বিন্দুগুলো সংশ্লিষ্ট বর্গক্ষেত্রে সংরক্ষণ করুন
+	- অন্যথায়, $p_i$ কে সংশ্লিষ্ট বর্গক্ষেত্রে সংরক্ষণ করুন
+- $\delta$ আউটপুট করুন
 
-The correctness follows from the fact that at any moment we already have some pair with distance $\delta$, so we try to find only new pairs with distance smaller than $\delta$. Since each square has side $\delta/2$, a candidate pair can be at most at a distance of $2$ squares, so for a given point we check candidates in the surrounding $25$ squares. Any point in a square further away will always give a distace larger than $\delta$.
+সঠিকতা এই তথ্য থেকে আসে যে যেকোনো মুহূর্তে আমাদের ইতিমধ্যে $\delta$ দূরত্বের কোনো জোড়া আছে, তাই আমরা শুধু $\delta$-র চেয়ে ছোট দূরত্বের নতুন জোড়া খুঁজি। যেহেতু প্রতিটি বর্গক্ষেত্রের বাহু $\delta/2$, একটি প্রার্থী জোড়া সর্বাধিক $2$ বর্গ দূরত্বে হতে পারে, তাই একটি প্রদত্ত বিন্দুর জন্য আমরা চারপাশের $25$ টি বর্গক্ষেত্রে প্রার্থী পরীক্ষা করি। আরও দূরের বর্গক্ষেত্রের কোনো বিন্দু সর্বদা $\delta$-র চেয়ে বেশি দূরত্ব দেবে।
 
-While this algorithm may look slow, because of recomputing everything multiple times, we can show the total expected cost is linear. 
+এই অ্যালগরিদমটি দেখতে ধীর মনে হলেও, যেহেতু সবকিছু একাধিকবার পুনর্গণনা হয়, আমরা দেখাতে পারি মোট প্রত্যাশিত খরচ লিনিয়ার।
 
-{{< details "Proof" >}}
+{{< details "প্রমাণ" >}}
 {{< /details >}}
-	Let $X_i$ the random variable that is $1$ when point $p_i$ causes a change of $\delta$ and a recomputation of the data structures, and $0$ if not. It is easy to show that the cost is $O(n + \sum_{i=1}^{n} i X_i)$, since on the $i$-th step we are considering only the first $i$ points. However, turns out that $\Pr(X_i = 1) \le \frac{2}{i}$. This is because on the $i$-th step, $\delta$ is the distance of the closest pair in $\{p_1,\dots,p_i\}$, and $\Pr(X_i = 1)$ is the probability of $p_i$ belonging to the closest pair, which only happens in $2(i-1)$ pairs out of the $i(i-1)$ possible pairs (assuming all distances are different), so the probability is at most $\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$, since we previously shuffled the points uniformly.
-	
-	We can therefore see that the expected cost is 
-	
-	$$O\!\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\!\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$ 
+	ধরি $X_i$ র‍্যান্ডম ভ্যারিয়েবল যেটি $1$ হয় যখন $p_i$ বিন্দু $\delta$-র পরিবর্তন ও ডেটা স্ট্রাকচার পুনর্গণনা ঘটায়, এবং অন্যথায় $0$। দেখানো সহজ যে খরচ $O(n + \sum_{i=1}^{n} i X_i)$, যেহেতু $i$-তম ধাপে আমরা শুধু প্রথম $i$ বিন্দু বিবেচনা করি। তবে, দেখা যায় $\Pr(X_i = 1) \le \frac{2}{i}$। এটি কারণ $i$-তম ধাপে, $\delta$ হলো $\{p_1,\dots,p_i\}$-তে নিকটতম জোড়ার দূরত্ব, এবং $\Pr(X_i = 1)$ হলো $p_i$-এর নিকটতম জোড়ায় থাকার সম্ভাবনা, যা $i(i-1)$ সম্ভাব্য জোড়ার মধ্যে শুধু $2(i-1)$ জোড়ায় ঘটে (ধরে নিচ্ছি সব দূরত্ব ভিন্ন), তাই সম্ভাবনা সর্বাধিক $\frac{2(i-1)}{i(i-1)} = \frac{2}{i}$, যেহেতু আমরা আগে বিন্দুগুলো সমভাবে শাফল করেছি।
+
+	আমরা তাই দেখতে পাই যে প্রত্যাশিত খরচ হলো
+
+	$$O\!\left(n + \sum_{i=1}^{n} i \Pr(X_i = 1)\right) \le O\!\left(n + \sum_{i=1}^{n} i \frac{2}{i}\right) = O(3n) = O(n) \quad \quad \blacksquare$$
 
 
-## Generalization: finding a triangle with minimal perimeter
+## সাধারণীকরণ: সর্বনিম্ন পরিসীমা বিশিষ্ট ত্রিভুজ খুঁজে বের করা
 
-The algorithm described above is interestingly generalized to this problem: among a given set of points, choose three different points so that the sum of pairwise distances between them is the smallest.
+উপরে বর্ণিত অ্যালগরিদমটি আকর্ষণীয়ভাবে এই সমস্যায় সাধারণীকরণ করা যায়: প্রদত্ত বিন্দু সেট থেকে তিনটি ভিন্ন বিন্দু বেছে নিন যাতে তাদের জোড়াওয়ারি দূরত্বের যোগফল সর্বনিম্ন হয়।
 
-In fact, to solve this problem, the algorithm remains the same: we divide the field into two halves of the vertical line, call the solution recursively on both halves, choose the minimum $minper$ from the found perimeters, build a strip with the thickness of $minper / 2$, and iterate through all triangles that can improve the answer. (Note that the triangle with perimeter $\le minper$ has the longest side $\le minper / 2$.)
+বস্তুত, এই সমস্যা সমাধান করতে অ্যালগরিদম একই থাকে: আমরা ক্ষেত্রটিকে উল্লম্ব রেখা দিয়ে দুই ভাগে ভাগ করি, উভয় অর্ধেকে রিকার্সিভভাবে সমাধান কল করি, পাওয়া পরিসীমাগুলো থেকে সর্বনিম্ন $minper$ বেছে নিই, $minper / 2$ পুরুত্বের একটি ব্যান্ড তৈরি করি, এবং সব ত্রিভুজের উপর ইটারেট করি যারা উত্তর উন্নত করতে পারে। (লক্ষ্য করুন পরিসীমা $\le minper$ বিশিষ্ট ত্রিভুজের দীর্ঘতম বাহু $\le minper / 2$।)
 
-## Practice problems
+## অনুশীলন সমস্যা
 
-* [UVA 10245 "The Closest Pair Problem" [difficulty: low]](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1186)
-* [SPOJ #8725 CLOPPAIR "Closest Point Pair" [difficulty: low]](https://www.spoj.com/problems/CLOPPAIR/)
-* [CODEFORCES Team Olympiad Saratov - 2011 "Minimum amount" [difficulty: medium]](http://codeforces.com/contest/120/problem/J)
-* [Google CodeJam 2009 Final "Min Perimeter" [difficulty: medium]](https://github.com/google/coding-competitions-archive/blob/main/codejam/2009/world_finals/min_perimeter/statement.pdf)
-* [SPOJ #7029 CLOSEST "Closest Triple" [difficulty: medium]](https://www.spoj.com/problems/CLOSEST/)
-* [TIMUS 1514 National Park [difficulty: medium]](https://acm.timus.ru/problem.aspx?space=1&num=1514)
+* [UVA 10245 "The Closest Pair Problem" [কঠিনতা: সহজ]](https://uva.onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1186)
+* [SPOJ #8725 CLOPPAIR "Closest Point Pair" [কঠিনতা: সহজ]](https://www.spoj.com/problems/CLOPPAIR/)
+* [CODEFORCES Team Olympiad Saratov - 2011 "Minimum amount" [কঠিনতা: মাঝারি]](http://codeforces.com/contest/120/problem/J)
+* [Google CodeJam 2009 Final "Min Perimeter" [কঠিনতা: মাঝারি]](https://github.com/google/coding-competitions-archive/blob/main/codejam/2009/world_finals/min_perimeter/statement.pdf)
+* [SPOJ #7029 CLOSEST "Closest Triple" [কঠিনতা: মাঝারি]](https://www.spoj.com/problems/CLOSEST/)
+* [TIMUS 1514 National Park [কঠিনতা: মাঝারি]](https://acm.timus.ru/problem.aspx?space=1&num=1514)

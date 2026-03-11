@@ -1,50 +1,50 @@
 ---
-title: Check if point belongs to the convex polygon in O(log N)
+title: $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা
 tags: 
 weight: 30
 ---
-# Check if point belongs to the convex polygon in $O(\log N)$
+# $O(\log N)$-এ একটি বিন্দু উত্তল পলিগনের অন্তর্গত কি না পরীক্ষা করা
 
-Consider the following problem: you are given a convex polygon with integer vertices and a lot of queries.
-Each query is a point, for which we should determine whether it lies inside or on the boundary of the polygon or not.
-Suppose the polygon is ordered counter-clockwise. We will answer each query in $O(\log n)$ online.
+নিম্নলিখিত সমস্যাটি বিবেচনা করুন: আপনাকে পূর্ণসংখ্যা শীর্ষবিন্দু বিশিষ্ট একটি উত্তল পলিগন ও অনেকগুলো কুয়েরি দেওয়া আছে।
+প্রতিটি কুয়েরি একটি বিন্দু, যার জন্য আমাদের নির্ণয় করতে হবে এটি পলিগনের ভেতরে বা সীমানায় অবস্থিত কি না।
+ধরুন পলিগনটি ঘড়ির কাঁটার বিপরীত দিকে সাজানো। আমরা প্রতিটি কুয়েরি $O(\log n)$-এ অনলাইনে উত্তর দেব।
 
-## Algorithm
-Let's pick the point with the smallest x-coordinate. If there are several of them, we pick the one with the smallest y-coordinate. Let's denote it as $p_0$.
-Now all other points $p_1,\dots,p_n$ of the polygon are ordered by their polar angle from the chosen point (because the polygon is ordered counter-clockwise).
+## অ্যালগরিদম
+সবচেয়ে ছোট x-স্থানাঙ্ক বিশিষ্ট বিন্দুটি বেছে নিই। একাধিক থাকলে, সবচেয়ে ছোট y-স্থানাঙ্ক বিশিষ্টটি নিই। একে $p_0$ বলি।
+এখন পলিগনের অন্য সব বিন্দু $p_1,\dots,p_n$ নির্বাচিত বিন্দু থেকে তাদের পোলার কোণ অনুযায়ী সাজানো (কারণ পলিগন ঘড়ির কাঁটার বিপরীত দিকে সাজানো)।
 
-If the point belongs to the polygon, it belongs to some triangle $p_0, p_i, p_{i + 1}$ (maybe more than one if it lies on the boundary of triangles).
-Consider the triangle $p_0, p_i, p_{i + 1}$ such that $p$ belongs to this triangle and $i$ is maximum among all such triangles.
+বিন্দুটি পলিগনের অন্তর্গত হলে, এটি কোনো ত্রিভুজ $p_0, p_i, p_{i + 1}$-র অন্তর্গত (সীমানায় থাকলে একাধিক ত্রিভুজেও হতে পারে)।
+ত্রিভুজ $p_0, p_i, p_{i + 1}$ বিবেচনা করুন যেখানে $p$ এই ত্রিভুজের অন্তর্গত এবং এমন সব ত্রিভুজের মধ্যে $i$ সর্বাধিক।
 
-There is one special case. $p$ lies on the segment $(p_0, p_n)$. This case we will check separately.
-Otherwise all points $p_j$ with $j \le i$ are counter-clockwise from $p$ with respect to $p_0$, and all other points are not counter-clockwise from $p$.
-This means that we can apply binary search for the point $p_i$, such that $p_i$ is not counter-clockwise from $p$ with respect to $p_0$, and $i$ is maximum among all such points.
-And afterwards we check if the points is actually in the determined triangle.
+একটি বিশেষ ক্ষেত্র আছে। $p$ রেখাখণ্ড $(p_0, p_n)$-এর উপর অবস্থিত। এই ক্ষেত্রটি আমরা আলাদাভাবে পরীক্ষা করব।
+অন্যথায় $j \le i$ সকল $p_j$ বিন্দু $p_0$-এর সাপেক্ষে $p$-থেকে ঘড়ির কাঁটার বিপরীত দিকে, এবং বাকি সব বিন্দু ঘড়ির কাঁটার বিপরীত দিকে নয়।
+এর মানে হলো আমরা $p_i$ বিন্দুর জন্য বাইনারি সার্চ প্রয়োগ করতে পারি, যেখানে $p_i$ $p_0$-এর সাপেক্ষে $p$-থেকে ঘড়ির কাঁটার বিপরীত দিকে নয়, এবং এমন সব বিন্দুর মধ্যে $i$ সর্বাধিক।
+এরপর আমরা পরীক্ষা করি বিন্দুটি আসলেই নির্ণীত ত্রিভুজে আছে কি না।
 
-The sign of $(a - c) \times (b - c)$ will tell us, if the point $a$ is clockwise or counter-clockwise from the point $b$ with respect to the point $c$.
-If $(a - c) \times (b - c) > 0$, then the point $a$ is to the right of the vector going from $c$ to $b$, which means clockwise from $b$ with respect to $c$.
-And if $(a - c) \times (b - c) < 0$, then the point is to the left, or counter clockwise.
-And it is exactly on the line between the points $b$ and $c$.
+$(a - c) \times (b - c)$-এর চিহ্ন আমাদের বলবে, $c$ বিন্দুর সাপেক্ষে $a$ বিন্দু $b$ থেকে ঘড়ির কাঁটার দিকে নাকি বিপরীত দিকে।
+যদি $(a - c) \times (b - c) > 0$ হয়, তাহলে $a$ বিন্দু $c$ থেকে $b$-তে যাওয়া ভেক্টরের ডানদিকে, অর্থাৎ $c$-এর সাপেক্ষে $b$ থেকে ঘড়ির কাঁটার দিকে।
+এবং যদি $(a - c) \times (b - c) < 0$ হয়, তাহলে বিন্দুটি বামদিকে, বা ঘড়ির কাঁটার বিপরীত দিকে।
+এবং এটি ঠিক $b$ ও $c$ বিন্দুর মধ্যবর্তী রেখার উপর।
 
-Back to the algorithm:
-Consider a query point $p$.
-Firstly, we must check if the point lies between $p_1$ and $p_n$.
-Otherwise we already know that it cannot be part of the polygon.
-This can be done by checking if the cross product $(p_1 - p_0)\times(p - p_0)$ is zero or has the same sign with $(p_1 - p_0)\times(p_n - p_0)$, and $(p_n - p_0)\times(p - p_0)$ is zero or has the same sign with $(p_n - p_0)\times(p_1 - p_0)$.
-Then we handle the special case in which $p$ is part of the line $(p_0, p_1)$.
-And then we can binary search the last point from $p_1,\dots p_n$ which is not counter-clockwise from $p$ with respect to $p_0$.
-For a single point $p_i$ this condition can be checked by checking that $(p_i - p_0)\times(p - p_0) \le 0$. After we found such a point $p_i$, we must test if $p$ lies inside the triangle $p_0, p_i, p_{i + 1}$.
-To test if it belongs to the triangle, we may simply check that $|(p_i - p_0)\times(p_{i + 1} - p_0)| = |(p_0 - p)\times(p_i - p)| + |(p_i - p)\times(p_{i + 1} - p)| + |(p_{i + 1} - p)\times(p_0 - p)|$.
-This checks if the area of the triangle $p_0, p_i, p_{i+1}$ has to exact same size as the sum of the sizes of the triangle $p_0, p_i, p$, the triangle $p_0, p, p_{i+1}$ and the triangle $p_i, p_{i+1}, p$.
-If $p$ is outside, then the sum of those three triangle will be bigger than the size of the triangle.
-If it is inside, then it will be equal.
+অ্যালগরিদমে ফিরে যাই:
+একটি কুয়েরি বিন্দু $p$ বিবেচনা করুন।
+প্রথমে, আমাদের পরীক্ষা করতে হবে বিন্দুটি $p_1$ ও $p_n$-এর মধ্যে অবস্থিত কি না।
+অন্যথায় আমরা ইতিমধ্যেই জানি এটি পলিগনের অংশ হতে পারে না।
+এটি পরীক্ষা করা যায় $(p_1 - p_0)\times(p - p_0)$ শূন্য কি না বা $(p_1 - p_0)\times(p_n - p_0)$-এর সাথে একই চিহ্ন আছে কি না, এবং $(p_n - p_0)\times(p - p_0)$ শূন্য কি না বা $(p_n - p_0)\times(p_1 - p_0)$-এর সাথে একই চিহ্ন আছে কি না দেখে।
+তারপর আমরা বিশেষ ক্ষেত্রটি সামলাই যেখানে $p$ রেখা $(p_0, p_1)$-এর অংশ।
+এরপর আমরা $p_1,\dots p_n$ থেকে শেষ বিন্দু বাইনারি সার্চ করতে পারি যেটি $p_0$-এর সাপেক্ষে $p$-থেকে ঘড়ির কাঁটার বিপরীত দিকে নয়।
+একটি নির্দিষ্ট বিন্দু $p_i$-র জন্য এই শর্ত পরীক্ষা করা যায় $(p_i - p_0)\times(p - p_0) \le 0$ কি না দেখে। এমন বিন্দু $p_i$ পাওয়ার পর, আমাদের পরীক্ষা করতে হবে $p$ ত্রিভুজ $p_0, p_i, p_{i + 1}$-এর ভেতরে আছে কি না।
+ত্রিভুজের অন্তর্গত কি না পরীক্ষা করতে, আমরা সহজেই যাচাই করতে পারি $|(p_i - p_0)\times(p_{i + 1} - p_0)| = |(p_0 - p)\times(p_i - p)| + |(p_i - p)\times(p_{i + 1} - p)| + |(p_{i + 1} - p)\times(p_0 - p)|$।
+এটি পরীক্ষা করে যে ত্রিভুজ $p_0, p_i, p_{i+1}$-এর ক্ষেত্রফল ত্রিভুজ $p_0, p_i, p$, ত্রিভুজ $p_0, p, p_{i+1}$ ও ত্রিভুজ $p_i, p_{i+1}, p$-এর ক্ষেত্রফলের যোগফলের সমান কি না।
+$p$ বাইরে থাকলে, এই তিনটি ত্রিভুজের যোগফল মূল ত্রিভুজের ক্ষেত্রফলের চেয়ে বেশি হবে।
+ভেতরে থাকলে, সমান হবে।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
-The function `prepare` will make sure that the lexicographical smallest point (smallest x value, and in ties smallest y value) will be $p_0$, and computes the vectors $p_i - p_0$.
-Afterwards the function `pointInConvexPolygon` computes the result of a query.
-We additionally remember the point $p_0$ and translate all queried points with it in order compute the correct distance, as vectors don't have an initial point.
-By translating the query points we can assume that all vectors start at the origin $(0, 0)$, and simplify the computations for distances and lengths.
+`prepare` ফাংশনটি নিশ্চিত করবে যে অভিধানক্রমে ক্ষুদ্রতম বিন্দু (সর্বনিম্ন x মান, টাইয়ের ক্ষেত্রে সর্বনিম্ন y মান) $p_0$ হবে, এবং $p_i - p_0$ ভেক্টরগুলো গণনা করবে।
+এরপর `pointInConvexPolygon` ফাংশনটি একটি কুয়েরির ফলাফল গণনা করবে।
+আমরা অতিরিক্তভাবে $p_0$ বিন্দু মনে রাখি এবং সব কুয়েরি বিন্দু এটি দিয়ে সরিয়ে নিই যাতে সঠিক দূরত্ব গণনা করা যায়, কারণ ভেক্টরের কোনো আদি বিন্দু নেই।
+কুয়েরি বিন্দু সরানোর মাধ্যমে আমরা ধরে নিতে পারি সব ভেক্টর মূলবিন্দু $(0, 0)$ থেকে শুরু হয়, এবং দূরত্ব ও দৈর্ঘ্যের গণনা সরল হয়।
 
 ```cpp
 struct pt {
@@ -118,7 +118,7 @@ bool pointInConvexPolygon(pt point) {
 }
 ```
 
-## Problems
+## অনুশীলন সমস্যা
 * [SGU253 Theodore Roosevelt](https://codeforces.com/problemsets/acmsguru/problem/99999/253)
 * [Codeforces 55E Very simple problem](https://codeforces.com/contest/55/problem/E)
 * [Codeforces 166B Polygons](https://codeforces.com/problemset/problem/166/B)

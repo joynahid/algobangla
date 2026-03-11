@@ -1,15 +1,15 @@
 ---
-title: K-th order statistic in O(N)
+title: $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান
 tags: 
 weight: 30
 ---
-# $K$th order statistic in $O(N)$
+# $O(N)$-এ $K$-তম ক্রম পরিসংখ্যান
 
-Given an array $A$ of size $N$ and a number $K$. The problem is to find $K$-th largest number in the array, i.e., $K$-th order statistic.
+$N$ আকারের একটি অ্যারে $A$ এবং একটি সংখ্যা $K$ দেওয়া আছে। সমস্যা হলো অ্যারেতে $K$-তম বৃহত্তম সংখ্যা, অর্থাৎ $K$-তম ক্রম পরিসংখ্যান খুঁজে বের করা।
 
-The basic idea - to use the idea of quick sort algorithm. Actually, the algorithm is simple, it is more difficult to prove that it runs in an average of $O(N)$, in contrast to the quick sort.
+মূল ধারণা — কুইক সর্ট অ্যালগরিদমের ধারণা ব্যবহার করা। আসলে, অ্যালগরিদমটি সরল, এটি প্রমাণ করা বেশি কঠিন যে এটি গড়ে $O(N)$-এ চলে, কুইক সর্টের বিপরীতে।
 
-## Implementation (not recursive)
+## ইমপ্লিমেন্টেশন (নন-রিকার্সিভ)
 
 ```cpp
 template <class T>
@@ -55,7 +55,7 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
         // inserting the barrier
         a[l+1] = a[j];
         a[j] = cur;
-        
+
         // we continue to work in that part, which must contain the required element
         if (j >= k)
             r = j-1;
@@ -65,11 +65,11 @@ T order_statistics (std::vector<T> a, unsigned n, unsigned k)
 }
 ```
 
-## Notes
-* The randomized algorithm above is named [quickselect](https://en.wikipedia.org/wiki/Quickselect). You should do random shuffle on $A$ before calling it or use a random element as a barrier for it to run properly. There are also deterministic algorithms that solve the specified problem in linear time, such as [median of medians](https://en.wikipedia.org/wiki/Median_of_medians).
-* [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element) solves this in C++ but gcc's implementation runs in worst case $O(n \log n )$ time.
-* Finding $K$ smallest elements can be reduced to finding $K$-th element with a linear overhead, as they're exactly the elements that are smaller than $K$-th.
+## টীকা
+* উপরের র‍্যান্ডমাইজড অ্যালগরিদমটিকে [quickselect](https://en.wikipedia.org/wiki/Quickselect) বলা হয়। এটি সঠিকভাবে চালানোর জন্য কল করার আগে $A$-তে র‍্যান্ডম শাফেল করা উচিত অথবা ব্যারিয়ার হিসেবে একটি র‍্যান্ডম উপাদান ব্যবহার করা উচিত। ডিটারমিনিস্টিক অ্যালগরিদমও আছে যা নির্দিষ্ট সমস্যাটি রৈখিক সময়ে সমাধান করে, যেমন [median of medians](https://en.wikipedia.org/wiki/Median_of_medians)।
+* [std::nth_element](https://en.cppreference.com/w/cpp/algorithm/nth_element) C++-এ এটি সমাধান করে কিন্তু gcc-এর ইমপ্লিমেন্টেশন সবচেয়ে খারাপ ক্ষেত্রে $O(n \log n )$ সময়ে চলে।
+* $K$টি ক্ষুদ্রতম উপাদান খুঁজে বের করা রৈখিক ওভারহেডসহ $K$-তম উপাদান খুঁজে বের করায় রিডিউস করা যায়, কারণ এগুলো ঠিক সেই উপাদান যা $K$-তম-এর চেয়ে ছোট।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 - [Leetcode: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/description/)
 - [CODECHEF: Median](https://www.codechef.com/problems/CD1IT1)

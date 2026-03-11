@@ -8,7 +8,7 @@ import re
 import shutil
 from pathlib import Path
 
-SRC_DIR = Path("D:/Projects/cp-algorithms/src")
+SRC_DIR = Path("D:/Projects/cp-algorithms-hugo/src")
 HUGO_CONTENT = Path("D:/Projects/cp-algorithms-hugo/hugo/content")
 HUGO_STATIC = Path("D:/Projects/cp-algorithms-hugo/hugo/static")
 
@@ -322,10 +322,10 @@ def migrate_section(section: str, title: str):
 # ──────────────────────────────────────────────
 
 def migrate_toplevel():
-    # index.md → content/_index.md
+    # index.md → skip, _index.md is managed manually
     src_index = SRC_DIR / "index.md"
     dest_index = HUGO_CONTENT / "_index.md"
-    if src_index.exists():
+    if False and src_index.exists():  # skipped: root _index.md is manually maintained
         try:
             content = src_index.read_text(encoding="utf-8")
             transformed = transform_md(content, "", str(src_index))

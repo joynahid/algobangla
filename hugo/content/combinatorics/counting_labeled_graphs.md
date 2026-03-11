@@ -1,56 +1,56 @@
 ---
-title: "Counting labeled graphs"
+title: "লেবেলড গ্রাফ গণনা"
 tags: 
 weight: 30
 ---
-# Counting labeled graphs
+# লেবেলড গ্রাফ গণনা
 
-## Labeled graphs
+## লেবেলড গ্রাফ
 
-Let the number of vertices in a graph be $n$.
-We have to compute the number $G_n$ of labeled graphs with $n$ vertices (labeled means that the vertices are marked with the numbers from $1$ to $n$).
-The edges of the graphs are considered undirected, and loops and multiple edges are forbidden.
+ধরা যাক একটি গ্রাফে ভার্টেক্সের সংখ্যা $n$।
+আমাদের $n$টি ভার্টেক্স বিশিষ্ট লেবেলড গ্রাফের সংখ্যা $G_n$ গণনা করতে হবে (লেবেলড মানে ভার্টেক্সগুলো $1$ থেকে $n$ পর্যন্ত সংখ্যা দ্বারা চিহ্নিত)।
+গ্রাফের এজগুলো অনির্দেশিত বিবেচনা করা হয়, এবং লুপ ও মাল্টিপল এজ নিষিদ্ধ।
 
-We consider the set of all possible edges of the graph.
-For each edge $(i, j)$ we can assume that $i < j$ (because the graph is undirected, and there are no loops).
-Therefore the set of all edges has the cardinality $\binom{n}{2}$, i.e. $\frac{n(n-1)}{2}$.
+আমরা গ্রাফের সব সম্ভাব্য এজের সেট বিবেচনা করি।
+প্রতিটি এজ $(i, j)$-এর জন্য আমরা ধরে নিতে পারি যে $i < j$ (কারণ গ্রাফটি অনির্দেশিত এবং কোনো লুপ নেই)।
+তাই সব এজের সেটের কার্ডিনালিটি $\binom{n}{2}$, অর্থাৎ $\frac{n(n-1)}{2}$।
 
-Since any labeled graph is uniquely determined by its edges, the number of labeled graphs with $n$ vertices is equal to:
+যেহেতু যেকোনো লেবেলড গ্রাফ তার এজ দ্বারা অনন্যভাবে নির্ধারিত, তাই $n$টি ভার্টেক্স বিশিষ্ট লেবেলড গ্রাফের সংখ্যা:
 
 $$G_n = 2^{\frac{n(n-1)}{2}}$$
 
-## Connected labeled graphs
+## সংযুক্ত লেবেলড গ্রাফ
 
-Here, we additionally impose the restriction that the graph has to be connected.
+এখানে আমরা অতিরিক্ত শর্ত আরোপ করি যে গ্রাফটি সংযুক্ত হতে হবে।
 
-Let's denote the required number of connected graphs with $n$ vertices as $C_n$.
+$n$টি ভার্টেক্স বিশিষ্ট সংযুক্ত গ্রাফের প্রয়োজনীয় সংখ্যাকে $C_n$ দ্বারা চিহ্নিত করি।
 
-We will first discuss how many **disconnected** graphs exists.
-Then the number of connected graphs will be $G_n$ minus the number of disconnected graphs.
-Even more, we will count the number of **disconnected, rooted graphs**.A rooted graph is a graph, where we emphasize one vertex by labeling it as root.
-Obviously we have $n$ possibilities to root a graph with $n$ labeled vertices, therefore we will need to divide the number of disconnected rooted graphs by $n$ at the end to get the number of disconnected graphs.
+প্রথমে আমরা আলোচনা করব কতগুলো **বিচ্ছিন্ন** গ্রাফ আছে।
+তারপর সংযুক্ত গ্রাফের সংখ্যা হবে $G_n$ থেকে বিচ্ছিন্ন গ্রাফের সংখ্যা বাদ দিলে।
+আরও বিশেষভাবে, আমরা **বিচ্ছিন্ন, রুটেড গ্রাফ**-এর সংখ্যা গুনব। রুটেড গ্রাফ হলো একটি গ্রাফ যেখানে আমরা একটি ভার্টেক্সকে রুট হিসেবে লেবেল করে বিশেষভাবে চিহ্নিত করি।
+স্পষ্টতই $n$টি লেবেলড ভার্টেক্স বিশিষ্ট একটি গ্রাফকে রুট করার $n$টি সম্ভাবনা আছে, তাই বিচ্ছিন্ন গ্রাফের সংখ্যা পেতে শেষে আমাদের বিচ্ছিন্ন রুটেড গ্রাফের সংখ্যাকে $n$ দ্বারা ভাগ করতে হবে।
 
-The root vertex will appear in a connected component of size $1, \dots n-1$.
-There are $k \binom{n}{k} C_k G_{n-k}$ graphs such that the root vertex is in a connected component with $k$ vertices (there are $\binom{n}{k}$ ways to choose $k$ vertices for the component, these are connected in one of $C_k$ ways, the root vertex can be any of the $k$ vertices, and the remainder $n-k$ vertices can be connected/disconnected in any way, which gives a factor of $G_{n-k}$).
-Therefore the number of disconnected graphs with $n$ vertices is:
+রুট ভার্টেক্সটি $1, \dots n-1$ আকারের একটি সংযুক্ত কম্পোনেন্টে থাকবে।
+এমন গ্রাফের সংখ্যা $k \binom{n}{k} C_k G_{n-k}$ যেখানে রুট ভার্টেক্স $k$টি ভার্টেক্স বিশিষ্ট একটি সংযুক্ত কম্পোনেন্টে থাকে (কম্পোনেন্টের জন্য $k$টি ভার্টেক্স বাছাই করার $\binom{n}{k}$ উপায় আছে, এগুলো $C_k$ উপায়ে সংযুক্ত হয়, রুট ভার্টেক্স $k$টি ভার্টেক্সের যেকোনো একটি হতে পারে, এবং বাকি $n-k$টি ভার্টেক্স যেকোনোভাবে সংযুক্ত/বিচ্ছিন্ন হতে পারে, যা $G_{n-k}$ ফ্যাক্টর দেয়)।
+তাই $n$টি ভার্টেক্স বিশিষ্ট বিচ্ছিন্ন গ্রাফের সংখ্যা:
 
 $$\frac{1}{n} \sum_{k=1}^{n-1} k \binom{n}{k} C_k G_{n-k}$$
 
-And finally the number of connected graphs is:
+এবং অবশেষে সংযুক্ত গ্রাফের সংখ্যা:
 
 $$C_n = G_n - \frac{1}{n} \sum_{k=1}^{n-1} k \binom{n}{k} C_k G_{n-k}$$
 
-## Labeled graphs with $k$ connected components {data-toc-label="Labeled graphs with k connected components"}
+## $k$টি সংযুক্ত কম্পোনেন্ট বিশিষ্ট লেবেলড গ্রাফ {data-toc-label="Labeled graphs with k connected components"}
 
-Based on the formula from the previous section, we will learn how to count the number of labeled graphs with $n$ vertices and $k$ connected components.
+আগের সেকশনের সূত্রের ভিত্তিতে, আমরা শিখব কীভাবে $n$টি ভার্টেক্স এবং $k$টি সংযুক্ত কম্পোনেন্ট বিশিষ্ট লেবেলড গ্রাফের সংখ্যা গণনা করতে হয়।
 
-This number can be computed using dynamic programming.
-We will compute $D[i][j]$ - the number of labeled graphs with $i$ vertices and $j$ components - for each $i \le n$ and $j \le k$.
+এই সংখ্যাটি ডায়নামিক প্রোগ্রামিং ব্যবহার করে গণনা করা যায়।
+আমরা $D[i][j]$ গণনা করব — $i$টি ভার্টেক্স এবং $j$টি কম্পোনেন্ট বিশিষ্ট লেবেলড গ্রাফের সংখ্যা — প্রতিটি $i \le n$ এবং $j \le k$-এর জন্য।
 
-Let's discuss how to compute the next element $D[n][k]$ if we already know the previous values.
-We use a common approach, we take the last vertex (index $n$).
-This vertex belongs to some component.
-If the size of this component be $s$, then there are $\binom{n-1}{s-1}$ ways to choose such a set of vertices, and $C_s$ ways to connect them.After removing this component from the graph we have $n-s$ remaining vertices with $k-1$ connected components.
-Therefore we obtain the following recurrence relation:
+আসুন আলোচনা করি কীভাবে পরবর্তী উপাদান $D[n][k]$ গণনা করা যায় যদি আমরা আগের মানগুলো জানি।
+আমরা একটি সাধারণ পদ্ধতি ব্যবহার করি — শেষ ভার্টেক্সটি (ইনডেক্স $n$) নিই।
+এই ভার্টেক্সটি কোনো একটি কম্পোনেন্টে থাকে।
+যদি এই কম্পোনেন্টের আকার $s$ হয়, তাহলে এমন ভার্টেক্সের সেট বাছাই করার $\binom{n-1}{s-1}$ উপায় আছে, এবং সেগুলো সংযুক্ত করার $C_s$ উপায় আছে। গ্রাফ থেকে এই কম্পোনেন্ট সরিয়ে নিলে বাকি থাকে $n-s$টি ভার্টেক্স এবং $k-1$টি সংযুক্ত কম্পোনেন্ট।
+অতএব আমরা নিম্নলিখিত রিকারেন্স সম্পর্ক পাই:
 
 $$D[n][k] = \sum_{s=1}^{n} \binom{n-1}{s-1} C_s D[n-s][k-1]$$

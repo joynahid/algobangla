@@ -1,80 +1,80 @@
 ---
-title: "Linear Diophantine Equation"
+title: "রৈখিক ডায়োফ্যান্টাইন সমীকরণ"
 tags: 
 weight: 40
 ---
-# Linear Diophantine Equation
+# রৈখিক ডায়োফ্যান্টাইন সমীকরণ
 
-A Linear Diophantine Equation (in two variables) is an equation of the general form:
+একটি রৈখিক ডায়োফ্যান্টাইন সমীকরণ (দুটি চলকে) হলো নিম্নলিখিত সাধারণ আকারের একটি সমীকরণ:
 
 $$ax + by = c$$
 
-where $a$, $b$, $c$ are given integers, and $x$, $y$ are unknown integers.
+যেখানে $a$, $b$, $c$ প্রদত্ত পূর্ণসংখ্যা, এবং $x$, $y$ অজানা পূর্ণসংখ্যা।
 
-In this article, we consider several classical problems on these equations:
+এই নিবন্ধে, আমরা এই সমীকরণগুলোর উপর কিছু ক্লাসিক্যাল সমস্যা বিবেচনা করব:
 
-* finding one solution
-* finding all solutions
-* finding the number of solutions and the solutions themselves in a given interval
-* finding a solution with minimum value of $x + y$
+* একটি সমাধান নির্ণয়
+* সকল সমাধান নির্ণয়
+* একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধানগুলো নির্ণয়
+* $x + y$-এর সর্বনিম্ন মানসহ একটি সমাধান নির্ণয়
 
-## The degenerate case
+## অধঃপতিত ক্ষেত্র
 
-A degenerate case that needs to be taken care of is when $a = b = 0$. It is easy to see that we either have no solutions or infinitely many solutions, depending on whether $c = 0$ or not. In the rest of this article, we will ignore this case.
+একটি অধঃপতিত ক্ষেত্র যেটির যত্ন নিতে হবে তা হলো যখন $a = b = 0$। সহজেই দেখা যায় যে $c = 0$ কিনা তার উপর নির্ভর করে হয় কোনো সমাধান নেই অথবা অসীম সংখ্যক সমাধান আছে। এই নিবন্ধের বাকি অংশে, আমরা এই ক্ষেত্রটি উপেক্ষা করব।
 
-## Analytic solution
+## বিশ্লেষণমূলক সমাধান
 
-When $a \neq 0$ and $b \neq 0$, the equation $ax+by=c$ can be equivalently treated as either of the following:
+যখন $a \neq 0$ এবং $b \neq 0$, তখন সমীকরণ $ax+by=c$-কে সমতুল্যভাবে নিম্নলিখিত যেকোনোটি হিসেবে বিবেচনা করা যায়:
 
 \begin{align}
 ax &\equiv c \pmod b \\
 by &\equiv c \pmod a
 \end{align}
 
-Without loss of generality, assume that $b \neq 0$ and consider the first equation. When $a$ and $b$ are co-prime, the solution to it is given as
+সাধারণতা না হারিয়ে, ধরে নিই যে $b \neq 0$ এবং প্রথম সমীকরণটি বিবেচনা করি। যখন $a$ ও $b$ সহমৌলিক, তখন এর সমাধান হলো
 
 $$x \equiv ca^{-1} \pmod b,$$
 
-where $a^{-1}$ is the [modular inverse](module-inverse.md) of $a$ modulo $b$.
+যেখানে $a^{-1}$ হলো $b$ মডুলোতে $a$-এর [মডুলার ইনভার্স](module-inverse.md)।
 
-When $a$ and $b$ are not co-prime, values of $ax$ modulo $b$ for all integer $x$ are divisible by $g=\gcd(a, b)$, so the solution only exists when $c$ is divisible by $g$. In this case, one of solutions can be found by reducing the equation by $g$:
+যখন $a$ ও $b$ সহমৌলিক নয়, তখন সকল পূর্ণসংখ্যা $x$-এর জন্য $ax$ মডুলো $b$-এর মান $g=\gcd(a, b)$ দ্বারা বিভাজ্য, তাই সমাধান কেবল তখনই বিদ্যমান যখন $c$, $g$ দ্বারা বিভাজ্য। সেক্ষেত্রে, সমীকরণটিকে $g$ দিয়ে ভাগ করে একটি সমাধান পাওয়া যায়:
 
 $$(a/g) x \equiv (c/g) \pmod{b/g}.$$
 
-By the definition of $g$, the numbers $a/g$ and $b/g$ are co-prime, so the solution is given explicitly as
+$g$-এর সংজ্ঞা অনুসারে, $a/g$ ও $b/g$ সংখ্যাদুটি সহমৌলিক, তাই সমাধান স্পষ্টভাবে দেওয়া হয়
 
 $$\begin{cases}
 x \equiv (c/g)(a/g)^{-1}\pmod{b/g},\\
 y = \frac{c-ax}{b}.
 \end{cases}$$
 
-## Algorithmic solution
+## অ্যালগরিদমিক সমাধান
 
-**Bézout's lemma** (also called Bézout's identity) is a useful result that can be used to understand the following solution. 
+**বেজুর লেমা** (বেজুর আইডেন্টিটিও বলা হয়) একটি দরকারি ফলাফল যা নিম্নলিখিত সমাধান বুঝতে ব্যবহার করা যায়।
 
-> Let $g = \gcd(a,b)$. Then there exist integers $x,y$ such that $ax + by = g$.
-> 
-> Moreover, $g$ is the least such positive integer that can be written as $ax + by$; all integers of the form $ax + by$ are multiples of $g$. 
+> মনে করি $g = \gcd(a,b)$। তাহলে এমন পূর্ণসংখ্যা $x,y$ বিদ্যমান যাদের জন্য $ax + by = g$।
+>
+> তদুপরি, $g$ হলো সবচেয়ে ছোট এমন ধনাত্মক পূর্ণসংখ্যা যা $ax + by$ আকারে লেখা যায়; $ax + by$ আকারের সকল পূর্ণসংখ্যা $g$-এর গুণিতক।
 
-To find one solution of the Diophantine equation with 2 unknowns, you can use the [Extended Euclidean algorithm](extended-euclid-algorithm.md). First, assume that $a$ and $b$ are non-negative. When we apply Extended Euclidean algorithm for $a$ and $b$, we can find their greatest common divisor $g$ and 2 numbers $x_g$ and $y_g$ such that:
+দুটি অজানা বিশিষ্ট ডায়োফ্যান্টাইন সমীকরণের একটি সমাধান বের করতে, আপনি [এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম](extended-euclid-algorithm.md) ব্যবহার করতে পারেন। প্রথমে ধরে নিন যে $a$ ও $b$ অঋণাত্মক। যখন আমরা $a$ ও $b$-এর জন্য এক্সটেন্ডেড ইউক্লিডিয়ান অ্যালগরিদম প্রয়োগ করি, তখন আমরা তাদের গসাগু $g$ এবং দুটি সংখ্যা $x_g$ ও $y_g$ বের করতে পারি যেন:
 
 $$a x_g + b y_g = g$$
 
-If $c$ is divisible by $g = \gcd(a, b)$, then the given Diophantine equation has a solution, otherwise it does not have any solution. The proof is straight-forward: a linear combination of two numbers is divisible by their common divisor.
+যদি $c$, $g = \gcd(a, b)$ দ্বারা বিভাজ্য হয়, তাহলে প্রদত্ত ডায়োফ্যান্টাইন সমীকরণের সমাধান আছে, অন্যথায় এর কোনো সমাধান নেই। প্রমাণটি সরাসরি: দুটি সংখ্যার রৈখিক সংযোজন তাদের সাধারণ গুণনীয়ক দ্বারা বিভাজ্য।
 
-Now suppose that $c$ is divisible by $g$, then we have:
+এখন ধরি যে $c$, $g$ দ্বারা বিভাজ্য, তাহলে আমরা পাই:
 
 $$a \cdot x_g \cdot \frac{c}{g} + b \cdot y_g \cdot \frac{c}{g} = c$$
 
-Therefore one of the solutions of the Diophantine equation is:
+সুতরাং ডায়োফ্যান্টাইন সমীকরণের একটি সমাধান হলো:
 
 $$x_0 = x_g \cdot \frac{c}{g},$$
 
 $$y_0 = y_g \cdot \frac{c}{g}.$$
 
-The above idea still works when $a$ or $b$ or both of them are negative. We only need to change the sign of $x_0$ and $y_0$ when necessary.
+উপরের ধারণাটি $a$ বা $b$ অথবা উভয়ই ঋণাত্মক হলেও কাজ করে। আমাদের কেবল প্রয়োজনে $x_0$ ও $y_0$-এর চিহ্ন পরিবর্তন করতে হবে।
 
-Finally, we can implement this idea as follows (note that this code does not consider the case $a = b = 0$):
+পরিশেষে, আমরা এই ধারণাটি নিম্নরূপ ইমপ্লিমেন্ট করতে পারি (লক্ষ্য করুন এই কোড $a = b = 0$ কেসটি বিবেচনা করে না):
 
 ```cpp
 int gcd(int a, int b, int& x, int& y) {
@@ -104,48 +104,48 @@ bool find_any_solution(int a, int b, int c, int &x0, int &y0, int &g) {
 }
 ```
 
-## Getting all solutions
+## সকল সমাধান নির্ণয়
 
-From one solution $(x_0, y_0)$, we can obtain all the solutions of the given equation.
+একটি সমাধান $(x_0, y_0)$ থেকে, আমরা প্রদত্ত সমীকরণের সকল সমাধান পেতে পারি।
 
-Let $g = \gcd(a, b)$ and let $x_0, y_0$ be integers which satisfy the following:
+মনে করি $g = \gcd(a, b)$ এবং $x_0, y_0$ পূর্ণসংখ্যা যারা নিম্নলিখিতটি সিদ্ধ করে:
 
 $$a \cdot x_0 + b \cdot y_0 = c$$
 
-Now, we should see that adding $b / g$ to $x_0$, and, at the same time subtracting $a / g$ from $y_0$ will not break the equality:
+এখন লক্ষ্য করা উচিত যে $x_0$-এর সাথে $b / g$ যোগ করলে, এবং একই সময়ে $y_0$ থেকে $a / g$ বিয়োগ করলে সমতা ভঙ্গ হবে না:
 
 $$a \cdot \left(x_0 + \frac{b}{g}\right) + b \cdot \left(y_0 - \frac{a}{g}\right) = a \cdot x_0 + b \cdot y_0 + a \cdot \frac{b}{g} - b \cdot \frac{a}{g} = c$$
 
-Obviously, this process can be repeated again, so all the numbers of the form:
+স্পষ্টতই, এই প্রক্রিয়া পুনরাবৃত্তি করা যায়, তাই নিম্নলিখিত আকারের সকল সংখ্যা:
 
 $$x = x_0 + k \cdot \frac{b}{g}$$
 
 $$y = y_0 - k \cdot \frac{a}{g}$$
 
-are solutions of the given Diophantine equation.
+প্রদত্ত ডায়োফ্যান্টাইন সমীকরণের সমাধান।
 
-Since the equation is linear, all solutions lie on the same line, and by the definition of $g$ this is the set of all possible solutions of the given Diophantine equation.
+যেহেতু সমীকরণটি রৈখিক, সকল সমাধান একই সরলরেখায় অবস্থিত, এবং $g$-এর সংজ্ঞা অনুসারে এটিই প্রদত্ত ডায়োফ্যান্টাইন সমীকরণের সকল সম্ভাব্য সমাধানের সেট।
 
-## Finding the number of solutions and the solutions in a given interval
+## একটি প্রদত্ত ব্যবধানে সমাধানের সংখ্যা এবং সমাধান নির্ণয়
 
-From previous section, it should be clear that if we don't impose any restrictions on the solutions, there would be infinite number of them. So in this section, we add some restrictions on the interval of $x$ and $y$, and we will try to count and enumerate all the solutions.
+পূর্ববর্তী বিভাগ থেকে, এটি স্পষ্ট হওয়া উচিত যে আমরা যদি সমাধানে কোনো সীমাবদ্ধতা আরোপ না করি, তাহলে অসীম সংখ্যক সমাধান থাকবে। তাই এই বিভাগে, আমরা $x$ ও $y$-এর ব্যবধানে কিছু সীমাবদ্ধতা যোগ করব, এবং সেই ব্যবধানে সকল সমাধান গণনা ও তালিকাভুক্ত করার চেষ্টা করব।
 
-Let there be two intervals: $[min_x; max_x]$ and $[min_y; max_y]$ and let's say we only want to find the solutions in these two intervals.
+মনে করি দুটি ব্যবধান আছে: $[min_x; max_x]$ এবং $[min_y; max_y]$ এবং ধরি আমরা কেবল এই দুটি ব্যবধানে সমাধান খুঁজতে চাই।
 
-Note that if $a$ or $b$ is $0$, then the problem only has one solution. We don't consider this case here.
+লক্ষ্য করুন যে $a$ বা $b$ যদি $0$ হয়, তাহলে সমস্যায় কেবল একটি সমাধান আছে। আমরা এই ক্ষেত্রটি এখানে বিবেচনা করছি না।
 
-First, we can find a solution which has minimum value of $x$, such that $x \ge min_x$. To do this, we first find any solution of the Diophantine equation. Then, we shift this solution to get $x \ge min_x$ (using what we know about the set of all solutions in previous section). This can be done in $O(1)$.
-Denote this minimum value of $x$ by $l_{x1}$.
+প্রথমে, আমরা এমন একটি সমাধান খুঁজতে পারি যার $x$-এর মান সর্বনিম্ন, যেন $x \ge min_x$। এটি করতে, আমরা প্রথমে ডায়োফ্যান্টাইন সমীকরণের যেকোনো একটি সমাধান বের করি। তারপর, পূর্ববর্তী বিভাগে সকল সমাধানের সেট সম্পর্কে আমরা যা জানি তা ব্যবহার করে এই সমাধানটিকে শিফট করি $x \ge min_x$ পেতে। এটি $O(1)$-তে করা যায়।
+$x$-এর এই সর্বনিম্ন মানকে $l_{x1}$ বলে চিহ্নিত করি।
 
-Similarly, we can find the maximum value of $x$ which satisfies $x \le max_x$. Denote this maximum value of $x$ by $r_{x1}$.
+একইভাবে, $x \le max_x$ সিদ্ধ করে এমন $x$-এর সর্বোচ্চ মান বের করা যায়। $x$-এর এই সর্বোচ্চ মানকে $r_{x1}$ বলে চিহ্নিত করি।
 
-Similarly, we can find the minimum value of $y$ $(y \ge min_y)$ and maximum value of $y$ $(y \le max_y)$. Denote the corresponding values of $x$ by $l_{x2}$ and $r_{x2}$.
+একইভাবে, $y$-এর সর্বনিম্ন মান $(y \ge min_y)$ এবং সর্বোচ্চ মান $(y \le max_y)$ বের করা যায়। $x$-এর সংশ্লিষ্ট মানগুলোকে $l_{x2}$ ও $r_{x2}$ বলে চিহ্নিত করি।
 
-The final solution is all solutions with x in intersection of $[l_{x1}, r_{x1}]$ and $[l_{x2}, r_{x2}]$. Let denote this intersection by $[l_x, r_x]$.
+চূড়ান্ত সমাধান হলো $[l_{x1}, r_{x1}]$ ও $[l_{x2}, r_{x2}]$-এর ছেদে x-সহ সকল সমাধান। এই ছেদকে $[l_x, r_x]$ দ্বারা চিহ্নিত করি।
 
-Following is the code implementing this idea.
-Notice that we divide $a$ and $b$ at the beginning by $g$.
-Since the equation $a x + b y = c$ is equivalent to the equation $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$, we can use this one instead and have $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$, which simplifies the formulas.
+নিম্নে এই ধারণাটি ইমপ্লিমেন্ট করা কোড দেওয়া হলো।
+লক্ষ্য করুন যে শুরুতে আমরা $a$ ও $b$-কে $g$ দিয়ে ভাগ করি।
+যেহেতু সমীকরণ $a x + b y = c$ সমীকরণ $\frac{a}{g} x + \frac{b}{g} y = \frac{c}{g}$-এর সমতুল্য, আমরা পরিবর্তে এটি ব্যবহার করতে পারি এবং $\gcd(\frac{a}{g}, \frac{b}{g}) = 1$ পেতে পারি, যা সূত্রগুলো সরল করে।
 
 ```cpp
 void shift_solution(int & x, int & y, int a, int b, int cnt) {
@@ -198,27 +198,27 @@ int find_all_solutions(int a, int b, int c, int minx, int maxx, int miny, int ma
 }
 ```
 
-Once we have $l_x$ and $r_x$, it is also simple to enumerate through all the solutions. Just need to iterate through $x = l_x + k \cdot \frac{b}{g}$ for all $k \ge 0$ until $x = r_x$, and find the corresponding $y$ values using the equation $a x + b y = c$.
+$l_x$ ও $r_x$ পেলে, সকল সমাধান তালিকাভুক্ত করাও সহজ। শুধু সকল $k \ge 0$-এর জন্য $x = l_x + k \cdot \frac{b}{g}$ ইটারেট করতে হবে $x = r_x$ পর্যন্ত, এবং $a x + b y = c$ সমীকরণ ব্যবহার করে সংশ্লিষ্ট $y$ মান বের করতে হবে।
 
-## Find the solution with minimum value of $x + y$ { data-toc-label='Find the solution with minimum value of <script type="math/tex">x + y</script>' }
+## $x + y$-এর সর্বনিম্ন মানসহ সমাধান নির্ণয় { data-toc-label='Find the solution with minimum value of <script type="math/tex">x + y</script>' }
 
-Here, $x$ and $y$ also need to be given some restriction, otherwise, the answer may become negative infinity.
+এখানে, $x$ ও $y$-তেও কিছু সীমাবদ্ধতা দিতে হবে, অন্যথায়, উত্তর ঋণাত্মক অসীম হতে পারে।
 
-The idea is similar to previous section: We find any solution of the Diophantine equation, and then shift the solution to satisfy some conditions.
+ধারণাটি পূর্ববর্তী বিভাগের মতোই: আমরা ডায়োফ্যান্টাইন সমীকরণের যেকোনো একটি সমাধান বের করি, তারপর সমাধানটিকে শিফট করি কিছু শর্ত পূরণ করতে।
 
-Finally, use the knowledge of the set of all solutions to find the minimum:
+পরিশেষে, সকল সমাধানের সেটের জ্ঞান ব্যবহার করে সর্বনিম্ন খুঁজে বের করি:
 
 $$x' = x + k \cdot \frac{b}{g},$$
 
 $$y' = y - k \cdot \frac{a}{g}.$$
 
-Note that $x + y$ change as follows:
+লক্ষ্য করুন $x + y$ নিম্নরূপে পরিবর্তিত হয়:
 
 $$x' + y' = x + y + k \cdot \left(\frac{b}{g} - \frac{a}{g}\right) = x + y + k \cdot \frac{b-a}{g}$$
 
-If $a < b$, we need to select smallest possible value of $k$. If $a > b$, we need to select the largest possible value of $k$. If $a = b$, all solution will have the same sum $x + y$.
+যদি $a < b$ হয়, তাহলে $k$-এর সম্ভাব্য সর্বনিম্ন মান নির্বাচন করতে হবে। যদি $a > b$ হয়, তাহলে $k$-এর সম্ভাব্য সর্বোচ্চ মান নির্বাচন করতে হবে। যদি $a = b$ হয়, তাহলে সকল সমাধানে $x + y$-এর যোগফল একই থাকবে।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [Spoj - Crucial Equation](http://www.spoj.com/problems/CEQU/)
 * [SGU 106](http://codeforces.com/problemsets/acmsguru/problem/99999/106)

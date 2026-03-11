@@ -1,25 +1,25 @@
 ---
-title: "Lowest Common Ancestor - Farach-Colton and Bender Algorithm"
+title: "লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম"
 tags: 
 weight: 30
 ---
-# Lowest Common Ancestor - Farach-Colton and Bender Algorithm
+# লোয়েস্ট কমন অ্যানসেস্টর - ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম
 
-Let $G$ be a tree.
-For every query of the form $(u, v)$ we want to find the lowest common ancestor of the nodes $u$ and $v$, i.e. we want to find a node $w$ that lies on the path from $u$ to the root node, that lies on the path from $v$ to the root node, and if there are multiple nodes we pick the one that is farthest away from the root node.
-In other words the desired node $w$ is the lowest ancestor of $u$ and $v$.
-In particular if $u$ is an ancestor of $v$, then $u$ is their lowest common ancestor.
+ধরি $G$ একটি ট্রি।
+প্রতিটি $(u, v)$ আকারের কুয়েরির জন্য আমরা $u$ এবং $v$ নোডের লোয়েস্ট কমন অ্যানসেস্টর বের করতে চাই, অর্থাৎ আমরা এমন একটি নোড $w$ খুঁজতে চাই যেটি $u$ থেকে রুট নোড পর্যন্ত পাথে অবস্থিত, $v$ থেকে রুট নোড পর্যন্ত পাথেও অবস্থিত, এবং একাধিক এরকম নোড থাকলে আমরা রুট নোড থেকে সবচেয়ে দূরেরটি বেছে নিই।
+অন্যভাবে বলতে গেলে, কাঙ্ক্ষিত নোড $w$ হলো $u$ এবং $v$-এর সবচেয়ে নিচের অ্যানসেস্টর।
+বিশেষত, যদি $u$ হয় $v$-এর অ্যানসেস্টর, তাহলে $u$ হলো তাদের লোয়েস্ট কমন অ্যানসেস্টর।
 
-The algorithm which will be described in this article was developed by Farach-Colton and Bender.
-It is asymptotically optimal.
+এই নিবন্ধে বর্ণিত অ্যালগরিদমটি ফারাক-কোল্টন এবং বেন্ডার কর্তৃক তৈরি।
+এটি অ্যাসিম্পটটিক্যালি অপটিমাল।
 
-## Algorithm
+## অ্যালগরিদম
 
-We use the classical reduction of the LCA problem to the RMQ problem.
-We traverse all nodes of the tree with [DFS](depth-first-search.md) and keep an array with all visited nodes and the heights of these nodes. 
-The LCA of two nodes $u$ and $v$ is the node between the occurrences of $u$ and $v$ in the tour, that has the smallest height.
+আমরা এলসিএ সমস্যা থেকে আরএমকিউ সমস্যায় ক্লাসিক্যাল রিডাকশন ব্যবহার করি।
+আমরা [DFS](depth-first-search.md) দিয়ে ট্রি-র সব নোড ট্রাভার্স করি এবং সব ভিজিট করা নোড ও তাদের উচ্চতার একটি অ্যারে রাখি।
+$u$ এবং $v$ দুটি নোডের এলসিএ হলো ট্যুরে $u$ এবং $v$-এর উপস্থিতির মধ্যবর্তী সবচেয়ে কম উচ্চতার নোড।
 
-In the following picture you can see a possible Euler-Tour of a graph and in the list below you can see the visited nodes and their heights.
+নিচের ছবিতে আপনি একটি গ্রাফের সম্ভাব্য অয়লার-ট্যুর দেখতে পারবেন এবং নিচের তালিকায় ভিজিট করা নোডগুলো ও তাদের উচ্চতা দেখতে পারবেন।
 
 <div style="text-align: center;">
   <img src="/images/graph/LCA_Euler.png" alt="LCA_Euler_Tour">
@@ -27,66 +27,66 @@ In the following picture you can see a possible Euler-Tour of a graph and in the
 
 $$\begin{array}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-\text{Nodes:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\ \hline
-\text{Heights:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\ \hline
+\text{নোড:}   & 1 & 2 & 5 & 2 & 6 & 2 & 1 & 3 & 1 & 4 & 7 & 4 & 1 \\ \hline
+\text{উচ্চতা:} & 1 & 2 & 3 & 2 & 3 & 2 & 1 & 2 & 1 & 2 & 3 & 2 & 1 \\ \hline
 \end{array}$$
 
-You can read more about this reduction in the article [Lowest Common Ancestor](lca.md).
-In that article the minimum of a range was either found by sqrt-decomposition in $O(\sqrt{N})$ or in $O(\log N)$ using a Segment tree.
-In this article we look at how we can solve the given range minimum queries in $O(1)$ time, while still only taking $O(N)$ time for preprocessing.
+আপনি এই রিডাকশন সম্পর্কে আরো পড়তে পারেন [লোয়েস্ট কমন অ্যানসেস্টর](lca.md) নিবন্ধে।
+ঐ নিবন্ধে একটি রেঞ্জের মিনিমাম sqrt-ডিকম্পোজিশন দিয়ে $O(\sqrt{N})$-এ অথবা সেগমেন্ট ট্রি দিয়ে $O(\log N)$-এ বের করা হয়েছিল।
+এই নিবন্ধে আমরা দেখব কীভাবে প্রদত্ত রেঞ্জ মিনিমাম কুয়েরিগুলো $O(1)$ সময়ে সমাধান করা যায়, প্রিপ্রসেসিং-এ শুধু $O(N)$ সময় নিয়ে।
 
-Note that the reduced RMQ problem is very specific:
-any two adjacent elements in the array differ exactly by one (since the elements of the array are nothing more than the heights of the nodes visited in order of traversal, and we either go to a descendant, in which case the next element is one bigger, or go back to the ancestor, in which case the next element is one lower).
-The Farach-Colton and Bender algorithm describes a solution for exactly this specialized RMQ problem.
+লক্ষ্য করুন যে রিডিউসড আরএমকিউ সমস্যাটি খুবই বিশেষ:
+অ্যারের যেকোনো দুটি পাশাপাশি উপাদান ঠিক এক দ্বারা পার্থক্য হয় (যেহেতু অ্যারের উপাদানগুলো ট্রাভার্সালের ক্রমে ভিজিট করা নোডগুলোর উচ্চতা ছাড়া আর কিছু নয়, এবং আমরা হয় একটি ডিসেন্ডেন্টে যাই, সেক্ষেত্রে পরবর্তী উপাদান এক বেশি, অথবা অ্যানসেস্টরে ফিরে যাই, সেক্ষেত্রে পরবর্তী উপাদান এক কম)।
+ফারাক-কোল্টন ও বেন্ডার অ্যালগরিদম ঠিক এই বিশেষায়িত আরএমকিউ সমস্যার সমাধান বর্ণনা করে।
 
-Let's denote with $A$ the array on which we want to perform the range minimum queries.
-And $N$ will be the size of $A$.
+ধরি $A$ হলো সেই অ্যারে যার উপর আমরা রেঞ্জ মিনিমাম কুয়েরি করতে চাই।
+এবং $N$ হলো $A$-র আকার।
 
-There is an easy data structure that we can use for solving the RMQ problem with $O(N \log N)$ preprocessing and $O(1)$ for each query: the [Sparse Table](../data_structures/sparse-table.md).
-We create a table $T$ where each element $T[i][j]$ is equal to the minimum of $A$ in the interval $[i, i + 2^j - 1]$.
-Obviously $0 \leq j \leq \lceil \log N \rceil$, and therefore the size of the Sparse Table will be $O(N \log N)$.
-You can build the table easily in $O(N \log N)$ by noting that $T[i][j] = \min(T[i][j-1], T[i+2^{j-1}][j-1])$.
+একটি সহজ ডেটা স্ট্রাকচার আছে যা $O(N \log N)$ প্রিপ্রসেসিং এবং প্রতিটি কুয়েরিতে $O(1)$ দিয়ে আরএমকিউ সমাধান করতে পারে: [স্পার্স টেবিল](../data_structures/sparse-table.md)।
+আমরা একটি টেবিল $T$ তৈরি করি যেখানে প্রতিটি উপাদান $T[i][j]$ হলো $[i, i + 2^j - 1]$ ইন্টারভালে $A$-র মিনিমাম।
+স্পষ্টতই $0 \leq j \leq \lceil \log N \rceil$, এবং তাই স্পার্স টেবিলের আকার $O(N \log N)$।
+আপনি সহজেই $O(N \log N)$-এ এই টেবিল তৈরি করতে পারেন, লক্ষ্য করে যে $T[i][j] = \min(T[i][j-1], T[i+2^{j-1}][j-1])$।
 
-How can we answer a query RMQ in $O(1)$ using this data structure?
-Let the received query be $[l, r]$, then the answer is $\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$, where $\text{sz}$ is the biggest exponent such that $2^{\text{sz}}$ is not bigger than the range length $r-l+1$. 
-Indeed we can take the range $[l, r]$ and cover it two segments of length $2^{\text{sz}}$ - one starting in $l$ and the other ending in $r$.
-These segments overlap, but this doesn't interfere with our computation.
-To really achieve the time complexity of $O(1)$ per query, we need to know the values of $\text{sz}$ for all possible lengths from $1$ to $N$.
-But this can be easily precomputed.
+এই ডেটা স্ট্রাকচার ব্যবহার করে কীভাবে $O(1)$-এ আরএমকিউ কুয়েরির উত্তর দেওয়া যায়?
+ধরি প্রাপ্ত কুয়েরি হলো $[l, r]$, তাহলে উত্তর হলো $\min(T[l][\text{sz}], T[r-2^{\text{sz}}+1][\text{sz}])$, যেখানে $\text{sz}$ হলো সবচেয়ে বড় ঘাত যেন $2^{\text{sz}}$ রেঞ্জের দৈর্ঘ্য $r-l+1$-এর চেয়ে বড় না হয়।
+প্রকৃতপক্ষে আমরা $[l, r]$ রেঞ্জটি নিয়ে $2^{\text{sz}}$ দৈর্ঘ্যের দুটি সেগমেন্ট দিয়ে ঢাকতে পারি - একটি $l$ থেকে শুরু এবং অন্যটি $r$-এ শেষ।
+এই সেগমেন্টগুলো ওভারল্যাপ করে, কিন্তু এটি আমাদের গণনায় বাধা দেয় না।
+প্রতিটি কুয়েরিতে $O(1)$ টাইম কমপ্লেক্সিটি অর্জনের জন্য, আমাদের $1$ থেকে $N$ পর্যন্ত সব সম্ভাব্য দৈর্ঘ্যের জন্য $\text{sz}$-এর মান জানতে হবে।
+কিন্তু এটি সহজেই প্রিকম্পিউট করা যায়।
 
-Now we want to improve the complexity of the preprocessing down to $O(N)$.
+এখন আমরা প্রিপ্রসেসিং-এর কমপ্লেক্সিটি $O(N)$-এ উন্নত করতে চাই।
 
-We divide the array $A$ into blocks of size $K = 0.5 \log N$ with $\log$ being the logarithm to base 2.
-For each block we calculate the minimum element and store them in an array $B$.
-$B$ has the size $\frac{N}{K}$.
-We construct a sparse table from the array $B$.
-The size and the time complexity of it will be:
+আমরা $A$ অ্যারেটিকে $K = 0.5 \log N$ আকারের ব্লকে ভাগ করি যেখানে $\log$ হলো ২ ভিত্তিক লগারিদম।
+প্রতিটি ব্লকের জন্য মিনিমাম উপাদান গণনা করে $B$ অ্যারেতে সংরক্ষণ করি।
+$B$-এর আকার $\frac{N}{K}$।
+আমরা $B$ অ্যারে থেকে একটি স্পার্স টেবিল তৈরি করি।
+এর আকার এবং টাইম কমপ্লেক্সিটি হবে:
 
 $$\frac{N}{K}\log\left(\frac{N}{K}\right) = \frac{2N}{\log(N)} \log\left(\frac{2N}{\log(N)}\right) =$$
 
 $$= \frac{2N}{\log(N)} \left(1 + \log\left(\frac{N}{\log(N)}\right)\right) \leq \frac{2N}{\log(N)} + 2N = O(N)$$
 
-Now we only have to learn how to quickly answer range minimum queries within each block.
-In fact if the received range minimum query is $[l, r]$ and $l$ and $r$ are in different blocks then the answer is the minimum of the following three values:
-the minimum of the suffix of block of $l$ starting at $l$, the minimum of the prefix of block of $r$ ending at $r$, and the minimum of the blocks between those.
-The minimum of the blocks in between can be answered in $O(1)$ using the Sparse Table.
-So this leaves us only the range minimum queries inside blocks.
+এখন আমাদের শুধু শিখতে হবে কীভাবে প্রতিটি ব্লকের ভেতরে দ্রুত রেঞ্জ মিনিমাম কুয়েরির উত্তর দেওয়া যায়।
+প্রকৃতপক্ষে যদি প্রাপ্ত রেঞ্জ মিনিমাম কুয়েরি $[l, r]$ হয় এবং $l$ ও $r$ ভিন্ন ব্লকে থাকে তাহলে উত্তর হলো নিম্নলিখিত তিনটি মানের মিনিমাম:
+$l$ থেকে শুরু হওয়া $l$-এর ব্লকের সাফিক্সের মিনিমাম, $r$-এ শেষ হওয়া $r$-এর ব্লকের প্রিফিক্সের মিনিমাম, এবং মাঝের ব্লকগুলোর মিনিমাম।
+মাঝের ব্লকগুলোর মিনিমাম স্পার্স টেবিল ব্যবহার করে $O(1)$-এ উত্তর দেওয়া যায়।
+তাই আমাদের শুধু ব্লকের ভেতরের রেঞ্জ মিনিমাম কুয়েরিগুলো বাকি আছে।
 
-Here we will exploit the property of the array.
-Remember that the values in the array - which are just height values in the tree - will always differ by one.
-If we remove the first element of a block, and subtract it from every other item in the block, every block can be identified by a sequence of length $K - 1$ consisting of the number $+1$ and $-1$.
-Because these blocks are so small, there are only a few different sequences that can occur.
-The number of possible sequences is:
+এখানে আমরা অ্যারের বিশেষ বৈশিষ্ট্য কাজে লাগাব।
+মনে করুন যে অ্যারের মানগুলো - যেগুলো ট্রি-র উচ্চতার মান - সর্বদা এক দ্বারা পার্থক্য হয়।
+যদি আমরা একটি ব্লকের প্রথম উপাদান সরিয়ে ফেলি, এবং ব্লকের অন্য সব উপাদান থেকে এটি বিয়োগ করি, তাহলে প্রতিটি ব্লককে $K - 1$ দৈর্ঘ্যের $+1$ এবং $-1$ দিয়ে গঠিত একটি সিকোয়েন্স দ্বারা চিহ্নিত করা যায়।
+যেহেতু এই ব্লকগুলো এত ছোট, সম্ভাব্য সিকোয়েন্সের সংখ্যা খুব কম।
+সম্ভাব্য সিকোয়েন্সের সংখ্যা:
 
 $$2^{K-1} = 2^{0.5 \log(N) - 1} = 0.5 \left(2^{\log(N)}\right)^{0.5} = 0.5 \sqrt{N}$$
 
-Thus the number of different blocks is $O(\sqrt{N})$, and therefore we can precompute the results of range minimum queries inside all different blocks in $O(\sqrt{N} K^2) = O(\sqrt{N} \log^2(N)) = O(N)$ time.
-For the implementation we can characterize a block by a bitmask of length $K-1$ (which will fit in a standard int) and store the index of the minimum in an array $\text{block}[\text{mask}][l][r]$ of size $O(\sqrt{N} \log^2(N))$.
+এভাবে ভিন্ন ব্লকের সংখ্যা $O(\sqrt{N})$, এবং তাই আমরা সব ভিন্ন ব্লকের ভেতরের রেঞ্জ মিনিমাম কুয়েরির ফলাফল $O(\sqrt{N} K^2) = O(\sqrt{N} \log^2(N)) = O(N)$ সময়ে প্রিকম্পিউট করতে পারি।
+ইমপ্লিমেন্টেশনের জন্য আমরা একটি ব্লককে $K-1$ দৈর্ঘ্যের একটি বিটমাস্ক দ্বারা চিহ্নিত করতে পারি (যেটি একটি স্ট্যান্ডার্ড int-এ ধরবে) এবং মিনিমামের ইনডেক্স $O(\sqrt{N} \log^2(N))$ আকারের $\text{block}[\text{mask}][l][r]$ অ্যারেতে সংরক্ষণ করতে পারি।
 
-So we learned how to precompute range minimum queries within each block, as well as range minimum queries over a range of blocks, all in $O(N)$.
-With these precomputations we can answer each query in $O(1)$, by using at most four precomputed values: the minimum of the block containing `l`, the minimum of the block containing `r`, and the two minima of the overlapping segments of the blocks between them.
+তাহলে আমরা শিখলাম কীভাবে প্রতিটি ব্লকের ভেতরের রেঞ্জ মিনিমাম কুয়েরি, সেই সাথে ব্লকগুলোর রেঞ্জের উপর রেঞ্জ মিনিমাম কুয়েরি প্রিকম্পিউট করতে হয়, সবই $O(N)$-এ।
+এই প্রিকম্পিউটেশনগুলো দিয়ে আমরা প্রতিটি কুয়েরির উত্তর $O(1)$-এ দিতে পারি, সর্বোচ্চ চারটি প্রিকম্পিউটেড মান ব্যবহার করে: `l` ধারণকারী ব্লকের মিনিমাম, `r` ধারণকারী ব্লকের মিনিমাম, এবং তাদের মধ্যবর্তী ব্লকগুলোর ওভারল্যাপিং সেগমেন্টগুলোর দুটি মিনিমাম।
 
-## Implementation
+## ইমপ্লিমেন্টেশন
 
 ```cpp
 int n;
@@ -105,7 +105,7 @@ void dfs(int v, int p, int h) {
     first_visit[v] = euler_tour.size();
     euler_tour.push_back(v);
     height[v] = h;
-    
+
     for (int u : adj[v]) {
         if (u == p)
             continue;
@@ -175,7 +175,7 @@ void precompute_lca(int root) {
             for (int r = l + 1; r < block_size; r++) {
                 blocks[mask][l][r] = blocks[mask][l][r - 1];
                 if (b * block_size + r < m)
-                    blocks[mask][l][r] = min_by_h(b * block_size + blocks[mask][l][r], 
+                    blocks[mask][l][r] = min_by_h(b * block_size + blocks[mask][l][r],
                             b * block_size + r) - b * block_size;
             }
         }

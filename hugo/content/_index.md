@@ -8,8 +8,6 @@ weight: 1
 The goal of this project is to translate the wonderful resource
 [https://e-maxx.ru/algo](https://e-maxx.ru/algo) which provides descriptions of many algorithms
 and data structures especially popular in field of competitive programming.
-Moreover we want to improve the collected knowledge by extending the articles
-and adding new articles to the collection.
 
 We're an ad-free, volunteer-run website that's free for everyone.
 

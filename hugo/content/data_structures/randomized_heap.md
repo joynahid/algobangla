@@ -1,30 +1,30 @@
 ---
-title: "Randomized Heap"
+title: "র‍্যান্ডমাইজড হিপ"
 tags: 
 weight: 70
 ---
-# Randomized Heap
+# র‍্যান্ডমাইজড হিপ
 
-A randomized heap is a heap that, through using randomization, allows to perform all operations in expected logarithmic time.
+র‍্যান্ডমাইজড হিপ হলো একটি হিপ যা র‍্যান্ডমাইজেশন ব্যবহার করে সব অপারেশন প্রত্যাশিত লগারিদমিক সময়ে সম্পাদন করতে পারে।
 
-A **min heap** is a binary tree in which the value of each vertex is less than or equal to the values of its children.
-Thus the minimum of the tree is always in the root vertex.
+একটি **মিন হিপ** হলো একটি বাইনারি ট্রি যেখানে প্রতিটি ভার্টেক্সের মান তার চাইল্ডদের মানের চেয়ে কম বা সমান।
+তাই ট্রি-র সর্বনিম্ন সবসময় রুট ভার্টেক্সে থাকে।
 
-A max heap can be defined in a similar way: by replacing less with greater.
+ম্যাক্স হিপ একইভাবে সংজ্ঞায়িত করা যায়: কম-কে বেশি দ্বারা প্রতিস্থাপন করে।
 
-The default operations of a heap are:
+একটি হিপের ডিফল্ট অপারেশনগুলো হলো:
 
-- Adding a value
-- Extracting the minimum
-- Removing the minimum
-- Merging two heaps (without deleting duplicates)
-- Removing an arbitrary element (if its position in the tree is known)
+- একটি মান যোগ করা
+- সর্বনিম্ন বের করা
+- সর্বনিম্ন সরানো
+- দুটি হিপ মার্জ করা (ডুপ্লিকেট না মুছে)
+- একটি ইচ্ছামতো উপাদান সরানো (যদি ট্রি-তে এর অবস্থান জানা থাকে)
 
-A randomized heap can perform all these operations in expected $O(\log n)$ time with a very simple implementation.
+একটি র‍্যান্ডমাইজড হিপ একটি খুব সরল ইমপ্লিমেন্টেশন দিয়ে এই সব অপারেশন প্রত্যাশিত $O(\log n)$ সময়ে সম্পাদন করতে পারে।
 
-## Data structure
+## ডেটা স্ট্রাকচার
 
-We can immediately describe the structure of the binary heap:
+আমরা সরাসরি বাইনারি হিপের স্ট্রাকচার বর্ণনা করতে পারি:
 
 ```cpp
 struct Tree {
@@ -34,33 +34,33 @@ struct Tree {
 };
 ```
 
-In the vertex we store a value.
-In addition we have pointers to the left and right children, which point to null if the corresponding child doesn't exist.
+ভার্টেক্সে আমরা একটি মান সংরক্ষণ করি।
+এছাড়াও বাম এবং ডান চাইল্ডের পয়েন্টার আছে, যেগুলো null-এ পয়েন্ট করে যদি সংশ্লিষ্ট চাইল্ড না থাকে।
 
-## Operations
+## অপারেশন
 
-It is not difficult to see, that all operations can be reduced to a single one: **merging** two heaps into one.
-Indeed, adding a new value to the heap is equivalent to merging the heap with a heap consisting of a single vertex with that value. 
-Finding a minimum doesn't require any operation at all - the minimum is simply the value at the root.
-Removing the minimum is equivalent to the result of merging the left and right children of the root vertex.
-And removing an arbitrary element is similar.
-We merge the children of the vertex and replace the vertex with the result of the merge.
+দেখা কঠিন নয় যে সব অপারেশন একটি একক অপারেশনে নামিয়ে আনা যায়: দুটি হিপকে একটিতে **মার্জ** করা।
+প্রকৃতপক্ষে, হিপে একটি নতুন মান যোগ করা সেই মানের একটি একক ভার্টেক্স বিশিষ্ট হিপের সাথে হিপ মার্জ করার সমতুল্য।
+সর্বনিম্ন খুঁজতে কোনো অপারেশনই লাগে না — সর্বনিম্ন সহজভাবে রুটের মান।
+সর্বনিম্ন সরানো রুট ভার্টেক্সের বাম এবং ডান চাইল্ড মার্জ করার ফলাফলের সমতুল্য।
+এবং একটি ইচ্ছামতো উপাদান সরানোও একই রকম।
+আমরা ভার্টেক্সের চাইল্ডদের মার্জ করি এবং ভার্টেক্সটিকে মার্জের ফলাফল দ্বারা প্রতিস্থাপন করি।
 
-So we actually only need to implement the operation of merging two heaps.
-All other operations are trivially reduced to this operation.
+তাই আমাদের আসলে শুধু দুটি হিপ মার্জ করার অপারেশন ইমপ্লিমেন্ট করতে হবে।
+অন্য সব অপারেশন সহজেই এই অপারেশনে নামিয়ে আনা যায়।
 
-Let two heaps $T_1$ and $T_2$ be given.
-It is clear that the root of each of these heaps contains its minimum.
-So the root of the resulting heap will be the minimum of these two values.
-So we compare both values, and use the smaller one as the new root.
-Now we have to combine the children of the selected vertex with the remaining heap.
-For this we select one of the children, and merge it with the remaining heap.
-Thus we again have the operation of merging two heaps.
-Sooner or later this process will end (the number of such steps is limited by the sum of the heights of the two heaps)
+ধরি দুটি হিপ $T_1$ এবং $T_2$ দেওয়া আছে।
+স্পষ্ট যে এদের প্রতিটির রুটে তার সর্বনিম্ন আছে।
+তাই ফলাফল হিপের রুট হবে এই দুটি মানের মধ্যে ছোটটি।
+তাই আমরা দুটি মান তুলনা করি এবং ছোটটিকে নতুন রুট হিসেবে ব্যবহার করি।
+এখন নির্বাচিত ভার্টেক্সের চাইল্ডদের বাকি হিপের সাথে সংযুক্ত করতে হবে।
+এর জন্য আমরা একটি চাইল্ড নির্বাচন করি এবং বাকি হিপের সাথে মার্জ করি।
+এভাবে আবার দুটি হিপ মার্জ করার অপারেশন পাই।
+শীঘ্র বা পরে এই প্রক্রিয়া শেষ হবে (ধাপের সংখ্যা দুটি হিপের উচ্চতার যোগফল দ্বারা সীমাবদ্ধ)।
 
-To achieve logarithmic complexity on average, we need to specify a method for choosing one of the two children so that the average path length is logarithmic.
-It is not difficult to guess, that we will make this decision **randomly**.
-Thus the implementation of the merging operation is as follows:
+গড়ে লগারিদমিক কমপ্লেক্সিটি অর্জন করতে, আমাদের দুটি চাইল্ডের মধ্যে একটি বেছে নেওয়ার পদ্ধতি নির্দিষ্ট করতে হবে যেন গড় পাথের দৈর্ঘ্য লগারিদমিক হয়।
+অনুমান করা কঠিন নয় যে আমরা এই সিদ্ধান্ত **র‍্যান্ডমলি** নেব।
+তাই মার্জ অপারেশনের ইমপ্লিমেন্টেশন নিম্নরূপ:
 
 ```cpp
 Tree* merge(Tree* t1, Tree* t2) {
@@ -75,54 +75,54 @@ Tree* merge(Tree* t1, Tree* t2) {
 }
 ```
 
-Here first we check if one of the heaps is empty, then we don't need to perform any merge action at all.
-Otherwise we make the heap `t1` the one with the smaller value (by swapping `t1` and `t2` if necessary).
-We want to merge the left child of `t1` with `t2`, therefore we randomly swap the children of `t1`, and then perform the merge.
+এখানে প্রথমে আমরা পরীক্ষা করি কোনো হিপ খালি কি না, তাহলে কোনো মার্জ অ্যাকশন লাগে না।
+অন্যথায় `t1` হিপটিকে ছোট মানের হিপ বানাই (প্রয়োজনে `t1` এবং `t2` অদলবদল করে)।
+আমরা `t1`-এর বাম চাইল্ডকে `t2`-এর সাথে মার্জ করতে চাই, তাই র‍্যান্ডমলি `t1`-এর চাইল্ড অদলবদল করি, এবং তারপর মার্জ সম্পাদন করি।
 
-## Complexity
+## কমপ্লেক্সিটি
 
-We introduce the random variable $h(T)$ which will denote the **length of the random path** from the root to the leaf (the length in the number of edges).
-It is clear that the algorithm `merge` performs $O(h(T_1) + h(T_2))$ steps.
-Therefore to understand the complexity of the operations, we must look into the random variable $h(T)$.
+আমরা র‍্যান্ডম ভেরিয়েবল $h(T)$ প্রবর্তন করি যা রুট থেকে লিফ পর্যন্ত **র‍্যান্ডম পাথের দৈর্ঘ্য** নির্দেশ করবে (এজের সংখ্যায় দৈর্ঘ্য)।
+স্পষ্ট যে `merge` অ্যালগরিদম $O(h(T_1) + h(T_2))$ ধাপ সম্পাদন করে।
+তাই অপারেশনগুলোর কমপ্লেক্সিটি বুঝতে, আমাদের র‍্যান্ডম ভেরিয়েবল $h(T)$-এর দিকে তাকাতে হবে।
 
-### Expected value
+### প্রত্যাশিত মান
 
-We assume that the expectation $h(T)$ can be estimated from above by the logarithm of the number of vertices in the heap:
+আমরা ধরে নিই $h(T)$-এর প্রত্যাশা হিপের ভার্টেক্স সংখ্যার লগারিদম দ্বারা উপর থেকে আবদ্ধ করা যায়:
 
 $$\mathbf{E} h(T) \le \log(n+1)$$
 
-This can be easily proven by induction.
-Let $L$ and $R$ be the left and the right subtrees of the root $T$, and $n_L$ and $n_R$ the number of vertices in them ($n = n_L + n_R + 1$).
+এটি সহজেই আরোহ দ্বারা প্রমাণ করা যায়।
+ধরি $L$ এবং $R$ হলো রুট $T$-এর বাম এবং ডান সাবট্রি, এবং $n_L$ ও $n_R$ তাদের ভার্টেক্স সংখ্যা ($n = n_L + n_R + 1$)।
 
-The following shows the induction step:
+নিম্নলিখিতটি আরোহ ধাপ দেখায়:
 
 $$\begin{align}
-\mathbf{E} h(T) &= 1 + \frac{\mathbf{E} h(L) + \mathbf{E} h(R)}{2} 
+\mathbf{E} h(T) &= 1 + \frac{\mathbf{E} h(L) + \mathbf{E} h(R)}{2}
 \le 1 + \frac{\log(n_L + 1) + \log(n_R + 1)}{2} \\\\
 &= 1 + \log\sqrt{(n_L + 1)(n_R + 1)} = \log 2\sqrt{(n_L + 1)(n_R + 1)} \\\\
 &\le \log \frac{2\left((n_L + 1) + (n_R + 1)\right)}{2} = \log(n_L + n_R + 2) = \log(n+1)
 \end{align}$$
 
-### Exceeding the expected value
+### প্রত্যাশিত মান অতিক্রম করা
 
-Of course we are still not happy.
-The expected value of $h(T)$ doesn't say anything about the worst case.
-It is still possible that the paths from the root to the vertices is on average much greater than $\log(n + 1)$ for a specific tree.
+অবশ্যই আমরা এখনও সন্তুষ্ট নই।
+$h(T)$-এর প্রত্যাশিত মান সবচেয়ে খারাপ ক্ষেত্র সম্পর্কে কিছু বলে না।
+এখনও সম্ভব যে একটি নির্দিষ্ট ট্রি-র জন্য রুট থেকে ভার্টেক্সগুলোর পাথ গড়ে $\log(n + 1)$-এর চেয়ে অনেক বেশি।
 
-Let us prove that the probability of exceeding the expected value is indeed very small:
+প্রমাণ করি যে প্রত্যাশিত মান অতিক্রম করার সম্ভাব্যতা সত্যিই খুব কম:
 
 $${\cal P}(h(T) > (c+1) \log n) < \frac{1}{n^c}$$
 
-for any positive constant $c$.
+যেকোনো ধনাত্মক ধ্রুবক $c$-এর জন্য।
 
-Here we denote by $P$ the set of paths from the root of the heap to the leaves where the length exceeds $(c+1) \log n$.
-Note that for any path $p$ of length $|p|$ the probability that it will be chosen as random path is $2^{-|p|}$.
-Therefore we get:
+এখানে $P$ দ্বারা হিপের রুট থেকে লিফ পর্যন্ত সেই পাথগুলোর সেট চিহ্নিত করি যাদের দৈর্ঘ্য $(c+1) \log n$ অতিক্রম করে।
+লক্ষ্য করুন যে দৈর্ঘ্য $|p|$ বিশিষ্ট যেকোনো পাথ $p$-এর র‍্যান্ডম পাথ হিসেবে নির্বাচিত হওয়ার সম্ভাব্যতা $2^{-|p|}$।
+তাই পাই:
 
 $${\cal P}(h(T) > (c+1) \log n) = \sum_{p \in P} 2^{-|p|} < \sum_{p \in P} 2^{-(c+1) \log n} = |P| n^{-(c+1)} \le n^{-c}$$
 
-### Complexity of the algorithm
+### অ্যালগরিদমের কমপ্লেক্সিটি
 
-Thus the algorithm `merge`, and hence all other operations expressed with it, can be performed in $O(\log n)$ on average.
+তাই `merge` অ্যালগরিদম, এবং এর সাথে প্রকাশিত অন্য সব অপারেশন, গড়ে $O(\log n)$-এ সম্পাদন করা যায়।
 
-Moreover for any positive constant $\epsilon$ there is a positive constant $c$, such that the probability that the operation will require more than $c \log n$ steps is less than $n^{-\epsilon}$ (in some sense this describes the worst case behavior of the algorithm).
+তদুপরি যেকোনো ধনাত্মক ধ্রুবক $\epsilon$-এর জন্য একটি ধনাত্মক ধ্রুবক $c$ আছে, যেন অপারেশনের $c \log n$-এর বেশি ধাপ প্রয়োজন হওয়ার সম্ভাব্যতা $n^{-\epsilon}$-এর চেয়ে কম (কিছু অর্থে এটি অ্যালগরিদমের সবচেয়ে খারাপ ক্ষেত্রের আচরণ বর্ণনা করে)।

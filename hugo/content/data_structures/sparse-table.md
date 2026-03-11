@@ -1,47 +1,47 @@
 ---
-title: "Sparse Table"
+title: "স্পার্স টেবিল"
 tags: 
 weight: 20
 ---
-# Sparse Table
+# স্পার্স টেবিল
 
-Sparse Table is a data structure, that allows answering range queries.
-It can answer most range queries in $O(\log n)$, but its true power is answering range minimum queries (or equivalent range maximum queries).
-For those queries it can compute the answer in $O(1)$ time.
+স্পার্স টেবিল হলো একটি ডেটা স্ট্রাকচার, যা রেঞ্জ কোয়েরির উত্তর দিতে পারে।
+এটি বেশিরভাগ রেঞ্জ কোয়েরি $O(\log n)$-এ উত্তর দিতে পারে, কিন্তু এর প্রকৃত শক্তি হলো রেঞ্জ মিনিমাম কোয়েরি (বা সমতুল্য রেঞ্জ ম্যাক্সিমাম কোয়েরি) উত্তর দেওয়া।
+সেই কোয়েরিগুলোর জন্য এটি $O(1)$ সময়ে উত্তর গণনা করতে পারে।
 
-The only drawback of this data structure is, that it can only be used on _immutable_ arrays.
-This means, that the array cannot be changed between two queries.
-If any element in the array changes, the complete data structure has to be recomputed.
+এই ডেটা স্ট্রাকচারের একমাত্র অসুবিধা হলো, এটি শুধু _অপরিবর্তনীয়_ অ্যারেতে ব্যবহার করা যায়।
+অর্থাৎ, দুটি কোয়েরির মধ্যে অ্যারে পরিবর্তন করা যাবে না।
+যদি অ্যারের কোনো উপাদান পরিবর্তন হয়, সম্পূর্ণ ডেটা স্ট্রাকচার পুনরায় গণনা করতে হবে।
 
-## Intuition
+## অন্তর্দৃষ্টি
 
-Any non-negative number can be uniquely represented as a sum of decreasing powers of two.
-This is just a variant of the binary representation of a number.
-E.g. $13 = (1101)_2 = 8 + 4 + 1$.
-For a number $x$ there can be at most $\lceil \log_2 x \rceil$ summands.
+যেকোনো অ-ঋণাত্মক সংখ্যা দুই-এর ক্রমহ্রাসমান ঘাতের যোগফল হিসেবে অনন্যভাবে উপস্থাপন করা যায়।
+এটি মূলত একটি সংখ্যার বাইনারি উপস্থাপনার একটি রূপ।
+যেমন $13 = (1101)_2 = 8 + 4 + 1$।
+একটি সংখ্যা $x$-এর জন্য সর্বোচ্চ $\lceil \log_2 x \rceil$ পদ থাকতে পারে।
 
-By the same reasoning any interval can be uniquely represented as a union of intervals with lengths that are decreasing powers of two.
-E.g. $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, where the complete interval has length 13, and the individual intervals have the lengths 8, 4 and 1 respectively.
-And also here the union consists of at most $\lceil \log_2(\text{length of interval}) \rceil$ many intervals.
+একই যুক্তিতে যেকোনো ব্যবধান দুই-এর ক্রমহ্রাসমান ঘাত দৈর্ঘ্যের ব্যবধানের ইউনিয়ন হিসেবে অনন্যভাবে উপস্থাপন করা যায়।
+যেমন $[2, 14] = [2, 9] \cup [10, 13] \cup [14, 14]$, যেখানে সম্পূর্ণ ব্যবধানের দৈর্ঘ্য ১৩, এবং পৃথক ব্যবধানের দৈর্ঘ্য যথাক্রমে ৮, ৪ এবং ১।
+এবং এখানেও ইউনিয়নে সর্বোচ্চ $\lceil \log_2(\text{ব্যবধানের দৈর্ঘ্য}) \rceil$ ব্যবধান থাকে।
 
-The main idea behind Sparse Tables is to precompute all answers for range queries with power of two length.
-Afterwards a different range query can be answered by splitting the range into ranges with power of two lengths, looking up the precomputed answers, and combining them to receive a complete answer.
+স্পার্স টেবিলের মূল ধারণা হলো দুই-এর ঘাত দৈর্ঘ্যের সব রেঞ্জ কোয়েরির উত্তর আগে থেকে গণনা করে রাখা।
+পরে একটি ভিন্ন রেঞ্জ কোয়েরি উত্তর দেওয়া যায় রেঞ্জটিকে দুই-এর ঘাত দৈর্ঘ্যের রেঞ্জে ভাগ করে, আগে থেকে গণনা করা উত্তর দেখে, এবং সেগুলো সংযুক্ত করে সম্পূর্ণ উত্তর পেতে।
 
-## Precomputation
+## প্রি-কম্পিউটেশন
 
-We will use a 2-dimensional array for storing the answers to the precomputed queries.
-$\text{st}[i][j]$ will store the answer for the range $[j, j + 2^i - 1]$ of length $2^i$.
-The size of the 2-dimensional array will be $(K + 1) \times \text{MAXN}$, where $\text{MAXN}$ is the biggest possible array length.
-$\text{K}$ has to satisfy $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor$, because $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ is the biggest power of two range, that we have to support.
-For arrays with reasonable length ($\le 10^7$ elements), $K = 25$ is a good value.
+আমরা আগে থেকে গণনা করা কোয়েরির উত্তর সংরক্ষণ করতে একটি ২-মাত্রিক অ্যারে ব্যবহার করব।
+$\text{st}[i][j]$ দৈর্ঘ্য $2^i$-এর রেঞ্জ $[j, j + 2^i - 1]$-এর উত্তর সংরক্ষণ করবে।
+২-মাত্রিক অ্যারের আকার হবে $(K + 1) \times \text{MAXN}$, যেখানে $\text{MAXN}$ সবচেয়ে বড় সম্ভাব্য অ্যারে দৈর্ঘ্য।
+$\text{K}$-কে $\text{K} \ge \lfloor \log_2 \text{MAXN} \rfloor$ পূরণ করতে হবে, কারণ $2^{\lfloor \log_2 \text{MAXN} \rfloor}$ হলো আমাদের সমর্থন করা দরকার এমন সবচেয়ে বড় দুই-এর ঘাত রেঞ্জ।
+যুক্তিসঙ্গত দৈর্ঘ্যের ($\le 10^7$ উপাদান) অ্যারের জন্য, $K = 25$ একটি ভালো মান।
 
-The $\text{MAXN}$ dimension is second to allow (cache friendly) consecutive memory accesses.
+$\text{MAXN}$ মাত্রাটি দ্বিতীয় যেন (ক্যাশে-ফ্রেন্ডলি) পরপর মেমরি অ্যাক্সেস হয়।
 
 ```cpp
 int st[K + 1][MAXN];
 ```
 
-Because the range $[j, j + 2^i - 1]$ of length $2^i$ splits nicely into the ranges $[j, j + 2^{i - 1} - 1]$ and $[j + 2^{i - 1}, j + 2^i - 1]$, both of length $2^{i - 1}$, we can generate the table efficiently using dynamic programming:
+যেহেতু দৈর্ঘ্য $2^i$-এর রেঞ্জ $[j, j + 2^i - 1]$ সুন্দরভাবে $[j, j + 2^{i - 1} - 1]$ এবং $[j + 2^{i - 1}, j + 2^i - 1]$ রেঞ্জে ভাগ হয়, দুটোই দৈর্ঘ্য $2^{i - 1}$, আমরা ডায়নামিক প্রোগ্রামিং ব্যবহার করে দক্ষতার সাথে টেবিল তৈরি করতে পারি:
 
 ```cpp
 std::copy(array.begin(), array.end(), st[0]);
@@ -51,16 +51,16 @@ for (int i = 1; i <= K; i++)
         st[i][j] = f(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
 ```
 
-The function $f$ will depend on the type of query.
-For range sum queries it will compute the sum, for range minimum queries it will compute the minimum.
+$f$ ফাংশন কোয়েরির ধরনের উপর নির্ভর করবে।
+রেঞ্জ সাম কোয়েরির জন্য এটি যোগফল গণনা করবে, রেঞ্জ মিনিমাম কোয়েরির জন্য সর্বনিম্ন গণনা করবে।
 
-The time complexity of the precomputation is $O(\text{N} \log \text{N})$.
+প্রি-কম্পিউটেশনের টাইম কমপ্লেক্সিটি $O(\text{N} \log \text{N})$।
 
-## Range Sum Queries
+## রেঞ্জ সাম কোয়েরি
 
-For this type of queries, we want to find the sum of all values in a range.
-Therefore the natural definition of the function $f$ is $f(x, y) = x + y$.
-We can construct the data structure with:
+এই ধরনের কোয়েরির জন্য, আমরা একটি রেঞ্জের সব মানের যোগফল খুঁজতে চাই।
+তাই $f$ ফাংশনের স্বাভাবিক সংজ্ঞা হলো $f(x, y) = x + y$।
+আমরা ডেটা স্ট্রাকচারটি এভাবে তৈরি করতে পারি:
 
 ```cpp
 long long st[K + 1][MAXN];
@@ -72,8 +72,8 @@ for (int i = 1; i <= K; i++)
         st[i][j] = st[i - 1][j] + st[i - 1][j + (1 << (i - 1))];
 ```
 
-To answer the sum query for the range $[L, R]$, we iterate over all powers of two, starting from the biggest one.
-As soon as a power of two $2^i$ is smaller or equal to the length of the range ($= R - L + 1$), we process the first part of range $[L, L + 2^i - 1]$, and continue with the remaining range $[L + 2^i, R]$.
+$[L, R]$ রেঞ্জের সাম কোয়েরি উত্তর দিতে, আমরা সব দুই-এর ঘাতে ইটারেট করি, সবচেয়ে বড় থেকে শুরু করে।
+যখনই একটি দুই-এর ঘাত $2^i$ রেঞ্জের দৈর্ঘ্যের ($= R - L + 1$) চেয়ে ছোট বা সমান, আমরা রেঞ্জের $[L, L + 2^i - 1]$ প্রথম অংশ প্রক্রিয়া করি এবং বাকি রেঞ্জ $[L + 2^i, R]$ নিয়ে চলতে থাকি।
 
 ```cpp
 long long sum = 0;
@@ -85,21 +85,21 @@ for (int i = K; i >= 0; i--) {
 }
 ```
 
-Time complexity for a Range Sum Query is $O(K) = O(\log \text{MAXN})$.
+রেঞ্জ সাম কোয়েরির টাইম কমপ্লেক্সিটি $O(K) = O(\log \text{MAXN})$।
 
-## Range Minimum Queries (RMQ)
+## রেঞ্জ মিনিমাম কোয়েরি (RMQ)
 
-These are the queries where the Sparse Table shines.
-When computing the minimum of a range, it doesn't matter if we process a value in the range once or twice.
-Therefore instead of splitting a range into multiple ranges, we can also split the range into only two overlapping ranges with power of two length.
-E.g. we can split the range $[1, 6]$ into the ranges $[1, 4]$ and $[3, 6]$.
-The range minimum of $[1, 6]$ is clearly the same as the minimum of the range minimum of $[1, 4]$ and the range minimum of $[3, 6]$.
-So we can compute the minimum of the range $[L, R]$ with:
+এই কোয়েরিগুলোতেই স্পার্স টেবিল সবচেয়ে ভালো কাজ করে।
+রেঞ্জের সর্বনিম্ন গণনা করার সময়, রেঞ্জের কোনো মান একবার বা দুইবার প্রক্রিয়া করলে কোনো পার্থক্য নেই।
+তাই রেঞ্জকে একাধিক রেঞ্জে ভাগ করার বদলে, আমরা রেঞ্জটিকে শুধু দুই-এর ঘাত দৈর্ঘ্যের দুটি ওভারল্যাপিং রেঞ্জে ভাগ করতে পারি।
+যেমন, $[1, 6]$ রেঞ্জটিকে $[1, 4]$ এবং $[3, 6]$ রেঞ্জে ভাগ করা যায়।
+$[1, 6]$-এর রেঞ্জ মিনিমাম স্পষ্টতই $[1, 4]$-এর রেঞ্জ মিনিমাম এবং $[3, 6]$-এর রেঞ্জ মিনিমামের সর্বনিম্ন।
+তাই $[L, R]$ রেঞ্জের সর্বনিম্ন গণনা করা যায়:
 
 $$\min(\text{st}[i][L], \text{st}[i][R - 2^i + 1]) \quad \text{ where } i = \log_2(R - L + 1)$$
 
-This requires that we are able to compute $\log_2(R - L + 1)$ fast.
-You can accomplish that by precomputing all logarithms:
+এর জন্য আমাদের $\log_2(R - L + 1)$ দ্রুত গণনা করতে পারতে হবে।
+আপনি সব লগারিদম আগে থেকে গণনা করে রেখে এটি করতে পারেন:
 
 ```cpp
 int lg[MAXN+1];
@@ -107,7 +107,7 @@ lg[1] = 0;
 for (int i = 2; i <= MAXN; i++)
     lg[i] = lg[i/2] + 1;
 ```
-Alternatively, log can be computed on the fly in constant space and time:
+বিকল্পভাবে, ধ্রুব স্থান ও সময়ে log তাৎক্ষণিকভাবে গণনা করা যায়:
 ```c++
 // C++20
 #include <bit>
@@ -120,9 +120,9 @@ int log2_floor(unsigned long long i) {
     return i ? __builtin_clzll(1) - __builtin_clzll(i) : -1;
 }
 ```
-[This benchmark](https://quick-bench.com/q/Zghbdj_TEkmw4XG2nqOpD3tsJ8U) shows that using `lg` array is slower because of cache misses.
+[এই বেঞ্চমার্ক](https://quick-bench.com/q/Zghbdj_TEkmw4XG2nqOpD3tsJ8U) দেখায় যে `lg` অ্যারে ব্যবহার ক্যাশে মিসের কারণে ধীর।
 
-Afterwards we need to precompute the Sparse Table structure. This time we define $f$ with $f(x, y) = \min(x, y)$.
+এরপর আমাদের স্পার্স টেবিল স্ট্রাকচার আগে থেকে গণনা করতে হবে। এবার আমরা $f$-কে $f(x, y) = \min(x, y)$ দিয়ে সংজ্ঞায়িত করি।
 
 ```cpp
 int st[K + 1][MAXN];
@@ -134,25 +134,25 @@ for (int i = 1; i <= K; i++)
         st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
 ```
 
-And the minimum of a range $[L, R]$ can be computed with:
+এবং $[L, R]$ রেঞ্জের সর্বনিম্ন গণনা করা যায়:
 
 ```cpp
 int i = lg[R - L + 1];
 int minimum = min(st[i][L], st[i][R - (1 << i) + 1]);
 ```
 
-Time complexity for a Range Minimum Query is $O(1)$.
+রেঞ্জ মিনিমাম কোয়েরির টাইম কমপ্লেক্সিটি $O(1)$।
 
-## Similar data structures supporting more types of queries
+## আরও ধরনের কোয়েরি সমর্থনকারী অনুরূপ ডেটা স্ট্রাকচার
 
-One of the main weakness of the $O(1)$ approach discussed in the previous section is, that this approach only supports queries of [idempotent functions](https://en.wikipedia.org/wiki/Idempotence).
-I.e. it works great for range minimum queries, but it is not possible to answer range sum queries using this approach.
+আগের সেকশনে আলোচিত $O(1)$ পদ্ধতির একটি প্রধান দুর্বলতা হলো, এই পদ্ধতি শুধু [ইডেমপোটেন্ট ফাংশন](https://en.wikipedia.org/wiki/Idempotence)-এর কোয়েরি সমর্থন করে।
+অর্থাৎ এটি রেঞ্জ মিনিমাম কোয়েরির জন্য দারুণ কাজ করে, কিন্তু এই পদ্ধতি দিয়ে রেঞ্জ সাম কোয়েরি উত্তর দেওয়া সম্ভব নয়।
 
-There are similar data structures that can handle any type of associative functions and answer range queries in $O(1)$.
-One of them is called [Disjoint Sparse Table](https://discuss.codechef.com/questions/117696/tutorial-disjoint-sparse-table).
-Another one would be the [Sqrt Tree](sqrt-tree.md).
+অনুরূপ ডেটা স্ট্রাকচার আছে যা যেকোনো ধরনের অ্যাসোসিয়েটিভ ফাংশন পরিচালনা করতে পারে এবং $O(1)$-এ রেঞ্জ কোয়েরি উত্তর দিতে পারে।
+একটির নাম [ডিসজয়েন্ট স্পার্স টেবিল](https://discuss.codechef.com/questions/117696/tutorial-disjoint-sparse-table)।
+আরেকটি হলো [স্কোয়ার্ট ট্রি](sqrt-tree.md)।
 
-## Practice Problems
+## অনুশীলন সমস্যা
 
 * [SPOJ - RMQSQ](http://www.spoj.com/problems/RMQSQ/)
 * [SPOJ - THRBL](http://www.spoj.com/problems/THRBL/)

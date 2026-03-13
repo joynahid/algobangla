@@ -30,7 +30,7 @@ defaultContentLanguageInSubdir = true
   BookCollapseSection = true
   BookFavicon = "favicon.svg"
   BookComments = false
-  BookPortableLinks = false
+  BookPortableLinks = true
   BookMenuBundle = false
 
 [markup]

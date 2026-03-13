@@ -5,4 +5,4 @@ bookCollapseSection: true
 ---
 # Algebra
 
-Algorithms related to algebraic and number-theoretic topics.
+অ্যালজেব্রা এবং নাম্বার থিওরি সম্পর্কিত অ্যালগরিদম।

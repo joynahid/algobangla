@@ -4,7 +4,7 @@ tags:
   - Translated
 ---
 
-	
+
 
 # Ternary Search
 

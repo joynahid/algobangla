@@ -128,13 +128,11 @@ $$
 \begin{pmatrix}
 F_n \\
 F_{n-1}
-\end{pmatrix}
-=
+\end{pmatrix} =
 \begin{pmatrix}
 F_n + F_{n-1}  \\
 F_{n}
-\end{pmatrix}
-=
+\end{pmatrix} =
 \begin{pmatrix}
 F_{n+1}  \\
 F_{n}
@@ -151,8 +149,7 @@ $$
 \begin{pmatrix}
 F_1 \\
 F_0
-\end{pmatrix}
-=
+\end{pmatrix} =
 \begin{pmatrix}
 F_{n+1}  \\
 F_{n}
@@ -224,13 +221,11 @@ $$
 \begin{pmatrix}
 F_{2k+1} & F_{2k}\\
 F_{2k} & F_{2k-1}
-\end{pmatrix}
-=
+\end{pmatrix} =
 \begin{pmatrix}
 1 & 1\\
 1 & 0
-\end{pmatrix}^{2k}
-=
+\end{pmatrix}^{2k} =
 \begin{pmatrix}
 F_{k+1} & F_{k}\\
 F_{k} & F_{k-1}

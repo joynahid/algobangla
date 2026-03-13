@@ -19,10 +19,10 @@ In this section, we focus more on the definitions and "intuitive" properties of 
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	**Univariate polynomial** is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
+**Univariate polynomial** is an expression of form $A(x) = a_0 + a_1 x + \dots + a_n x^n$.
 
 The values $a_0, \dots, a_n$ are polynomial coefficients, typically taken from some set of numbers or number-like structures. In this article, we assume that the coefficients are taken from some [field](https://en.wikipedia.org/wiki/Field_(mathematics)), meaning that operations of addition, subtraction, multiplication and division are well-defined for them (except for division by $0$) and they generally behave in a similar way to real numbers.
-	
+
 Typical example of such field is the field of remainders modulo prime number $p$.
 
 For simplicity we will drop the term _univariate_, as this is the only kind of polynomials we consider in this article. We will also write $A$ instead of $A(x)$ wherever possible, which will be understandable from the context. It is assumed that either $a_n \neq 0$ or $A(x)=0$.
@@ -30,20 +30,20 @@ For simplicity we will drop the term _univariate_, as this is the only kind of p
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	The **product** of two polynomials is defined by expanding it as an arithmetic expression:
+The **product** of two polynomials is defined by expanding it as an arithmetic expression:
 
-	$$
-	A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
-	$$
+$$
+A(x) B(x) = \left(\sum\limits_{i=0}^n a_i x^i \right)\left(\sum\limits_{j=0}^m b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{n+m} c_k x^k = C(x).
+$$
 
-	The sequence $c_0, c_1, \dots, c_{n+m}$ of the coefficients of $C(x)$ is called the **convolution** of $a_0, \dots, a_n$ and $b_0, \dots, b_m$.
+The sequence $c_0, c_1, \dots, c_{n+m}$ of the coefficients of $C(x)$ is called the **convolution** of $a_0, \dots, a_n$ and $b_0, \dots, b_m$.
 
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	The **degree** of a polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$.
-	
-	For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$.
+The **degree** of a polynomial $A$ with $a_n \neq 0$ is defined as $\deg A = n$.
+
+For consistency, degree of $A(x) = 0$ is defined as $\deg A = -\infty$.
 
 In this notion, $\deg AB = \deg A + \deg B$ for any polynomials $A$ and $B$.
 
@@ -52,30 +52,30 @@ Convolutions are the basis of solving many enumerative problems.
 {{< hint info >}}
 **Example**
 {{< /hint >}}
-	You have $n$ objects of the first kind and $m$ objects of the second kind.
+You have $n$ objects of the first kind and $m$ objects of the second kind.
 
-	Objects of first kind are valued $a_1, \dots, a_n$, and objects of the second kind are valued $b_1, \dots, b_m$.
+Objects of first kind are valued $a_1, \dots, a_n$, and objects of the second kind are valued $b_1, \dots, b_m$.
 
-	You pick a single object of the first kind and a single object of the second kind. How many ways are there to get the total value $k$?
+You pick a single object of the first kind and a single object of the second kind. How many ways are there to get the total value $k$?
 
 {{< details "Solution" >}}
 {{< /details >}}
-	Consider the product $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$. If you expand it, each monomial will correspond to the pair $(a_i, b_j)$ and contribute to the coefficient near $x^{a_i+b_j}$. In other words, the answer is the coefficient near $x^k$ in the product.
+Consider the product $(x^{a_1} + \dots + x^{a_n})(x^{b_1} + \dots + x^{b_m})$. If you expand it, each monomial will correspond to the pair $(a_i, b_j)$ and contribute to the coefficient near $x^{a_i+b_j}$. In other words, the answer is the coefficient near $x^k$ in the product.
 
 {{< hint info >}}
 **Example**
 {{< /hint >}}
-	You throw a $6$-sided die $n$ times and sum up the results from all throws. What is the probability of getting sum of $k$?
+You throw a $6$-sided die $n$ times and sum up the results from all throws. What is the probability of getting sum of $k$?
 
 {{< details "Solution" >}}
 {{< /details >}}
-	The answer is the number of outcomes having the sum $k$, divided by the total number of outcomes, which is $6^n$.
+The answer is the number of outcomes having the sum $k$, divided by the total number of outcomes, which is $6^n$.
 
-	What is the number of outcomes having the sum $k$? For $n=1$, it may be represented by a polynomial $A(x) = x^1+x^2+\dots+x^6$.
+What is the number of outcomes having the sum $k$? For $n=1$, it may be represented by a polynomial $A(x) = x^1+x^2+\dots+x^6$.
 
-	For $n=2$, using the same approach as in the example above, we conclude that it is represented by the polynomial $(x^1+x^2+\dots+x^6)^2$.
+For $n=2$, using the same approach as in the example above, we conclude that it is represented by the polynomial $(x^1+x^2+\dots+x^6)^2$.
 
-	That being said, the answer to the problem is the $k$-th coefficient of $(x^1+x^2+\dots+x^6)^n$, divided by $6^n$.
+That being said, the answer to the problem is the $k$-th coefficient of $(x^1+x^2+\dots+x^6)^n$, divided by $6^n$.
 
 The coefficient near $x^k$ in the polynomial $A(x)$ is denoted shortly as $[x^k]A$.
 
@@ -84,27 +84,27 @@ The coefficient near $x^k$ in the polynomial $A(x)$ is denoted shortly as $[x^k]
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	A **formal power series** is an infinite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
+A **formal power series** is an infinite sum $A(x) = a_0 + a_1 x + a_2 x^2 + \dots$, considered regardless of its convergence properties.
 
 In other words, when we consider e.g. a sum $1+\frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\dots=2$, we imply that it _converges_ to $2$ when the number of summands approach infinity. However, formal series are only considered in terms of sequences that make them.
 
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arithmetic expression:
+The **product** of formal power series $A(x)$ and $B(x)$, is also defined by expanding it as an arithmetic expression:
 
 
-	$$
-	A(x) B(x) = \left(\sum\limits_{i=0}^\infty a_i x^i \right)\left(\sum\limits_{j=0}^\infty b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{\infty} c_k x^k = C(x),
-	$$
+$$
+A(x) B(x) = \left(\sum\limits_{i=0}^\infty a_i x^i \right)\left(\sum\limits_{j=0}^\infty b_j x^j\right) = \sum\limits_{i,j} a_i b_j x^{i+j} = \sum\limits_{k=0}^{\infty} c_k x^k = C(x),
+$$
 
-	where the coefficients $c_0, c_1, \dots$ are define as finite sums
+where the coefficients $c_0, c_1, \dots$ are define as finite sums
 
-	$$
-	c_k = \sum\limits_{i=0}^k a_i b_{k-i}.
-	$$
+$$
+c_k = \sum\limits_{i=0}^k a_i b_{k-i}.
+$$
 
-	The sequence $c_0, c_1, \dots$ is also called a **convolution** of $a_0, a_1, \dots$ and $b_0, b_1, \dots$, generalizing the concept to infinite sequences.
+The sequence $c_0, c_1, \dots$ is also called a **convolution** of $a_0, a_1, \dots$ and $b_0, b_1, \dots$, generalizing the concept to infinite sequences.
 
 Thus, polynomials may be considered formal power series, but with finite number of coefficients.
 
@@ -115,7 +115,7 @@ However, we will very briefly mention that if $A(x)$ and $B(x)$ are generating f
 {{< hint info >}}
 **Example**
 {{< /hint >}}
-	Let $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ enumerate packs of stones, each stone colored in one of $2$ colors (so, there are $2^i$ such packs of size $i$) and $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ enumerate packs of stones, each stone colored in one of $3$ colors. Then $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ would enumerate objects that may be described as "two packs of stones, first pack only of stones of type $A$, second pack only of stones of type $B$, with total number of stones being $k$" for $c_k$.
+Let $A(x) = \sum\limits_{i=0}^\infty 2^i x^i$ enumerate packs of stones, each stone colored in one of $2$ colors (so, there are $2^i$ such packs of size $i$) and $B(x) = \sum\limits_{j=0}^{\infty} 3^j x^j$ enumerate packs of stones, each stone colored in one of $3$ colors. Then $C(x) = A(x) B(x) = \sum\limits_{k=0}^\infty c_k x^k$ would enumerate objects that may be described as "two packs of stones, first pack only of stones of type $A$, second pack only of stones of type $B$, with total number of stones being $k$" for $c_k$.
 
 In a similar way, there is an intuitive meaning to some other functions over formal power series.
 
@@ -126,25 +126,25 @@ Similar to integers, it is possible to define long division on polynomials.
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	For any polynomials $A$ and $B \neq 0$, one may represent $A$ as
+For any polynomials $A$ and $B \neq 0$, one may represent $A$ as
 
-	$$
-	A = D \cdot B + R,~ \deg R < \deg B,
-	$$
+$$
+A = D \cdot B + R,~ \deg R < \deg B,
+$$
 
-	where $R$ is called the **remainder** of $A$ modulo $B$ and $D$ is called the **quotient**.
+where $R$ is called the **remainder** of $A$ modulo $B$ and $D$ is called the **quotient**.
 
 Denoting $\deg A = n$ and $\deg B = m$, naive way to do it is to use long division, during which you multiply $B$ by the monomial $\frac{a_n}{b_m} x^{n - m}$ and subtract it from $A$, until the degree of $A$ is smaller than that of $B$. What remains of $A$ in the end will be the remainder (hence the name), and the polynomials with which you multiplied $B$ in the process, summed together, form the quotient.
 
 {{< hint info >}}
 **Definition**
 {{< /hint >}}
-	If $A$ and $B$ have the same remainder modulo $C$, they're said to be **equivalent** modulo $C$, which is denoted as
-	
-	$$
-	A \equiv B \pmod{C}.
-	$$
-	
+If $A$ and $B$ have the same remainder modulo $C$, they're said to be **equivalent** modulo $C$, which is denoted as
+
+$$
+A \equiv B \pmod{C}.
+$$
+
 Polynomial long division is useful because of its many important properties:
 
 - $A$ is a multiple of $B$ if and only if $A \equiv 0 \pmod B$.
@@ -450,7 +450,7 @@ Well, we already have an [article](euclid-algorithm.md) about it. For an arbitra
 ```cpp
 template<typename T>
 T gcd(const T &a, const T &b) {
-	return b == T(0) ? a : gcd(b, a % b);
+return b == T(0) ? a : gcd(b, a % b);
 }
 ```
 
@@ -480,18 +480,18 @@ Also these properties allow us to calculate the resultant alongside the Euclidea
 ```cpp
 template<typename T>
 T resultant(poly<T> a, poly<T> b) {
-	if(b.is_zero()) {
-		return 0;
-	} else if(b.deg() == 0) {
-		return bpow(b.lead(), a.deg());
-	} else {
-		int pw = a.deg();
-		a %= b;
-		pw -= a.deg();
-		base mul = bpow(b.lead(), pw) * base((b.deg() & a.deg() & 1) ? -1 : 1);
-		base ans = resultant(b, a);
-		return ans * mul;
-	}
+if(b.is_zero()) {
+	return 0;
+} else if(b.deg() == 0) {
+	return bpow(b.lead(), a.deg());
+} else {
+	int pw = a.deg();
+	a %= b;
+	pw -= a.deg();
+	base mul = bpow(b.lead(), pw) * base((b.deg() & a.deg() & 1) ? -1 : 1);
+	base ans = resultant(b, a);
+	return ans * mul;
+}
 }
 ```
 

@@ -3,61 +3,61 @@ search:
   exclude: true
 ---
 
-# কন্ট্রিবিউশন গাইড / How to Contribute
+# How to Contribute
 
-AlgoBangla-তে কন্ট্রিবিউট করতে চাওয়ার জন্য ধন্যবাদ! টাইপো ঠিক করা থেকে শুরু করে নতুন আর্টিকেল লেখা — সবধরনের অবদান স্বাগত। শুধু একটি [GitHub অ্যাকাউন্ট](https://github.com) দরকার।
+Thanks for your interest in contributing to algobangla! Whether you want to fix a typo, improve a translation, or write a new article — all contributions are welcome. You just need a [GitHub account](https://github.com).
 
-📂 **রিপোজিটরি:** [github.com/wirestaq/algobangla](https://github.com/wirestaq/algobangla)
-🌐 **লাইভ সাইট:** [algobangla.com](https://algobangla.com)
-
----
-
-## দ্রুত শুরু / Quick Start
-
-1. যে আর্টিকেলটি উন্নত করতে চান সেটি খুঁজুন — [algobangla.com](https://algobangla.com)-এ যান
-2. আর্টিকেলের নিচে **"Edit this page on GitHub"** লিংকে ক্লিক করুন
-3. GitHub-এ ফাইলটি এডিট করুন (প্রথমবার হলে fork করতে বলবে)
-4. পরিবর্তনগুলো commit করুন এবং **Pull Request** তৈরি করুন
-5. রিভিউ হবে এবং মার্জ করা হবে
+**Repository:** [github.com/wirestaq/algobangla](https://github.com/wirestaq/algobangla)
+**Live site:** [algobangla.com](https://algobangla.com)
 
 ---
 
-## কোথায় কন্ট্রিবিউট করবেন? / Where to Contribute
+## Quick Start
 
-### বাংলা অনুবাদ উন্নত করা (সবচেয়ে প্রয়োজন)
-
-অনুবাদগুলো AI-সহায়তায় করা হয়েছে — নির্ভুল, কিন্তু সবসময় স্বাভাবিক নয়। **বাংলা মাতৃভাষী হিসেবে আপনি এগুলো অনেক ভালো করতে পারেন।**
-
-- বাংলা কন্টেন্ট আছে: `hugo/content/bn/` ফোল্ডারে
-- প্রতিটি আর্টিকেল একটি `.md` ফাইল
-- কোড ব্লক ইংরেজিতেই থাকবে (C++ কোড ইউনিভার্সাল)
-- গাণিতিক পরিভাষায় ছাত্ররা আসলে যা ব্যবহার করে, সেটা অনুসরণ করুন
-
-### নতুন আর্টিকেল যোগ করা
-
-নতুন অ্যালগরিদম আর্টিকেল যোগ করতে:
-
-1. `hugo/content/en/[section]/` ফোল্ডারে ইংরেজি ফাইল তৈরি করুন
-2. `hugo/content/bn/[section]/` ফোল্ডারে বাংলা ফাইল তৈরি করুন (একই ফাইলনাম)
-3. উভয় ফাইলে front matter যোগ করুন (নিচে দেখুন)
-
-### সমস্যা রিপোর্ট করা
-
-ভুল পেলে একটি [Issue](https://github.com/wirestaq/algobangla/issues) খুলুন:
-- ভাঙা ফর্মুলা বা রেন্ডারিং সমস্যা
-- ভুল তথ্য বা কোড
-- মৃত লিংক
-- টাইপো
+1. Find the article you want to improve on [algobangla.com](https://algobangla.com)
+2. Click the **"Edit this page on GitHub"** link at the bottom of the article
+3. Edit the file on GitHub (you'll be asked to fork if it's your first time)
+4. Commit your changes and create a **Pull Request**
+5. It will be reviewed and merged
 
 ---
 
-## আর্টিকেল ফরম্যাট / Article Format
+## Where to Contribute
 
-আর্টিকেলগুলো [Markdown](https://daringfireball.net/projects/markdown) ফরম্যাটে লেখা, Hugo দিয়ে রেন্ডার করা হয়।
+### Improve Bangla Translations (Most Needed)
+
+The translations are AI-assisted — accurate but not always natural. **Native speakers can make them significantly better.**
+
+- Bangla content lives in: `hugo/content/bn/`
+- Each article is a `.md` file
+- Code blocks stay in English (C++ code is universal)
+- Use the Bangla terminology that students actually use in practice
+
+### Write New Articles
+
+To add a new algorithm article:
+
+1. Create an English file in `hugo/content/en/[section]/`
+2. Create a Bangla file in `hugo/content/bn/[section]/` (same filename)
+3. Add front matter to both files (see below)
+
+### Report Issues
+
+Found a problem? Open an [Issue](https://github.com/wirestaq/algobangla/issues):
+- Broken formulas or rendering problems
+- Incorrect information or code
+- Dead links
+- Typos
+
+---
+
+## Article Format
+
+Articles are written in [Markdown](https://daringfireball.net/projects/markdown) and rendered with Hugo.
 
 ### Front Matter
 
-প্রতিটি আর্টিকেলের শুরুতে:
+Every article starts with:
 
 ```yaml
 ---
@@ -68,7 +68,7 @@ tags:
 ---
 ```
 
-বাংলা আর্টিকেলের জন্য:
+For Bangla articles:
 
 ```yaml
 ---
@@ -77,23 +77,23 @@ weight: 10
 ---
 ```
 
-### গণিত / Math
+### Math
 
-[MathJax](https://www.mathjax.org/) ব্যবহার করা হয়। LaTeX সিনট্যাক্স:
+We use [MathJax](https://www.mathjax.org/) with LaTeX syntax:
 
-- ইনলাইন: `$a^n$` → $a^n$
-- ব্লক:
+- Inline: `$a^n$`
+- Block:
   ```
   $$
   d[v] = \min(d[v],\; d[u] + w(u, v))
   $$
   ```
 
-**গুরুত্বপূর্ণ:** `$$` ব্লকের আগে ও পরে একটি ফাঁকা লাইন রাখুন।
+**Important:** Leave an empty line before and after `$$` blocks.
 
-### কোড ব্লক
+### Code Blocks
 
-C++ কোড ব্লক:
+C++ code blocks:
 
 ````markdown
 ```cpp
@@ -103,9 +103,9 @@ int gcd(int a, int b) {
 ```
 ````
 
-### প্র্যাকটিস প্রবলেম
+### Practice Problems
 
-আর্টিকেলের শেষে প্র্যাকটিস প্রবলেম যোগ করুন:
+Add practice problems at the end of articles, ordered from easy to hard:
 
 ```markdown
 ## Practice Problems
@@ -114,17 +114,15 @@ int gcd(int a, int b) {
 - [Codeforces - Dijkstra?](https://codeforces.com/problemset/problem/20/C)
 ```
 
-প্রবলেমগুলো সহজ থেকে কঠিন ক্রমে সাজান।
-
 ---
 
-## বাংলা লেখার নিয়মাবলি / Bangla Writing Guidelines
+## Bangla Writing Guidelines
 
-AlgoBangla-তে বাংলা লেখার সময় এই নিয়মগুলো অনুসরণ করুন:
+When writing or editing Bangla content, follow these conventions:
 
-### পরিভাষা
+### Terminology
 
-| ইংরেজি | বাংলা (ব্যবহার করুন) | পরিহার করুন |
+| English | Bangla (preferred) | Avoid |
 |---|---|---|
 | Algorithm | অ্যালগরিদম | এলগরিদম |
 | Vertex / Node | ভার্টেক্স / নোড | শীর্ষবিন্দু |
@@ -136,70 +134,70 @@ AlgoBangla-তে বাংলা লেখার সময় এই নিয�
 | Queue | কিউ | — |
 | Stack | স্ট্যাক | — |
 
-- **প্রচলিত ইংরেজি টার্ম** transliterate করুন, জোর করে বাংলা করবেন না
-- প্রথমবার ব্যবহারে ইংরেজি মূল শব্দটি বন্ধনীতে দিন: "ভার্টেক্স (vertex)"
-- $O(n \log n)$ এর মতো গাণিতিক প্রকাশ LaTeX-এই রাখুন
+- **Transliterate common English terms** — don't force awkward Bangla translations
+- On first use, include the English term in parentheses: "ভার্টেক্স (vertex)"
+- Keep mathematical expressions in LaTeX: $O(n \log n)$
 
-### বানান ও বিরামচিহ্ন
+### Spelling and Punctuation
 
-- বাংলা দাঁড়ি (।) ব্যবহার করুন, পিরিয়ড (.) নয়
-- সংখ্যা ইংরেজি অঙ্কেই (0-9) লিখুন — কোডের সাথে সামঞ্জস্য রাখতে
-- ইংরেজি-বাংলা মিশ্র বাক্যে স্বাভাবিক ফ্লো বজায় রাখুন
+- Use Bangla dari (।) not English period (.)
+- Write numbers in English digits (0-9) — keeps consistency with code
+- In mixed English-Bangla sentences, maintain natural flow
 
 ---
 
-## লোকাল ডেভেলপমেন্ট / Local Development
-
-```bash
-# রিপোজিটরি ক্লোন করুন
-git clone https://github.com/wirestaq/algobangla.git
-cd algobangla
-
-# Hugo ইনস্টল করুন (v0.147+)
-# https://gohugo.io/installation/
-
-# ডেভ সার্ভার চালান
-cd hugo
-hugo server -D
-
-# ব্রাউজারে দেখুন: http://localhost:1313
-```
-
-### প্রজেক্ট স্ট্রাকচার
+## Project Structure
 
 ```
 algobangla/
 ├── hugo/
 │   ├── content/
-│   │   ├── en/          # ইংরেজি আর্টিকেল
+│   │   ├── en/          # English articles
 │   │   │   ├── algebra/
 │   │   │   ├── graph/
 │   │   │   └── ...
-│   │   └── bn/          # বাংলা আর্টিকেল
+│   │   └── bn/          # Bangla articles
 │   │       ├── algebra/
 │   │       ├── graph/
 │   │       └── ...
-│   ├── static/          # ফেভিকন, ফন্ট, CSS, JS
-│   ├── layouts/         # টেমপ্লেট ওভাররাইড
-│   └── hugo.toml        # Hugo কনফিগারেশন
-├── firebase.json        # Firebase হোস্টিং কনফিগ
-├── CONTRIBUTING.md      # এই ফাইল
+│   ├── static/          # Favicon, fonts, CSS, JS
+│   ├── layouts/         # Template overrides
+│   └── hugo.toml        # Hugo configuration
+├── firebase.json        # Firebase hosting config
+├── CONTRIBUTING.md      # This file
 └── README.md
 ```
 
 ---
 
-## ট্যাগ / Tags
+## Local Development
 
-আর্টিকেলের front matter-এ ট্যাগ যোগ করুন:
+```bash
+git clone https://github.com/wirestaq/algobangla.git
+cd algobangla
 
-- **মূল আর্টিকেল:**
+# Install Hugo (v0.147+)
+# https://gohugo.io/installation/
+
+cd hugo
+hugo server -D
+
+# Open http://localhost:1313
+```
+
+---
+
+## Tags
+
+Add tags to article front matter:
+
+- **Original articles:**
   ```yaml
   tags:
     - Original
   ```
 
-- **অনূদিত আর্টিকেল:**
+- **Translated articles:**
   ```yaml
   tags:
     - Translated
@@ -207,10 +205,10 @@ algobangla/
 
 ---
 
-## লাইসেন্স / License
+## License
 
-কন্ট্রিবিউট করলে আপনি সম্মত হচ্ছেন যে আপনার অবদান [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) লাইসেন্সের অধীনে প্রকাশিত হবে।
+By contributing, you agree that your contributions will be published under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license.
 
 ---
 
-*প্রশ্ন? [Issue](https://github.com/wirestaq/algobangla/issues) খুলুন অথবা discussion-এ জানান।*
+*Questions? Open an [Issue](https://github.com/wirestaq/algobangla/issues) or start a discussion.*

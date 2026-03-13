@@ -97,10 +97,7 @@ MathJax = {
 </script>
 <script id="MathJax-script" async src="{{ "/mathjax/es5/tex-mml-chtml.js" | relURL }}"></script>
 
-<!-- Homepage title override: prevent "algobangla | algobangla" duplication -->
-{{- if .IsHome -}}
-<title>AlgoBangla — CP Algorithms in Bangla{{ if eq .Language.Lang "bn" }} | বাংলায় অ্যালগরিদম{{ end }}</title>
-{{- end -}}
+<!-- Homepage title is handled by html-head-title partial override -->
 
 <!-- Meta description (clean, no # artifact) -->
 {{- if .Description }}
@@ -124,8 +121,9 @@ MathJax = {
 <meta name="twitter:description" content="{{ if .Description }}{{ .Description | truncate 200 }}{{ else }}{{ .Title }} — competitive programming algorithm with full explanation and C++ implementation.{{ end }}">
 <meta name="twitter:image" content="https://algobangla.com/algobangla-social.png">
 
-<!-- hreflang x-default -->
-<link rel="alternate" hreflang="x-default" href="https://algobangla.com/bn/">
+<!-- hreflang: x-default + self-referencing -->
+<link rel="alternate" hreflang="x-default" href="{{ replace .Permalink (printf "/%s/" .Language.Lang) "/en/" }}">
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
 
 <!-- JSON-LD Structured Data -->
 {{- if .IsHome }}
@@ -143,8 +141,18 @@ MathJax = {
   },
   "description": "A free, open-source bilingual reference for competitive programming algorithms and data structures in English and Bangla (Bengali).",
   "inLanguage": ["en", "bn"],
+  "alternateName": "অ্যালগোবাংলা",
   "sameAs": [
-    "https://github.com/joynahid/algobangla"
+    "https://github.com/wirestaq/algobangla"
+  ],
+  "knowsAbout": [
+    "Competitive Programming",
+    "Algorithms",
+    "Data Structures",
+    "Graph Theory",
+    "Dynamic Programming",
+    "Computational Geometry",
+    "String Algorithms"
   ],
   "isBasedOn": {
     "@type": "WebSite",
@@ -178,15 +186,23 @@ MathJax = {
   "@context": "https://schema.org",
   "@type": "TechArticle",
   "headline": {{ .Title | jsonify }},
-  "description": {{ if .Description }}{{ .Description | truncate 300 | jsonify }}{{ else }}{{ printf "%s — competitive programming algorithm with complexity analysis and C++ implementation." .Title | jsonify }}{{ end }},
+  "description": {{ if .Description }}{{ .Description | truncate 300 | jsonify }}{{ else if eq .Language.Lang "bn" }}{{ printf "%s — জটিলতা বিশ্লেষণ ও C++ ইমপ্লিমেন্টেশনসহ সম্পূর্ণ ব্যাখ্যা। AlgoBangla-এর কম্পিটিটিভ প্রোগ্রামিং রেফারেন্স।" .Title | jsonify }}{{ else }}{{ printf "%s — competitive programming algorithm with complexity analysis and C++ implementation." .Title | jsonify }}{{ end }},
   "url": {{ .Permalink | jsonify }},
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": {{ .Permalink | jsonify }}
   },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://algobangla.com/algobangla-social.png",
+    "width": 1200,
+    "height": 630
+  },
   "inLanguage": {{ .Language.Lang | jsonify }},
   "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  {{- if not .Date.IsZero }}
   "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  {{- end }}
   "wordCount": {{ .WordCount }},
   "articleSection": {{ .Section | jsonify }},
   "author": {
@@ -206,10 +222,31 @@ MathJax = {
   "isBasedOn": "https://cp-algorithms.com/",
   "license": "https://creativecommons.org/licenses/by-sa/4.0/",
   "educationalLevel": "intermediate",
+  "keywords": {{ delimit (.Params.tags | default (slice .Section .Title)) ", " | jsonify }},
   "speakable": {
     "@type": "SpeakableSpecification",
     "cssSelector": [".markdown > h1", ".markdown > h2", ".markdown > p:first-of-type"]
   }
+}
+</script>
+{{- else if .IsSection }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": {{ printf "%s — AlgoBangla" (.Title | title) | jsonify }},
+  "description": {{ if .Description }}{{ .Description | jsonify }}{{ else }}{{ printf "Competitive programming %s algorithms with explanations and C++ implementations." .Title | jsonify }}{{ end }},
+  "url": {{ .Permalink | jsonify }},
+  "provider": {
+    "@type": "Organization",
+    "name": "AlgoBangla",
+    "url": "https://algobangla.com/"
+  },
+  "inLanguage": {{ .Language.Lang | jsonify }},
+  "educationalLevel": "intermediate",
+  "teaches": {{ printf "%s algorithms for competitive programming" (.Title | title) | jsonify }},
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/licenses/by-sa/4.0/"
 }
 </script>
 {{- end }}

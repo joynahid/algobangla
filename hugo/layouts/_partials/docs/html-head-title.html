@@ -1,0 +1,11 @@
+{{- if .IsHome -}}
+  {{- if eq .Language.Lang "bn" -}}
+    algobangla — বাংলায় CP অ্যালগরিদম ও ডেটা স্ট্রাকচার
+  {{- else -}}
+    algobangla — CP Algorithms in Bangla & English
+  {{- end -}}
+{{- else if .IsSection -}}
+  {{- with partial "docs/title" . }}{{ . }}{{ end }} — Algorithms & Data Structures | {{ .Site.Title -}}
+{{- else -}}
+  {{- with partial "docs/title" . }}{{ . }}{{ end }} — {{ .Section | title }} | {{ .Site.Title -}}
+{{- end -}}

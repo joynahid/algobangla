@@ -28,6 +28,7 @@ defaultContentLanguageInSubdir = true
   BookTheme = "light"  # base is light; dark toggled via html[data-theme="dark"] in theme-toggle.css
   BookSearch = true
   BookCollapseSection = true
+  BookFavicon = "favicon.svg"
   BookComments = false
   BookPortableLinks = false
   BookMenuBundle = false

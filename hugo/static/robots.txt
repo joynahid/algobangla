@@ -34,4 +34,16 @@ Allow: /
 User-agent: FacebookBot
 Allow: /
 
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
 Sitemap: https://algobangla.com/sitemap.xml

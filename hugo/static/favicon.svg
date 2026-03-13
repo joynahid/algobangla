@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#006a4e"/>
+      <stop offset="100%" style="stop-color:#004d38"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background (Bangladesh green) -->
+  <rect width="128" height="128" rx="24" ry="24" fill="url(#bg)"/>
+  <!-- Graph nodes and edges representing algorithms -->
+  <!-- Edge connections -->
+  <line x1="36" y1="36" x2="92" y2="36" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="36" y1="36" x2="36" y2="92" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="36" y1="36" x2="64" y2="68" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="92" y1="36" x2="64" y2="68" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="92" y1="36" x2="92" y2="92" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="36" y1="92" x2="64" y2="68" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="36" y1="92" x2="92" y2="92" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <line x1="92" y1="92" x2="64" y2="68" stroke="#ffffff" stroke-width="2.5" stroke-opacity="0.5"/>
+  <!-- Graph nodes -->
+  <circle cx="36" cy="36" r="8" fill="#f42a41"/>
+  <circle cx="92" cy="36" r="8" fill="#ffffff"/>
+  <circle cx="64" cy="68" r="8" fill="#f42a41"/>
+  <circle cx="36" cy="92" r="8" fill="#ffffff"/>
+  <circle cx="92" cy="92" r="8" fill="#ffffff"/>
+  <!-- Bangla letter অ (aw) stylized inside center node -->
+  <text x="64" y="73" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">অ</text>
+</svg>

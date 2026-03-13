@@ -1,14 +1,46 @@
-target
-*.swp
-*.sublime-project
-*.sublime-workspace
-converted.html
-converted.pdf
-/output
-/public
+# Build output
+hugo/public/
+site/
+output/
+public/
+
+# Firebase
 .firebase/
 firebase-debug.log
 
-authors.jsonhugo/public/
+# Node
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Editor
+*.swp
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Legacy / unused
+target/
+converted.html
+converted.pdf
+authors.json
+mkdocs.yml
+src/
+preview/
+scripts/
+test/
+
+# GEO audit reports (local only)
+GEO-*.md
+
+# Misc
 .claude/
-hugo/public/
+hooks.py
+gdJqDujYDC8uDdbXdSZhDLmw-tKdvzr7xT0SOvacUfrrv1wYelqehtTNlXpKMIUr
+google8bb89092ee2af033.html

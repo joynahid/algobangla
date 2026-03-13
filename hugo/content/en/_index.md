@@ -15,7 +15,7 @@ Compiled pages are published at [https://cp-algorithms.com/](https://cp-algorith
 
 ## Credits
 
-- [Project Credits](credits.html)
+- [Project Credits](credits.md)
 
 ## Sponsor Us
 
